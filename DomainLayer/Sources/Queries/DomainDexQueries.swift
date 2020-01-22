@@ -86,5 +86,15 @@ public extension DomainLayer.Query {
                 self.kind = kind
             }
         }
+        
+        public struct PairsRate {
+            public let pairs: [DomainLayer.DTO.Dex.SimplePair]
+            public let timestamp: Date?
+            
+            public init(pairs: [DomainLayer.DTO.Dex.SimplePair], timestamp: Date?) {
+                self.pairs = pairs
+                self.timestamp = timestamp
+            }
+        }
     }
 }

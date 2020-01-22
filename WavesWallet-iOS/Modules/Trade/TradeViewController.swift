@@ -20,8 +20,9 @@ final class TradeViewController: UIViewController {
     @IBOutlet private weak var tableViewSkeleton: UITableView!
     
     private var categories: [TradeTypes.DTO.Category] = []
+    private var sectionSkeleton = TradeTypes.ViewModel.SectionSkeleton(rows: [])
     private let disposeBag: DisposeBag = DisposeBag()
-
+    
     var system: System<TradeTypes.State, TradeTypes.Event>!
 
     override func viewDidLoad() {
@@ -107,10 +108,20 @@ final class TradeViewController: UIViewController {
                             segmentedItems.append(.title(category.name))
                         }
                     }
+//
+//                    if self.scrolledTableView.tableViews.count > 0 {
+//                        self.scrolledTableView.subviews.forEach({$0.removeFromSuperview()})
+//                        return
+//                    }
+
                     self.scrolledTableView.setup(segmentedItems: segmentedItems, tableDataSource: self, tableDelegate: self)
                     self.scrolledTableView.reloadData()
                     self.scrolledTableView.isHidden = false
                     self.tableViewSkeleton.isHidden = true
+                    
+                case .updateSkeleton(let sectionSkeleton):
+                    self.sectionSkeleton = sectionSkeleton
+                    self.tableViewSkeleton.reloadData()
                     
                 case .didFailGetError(let error):
                     print("error")
@@ -178,11 +189,15 @@ extension TradeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if tableView == tableViewSkeleton {
-            if indexPath.row == 0 {
-                return TradeHeaderSkeletonCell.viewHeight()
-            }
+            let row = sectionSkeleton.rows[indexPath.row]
             
-            return TradeSkeletonCell.viewHeight()
+            switch row {
+            case .headerCell:
+                return TradeHeaderSkeletonCell.viewHeight()
+
+            case .defaultCell:
+                return TradeSkeletonCell.viewHeight()
+            }
         }
         
         let category = categories[tableView.tag]
@@ -200,7 +215,7 @@ extension TradeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView == tableViewSkeleton {
-            return 6
+            return sectionSkeleton.rows.count
         }
         
         let category = categories[tableView.tag]
@@ -210,14 +225,15 @@ extension TradeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView == tableViewSkeleton {
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueAndRegisterCell() as TradeHeaderSkeletonCell
-                return cell
-            }
+            let row = sectionSkeleton.rows[indexPath.row]
             
-            let cell = tableView.dequeueAndRegisterCell() as TradeSkeletonCell
-            cell.startAnimation()
-            return cell
+            switch row {
+            case .headerCell:
+                return tableView.dequeueAndRegisterCell() as TradeHeaderSkeletonCell
+            
+            case .defaultCell:
+                return tableView.dequeueAndRegisterCell() as TradeSkeletonCell
+            }
         }
         
         let category = categories[tableView.tag]

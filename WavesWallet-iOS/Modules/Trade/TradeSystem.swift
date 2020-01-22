@@ -14,6 +14,11 @@ import Extensions
 import DomainLayer
 import WavesSDK
 
+private enum Constants {
+    // Current id is USD-N
+    static let usdAssetId = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"
+}
+
 final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     
     private let tradeCategoriesRepository = UseCasesFactory.instance.repositories.tradeCategoriesConfigRepository
@@ -34,8 +39,15 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     override func reduce(event: TradeTypes.Event, state: inout TradeTypes.State) {
         switch event {
         case .readyView:
+            
             state.coreAction = .loadCategories
-            state.uiAction = .none
+            state.uiAction = .updateSkeleton(.init(rows: [.headerCell,
+                                                          .defaultCell,
+                                                          .defaultCell,
+                                                          .defaultCell,
+                                                          .defaultCell,
+                                                          .defaultCell,
+                                                          .defaultCell]))
 
         case .categoriesDidLoad(let categories):
             state.categories = categories
@@ -113,68 +125,81 @@ private extension TradeSystem {
                             }
                         }
                         
-                        return self.pairsPriceRepository.list(accountAddress: wallet.address, pairs: pairs)
-                            .map { (pairsPrice) -> [TradeTypes.DTO.Category] in
-                                
+                        let pairsPrice = self.pairsPriceRepository.pairs(accountAddress: wallet.address, pairs: pairs)
+                        let pairsRate = self.pairsPriceRepository.pairsRate(query: .init(pairs: pairs.map { .init(amountAsset: $0.amountAsset,
+                                                                                                                  priceAsset: Constants.usdAssetId)},
+                                                                                         timestamp: nil))
+                        
+                        return Observable.zip(pairsPrice, pairsRate)
+                            .map { (pairsPrice, pairsRate) -> [TradeTypes.DTO.Category] in
+                           
                                 var newCategories: [TradeTypes.DTO.Category] = []
-                                
                                 var favoritePairsPrice: [TradeTypes.DTO.Pair] = []
+                                   
+                                let rates = pairsRate.reduce(into: [String: Money].init(), {
+                                    $0[$1.amountAssetId] = Money(value: Decimal($1.rate), WavesSDKConstants.FiatDecimals)
+                                })
                                 
                                 for pair in favoritePairs {
-                                    
+                                       
                                     if let pairPrice = pairsPrice.first(where: {$0.amountAsset.id == pair.amountAssetId &&
                                         $0.priceAsset.id == pair.priceAssetId}) {
 
+                                        let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
+                                        
                                         favoritePairsPrice.append(.init(id: pairPrice.id,
                                                                         amountAsset: pairPrice.amountAsset,
                                                                         priceAsset: pairPrice.priceAsset,
                                                                         firstPrice: pairPrice.firstPrice,
                                                                         lastPrice: pairPrice.lastPrice,
-                                                                        isFavorite: true))
+                                                                        isFavorite: true,
+                                                                        priceUSD: priceUSD))
 
-                                    }
-                                }
-                                
-                                if favoritePairsPrice.count == 0 {
-                                    newCategories.append(.init(isFavorite: true,
-                                                               name: "",
-                                                               filters: [],
-                                                               rows: [.emptyData]))
-                                }
-                                else {
-                                    newCategories.append(.init(isFavorite: true,
-                                                               name: "",
-                                                               filters: [],
-                                                               rows: favoritePairsPrice.map {.pair($0)}))
-                                }
-                                                              
-                                for category in categories {
-
-                                    var categoryPairs: [TradeTypes.DTO.Pair] = []
-                                    
-                                    for pair in category.pairs {
-                                        
-                                        if let pairPrice = pairsPrice.first(where: {$0.amountAsset == pair.amountAsset &&
-                                            $0.priceAsset == pair.priceAsset}) {
-
-                                            categoryPairs.append(.init(id: pairPrice.id,
-                                                                       amountAsset: pairPrice.amountAsset,
-                                                                       priceAsset: pairPrice.priceAsset,
-                                                                       firstPrice: pairPrice.firstPrice,
-                                                                       lastPrice: pairPrice.lastPrice,
-                                                                       isFavorite: false))
                                         }
                                     }
-                                    
-                                    newCategories.append(.init(isFavorite: false,
-                                                               name: category.name,
-                                                               filters: category.filters,
-                                                               rows: categoryPairs.map {.pair($0)}))
-                                }
-                                
-                                return newCategories
+                                   
+                                    if favoritePairsPrice.count == 0 {
+                                        newCategories.append(.init(isFavorite: true,
+                                                                   name: "",
+                                                                   filters: [],
+                                                                   rows: [.emptyData]))
+                                    }
+                                    else {
+                                        newCategories.append(.init(isFavorite: true,
+                                                                   name: "",
+                                                                   filters: [],
+                                                                   rows: favoritePairsPrice.map {.pair($0)}))
+                                    }
+                                                                 
+                                    for category in categories {
+
+                                        var categoryPairs: [TradeTypes.DTO.Pair] = []
+                                       
+                                        for pair in category.pairs {
+                                           
+                                            if let pairPrice = pairsPrice.first(where: {$0.amountAsset == pair.amountAsset &&
+                                                $0.priceAsset == pair.priceAsset}) {
+
+                                                let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
+
+                                                categoryPairs.append(.init(id: pairPrice.id,
+                                                                           amountAsset: pairPrice.amountAsset,
+                                                                           priceAsset: pairPrice.priceAsset,
+                                                                           firstPrice: pairPrice.firstPrice,
+                                                                           lastPrice: pairPrice.lastPrice,
+                                                                           isFavorite: false,
+                                                                           priceUSD: priceUSD))
+                                            }
+                                        }
+                                       
+                                        newCategories.append(.init(isFavorite: false,
+                                                                   name: category.name,
+                                                                   filters: category.filters,
+                                                                   rows: categoryPairs.map {.pair($0)}))
+                                    }
+                                   
+                                    return newCategories
                         }
-                        
                 }
         }
     }

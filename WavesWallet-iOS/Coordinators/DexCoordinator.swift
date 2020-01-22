@@ -75,7 +75,7 @@ class DexCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
 
     private lazy var dexListViewContoller: UIViewController = {
-//        return TradeModuleBuilder().build()
+        return TradeModuleBuilder().build()
         return DexListModuleBuilder(output: self).build()
     }()
     

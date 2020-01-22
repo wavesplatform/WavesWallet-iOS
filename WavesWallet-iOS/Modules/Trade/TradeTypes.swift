@@ -27,6 +27,7 @@ enum TradeTypes {
         enum UIAction {
             case none
             case update
+            case updateSkeleton(ViewModel.SectionSkeleton)
             case didFailGetError(NetworkError)
         }
                  
@@ -48,9 +49,10 @@ extension TradeTypes.DTO {
         let id: String
         let amountAsset: DomainLayer.DTO.Dex.Asset
         let priceAsset: DomainLayer.DTO.Dex.Asset
-        var firstPrice: Money
-        var lastPrice: Money
+        let firstPrice: Money
+        let lastPrice: Money
         let isFavorite: Bool
+        let priceUSD: Money
     }
     
     struct Category {
@@ -62,29 +64,16 @@ extension TradeTypes.DTO {
 }
 
 extension TradeTypes.ViewModel {
-    
-    enum State: Int {
-        case favorite
-        case btc
-        case waves
-        case alts
-        case fiat
+  
+    struct SectionSkeleton {
+        var rows: [RowSkeleton]
+    }
+
+    enum RowSkeleton {
+        case defaultCell
+        case headerCell
     }
     
-    struct Section: Mutating {
-           var allItems: [Row]
-           var activeItems: [Row]
-           var closedItems: [Row]
-           var canceledItems: [Row]
-
-           static var empty: Section {
-               return .init(allItems: [],
-                            activeItems: [],
-                            closedItems: [],
-                            canceledItems: [])
-           }
-       }
-
     enum Row {
         case pair(TradeTypes.DTO.Pair)
         case emptyData

@@ -177,13 +177,29 @@ public extension DomainLayer.DTO.Dex {
         public let lastPrice: Money
         public let amountAsset: Asset
         public let priceAsset: Asset
-
+        
         public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset) {
             self.id = amountAsset.id + priceAsset.id
             self.firstPrice = firstPrice
             self.lastPrice = lastPrice
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
+        }
+    }
+}
+
+//MARK: - PairRate
+public extension DomainLayer.DTO.Dex {
+    
+    struct PairRate {
+        public let amountAssetId: String
+        public let priceAssetId: String
+        public let rate: Double
+        
+        public init(amountAssetId: String, priceAssetId: String, rate: Double) {
+            self.amountAssetId = amountAssetId
+            self.priceAssetId = priceAssetId
+            self.rate = rate
         }
     }
 }

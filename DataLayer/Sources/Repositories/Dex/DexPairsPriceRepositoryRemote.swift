@@ -14,7 +14,7 @@ import DomainLayer
 import Extensions
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
-  
+      
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol
     private let assetsRepository: AssetsRepositoryProtocol
@@ -86,7 +86,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             })
     }
     
-    func list(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+    func pairs(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
         guard pairs.count > 0 else { return Observable.just([]) }
         
@@ -129,6 +129,28 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                         return listPairs
                     })
             })
+    }
+    
+    func pairsRate(query: DomainLayer.Query.Dex.PairsRate) -> Observable<[DomainLayer.DTO.Dex.PairRate]> {
+
+        return Observable.zip(environmentRepository.servicesEnvironment(),
+                              matcherRepository.matcherPublicKey())
+            .flatMap { (servicesEnvironment, matcherPublicKey) -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
+                
+                let queryPairs = query.pairs.map { DataService.Query.PairsRate.Pair(amountAssetId: $0.amountAsset,
+                                                                                    priceAssetId: $0.priceAsset)}
+                return servicesEnvironment
+                    .wavesServices
+                    .dataServices
+                    .pairsPriceDataService
+                    .pairsRate(query: .init(pairs: queryPairs,
+                                            matcher: matcherPublicKey.address,
+                                            timestamp: query.timestamp?.millisecondsSince1970))
+                    .map { $0.map { DomainLayer.DTO.Dex.PairRate(amountAssetId: $0.amountAssetId,
+                                                                 priceAssetId: $0.priceAssetId,
+                                                                 rate: $0.rate)}}
+            }
+       
     }
     
     func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {

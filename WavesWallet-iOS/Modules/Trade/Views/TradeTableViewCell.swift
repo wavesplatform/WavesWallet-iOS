@@ -47,10 +47,10 @@ extension TradeTableViewCell: ViewConfiguration {
     func update(with model: TradeTypes.DTO.Pair) {
         
         labelTitle.text = model.amountAsset.shortName + " / " + model.priceAsset.shortName
-        
-        labelPrice.text = "$" + model.lastPrice.displayText
-        
+        labelVolume.text = model.lastPrice.displayText
+        labelPrice.text = "$" + model.priceUSD.displayText
         buttonFav.setImage(model.isFavorite ? Images.favorite14Submit300.image : Images.iconFavEmpty.image, for: .normal)
+
         let firstPrice = model.firstPrice.doubleValue
         let lastPrice = model.lastPrice.doubleValue
 
@@ -90,6 +90,7 @@ extension TradeTableViewCell: ViewConfiguration {
             .disposed(by: disposeBag)
     }
 }
+
 extension TradeTableViewCell: ViewHeight {
     static func viewHeight() -> CGFloat {
         return Constants.height

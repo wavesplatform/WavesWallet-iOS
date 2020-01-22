@@ -75,7 +75,7 @@ final class DexListInteractor: DexListInteractorProtocol {
                                 
                                 let simplePairs =  pairs.map{ DomainLayer.DTO.Dex.SimplePair(amountAsset: $0.amountAssetId,
                                                                                              priceAsset: $0.priceAssetId) }
-                                return self.dexListRepository.list(accountAddress: wallet.address,
+                                return self.dexListRepository.pairs(accountAddress: wallet.address,
                                                                    pairs: simplePairs)
                                     .map { (list) -> ResponseType<DexList.DTO.DisplayInfo> in
                                         var listPairs: [DexList.DTO.Pair] = []
