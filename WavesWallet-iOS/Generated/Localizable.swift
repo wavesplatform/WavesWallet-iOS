@@ -338,15 +338,15 @@ internal enum Localizable {
           internal static var totalBalanceKey: String { return "asset.cell.balance.totalBalance" }
 
           internal enum Button {
-            /// Exchange
-            internal static var exchange: String { return Localizable.tr("Waves", "asset.cell.balance.button.exchange") }
-            internal static var exchangeKey: String { return "asset.cell.balance.button.exchange" }
             /// Receive
             internal static var receive: String { return Localizable.tr("Waves", "asset.cell.balance.button.receive") }
             internal static var receiveKey: String { return "asset.cell.balance.button.receive" }
             /// Send
             internal static var send: String { return Localizable.tr("Waves", "asset.cell.balance.button.send") }
             internal static var sendKey: String { return "asset.cell.balance.button.send" }
+            /// Trade
+            internal static var trade: String { return Localizable.tr("Waves", "asset.cell.balance.button.trade") }
+            internal static var tradeKey: String { return "asset.cell.balance.button.trade" }
           }
         }
       }

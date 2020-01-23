@@ -24,11 +24,18 @@ final class TradeViewController: UIViewController {
     private let disposeBag: DisposeBag = DisposeBag()
     
     var system: System<TradeTypes.State, TradeTypes.Event>!
+    var asset: DomainLayer.DTO.Asset?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = Localizable.Waves.Trade.title
+        if let asset = self.asset {
+            navigationItem.title = Localizable.Waves.Trade.title + " " + asset.displayName
+            createBackButton()
+        }
+        else {
+            navigationItem.title = Localizable.Waves.Trade.title
+        }
         setupBigNavigationBar()
 
         scrolledTableView.containerViewDelegate = self
@@ -42,15 +49,10 @@ final class TradeViewController: UIViewController {
                                               UIBarButtonItem(image: Images.orders.image, style: .plain, target: self, action: #selector(myOrdersTapped))]
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableViewSkeleton.startSkeletonCells()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         removeTopBarLine()
-        tableViewSkeleton.startSkeletonCells()
         scrolledTableView.viewControllerWillAppear()
     }
 
@@ -119,11 +121,12 @@ private extension TradeViewController {
                     self.scrolledTableView.reloadData()
                     self.scrolledTableView.isHidden = false
                     self.tableViewSkeleton.isHidden = true
-                    
+
                 case .updateSkeleton(let sectionSkeleton):
                     self.sectionSkeleton = sectionSkeleton
                     self.tableViewSkeleton.reloadData()
-                    
+                    self.tableViewSkeleton.startSkeletonCells()
+
                 case .didFailGetError(let error):
                     print("error")
                 

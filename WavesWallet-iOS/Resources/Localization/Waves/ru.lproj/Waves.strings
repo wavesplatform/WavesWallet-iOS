@@ -53,7 +53,7 @@
 "asset.cell.assetInfo.title" = "Информация о токене";
 "asset.cell.assetInfo.totalAmount" = "Всего выпущено";
 "asset.cell.balance.avaliableBalance" = "Доступный баланс";
-"asset.cell.balance.button.exchange" = "Обменять";
+"asset.cell.balance.button.trade" = "Обмен";
 "asset.cell.balance.button.receive" = "Получить";
 "asset.cell.balance.button.send" = "Отправить";
 "asset.cell.balance.inOrderBalance" = "В ордерах";

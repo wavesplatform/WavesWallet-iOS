@@ -206,6 +206,7 @@ internal enum Images {
   internal static let rInwaves14Basic500 = ImageAsset(name: "rInwaves14Basic500")
   internal static let rInwaves14White = ImageAsset(name: "rInwaves14White")
   internal static let receive = ImageAsset(name: "receive")
+  internal static let receive48 = ImageAsset(name: "receive48")
   internal static let receiveBtn = ImageAsset(name: "receive_btn")
   internal static let refresh18Basic500 = ImageAsset(name: "refresh18Basic500")
   internal static let refresh18White = ImageAsset(name: "refresh18White")
@@ -217,6 +218,7 @@ internal enum Images {
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let search24Black = ImageAsset(name: "search24Black")
   internal static let send = ImageAsset(name: "send")
+  internal static let send48 = ImageAsset(name: "send48")
   internal static let sendBtn = ImageAsset(name: "send_btn")
   internal static let settings = ImageAsset(name: "settings")
   internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
@@ -284,6 +286,7 @@ internal enum Images {
   internal static let topbarMenuwhite = ImageAsset(name: "topbarMenuwhite")
   internal static let topbarSort = ImageAsset(name: "topbarSort")
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
+  internal static let trade48 = ImageAsset(name: "trade48")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
   internal static let userimgUpdate = ImageAsset(name: "userimg-Update")
@@ -494,6 +497,7 @@ internal enum Images {
     rInwaves14Basic500,
     rInwaves14White,
     receive,
+    receive48,
     receiveBtn,
     refresh18Basic500,
     refresh18White,
@@ -505,6 +509,7 @@ internal enum Images {
     search24Basic500,
     search24Black,
     send,
+    send48,
     sendBtn,
     settings,
     share18Submit400,
@@ -572,6 +577,7 @@ internal enum Images {
     topbarMenuwhite,
     topbarSort,
     touchid48Submit300,
+    trade48,
     unhide,
     upChevron,
     userimgUpdate,

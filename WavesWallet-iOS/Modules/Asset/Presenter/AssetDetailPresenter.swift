@@ -246,6 +246,11 @@ private extension AssetDetailPresenter {
                 $0.displayState.action = .none
             }
             
+        case .showTrade(let asset):
+            moduleOutput?.showTrade(asset: asset)
+            return state.mutate {
+                $0.displayState.action = .none
+            }
         default:
             break
         }

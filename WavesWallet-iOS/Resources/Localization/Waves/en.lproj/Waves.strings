@@ -53,7 +53,7 @@
 "asset.cell.assetInfo.title" = "Token Info";
 "asset.cell.assetInfo.totalAmount" = "Total amount";
 "asset.cell.balance.avaliableBalance" = "Available balance";
-"asset.cell.balance.button.exchange" = "Exchange";
+"asset.cell.balance.button.trade" = "Trade";
 "asset.cell.balance.button.receive" = "Receive";
 "asset.cell.balance.button.send" = "Send";
 "asset.cell.balance.inOrderBalance" = "In order";

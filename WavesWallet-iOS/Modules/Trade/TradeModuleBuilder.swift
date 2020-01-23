@@ -15,7 +15,7 @@ struct TradeModuleBuilder: ModuleBuilder {
     func build(input: DomainLayer.DTO.Asset?) -> UIViewController {
         let vc = StoryboardScene.Trade.tradeViewController.instantiate()
         vc.system = TradeSystem()
-        
+        vc.asset = input
         return vc
     }
 }

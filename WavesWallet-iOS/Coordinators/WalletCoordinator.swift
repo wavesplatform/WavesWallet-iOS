@@ -218,6 +218,11 @@ extension WalletCoordinator: WalletSearchViewControllerDelegate {
 // MARK: AssetModuleOutput
 
 extension WalletCoordinator: AssetDetailModuleOutput {
+    func showTrade(asset: DomainLayer.DTO.Asset) {
+        let vc = TradeModuleBuilder().build(input: asset)
+        navigationRouter.pushViewController(vc)
+    }
+    
 
     func showSend(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = SendModuleBuilder().build(input: .selectedAsset(asset))
