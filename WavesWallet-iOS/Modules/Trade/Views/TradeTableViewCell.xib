@@ -59,6 +59,9 @@
                                     <constraint firstAttribute="width" constant="40" id="Zjg-mG-NYm"/>
                                 </constraints>
                                 <state key="normal" image="favorite14Submit300"/>
+                                <connections>
+                                    <action selector="favoriteTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YBu-Kt-asW"/>
+                                </connections>
                             </button>
                             <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtb-Wd-wBf">
                                 <rect key="frame" x="54" y="35" width="58" height="20"/>

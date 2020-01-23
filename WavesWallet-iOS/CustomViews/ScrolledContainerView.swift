@@ -227,6 +227,24 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     
     func setup(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
+        if segmentedControl.items.count != segmentedItems.count {
+            subviews.forEach { $0.removeFromSuperview() }
+            tableViews.removeAll()
+            currentIndex = 0
+            
+            initComponents(segmentedItems: segmentedItems, tableDataSource: tableDataSource, tableDelegate: tableDelegate)
+        }
+        else {
+            updateComponents(segmentedItems: segmentedItems)
+        }
+    }
+    
+    private func updateComponents(segmentedItems: [NewSegmentedControl.SegmentedItem]) {
+        segmentedControl.items = segmentedItems
+        segmentedControl.setSelectedIndex(currentIndex, animation: false)
+    }
+    
+    private func initComponents(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         segmentedControl.items = segmentedItems
         
         for index in 0..<segmentedItems.count {

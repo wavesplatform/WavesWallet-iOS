@@ -28,6 +28,8 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
     
     private var disposeBag = DisposeBag()
 
+    var favoriteTappedAction:(() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
@@ -40,6 +42,10 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
         imageViewIcon1.image = nil
         imageViewIcon2.image = nil
         disposeBag = DisposeBag()
+    }
+    
+    @IBAction private func favoriteTapped(_ sender: Any) {
+        favoriteTappedAction?()
     }
 }
 

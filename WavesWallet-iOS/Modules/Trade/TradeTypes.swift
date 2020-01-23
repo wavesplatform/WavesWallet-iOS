@@ -20,6 +20,7 @@ enum TradeTypes {
         case categoriesDidLoad([DTO.Category])
         case didFailGetCategories(NetworkError)
         case refresh
+        case favoriteTapped(DTO.Pair)
     }
     
     struct State {
@@ -51,7 +52,7 @@ extension TradeTypes.DTO {
         let priceAsset: DomainLayer.DTO.Dex.Asset
         let firstPrice: Money
         let lastPrice: Money
-        let isFavorite: Bool
+        var isFavorite: Bool
         let priceUSD: Money
     }
     
@@ -59,7 +60,7 @@ extension TradeTypes.DTO {
         let isFavorite: Bool
         let name: String
         let filters: [DomainLayer.DTO.TradeCategory.Filter]
-        let rows: [TradeTypes.ViewModel.Row]
+        var rows: [TradeTypes.ViewModel.Row]
     }
 }
 
@@ -77,10 +78,33 @@ extension TradeTypes.ViewModel {
     enum Row {
         case pair(TradeTypes.DTO.Pair)
         case emptyData
+        
+        
+        var pair: TradeTypes.DTO.Pair? {
+            
+            switch self {
+            case .pair(let pair):
+                return pair
+            default:
+                return nil
+            }
+        }
     }
 }
 
-
+extension Array where Element == TradeTypes.ViewModel.Row {
+    
+    var pairs: [TradeTypes.DTO.Pair] {
+        
+        var newPairs: [TradeTypes.DTO.Pair] = []
+        for row in self {
+            if let pair = row.pair {
+                newPairs.append(pair)
+            }
+        }
+        return newPairs
+    }
+}
 extension TradeTypes.State: Equatable {
     
     static func == (lhs: TradeTypes.State, rhs: TradeTypes.State) -> Bool {

@@ -61,6 +61,32 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
         case .refresh:
             state.coreAction = .loadCategories
             state.uiAction = .none
+            
+        case .favoriteTapped(let pair):
+            let isFavorite = !pair.isFavorite
+            
+            for index in 0..<state.categories.count {
+                
+                var category = state.categories[index]
+                
+                let pairs = category.rows.pairs.map { (element) -> TradeTypes.DTO.Pair in
+                    var newPair = element
+                    if element.id == pair.id {
+                        newPair.isFavorite = isFavorite
+                    }
+                    return newPair
+                }
+                
+                if category.isFavorite {
+                    category.rows = pairs.filter{ $0.isFavorite }.map {.pair($0)}
+                }
+                else {
+                    category.rows = pairs.map {.pair($0)}
+                }
+                state.categories[index] = category
+            }
+            state.coreAction = .none
+            state.uiAction = .update
         }
     }
 }
@@ -139,7 +165,7 @@ private extension TradeSystem {
                                 let rates = pairsRate.reduce(into: [String: Money].init(), {
                                     $0[$1.amountAssetId] = Money(value: Decimal($1.rate), WavesSDKConstants.FiatDecimals)
                                 })
-                                
+                               
                                 for pair in favoritePairs {
                                        
                                     if let pairPrice = pairsPrice.first(where: {$0.amountAsset.id == pair.amountAssetId &&
@@ -181,17 +207,19 @@ private extension TradeSystem {
                                                 $0.priceAsset == pair.priceAsset}) {
 
                                                 let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-
+                                                let isFavorite = favoritePairs.contains(where: {$0.id == pairPrice.id})
+                                                
                                                 categoryPairs.append(.init(id: pairPrice.id,
                                                                            amountAsset: pairPrice.amountAsset,
                                                                            priceAsset: pairPrice.priceAsset,
                                                                            firstPrice: pairPrice.firstPrice,
                                                                            lastPrice: pairPrice.lastPrice,
-                                                                           isFavorite: false,
+                                                                           isFavorite: isFavorite,
                                                                            priceUSD: priceUSD))
                                             }
                                         }
-                                       
+                                        categoryPairs.sort(by: {$0.isFavorite && !$1.isFavorite})
+                                        
                                         newCategories.append(.init(isFavorite: false,
                                                                    name: category.name,
                                                                    filters: category.filters,

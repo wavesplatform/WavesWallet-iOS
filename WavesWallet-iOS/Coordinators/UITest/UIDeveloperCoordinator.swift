@@ -31,7 +31,7 @@ final class UIDeveloperCoordinator: Coordinator {
 //        
 //        addChildCoordinatorAndStart(childCoordinator: coordinator)
 //                
-        let vc = TradeModuleBuilder().build()
+        let vc = TradeModuleBuilder().build(input: nil)
         navigationRouter.pushViewController(vc)
         self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }

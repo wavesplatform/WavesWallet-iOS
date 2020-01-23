@@ -8,12 +8,14 @@
 
 import Foundation
 import Extensions
+import DomainLayer
 
 struct TradeModuleBuilder: ModuleBuilder {
-    
-    func build(input: Void) -> UIViewController {
+        
+    func build(input: DomainLayer.DTO.Asset?) -> UIViewController {
         let vc = StoryboardScene.Trade.tradeViewController.instantiate()
         vc.system = TradeSystem()
+        
         return vc
     }
 }

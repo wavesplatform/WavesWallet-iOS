@@ -24,7 +24,7 @@ final class TradeViewController: UIViewController {
     private let disposeBag: DisposeBag = DisposeBag()
     
     var system: System<TradeTypes.State, TradeTypes.Event>!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +37,9 @@ final class TradeViewController: UIViewController {
         
         scrolledTableView.isHidden = true
         setupSystem()
+        
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: Images.viewexplorer18Black.image, style: .plain, target: self, action: #selector(searchTapped)),
+                                              UIBarButtonItem(image: Images.orders.image, style: .plain, target: self, action: #selector(myOrdersTapped))]
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,19 +59,21 @@ final class TradeViewController: UIViewController {
         scrolledTableView.viewControllerWillDissapear()
     }
     
-    private func setupHeaderShadow() {
-        
-        if let view = scrolledTableView.visibleTableView.headerView(forSection: 0) as? TradeAltsHeaderView {
-            if scrolledTableView.topOffset - scrolledTableView.contentOffset.y <= scrolledTableView.smallTopOffset {
-                view.addShadow()
-            }
-            else {
-                view.removeShadow()
-            }
-        }
+    @objc private func myOrdersTapped() {
+        let vc = MyOrdersModuleBuilder().build()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func setupSystem() {
+    @objc private func searchTapped() {
+        print("test")
+        
+    }
+}
+
+//MARK: - Feedback
+private extension TradeViewController {
+    
+    func setupSystem() {
         
         let readyViewFeedback: (Driver<TradeTypes.State>) -> Signal<TradeTypes.Event> = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
@@ -95,11 +100,12 @@ final class TradeViewController: UIViewController {
                     return
                     
                 case .update:
+                    
                     self.categories = state.categories
                     
                     var segmentedItems: [NewSegmentedControl.SegmentedItem] = []
                     
-                    for category in state.categories {
+                    for category in self.categories {
                         if category.isFavorite {
                             let image = NewSegmentedControl.SegmentedItem.image(.init(unselected: Images.iconFavEmpty.image, selected: Images.favorite14Submit300.image))
                             segmentedItems.append(image)
@@ -108,11 +114,6 @@ final class TradeViewController: UIViewController {
                             segmentedItems.append(.title(category.name))
                         }
                     }
-//
-//                    if self.scrolledTableView.tableViews.count > 0 {
-//                        self.scrolledTableView.subviews.forEach({$0.removeFromSuperview()})
-//                        return
-//                    }
 
                     self.scrolledTableView.setup(segmentedItems: segmentedItems, tableDataSource: self, tableDelegate: self)
                     self.scrolledTableView.reloadData()
@@ -134,6 +135,24 @@ final class TradeViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+}
+
+
+//MARK: - UI
+private extension TradeViewController {
+    
+    func setupHeaderShadow() {
+        
+        if let view = scrolledTableView.visibleTableView.headerView(forSection: 0) as? TradeAltsHeaderView {
+            if scrolledTableView.topOffset - scrolledTableView.contentOffset.y <= scrolledTableView.smallTopOffset {
+                view.addShadow()
+            }
+            else {
+                view.removeShadow()
+            }
+        }
+    }
+    
 }
 
 //MARK: ScrolledContainerViewDelegate
@@ -200,8 +219,7 @@ extension TradeViewController: UITableViewDataSource {
             }
         }
         
-        let category = categories[tableView.tag]
-        let row = category.rows[indexPath.row]
+        let row = categories[tableView.tag].rows[indexPath.row]
 
         switch row {
         case .pair:
@@ -218,8 +236,7 @@ extension TradeViewController: UITableViewDataSource {
             return sectionSkeleton.rows.count
         }
         
-        let category = categories[tableView.tag]
-        return category.rows.count
+        return categories[tableView.tag].rows.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -243,6 +260,10 @@ extension TradeViewController: UITableViewDataSource {
         case .pair(let pair):
             let cell = tableView.dequeueAndRegisterCell() as TradeTableViewCell
             cell.update(with: pair)
+            cell.favoriteTappedAction = { [weak self] in
+                guard let self = self else { return }
+                self.system.send(.favoriteTapped(pair))
+            }
             return cell
 
         case .emptyData:

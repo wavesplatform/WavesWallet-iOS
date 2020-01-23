@@ -98,6 +98,7 @@ final class NewSegmentedControl: UIScrollView {
         setSelectedIndex(sender.tag, animation: true)
         segmentedDelegate?.segmentedControlDidChangeIndex(selectedIndex)
     }
+
 }
 
 //MARK: - Methods
@@ -109,7 +110,7 @@ extension NewSegmentedControl {
         }
         
         selectedIndex = index
-        setupLinePosition(animation: true)
+        setupLinePosition(animation: animation)
         setupTitleColors()
         setupVisibleActiveButtonState()
     }
