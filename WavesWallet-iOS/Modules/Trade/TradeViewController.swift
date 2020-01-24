@@ -74,9 +74,7 @@ final class TradeViewController: UIViewController {
         removeTopBarLine()
         scrolledTableView.viewControllerWillAppear()
         
-        if categories.count > 0 {
-            system.send(.refresh)
-        }
+        system.send(.refresIfNeed)
         
         Observable<Int>
             .interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance)

@@ -61,7 +61,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - FavoritePair
 public extension DomainLayer.DTO.Dex {
     
-    struct FavoritePair {
+    struct FavoritePair: Equatable {
         public let id: String
         public let amountAssetId: String
         public let priceAssetId: String

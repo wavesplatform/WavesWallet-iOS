@@ -44,7 +44,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     }
     
     override func internalFeedbacks() -> [Feedback] {
-        return [loadDataQuery(), removeFromFavoriteQuery(), saveToFavoriteQuery()]
+        return [loadDataQuery(), removeFromFavoriteQuery(), saveToFavoriteQuery(), favoritePairsQuery()]
     }
     
     override func reduce(event: TradeTypes.Event, state: inout TradeTypes.State) {
@@ -72,6 +72,24 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                 state.uiAction = .none
             }
             state.coreAction = .loadData
+            
+        case .refresIfNeed:
+            if state.categories.count > 0 {
+                state.coreAction = .loadFavoritePairs
+            }
+           
+            state.uiAction = .none
+            
+        case .favoritePairsDidLoad(let pairs):
+            
+            if state.core.favoritePairs != pairs {
+                state.coreAction = .loadData
+            }
+            else {
+                state.coreAction = .none
+            }
+            
+            state.uiAction = .none
             
         case .favoriteTapped(let pair):
             let isFavorite = !pair.isFavorite
@@ -148,6 +166,25 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
 //MARK: - Feedback Query
 private extension TradeSystem {
     
+    func favoritePairsQuery() -> Feedback {
+        return react(request: { state -> TradeTypes.State? in
+                     
+           switch state.coreAction {
+           case .loadFavoritePairs:
+               return state
+           default:
+               return nil
+           }
+       }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
+
+           guard let self = self else { return Signal.empty() }
+           return self.loadFavoritePairs()
+            .map { .favoritePairsDidLoad($0) }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
+       })
+    }
+    
     func loadDataQuery() -> Feedback {
         return react(request: { state -> TradeTypes.State? in
               
@@ -220,6 +257,14 @@ private extension TradeSystem {
 
 
 private extension TradeSystem {
+    
+    func loadFavoritePairs() -> Observable<[DomainLayer.DTO.Dex.FavoritePair]> {
+        return auth.authorizedWallet()
+            .flatMap { [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.FavoritePair]> in
+                guard let self = self else { return Observable.empty() }
+                return self.dexRealmRepository.list(by: wallet.address)
+        }
+    }
     
     func saveToFavorite(pair: TradeTypes.DTO.Pair) -> Observable<[DomainLayer.DTO.Dex.FavoritePair]> {
         return auth.authorizedWallet()

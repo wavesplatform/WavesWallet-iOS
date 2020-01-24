@@ -19,8 +19,10 @@ enum TradeTypes {
     enum Event {
         case readyView
         case dataDidLoad(DTO.Core)
+        case favoritePairsDidLoad([DomainLayer.DTO.Dex.FavoritePair])
         case didFailGetCategories(NetworkError)
         case refresh
+        case refresIfNeed
         case favoriteTapped(DTO.Pair)
         case favoriteDidSuccessRemove
         case favoriteDidSuccessSave([DomainLayer.DTO.Dex.FavoritePair])
@@ -41,6 +43,7 @@ enum TradeTypes {
         enum CoreAction: Equatable {
             case none
             case loadData
+            case loadFavoritePairs
             case removeFromFavorite(String)
             case saveToToFavorite(DTO.Pair)
         }
