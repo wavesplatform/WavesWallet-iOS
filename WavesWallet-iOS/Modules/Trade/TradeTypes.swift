@@ -23,6 +23,7 @@ enum TradeTypes {
         case refresh
         case favoriteTapped(DTO.Pair)
         case favoriteDidSuccessRemove
+        case favoriteDidSuccessSave([DomainLayer.DTO.Dex.FavoritePair])
         case filterTapped(DomainLayer.DTO.TradeCategory.Filter, atCategory: Int)
     }
     
@@ -39,7 +40,7 @@ enum TradeTypes {
             case none
             case loadData
             case removeFromFavorite(String)
-            case addToToFavorite(String)
+            case saveToToFavorite(DTO.Pair)
         }
         
         var uiAction: UIAction
@@ -68,8 +69,9 @@ extension TradeTypes.DTO {
         let output: TradeModuleOutput
     }
     
-    struct Pair {
+    struct Pair: Equatable {
         let id: String
+        let isGeneral: Bool
         let amountAsset: DomainLayer.DTO.Dex.Asset
         let priceAsset: DomainLayer.DTO.Dex.Asset
         let firstPrice: Money

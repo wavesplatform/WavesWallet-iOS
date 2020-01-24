@@ -30,6 +30,7 @@ extension TradeTypes.DTO.Core {
                 let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
                     
                 favoritePairsPrice.append(.init(id: pairPrice.id,
+                                                isGeneral: pairPrice.isGeneral,
                                                 amountAsset: pairPrice.amountAsset,
                                                 priceAsset: pairPrice.priceAsset,
                                                 firstPrice: pairPrice.firstPrice,
@@ -77,12 +78,13 @@ extension TradeTypes.DTO.Core {
                     let isFavorite = favoritePairs.contains(where: {$0.id == pairPrice.id})
                             
                     categoryPairs.append(.init(id: pairPrice.id,
-                                                amountAsset: pairPrice.amountAsset,
-                                                priceAsset: pairPrice.priceAsset,
-                                                firstPrice: pairPrice.firstPrice,
-                                                lastPrice: pairPrice.lastPrice,
-                                                isFavorite: isFavorite,
-                                                priceUSD: priceUSD))
+                                               isGeneral: pairPrice.isGeneral,
+                                               amountAsset: pairPrice.amountAsset,
+                                               priceAsset: pairPrice.priceAsset,
+                                               firstPrice: pairPrice.firstPrice,
+                                               lastPrice: pairPrice.lastPrice,
+                                               isFavorite: isFavorite,
+                                               priceUSD: priceUSD))
                 }
             }
                 

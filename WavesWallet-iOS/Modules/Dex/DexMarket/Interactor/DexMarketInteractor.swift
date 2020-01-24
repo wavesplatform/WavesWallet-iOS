@@ -96,7 +96,11 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
             guard let self = self else { return Observable.never() }
 
             if newPair.isChecked {
-                return self.dexRealmRepository.save(pair: newPair, accountAddress: wallet.address)
+                return self.dexRealmRepository.save(pair: .init(id: newPair.id,
+                                                                isGeneral: newPair.isGeneral,
+                                                                amountAsset: newPair.amountAsset,
+                                                                priceAsset: newPair.priceAsset),
+                                                    accountAddress: wallet.address)
             }
             return self.dexRealmRepository.delete(by: newPair.id, accountAddress: wallet.address)
             

@@ -58,7 +58,7 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
         })
     }
     
-    func save(pair: DomainLayer.DTO.Dex.SmartPair, accountAddress: String) -> Observable<Bool> {
+    func save(pair: DomainLayer.DTO.Dex.SavePair, accountAddress: String) -> Observable<Bool> {
        
         return Observable.create({ (subscribe) -> Disposable in
             

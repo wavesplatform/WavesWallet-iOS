@@ -44,7 +44,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     }
     
     override func internalFeedbacks() -> [Feedback] {
-        return [loadDataQuery(), removeFromFavoriteQuery()]
+        return [loadDataQuery(), removeFromFavoriteQuery(), saveToFavoriteQuery()]
     }
     
     override func reduce(event: TradeTypes.Event, state: inout TradeTypes.State) {
@@ -78,7 +78,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             let isFavorite = !pair.isFavorite
             
             if isFavorite {
-                //TODO - add to favorite
+                state.coreAction = .saveToToFavorite(pair)
+                state.uiAction = .none
             }
             else {
                 state.core.favoritePairs.removeAll(where: {$0.id == pair.id})
@@ -89,6 +90,12 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             
         case .favoriteDidSuccessRemove:
             state.uiAction = .none
+            state.coreAction = .none
+            
+        case .favoriteDidSuccessSave(let favoritePairs):
+            state.core.favoritePairs = favoritePairs
+            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
+            state.uiAction = .update
             state.coreAction = .none
             
         case .filterTapped(let filter, atCategory: let categoryIndex):
@@ -168,10 +175,48 @@ private extension TradeSystem {
         })
     }
     
+    func saveToFavoriteQuery() -> Feedback {
+        return react(request: { state -> TradeTypes.State? in
+                  
+              switch state.coreAction {
+              case .saveToToFavorite:
+                  return state
+              default:
+                  return nil
+              }
+          }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
+          
+              guard let self = self else { return Signal.empty() }
+              if case let .saveToToFavorite(pair) = state.coreAction {
+                      
+                  return self.saveToFavorite(pair: pair)
+                      .map { .favoriteDidSuccessSave($0) }
+                      .asSignal(onErrorSignalWith: Signal.empty())
+              }
+              return Signal.empty()
+          })
+    }
 }
 
 
 private extension TradeSystem {
+    
+    func saveToFavorite(pair: TradeTypes.DTO.Pair) -> Observable<[DomainLayer.DTO.Dex.FavoritePair]> {
+        return auth.authorizedWallet()
+            .flatMap {[weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.FavoritePair]>  in
+                guard let self = self else { return Observable.empty()}
+                return self.dexRealmRepository.save(pair: .init(id: pair.id,
+                                                                isGeneral: pair.isGeneral,
+                                                                amountAsset: pair.amountAsset,
+                                                                priceAsset: pair.priceAsset),
+                                                    accountAddress: wallet.address)
+                    .flatMap {[weak self] (success) -> Observable<[DomainLayer.DTO.Dex.FavoritePair]> in
+                        guard let self = self else { return Observable.empty() }
+                        return self.dexRealmRepository.list(by: wallet.address)
+                    }
+        }
+    }
+    
     
     func removeFromFavorite(id: String) -> Observable<Bool> {
         return auth.authorizedWallet()

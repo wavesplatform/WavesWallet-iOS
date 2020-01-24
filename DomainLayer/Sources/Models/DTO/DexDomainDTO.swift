@@ -58,7 +58,7 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: - LocalPair
+//MARK: - FavoritePair
 public extension DomainLayer.DTO.Dex {
     
     struct FavoritePair {
@@ -76,8 +76,27 @@ public extension DomainLayer.DTO.Dex {
             self.sortLevel = sortLevel
         }
     }
+    
+
 }
 
+//MARK: - SavePair
+public extension DomainLayer.DTO.Dex {
+    
+    struct SavePair {
+        public let id: String
+        public let isGeneral: Bool
+        public let amountAsset: Asset
+        public let priceAsset: Asset
+        
+        public init(id: String, isGeneral: Bool, amountAsset: Asset, priceAsset: Asset) {
+            self.id = id
+            self.isGeneral = isGeneral
+            self.amountAsset = amountAsset
+            self.priceAsset = priceAsset
+        }
+    }
+}
 //MARK: - SmartPair
 public extension DomainLayer.DTO.Dex {
     
@@ -175,13 +194,15 @@ public extension DomainLayer.DTO.Dex {
         public let lastPrice: Money
         public let amountAsset: Asset
         public let priceAsset: Asset
+        public let isGeneral: Bool
         
-        public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset) {
+        public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset, isGeneral: Bool) {
             self.id = amountAsset.id + priceAsset.id
             self.firstPrice = firstPrice
             self.lastPrice = lastPrice
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
+            self.isGeneral = isGeneral
         }
     }
 }

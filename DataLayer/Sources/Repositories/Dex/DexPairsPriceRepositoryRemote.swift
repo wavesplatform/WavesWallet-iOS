@@ -122,7 +122,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                             let pairPrice = DomainLayer.DTO.Dex.PairPrice(firstPrice: firstPrice,
                                                                           lastPrice: lastPrice,
                                                                           amountAsset: amountAsset.dexAsset,
-                                                                          priceAsset: priceAsset.dexAsset)
+                                                                          priceAsset: priceAsset.dexAsset,
+                                                                          isGeneral: priceAsset.isGeneral && amountAsset.isGeneral)
                             listPairs.append(pairPrice)
                         }
                         

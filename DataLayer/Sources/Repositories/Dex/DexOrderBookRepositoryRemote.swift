@@ -216,9 +216,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         return environmentRepository
               .servicesEnvironment()
               .flatMapLatest({ (servicesEnvironment) -> Observable<Bool> in
-                  
-//                  let signature = CancelAllOrdersSignature(signedWallet: wallet, timestamp: )
-                  
+                                    
                     let signature = TimestampSignature(signedWallet: wallet,
                                                        timestampServerDiff: servicesEnvironment.timestampServerDiff)
 
