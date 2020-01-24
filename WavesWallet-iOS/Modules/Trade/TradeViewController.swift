@@ -14,16 +14,23 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
+fileprivate enum Constants {
+    static let updateTime: RxTimeInterval = 30
+}
+
 final class TradeViewController: UIViewController {
 
     @IBOutlet private weak var scrolledTableView: ScrolledContainerView!
     @IBOutlet private weak var tableViewSkeleton: UITableView!
+    @IBOutlet private weak var errorView: GlobalErrorView!
     
     private var categories: [TradeTypes.DTO.Category] = []
     private var sectionSkeleton = TradeTypes.ViewModel.SectionSkeleton(rows: [])
     
-    private let disposeBag: DisposeBag = DisposeBag()
-    
+    private var disposeBag: DisposeBag = DisposeBag()
+    private var disposeBagTimer: DisposeBag = DisposeBag()
+    private var errorSnackKey: String?
+
     var system: System<TradeTypes.State, TradeTypes.Event>!
     var selectedAsset: DomainLayer.DTO.Dex.Asset?
     weak var output: TradeModuleOutput?
@@ -49,6 +56,10 @@ final class TradeViewController: UIViewController {
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: Images.viewexplorer18Black.image, style: .plain, target: self, action: #selector(searchTapped)),
                                               UIBarButtonItem(image: Images.orders.image, style: .plain, target: self, action: #selector(myOrdersTapped))]
+        
+        errorView.retryDidTap = { [weak self] in
+            self?.system.send(.refresh)
+        }
     }
     
     override func backTapped() {
@@ -117,7 +128,7 @@ private extension TradeViewController {
                 case .update:
                     
                     self.categories = state.categories
-                    
+                    self.hideErrorIfExist()
                     var segmentedItems: [NewSegmentedControl.SegmentedItem] = []
                     
                     for category in self.categories {
@@ -129,20 +140,58 @@ private extension TradeViewController {
                             segmentedItems.append(.title(category.name))
                         }
                     }
-
+                    
+                    self.hideErrorIfExist()
                     self.scrolledTableView.setup(segmentedItems: segmentedItems, tableDataSource: self, tableDelegate: self)
                     self.scrolledTableView.reloadData()
                     self.scrolledTableView.isHidden = false
                     self.tableViewSkeleton.isHidden = true
+                    self.errorView.isHidden = true
 
                 case .updateSkeleton(let sectionSkeleton):
+                    self.hideErrorIfExist()
+                    
+                    self.errorView.isHidden = true
+                    self.scrolledTableView.isHidden = true
+                    self.tableViewSkeleton.isHidden = false
+                    
                     self.sectionSkeleton = sectionSkeleton
                     self.tableViewSkeleton.reloadData()
                     self.tableViewSkeleton.startSkeletonCells()
 
                 case .didFailGetError(let error):
-                    print("error")
-                
+                    self.hideErrorIfExist()
+                    
+                    if state.categories.count > 0 {
+                        switch error {
+                        case .internetNotWorking:
+                            self.errorSnackKey = self.showWithoutInternetSnack { [weak self] in
+                               guard let self = self else { return }
+                               self.system.send(.refresh)
+                           }
+                           
+                       default:
+                            self.errorSnackKey = self.showNetworkErrorSnack(error: error)
+                       }
+                        
+                        self.scrolledTableView.isHidden = false
+                        self.tableViewSkeleton.isHidden = true
+                        self.errorView.isHidden = true
+                    }
+                    else {
+                        
+                        switch error {
+                        case .internetNotWorking:
+                            self.errorView.update(with: .init(kind: .internetNotWorking))
+                            
+                        default:
+                            self.errorView.update(with: .init(kind: .serverError))
+                        }
+                        
+                        self.errorView.isHidden = false
+                        self.tableViewSkeleton.isHidden = true
+                        self.scrolledTableView.isHidden = true
+                    }
                 }
 
                 DispatchQueue.main.async {
@@ -156,6 +205,13 @@ private extension TradeViewController {
 
 //MARK: - UI
 private extension TradeViewController {
+    
+    func hideErrorIfExist() {
+           if let key = errorSnackKey {
+               hideSnack(key: key)
+               errorSnackKey = nil
+           }
+       }
     
     func setupHeaderShadow() {
         

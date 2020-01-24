@@ -52,13 +52,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
         case .readyView:
             
             state.coreAction = .loadData
-            state.uiAction = .updateSkeleton(.init(rows: [.headerCell,
-                                                          .defaultCell,
-                                                          .defaultCell,
-                                                          .defaultCell,
-                                                          .defaultCell,
-                                                          .defaultCell,
-                                                          .defaultCell]))
+            state.uiAction = .updateSkeleton(skeletonSection)
 
         case .dataDidLoad(let data):
             state.core = data
@@ -71,8 +65,13 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             state.uiAction = .didFailGetError(error)
             
         case .refresh:
+            if state.categories.count == 0 {
+                state.uiAction = .updateSkeleton(skeletonSection)
+            }
+            else {
+                state.uiAction = .none
+            }
             state.coreAction = .loadData
-            state.uiAction = .none
             
         case .favoriteTapped(let pair):
             let isFavorite = !pair.isFavorite
@@ -120,6 +119,16 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             state.coreAction = .none
             state.uiAction = .update
         }
+    }
+    
+    private var skeletonSection: TradeTypes.ViewModel.SectionSkeleton {
+        return .init(rows: [.headerCell,
+                            .defaultCell,
+                            .defaultCell,
+                            .defaultCell,
+                            .defaultCell,
+                            .defaultCell,
+                            .defaultCell])
     }
 }
 

@@ -28,13 +28,21 @@
                                     <outlet property="delegate" destination="v6a-xb-tJx" id="njC-kE-8a3"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6M-hc-2yT" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zpt-Bm-7cJ" firstAttribute="top" secondItem="LVs-H2-oHj" secondAttribute="top" id="CZF-1H-jgE"/>
                             <constraint firstAttribute="bottom" secondItem="zpt-Bm-7cJ" secondAttribute="bottom" id="Ifm-Rp-SQj"/>
+                            <constraint firstItem="h6M-hc-2yT" firstAttribute="bottom" secondItem="dz4-CM-U8k" secondAttribute="bottom" id="NM4-2G-x40"/>
+                            <constraint firstItem="h6M-hc-2yT" firstAttribute="leading" secondItem="dz4-CM-U8k" secondAttribute="leading" id="O1r-xj-4cD"/>
+                            <constraint firstItem="h6M-hc-2yT" firstAttribute="top" secondItem="dz4-CM-U8k" secondAttribute="top" id="RxN-gK-Ifp"/>
                             <constraint firstItem="IZn-wv-ltD" firstAttribute="trailing" secondItem="zpt-Bm-7cJ" secondAttribute="trailing" id="XFs-HW-6fI"/>
                             <constraint firstItem="dz4-CM-U8k" firstAttribute="top" secondItem="LVs-H2-oHj" secondAttribute="top" id="XaS-3u-F2O"/>
+                            <constraint firstItem="h6M-hc-2yT" firstAttribute="trailing" secondItem="dz4-CM-U8k" secondAttribute="trailing" id="ZrT-i5-Bxr"/>
                             <constraint firstItem="IZn-wv-ltD" firstAttribute="trailing" secondItem="dz4-CM-U8k" secondAttribute="trailing" id="i97-ko-cxs"/>
                             <constraint firstItem="dz4-CM-U8k" firstAttribute="leading" secondItem="IZn-wv-ltD" secondAttribute="leading" id="oIx-BC-FrT"/>
                             <constraint firstItem="zpt-Bm-7cJ" firstAttribute="leading" secondItem="IZn-wv-ltD" secondAttribute="leading" id="qE3-R1-etH"/>
@@ -43,6 +51,7 @@
                         <viewLayoutGuide key="safeArea" id="IZn-wv-ltD"/>
                     </view>
                     <connections>
+                        <outlet property="errorView" destination="h6M-hc-2yT" id="U8y-K7-Jr4"/>
                         <outlet property="scrolledTableView" destination="dz4-CM-U8k" id="OsJ-Qm-ebG"/>
                         <outlet property="tableViewSkeleton" destination="zpt-Bm-7cJ" id="0vA-Hx-DS2"/>
                     </connections>
