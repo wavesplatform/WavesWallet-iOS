@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
+import DomainLayer
 
 private enum Constants {
     static let searchDelay = 0.3
@@ -29,7 +30,8 @@ final class DexMarketViewController: UIViewController {
     private var modelSection = DexMarket.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexMarket.Event> = PublishRelay<DexMarket.Event>()
     
-    weak var delegate: DexListRefreshOutput!
+    weak var delegate: TradeRefreshOutput!
+    var selectedAsset: DomainLayer.DTO.Dex.Asset?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +99,12 @@ private extension DexMarketViewController {
     }
     
     func setupLocalization() {
-        title = Localizable.Waves.Dexmarket.Navigationbar.title
+        if let asset = selectedAsset {
+            title = Localizable.Waves.Dexmarket.Navigationbar.titleAsset + " " + asset.shortName
+        }
+        else {
+            title = Localizable.Waves.Dexmarket.Navigationbar.title
+        }
         labelLoadingMarkets.text = Localizable.Waves.Dexmarket.Label.loadingMarkets
         labelNothingHere.text = Localizable.Waves.Dex.General.Error.nothingHere
     }
@@ -140,7 +147,7 @@ extension DexMarketViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         sendEvent.accept(.tapCheckMark(index: indexPath.row))
-        delegate.refreshPairs()
+        delegate.pairsDidChange()
     }
 }
 
@@ -156,13 +163,8 @@ extension DexMarketViewController: UITableViewDataSource {
         let row = modelSection.items[indexPath.row]
         switch row {
         case .pair(let pair):
-            let cell = tableView.dequeueCell() as DexMarketCell
+            let cell = tableView.dequeueAndRegisterCell() as DexMarketSearchCell
             cell.update(with: pair)
-            cell.buttonInfoDidTap = { [weak self] in
-                guard let self = self else { return }
-                self.buttonInfoDidTap(indexPath)
-            }
-            
             return cell
         }
     }
@@ -173,6 +175,6 @@ extension DexMarketViewController: UITableViewDataSource {
 private extension DexMarketViewController {
     
     func buttonInfoDidTap(_ indexPath: IndexPath) {
-        sendEvent.accept(.tapInfoButton(index: indexPath.row))        
+        sendEvent.accept(.tapInfoButton(index: indexPath.row))
     }
 }

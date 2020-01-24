@@ -1015,6 +1015,9 @@ internal enum Localizable {
         /// Markets
         internal static var title: String { return Localizable.tr("Waves", "dexmarket.navigationBar.title") }
         internal static var titleKey: String { return "dexmarket.navigationBar.title" }
+        /// Search pairs to
+        internal static var titleAsset: String { return Localizable.tr("Waves", "dexmarket.navigationBar.titleAsset") }
+        internal static var titleAssetKey: String { return "dexmarket.navigationBar.titleAsset" }
       }
 
       internal enum Searchbar {

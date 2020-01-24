@@ -11,6 +11,7 @@ import Extensions
 import DomainLayer
 import WavesSDK
 
+
 enum TradeTypes {
     enum DTO {}
     enum ViewModel {}
@@ -45,6 +46,11 @@ enum TradeTypes {
 }
 
 extension TradeTypes.DTO {
+    
+    struct Input {
+        let selectedAsset: DomainLayer.DTO.Dex.Asset?
+        let output: TradeModuleOutput
+    }
     
     struct Pair {
         let id: String

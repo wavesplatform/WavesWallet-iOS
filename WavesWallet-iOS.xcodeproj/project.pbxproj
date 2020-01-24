@@ -154,7 +154,7 @@
 		0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD6C86216796DB00B06917 /* ProfileLanguageCell.swift */; };
 		0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD6C882167980E00B06917 /* ProfileBiometricCell.swift */; };
 		0ADD7FAB21F22FB60075FC59 /* PasteboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */; };
-		0ADD801D21F22FFA0075FC59 /* DexCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7FF821F22FFA0075FC59 /* DexCoordinator.swift */; };
+		0ADD801D21F22FFA0075FC59 /* TradeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7FF821F22FFA0075FC59 /* TradeCoordinator.swift */; };
 		0ADD801E21F22FFA0075FC59 /* PresentationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7FFA21F22FFA0075FC59 /* PresentationCoordinator.swift */; };
 		0ADD801F21F22FFA0075FC59 /* RoutingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7FFB21F22FFA0075FC59 /* RoutingCoordinator.swift */; };
 		0ADD802021F22FFA0075FC59 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7FFC21F22FFA0075FC59 /* Coordinator.swift */; };
@@ -877,6 +877,8 @@
 		E95E151222A18C25003552B8 /* WalletSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E151022A18C25003552B8 /* WalletSearchTableViewCell.swift */; };
 		E95E151322A18C25003552B8 /* WalletSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */; };
 		E95E151522A197B8003552B8 /* WalletSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E151422A197B8003552B8 /* WalletSearchViewController.swift */; };
+		E95F734123DA515000A94674 /* DexMarketSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F733F23DA515000A94674 /* DexMarketSearchCell.swift */; };
+		E95F734223DA515000A94674 /* DexMarketSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95F734023DA515000A94674 /* DexMarketSearchCell.xib */; };
 		E9618D1422EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */; };
 		E9618D1622EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1522EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift */; };
 		E9618D1922F0473000FB7F06 /* MarketPulseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */; };
@@ -1431,7 +1433,7 @@
 		0ADD6C86216796DB00B06917 /* ProfileLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLanguageCell.swift; sourceTree = "<group>"; };
 		0ADD6C882167980E00B06917 /* ProfileBiometricCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBiometricCell.swift; sourceTree = "<group>"; };
 		0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasteboardButton.swift; sourceTree = "<group>"; };
-		0ADD7FF821F22FFA0075FC59 /* DexCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCoordinator.swift; sourceTree = "<group>"; };
+		0ADD7FF821F22FFA0075FC59 /* TradeCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeCoordinator.swift; sourceTree = "<group>"; };
 		0ADD7FFA21F22FFA0075FC59 /* PresentationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationCoordinator.swift; sourceTree = "<group>"; };
 		0ADD7FFB21F22FFA0075FC59 /* RoutingCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingCoordinator.swift; sourceTree = "<group>"; };
 		0ADD7FFC21F22FFA0075FC59 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -2192,6 +2194,8 @@
 		E95E151022A18C25003552B8 /* WalletSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchTableViewCell.swift; sourceTree = "<group>"; };
 		E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSearchTableViewCell.xib; sourceTree = "<group>"; };
 		E95E151422A197B8003552B8 /* WalletSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchViewController.swift; sourceTree = "<group>"; };
+		E95F733F23DA515000A94674 /* DexMarketSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMarketSearchCell.swift; sourceTree = "<group>"; };
+		E95F734023DA515000A94674 /* DexMarketSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexMarketSearchCell.xib; sourceTree = "<group>"; };
 		E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E9618D1522EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseSettingsDomainDTO.swift; sourceTree = "<group>"; };
 		E96358A322A73D62008A3395 /* WalletClearAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletClearAssetsView.swift; sourceTree = "<group>"; };
@@ -3139,7 +3143,7 @@
 				0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */,
 				0A751D37221715F80024D523 /* AppNewsCoordinator.swift */,
 				E9845D3A2374645900716515 /* PushNotificationsCoordinator.swift */,
-				0ADD7FF821F22FFA0075FC59 /* DexCoordinator.swift */,
+				0ADD7FF821F22FFA0075FC59 /* TradeCoordinator.swift */,
 				E902BBCF236A664300141CF4 /* DexDeepLinkCoordinator.swift */,
 				0ADD801C21F22FFA0075FC59 /* MainTabBarCoordinator.swift */,
 				0ADD800E21F22FFA0075FC59 /* QRCodeReaderControllerCoordinator.swift */,
@@ -5684,6 +5688,8 @@
 			isa = PBXGroup;
 			children = (
 				E9B0877E2163886800937644 /* DexMarketCell.swift */,
+				E95F733F23DA515000A94674 /* DexMarketSearchCell.swift */,
+				E95F734023DA515000A94674 /* DexMarketSearchCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6671,6 +6677,7 @@
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				7B0E73972385C5DB0020E7C9 /* AppIcon-New-Test.png in Resources */,
+				E95F734223DA515000A94674 /* DexMarketSearchCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
 				E955AF2423ABEC1200165B5E /* RobotoCondensed-Regular.ttf in Resources */,
@@ -7632,6 +7639,7 @@
 				04016E00219499DA00BA5235 /* ImportAccountScanViewController.swift in Sources */,
 				0AF922E3212E1234003BA067 /* HalfModalPresentationController.swift in Sources */,
 				E9D36DD32175C755001E6DF0 /* ReceiveCardPresenter.swift in Sources */,
+				E95F734123DA515000A94674 /* DexMarketSearchCell.swift in Sources */,
 				E9239571237518B7009C4091 /* PushNotificationsAlertView.swift in Sources */,
 				E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */,
 				E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */,
@@ -7755,7 +7763,7 @@
 				0AF92203212E07B3003BA067 /* AssetBalanceSkeletonCell.swift in Sources */,
 				0ADD802121F22FFA0075FC59 /* NavigationRouter.swift in Sources */,
 				E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */,
-				0ADD801D21F22FFA0075FC59 /* DexCoordinator.swift in Sources */,
+				0ADD801D21F22FFA0075FC59 /* TradeCoordinator.swift in Sources */,
 				7BFB480F22FC742F002B19F8 /* ModalRootView.swift in Sources */,
 				0A071E85215DB1B3007D9750 /* ChooseAccountCell.swift in Sources */,
 				7BFB480922FC742F002B19F8 /* RateApp.swift in Sources */,

@@ -226,6 +226,8 @@ internal enum Images {
   internal static let sizefull14Basic500 = ImageAsset(name: "sizefull14Basic500")
   internal static let sponsoritem18White = ImageAsset(name: "sponsoritem18White")
   internal static let star = ImageAsset(name: "star")
+  internal static let starSearchSmall = ImageAsset(name: "starSearchSmall")
+  internal static let starSearchSmallActive = ImageAsset(name: "starSearchSmallActive")
   internal static let starBtn = ImageAsset(name: "star_btn")
   internal static let swipeLeft = ImageAsset(name: "swipe_left")
   internal static let swipeRight = ImageAsset(name: "swipe_right")
@@ -517,6 +519,8 @@ internal enum Images {
     sizefull14Basic500,
     sponsoritem18White,
     star,
+    starSearchSmall,
+    starSearchSmallActive,
     starBtn,
     swipeLeft,
     swipeRight,

@@ -10,12 +10,27 @@ import Foundation
 import Extensions
 import DomainLayer
 
-struct TradeModuleBuilder: ModuleBuilder {
+protocol TradeRefreshOutput: AnyObject {
+    func pairsDidChange()
+}
+
+protocol TradeModuleOutput: AnyObject {
+
+    func myOrdersTapped()
+    func searchTapped(selectedAsset: DomainLayer.DTO.Dex.Asset?, delegate: TradeRefreshOutput)
+    func tradeDidDissapear()
+}
+
+struct TradeModuleBuilder: ModuleBuilderOutput {
         
-    func build(input: DomainLayer.DTO.Asset?) -> UIViewController {
+    var output: TradeModuleOutput
+    
+    func build(input: DomainLayer.DTO.Dex.Asset?) -> UIViewController {
         let vc = StoryboardScene.Trade.tradeViewController.instantiate()
         vc.system = TradeSystem()
-        vc.asset = input
+        vc.selectedAsset = input
+        vc.output = output
+        
         return vc
     }
 }

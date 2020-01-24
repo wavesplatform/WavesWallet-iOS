@@ -173,6 +173,7 @@
 "dexlist.navigationBar.title" = "DEX";
 "dexmarket.label.loadingMarkets" = "Загрузка рынков…";
 "dexmarket.navigationBar.title" = "Рынки";
+"dexmarket.navigationBar.titleAsset" = "Поиск пары к";
 "dexmarket.searchBar.placeholder" = "Поиск";
 "dexmyorders.label.buy" = "Покупка";
 "dexmyorders.label.emptyData" = "Пока ничего нет…\nУ вас нет ордеров";

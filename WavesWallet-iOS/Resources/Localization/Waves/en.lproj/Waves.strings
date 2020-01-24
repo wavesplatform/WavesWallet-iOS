@@ -173,6 +173,7 @@
 "dexlist.navigationBar.title" = "DEX";
 "dexmarket.label.loadingMarkets" = "Loading markets…";
 "dexmarket.navigationBar.title" = "Markets";
+"dexmarket.navigationBar.titleAsset" = "Search pairs to";
 "dexmarket.searchBar.placeholder" = "Search";
 "dexmyorders.label.buy" = "Buy";
 "dexmyorders.label.emptyData" = "Nothing Here…\nYou do not have any orders";

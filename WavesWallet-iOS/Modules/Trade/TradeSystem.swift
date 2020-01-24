@@ -103,7 +103,7 @@ private extension TradeSystem {
                 return nil
             }
         }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
-
+ 
             guard let self = self else { return Signal.empty() }
             return self.loadCategories()
                 .map { .categoriesDidLoad($0)}

@@ -13,15 +13,16 @@ struct DexMarketModuleBuilder: ModuleBuilderOutput {
     
     weak var output: DexMarketModuleOutput?
    
-    func build(input: DexListRefreshOutput) -> UIViewController {
+    func build(input: DexMarket.DTO.Input) -> UIViewController {
         
         let vc = StoryboardScene.Dex.dexMarketViewController.instantiate()
         
-        var presenter: DexMarketPresenterProtocol = DexMarketPresenter()
+        var presenter: DexMarketPresenterProtocol = DexMarketPresenter(selectedAsset: input.selectedAsset)
         presenter.interactor = DexMarketInteractor()
         presenter.moduleOutput = output
         vc.presenter = presenter
-        vc.delegate = input
+        vc.delegate = input.delegate
+        vc.selectedAsset = input.selectedAsset
         
         return vc
     }

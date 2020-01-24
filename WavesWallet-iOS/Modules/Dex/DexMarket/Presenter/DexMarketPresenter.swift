@@ -19,6 +19,12 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
 
     private let disposeBag = DisposeBag()
 
+    private var selectedAsset: DomainLayer.DTO.Dex.Asset?
+    
+    init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
+        self.selectedAsset = selectedAsset
+    }
+    
     func system(feedbacks: [DexMarketPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
@@ -64,7 +70,15 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             
             return state.mutate { state in
                 
-                let items = pairs.map { DexMarket.ViewModel.Row.pair($0) }
+                let items: [DexMarket.ViewModel.Row]
+                    
+                if let asset = selectedAsset {
+                    items = pairs.filter {$0.amountAsset.id == asset.id || $0.priceAsset.id == asset.id}
+                        .map { DexMarket.ViewModel.Row.pair(.init(smartPair: $0, selectedAsset: selectedAsset)) }
+                }
+                else {
+                    items = pairs.map { DexMarket.ViewModel.Row.pair(.init(smartPair: $0, selectedAsset: selectedAsset)) }
+                }
                 let section = DexMarket.ViewModel.Section(items: items)
                 state.section = section
                 state.isNeedSearching = false
@@ -79,7 +93,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             
             return state.mutate { state in
                 if let pair = state.section.items[index].pair {
-                    state.section.items[index] = DexMarket.ViewModel.Row.pair(pair.mutate {$0.isChecked = !$0.isChecked})
+                    state.section.items[index] = DexMarket.ViewModel.Row.pair(.init(smartPair: pair.mutate {$0.isChecked = !$0.isChecked}, selectedAsset: selectedAsset))
                 }
             }.changeAction(.update)
             
@@ -107,7 +121,7 @@ fileprivate extension DexMarket.ViewModel.Row {
     var pair: DomainLayer.DTO.Dex.SmartPair? {
         switch self {
         case .pair(let pair):
-            return pair
+            return pair.smartPair
         }
     }
 }

@@ -63,7 +63,7 @@ private struct SettingsScriptPair: TSUD, Codable, Mutating  {
     }
 }
 
-class DexCoordinator: Coordinator {
+class TradeCoordinator: Coordinator {
 
     private let auth = UseCasesFactory.instance.authorization
     private let dispose = DisposeBag()
@@ -74,10 +74,10 @@ class DexCoordinator: Coordinator {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private lazy var dexListViewContoller: UIViewController = {
-        return TradeModuleBuilder().build(input: nil)
-        return DexListModuleBuilder(output: self).build()
-    }()
+//    private lazy var dexListViewContoller: UIViewController = {
+//        return TradeModuleBuilder(output: self).build(input: nil)
+//        return DexListModuleBuilder(output: self).build()
+//    }()
     
     private lazy var dexCreateOrderPopup = PopupViewController()
     private lazy var dexCreateOrderInfoPopup = PopupViewController()
@@ -86,13 +86,22 @@ class DexCoordinator: Coordinator {
 
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning(dismiss: nil)
     
-    init(navigationRouter: NavigationRouter) {
+    private var selectedAsset: DomainLayer.DTO.Asset?
+    
+    init(navigationRouter: NavigationRouter, selectedAsset: DomainLayer.DTO.Asset? = nil) {
         self.navigationRouter = navigationRouter
+        self.selectedAsset = selectedAsset
     }
 
     func start() {
-        navigationRouter.pushViewController(dexListViewContoller)
-        setupBackupTost(target: dexListViewContoller, navigationRouter: navigationRouter, disposeBag: disposeBag)
+        
+        let tradeVc = TradeModuleBuilder(output: self).build(input: selectedAsset?.dexAsset)
+        navigationRouter.pushViewController(tradeVc)
+
+        // if selectedAsset != nil, we show Trade from AssetDetail screen and we not need setup toast
+        if selectedAsset == nil {
+            setupBackupTost(target: tradeVc, navigationRouter: navigationRouter, disposeBag: disposeBag)
+        }
     }
     
     private var containerControllers: [UIViewController] {
@@ -105,9 +114,32 @@ class DexCoordinator: Coordinator {
     }
 }
 
+//MARK: - TradeModuleOutput
+extension TradeCoordinator: TradeModuleOutput {
+    
+    func searchTapped(selectedAsset: DomainLayer.DTO.Dex.Asset?, delegate: TradeRefreshOutput) {
+        let vc = DexMarketModuleBuilder(output: self).build(input: .init(selectedAsset: selectedAsset, delegate: delegate))
+        navigationRouter.pushViewController(vc)
+    }
+    
+    func myOrdersTapped() {
+        let vc = MyOrdersModuleBuilder().build()
+        navigationRouter.pushViewController(vc)
+    }
+    
+    func tradeDidDissapear() {
+        removeFromParentCoordinator()
+    }
+}
+
+
+
+
+//TODO - Remove ----------------
+// ------------------
 
 //MARK: - DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput
-extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput {
+extension TradeCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput {
     
     func showOrders() {
         let vc = MyOrdersModuleBuilder().build()
@@ -120,7 +152,7 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     }
     
     func showAddList(delegate: DexListRefreshOutput) {
-        let vc = DexMarketModuleBuilder(output: self).build(input: delegate)
+        let vc = DexMarketModuleBuilder(output: self).build(input: .init(selectedAsset: nil, delegate: nil))
         navigationRouter.pushViewController(vc)
     }
     
@@ -139,8 +171,14 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     }
 }
 
+// Remove ---------------
+// ------------------
+
+
+
+
 //MARK: - DexLastTradesModuleOutput
-extension DexCoordinator: DexLastTradesModuleOutput {
+extension TradeCoordinator: DexLastTradesModuleOutput {
     
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, scriptedAssets: [DomainLayer.DTO.Asset]) {
         
@@ -167,7 +205,7 @@ extension DexCoordinator: DexLastTradesModuleOutput {
 }
 
 //MARK: - DexOrderBookModuleOutput
-extension DexCoordinator:  DexOrderBookModuleOutput {
+extension TradeCoordinator:  DexOrderBookModuleOutput {
     
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxSum: Bool, scriptedAssets: [DomainLayer.DTO.Asset]) {
         
@@ -197,7 +235,7 @@ extension DexCoordinator:  DexOrderBookModuleOutput {
 }
 
 //MARK: - CreateOrderController
-private extension DexCoordinator {
+private extension TradeCoordinator {
     
     func showCreateOrderController(amountAsset: DomainLayer.DTO.Dex.Asset,
                                    priceAsset: DomainLayer.DTO.Dex.Asset,
@@ -261,7 +299,7 @@ private extension DexCoordinator {
 }
 
 //MARK: - DexCreateOrderModuleOutput
-extension DexCoordinator: DexCreateOrderModuleOutput {
+extension TradeCoordinator: DexCreateOrderModuleOutput {
     func dexCreateOrderDidDismisAlert() {
         dexCreateOrderPopup.dismiss(animated: true, completion: nil)
     }
@@ -308,7 +346,7 @@ extension DexCoordinator: DexCreateOrderModuleOutput {
 }
 
 //MARK: - DexMyOrdersModuleOutput
-extension DexCoordinator: DexMyOrdersModuleOutput {
+extension TradeCoordinator: DexMyOrdersModuleOutput {
     func myOrderDidCancel() {
         for controller in containerControllers {
             if let vc = controller as? DexCancelOrderProtocol {
@@ -319,7 +357,7 @@ extension DexCoordinator: DexMyOrdersModuleOutput {
 }
 
 //MARK: - DexScriptAssetMessageModuleOutput
-extension DexCoordinator: DexScriptAssetMessageModuleOutput {
+extension TradeCoordinator: DexScriptAssetMessageModuleOutput {
   
     func dexScriptAssetMessageModuleOutputDidTapCheckmark(amountAsset: String, priceAsset: String, doNotShow: Bool) {
        
@@ -335,7 +373,7 @@ extension DexCoordinator: DexScriptAssetMessageModuleOutput {
 }
 
 //MARK: - DexCreateOrderInfoModuleBuilderOutput
-extension DexCoordinator: DexCreateOrderInfoModuleBuilderOutput {
+extension TradeCoordinator: DexCreateOrderInfoModuleBuilderOutput {
  
     func dexCreateOrderInfoDidTapClose() {
         dexCreateOrderInfoPopup.dismissPopup()

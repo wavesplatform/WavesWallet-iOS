@@ -24,13 +24,14 @@ final class TradeViewController: UIViewController {
     private let disposeBag: DisposeBag = DisposeBag()
     
     var system: System<TradeTypes.State, TradeTypes.Event>!
-    var asset: DomainLayer.DTO.Asset?
+    var selectedAsset: DomainLayer.DTO.Dex.Asset?
+    weak var output: TradeModuleOutput?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let asset = self.asset {
-            navigationItem.title = Localizable.Waves.Trade.title + " " + asset.displayName
+        if let asset = selectedAsset {
+            navigationItem.title = Localizable.Waves.Trade.title + " " + asset.shortName
             createBackButton()
         }
         else {
@@ -49,6 +50,11 @@ final class TradeViewController: UIViewController {
                                               UIBarButtonItem(image: Images.orders.image, style: .plain, target: self, action: #selector(myOrdersTapped))]
     }
     
+    override func backTapped() {
+        _ = navigationController?.popViewController(animated: true, completed: {
+            self.output?.tradeDidDissapear()
+        })
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,13 +68,19 @@ final class TradeViewController: UIViewController {
     }
     
     @objc private func myOrdersTapped() {
-        let vc = MyOrdersModuleBuilder().build()
-        navigationController?.pushViewController(vc, animated: true)
+        output?.myOrdersTapped()
     }
     
     @objc private func searchTapped() {
-        print("test")
-        
+        output?.searchTapped(selectedAsset: selectedAsset, delegate: self)
+    }
+}
+
+//MARK: - TradeRefreshOutput
+extension TradeViewController: TradeRefreshOutput {
+  
+    func pairsDidChange() {
+        system.send(.refresh)
     }
 }
 

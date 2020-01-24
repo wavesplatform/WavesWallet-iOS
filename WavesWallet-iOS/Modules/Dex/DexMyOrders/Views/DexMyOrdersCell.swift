@@ -71,6 +71,7 @@ extension DexMyOrdersCell: ViewHeight {
         return Constants.height
     }
 }
+
 extension DexMyOrdersCell: ViewConfiguration {
     
     struct Model {
