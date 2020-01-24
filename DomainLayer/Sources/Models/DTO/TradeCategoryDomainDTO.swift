@@ -12,7 +12,7 @@ public extension DomainLayer.DTO {
  
     struct TradeCategory {
         
-        public struct Filter {
+        public struct Filter: Equatable {
             public let name: String
             public let ids: [String]
             

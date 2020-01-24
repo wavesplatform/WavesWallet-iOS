@@ -35,7 +35,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     override func initialState() -> TradeTypes.State! {
         return TradeTypes.State(uiAction: .none,
                                 coreAction: .none,
-                                categories: [])
+                                categories: [],
+                                selectedFilters: [])
     }
     
     override func internalFeedbacks() -> [Feedback] {
@@ -93,7 +94,29 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             }
             state.coreAction = .none
             state.uiAction = .update
+    
+        case .filterTapped(let filter, atCategory: let categoryIndex):
+            
+            if let selectedFilter = state.selectedFilters.first(where: {$0.categoryIndex == categoryIndex}) {
+                if selectedFilter.filter == filter {
+                    state.selectedFilters.removeAll(where: {$0.categoryIndex == categoryIndex})
+                }
+                else {
+                    state.selectedFilters.removeAll(where: {$0.categoryIndex == categoryIndex})
+                    state.selectedFilters.append(.init(categoryIndex: categoryIndex,
+                                                       filter: filter))
+
+                }
+            }
+            else {
+                state.selectedFilters.append(.init(categoryIndex: categoryIndex,
+                                                   filter: filter))
+            }
+            state.coreAction = .none
+            state.uiAction = .none
+
         }
+    
     }
 }
 
@@ -111,7 +134,7 @@ private extension TradeSystem {
         }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
  
             guard let self = self else { return Signal.empty() }
-            return self.loadCategories()
+            return self.loadCategories(selectedFilters: state.selectedFilters)
                 .map { .categoriesDidLoad($0)}
                 .asSignal(onErrorRecover: { error -> Signal<TradeTypes.Event> in
 
@@ -126,7 +149,7 @@ private extension TradeSystem {
 
 private extension TradeSystem {
     
-    func loadCategories() -> Observable<[TradeTypes.DTO.Category]> {
+    func loadCategories(selectedFilters: [TradeTypes.DTO.SelectedFilter]) -> Observable<[TradeTypes.DTO.Category]> {
         
         return auth.authorizedWallet()
             .flatMap { [weak self] (wallet) -> Observable<[TradeTypes.DTO.Category]> in
@@ -165,6 +188,7 @@ private extension TradeSystem {
                         return Observable.zip(pairsPrice, pairsRate)
                             .map { (pairsPrice, pairsRate) -> [TradeTypes.DTO.Category] in
                            
+                                
                                 var newCategories: [TradeTypes.DTO.Category] = []
                                 var favoritePairsPrice: [TradeTypes.DTO.Pair] = []
                                    
@@ -187,52 +211,67 @@ private extension TradeSystem {
                                                                         isFavorite: true,
                                                                         priceUSD: priceUSD))
 
-                                        }
                                     }
+                                }
                                    
-                                    if favoritePairsPrice.count == 0 {
-                                        newCategories.append(.init(isFavorite: true,
-                                                                   name: "",
-                                                                   filters: [],
-                                                                   rows: [.emptyData]))
-                                    }
-                                    else {
-                                        newCategories.append(.init(isFavorite: true,
-                                                                   name: "",
-                                                                   filters: [],
-                                                                   rows: favoritePairsPrice.map {.pair($0)}))
-                                    }
+                                if favoritePairsPrice.count == 0 {
+                                    newCategories.append(.init(index: 0,
+                                                                isFavorite: true,
+                                                                name: "",
+                                                                header: nil,
+                                                                rows: [.emptyData]))
+                                }
+                                else {
+                                    newCategories.append(.init(index: 0,
+                                                                isFavorite: true,
+                                                                name: "",
+                                                                header: nil,
+                                                                rows: favoritePairsPrice.map {.pair($0)}))
+                                }
                                                                  
-                                    for category in categories {
+                                for (index, category) in categories.enumerated() {
 
-                                        var categoryPairs: [TradeTypes.DTO.Pair] = []
-                                       
-                                        for pair in category.pairs {
+                                    var categoryPairs: [TradeTypes.DTO.Pair] = []
+                                    
+                                    for pair in category.pairs {
                                            
-                                            if let pairPrice = pairsPrice.first(where: {$0.amountAsset == pair.amountAsset &&
-                                                $0.priceAsset == pair.priceAsset}) {
+                                        if let pairPrice = pairsPrice.first(where: {$0.amountAsset == pair.amountAsset &&
+                                            $0.priceAsset == pair.priceAsset}) {
 
-                                                let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-                                                let isFavorite = favoritePairs.contains(where: {$0.id == pairPrice.id})
+                                            let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
+                                            let isFavorite = favoritePairs.contains(where: {$0.id == pairPrice.id})
                                                 
-                                                categoryPairs.append(.init(id: pairPrice.id,
-                                                                           amountAsset: pairPrice.amountAsset,
-                                                                           priceAsset: pairPrice.priceAsset,
-                                                                           firstPrice: pairPrice.firstPrice,
-                                                                           lastPrice: pairPrice.lastPrice,
-                                                                           isFavorite: isFavorite,
-                                                                           priceUSD: priceUSD))
-                                            }
+                                            categoryPairs.append(.init(id: pairPrice.id,
+                                                                        amountAsset: pairPrice.amountAsset,
+                                                                        priceAsset: pairPrice.priceAsset,
+                                                                        firstPrice: pairPrice.firstPrice,
+                                                                        lastPrice: pairPrice.lastPrice,
+                                                                        isFavorite: isFavorite,
+                                                                        priceUSD: priceUSD))
                                         }
-                                        categoryPairs.sort(by: {$0.isFavorite && !$1.isFavorite})
-                                        
-                                        newCategories.append(.init(isFavorite: false,
-                                                                   name: category.name,
-                                                                   filters: category.filters,
-                                                                   rows: categoryPairs.map {.pair($0)}))
                                     }
-                                   
-                                    return newCategories
+                                    
+                                        
+                                    let categoryIndex = index + 1
+                                    let selectedFilter = selectedFilters.first(where: {$0.categoryIndex == categoryIndex})
+                                    
+                                    var header: TradeTypes.ViewModel.Header? {
+                                        if category.filters.count > 0 {
+                                            return .filter(.init(categoryIndex: categoryIndex,
+                                                                 selectedFilter: selectedFilter?.filter,
+                                                                 filters: category.filters))
+                                        }
+                                        return nil
+                                    }
+                                    
+                                    newCategories.append(.init(index: categoryIndex,
+                                                                isFavorite: false,
+                                                                name: category.name,
+                                                                header: header,
+                                                                rows: categoryPairs.map {.pair($0)}))
+                                }
+                                
+                                return newCategories
                         }
                 }
         }

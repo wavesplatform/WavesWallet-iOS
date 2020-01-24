@@ -21,6 +21,7 @@ final class TradeViewController: UIViewController {
     
     private var categories: [TradeTypes.DTO.Category] = []
     private var sectionSkeleton = TradeTypes.ViewModel.SectionSkeleton(rows: [])
+    
     private let disposeBag: DisposeBag = DisposeBag()
     
     var system: System<TradeTypes.State, TradeTypes.Event>!
@@ -158,7 +159,7 @@ private extension TradeViewController {
     
     func setupHeaderShadow() {
         
-        if let view = scrolledTableView.visibleTableView.headerView(forSection: 0) as? TradeAltsHeaderView {
+        if let view = scrolledTableView.visibleTableView.headerView(forSection: 0) as? TradeFilterHeaderView {
             if scrolledTableView.topOffset - scrolledTableView.contentOffset.y <= scrolledTableView.smallTopOffset {
                 view.addShadow()
             }
@@ -168,6 +169,14 @@ private extension TradeViewController {
         }
     }
     
+}
+
+//MARK: - TradeFilterHeaderViewDelegate
+extension TradeViewController: TradeFilterHeaderViewDelegate {
+    
+    func tradeAltsHeaderViewDidTapFilter(filter: DomainLayer.DTO.TradeCategory.Filter, atCategory: Int) {
+        system.send(.filterTapped(filter, atCategory: atCategory))
+    }
 }
 
 //MARK: ScrolledContainerViewDelegate
@@ -203,21 +212,27 @@ extension TradeViewController: UITableViewDataSource {
         guard tableView != tableViewSkeleton else { return nil }
         
         let category = self.categories[tableView.tag]
-        guard category.filters.count > 0 else { return nil }
-        let names = category.filters.map {$0.name}
+        if let filter = category.header?.filter {
+            
+            let view = tableView.dequeueAndRegisterHeaderFooter() as TradeFilterHeaderView
+            view.update(with: filter)
+            view.delegate = self
+            return view
+        }
         
-        let view = tableView.dequeueAndRegisterHeaderFooter() as TradeAltsHeaderView
-        view.update(with: names)
-        return view
+        return nil
  }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
        
         guard tableView != tableViewSkeleton else { return 0 }
         let category = self.categories[tableView.tag]
-        guard category.filters.count > 0 else { return 0 }
-
-        return TradeAltsHeaderView.viewHeight()
+        
+        if category.header?.filter != nil {
+            return TradeFilterHeaderView.viewHeight()
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

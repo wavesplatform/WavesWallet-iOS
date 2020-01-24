@@ -22,6 +22,7 @@ enum TradeTypes {
         case didFailGetCategories(NetworkError)
         case refresh
         case favoriteTapped(DTO.Pair)
+        case filterTapped(DomainLayer.DTO.TradeCategory.Filter, atCategory: Int)
     }
     
     struct State {
@@ -42,10 +43,22 @@ enum TradeTypes {
         var uiAction: UIAction
         var coreAction: CoreAction
         var categories: [DTO.Category]
+        var selectedFilters: [DTO.SelectedFilter]
     }
 }
 
 extension TradeTypes.DTO {
+    
+    struct SelectedFilter {
+        let categoryIndex: Int
+        let filter: DomainLayer.DTO.TradeCategory.Filter
+    }
+    
+    struct Filter {
+        let categoryIndex: Int
+        let selectedFilter: DomainLayer.DTO.TradeCategory.Filter?
+        let filters: [DomainLayer.DTO.TradeCategory.Filter]
+    }
     
     struct Input {
         let selectedAsset: DomainLayer.DTO.Dex.Asset?
@@ -63,10 +76,18 @@ extension TradeTypes.DTO {
     }
     
     struct Category {
+        let index: Int
         let isFavorite: Bool
         let name: String
-        let filters: [DomainLayer.DTO.TradeCategory.Filter]
+        let header: TradeTypes.ViewModel.Header?
         var rows: [TradeTypes.ViewModel.Row]
+    }
+    
+    struct Core {
+        let pairsPrice: [DomainLayer.DTO.Dex.PairRate]
+        let pairsRate: [DomainLayer.DTO.Dex.PairRate]
+        let favoritePairs: [DomainLayer.DTO.Dex.LocalPair]
+        let categories: [DomainLayer.DTO.TradeCategory]
     }
 }
 
@@ -96,6 +117,10 @@ extension TradeTypes.ViewModel {
             }
         }
     }
+    
+    enum Header {
+        case filter(TradeTypes.DTO.Filter)
+    }
 }
 
 extension Array where Element == TradeTypes.ViewModel.Row {
@@ -109,6 +134,16 @@ extension Array where Element == TradeTypes.ViewModel.Row {
             }
         }
         return newPairs
+    }
+}
+
+extension TradeTypes.ViewModel.Header {
+    
+    var filter: TradeTypes.DTO.Filter {
+        switch self {
+        case .filter(let filter):
+            return filter
+        }
     }
 }
 extension TradeTypes.State: Equatable {

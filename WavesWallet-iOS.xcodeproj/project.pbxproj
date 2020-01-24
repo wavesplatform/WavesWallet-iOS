@@ -784,8 +784,8 @@
 		E91DC0E120E0054A00BAB519 /* NetworkSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */; };
 		E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */; };
 		E921ED04222DDA4600DE286D /* DexScriptAssetMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E921ED03222DDA4600DE286D /* DexScriptAssetMessageViewController.swift */; };
-		E922D46323CF0081002CFCED /* TradeAltsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D46223CF0081002CFCED /* TradeAltsHeaderView.swift */; };
-		E922D46523CF00B3002CFCED /* TradeAltsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E922D46423CF00B3002CFCED /* TradeAltsHeaderView.xib */; };
+		E922D46323CF0081002CFCED /* TradeFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D46223CF0081002CFCED /* TradeFilterHeaderView.swift */; };
+		E922D46523CF00B3002CFCED /* TradeFilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E922D46423CF00B3002CFCED /* TradeFilterHeaderView.xib */; };
 		E9236F1D2216F35B00A12FD5 /* AppNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9236F1C2216F35B00A12FD5 /* AppNewsView.swift */; };
 		E9236F1F2216F37300A12FD5 /* AppNewsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9236F1E2216F37300A12FD5 /* AppNewsView.xib */; };
 		E9236F212216F48A00A12FD5 /* PopupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9236F202216F48A00A12FD5 /* PopupActionView.swift */; };
@@ -2101,8 +2101,8 @@
 		E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsViewController.swift; sourceTree = "<group>"; };
 		E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingConfirmModuleBuilder.swift; sourceTree = "<group>"; };
 		E921ED03222DDA4600DE286D /* DexScriptAssetMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexScriptAssetMessageViewController.swift; sourceTree = "<group>"; };
-		E922D46223CF0081002CFCED /* TradeAltsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeAltsHeaderView.swift; sourceTree = "<group>"; };
-		E922D46423CF00B3002CFCED /* TradeAltsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeAltsHeaderView.xib; sourceTree = "<group>"; };
+		E922D46223CF0081002CFCED /* TradeFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeFilterHeaderView.swift; sourceTree = "<group>"; };
+		E922D46423CF00B3002CFCED /* TradeFilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeFilterHeaderView.xib; sourceTree = "<group>"; };
 		E9236F1C2216F35B00A12FD5 /* AppNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNewsView.swift; sourceTree = "<group>"; };
 		E9236F1E2216F37300A12FD5 /* AppNewsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppNewsView.xib; sourceTree = "<group>"; };
 		E9236F202216F48A00A12FD5 /* PopupActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupActionView.swift; sourceTree = "<group>"; };
@@ -4873,8 +4873,8 @@
 			children = (
 				E941219523CED5D3002858A0 /* TradeTableViewCell.swift */,
 				E941219423CED5D3002858A0 /* TradeTableViewCell.xib */,
-				E922D46223CF0081002CFCED /* TradeAltsHeaderView.swift */,
-				E922D46423CF00B3002CFCED /* TradeAltsHeaderView.xib */,
+				E922D46223CF0081002CFCED /* TradeFilterHeaderView.swift */,
+				E922D46423CF00B3002CFCED /* TradeFilterHeaderView.xib */,
 				E97A283323D0585A00C4C8C4 /* TradeHeaderSkeletonCell.swift */,
 				E97A283423D0585A00C4C8C4 /* TradeHeaderSkeletonCell.xib */,
 				E97A283723D058AB00C4C8C4 /* TradeSkeletonCell.swift */,
@@ -6704,7 +6704,7 @@
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
 				E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */,
-				E922D46523CF00B3002CFCED /* TradeAltsHeaderView.xib in Resources */,
+				E922D46523CF00B3002CFCED /* TradeFilterHeaderView.xib in Resources */,
 				7B8818712305639600AB0549 /* ActionSheetHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7658,7 +7658,7 @@
 				0AFB59402209AD56001F0DD8 /* TestViewController.swift in Sources */,
 				E9B087A72163886800937644 /* DexOrderBookTypes.swift in Sources */,
 				E9642C8F21CB32570065A1BD /* CoinomatServiceErrorView.swift in Sources */,
-				E922D46323CF0081002CFCED /* TradeAltsHeaderView.swift in Sources */,
+				E922D46323CF0081002CFCED /* TradeFilterHeaderView.swift in Sources */,
 				E9B087B32163886800937644 /* DexOrderBookInteractor.swift in Sources */,
 				E96C924C23AA2BB600C4B6C5 /* DexSegmentedControl.swift in Sources */,
 				E97A283523D0585B00C4C8C4 /* TradeHeaderSkeletonCell.swift in Sources */,

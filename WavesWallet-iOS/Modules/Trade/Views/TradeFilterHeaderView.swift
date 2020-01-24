@@ -8,6 +8,7 @@
 
 import UIKit
 import Extensions
+import DomainLayer
 
 private enum Constants {
     static let height: CGFloat = 48
@@ -19,9 +20,7 @@ private enum Constants {
     static let buttonHeight: CGFloat = 30
     
     static let deltaWidth: CGFloat = 12
-    
-    static let unselectedIndex = -1
-    
+        
     enum Shadow {
         static let height: CGFloat = 4
         static let opacity: Float = 0.1
@@ -29,39 +28,41 @@ private enum Constants {
     }
 }
 
-protocol TradeAltsHeaderViewDelegate: AnyObject {
+protocol TradeFilterHeaderViewDelegate: AnyObject {
 
-    func tradeAltsHeaderViewDidTapAt(index: Int)
+    func tradeAltsHeaderViewDidTapFilter(filter: DomainLayer.DTO.TradeCategory.Filter, atCategory: Int)
 }
 
-final class TradeAltsHeaderView: UITableViewHeaderFooterView, NibReusable {
+final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
 
     @IBOutlet private weak var scrollView: UIScrollView!
 
-    private var items: [String] = []
-    private var selectedIndex: Int = Constants.unselectedIndex
+    private var model: TradeTypes.DTO.Filter!
     
-    weak var delegate: TradeAltsHeaderViewDelegate?
+    weak var delegate: TradeFilterHeaderViewDelegate?
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupItems()
+        guard model != nil else { return }
+        setupFilters()
     }
     
-    private func setupItems() {
+    private func setupFilters() {
         scrollView.subviews.forEach{ $0.removeFromSuperview() }
         
         var offset: CGFloat = Constants.startOffset
         let font = UIFont.systemFont(ofSize: 13)
 
-        for (index, title) in items.enumerated() {
+        for (index, filter) in model.filters.enumerated() {
+            
+            let title = filter.name
             let button = UIButton(type: .system)
             let width = title.maxWidth(font: font) + Constants.deltaWidth
             button.frame = .init(x: offset, y: Constants.topOffet, width: width, height: Constants.buttonHeight)
             button.layer.cornerRadius = Constants.cornerRadius
             button.titleLabel?.font = font
             button.setTitle(title, for: .normal)
-            button.backgroundColor = index == selectedIndex ? .basic200 : .basic100
+            button.backgroundColor = filter == model.selectedFilter ? .basic200 : .basic100
             button.tag = index
             button.contentVerticalAlignment = .center
             button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
@@ -77,14 +78,9 @@ final class TradeAltsHeaderView: UITableViewHeaderFooterView, NibReusable {
     }
     
     @objc private func buttonTapped(_ sender: UIButton) {
-        if sender.tag == selectedIndex {
-            selectedIndex = Constants.unselectedIndex
-        }
-        else {
-            selectedIndex = sender.tag
-        }
-        setupItems()
-        delegate?.tradeAltsHeaderViewDidTapAt(index: selectedIndex)
+        
+        let filter = model.filters[sender.tag]
+        delegate?.tradeAltsHeaderViewDidTapFilter(filter: filter, atCategory: model.categoryIndex)
     }
     
     func addShadow() {
@@ -100,23 +96,20 @@ final class TradeAltsHeaderView: UITableViewHeaderFooterView, NibReusable {
 
 }
 
-extension TradeAltsHeaderView: ViewConfiguration {
+extension TradeFilterHeaderView: ViewConfiguration {
 
-    func update(with model: [String]) {
+    func update(with model: TradeTypes.DTO.Filter) {
         
-        if items != model {
-            items = model
-            setupItems()
-        }
-        
+        self.model = model
+        setupFilters()
         addShadow()
-
     }
 }
 
-extension TradeAltsHeaderView: ViewHeight {
+extension TradeFilterHeaderView: ViewHeight {
     
     static func viewHeight() -> CGFloat {
         return Constants.height
     }
 }
+
