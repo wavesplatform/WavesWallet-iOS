@@ -44,7 +44,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     }
     
     override func internalFeedbacks() -> [Feedback] {
-        return [categoriesQuery()]
+        return [loadDataQuery(), removeFromFavoriteQuery()]
     }
     
     override func reduce(event: TradeTypes.Event, state: inout TradeTypes.State) {
@@ -81,12 +81,16 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                 //TODO - add to favorite
             }
             else {
-                state.coreAction = .none
                 state.core.favoritePairs.removeAll(where: {$0.id == pair.id})
+                state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
+                state.coreAction = .removeFromFavorite(pair.id)
+                state.uiAction = .update
             }
-            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
-            state.uiAction = .update
-    
+            
+        case .favoriteDidSuccessRemove:
+            state.uiAction = .none
+            state.coreAction = .none
+            
         case .filterTapped(let filter, atCategory: let categoryIndex):
             
             if let selectedFilter = state.selectedFilters.first(where: {$0.categoryIndex == categoryIndex}) {
@@ -114,9 +118,10 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     }
 }
 
+//MARK: - Feedback Query
 private extension TradeSystem {
     
-    func categoriesQuery() -> Feedback {
+    func loadDataQuery() -> Feedback {
         return react(request: { state -> TradeTypes.State? in
               
             switch state.coreAction {
@@ -139,9 +144,42 @@ private extension TradeSystem {
             })
         })
     }
+    
+    func removeFromFavoriteQuery() -> Feedback {
+        
+         return react(request: { state -> TradeTypes.State? in
+            
+            switch state.coreAction {
+            case .removeFromFavorite:
+                return state
+            default:
+                return nil
+            }
+        }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
+        
+            guard let self = self else { return Signal.empty() }
+            if case let .removeFromFavorite(id) = state.coreAction {
+                    
+                return self.removeFromFavorite(id: id)
+                    .map { _ in .favoriteDidSuccessRemove }
+                    .asSignal(onErrorSignalWith: Signal.empty())
+            }
+            return Signal.empty()
+        })
+    }
+    
 }
 
+
 private extension TradeSystem {
+    
+    func removeFromFavorite(id: String) -> Observable<Bool> {
+        return auth.authorizedWallet()
+            .flatMap {[weak self] (wallet) -> Observable<Bool> in
+                guard let self = self else { return Observable.empty()}
+                return self.dexRealmRepository.delete(by: id, accountAddress: wallet.address)
+        }
+    }
     
     func loadData() -> Observable<TradeTypes.DTO.Core> {
         

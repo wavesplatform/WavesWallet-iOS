@@ -22,6 +22,7 @@ enum TradeTypes {
         case didFailGetCategories(NetworkError)
         case refresh
         case favoriteTapped(DTO.Pair)
+        case favoriteDidSuccessRemove
         case filterTapped(DomainLayer.DTO.TradeCategory.Filter, atCategory: Int)
     }
     
@@ -37,7 +38,8 @@ enum TradeTypes {
         enum CoreAction: Equatable {
             case none
             case loadData
-            case favouriteTapped
+            case removeFromFavorite(String)
+            case addToToFavorite(String)
         }
         
         var uiAction: UIAction
@@ -153,3 +155,5 @@ extension TradeTypes.State: Equatable {
         return lhs.coreAction == rhs.coreAction
     }
 }
+
+
