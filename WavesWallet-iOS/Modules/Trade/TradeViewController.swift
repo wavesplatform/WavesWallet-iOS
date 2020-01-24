@@ -38,13 +38,12 @@ final class TradeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let asset = selectedAsset {
-            navigationItem.title = Localizable.Waves.Trade.title + " " + asset.shortName
+        setupLocalization()
+        
+        if selectedAsset != nil {
             createBackButton()
         }
-        else {
-            navigationItem.title = Localizable.Waves.Trade.title
-        }
+        
         setupBigNavigationBar()
 
         scrolledTableView.containerViewDelegate = self
@@ -60,6 +59,8 @@ final class TradeViewController: UIViewController {
         errorView.retryDidTap = { [weak self] in
             self?.system.send(.refresh)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
     
     override func backTapped() {
@@ -72,11 +73,20 @@ final class TradeViewController: UIViewController {
         super.viewWillAppear(animated)
         removeTopBarLine()
         scrolledTableView.viewControllerWillAppear()
+        
+        Observable<Int>
+            .interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (value) in
+                guard let self = self else { return }
+                self.system.send(.refresh)
+            })
+            .disposed(by: disposeBagTimer)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         scrolledTableView.viewControllerWillDissapear()
+        disposeBagTimer = DisposeBag()
     }
     
     @objc private func myOrdersTapped() {
@@ -85,6 +95,20 @@ final class TradeViewController: UIViewController {
     
     @objc private func searchTapped() {
         output?.searchTapped(selectedAsset: selectedAsset, delegate: self)
+    }
+    
+    private func setupLocalization() {
+        if let asset = selectedAsset {
+            navigationItem.title = Localizable.Waves.Trade.title + " " + asset.shortName
+        }
+        else {
+            navigationItem.title = Localizable.Waves.Trade.title
+        }
+    }
+    
+    @objc private func changedLanguage() {
+        setupLocalization()
+        system.send(.refresh)
     }
 }
 
