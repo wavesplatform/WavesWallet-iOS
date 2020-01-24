@@ -61,6 +61,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                                                           .defaultCell]))
 
         case .dataDidLoad(let data):
+            state.core = data
             state.categories = data.mapCategories(selectedFilters: state.selectedFilters)
             state.coreAction = .none
             state.uiAction = .update
@@ -75,6 +76,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             
         case .favoriteTapped(let pair):
             let isFavorite = !pair.isFavorite
+            
             
             for index in 0..<state.categories.count {
                 
@@ -116,8 +118,10 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                 state.selectedFilters.append(.init(categoryIndex: categoryIndex,
                                                    filter: filter))
             }
+            
+            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
             state.coreAction = .none
-            state.uiAction = .none
+            state.uiAction = .update
 
         }
     

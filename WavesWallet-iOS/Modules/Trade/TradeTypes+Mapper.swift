@@ -57,12 +57,22 @@ extension TradeTypes.DTO.Core {
         for (index, category) in categories.enumerated() {
 
             var categoryPairs: [TradeTypes.DTO.Pair] = []
-                
+
+            let categoryIndex = index + 1
+            let selectedFilter = selectedFilters.first(where: {$0.categoryIndex == categoryIndex})
+
             for pair in category.pairs {
                        
                 if let pairPrice = pairsPrice.first(where: {$0.amountAsset == pair.amountAsset &&
                     $0.priceAsset == pair.priceAsset}) {
 
+                    if let selectedFilter = selectedFilter {
+                        if !selectedFilter.filter.ids.contains(pairPrice.amountAsset.id) &&
+                            !selectedFilter.filter.ids.contains(pairPrice.priceAsset.id) {
+                            continue
+                        }
+                    }
+                    
                     let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
                     let isFavorite = favoritePairs.contains(where: {$0.id == pairPrice.id})
                             
@@ -76,14 +86,11 @@ extension TradeTypes.DTO.Core {
                 }
             }
                 
-                    
-            let categoryIndex = index + 1
-            let selectedFilter = selectedFilters.first(where: {$0.categoryIndex == categoryIndex})
                 
             var header: TradeTypes.ViewModel.Header? {
                 if category.filters.count > 0 {
                     return .filter(.init(categoryIndex: categoryIndex,
-                                         selectedFilter: nil, //selectedFilter?.filter,
+                                         selectedFilter: selectedFilter?.filter,
                                             filters: category.filters))
                 }
             
