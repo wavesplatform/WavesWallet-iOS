@@ -39,7 +39,7 @@ final class DexListInteractor: DexListInteractorProtocol {
                                 smartPairs.append(.init(id: pair.id,
                                                         amountAsset: amountAsset.dexAsset,
                                                         priceAsset: priceAsset.dexAsset,
-                                                        isChecked: pair.isChecked,
+                                                        isChecked: true,
                                                         isGeneral: pair.isGeneral,
                                                         sortLevel: pair.sortLevel))
                             }

@@ -61,19 +61,17 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - LocalPair
 public extension DomainLayer.DTO.Dex {
     
-    struct LocalPair {
+    struct FavoritePair {
         public let id: String
         public let amountAssetId: String
         public let priceAssetId: String
-        public var isChecked: Bool
         public let isGeneral: Bool
         public var sortLevel: Int
 
-        public init(id: String, amountAssetId: String, priceAssetId: String, isChecked: Bool, isGeneral: Bool, sortLevel: Int) {
+        public init(id: String, amountAssetId: String, priceAssetId: String, isGeneral: Bool, sortLevel: Int) {
             self.id = id
             self.amountAssetId = amountAssetId
             self.priceAssetId = priceAssetId
-            self.isChecked = isChecked
             self.isGeneral = isGeneral
             self.sortLevel = sortLevel
         }

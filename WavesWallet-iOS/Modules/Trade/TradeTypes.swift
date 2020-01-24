@@ -87,7 +87,7 @@ extension TradeTypes.DTO {
     struct Core {
         var pairsPrice: [DomainLayer.DTO.Dex.PairPrice]
         var pairsRate: [DomainLayer.DTO.Dex.PairRate]
-        var favoritePairs: [DomainLayer.DTO.Dex.LocalPair]
+        var favoritePairs: [DomainLayer.DTO.Dex.FavoritePair]
         var categories: [DomainLayer.DTO.TradeCategory]
     }
 }

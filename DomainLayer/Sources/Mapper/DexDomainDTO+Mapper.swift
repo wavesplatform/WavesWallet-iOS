@@ -111,7 +111,7 @@ public extension Array where Element == DomainLayer.DTO.Dex.SimplePair {
     }
 }
 
-public extension Array where Element == DomainLayer.DTO.Dex.LocalPair {
+public extension Array where Element == DomainLayer.DTO.Dex.FavoritePair {
     
     var assetsIds: [String] {
         

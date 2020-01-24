@@ -168,7 +168,7 @@ private extension DexMarketInteractor {
                             
                             smartPairs.append(.init(smartPair: .init(amountAsset: amountAsset.dexAsset,
                                                                      priceAsset: priceAsset.dexAsset,
-                                                                     isChecked: localPair?.isChecked ?? false,
+                                                                     isChecked: localPair != nil,
                                                                      isGeneral: isGeneral,
                                                                      sortLevel: localPair?.sortLevel ?? 0),
                                                                      volume: volume))
