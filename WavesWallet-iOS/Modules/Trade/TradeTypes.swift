@@ -151,6 +151,7 @@ extension TradeTypes.ViewModel.Header {
         }
     }
 }
+
 extension TradeTypes.State: Equatable {
     
     static func == (lhs: TradeTypes.State, rhs: TradeTypes.State) -> Bool {
@@ -158,4 +159,9 @@ extension TradeTypes.State: Equatable {
     }
 }
 
-
+extension Array where Element == TradeTypes.DTO.Category {
+    
+    func category(_ tableView: UITableView) -> TradeTypes.DTO.Category {
+        return self[tableView.tag]
+    }
+}

@@ -201,6 +201,11 @@ extension TradeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView != tableViewSkeleton else { return }
         
+        if let pair = categories.category(tableView).rows[indexPath.row].pair {
+            output?.showTradePairInfo(pair: .init(amountAsset: pair.amountAsset,
+                                                  priceAsset: pair.priceAsset,
+                                                  isGeneral: pair.isGeneral))
+        }
     }
 }
 
@@ -211,7 +216,7 @@ extension TradeViewController: UITableViewDataSource {
         
         guard tableView != tableViewSkeleton else { return nil }
         
-        let category = self.categories[tableView.tag]
+        let category = self.categories.category(tableView)
         if let filter = category.header?.filter {
             
             let view = tableView.dequeueAndRegisterHeaderFooter() as TradeFilterHeaderView
@@ -226,7 +231,7 @@ extension TradeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
        
         guard tableView != tableViewSkeleton else { return 0 }
-        let category = self.categories[tableView.tag]
+        let category = self.categories.category(tableView)
         
         if category.header?.filter != nil {
             return TradeFilterHeaderView.viewHeight()
@@ -249,7 +254,7 @@ extension TradeViewController: UITableViewDataSource {
             }
         }
         
-        let row = categories[tableView.tag].rows[indexPath.row]
+        let row = categories.category(tableView).rows[indexPath.row]
 
         switch row {
         case .pair:
@@ -266,7 +271,7 @@ extension TradeViewController: UITableViewDataSource {
             return sectionSkeleton.rows.count
         }
         
-        return categories[tableView.tag].rows.count
+        return categories.category(tableView).rows.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -283,7 +288,7 @@ extension TradeViewController: UITableViewDataSource {
             }
         }
         
-        let category = categories[tableView.tag]
+        let category = categories.category(tableView)
         let row = category.rows[indexPath.row]
 
         switch row {

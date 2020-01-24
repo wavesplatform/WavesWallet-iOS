@@ -119,9 +119,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.coreAction = .none
             state.uiAction = .update
-
         }
-    
     }
 }
 
