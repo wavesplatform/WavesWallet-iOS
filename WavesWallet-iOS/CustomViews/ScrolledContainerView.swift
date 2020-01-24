@@ -323,7 +323,6 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     
     func reloadData() {
         
-        layoutIfNeeded()
         
         topOffset = 0
         for view in topContents {
@@ -336,6 +335,8 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             table.contentInset.top = topOffset + segmentedHeight
         }
         
+        layoutIfNeeded()
+
         setContentSize()
         DispatchQueue.main.async {
             self.scrollViewDidScroll(self)

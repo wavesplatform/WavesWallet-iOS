@@ -27,7 +27,7 @@ struct TradeModuleBuilder: ModuleBuilderOutput {
     
     func build(input: DomainLayer.DTO.Dex.Asset?) -> UIViewController {
         let vc = StoryboardScene.Trade.tradeViewController.instantiate()
-        vc.system = TradeSystem()
+        vc.system = TradeSystem(selectedAsset: input)
         vc.selectedAsset = input
         vc.output = output
         

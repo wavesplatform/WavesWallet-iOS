@@ -19,7 +19,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
 
     private let disposeBag = DisposeBag()
 
-    private var selectedAsset: DomainLayer.DTO.Dex.Asset?
+    private let selectedAsset: DomainLayer.DTO.Dex.Asset?
     
     init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
         self.selectedAsset = selectedAsset

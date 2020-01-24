@@ -26,6 +26,12 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     private let pairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     
+    private let selectedAsset: DomainLayer.DTO.Dex.Asset?
+    
+    init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
+        self.selectedAsset = selectedAsset
+    }
+    
     override func initialState() -> TradeTypes.State! {
         return TradeTypes.State(uiAction: .none,
                                 coreAction: .none,
