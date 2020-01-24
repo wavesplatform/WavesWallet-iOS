@@ -74,6 +74,10 @@ final class TradeViewController: UIViewController {
         removeTopBarLine()
         scrolledTableView.viewControllerWillAppear()
         
+        if categories.count > 0 {
+            system.send(.refresh)
+        }
+        
         Observable<Int>
             .interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (value) in
@@ -172,6 +176,14 @@ private extension TradeViewController {
                     self.tableViewSkeleton.isHidden = true
                     self.errorView.isHidden = true
 
+                case .deleteRowAt(let indexPath):
+                    self.categories = state.categories
+                    self.scrolledTableView.updateTableWithAnimation(animation: .delete(indexPath))
+
+                case .reloadRowAt(let indexPath):
+                    self.categories = state.categories
+                    self.scrolledTableView.updateTableWithAnimation(animation: .reload(indexPath))
+                    
                 case .updateSkeleton(let sectionSkeleton):
                     self.hideErrorIfExist()
                     
@@ -384,5 +396,37 @@ extension TradeViewController: UITableViewDataSource {
         case .emptyData:
             return tableView.dequeueAndRegisterCell() as MyOrdersEmptyDataCell
         }
+    }
+}
+
+//MARK: - ScrolledContainerView
+private extension ScrolledContainerView {
+    
+    enum Animation {
+        case delete(IndexPath)
+        case reload(IndexPath)
+    }
+    
+    func updateTableWithAnimation(animation: Animation) {
+        
+        let isVisibleFavoriteTable = visibleTableView.tag == 0
+        
+        if isVisibleFavoriteTable {
+            visibleTableView.performBatchUpdates({
+                switch animation {
+                case .delete(let indexPath):
+                    self.visibleTableView.deleteRows(at: [indexPath], with: .fade)
+                      
+                case .reload(let indexPath):
+                    self.visibleTableView.reloadRows(at: [indexPath], with: .fade)
+                }
+            }) { (_) in
+                self.reloadData()
+            }
+        }
+        else {
+            reloadData()
+        }
+      
     }
 }

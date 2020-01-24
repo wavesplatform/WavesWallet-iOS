@@ -32,6 +32,8 @@ enum TradeTypes {
         enum UIAction {
             case none
             case update
+            case deleteRowAt(IndexPath)
+            case reloadRowAt(IndexPath)
             case updateSkeleton(ViewModel.SectionSkeleton)
             case didFailGetError(NetworkError)
         }
@@ -160,7 +162,7 @@ extension TradeTypes.State: Equatable {
 }
 
 extension Array where Element == TradeTypes.DTO.Category {
-    
+
     func category(_ tableView: UITableView) -> TradeTypes.DTO.Category {
         return self[tableView.tag]
     }

@@ -81,10 +81,23 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                 state.uiAction = .none
             }
             else {
+                
+                let favoriteCategory = state.categories[0]
+                if let index = favoriteCategory.rows.firstIndex(where: {$0.pair == pair}) {
+                    if favoriteCategory.rows.count == 1 {
+                        state.uiAction = .reloadRowAt(IndexPath(row: index, section: 0))
+                    }
+                    else {
+                        state.uiAction = .deleteRowAt(IndexPath(row: index, section: 0))
+                    }
+                }
+                else {
+                    state.uiAction = .update
+                }
+                
                 state.core.favoritePairs.removeAll(where: {$0.id == pair.id})
                 state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
                 state.coreAction = .removeFromFavorite(pair.id)
-                state.uiAction = .update
             }
             
         case .favoriteDidSuccessRemove:
