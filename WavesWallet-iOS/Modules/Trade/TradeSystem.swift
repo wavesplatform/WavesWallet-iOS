@@ -77,28 +77,14 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
         case .favoriteTapped(let pair):
             let isFavorite = !pair.isFavorite
             
-            
-            for index in 0..<state.categories.count {
-                
-                var category = state.categories[index]
-                
-                let pairs = category.rows.pairs.map { (element) -> TradeTypes.DTO.Pair in
-                    var newPair = element
-                    if element.id == pair.id {
-                        newPair.isFavorite = isFavorite
-                    }
-                    return newPair
-                }
-                
-                if category.isFavorite {
-                    category.rows = pairs.filter{ $0.isFavorite }.map {.pair($0)}
-                }
-                else {
-                    category.rows = pairs.map {.pair($0)}
-                }
-                state.categories[index] = category
+            if isFavorite {
+                //TODO - add to favorite
             }
-            state.coreAction = .none
+            else {
+                state.coreAction = .none
+                state.core.favoritePairs.removeAll(where: {$0.id == pair.id})
+            }
+            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
             state.uiAction = .update
     
         case .filterTapped(let filter, atCategory: let categoryIndex):

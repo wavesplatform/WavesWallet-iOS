@@ -97,11 +97,20 @@ extension TradeTypes.DTO.Core {
                 return nil
             }
                 
-            uiCategories.append(.init(index: categoryIndex,
-                                      isFavorite: false,
-                                      name: category.name,
-                                      header: header,
-                                      rows: categoryPairs.map {.pair($0)}))
+            if categoryPairs.count == 0 {
+                uiCategories.append(.init(index: categoryIndex,
+                                          isFavorite: false,
+                                          name: category.name,
+                                          header: header,
+                                          rows: [.emptyData]))
+            }
+            else {
+                uiCategories.append(.init(index: categoryIndex,
+                                          isFavorite: false,
+                                          name: category.name,
+                                          header: header,
+                                          rows: categoryPairs.map {.pair($0)}))
+            }
         }
             
         return uiCategories
