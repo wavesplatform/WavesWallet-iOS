@@ -35,6 +35,10 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     override func initialState() -> TradeTypes.State! {
         return TradeTypes.State(uiAction: .none,
                                 coreAction: .none,
+                                core: .init(pairsPrice: [],
+                                            pairsRate: [],
+                                            favoritePairs: [],
+                                            categories: []),
                                 categories: [],
                                 selectedFilters: [])
     }
@@ -47,7 +51,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
         switch event {
         case .readyView:
             
-            state.coreAction = .loadCategories
+            state.coreAction = .loadData
             state.uiAction = .updateSkeleton(.init(rows: [.headerCell,
                                                           .defaultCell,
                                                           .defaultCell,
@@ -56,8 +60,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                                                           .defaultCell,
                                                           .defaultCell]))
 
-        case .categoriesDidLoad(let categories):
-            state.categories = categories
+        case .dataDidLoad(let data):
+            state.categories = data.mapCategories(selectedFilters: state.selectedFilters)
             state.coreAction = .none
             state.uiAction = .update
             
@@ -66,7 +70,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             state.uiAction = .didFailGetError(error)
             
         case .refresh:
-            state.coreAction = .loadCategories
+            state.coreAction = .loadData
             state.uiAction = .none
             
         case .favoriteTapped(let pair):
@@ -126,7 +130,7 @@ private extension TradeSystem {
         return react(request: { state -> TradeTypes.State? in
               
             switch state.coreAction {
-            case .loadCategories:
+            case .loadData:
                 return state
             default:
                 return nil
@@ -134,8 +138,8 @@ private extension TradeSystem {
         }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
  
             guard let self = self else { return Signal.empty() }
-            return self.loadCategories(selectedFilters: state.selectedFilters)
-                .map { .categoriesDidLoad($0)}
+            return self.loadData()
+                .map { .dataDidLoad($0)}
                 .asSignal(onErrorRecover: { error -> Signal<TradeTypes.Event> in
 
                     if let error = error as? NetworkError {
@@ -149,17 +153,17 @@ private extension TradeSystem {
 
 private extension TradeSystem {
     
-    func loadCategories(selectedFilters: [TradeTypes.DTO.SelectedFilter]) -> Observable<[TradeTypes.DTO.Category]> {
+    func loadData() -> Observable<TradeTypes.DTO.Core> {
         
         return auth.authorizedWallet()
-            .flatMap { [weak self] (wallet) -> Observable<[TradeTypes.DTO.Category]> in
+            .flatMap { [weak self] (wallet) -> Observable<TradeTypes.DTO.Core> in
                 guard let self = self else { return Observable.empty() }
                 
                 let tradeCagegories = self.tradeCategoriesRepository.tradeCagegories(accountAddress: wallet.address)
                 let favoritePairs = self.dexRealmRepository.list(by: wallet.address)
                 
                 return Observable.zip(tradeCagegories, favoritePairs)
-                    .flatMap { [weak self] (categories, favoritePairs) -> Observable<[TradeTypes.DTO.Category]> in
+                    .flatMap { [weak self] (categories, favoritePairs) -> Observable<TradeTypes.DTO.Core> in
                         guard let self = self else { return Observable.empty() }
                         
                         var pairs: [DomainLayer.DTO.Dex.SimplePair] = []
@@ -186,92 +190,13 @@ private extension TradeSystem {
                                                                                          timestamp: nil))
                         
                         return Observable.zip(pairsPrice, pairsRate)
-                            .map { (pairsPrice, pairsRate) -> [TradeTypes.DTO.Category] in
+                            .map { (pairsPrice, pairsRate) -> TradeTypes.DTO.Core in
                            
-                                
-                                var newCategories: [TradeTypes.DTO.Category] = []
-                                var favoritePairsPrice: [TradeTypes.DTO.Pair] = []
-                                   
-                                let rates = pairsRate.reduce(into: [String: Money].init(), {
-                                    $0[$1.amountAssetId] = Money(value: Decimal($1.rate), WavesSDKConstants.FiatDecimals)
-                                })
-                               
-                                for pair in favoritePairs {
-                                       
-                                    if let pairPrice = pairsPrice.first(where: {$0.amountAsset.id == pair.amountAssetId &&
-                                        $0.priceAsset.id == pair.priceAssetId}) {
+                                return TradeTypes.DTO.Core(pairsPrice: pairsPrice,
+                                                           pairsRate: pairsRate,
+                                                           favoritePairs: favoritePairs,
+                                                           categories: categories)
 
-                                        let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-                                        
-                                        favoritePairsPrice.append(.init(id: pairPrice.id,
-                                                                        amountAsset: pairPrice.amountAsset,
-                                                                        priceAsset: pairPrice.priceAsset,
-                                                                        firstPrice: pairPrice.firstPrice,
-                                                                        lastPrice: pairPrice.lastPrice,
-                                                                        isFavorite: true,
-                                                                        priceUSD: priceUSD))
-
-                                    }
-                                }
-                                   
-                                if favoritePairsPrice.count == 0 {
-                                    newCategories.append(.init(index: 0,
-                                                                isFavorite: true,
-                                                                name: "",
-                                                                header: nil,
-                                                                rows: [.emptyData]))
-                                }
-                                else {
-                                    newCategories.append(.init(index: 0,
-                                                                isFavorite: true,
-                                                                name: "",
-                                                                header: nil,
-                                                                rows: favoritePairsPrice.map {.pair($0)}))
-                                }
-                                                                 
-                                for (index, category) in categories.enumerated() {
-
-                                    var categoryPairs: [TradeTypes.DTO.Pair] = []
-                                    
-                                    for pair in category.pairs {
-                                           
-                                        if let pairPrice = pairsPrice.first(where: {$0.amountAsset == pair.amountAsset &&
-                                            $0.priceAsset == pair.priceAsset}) {
-
-                                            let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-                                            let isFavorite = favoritePairs.contains(where: {$0.id == pairPrice.id})
-                                                
-                                            categoryPairs.append(.init(id: pairPrice.id,
-                                                                        amountAsset: pairPrice.amountAsset,
-                                                                        priceAsset: pairPrice.priceAsset,
-                                                                        firstPrice: pairPrice.firstPrice,
-                                                                        lastPrice: pairPrice.lastPrice,
-                                                                        isFavorite: isFavorite,
-                                                                        priceUSD: priceUSD))
-                                        }
-                                    }
-                                    
-                                        
-                                    let categoryIndex = index + 1
-                                    let selectedFilter = selectedFilters.first(where: {$0.categoryIndex == categoryIndex})
-                                    
-                                    var header: TradeTypes.ViewModel.Header? {
-                                        if category.filters.count > 0 {
-                                            return .filter(.init(categoryIndex: categoryIndex,
-                                                                 selectedFilter: selectedFilter?.filter,
-                                                                 filters: category.filters))
-                                        }
-                                        return nil
-                                    }
-                                    
-                                    newCategories.append(.init(index: categoryIndex,
-                                                                isFavorite: false,
-                                                                name: category.name,
-                                                                header: header,
-                                                                rows: categoryPairs.map {.pair($0)}))
-                                }
-                                
-                                return newCategories
                         }
                 }
         }

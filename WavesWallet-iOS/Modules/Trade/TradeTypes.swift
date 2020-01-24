@@ -18,7 +18,7 @@ enum TradeTypes {
 
     enum Event {
         case readyView
-        case categoriesDidLoad([DTO.Category])
+        case dataDidLoad(DTO.Core)
         case didFailGetCategories(NetworkError)
         case refresh
         case favoriteTapped(DTO.Pair)
@@ -36,12 +36,13 @@ enum TradeTypes {
                  
         enum CoreAction: Equatable {
             case none
-            case loadCategories
+            case loadData
             case favouriteTapped
         }
         
         var uiAction: UIAction
         var coreAction: CoreAction
+        var core: DTO.Core
         var categories: [DTO.Category]
         var selectedFilters: [DTO.SelectedFilter]
     }
@@ -84,10 +85,10 @@ extension TradeTypes.DTO {
     }
     
     struct Core {
-        let pairsPrice: [DomainLayer.DTO.Dex.PairRate]
-        let pairsRate: [DomainLayer.DTO.Dex.PairRate]
-        let favoritePairs: [DomainLayer.DTO.Dex.LocalPair]
-        let categories: [DomainLayer.DTO.TradeCategory]
+        var pairsPrice: [DomainLayer.DTO.Dex.PairPrice]
+        var pairsRate: [DomainLayer.DTO.Dex.PairRate]
+        var favoritePairs: [DomainLayer.DTO.Dex.LocalPair]
+        var categories: [DomainLayer.DTO.TradeCategory]
     }
 }
 

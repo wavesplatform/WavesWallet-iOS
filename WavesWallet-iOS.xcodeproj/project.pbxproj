@@ -879,6 +879,7 @@
 		E95E151522A197B8003552B8 /* WalletSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E151422A197B8003552B8 /* WalletSearchViewController.swift */; };
 		E95F734123DA515000A94674 /* DexMarketSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F733F23DA515000A94674 /* DexMarketSearchCell.swift */; };
 		E95F734223DA515000A94674 /* DexMarketSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95F734023DA515000A94674 /* DexMarketSearchCell.xib */; };
+		E95F734423DA9AB500A94674 /* TradeTypes+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F734323DA9AB500A94674 /* TradeTypes+Mapper.swift */; };
 		E9618D1422EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */; };
 		E9618D1622EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1522EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift */; };
 		E9618D1922F0473000FB7F06 /* MarketPulseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */; };
@@ -2196,6 +2197,7 @@
 		E95E151422A197B8003552B8 /* WalletSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchViewController.swift; sourceTree = "<group>"; };
 		E95F733F23DA515000A94674 /* DexMarketSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMarketSearchCell.swift; sourceTree = "<group>"; };
 		E95F734023DA515000A94674 /* DexMarketSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexMarketSearchCell.xib; sourceTree = "<group>"; };
+		E95F734323DA9AB500A94674 /* TradeTypes+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TradeTypes+Mapper.swift"; sourceTree = "<group>"; };
 		E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E9618D1522EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseSettingsDomainDTO.swift; sourceTree = "<group>"; };
 		E96358A322A73D62008A3395 /* WalletClearAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletClearAssetsView.swift; sourceTree = "<group>"; };
@@ -4862,6 +4864,7 @@
 				E941218F23CED5D3002858A0 /* TradeModuleBuilder.swift */,
 				E941219023CED5D3002858A0 /* TradeViewController.swift */,
 				E941219123CED5D3002858A0 /* TradeTypes.swift */,
+				E95F734323DA9AB500A94674 /* TradeTypes+Mapper.swift */,
 				E941219223CED5D3002858A0 /* TradeSystem.swift */,
 				E941219623CED5D3002858A0 /* Trade.storyboard */,
 			);
@@ -7707,6 +7710,7 @@
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
 				7B49911722F874B0005B7123 /* AssetsSearchViewController.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
+				E95F734423DA9AB500A94674 /* TradeTypes+Mapper.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
