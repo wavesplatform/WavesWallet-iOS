@@ -9,10 +9,11 @@
 import Foundation
 import Extensions
 import WavesSDK
+import DomainLayer
 
 extension TradeTypes.DTO.Core {
     
-    func mapCategories(selectedFilters: [TradeTypes.DTO.SelectedFilter]) -> [TradeTypes.DTO.Category] {
+    func mapCategories(selectedFilters: [TradeTypes.DTO.SelectedFilter], selectedAsset: DomainLayer.DTO.Dex.Asset?) -> [TradeTypes.DTO.Category] {
         
                                         
         var uiCategories: [TradeTypes.DTO.Category] = []
@@ -27,6 +28,13 @@ extension TradeTypes.DTO.Core {
             if let pairPrice = pairsPrice.first(where: {$0.amountAsset.id == pair.amountAssetId &&
                 $0.priceAsset.id == pair.priceAssetId}) {
 
+                if let asset = selectedAsset {
+                    let contain = pair.amountAssetId == asset.id || pair.priceAssetId == asset.id
+                    if !contain {
+                        continue
+                    }
+                }
+                
                 let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
                     
                 favoritePairsPrice.append(.init(id: pairPrice.id,
@@ -70,6 +78,13 @@ extension TradeTypes.DTO.Core {
                     if let selectedFilter = selectedFilter {
                         if !selectedFilter.filter.ids.contains(pairPrice.amountAsset.id) &&
                             !selectedFilter.filter.ids.contains(pairPrice.priceAsset.id) {
+                            continue
+                        }
+                    }
+                    
+                    if let asset = selectedAsset {
+                        let contain = pair.amountAsset.id == asset.id || pair.priceAsset.id == asset.id
+                        if !contain {
                             continue
                         }
                     }

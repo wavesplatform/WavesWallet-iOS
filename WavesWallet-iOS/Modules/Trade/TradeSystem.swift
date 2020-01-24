@@ -62,7 +62,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
 
         case .dataDidLoad(let data):
             state.core = data
-            state.categories = data.mapCategories(selectedFilters: state.selectedFilters)
+            state.categories = data.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.coreAction = .none
             state.uiAction = .update
             
@@ -83,7 +83,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             }
             else {
                 state.core.favoritePairs.removeAll(where: {$0.id == pair.id})
-                state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
+                state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
                 state.coreAction = .removeFromFavorite(pair.id)
                 state.uiAction = .update
             }
@@ -94,7 +94,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             
         case .favoriteDidSuccessSave(let favoritePairs):
             state.core.favoritePairs = favoritePairs
-            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
+            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.uiAction = .update
             state.coreAction = .none
             
@@ -116,7 +116,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                                                    filter: filter))
             }
             
-            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters)
+            state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.coreAction = .none
             state.uiAction = .update
 
