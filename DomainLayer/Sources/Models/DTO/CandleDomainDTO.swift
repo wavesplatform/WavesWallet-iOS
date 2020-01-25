@@ -45,7 +45,8 @@ public extension DomainLayer.DTO.Candle {
         case M1 = 44640 // 1 month = 31 days
         
         public static var all: [TimeFrameType] {
-            return [.m5, .m15, .m30, .h1, .h2, .h3, .h4, .h6, .h12, .h24, .W1, .M1]
+//TODO:             .W1, .M1 DontWork
+            return [.m5, .m15, .m30, .h1, .h2, .h3, .h4, .h6, .h12, .h24]
         }
     }
 }

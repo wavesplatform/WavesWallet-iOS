@@ -997,7 +997,7 @@ internal enum Localizable {
       }
 
       internal enum Navigationbar {
-        /// DEX
+        /// Exchange
         internal static var title: String { return Localizable.tr("Waves", "dexlist.navigationBar.title") }
         internal static var titleKey: String { return "dexlist.navigationBar.title" }
       }
