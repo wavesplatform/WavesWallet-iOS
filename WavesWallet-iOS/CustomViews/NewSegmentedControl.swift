@@ -116,7 +116,10 @@ extension NewSegmentedControl {
     }
     
     func addShadow() {
-        guard isNeedShowBottomShadow else { return }
+        guard isNeedShowBottomShadow else {
+            removeShadow()
+            return
+        }
         
         if layer.shadowColor == nil {
             layer.setupShadow(options: .init(offset: CGSize(width: 0, height: Constants.Shadow.height),

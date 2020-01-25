@@ -493,11 +493,11 @@ private extension ScrolledContainerView {
         
         if nextIndex < segmentedControl.items.count {
             
-            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(nextIndex)
             
             let currentTable = acceptCurrentTableOffset()
             currentIndex = nextIndex
-            
+            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(nextIndex)
+
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.setContentSize()
                 self.setupSegmentedPosition()
@@ -519,11 +519,11 @@ private extension ScrolledContainerView {
         
         if prevIndex >= 0 {
             
-            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(prevIndex)
             
             let currentTable = acceptCurrentTableOffset()
             currentIndex = prevIndex
-            
+            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(prevIndex)
+
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.setContentSize()
                 self.setupSegmentedPosition()

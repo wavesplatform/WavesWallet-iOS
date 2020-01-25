@@ -48,7 +48,6 @@ final class TradeViewController: UIViewController {
 
         scrolledTableView.containerViewDelegate = self
         scrolledTableView.scrollViewDelegate = self
-        scrolledTableView.segmentedControl.isNeedShowBottomShadow = false
         
         scrolledTableView.isHidden = true
         setupSystem()
@@ -248,7 +247,6 @@ private extension TradeViewController {
        }
     
     func setupHeaderShadow() {
-        
         if let view = scrolledTableView.visibleTableView.headerView(forSection: 0) as? TradeFilterHeaderView {
             if scrolledTableView.topOffset - scrolledTableView.contentOffset.y <= scrolledTableView.smallTopOffset {
                 view.addShadow()
@@ -273,6 +271,9 @@ extension TradeViewController: TradeFilterHeaderViewDelegate {
 extension TradeViewController: ScrolledContainerViewDelegate {
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
         setupHeaderShadow()
+        
+        let category = categories[index]
+        scrolledTableView.segmentedControl.isNeedShowBottomShadow = category.header == nil
     }
 }
 
@@ -283,6 +284,7 @@ extension TradeViewController: UIScrollViewDelegate {
 
         setupHeaderShadow()
     }
+
 }
 
 //MARK: - UITableViewDelegate
@@ -307,8 +309,8 @@ extension TradeViewController: UITableViewDataSource {
         guard tableView != tableViewSkeleton else { return nil }
         
         let category = self.categories.category(tableView)
+        
         if let filter = category.header?.filter {
-            
             let view = tableView.dequeueAndRegisterHeaderFooter() as TradeFilterHeaderView
             view.update(with: filter)
             view.delegate = self

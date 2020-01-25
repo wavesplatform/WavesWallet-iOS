@@ -84,7 +84,6 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
     }
     
     func addShadow() {
-        removeShadow()
         if layer.shadowColor == nil {
             layer.setupShadow(options: .init(offset: CGSize(width: 0, height: Constants.Shadow.height),
                                         color: .black,
@@ -102,7 +101,6 @@ extension TradeFilterHeaderView: ViewConfiguration {
         
         self.model = model
         setupFilters()
-        addShadow()
     }
 }
 
