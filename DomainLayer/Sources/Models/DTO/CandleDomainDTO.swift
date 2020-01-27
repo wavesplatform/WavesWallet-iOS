@@ -7,6 +7,8 @@
 //
 
 import Foundation
+//1577840400000 1 jan
+//1579741200000 23 jan
 
 public extension DomainLayer.DTO {
    
@@ -15,10 +17,10 @@ public extension DomainLayer.DTO {
         public let high: Double
         public let low: Double
         public let open: Double
-        public let timestamp: Double
+        public let timestamp: Date
         public let volume: Double
 
-        public init(close: Double, high: Double, low: Double, open: Double, timestamp: Double, volume: Double) {
+        public init(close: Double, high: Double, low: Double, open: Double, timestamp: Date, volume: Double) {
             self.close = close
             self.high = high
             self.low = low
@@ -46,6 +48,10 @@ public extension DomainLayer.DTO.Candle {
         
         public static var all: [TimeFrameType] {
             return [.m5, .m15, .m30, .h1, .h2, .h3, .h4, .h6, .h12, .h24, .W1, .M1]
+        }
+        
+        public var seconds: Int {
+            return rawValue * 60
         }
     }
 }

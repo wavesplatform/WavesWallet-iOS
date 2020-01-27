@@ -41,6 +41,7 @@ final class DexChartViewController: UIViewController {
     private let sendEvent: PublishRelay<DexChart.Event> = PublishRelay<DexChart.Event>()
     private var lowestVisibleX: Double = 0
     private var candles: [DomainLayer.DTO.Candle] = []
+    private var timeFrame: DomainLayer.DTO.Candle.TimeFrameType = .h1
     
     var pair: DexTraderContainer.DTO.Pair!
     var presenter: DexChartPresenterProtocol!
@@ -96,7 +97,9 @@ fileprivate extension DexChartViewController {
                 guard state.action != .none else { return }
                 
                 self.candles = state.candles
+                self.timeFrame = state.timeFrame
                 self.headerView.setupTimeFrame(timeFrame: state.timeFrame)
+                self.chartHelper.setupTimeFrame(timeFrame: state.timeFrame)
                 self.headerView.stopAnimation()
                 self.setupCandleChartInfo()
                 self.setupChartData(state: state)
@@ -228,9 +231,11 @@ extension DexChartViewController: ChartViewDelegate {
 
             let value = round(candleChartView.lowestVisibleX)
             let candle = candles[0]
-            if value == candle.timestamp && !state.isPreloading {
-                sendEvent.accept(.preloading)
-            }
+            
+            //TODO: ALARM
+//            if value == candle.timestamp && !state.isPreloading {
+//                sendEvent.accept(.preloading)
+//            }
         }
     }
 }
@@ -249,7 +254,7 @@ private extension DexChartViewController {
     func setupCharts() {
         candleChartView.delegate = self
         barChartView.delegate = self
-        chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView, pair: pair)
+        chartHelper.setupChartStyle(candleChartView: candleChartView, barChartView: barChartView, pair: pair, timeFrame: timeFrame)
         viewHighlightedCandle.highlightedMode = true
         viewHighlightedCandle.isHidden = true
     }

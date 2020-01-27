@@ -27,6 +27,8 @@ final class DexChartHelper {
     private var hasInitFirstTimeZoom = false
     private var prevCandlesCount = 0
     private var hasInitRightAxisWidth = false
+    
+    private let dexChartCandleAxisFormatter: DexChartCandleAxisFormatter = DexChartCandleAxisFormatter()
 }
 
 
@@ -47,16 +49,40 @@ extension DexChartHelper {
             barChartView.rightAxis.maxWidth = width
         }
         
-        if let formatter = candleChartView.xAxis.valueFormatter as? DexChartCandleAxisFormatter {
-            formatter.timeFrame = timeFrame.rawValue
-        }
+//        if let formatter = candleChartView.xAxis.valueFormatter as? DexChartCandleAxisFormatter {
+//            formatter.timeFrame = timeFrame.rawValue
+//        }
+        
+        
+//        func convertTimestamp(_ timestamp: Double, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Double {
+//            return Double(timestamp / (1000.0 * 60.0 * Double(timeFrame.rawValue)))
+//        }
+        
+        let referenceTimeInterval: TimeInterval = candles.map { $0.timestamp.timeIntervalSince1970 }.min() ?? 0
+//        let minTimeInterval = (candles.map { $0.date.timeIntervalSince1970 }).min() {
+//                referenceTimeInterval = minTimeInterval
+//            }
+//        referenceTimeInterval =
+        
+        dexChartCandleAxisFormatter.referenceTimeInterval = referenceTimeInterval
+        dexChartCandleAxisFormatter.candles = candles
         
         var candleYVals: [CandleChartDataEntry] = []
         var barYVals: [BarChartDataEntry] = []
         
         for model in candles {
-            candleYVals.append(CandleChartDataEntry(x: model.timestamp, shadowH: model.high , shadowL: model.low , open:model.open, close: model.close))
-            barYVals.append(BarChartDataEntry(x: model.timestamp, y: model.volume))
+            
+            let timeInterval = model.timestamp.timeIntervalSince1970
+            let xValue = (timeInterval - referenceTimeInterval) / Double(timeFrame.seconds)
+            
+            let xR = model.timestamp.timeIntervalSince1970 / Double(timeFrame.seconds)
+            let xT = round(xR)
+            
+            print("xValue \(xValue), xR \(xR) xT \(xT)")
+            let data = CandleChartDataEntry(x: xR, shadowH: model.high , shadowL: model.low , open:model.open, close: model.close)
+            data.data = model
+            candleYVals.append(data)
+            barYVals.append(BarChartDataEntry(x: xValue, y: model.volume))
         }
         
         let candleSet = CandleChartDataSet(entries: candleYVals, label: nil)
@@ -94,12 +120,19 @@ extension DexChartHelper {
             barChartView.notifyDataSetChanged()
         }
     }
+    
+    func setupTimeFrame(timeFrame: DomainLayer.DTO.Candle.TimeFrameType) {
+        self.dexChartCandleAxisFormatter.timeFrame = timeFrame
+    }
 }
 
 //MARK: - Setup UI
 extension DexChartHelper {
 
-    func setupChartStyle(candleChartView: CandleStickChartView, barChartView: BarChartView, pair: DexTraderContainer.DTO.Pair) {
+    func setupChartStyle(candleChartView: CandleStickChartView,
+                         barChartView: BarChartView,
+                         pair: DexTraderContainer.DTO.Pair,
+                         timeFrame: DomainLayer.DTO.Candle.TimeFrameType) {
         
         candleChartView.chartDescription?.enabled = false
         candleChartView.pinchZoomEnabled = false
@@ -112,16 +145,7 @@ extension DexChartHelper {
         candleChartView.doubleTapToZoomEnabled = false
         candleChartView.drawGridBackgroundEnabled = false
         candleChartView.noDataText = ""
-        
-        candleChartView.xAxis.labelPosition = .bottom;
-        candleChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
-        candleChartView.xAxis.labelCount = Constants.Candle.xAxis.labelCount
-        candleChartView.xAxis.labelTextColor = Constants.Candle.xAxis.labelTextColor
-        candleChartView.xAxis.labelFont = Constants.Candle.xAxis.labelFont
-        candleChartView.xAxis.valueFormatter = DexChartCandleAxisFormatter()
-        candleChartView.xAxis.granularityEnabled = true
-        candleChartView.xAxis.drawAxisLineEnabled = false
-        
+                
         candleChartView.rightAxis.enabled = true
         candleChartView.rightAxis.labelCount = Constants.Candle.RightAxis.labelCount
         candleChartView.rightAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
@@ -130,6 +154,21 @@ extension DexChartHelper {
         candleChartView.rightAxis.valueFormatter = DexChartCandleRightAxisFormatter(pair: pair)
         candleChartView.rightAxis.forceLabelsEnabled = true
         candleChartView.rightAxis.drawAxisLineEnabled = false
+        
+        candleChartView.xAxis.labelPosition = .bottom;
+        candleChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
+        candleChartView.xAxis.labelCount = 4
+//            Constants.Candle.xAxis.labelCount
+//
+        
+//        the number of label entries the axis should have max = 25, min = 2, default = 6, be aware that this number is not fixed and can only be approximated
+
+        candleChartView.xAxis.labelTextColor = Constants.Candle.xAxis.labelTextColor
+        candleChartView.xAxis.labelFont = Constants.Candle.xAxis.labelFont
+        candleChartView.xAxis.valueFormatter = dexChartCandleAxisFormatter
+        candleChartView.xAxis.granularityEnabled = true
+//        candleChartView.xAxis.granularity = 31
+        candleChartView.xAxis.drawAxisLineEnabled = false
         
         
         barChartView.chartDescription?.enabled = false
@@ -158,6 +197,8 @@ extension DexChartHelper {
         barChartView.xAxis.valueFormatter = DexChartBarAxisFormatter()
         barChartView.xAxis.labelPosition = .bottom
         barChartView.xAxis.drawAxisLineEnabled = false
+        
+
     }
 }
 
@@ -270,7 +311,8 @@ extension DexChartHelper {
         
         if let highlighted = candleChartView.highlighted.first, state.candles.count > 0 {
             
-            if let candle = state.candles.first(where: {$0.timestamp == highlighted.x}) {
+            //TODO: $0.timestamp.timeIntervalSince1970
+            if let candle = state.candles.first(where: {$0.timestamp.timeIntervalSince1970 == highlighted.x}) {
                 
                 price = candle.close
                 

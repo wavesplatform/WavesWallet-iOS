@@ -8,8 +8,8 @@
 
 import Foundation
 import Charts
+import DomainLayer
 
-//MARK: - DexChartCandleRightAxisFormatter
 final class DexChartCandleRightAxisFormatter: IAxisValueFormatter {
 
     private var pair: DexTraderContainer.DTO.Pair
@@ -34,17 +34,64 @@ final class DexChartCandleAxisFormatter: IAxisValueFormatter {
     
     private let dateFormatter = DateFormatter()
     
-    var timeFrame: Int = 0
+    var referenceTimeInterval: TimeInterval? = nil
     
-    init() {
-        dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
+    var candles: [DomainLayer.DTO.Candle]? = nil
+        
+    var timeFrame: DomainLayer.DTO.Candle.TimeFrameType? = nil {
+        didSet {
+            switch self.timeFrame {
+            case .M1:
+                dateFormatter.dateFormat = "MM yyyy"
+            default:
+                dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
+            }
+        }
     }
     
+    private var timeFrameValue: Double {
+        return Double(timeFrame?.seconds ?? 0)
+    }
+    
+//    init(timeFrame: DomainLayer.DTO.Candle.TimeFrameType) {
+//        self.timeFrame = timeFrame
+//        
+//        print(timeFrame)
+//        switch self.timeFrame {
+//        case .M1:
+//            dateFormatter.dateFormat = "MM\nyyyy"
+//        default:
+//            dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
+//        }
+//    }
+    
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+                        
+        let offSetX = (referenceTimeInterval ?? 0) / Double(timeFrame?.seconds ?? 0)
         
-        let time = value * 60 * Double(timeFrame)
-        let date = Date(timeIntervalSince1970: time)
+        print("Render value \(value) count \(candles?.count ?? 0) offSetX \(offSetX)")
+//        if let candle = candles?[Int(value)] {
+//            
+//            
+//            let date = candle.timestamp
+//            print(date)
+//            return dateFormatter.string(from: date)
+//        }
+        
+//        let date = Date(timeIntervalSince1970: value * timeFrameValue + (referenceTimeInterval ?? 0))
+        
+        
+//        let candle = axis?
+        
+        let date = Date(timeIntervalSince1970: value * 60.0 * Double(timeFrame?.rawValue ?? 0))
+        
+//        let xT = round(Double((model.timestamp.timeIntervalSince1970 * 1000) / (1000.0 * 60.0 * Double(timeFrame.rawValue))))
+        
         return dateFormatter.string(from: date)
+        
+//        let time = value * 60 * timeFrameValue
+//        let date = Date(timeIntervalSince1970: time)
+//        return dateFormatter.string(from: date)
     }
 }
 
