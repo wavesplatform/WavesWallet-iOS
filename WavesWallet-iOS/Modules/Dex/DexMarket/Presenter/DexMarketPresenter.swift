@@ -15,7 +15,6 @@ import DomainLayer
 final class DexMarketPresenter: DexMarketPresenterProtocol {
  
     var interactor: DexMarketInteractorProtocol!
-    weak var moduleOutput: DexMarketModuleOutput?
 
     private let disposeBag = DisposeBag()
 
@@ -96,15 +95,6 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
                     state.section.items[index] = DexMarket.ViewModel.Row.pair(.init(smartPair: pair.mutate {$0.isChecked = !$0.isChecked}, selectedAsset: selectedAsset))
                 }
             }.changeAction(.update)
-            
-        case .tapInfoButton(let index):
-            
-            if let pair = state.section.items[index].pair {
-                
-                let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral)
-                moduleOutput?.showInfo(pair: infoPair)
-            }
-            return state.changeAction(.none)
             
         case .searchTextChange(let text):
             return state.mutate {

@@ -169,12 +169,3 @@ extension DexMarketViewController: UITableViewDataSource {
         }
     }
 }
-
-//MARK: - DexMarketCellActions
-
-private extension DexMarketViewController {
-    
-    func buttonInfoDidTap(_ indexPath: IndexPath) {
-        sendEvent.accept(.tapInfoButton(index: indexPath.row))
-    }
-}

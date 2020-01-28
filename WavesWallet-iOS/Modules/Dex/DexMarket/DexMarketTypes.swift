@@ -19,7 +19,6 @@ enum DexMarket {
         case readyView
         case setPairs([DomainLayer.DTO.Dex.SmartPair])
         case tapCheckMark(index: Int)
-        case tapInfoButton(index: Int)
         case searchTextChange(text: String)
     }
     
@@ -38,11 +37,6 @@ enum DexMarket {
 }
 
 extension DexMarket.DTO {
-    
-    struct Input {
-        let selectedAsset: DomainLayer.DTO.Dex.Asset?
-        let delegate: TradeRefreshOutput?
-    }
     
     struct Pair {
         let smartPair: DomainLayer.DTO.Dex.SmartPair

@@ -1045,10 +1045,8 @@
 		E9B0880C2163886800937644 /* DexMarketPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087752163886800937644 /* DexMarketPresenter.swift */; };
 		E9B0880D2163886800937644 /* DexMarketPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087762163886800937644 /* DexMarketPresenterProtocol.swift */; };
 		E9B0880E2163886800937644 /* DexMarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087772163886800937644 /* DexMarketViewController.swift */; };
-		E9B0880F2163886800937644 /* DexMarketModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087782163886800937644 /* DexMarketModuleOutput.swift */; };
 		E9B088102163886800937644 /* DexMarketModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087792163886800937644 /* DexMarketModuleBuilder.swift */; };
 		E9B088112163886800937644 /* DexMarketTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0877B2163886800937644 /* DexMarketTypes.swift */; };
-		E9B088122163886800937644 /* DexMarketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0877E2163886800937644 /* DexMarketCell.swift */; };
 		E9B088132163886800937644 /* DexMarketInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087802163886800937644 /* DexMarketInteractor.swift */; };
 		E9B088142163886800937644 /* DexMarketInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087812163886800937644 /* DexMarketInteractorProtocol.swift */; };
 		E9B08822216388B100937644 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B08821216388B100937644 /* HighlightedButton.swift */; };
@@ -2342,10 +2340,8 @@
 		E9B087752163886800937644 /* DexMarketPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketPresenter.swift; sourceTree = "<group>"; };
 		E9B087762163886800937644 /* DexMarketPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9B087772163886800937644 /* DexMarketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketViewController.swift; sourceTree = "<group>"; };
-		E9B087782163886800937644 /* DexMarketModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketModuleOutput.swift; sourceTree = "<group>"; };
 		E9B087792163886800937644 /* DexMarketModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketModuleBuilder.swift; sourceTree = "<group>"; };
 		E9B0877B2163886800937644 /* DexMarketTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketTypes.swift; sourceTree = "<group>"; };
-		E9B0877E2163886800937644 /* DexMarketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketCell.swift; sourceTree = "<group>"; };
 		E9B087802163886800937644 /* DexMarketInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketInteractor.swift; sourceTree = "<group>"; };
 		E9B087812163886800937644 /* DexMarketInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexMarketInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9B08821216388B100937644 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
@@ -5587,7 +5583,6 @@
 			children = (
 				E9B087742163886800937644 /* Presenter */,
 				E9B087772163886800937644 /* DexMarketViewController.swift */,
-				E9B087782163886800937644 /* DexMarketModuleOutput.swift */,
 				E9B087792163886800937644 /* DexMarketModuleBuilder.swift */,
 				E9B0877B2163886800937644 /* DexMarketTypes.swift */,
 				E9B0877D2163886800937644 /* Views */,
@@ -5608,7 +5603,6 @@
 		E9B0877D2163886800937644 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E9B0877E2163886800937644 /* DexMarketCell.swift */,
 				E95F733F23DA515000A94674 /* DexMarketSearchCell.swift */,
 				E95F734023DA515000A94674 /* DexMarketSearchCell.xib */,
 			);
@@ -7614,7 +7608,6 @@
 				0AF921FC212E07B3003BA067 /* AssetChartHeaderView.swift in Sources */,
 				E9D36DCB2175C755001E6DF0 /* ReceiveCryptocurrencyPresenter.swift in Sources */,
 				0ADD802621F22FFA0075FC59 /* AppCoordinator.swift in Sources */,
-				E9B0880F2163886800937644 /* DexMarketModuleOutput.swift in Sources */,
 				7BD6E10822E5AE7000BAAFC8 /* DebugInfoCell.swift in Sources */,
 				E9443008226E62A600EB6257 /* WalletSortViewController.swift in Sources */,
 				E9F69B9222A5217200CDBD00 /* WalletSearchTypes.swift in Sources */,
@@ -7636,7 +7629,6 @@
 				0A071E85215DB1B3007D9750 /* ChooseAccountCell.swift in Sources */,
 				7BFB480922FC742F002B19F8 /* RateApp.swift in Sources */,
 				7B39029722366D0100AAFDB8 /* AddressBookButton.swift in Sources */,
-				E9B088122163886800937644 /* DexMarketCell.swift in Sources */,
 				E991BB282202D5AA0022E27D /* SendFeePresenterProtocol.swift in Sources */,
 				7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */,
 				E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */,

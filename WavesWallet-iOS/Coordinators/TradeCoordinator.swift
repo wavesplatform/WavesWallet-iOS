@@ -12,6 +12,10 @@ import WavesSDKExtensions
 import Extensions
 import DomainLayer
 
+private enum  Constants {
+    static let dexInfoPopupHeight: CGFloat = 300
+}
+
 private struct SettingsScriptPair: TSUD, Codable, Mutating  {
     
     private static let key: String = "com.waves.scriptedPairMessage.settings"
@@ -73,11 +77,6 @@ class TradeCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let disposeBag: DisposeBag = DisposeBag()
-
-//    private lazy var dexListViewContoller: UIViewController = {
-//        return TradeModuleBuilder(output: self).build(input: nil)
-//        return DexListModuleBuilder(output: self).build()
-//    }()
     
     private lazy var dexCreateOrderPopup = PopupViewController()
     private lazy var dexCreateOrderInfoPopup = PopupViewController()
@@ -117,8 +116,13 @@ class TradeCoordinator: Coordinator {
 //MARK: - TradeModuleOutput
 extension TradeCoordinator: TradeModuleOutput {
     
+    func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
+        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self, myOrdersOutpout: self).build(input: pair)
+        navigationRouter.pushViewController(vc)
+    }
+    
     func searchTapped(selectedAsset: DomainLayer.DTO.Dex.Asset?, delegate: TradeRefreshOutput) {
-        let vc = DexMarketModuleBuilder(output: self).build(input: .init(selectedAsset: selectedAsset, delegate: delegate))
+        let vc = DexMarketModuleBuilder(output: delegate).build(input: selectedAsset)
         navigationRouter.pushViewController(vc)
     }
     
@@ -132,35 +136,17 @@ extension TradeCoordinator: TradeModuleOutput {
     }
 }
 
-
-
-
-//TODO - Remove ----------------
-// ------------------
-
-//MARK: - DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput
-extension TradeCoordinator: DexMarketModuleOutput, DexTraderContainerModuleOutput {
-    
-    
-    func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
-
-        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self, myOrdersOutpout: self).build(input: pair)
-        navigationRouter.pushViewController(vc)
-    }
+//MARK: -  DexTraderContainerModuleOutput
+extension TradeCoordinator: DexTraderContainerModuleOutput {
     
     func showInfo(pair: DexInfoPair.DTO.Pair) {
         
         let controller = DexInfoModuleBuilder().build(input: pair)
         let popup = PopupViewController()
-        popup.contentHeight = 300
+        popup.contentHeight = Constants.dexInfoPopupHeight
         popup.present(contentViewController: controller)
     }
 }
-
-// Remove ---------------
-// ------------------
-
-
 
 
 //MARK: - DexLastTradesModuleOutput

@@ -8,21 +8,21 @@
 
 import UIKit
 import Extensions
+import DomainLayer
 
 struct DexMarketModuleBuilder: ModuleBuilderOutput {
     
-    weak var output: DexMarketModuleOutput?
+    weak var output: TradeRefreshOutput?
    
-    func build(input: DexMarket.DTO.Input) -> UIViewController {
+    func build(input: DomainLayer.DTO.Dex.Asset?) -> UIViewController {
         
         let vc = StoryboardScene.Dex.dexMarketViewController.instantiate()
         
-        var presenter: DexMarketPresenterProtocol = DexMarketPresenter(selectedAsset: input.selectedAsset)
+        var presenter: DexMarketPresenterProtocol = DexMarketPresenter(selectedAsset: input)
         presenter.interactor = DexMarketInteractor()
-        presenter.moduleOutput = output
         vc.presenter = presenter
-        vc.delegate = input.delegate
-        vc.selectedAsset = input.selectedAsset
+        vc.delegate = output
+        vc.selectedAsset = input
         
         return vc
     }
