@@ -163,14 +163,6 @@
 "dexlasttrades.label.price" = "Цена";
 "dexlasttrades.label.sum" = "Сумма";
 "dexlasttrades.label.time" = "Время";
-"dexlist.button.addMarkets" = "Добавить пару";
-"dexlist.label.decentralisedExchange" = "Децентрализованная биржа";
-"dexlist.label.description" = "Торгуйте быстро и безопасно. Вы всегда держите свои средства под контролем, даже в момент обмена.";
-"dexlist.label.lastUpdate" = "Последнее обновление";
-"dexlist.label.price" = "Цена";
-"dexlist.label.today" = "Сегодня";
-"dexlist.label.yesterday" = "Вчера";
-"dexlist.navigationBar.title" = "Exchange";
 "dexmarket.label.loadingMarkets" = "Загрузка рынков…";
 "dexmarket.navigationBar.title" = "Рынки";
 "dexmarket.navigationBar.titleAsset" = "Поиск пары к";
@@ -195,7 +187,6 @@
 "dexorderbook.label.price" = "Цена";
 "dexorderbook.label.spread" = "РАЗНИЦА";
 "dexorderbook.label.sum" = "Сумма";
-"dexsort.navigationBar.title" = "Сортировка";
 "dextradercontainer.button.chart" = "График";
 "dextradercontainer.button.lastTrades" = "Сделки";
 "dextradercontainer.button.myOrders" = "Мои ордера";

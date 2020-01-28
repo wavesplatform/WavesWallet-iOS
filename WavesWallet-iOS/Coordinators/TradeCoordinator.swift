@@ -139,22 +139,8 @@ extension TradeCoordinator: TradeModuleOutput {
 // ------------------
 
 //MARK: - DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput
-extension TradeCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput {
+extension TradeCoordinator: DexMarketModuleOutput, DexTraderContainerModuleOutput {
     
-    func showOrders() {
-        let vc = MyOrdersModuleBuilder().build()
-        navigationRouter.pushViewController(vc)
-    }
-    
-    func showDexSort(delegate: DexListRefreshOutput) {
-        let vc = DexSortModuleBuilder(output: delegate).build()
-        navigationRouter.pushViewController(vc)
-    }
-    
-    func showAddList(delegate: DexListRefreshOutput) {
-        let vc = DexMarketModuleBuilder(output: self).build(input: .init(selectedAsset: nil, delegate: nil))
-        navigationRouter.pushViewController(vc)
-    }
     
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
 
