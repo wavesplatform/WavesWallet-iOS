@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by Pavel Gubin on 09.01.2020.
-//  Copyright © 2020 Waves Platform. All rights reserved.
+//  Copyright © 2020 Waves.Exchange. All rights reserved.
 //
 
 import UIKit
@@ -34,6 +34,7 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
         imageViewIcon1.addAssetPairIconShadow()
+        imageViewIcon2.addAssetPairIconShadow()
     }
     
     
@@ -71,7 +72,7 @@ extension TradeTableViewCell: ViewConfiguration {
 
         if lastPrice > firstPrice {
             labelPercent.textColor = .success500
-            labelPercent.text = String(format: "%.02f", percent) + "%"
+            labelPercent.text = String(format: "+%.02f", percent) + "%"
             viewPercent.backgroundColor = .success500
         }
         else if firstPrice > lastPrice {

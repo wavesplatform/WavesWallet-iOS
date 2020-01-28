@@ -48,6 +48,7 @@ final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
         }
         setupLocalization()
         imageViewIcon1.addAssetPairIconShadow()
+        imageViewIcon2.addAssetPairIconShadow()
     }
     
     private func setupLocalization() {
