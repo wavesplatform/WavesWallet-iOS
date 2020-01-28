@@ -130,26 +130,35 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             
         case .filterTapped(let filter, atCategory: let categoryIndex):
             
-            if let selectedFilter = state.selectedFilters.first(where: {$0.categoryIndex == categoryIndex}) {
-                if selectedFilter.filter == filter {
-                    state.selectedFilters.removeAll(where: {$0.categoryIndex == categoryIndex})
+            if let index = state.selectedFilters.firstIndex(where: {$0.categoryIndex == categoryIndex}) {
+                var selectedFilter = state.selectedFilters[index]
+                
+                if selectedFilter.filters.contains(filter) {
+                    selectedFilter.filters.removeAll(where: {$0 == filter})
                 }
                 else {
-                    state.selectedFilters.removeAll(where: {$0.categoryIndex == categoryIndex})
-                    state.selectedFilters.append(.init(categoryIndex: categoryIndex,
-                                                       filter: filter))
-
+                    selectedFilter.filters.append(filter)
                 }
+                
+                state.selectedFilters[index] = selectedFilter
             }
             else {
-                state.selectedFilters.append(.init(categoryIndex: categoryIndex,
-                                                   filter: filter))
+                state.selectedFilters.append(.init(categoryIndex: categoryIndex, filters: [filter]))
             }
             
             state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.coreAction = .none
             state.uiAction = .update
+        
+        case .deleteFilter(let categoryIndex):
+            if let index = state.selectedFilters.firstIndex(where: {$0.categoryIndex == categoryIndex}) {
+                state.selectedFilters.remove(at: index)
+                state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
+                state.uiAction = .update
+                state.coreAction = .none
+            }
         }
+        
     }
     
     private var skeletonSection: TradeTypes.ViewModel.SectionSkeleton {

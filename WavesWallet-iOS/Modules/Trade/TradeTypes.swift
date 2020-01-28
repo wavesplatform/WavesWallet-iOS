@@ -27,6 +27,7 @@ enum TradeTypes {
         case favoriteDidSuccessRemove
         case favoriteDidSuccessSave([DomainLayer.DTO.Dex.FavoritePair])
         case filterTapped(DomainLayer.DTO.TradeCategory.Filter, atCategory: Int)
+        case deleteFilter(atCategory: Int)
     }
     
     struct State {
@@ -58,14 +59,14 @@ enum TradeTypes {
 
 extension TradeTypes.DTO {
     
-    struct SelectedFilter {
+    struct SelectedFilter: Equatable {
         let categoryIndex: Int
-        let filter: DomainLayer.DTO.TradeCategory.Filter
+        var filters: [DomainLayer.DTO.TradeCategory.Filter]
     }
     
     struct Filter {
         let categoryIndex: Int
-        let selectedFilter: DomainLayer.DTO.TradeCategory.Filter?
+        let selectedFilters: [DomainLayer.DTO.TradeCategory.Filter]
         let filters: [DomainLayer.DTO.TradeCategory.Filter]
     }
     

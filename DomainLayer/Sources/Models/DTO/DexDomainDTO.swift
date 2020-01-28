@@ -145,6 +145,10 @@ public extension DomainLayer.DTO.Dex {
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
         }
+        
+        public var id: String {
+            return amountAsset.id + priceAsset.id
+        }
     }
 
     //TODO: Refactor (Очень много разлчных моделей для пар)

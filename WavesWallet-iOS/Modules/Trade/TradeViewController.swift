@@ -265,6 +265,10 @@ extension TradeViewController: TradeFilterHeaderViewDelegate {
     func tradeAltsHeaderViewDidTapFilter(filter: DomainLayer.DTO.TradeCategory.Filter, atCategory: Int) {
         system.send(.filterTapped(filter, atCategory: atCategory))
     }
+    
+    func tradeDidTapClear(atCategory: Int) {
+        system.send(.deleteFilter(atCategory: atCategory))
+    }
 }
 
 //MARK: ScrolledContainerViewDelegate
