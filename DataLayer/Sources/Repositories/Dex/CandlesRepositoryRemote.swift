@@ -16,6 +16,7 @@ import Extensions
 private enum Constants {
     static let matcherSwapAddress = "3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3"
     static let matcherSwapTimestamp: TimeInterval = 1575288000
+    static let matcherSwapTimestamp1M: TimeInterval = 1575158400
     static let minute: Int64 = 1000 * 60
     static let maxResolutionCandles: Int64 = 1440
 }
@@ -133,17 +134,19 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                     return Observable.just((queries: queries, servicesEnvironment: servicesEnvironment))
                 } else if timeStart.compare(swapDate) == .orderedAscending && timeEnd.compare(swapDate) == .orderedDescending {
                 
+                    let monthSwapDate = timeFrame == .M1 ? Date(timeIntervalSince1970: Constants.matcherSwapTimestamp1M) : swapDate
+                    
                     let query1 = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                                  priceAsset: priceAsset,
                                                                  timeStart: timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff),
-                                                                 timeEnd: swapDate.millisecondsSince1970(timestampDiff: timestampServerDiff),
+                                                                 timeEnd: monthSwapDate.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                                  interval: timeFrame.value,
                                                                  matcher: swapMatcherAddress)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
                     
                     let query2 = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                                  priceAsset: priceAsset,
-                                                                 timeStart: swapDate.millisecondsSince1970(timestampDiff: timestampServerDiff),
+                                                                 timeStart: monthSwapDate.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                                  timeEnd: timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                                  interval: timeFrame.value,
                         matcher: publicKeyAccount.address)
@@ -165,23 +168,6 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                 .zip(obsQueries)
                 .map { $0.flatMap { $0 } }
         }
-//        .flatMap { (candle) -> Observable<[DomainLayer.DTO.Candle]> in
-//            print(candle)
-//
-//            return Observable<[DomainLayer.DTO.Candle]>.just(candle)
-//        }
-        
-//        let candlesQuery1 = self.candlesQuery(servicesEnvironment: servicesEnvironment, query: query1, timeFrame: timeFrame)
-//                     let candlesQuery2 = self.candlesQuery(servicesEnvironment: servicesEnvironment, query: query2, timeFrame: timeFrame)
-//
-//                     return Observable.zip(candlesQuery1, candlesQuery2)
-//                         .map { candles1, candles2 -> [DomainLayer.DTO.Candle] in
-//                             return candles1 + candles2
-//                     }
-//
-//        return self.candlesQuery(servicesEnvironment: servicesEnvironment,
-//                                    query: query,
-//                                    timeFrame: timeFrame)
     }
 }
 
@@ -209,10 +195,7 @@ private extension CandlesRepositoryRemote {
                    }
                    
                    if volume > 0 {
-//                    let timestamp = self.convertTimestamp(Double(model.time.timeIntervalSince1970 * 1000.0), timeFrame: timeFrame)
-                       
-//                    print("model.time \(model.time)")
-//                    print("timestamp \(timestamp)")
+
                        let model = DomainLayer.DTO.Candle(close: close,
                                                           high: high,
                                                           low: low,
@@ -249,10 +232,7 @@ private extension CandlesRepositoryRemote {
             return Observable.just(confing)
         }
     }
-    
-//    func convertTimestamp(_ timestamp: Double, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Double {
-//        return Double(timestamp / (1000.0 * 60.0 * Double(timeFrame.rawValue)))
-//    }
+
 }
 
 
@@ -290,48 +270,7 @@ extension DataService.Query.CandleFilters {
             queries.append(normolizedQuery)
             newTimeStartMinute = newTimeEndMinute + timeFrame;
         }
-        
-        //    while (newInterval.timeStart <= options.timeEnd) {
-        //        newInterval.timeEnd = Math.min(
-        //            options.timeEnd,
-        //            newInterval.timeStart + config.interval * MAX_RESOLUTION
-        //        );
-        //        intervals.push({ ...newInterval });
-        //        newInterval.timeStart = newInterval.timeEnd + config.interval;
-        //    }
-        
+    
         return queries
     }
 }
-
-//getValidCandleOptions(from, to, interval = 60) {
-//    const minute = 1000 * 60;
-//    from = Math.floor(from / minute) * minute;
-//    to = Math.ceil(to / minute) * minute;
-//    const config = INTERVAL_MAP[interval];
-//    const options = {
-//        timeStart: from instanceof Date ? from.getTime() : from,
-//        timeEnd: to instanceof Date ? to.getTime() : to,
-//        interval
-//    };
-//    if (options.timeEnd - options.timeStart < config.interval) {
-//        options.timeStart = options.timeEnd - config.interval;
-//    }
-//    const intervals = [];
-//    const newInterval = {
-//        timeStart: options.timeStart,
-//        interval: config.intervalName
-//    };
-//    while (newInterval.timeStart <= options.timeEnd) {
-//        newInterval.timeEnd = Math.min(
-//            options.timeEnd,
-//            newInterval.timeStart + config.interval * MAX_RESOLUTION
-//        );
-//        intervals.push({ ...newInterval });
-//        newInterval.timeStart = newInterval.timeEnd + config.interval;
-//    }
-//    return {
-//        options: intervals,
-//        config
-//    };
-//},

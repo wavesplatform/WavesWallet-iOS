@@ -21,6 +21,8 @@ private enum Constants {
 }
 
 final class DexChartHelper {
+    
+    typealias PositionForCandle = String
 
     static let minCountCandlesToZoom = 10
 
@@ -29,14 +31,26 @@ final class DexChartHelper {
     private var hasInitRightAxisWidth = false
     
     private let dexChartCandleAxisFormatter: DexChartCandleAxisFormatter = DexChartCandleAxisFormatter()
+    
+    private var candlesMap: [PositionForCandle: DomainLayer.DTO.Candle] = .init()
 }
 
 
 //MARK: - Data
 extension DexChartHelper {
     
+    func keyByPositionCandle(_ xPos: Double) -> PositionForCandle {
+        return "\(xPos)"
+    }
     
-    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DomainLayer.DTO.Candle.TimeFrameType, candles: [DomainLayer.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
+    func candleByPosition(_ xPos: Double) -> DomainLayer.DTO.Candle? {
+        return candlesMap[keyByPositionCandle(xPos)]
+    }
+    
+    func setupChartData(candleChartView: CandleStickChartView,
+                        barChartView: BarChartView,
+                        timeFrame: DomainLayer.DTO.Candle.TimeFrameType,
+                        candles: [DomainLayer.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
         
         if !hasInitRightAxisWidth && candles.count > 0 {
             hasInitRightAxisWidth = true
@@ -49,20 +63,7 @@ extension DexChartHelper {
             barChartView.rightAxis.maxWidth = width
         }
         
-//        if let formatter = candleChartView.xAxis.valueFormatter as? DexChartCandleAxisFormatter {
-//            formatter.timeFrame = timeFrame.rawValue
-//        }
-        
-        
-//        func convertTimestamp(_ timestamp: Double, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Double {
-//            return Double(timestamp / (1000.0 * 60.0 * Double(timeFrame.rawValue)))
-//        }
-        
         let referenceTimeInterval: TimeInterval = candles.map { $0.timestamp.timeIntervalSince1970 }.min() ?? 0
-//        let minTimeInterval = (candles.map { $0.date.timeIntervalSince1970 }).min() {
-//                referenceTimeInterval = minTimeInterval
-//            }
-//        referenceTimeInterval =
         
         dexChartCandleAxisFormatter.referenceTimeInterval = referenceTimeInterval
         dexChartCandleAxisFormatter.candles = candles
@@ -70,20 +71,20 @@ extension DexChartHelper {
         var candleYVals: [CandleChartDataEntry] = []
         var barYVals: [BarChartDataEntry] = []
         
+        var map: [String: DomainLayer.DTO.Candle] = .init()
         for model in candles {
+                    
+            let xValueRound = round(model.timestamp.timeIntervalSince1970 / (Double(timeFrame.seconds)))
+            let data = CandleChartDataEntry(x: xValueRound, shadowH: model.high , shadowL: model.low , open:model.open, close: model.close)
+            map[self.keyByPositionCandle(xValueRound)] = model
             
-            let timeInterval = model.timestamp.timeIntervalSince1970
-            let xValue = (timeInterval - referenceTimeInterval) / Double(timeFrame.seconds)
-            
-            let xR = model.timestamp.timeIntervalSince1970 / Double(timeFrame.seconds)
-            let xT = round(xR)
-            
-            print("xValue \(xValue), xR \(xR) xT \(xT)")
-            let data = CandleChartDataEntry(x: xR, shadowH: model.high , shadowL: model.low , open:model.open, close: model.close)
             data.data = model
             candleYVals.append(data)
-            barYVals.append(BarChartDataEntry(x: xValue, y: model.volume))
+            barYVals.append(BarChartDataEntry(x: xValueRound, y: model.volume))
         }
+        
+        candlesMap = map
+        dexChartCandleAxisFormatter.map = map
         
         let candleSet = CandleChartDataSet(entries: candleYVals, label: nil)
         candleSet.axisDependency = .right
@@ -157,20 +158,13 @@ extension DexChartHelper {
         
         candleChartView.xAxis.labelPosition = .bottom;
         candleChartView.xAxis.gridLineWidth = Constants.ChartContants.gridLineWidth
-        candleChartView.xAxis.labelCount = 4
-//            Constants.Candle.xAxis.labelCount
-//
-        
-//        the number of label entries the axis should have max = 25, min = 2, default = 6, be aware that this number is not fixed and can only be approximated
-
+        candleChartView.xAxis.labelCount = Constants.Candle.xAxis.labelCount
         candleChartView.xAxis.labelTextColor = Constants.Candle.xAxis.labelTextColor
         candleChartView.xAxis.labelFont = Constants.Candle.xAxis.labelFont
         candleChartView.xAxis.valueFormatter = dexChartCandleAxisFormatter
         candleChartView.xAxis.granularityEnabled = true
-//        candleChartView.xAxis.granularity = 31
         candleChartView.xAxis.drawAxisLineEnabled = false
-        
-        
+                
         barChartView.chartDescription?.enabled = false
         barChartView.pinchZoomEnabled = false
         barChartView.scaleYEnabled = false
@@ -197,15 +191,15 @@ extension DexChartHelper {
         barChartView.xAxis.valueFormatter = DexChartBarAxisFormatter()
         barChartView.xAxis.labelPosition = .bottom
         barChartView.xAxis.drawAxisLineEnabled = false
-        
-
     }
 }
 
 //MARK: - Zoom
 extension DexChartHelper {
     
-    func updateAfterTimeFrameChanged(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DomainLayer.DTO.Candle]) {
+    func updateAfterTimeFrameChanged(candleChartView: CandleStickChartView,
+                                     barChartView: BarChartView,
+                                     candles: [DomainLayer.DTO.Candle]) {
         
         if candles.count > 1 {
 
@@ -227,7 +221,10 @@ extension DexChartHelper {
         prevCandlesCount = candles.count
     }
     
-    func zoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DomainLayer.DTO.Candle], lowestVisibleX: Double) {
+    func zoom(candleChartView: CandleStickChartView,
+              barChartView: BarChartView,
+              candles: [DomainLayer.DTO.Candle],
+              lowestVisibleX: Double) {
         
         if candles.count > prevCandlesCount {
             
@@ -246,7 +243,9 @@ extension DexChartHelper {
         prevCandlesCount = candles.count
     }
     
-    func setupInitialZoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DomainLayer.DTO.Candle]) {
+    func setupInitialZoom(candleChartView: CandleStickChartView,
+                          barChartView: BarChartView,
+                          candles: [DomainLayer.DTO.Candle]) {
         
         if hasInitFirstTimeZoom {
             return
@@ -303,16 +302,19 @@ extension DexChartHelper {
         return (positionY, color, price)
     }
     
-    func highlightedCandleInfo(candleChartView: CandleStickChartView, highlightedView: UIView, state: DexChart.State) -> (positionY: CGFloat, topTitle: String, price: Double) {
+    func highlightedCandleInfo(candleChartView: CandleStickChartView,
+                               highlightedView: UIView,
+                               state: DexChart.State) -> (positionY: CGFloat,
+                                                            topTitle: String,
+                                                                price: Double) {
         
         var title = ""
         var price: Double = 0
         var positionY: CGFloat = 0
         
         if let highlighted = candleChartView.highlighted.first, state.candles.count > 0 {
-            
-            //TODO: $0.timestamp.timeIntervalSince1970
-            if let candle = state.candles.first(where: {$0.timestamp.timeIntervalSince1970 == highlighted.x}) {
+                        
+            if let candle = candleByPosition(highlighted.x) {
                 
                 price = candle.close
                 
@@ -348,7 +350,8 @@ extension DexChartHelper {
         return (positionY, title, price)
     }
     
-    static func candleRightWidth(candles: [DomainLayer.DTO.Candle], pair: DexTraderContainer.DTO.Pair) -> CGFloat {
+    static func candleRightWidth(candles: [DomainLayer.DTO.Candle],
+                                 pair: DexTraderContainer.DTO.Pair) -> CGFloat {
        
         if candles.count > 0 {
             let price = candles[0].close

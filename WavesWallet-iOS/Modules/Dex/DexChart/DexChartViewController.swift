@@ -232,10 +232,11 @@ extension DexChartViewController: ChartViewDelegate {
             let value = round(candleChartView.lowestVisibleX)
             let candle = candles[0]
             
-            //TODO: ALARM
-//            if value == candle.timestamp && !state.isPreloading {
-//                sendEvent.accept(.preloading)
-//            }
+            let loverVisibleCandle = self.chartHelper.candleByPosition(value)
+            
+            if loverVisibleCandle?.timestamp == candle.timestamp && !state.isPreloading {
+                sendEvent.accept(.preloading)
+            }
         }
     }
 }

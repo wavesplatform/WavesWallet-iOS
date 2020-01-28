@@ -38,60 +38,54 @@ final class DexChartCandleAxisFormatter: IAxisValueFormatter {
     
     var candles: [DomainLayer.DTO.Candle]? = nil
         
-    var timeFrame: DomainLayer.DTO.Candle.TimeFrameType? = nil {
-        didSet {
-            switch self.timeFrame {
-            case .M1:
-                dateFormatter.dateFormat = "MM yyyy"
-            default:
-                dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
-            }
-        }
-    }
+    var timeFrame: DomainLayer.DTO.Candle.TimeFrameType? = nil
+    
+    var map: [String: DomainLayer.DTO.Candle]? = nil
     
     private var timeFrameValue: Double {
         return Double(timeFrame?.seconds ?? 0)
     }
     
-//    init(timeFrame: DomainLayer.DTO.Candle.TimeFrameType) {
-//        self.timeFrame = timeFrame
-//        
-//        print(timeFrame)
-//        switch self.timeFrame {
-//        case .M1:
-//            dateFormatter.dateFormat = "MM\nyyyy"
-//        default:
-//            dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
-//        }
-//    }
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        
+        let key = "\(value)"
+        guard let date = self.map?[key]?.timestamp else { return "" }
+        guard let timeFrame = self.timeFrame else { return "" }
                         
-        let offSetX = (referenceTimeInterval ?? 0) / Double(timeFrame?.seconds ?? 0)
-        
-        print("Render value \(value) count \(candles?.count ?? 0) offSetX \(offSetX)")
-//        if let candle = candles?[Int(value)] {
-//            
-//            
-//            let date = candle.timestamp
-//            print(date)
-//            return dateFormatter.string(from: date)
-//        }
-        
-//        let date = Date(timeIntervalSince1970: value * timeFrameValue + (referenceTimeInterval ?? 0))
-        
-        
-//        let candle = axis?
-        
-        let date = Date(timeIntervalSince1970: value * 60.0 * Double(timeFrame?.rawValue ?? 0))
-        
-//        let xT = round(Double((model.timestamp.timeIntervalSince1970 * 1000) / (1000.0 * 60.0 * Double(timeFrame.rawValue))))
-        
+        switch timeFrame {
+        case .M1:
+            if date.isThisYear {
+                dateFormatter.dateFormat = "MMM"
+            } else {
+                dateFormatter.dateFormat = "MMM yyyy"
+            }
+            
+        case .W1:
+            if date.isThisYear {
+                dateFormatter.dateFormat = "MMM dd"
+            } else {
+                dateFormatter.dateFormat = "MMM dd \n yyyy"
+            }
+            
+        case .h1, .h2, .h3, .h4, .h6, .h12, .m5, .m15, .m30:
+            dateFormatter.dateFormat = "HH:mm \n dd.MM.yyyy"
+    
+        case .h24:
+            if date.isToday {
+                return Localizable.Waves.Dexchart.Label.today
+            } else if date.isYesterday {
+                return Localizable.Waves.Dexchart.Label.yesterday
+            } else {
+                if date.isThisMonth {
+                    dateFormatter.dateFormat = "E dd"
+                } else {
+                    dateFormatter.dateFormat = "E dd \n MMM yyyy"
+                }
+            }
+        }
+         
         return dateFormatter.string(from: date)
-        
-//        let time = value * 60 * timeFrameValue
-//        let date = Date(timeIntervalSince1970: time)
-//        return dateFormatter.string(from: date)
     }
 }
 

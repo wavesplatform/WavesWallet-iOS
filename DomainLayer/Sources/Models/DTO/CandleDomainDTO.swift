@@ -52,6 +52,19 @@ public extension DomainLayer.DTO.Candle {
         
         public var seconds: Int {
             return rawValue * 60
+            switch self {
+            case .m5:
+                return rawValue * 60
+                
+            case .m15:
+                return rawValue * 15
+                
+            case .m30:
+                return rawValue * 60
+                
+            default:
+             return rawValue * 60
+            }
         }
     }
 }
