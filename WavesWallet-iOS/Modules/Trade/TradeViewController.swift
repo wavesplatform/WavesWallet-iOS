@@ -173,6 +173,10 @@ private extension TradeViewController {
                     self.tableViewSkeleton.isHidden = true
                     self.errorView.isHidden = true
 
+                    if let header = self.visibleHeaderView {
+                        header.animateButtonClearIfNeed()
+                    }
+                    
                 case .deleteRowAt(let indexPath):
                     self.categories = state.categories
                     self.scrolledTableView.updateTableWithAnimation(animation: .delete(indexPath))
@@ -239,6 +243,10 @@ private extension TradeViewController {
 //MARK: - UI
 private extension TradeViewController {
     
+    var visibleHeaderView: TradeFilterHeaderView? {
+        return scrolledTableView.visibleTableView.headerView(forSection: 0) as? TradeFilterHeaderView
+    }
+    
     func hideErrorIfExist() {
            if let key = errorSnackKey {
                hideSnack(key: key)
@@ -247,7 +255,7 @@ private extension TradeViewController {
        }
     
     func setupHeaderShadow() {
-        if let view = scrolledTableView.visibleTableView.headerView(forSection: 0) as? TradeFilterHeaderView {
+        if let view = visibleHeaderView {
             if scrolledTableView.topOffset - scrolledTableView.contentOffset.y <= scrolledTableView.smallTopOffset {
                 view.addShadow()
             }

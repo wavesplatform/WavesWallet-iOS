@@ -23,6 +23,8 @@ private enum Constants {
         
     static let buttonClearOffset: CGFloat = 40
     
+    static let animationDuration: TimeInterval = 0.4
+    
     enum Shadow {
         static let height: CGFloat = 4
         static let opacity: Float = 0.1
@@ -43,13 +45,17 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
     @IBOutlet private weak var gradientView: GradientView!
     
     private var model: TradeTypes.DTO.Filter!
-        
+    private var isNeedShowButtonClearAnimation: Bool = true
+    private var isHiddenButtonClear: Bool = true
+
     weak var delegate: TradeFilterHeaderViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     
-        
+        gradientView.isHidden = true
+        buttonClear.isHidden = true
+
         gradientView.startColor = UIColor.basic50.withAlphaComponent(0.1)
         gradientView.endColor = UIColor.basic50
         gradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
@@ -88,15 +94,36 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
             offset = button.frame.origin.x + button.frame.size.width + Constants.offset
         }
         
-        scrollView.contentSize.width = model.selectedFilters.count > 0 ? offset + Constants.buttonClearOffset : offset
-        
-        if model.selectedFilters.count > 0 {
-            gradientView.isHidden = false
-            buttonClear.isHidden = false
-        }
-        else {
-            gradientView.isHidden = true
-            buttonClear.isHidden = true
+
+        scrollView.contentSize.width =  model.selectedFilters.count > 0 ? offset + Constants.buttonClearOffset : offset
+        isHiddenButtonClear = model.selectedFilters.count == 0
+        isNeedShowButtonClearAnimation = gradientView.isHidden != isHiddenButtonClear
+    }
+    
+    func animateButtonClearIfNeed() {
+        if isNeedShowButtonClearAnimation {
+            isNeedShowButtonClearAnimation = false
+            
+            if isHiddenButtonClear {
+                UIView.animate(withDuration: Constants.animationDuration, animations: {
+                    self.gradientView.alpha = 0
+                    self.buttonClear.alpha = 0
+                }) { (_) in
+                    self.gradientView.isHidden = true
+                    self.buttonClear.isHidden = true
+                }
+            }
+            else {
+                gradientView.isHidden = false
+                buttonClear.isHidden = false
+                gradientView.alpha = 0
+                buttonClear.alpha = 0
+
+                UIView.animate(withDuration: Constants.animationDuration) {
+                    self.gradientView.alpha = 1
+                    self.buttonClear.alpha = 1
+                }
+            }
         }
     }
     
