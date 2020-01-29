@@ -44,7 +44,7 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
     func tradeCagegories(accountAddress: String) -> Observable<[DomainLayer.DTO.TradeCategory]> {
      
         return categoriesConfigProvider.rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableVersionUpdateTest),
+            .request(.get(isDebug: ApplicationDebugSettings.isEnableTradeCategoriesConfigTest),
                      callbackQueue:  DispatchQueue.global(qos: .userInteractive))
             .map([Response.TradeCategory].self)
             .asObservable()
