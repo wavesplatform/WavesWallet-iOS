@@ -63,7 +63,7 @@
                                     <action selector="favoriteTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YBu-Kt-asW"/>
                                 </connections>
                             </button>
-                            <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtb-Wd-wBf">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtb-Wd-wBf" customClass="PercentTickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="54" y="34" width="58" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -76,33 +76,23 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pc-Qm-dr7">
-                                <rect key="frame" x="54" y="34" width="58" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="1Pc-Qm-dr7" firstAttribute="bottom" secondItem="dtb-Wd-wBf" secondAttribute="bottom" id="DK4-Oz-zCL"/>
+                            <constraint firstItem="yIW-6D-ack" firstAttribute="centerY" secondItem="dtb-Wd-wBf" secondAttribute="centerY" id="9go-r9-YrS"/>
                             <constraint firstItem="1wc-n7-8s5" firstAttribute="centerY" secondItem="NZi-GO-7Bg" secondAttribute="centerY" id="DPg-fH-KSS"/>
                             <constraint firstItem="cOS-TS-8Jw" firstAttribute="top" secondItem="BeX-zm-JOH" secondAttribute="top" constant="26" id="Lsq-Jx-Oli"/>
                             <constraint firstItem="3bx-v8-bdz" firstAttribute="top" secondItem="BeX-zm-JOH" secondAttribute="top" constant="15" id="QKR-v4-iiU"/>
                             <constraint firstItem="NZi-GO-7Bg" firstAttribute="leading" secondItem="BeX-zm-JOH" secondAttribute="leading" constant="54" id="RmS-Nf-kYo"/>
-                            <constraint firstItem="yIW-6D-ack" firstAttribute="centerY" secondItem="1Pc-Qm-dr7" secondAttribute="centerY" id="T4r-Vi-cj8"/>
-                            <constraint firstItem="1Pc-Qm-dr7" firstAttribute="trailing" secondItem="dtb-Wd-wBf" secondAttribute="trailing" id="jxx-kj-BK5"/>
                             <constraint firstItem="cOS-TS-8Jw" firstAttribute="leading" secondItem="BeX-zm-JOH" secondAttribute="leading" constant="24" id="k9v-tY-t4D"/>
                             <constraint firstItem="yIW-6D-ack" firstAttribute="trailing" secondItem="1wc-n7-8s5" secondAttribute="trailing" id="kaD-1h-O85"/>
                             <constraint firstItem="3bx-v8-bdz" firstAttribute="leading" secondItem="BeX-zm-JOH" secondAttribute="leading" constant="12" id="oA0-5F-Y67"/>
                             <constraint firstItem="dtb-Wd-wBf" firstAttribute="top" secondItem="NZi-GO-7Bg" secondAttribute="bottom" constant="5" id="ott-Ec-LoV"/>
-                            <constraint firstItem="1Pc-Qm-dr7" firstAttribute="leading" secondItem="dtb-Wd-wBf" secondAttribute="leading" id="ql2-NB-QBs"/>
                             <constraint firstItem="NZi-GO-7Bg" firstAttribute="top" secondItem="BeX-zm-JOH" secondAttribute="top" constant="13" id="rM2-Dk-BLF"/>
                             <constraint firstAttribute="trailing" secondItem="v09-Bg-aJX" secondAttribute="trailing" id="rdk-Ee-nhn"/>
                             <constraint firstItem="v09-Bg-aJX" firstAttribute="centerY" secondItem="BeX-zm-JOH" secondAttribute="centerY" id="s9I-OR-idv"/>
                             <constraint firstAttribute="trailing" secondItem="1wc-n7-8s5" secondAttribute="trailing" constant="38" id="t0c-WI-Fuz"/>
                             <constraint firstItem="dtb-Wd-wBf" firstAttribute="leading" secondItem="NZi-GO-7Bg" secondAttribute="leading" id="u9b-2G-dv9"/>
-                            <constraint firstItem="1Pc-Qm-dr7" firstAttribute="top" secondItem="dtb-Wd-wBf" secondAttribute="top" id="xbD-XV-9Ho"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -119,7 +109,6 @@
                 <outlet property="buttonFav" destination="v09-Bg-aJX" id="leW-9y-I35"/>
                 <outlet property="imageViewIcon1" destination="3bx-v8-bdz" id="7Lh-md-TNg"/>
                 <outlet property="imageViewIcon2" destination="cOS-TS-8Jw" id="CDP-N2-r55"/>
-                <outlet property="labelPercent" destination="1Pc-Qm-dr7" id="FaA-4n-Ihj"/>
                 <outlet property="labelPrice" destination="yIW-6D-ack" id="e4k-9P-Z8o"/>
                 <outlet property="labelTitle" destination="NZi-GO-7Bg" id="GcE-sX-tMb"/>
                 <outlet property="labelVolume" destination="1wc-n7-8s5" id="he9-bh-Rq3"/>

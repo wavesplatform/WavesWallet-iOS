@@ -867,6 +867,7 @@
 		E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B6B0E219C22E400A85B5D /* TokenBurnConfirmationViewController.swift */; };
 		E95B6B13219C345B00A85B5D /* TokenBurnConfirmationIDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B6B12219C345B00A85B5D /* TokenBurnConfirmationIDView.swift */; };
 		E95B6B15219C347200A85B5D /* TokenBurnConfirmationIDView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B6B14219C347200A85B5D /* TokenBurnConfirmationIDView.xib */; };
+		E95C495F23E11E6B00DF1B26 /* PercentTickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95C495E23E11E6B00DF1B26 /* PercentTickerView.swift */; };
 		E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E14F0229FF152003552B8 /* WalletTableAssetsCell.xib */; };
 		E95E14F3229FF31A003552B8 /* WalletLeasingBalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E14F2229FF31A003552B8 /* WalletLeasingBalanceCell.xib */; };
 		E95E14F5229FF63B003552B8 /* WalletQuickNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E14F4229FF63B003552B8 /* WalletQuickNoteCell.xib */; };
@@ -2164,6 +2165,7 @@
 		E95B6B0E219C22E400A85B5D /* TokenBurnConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnConfirmationViewController.swift; sourceTree = "<group>"; };
 		E95B6B12219C345B00A85B5D /* TokenBurnConfirmationIDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnConfirmationIDView.swift; sourceTree = "<group>"; };
 		E95B6B14219C347200A85B5D /* TokenBurnConfirmationIDView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenBurnConfirmationIDView.xib; sourceTree = "<group>"; };
+		E95C495E23E11E6B00DF1B26 /* PercentTickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentTickerView.swift; sourceTree = "<group>"; };
 		E95E14F0229FF152003552B8 /* WalletTableAssetsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletTableAssetsCell.xib; sourceTree = "<group>"; };
 		E95E14F2229FF31A003552B8 /* WalletLeasingBalanceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletLeasingBalanceCell.xib; sourceTree = "<group>"; };
 		E95E14F4229FF63B003552B8 /* WalletQuickNoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletQuickNoteCell.xib; sourceTree = "<group>"; };
@@ -3415,6 +3417,7 @@
 		0AF92281212E1234003BA067 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				E95C495E23E11E6B00DF1B26 /* PercentTickerView.swift */,
 				7B3902A62237A74900AAFDB8 /* ActionsControl.swift */,
 				7B3902A82237A75600AAFDB8 /* ActionsControl.xib */,
 				7B39029622366D0100AAFDB8 /* AddressBookButton.swift */,
@@ -7325,6 +7328,7 @@
 				7B9B326122E6004700DB1C59 /* DebugRootView.swift in Sources */,
 				0A5933162183604F0059A77A /* AddressesKeysPresenter.swift in Sources */,
 				0ADD803621F22FFB0075FC59 /* PasscodeLogInCoordinator.swift in Sources */,
+				E95C495F23E11E6B00DF1B26 /* PercentTickerView.swift in Sources */,
 				E9D36DEF2175C755001E6DF0 /* ReceiveInvoiceInteractor.swift in Sources */,
 				04A403222164D80200652F21 /* EnterStartTypes.swift in Sources */,
 				7B3902AD2237D31900AAFDB8 /* TransactionCardShowAllCell.swift in Sources */,

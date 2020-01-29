@@ -12,6 +12,7 @@ import RxSwift
 
 private enum Constants {
     static let height: CGFloat = 70
+    static let percentFontSize: CGFloat = 12
 }
 
 final class TradeTableViewCell: UITableViewCell, NibReusable {
@@ -23,8 +24,7 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var buttonFav: UIButton!
     @IBOutlet private weak var viewContainer: UIView!
-    @IBOutlet private weak var viewPercent: UIView!
-    @IBOutlet private weak var labelPercent: UILabel!
+    @IBOutlet private weak var viewPercent: PercentTickerView!
     
     private var disposeBag = DisposeBag()
 
@@ -58,34 +58,10 @@ extension TradeTableViewCell: ViewConfiguration {
         labelPrice.text = "$" + model.priceUSD.displayText
         buttonFav.setImage(model.isFavorite ? Images.favorite14Submit300.image : Images.iconFavEmpty.image, for: .normal)
 
-        let firstPrice = model.firstPrice.doubleValue
-        let lastPrice = model.lastPrice.doubleValue
-
-        var deltaPercent: Double {
-            if firstPrice > lastPrice {
-                return (firstPrice - lastPrice) * 100
-            }
-            return (lastPrice - firstPrice) * 100
-        }
-        
-        let percent = firstPrice != 0 ? deltaPercent / firstPrice : 0
-
-        if lastPrice > firstPrice {
-            labelPercent.textColor = .success500
-            labelPercent.text = String(format: "+%.02f", percent) + "%"
-            viewPercent.backgroundColor = .success500
-        }
-        else if firstPrice > lastPrice {
-            labelPercent.textColor = .error500
-            labelPercent.text = String(format: "%.02f", percent * -1) + "%"
-            viewPercent.backgroundColor = .error500
-        }
-        else {
-            labelPercent.textColor = .basic500
-            labelPercent.text = String(format: "%.02f", percent) + "%"
-            viewPercent.backgroundColor = .basic500
-        }
-        
+        viewPercent.update(with: .init(firstPrice: model.firstPrice.doubleValue,
+                                       lastPrice: model.lastPrice.doubleValue,
+                                       fontSize: Constants.percentFontSize))
+  
         AssetLogo.logo(icon: model.amountAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon1.rx.image)
