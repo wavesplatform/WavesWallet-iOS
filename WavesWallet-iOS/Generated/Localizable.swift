@@ -734,9 +734,15 @@ internal enum Localizable {
         /// Month
         internal static var month: String { return Localizable.tr("Waves", "dexchart.label.month") }
         internal static var monthKey: String { return "dexchart.label.month" }
+        /// Today
+        internal static var today: String { return Localizable.tr("Waves", "dexchart.label.today") }
+        internal static var todayKey: String { return "dexchart.label.today" }
         /// Week
         internal static var week: String { return Localizable.tr("Waves", "dexchart.label.week") }
         internal static var weekKey: String { return "dexchart.label.week" }
+        /// Yesterday
+        internal static var yesterday: String { return Localizable.tr("Waves", "dexchart.label.yesterday") }
+        internal static var yesterdayKey: String { return "dexchart.label.yesterday" }
       }
     }
 

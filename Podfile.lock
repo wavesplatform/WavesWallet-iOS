@@ -3,9 +3,9 @@ PODS:
   - Amplitude-iOS (4.6.0)
   - AppsFlyerFramework (4.10.2)
   - AppSpectorSDK (1.2.2)
-  - Charts (3.3.0):
-    - Charts/Core (= 3.3.0)
-  - Charts/Core (3.3.0)
+  - Charts (3.4.0):
+    - Charts/Core (= 3.4.0)
+  - Charts/Core (3.4.0)
   - Crashlytics (3.13.4):
     - Fabric (~> 1.10.2)
   - CryptoSwift (1.0.0)
@@ -249,7 +249,6 @@ SPEC REPOS:
     - Amplitude-iOS
     - AppsFlyerFramework
     - AppSpectorSDK
-    - Charts
     - Crashlytics
     - CryptoSwift
     - CSV.swift
@@ -287,6 +286,7 @@ SPEC REPOS:
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
   trunk:
+    - Charts
     - DeviceKit
     - Down
     - Firebase
@@ -336,7 +336,7 @@ SPEC CHECKSUMS:
   Amplitude-iOS: ac1715ae68104b7a51723209ad574f60ab22ae5f
   AppsFlyerFramework: 417e0ceeb58cb60d762f25808095eb4801e3132b
   AppSpectorSDK: 6c32df6d66156daa2c1de6e028a74b9c7379753a
-  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 9670cc1b3e3f01e9eebb1aeb603b17b4459e7493
