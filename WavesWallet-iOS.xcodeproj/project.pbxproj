@@ -332,6 +332,7 @@
 		7B49912822F87C7A005B7123 /* AssetsSearchSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912722F87C7A005B7123 /* AssetsSearchSystem.swift */; };
 		7B49912C22F99B76005B7123 /* AssetsSearchEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912B22F99B76005B7123 /* AssetsSearchEmptyCell.swift */; };
 		7B49912E22F9B470005B7123 /* AssetsSearchModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912D22F9B470005B7123 /* AssetsSearchModuleOutput.swift */; };
+		7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B537E2423E08B43002A3976 /* Date+Helper.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
 		7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */; };
@@ -1624,6 +1625,7 @@
 		7B49912722F87C7A005B7123 /* AssetsSearchSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchSystem.swift; sourceTree = "<group>"; };
 		7B49912B22F99B76005B7123 /* AssetsSearchEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchEmptyCell.swift; sourceTree = "<group>"; };
 		7B49912D22F9B470005B7123 /* AssetsSearchModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchModuleOutput.swift; sourceTree = "<group>"; };
+		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
@@ -3095,6 +3097,7 @@
 				7BFB47E222FC742E002B19F8 /* UIKit */,
 				7B88186123044B7F00AB0549 /* Language+List.swift */,
 				7B3A9AB5231D66B80025CDCA /* NetworkError+Title.swift */,
+				7B537E2423E08B43002A3976 /* Date+Helper.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -7620,6 +7623,7 @@
 				7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */,
 				7B3902A122379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift in Sources */,
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
+				7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */,
 				7B49911722F874B0005B7123 /* AssetsSearchViewController.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
