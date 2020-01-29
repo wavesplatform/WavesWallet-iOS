@@ -150,7 +150,7 @@ private extension TradeViewController {
                 case .none:
                     return
                     
-                case .update:
+                case .update(let isNeedFirstTimeScroll):
                     
                     self.categories = state.categories
                     self.hideErrorIfExist()
@@ -175,6 +175,11 @@ private extension TradeViewController {
 
                     if let header = self.visibleHeaderView {
                         header.animateButtonClearIfNeed()
+                    }
+                    
+                    if isNeedFirstTimeScroll && self.categories.count > 0 {
+                        //TODO: - implement
+//                        self.scrolledTableView.scrollToPage(1, animation: false)
                     }
                     
                 case .deleteRowAt(let indexPath):
