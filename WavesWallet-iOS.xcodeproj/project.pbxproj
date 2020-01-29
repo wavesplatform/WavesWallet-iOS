@@ -272,7 +272,6 @@
 		4BEC9D5887FACABD00BD4154 /* Pods_MarketPulseWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20735B3922DF223C5F8F7C79 /* Pods_MarketPulseWidget.framework */; };
 		53E8DAD5791F388085BF04A3 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		6B2551D9571ABC864B16A7EE /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		7B0E73972385C5DB0020E7C9 /* AppIcon-New-Test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0E73962385C5DB0020E7C9 /* AppIcon-New-Test.png */; };
 		7B0FD985231952740004B52B /* ConfirmRequestLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD984231952740004B52B /* ConfirmRequestLoadingViewController.swift */; };
 		7B0FD98723195D6A0004B52B /* ConfirmRequestCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD98623195D6A0004B52B /* ConfirmRequestCompleteViewController.swift */; };
 		7B0FD98923196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD98823196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift */; };
@@ -569,25 +568,6 @@
 		7B9DC32F2382C04700DCCA75 /* environment_mainnet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */; };
 		7B9DC3302382C04700DCCA75 /* spam.scv in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3132382C04700DCCA75 /* spam.scv */; };
 		7B9DC3312382C04700DCCA75 /* spam.scv in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3132382C04700DCCA75 /* spam.scv */; };
-		7B9DC3352382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */; };
-		7B9DC3362382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */; };
-		7B9DC3372382E2A800DCCA75 /* MigrationWavesExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC3342382E2A800DCCA75 /* MigrationWavesExchangeView.swift */; };
-		7B9DC33B2384084E00DCCA75 /* AppIcon-New@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3392384084C00DCCA75 /* AppIcon-New@2x.png */; };
-		7B9DC33C2384084E00DCCA75 /* AppIcon-New@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3392384084C00DCCA75 /* AppIcon-New@2x.png */; };
-		7B9DC33D2384084E00DCCA75 /* AppIcon-New@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC33A2384084D00DCCA75 /* AppIcon-New@3x.png */; };
-		7B9DC33E2384084E00DCCA75 /* AppIcon-New@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC33A2384084D00DCCA75 /* AppIcon-New@3x.png */; };
-		7B9DC3412384095A00DCCA75 /* AppIcon-New.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3402384095900DCCA75 /* AppIcon-New.png */; };
-		7B9DC3422384095A00DCCA75 /* AppIcon-New.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3402384095900DCCA75 /* AppIcon-New.png */; };
-		7B9DC34623840D7C00DCCA75 /* AppIcon-New-Test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34323840D7900DCCA75 /* AppIcon-New-Test@2x.png */; };
-		7B9DC34723840D7C00DCCA75 /* AppIcon-New-Test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34323840D7900DCCA75 /* AppIcon-New-Test@2x.png */; };
-		7B9DC34823840D7C00DCCA75 /* AppIcon-New-Test@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34423840D7B00DCCA75 /* AppIcon-New-Test@3x.png */; };
-		7B9DC34923840D7C00DCCA75 /* AppIcon-New-Test@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34423840D7B00DCCA75 /* AppIcon-New-Test@3x.png */; };
-		7B9DC34F23840DC700DCCA75 /* AppIcon-New-Dev.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34C23840DC600DCCA75 /* AppIcon-New-Dev.png */; };
-		7B9DC35023840DC700DCCA75 /* AppIcon-New-Dev.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34C23840DC600DCCA75 /* AppIcon-New-Dev.png */; };
-		7B9DC35123840DC700DCCA75 /* AppIcon-New-Dev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */; };
-		7B9DC35223840DC700DCCA75 /* AppIcon-New-Dev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */; };
-		7B9DC35323840DC700DCCA75 /* AppIcon-New-Dev@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */; };
-		7B9DC35423840DC700DCCA75 /* AppIcon-New-Dev@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */; };
 		7B9DC35B23842A9900DCCA75 /* ServerMaintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */; };
 		7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */; };
 		7B9DC35E2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */; };
@@ -1561,7 +1541,6 @@
 		79716E63B228F54DC963B57A /* Pods-DomainLayer.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayer.release-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayer/Pods-DomainLayer.release-prod.xcconfig"; sourceTree = "<group>"; };
 		7A79F97385011A8CE0363A70 /* Pods-WavesWallet-iOS.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release-dev.xcconfig"; path = "Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release-dev.xcconfig"; sourceTree = "<group>"; };
 		7AE17C6CE90449256074E98F /* Pods-MonkeyTest.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.dev-debug.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.dev-debug.xcconfig"; sourceTree = "<group>"; };
-		7B0E73962385C5DB0020E7C9 /* AppIcon-New-Test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Test.png"; sourceTree = "<group>"; };
 		7B0FD984231952740004B52B /* ConfirmRequestLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestLoadingViewController.swift; sourceTree = "<group>"; };
 		7B0FD98623195D6A0004B52B /* ConfirmRequestCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestCompleteViewController.swift; sourceTree = "<group>"; };
 		7B0FD98823196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmRequestDTOTransaction+Mapper.swift"; sourceTree = "<group>"; };
@@ -1842,16 +1821,6 @@
 		7B9DC3112382C04700DCCA75 /* environment_mainnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_mainnet.json; sourceTree = "<group>"; };
 		7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_mainnet_test.json; sourceTree = "<group>"; };
 		7B9DC3132382C04700DCCA75 /* spam.scv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spam.scv; sourceTree = "<group>"; };
-		7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MigrationWavesExchangeView.xib; sourceTree = "<group>"; };
-		7B9DC3342382E2A800DCCA75 /* MigrationWavesExchangeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationWavesExchangeView.swift; sourceTree = "<group>"; };
-		7B9DC3392384084C00DCCA75 /* AppIcon-New@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New@2x.png"; sourceTree = "<group>"; };
-		7B9DC33A2384084D00DCCA75 /* AppIcon-New@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New@3x.png"; sourceTree = "<group>"; };
-		7B9DC3402384095900DCCA75 /* AppIcon-New.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New.png"; sourceTree = "<group>"; };
-		7B9DC34323840D7900DCCA75 /* AppIcon-New-Test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Test@2x.png"; sourceTree = "<group>"; };
-		7B9DC34423840D7B00DCCA75 /* AppIcon-New-Test@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Test@3x.png"; sourceTree = "<group>"; };
-		7B9DC34C23840DC600DCCA75 /* AppIcon-New-Dev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev.png"; sourceTree = "<group>"; };
-		7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev@2x.png"; sourceTree = "<group>"; };
-		7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev@3x.png"; sourceTree = "<group>"; };
 		7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerMaintenanceViewController.swift; sourceTree = "<group>"; };
 		7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServerMaintenance.storyboard; sourceTree = "<group>"; };
 		7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -3012,7 +2981,6 @@
 			isa = PBXGroup;
 			children = (
 				E955AF2223ABEBFF00165B5E /* Fonts */,
-				7B9DC33F2384085C00DCCA75 /* AppIcon-New */,
 				7B5EDEC32253618C009C2B3B /* AccessibilityIdentifiers.strings */,
 				F7C683BC1EA93C5800C87DAF /* ObjCBridgingHeader.h */,
 				F7E954F01EA8FE0700A804DE /* Assets.xcassets */,
@@ -4192,22 +4160,6 @@
 			path = CommonResources;
 			sourceTree = "<group>";
 		};
-		7B9DC33F2384085C00DCCA75 /* AppIcon-New */ = {
-			isa = PBXGroup;
-			children = (
-				7B9DC34C23840DC600DCCA75 /* AppIcon-New-Dev.png */,
-				7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */,
-				7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */,
-				7B0E73962385C5DB0020E7C9 /* AppIcon-New-Test.png */,
-				7B9DC34323840D7900DCCA75 /* AppIcon-New-Test@2x.png */,
-				7B9DC34423840D7B00DCCA75 /* AppIcon-New-Test@3x.png */,
-				7B9DC3402384095900DCCA75 /* AppIcon-New.png */,
-				7B9DC3392384084C00DCCA75 /* AppIcon-New@2x.png */,
-				7B9DC33A2384084D00DCCA75 /* AppIcon-New@3x.png */,
-			);
-			path = "AppIcon-New";
-			sourceTree = "<group>";
-		};
 		7B9DC35823842A9900DCCA75 /* ServerMaintenance */ = {
 			isa = PBXGroup;
 			children = (
@@ -4926,8 +4878,6 @@
 		E95B47AE21638A9F004D4E39 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7B9DC3342382E2A800DCCA75 /* MigrationWavesExchangeView.swift */,
-				7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */,
 				0AC1251121A758BC00357C93 /* LongInfoPageView.swift */,
 				E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */,
 				E95B47B921638A9F004D4E39 /* ShortInfoPageView.swift */,
@@ -6451,26 +6401,17 @@
 				7B9DC3232382C04700DCCA75 /* environment_testnet.json in Resources */,
 				7B9DC3212382C04700DCCA75 /* environment_stagenet_test.json in Resources */,
 				7B9DC31D2382C04700DCCA75 /* fee.json in Resources */,
-				7B9DC3422384095A00DCCA75 /* AppIcon-New.png in Resources */,
 				E9B190AF22E7CD99008220B7 /* MainInterface.storyboard in Resources */,
-				7B9DC34723840D7C00DCCA75 /* AppIcon-New-Test@2x.png in Resources */,
-				7B9DC35023840DC700DCCA75 /* AppIcon-New-Dev.png in Resources */,
 				7B9DC3192382C04700DCCA75 /* Languages.json in Resources */,
 				7B9DC32B2382C04700DCCA75 /* Amplitude-Info.plist in Resources */,
 				7B9DC3152382C04700DCCA75 /* Sentry-io-Info.plist in Resources */,
 				7B9DC3292382C04700DCCA75 /* Fabric-Info.plist in Resources */,
-				7B9DC3362382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */,
-				7B9DC35223840DC700DCCA75 /* AppIcon-New-Dev@2x.png in Resources */,
 				7B9DC3312382C04700DCCA75 /* spam.scv in Resources */,
-				7B9DC35423840DC700DCCA75 /* AppIcon-New-Dev@3x.png in Resources */,
-				7B9DC34923840D7C00DCCA75 /* AppIcon-New-Test@3x.png in Resources */,
-				7B9DC33C2384084E00DCCA75 /* AppIcon-New@2x.png in Resources */,
 				E95310BE22E8A43000F72809 /* WidgetAssets.xcassets in Resources */,
 				7B9DC31F2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
 				7B9DC3172382C04700DCCA75 /* environment_stagenet.json in Resources */,
 				7B848AA12304073B0092AD18 /* WavesMarketPulse.strings in Resources */,
 				7B9DC32F2382C04700DCCA75 /* environment_mainnet_test.json in Resources */,
-				7B9DC33E2384084E00DCCA75 /* AppIcon-New@3x.png in Resources */,
 				7B9DC31B2382C04700DCCA75 /* Appsflyer-Info.plist in Resources */,
 				7B9DC3252382C04700DCCA75 /* environment_testnet_test.json in Resources */,
 			);
@@ -6497,7 +6438,6 @@
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
 				E9AFDBE621F32E96003130A8 /* TransactionFeeView.xib in Resources */,
 				0A762D15214FE3F300BE9204 /* InputTextField.xib in Resources */,
-				7B9DC34623840D7C00DCCA75 /* AppIcon-New-Test@2x.png in Resources */,
 				0A7CCDB7218A17A9005D372B /* MyAddress.storyboard in Resources */,
 				E96FEA26226E962300C0EE22 /* WalletSortEmptyAssetsCell.xib in Resources */,
 				E9B087BF2163886800937644 /* SearchBarView.xib in Resources */,
@@ -6507,12 +6447,10 @@
 				E95B47CE21638A9F004D4E39 /* ShortInfoPageView.xib in Resources */,
 				7B9DC3242382C04700DCCA75 /* environment_testnet_test.json in Resources */,
 				0AF922F7212E1234003BA067 /* SegmentedControl.xib in Resources */,
-				7B9DC33B2384084E00DCCA75 /* AppIcon-New@2x.png in Resources */,
 				04A2CFA5211213BE00784FEC /* History.storyboard in Resources */,
 				E95E14F5229FF63B003552B8 /* WalletQuickNoteCell.xib in Resources */,
 				7B9DC3282382C04700DCCA75 /* Fabric-Info.plist in Resources */,
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
-				7B9DC35323840DC700DCCA75 /* AppIcon-New-Dev@3x.png in Resources */,
 				7B65B6F722F9D647007D5C53 /* KeyboardControl.xib in Resources */,
 				7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */,
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
@@ -6521,7 +6459,6 @@
 				E96DAB71228EE643005ED12B /* WalletSortSegmentedControl.xib in Resources */,
 				E9EE0C9923B359CE00E1AFB3 /* MyOrdersEmptyDataCell.xib in Resources */,
 				0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */,
-				7B9DC3352382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */,
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
 				0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */,
@@ -6540,7 +6477,6 @@
 				E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */,
 				7B49912622F876E1005B7123 /* AssetsSearchHeaderView.xib in Resources */,
 				7BDA6AEA22313E85001DE71C /* TransactionImageView.xib in Resources */,
-				7B9DC34F23840DC700DCCA75 /* AppIcon-New-Dev.png in Resources */,
 				E92FAD0F226F6C050054D4AA /* WalletSortSeparatorCell.xib in Resources */,
 				E9C1B90E236C6D9500F8E988 /* ForceUpdateApp.storyboard in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
@@ -6555,7 +6491,6 @@
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
 				7B49912022F875D4005B7123 /* AssetsSearch.storyboard in Resources */,
 				E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */,
-				7B9DC3412384095A00DCCA75 /* AppIcon-New.png in Resources */,
 				7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */,
 				7BE09AD323140F0900A038AD /* MobileKeeper.storyboard in Resources */,
 				E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */,
@@ -6578,7 +6513,6 @@
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */,
 				7B9DC32C2382C04700DCCA75 /* environment_mainnet.json in Resources */,
-				7B9DC34823840D7C00DCCA75 /* AppIcon-New-Test@3x.png in Resources */,
 				7B5EDEC42253618C009C2B3B /* AccessibilityIdentifiers.strings in Resources */,
 				E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */,
 				7BDA6ADF222E9664001DE71C /* TransactionCard.storyboard in Resources */,
@@ -6593,7 +6527,6 @@
 				7B60E2BE2316CC0500113C38 /* ConfirmRequestTransactionKindView.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
 				7BDA6AE2223025AD001DE71C /* BalanceLabel.xib in Resources */,
-				7B9DC33D2384084E00DCCA75 /* AppIcon-New@3x.png in Resources */,
 				E96358A622A73D70008A3395 /* WalletClearAssetsView.xib in Resources */,
 				0AF92303212E1424003BA067 /* Waves.strings in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
@@ -6603,13 +6536,11 @@
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
-				7B0E73972385C5DB0020E7C9 /* AppIcon-New-Test.png in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
 				E955AF2423ABEC1200165B5E /* RobotoCondensed-Regular.ttf in Resources */,
 				E95E151322A18C25003552B8 /* WalletSearchTableViewCell.xib in Resources */,
 				7B3902A92237A75600AAFDB8 /* ActionsControl.xib in Resources */,
-				7B9DC35123840DC700DCCA75 /* AppIcon-New-Dev@2x.png in Resources */,
 				E95E14F9229FF933003552B8 /* WalletLeasingBalanceSkeletonCell.xib in Resources */,
 				E96FEA2A226F27BC00C0EE22 /* WalletSortCell.xib in Resources */,
 				0A26549121BAE153005EA637 /* Assets.xcassets in Resources */,
@@ -7874,7 +7805,6 @@
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
 				0ADD802F21F22FFB0075FC59 /* EditAccountNameCoordinator.swift in Sources */,
 				0AAB15C721655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift in Sources */,
-				7B9DC3372382E2A800DCCA75 /* MigrationWavesExchangeView.swift in Sources */,
 				E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */,
 				E9B0879A2163886800937644 /* DexChartHelper.swift in Sources */,
 				E9D36DF22175C755001E6DF0 /* AssetListPresenterProtocol.swift in Sources */,

@@ -10,36 +10,6 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
 	<dict>
-		<key>CFBundleAlternateIcons</key>
-		<dict>
-			<key>AppIcon-New</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>AppIcon-New</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>AppIcon-New-Dev</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>AppIcon-New-Dev</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>AppIcon-New-Test</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>AppIcon-New-Test</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
 			<key>CFBundleIconFiles</key>
@@ -122,6 +92,10 @@
 	<string>The camera is needed to scan QR codes</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>The camera is needed to scan QR codes</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>RobotoCondensed-Regular.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -150,9 +124,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>RobotoCondensed-Regular.ttf</string>
-	</array>
 </dict>
 </plist>
