@@ -13,5 +13,4 @@ protocol DexMarketPresenterProtocol {
     typealias Feedback = (Driver<DexMarket.State>) -> Signal<DexMarket.Event>
     var interactor: DexMarketInteractorProtocol! { get set }
     func system(feedbacks: [Feedback])
-    var moduleOutput: DexMarketModuleOutput? { get set }
 }

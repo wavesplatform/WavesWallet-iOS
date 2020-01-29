@@ -57,6 +57,7 @@ extension AssetDetailTypes {
         case showReceive(DomainLayer.DTO.SmartAssetBalance)
         case showSend(DomainLayer.DTO.SmartAssetBalance)
         case tapBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?)
+        case showTrade(DomainLayer.DTO.Asset)
     }
 
     struct DisplayState: DataSourceProtocol, Mutating {

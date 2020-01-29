@@ -68,5 +68,7 @@ public protocol RepositoriesFactoryProtocol {
     
     var mobileKeeperRepository: MobileKeeperRepositoryProtocol { get }
     
-    var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol { get }    
+    var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol { get }
+    
+    var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol { get }
 }

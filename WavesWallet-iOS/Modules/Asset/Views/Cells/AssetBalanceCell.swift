@@ -37,15 +37,16 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var balanceLabel: UILabel!
 
-    @IBOutlet private(set) var sendButton: UIButton!
-    @IBOutlet private(set) var receiveButton: UIButton!
-    @IBOutlet private(set) var exchangeButton: UIButton!
+    @IBOutlet private var sendButton: UIButton!
+    @IBOutlet private var receiveButton: UIButton!
+    @IBOutlet private var exchangeButton: UIButton!
 
     private var options: Options = Options(isHiddenLeased: false, isHiddenInOrder: false)
     private var isNeedsUpdateConstraints: Bool = false
 
     var receiveAction: (() -> Void)?
     var sendAction: (() -> Void)?
+    var exchangeAction: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,8 +54,13 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
         backgroundColor = .basic50
         sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         receiveButton.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
+        exchangeButton.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
     }
 
+    @objc private func exchangeTapped() {
+        exchangeAction?()
+    }
+    
     @objc private func receiveTapped() {
         receiveAction?()
     }
@@ -99,7 +105,7 @@ extension AssetBalanceCell: ViewConfiguration {
 
         sendButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.send, for: .normal)
         receiveButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.receive, for: .normal)
-        exchangeButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.exchange, for: .normal)
+        exchangeButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.trade, for: .normal)
 
         titleLabel.text = Localizable.Waves.Asset.Cell.Balance.avaliableBalance
 

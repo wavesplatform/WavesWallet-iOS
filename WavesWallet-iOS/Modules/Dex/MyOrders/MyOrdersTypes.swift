@@ -12,7 +12,6 @@ import Extensions
 import WavesSDK
 
 enum MyOrdersTypes {
-    enum DTO {}
     enum ViewModel {}
     
      enum Event {

@@ -120,7 +120,10 @@ private extension MyOrdersSystem {
 
             guard let self = self else { return Signal.empty() }
 
-            return self.myOrders().map {.setOrders($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.myOrders().map {.setOrders($0)}
+                .asSignal { error -> Signal<MyOrdersTypes.Event> in
+                    return Signal.just(.setOrders([]))
+            }
         })
     }
     

@@ -12,30 +12,6 @@ import WavesSDK
 import DomainLayer
 
 
-extension DomainLayer.DTO.Dex.SmartPair {
-    
-    init(_ pair: DexAssetPair, isChecked: Bool) {
-        
-        let amountAsset = DomainLayer.DTO.Dex.Asset(id: pair.amountAsset.id,
-                                                    name: pair.amountAsset.name,
-                                                    shortName: pair.amountAsset.shortName,
-                                                    decimals: pair.amountAsset.decimals)
-        
-        let priceAsset = DomainLayer.DTO.Dex.Asset(id: pair.priceAsset.id,
-                                                   name: pair.priceAsset.name,
-                                                   shortName: pair.priceAsset.shortName,
-                                                   decimals: pair.priceAsset.decimals)
-        
-        
-        self.init(id: pair.id,
-                  amountAsset: amountAsset,
-                  priceAsset: priceAsset,
-                  isChecked: isChecked,
-                  isGeneral: pair.isGeneral,
-                  sortLevel: pair.sortLevel)        
-    }
-}
-
 public extension DomainLayer.DTO.Dex.SmartPair {
     
     init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, isChecked: Bool, isGeneral: Bool, sortLevel: Int) {

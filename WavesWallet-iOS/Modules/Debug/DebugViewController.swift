@@ -32,6 +32,7 @@ extension Debug {
         case versionTestSwitch(_ isOn: Bool)
         case developmentConfigsSwitch(_ isOn: Bool)
         case enviromentTestSwitch(_ isOn: Bool)
+        case tradeCategoriesConfig(_ isOn: Bool)
         case info(_ version: String, _ deviceId: String)
     }
     
@@ -121,6 +122,7 @@ extension DebugViewController: UITableViewDelegate {
              .notificationDevSwitch,
              .versionTestSwitch,
              .enviromentTestSwitch,
+             .tradeCategoriesConfig,
              .developmentConfigsSwitch:
             return DebugSwitchCell.cellHeight()
             
@@ -192,6 +194,16 @@ extension DebugViewController: UITableViewDataSource {
             
             cell.switchChangedValue = { isOn in                
                 ApplicationDebugSettings.setEnableVersionUpdateTest(isEnable: isOn)
+            }
+            return cell
+        
+        case .tradeCategoriesConfig(let isOn):
+            let cell: DebugSwitchCell = tableView.dequeueCell()
+            cell.update(with: .init(title: "Trade categories config Test",
+                                    isOn: isOn))
+            
+            cell.switchChangedValue = { isOn in
+                ApplicationDebugSettings.setEnableTradeCategoriesConfigTest(isEnable: isOn)
             }
             return cell
             
@@ -268,6 +280,7 @@ private extension DebugViewController {
         let isEnableEnviromentTest = ApplicationDebugSettings.isEnableEnviromentTest
         let isEnableVersionUpdateTest = ApplicationDebugSettings.isEnableVersionUpdateTest
         let isEnableDebugSettingsTest = ApplicationDebugSettings.isEnableDebugSettingsTest
+        let isEnableTradeCategoriesConfigTest = ApplicationDebugSettings.isEnableTradeCategoriesConfigTest
         
         let mainNet: Debug.Enviroment = .init(name: "Mainnet",
                                               chainId: "W")
@@ -302,6 +315,7 @@ private extension DebugViewController {
                                                       .versionTestSwitch(isEnableVersionUpdateTest),
                                                       .enviromentTestSwitch(isEnableEnviromentTest),
                                                       .developmentConfigsSwitch(isEnableDebugSettingsTest),
+                                                      .tradeCategoriesConfig(isEnableTradeCategoriesConfigTest),
                                                       .info(version, UIDevice.uuid)],
                                                kind: .other)]
         

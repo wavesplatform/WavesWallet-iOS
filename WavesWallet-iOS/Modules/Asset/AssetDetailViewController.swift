@@ -92,6 +92,13 @@ final class AssetDetailViewController: UIViewController {
             eventInput.onNext(.tapBurn(asset: asset, delegate: self))
         }
     }
+    
+    private func showTradeController() {
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {
+            eventInput.onNext(.showTrade(asset.asset))
+        }
+    }
 }
 
 // MARK: RxFeedback
@@ -385,6 +392,11 @@ extension AssetDetailViewController: UITableViewDataSource {
             cell.sendAction = { [weak self] in
                 guard let self = self else { return }
                 self.showSendController()
+            }
+            
+            cell.exchangeAction = { [weak self] in
+                guard let self = self else { return }
+                self.showTradeController()
             }
             return cell
 
