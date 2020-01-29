@@ -150,7 +150,7 @@ private extension TradeViewController {
                 case .none:
                     return
                     
-                case .update(let isNeedFirstTimeScroll):
+                case .update(let initialCurrentIndex):
                     
                     self.categories = state.categories
                     self.hideErrorIfExist()
@@ -165,9 +165,9 @@ private extension TradeViewController {
                             segmentedItems.append(.title(category.name))
                         }
                     }
-                    
+                                    
                     self.hideErrorIfExist()
-                    self.scrolledTableView.setup(segmentedItems: segmentedItems, tableDataSource: self, tableDelegate: self)
+                    self.scrolledTableView.setup(currentIndex: initialCurrentIndex ?? 0, segmentedItems: segmentedItems, tableDataSource: self, tableDelegate: self)
                     self.scrolledTableView.reloadData()
                     self.scrolledTableView.isHidden = false
                     self.tableViewSkeleton.isHidden = true
@@ -175,11 +175,6 @@ private extension TradeViewController {
 
                     if let header = self.visibleHeaderView {
                         header.animateButtonClearIfNeed()
-                    }
-                    
-                    if isNeedFirstTimeScroll && self.categories.count > 0 {
-                        //TODO: - implement
-//                        self.scrolledTableView.scrollToPage(1, animation: false)
                     }
                     
                 case .deleteRowAt(let indexPath):

@@ -34,7 +34,7 @@ enum TradeTypes {
         
         enum UIAction {
             case none
-            case update(isNeedFirstTimeScroll: Bool)
+            case update(initialCurrentIndex: Int?)
             case deleteRowAt(IndexPath)
             case reloadRowAt(IndexPath)
             case updateSkeleton(ViewModel.SectionSkeleton)

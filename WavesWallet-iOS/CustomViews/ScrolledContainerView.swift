@@ -27,7 +27,7 @@ class ContainerView: UIView {
 
 protocol ScrolledContainerViewProtocol {
     
-    func setup(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
+    func setup(currentIndex: Int, segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
     
     func removeTopView(_ view: UIView, animation: Bool)
     
@@ -225,12 +225,12 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
     }
     
-    func setup(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
+    func setup(currentIndex: Int = 0, segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
         if segmentedControl.items.count != segmentedItems.count {
             subviews.forEach { $0.removeFromSuperview() }
             tableViews.removeAll()
-            currentIndex = 0
+            self.currentIndex = currentIndex
             
             initComponents(segmentedItems: segmentedItems, tableDataSource: tableDataSource, tableDelegate: tableDelegate)
         }
@@ -249,7 +249,13 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
         for index in 0..<segmentedItems.count {
             
-            let table = UITableView(frame: CGRect(x: CGFloat(index) * frame.size.width,
+            var x: CGFloat {
+                if currentIndex > 0 {
+                    return index == currentIndex ? 0 : -frame.size.width
+                }
+                return  CGFloat(index) * frame.size.width
+            }
+            let table = UITableView(frame: CGRect(x: x,
                                                   y: 0,
                                                   width: frame.size.width,
                                                   height: frame.size.height))
@@ -266,8 +272,8 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
         segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
         segmentedControl.backgroundColor = .basic50
+        segmentedControl.setSelectedIndex(currentIndex, animation: false)
         addSubview(segmentedControl)
-        
         visibleTableView.reloadData()
         setContentSize()
     }

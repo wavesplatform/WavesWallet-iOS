@@ -55,11 +55,11 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             state.uiAction = .updateSkeleton(skeletonSection)
 
         case .dataDidLoad(let data):
-            let isNeedFirstTimeScroll = state.core.categories.count == 0 && data.categories.count > 0
+            let initialCurrentIndex = state.core.categories.count == 0 && data.categories.count > 0 ? 1 : 0
             state.core = data
             state.categories = data.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.coreAction = .none
-            state.uiAction = .update(isNeedFirstTimeScroll: isNeedFirstTimeScroll)
+            state.uiAction = .update(initialCurrentIndex: initialCurrentIndex)
             
         case .didFailGetCategories(let error):
             state.coreAction = .none
@@ -111,7 +111,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                     }
                 }
                 else {
-                    state.uiAction = .update(isNeedFirstTimeScroll: false)
+                    state.uiAction = .update(initialCurrentIndex: nil)
                 }
                 
                 state.core.favoritePairs.removeAll(where: {$0.id == pair.id})
@@ -126,7 +126,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
         case .favoriteDidSuccessSave(let favoritePairs):
             state.core.favoritePairs = favoritePairs
             state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
-            state.uiAction = .update(isNeedFirstTimeScroll: false)
+            state.uiAction = .update(initialCurrentIndex: nil)
             state.coreAction = .none
             
         case .filterTapped(let filter, atCategory: let categoryIndex):
@@ -149,13 +149,13 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             
             state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.coreAction = .none
-            state.uiAction = .update(isNeedFirstTimeScroll: false)
+            state.uiAction = .update(initialCurrentIndex: nil)
         
         case .deleteFilter(let categoryIndex):
             if let index = state.selectedFilters.firstIndex(where: {$0.categoryIndex == categoryIndex}) {
                 state.selectedFilters.remove(at: index)
                 state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
-                state.uiAction = .update(isNeedFirstTimeScroll: false)
+                state.uiAction = .update(initialCurrentIndex: nil)
                 state.coreAction = .none
             }
         }
