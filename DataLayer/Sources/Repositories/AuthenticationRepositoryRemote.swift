@@ -22,10 +22,21 @@ fileprivate enum Constants {
     #else
     static let rootPath: String = "pincodes-ios"
     #endif
+    
+    static let firebaseAppWavesPlatform: String = "WavesPlatform"
 }
 
 final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
-
+    
+    private var wavesPlatformDatabase: Database? = {
+        
+        guard let app = FirebaseApp.app(name: Constants.firebaseAppWavesPlatform) else {
+            return nil
+        }
+        
+        return Database.database(app: app)
+    }()
+    
     func registration(with id: String, keyForPassword: String, passcode: String) -> Observable<Bool> {
 
         if passcode.count == 0 {
@@ -58,36 +69,44 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
 
         return Observable.create { observer -> Disposable in
 
-            let database: DatabaseReference = Database.database()
-                .reference()
-                .child(Constants.rootPath)
-                .child(id)
-
-            let value = self.lastTry(database: database)
-                .flatMap({ nTry -> Observable<String> in
-
-                    let changeLastTry = self.changeLastTry(database: database, nTry: nTry + 1)
-                    let inputTry = self.inputPasscode(database: database,
-                                                      passcode: passcode,
-                                                      nTry: nTry + 1)
-
-                    return Observable.zip([changeLastTry, inputTry])
-                        .flatMap { _ -> Observable<String> in
-                            self.keyForPassword(database: database, passcode: passcode)
-                                .flatMap { keyForPassword -> Observable<String> in
-                                    self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
-                                }
+            guard let wavesPlatformDatabase = self.wavesPlatformDatabase else {
+                return Disposables.create()
+            }
+            
+            let database: Database = Database.database()
+            
+            let value = self.auth(with: id,
+                                  passcode: passcode,
+                                  database: database)
+                .catchError { (error) -> Observable<String> in
+                    
+                    return self
+                        .isHasAccount(with: id,
+                                      database: wavesPlatformDatabase)
+                        .flatMap { isHasId -> Observable<String> in
+                                
+                                    if isHasId {
+                                        return self
+                                            .auth(with: id, passcode: passcode, database: wavesPlatformDatabase)
+                                            .flatMap { (keyForPassword) -> Observable<String> in
+                                                return self.registration(with: id,
+                                                                         keyForPassword: keyForPassword,
+                                                                         passcode: passcode,
+                                                                         database: database)
+                                                    .map { _ in return keyForPassword }
+                                            }
+                                    } else {
+                                        return Observable.error(error)
+                                    }
                         }
-                })
-                .catchError({ (error) -> Observable<String> in
-                    return Observable.error(self.handlerError(error: error))
-                })
+                                        
+                }
                 .bind(to: observer)
-
+            
             return Disposables.create([value])
         }
     }
-
+    
     func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool> {
         return auth(with: id, passcode: oldPasscode)
             .flatMap { [weak self] keyForPassword -> Observable<Bool> in
@@ -95,7 +114,85 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                 return self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode)
             }
     }
+    
+    private func isHasAccount(with id: String, database: Database) -> Observable<Bool> {
+        
+        return database.reference()
+            .child("\(Constants.rootPath)/\(id)/").rx
+            .value
+            .map { $0 != nil }
+            .catchError { _ -> Observable<Bool> in
+                return Observable.just(false)
+            }
+    }
 
+    private func registration(with id: String,
+                              keyForPassword: String,
+                              passcode: String,
+                              database: Database) -> Observable<Bool> {
+
+        if passcode.count == 0 {
+            return Observable.error(AuthenticationRepositoryError.fail)
+        }
+
+        return Observable.create { (observer) -> Disposable in
+
+            let database: DatabaseReference = database.reference()
+
+            let disposable = database.child("\(Constants.rootPath)/\(id)/")
+                .rx
+                .removeValue()
+                .map { $0.child(passcode) }
+                .flatMap({ ref -> Observable<DatabaseReference> in
+                    ref.rx.setValue(keyForPassword)
+                })
+                .subscribe(onNext: { _ in
+                    observer.onNext(true)
+                    observer.onCompleted()
+                }, onError: { error in
+                    observer.onError(self.handlerError(error: error))
+                })
+
+            return Disposables.create([disposable])
+        }
+    }
+    
+    private func auth(with id: String,
+                      passcode: String,
+                      database: Database) -> Observable<String> {
+
+           return Observable.create { observer -> Disposable in
+
+               let database: DatabaseReference = database
+                   .reference()
+                   .child(Constants.rootPath)
+                   .child(id)
+
+               let value = self.lastTry(database: database)
+                   .flatMap({ nTry -> Observable<String> in
+
+                       let changeLastTry = self.changeLastTry(database: database, nTry: nTry + 1)
+                       let inputTry = self.inputPasscode(database: database,
+                                                         passcode: passcode,
+                                                         nTry: nTry + 1)
+
+                       return Observable.zip([changeLastTry, inputTry])
+                           .flatMap { _ -> Observable<String> in
+                               self.keyForPassword(database: database, passcode: passcode)
+                                   .flatMap { keyForPassword -> Observable<String> in
+                                       self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
+                                   }
+                           }
+                   })
+                   .catchError({ (error) -> Observable<String> in
+                       return Observable.error(self.handlerError(error: error))
+                   })
+                   .bind(to: observer)
+
+               return Disposables.create([value])
+           }
+       }
+    
     private func handlerError(error: Error) -> Error {
         if error is AuthenticationRepositoryError {
             return error

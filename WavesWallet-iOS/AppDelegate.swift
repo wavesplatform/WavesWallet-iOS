@@ -158,6 +158,10 @@ extension AppDelegate {
             return false
         }
         
+        guard let googleServiceInfoPathWaves = Bundle.main.path(forResource: "GoogleService-Info-Waves", ofType: "plist") else {
+            return false
+        }
+        
         guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
             return false
         }
@@ -173,7 +177,8 @@ extension AppDelegate {
         let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
                                                       appsflyerInfo: appsflyerInfoPath,
                                                       amplitudeInfo: amplitudeInfoPath,
-                                                      sentryIoInfoPath: sentryIoInfoPath)
+                                                      sentryIoInfoPath: sentryIoInfoPath,
+                                                      googleServiceInfoForWavesPlatform: googleServiceInfoPathWaves)
         let repositories = RepositoriesFactory(resources: resourses)
         
         UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())

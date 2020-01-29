@@ -18,6 +18,10 @@ import Fabric
 import Crashlytics
 import Amplitude_iOS
 
+private struct Constants {
+    static let firebaseAppWavesPlatform: String = "WavesPlatform"
+}
+
 //TODO: Rename Local Repository and protocol
 typealias ExtensionsEnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
 
@@ -97,15 +101,16 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var matcherRepositoryRemote: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
     public private(set) lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol = MobileKeeperRepository(repositoriesFactory: self)
-
     
     public private(set) lazy var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = DevelopmentConfigsRepository()
-        
+    
+    
     public struct Resources {
         
         public typealias PathForFile = String
         
         let googleServiceInfo: PathForFile
+        let googleServiceInfoForWavesPlatform: PathForFile
         let appsflyerInfo: PathForFile
         let amplitudeInfo: PathForFile
         let sentryIoInfoPath: PathForFile
@@ -113,8 +118,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         public init(googleServiceInfo: PathForFile,
                     appsflyerInfo: PathForFile,
                     amplitudeInfo: PathForFile,
-                    sentryIoInfoPath: PathForFile) {
+                    sentryIoInfoPath: PathForFile,
+                    googleServiceInfoForWavesPlatform: PathForFile) {
             
+            self.googleServiceInfoForWavesPlatform = googleServiceInfoForWavesPlatform
             self.googleServiceInfo = googleServiceInfo
             self.appsflyerInfo = appsflyerInfo
             self.amplitudeInfo = amplitudeInfo
@@ -127,10 +134,32 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {                        
 
             FirebaseApp.configure(options: options)
-            
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])
         }
+        
+        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfoForWavesPlatform) {
+            
+            FirebaseApp.configure(name: Constants.firebaseAppWavesPlatform, options: options)
+            if let app = FirebaseApp.app(name: Constants.firebaseAppWavesPlatform) {
+                Database.database(app: app).isPersistenceEnabled = false
+            }
+        }
+        
+//        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfoForWavesPlatform) {
+//
+//            FirebaseApp.configure(options: options)
+//            Database.database().isPersistenceEnabled = false
+//            Fabric.with([Crashlytics.self])
+//        }
+//        
+//        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfoForWavesPlatform) {
+//            
+//            FirebaseApp.configure(name: Constants.firebaseAppWavesPlatform, options: options)
+//            if let app = FirebaseApp.app(name: Constants.firebaseAppWavesPlatform) {
+//                Database.database(app: app).isPersistenceEnabled = false
+//            }
+//        }
         
         if let apiKey = NSDictionary(contentsOfFile: resources.amplitudeInfo)?["API_KEY"] as? String {
             Amplitude.instance()?.initializeApiKey(apiKey)
