@@ -331,6 +331,7 @@
 		7B49912822F87C7A005B7123 /* AssetsSearchSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912722F87C7A005B7123 /* AssetsSearchSystem.swift */; };
 		7B49912C22F99B76005B7123 /* AssetsSearchEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912B22F99B76005B7123 /* AssetsSearchEmptyCell.swift */; };
 		7B49912E22F9B470005B7123 /* AssetsSearchModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912D22F9B470005B7123 /* AssetsSearchModuleOutput.swift */; };
+		7B4F964623E1BF3E00950D39 /* GoogleService-Info-Waves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B4F964523E1BF3E00950D39 /* GoogleService-Info-Waves.plist */; };
 		7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B537E2423E08B43002A3976 /* Date+Helper.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
@@ -1604,6 +1605,7 @@
 		7B49912B22F99B76005B7123 /* AssetsSearchEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchEmptyCell.swift; sourceTree = "<group>"; };
 		7B49912D22F9B470005B7123 /* AssetsSearchModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchModuleOutput.swift; sourceTree = "<group>"; };
 		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
+		7B4F964523E1BF3E00950D39 /* GoogleService-Info-Waves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Waves.plist"; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
@@ -4146,6 +4148,7 @@
 		7B9DC3042382C04700DCCA75 /* CommonResources */ = {
 			isa = PBXGroup;
 			children = (
+				7B4F964523E1BF3E00950D39 /* GoogleService-Info-Waves.plist */,
 				7B9DC3102382C04700DCCA75 /* Amplitude-Info.plist */,
 				7B9DC3082382C04700DCCA75 /* Appsflyer-Info.plist */,
 				7B9DC30A2382C04700DCCA75 /* AppSpector-Info.plist */,
@@ -6415,6 +6418,7 @@
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
 				0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */,
+				7B4F964623E1BF3E00950D39 /* GoogleService-Info-Waves.plist in Resources */,
 				E9F69B9D22A5333500CDBD00 /* WalletSearchHeaderCell.xib in Resources */,
 				0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */,
 				E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */,

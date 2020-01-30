@@ -90,9 +90,10 @@ platform :ios do
 
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = ""
 
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
+    ENV['URL_FIREBASE_WAVESPLATFORM'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test-Waves.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
-    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Dev.plist"
+    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Test.plist"
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
@@ -114,6 +115,7 @@ platform :ios do
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1233158971"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
+    ENV['URL_FIREBASE_WAVESPLATFORM'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod-Waves.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
     ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
@@ -137,6 +139,8 @@ platform :ios do
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1438015790"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
+    ENV['URL_FIREBASE_WAVESPLATFORM'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test-Waves.plist"
+    
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
     ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
@@ -287,7 +291,9 @@ platform :ios do
     download_gitlab("#{ENV['URL_SENTRY_IO']}", "#{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
 
     download_gitlab("#{ENV['URL_AMPLITUDE']}", "#{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
-
+    
+    download_gitlab("#{ENV['URL_FIREBASE_WAVESPLATFORM']}", "#{Dir.pwd}/../CommonResources/GoogleService-Info-Waves.plist")
+    
     download_file("#{ENV['URL_ENVIROMENT_STAGENET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_stagenet.json")
     download_file("#{ENV['URL_ENVIROMENT_MAINNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_mainnet.json")
     download_file("#{ENV['URL_ENVIROMENT_TESTNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_testnet.json")

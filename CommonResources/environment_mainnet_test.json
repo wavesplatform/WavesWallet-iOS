@@ -3,8 +3,8 @@
   "servers": {
     "nodeUrl": "https://nodes.wavesnodes.com",
     "dataUrl": "https://api.wavesplatform.com",
-    "spamUrl": "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
-    "matcherUrl": "https://matcher.wavesplatform.com",
+    "spamUrl": "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
+    "matcherUrl": "https://matcher.waves.exchange",
     "gatewayUrl": "https://gw.waves.exchange/api"
   },
   "scheme": "W",
@@ -27,7 +27,7 @@
         "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/wavesenterprise.png"
       },
       "assetId": "4LHHvYGNKJUg5hj65aGD5vgScvCBmLpdRFtjokvCjSL8",
-      "displayName": "VST",
+      "displayName": "WEST",
       "isFiat": false,
       "isGateway": true,
       "wavesId": "Vostok",
@@ -45,7 +45,7 @@
       "isGateway": true,
       "wavesId": "WBTC",
       "gatewayId": "BTC",
-      "gatewayType": "coinomat",
+      "gatewayType": "gateway",
       "addressRegEx": "^[13][a-km-zA-HJ-NP-Z1-9]{25,34}|(bc1)[a-z0-9]{25,90}"
     },
     {
@@ -58,6 +58,19 @@
       "isGateway": true,
       "wavesId": "WETH",
       "gatewayId": "ETH",
+      "gatewayType": "gateway",
+      "addressRegEx": "^0x[0-9a-fA-F]{40}$"
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/logo_tether.png"
+      },
+      "assetId": "34N9YcEETLWn93qYQ64EsP1x89tSruJU44RrEMSXXEPJ",
+      "displayName": "Tether USD",
+      "isFiat": false,
+      "isGateway": true,
+      "wavesId": "USDT",
+      "gatewayId": "USDT",
       "gatewayType": "gateway",
       "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     },
@@ -193,19 +206,30 @@
     },
     {
       "iconUrls": {
-        "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/bancor.png"
+        "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/tidex.png"
       },
-      "assetId": "F81SdfzBZr5ce8JArRWLPJEDg1V8yT257ohbcHk75yCp",
-      "displayName": "Bancor",
+      "assetId": "3QvxP6YFBKpWJSMAfYtL8Niv8KmmKsnpb9uQwQpg8QN2",
+      "displayName": "Tidex",
       "isFiat": false,
-      "isGateway": true,
-      "wavesId": "BNT",
-      "gatewayId": "BNT",
-      "gatewayType": "gateway",
-      "addressRegEx": "^0x[0-9a-fA-F]{40}$"
+      "isGateway": false,
+      "wavesId": "TDX",
+      "gatewayId": "",
+      "addressRegEx": ""
     }
   ],
   "assets": [
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/logo_neutrino.png"
+      },
+      "assetId": "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p",
+      "displayName": "Neutrino",
+      "isFiat": false,
+      "isGateway": false,
+      "wavesId": "USD-N",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
     {
       "iconUrls": {
         "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/mtn.png"
@@ -385,6 +409,19 @@
       "wavesId": "XBBT",
       "gatewayId": "",
       "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/bancor.png"
+      },
+      "assetId": "F81SdfzBZr5ce8JArRWLPJEDg1V8yT257ohbcHk75yCp",
+      "displayName": "Bancor",
+      "isFiat": false,
+      "isGateway": true,
+      "wavesId": "BNT",
+      "gatewayId": "BNT",
+      "gatewayType": "gateway",
+      "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     }
   ]
 }

@@ -1,8 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
   - Amplitude-iOS (4.6.0)
-  - AppsFlyerFramework (4.10.2)
-  - AppSpectorSDK (1.2.2)
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
@@ -194,8 +192,6 @@ PODS:
 
 DEPENDENCIES:
   - Amplitude-iOS
-  - AppsFlyerFramework
-  - AppSpectorSDK
   - Charts
   - Crashlytics
   - CryptoSwift
@@ -247,8 +243,6 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Amplitude-iOS
-    - AppsFlyerFramework
-    - AppSpectorSDK
     - Crashlytics
     - CryptoSwift
     - CSV.swift
@@ -334,8 +328,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Amplitude-iOS: ac1715ae68104b7a51723209ad574f60ab22ae5f
-  AppsFlyerFramework: 417e0ceeb58cb60d762f25808095eb4801e3132b
-  AppSpectorSDK: 6c32df6d66156daa2c1de6e028a74b9c7379753a
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
@@ -400,6 +392,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 097ab6a58a90c5434b15bb013d939f2fc7d874f5
+PODFILE CHECKSUM: 49ed39f5664105e27f198028e59b1e6ce50d9689
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.8.1
