@@ -28,7 +28,8 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     private let widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
     private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
-            
+    private let assetsRepository: WidgetAssetsRepositoryProtocol = WidgetAssetsRepositoryRemote()
+
     init() {
         _ = setupLayers()
     }
@@ -101,16 +102,22 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                                                               .init(amountAssetId: $0.id, priceAssetId: MarketPulse.eurAssetId)] },
                                                       timestamp: roundEarlyDate)
         
+        let assetsQuery = assetsRepository.assets(by: assets.map { $0.id })
+        
         return Observable.zip(pairsPriceRepository.ratePairs(ratesQueryYesterday),
-                              pairsPriceRepository.ratePairs(ratesQuery))
-            .flatMap { (yesterdayRates, nowRates) -> Observable<[MarketPulse.DTO.Asset]> in
+                              pairsPriceRepository.ratePairs(ratesQuery),
+                              assetsQuery)
+            .flatMap { (yesterdayRates, nowRates, assetsRemote) -> Observable<[MarketPulse.DTO.Asset]> in
                        
+                let assetsRemoteMap = assetsRemote.reduce(into: [String: DomainLayer.DTO.Asset].init(), {
+                    $0[$1.id] = $1
+                })
                 
                 let yesterdayRatesMap = yesterdayRates.reduce(into: [String: [String: MarketPulse.DTO.Rate]].init(), {
-                        var map = $0[$1.priceAssetId] ?? [String: MarketPulse.DTO.Rate].init()
+                    var map = $0[$1.priceAssetId] ?? [String: MarketPulse.DTO.Rate].init()
 
-                        map[$1.amountAssetId] = $1
-                        $0[$1.priceAssetId] = map
+                    map[$1.amountAssetId] = $1
+                    $0[$1.priceAssetId] = map
                 })
                 
                 let nowRatesMap = nowRates.reduce(into: [String: [String: MarketPulse.DTO.Rate]].init(), {
@@ -130,9 +137,12 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                     firstPrice[MarketPulse.usdAssetId] = yesterdayRatesMap[MarketPulse.usdAssetId]?[asset.id]?.rate ?? 0
                     firstPrice[MarketPulse.eurAssetId] = yesterdayRatesMap[MarketPulse.eurAssetId]?[asset.id]?.rate ?? 0
                     
+                    let icon = assetsRemoteMap[asset.id]?.iconLogo ?? asset.icon
+                    let name = (assetsRemoteMap[asset.id]?.ticker ?? assetsRemoteMap[asset.id]?.displayName) ?? asset.name
+                    
                     return MarketPulse.DTO.Asset(id: asset.id,
-                                                 name: asset.name,
-                                                 icon: asset.icon,
+                                                 name: name,
+                                                 icon: icon,
                                                  rates: rates,
                                                  firstPrice: firstPrice,
                                                  lastPrice: rates,
