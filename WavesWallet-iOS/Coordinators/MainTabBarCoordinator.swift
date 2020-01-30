@@ -117,8 +117,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouterHistory, historyType: .all)
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
 
-        let dexListCoordinator = DexCoordinator(navigationRouter: navigationRouterDex)
-        addChildCoordinatorAndStart(childCoordinator: dexListCoordinator)
+        let tradeCoordinator = TradeCoordinator(navigationRouter: navigationRouterDex)
+        addChildCoordinatorAndStart(childCoordinator: tradeCoordinator)
 
         let profileCoordinator = ProfileCoordinator(navigationRouter: navigationRouterProfile, applicationCoordinator: applicationCoordinator)
         addChildCoordinatorAndStart(childCoordinator: profileCoordinator)

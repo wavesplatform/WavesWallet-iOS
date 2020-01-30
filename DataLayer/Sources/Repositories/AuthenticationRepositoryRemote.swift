@@ -166,9 +166,9 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
 
                        return Observable.zip([changeLastTry, inputTry])
                            .flatMap { _ -> Observable<String> in
-                               self.keyForPassword(database: database, passcode: passcode)
+                               return self.keyForPassword(database: database, passcode: passcode)
                                    .flatMap { keyForPassword -> Observable<String> in
-                                       self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
+                                       return self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode).map { _ in keyForPassword }
                                    }
                            }
                    })

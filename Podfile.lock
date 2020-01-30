@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (4.8.2)
   - Amplitude-iOS (4.6.0)
-  - Charts (3.3.0):
-    - Charts/Core (= 3.3.0)
-  - Charts/Core (3.3.0)
+  - Charts (3.4.0):
+    - Charts/Core (= 3.4.0)
+  - Charts/Core (3.4.0)
   - Crashlytics (3.13.4):
     - Fabric (~> 1.10.2)
   - CryptoSwift (1.0.0)
@@ -243,7 +243,6 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Amplitude-iOS
-    - Charts
     - Crashlytics
     - CryptoSwift
     - CSV.swift
@@ -281,6 +280,7 @@ SPEC REPOS:
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
   trunk:
+    - Charts
     - DeviceKit
     - Down
     - Firebase
@@ -328,7 +328,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Amplitude-iOS: ac1715ae68104b7a51723209ad574f60ab22ae5f
-  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 9670cc1b3e3f01e9eebb1aeb603b17b4459e7493

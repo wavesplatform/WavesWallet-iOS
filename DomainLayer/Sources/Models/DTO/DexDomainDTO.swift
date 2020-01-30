@@ -16,17 +16,19 @@ public extension DomainLayer.DTO {
 //MARK: Asset
 public extension DomainLayer.DTO.Dex {
     
-    struct Asset {
+    struct Asset: Equatable {
         public let id: String
         public let name: String
         public let shortName: String
         public let decimals: Int
-
-        public init(id: String, name: String, shortName: String, decimals: Int) {
+        public let iconLogo: AssetLogo.Icon
+        
+        public init(id: String, name: String, shortName: String, decimals: Int, iconLogo: AssetLogo.Icon) {
             self.id = id
             self.name = name
             self.shortName = shortName
             self.decimals = decimals
+            self.iconLogo = iconLogo
         }
     }
     
@@ -56,6 +58,45 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
+//MARK: - FavoritePair
+public extension DomainLayer.DTO.Dex {
+    
+    struct FavoritePair: Equatable {
+        public let id: String
+        public let amountAssetId: String
+        public let priceAssetId: String
+        public let isGeneral: Bool
+        public var sortLevel: Int
+
+        public init(id: String, amountAssetId: String, priceAssetId: String, isGeneral: Bool, sortLevel: Int) {
+            self.id = id
+            self.amountAssetId = amountAssetId
+            self.priceAssetId = priceAssetId
+            self.isGeneral = isGeneral
+            self.sortLevel = sortLevel
+        }
+    }
+    
+
+}
+
+//MARK: - SavePair
+public extension DomainLayer.DTO.Dex {
+    
+    struct SavePair {
+        public let id: String
+        public let isGeneral: Bool
+        public let amountAsset: Asset
+        public let priceAsset: Asset
+        
+        public init(id: String, isGeneral: Bool, amountAsset: Asset, priceAsset: Asset) {
+            self.id = id
+            self.isGeneral = isGeneral
+            self.amountAsset = amountAsset
+            self.priceAsset = priceAsset
+        }
+    }
+}
 //MARK: - SmartPair
 public extension DomainLayer.DTO.Dex {
     
@@ -81,7 +122,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - SimplePair
 public extension DomainLayer.DTO.Dex {
     
-    struct SimplePair {
+    struct SimplePair: Equatable {
         public let amountAsset: String
         public let priceAsset: String
         
@@ -103,6 +144,10 @@ public extension DomainLayer.DTO.Dex {
         public init(amountAsset: Asset, priceAsset: Asset) {
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
+        }
+        
+        public var id: String {
+            return amountAsset.id + priceAsset.id
         }
     }
 
@@ -148,16 +193,36 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - PairPrice
 public extension DomainLayer.DTO.Dex {
     struct PairPrice {
+        public let id: String
         public let firstPrice: Money
         public let lastPrice: Money
         public let amountAsset: Asset
         public let priceAsset: Asset
-
-        public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset) {
+        public let isGeneral: Bool
+        
+        public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset, isGeneral: Bool) {
+            self.id = amountAsset.id + priceAsset.id
             self.firstPrice = firstPrice
             self.lastPrice = lastPrice
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
+            self.isGeneral = isGeneral
+        }
+    }
+}
+
+//MARK: - PairRate
+public extension DomainLayer.DTO.Dex {
+    
+    struct PairRate {
+        public let amountAssetId: String
+        public let priceAssetId: String
+        public let rate: Double
+        
+        public init(amountAssetId: String, priceAssetId: String, rate: Double) {
+            self.amountAssetId = amountAssetId
+            self.priceAssetId = priceAssetId
+            self.rate = rate
         }
     }
 }
@@ -186,10 +251,8 @@ public extension DomainLayer.DTO.Dex {
         public let priceAsset: Asset
         public let fee: Int64?
         public let feeAsset: String?
-        public let amountAssetIcon: AssetLogo.Icon
-        public let priceAssetIcon: AssetLogo.Icon
 
-        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, fee: Int64?, feeAsset: String?, amountAssetIcon: AssetLogo.Icon, priceAssetIcon: AssetLogo.Icon) {
+        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, fee: Int64?, feeAsset: String?) {
             
             self.fee = fee
             self.feeAsset = feeAsset
@@ -202,8 +265,6 @@ public extension DomainLayer.DTO.Dex {
             self.type = type
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
-            self.amountAssetIcon = amountAssetIcon
-            self.priceAssetIcon = priceAssetIcon
         }
     
         public var filledPercent: Int {

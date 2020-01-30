@@ -8,8 +8,8 @@
 
 import Foundation
 import Charts
+import DomainLayer
 
-//MARK: - DexChartCandleRightAxisFormatter
 final class DexChartCandleRightAxisFormatter: IAxisValueFormatter {
 
     private var pair: DexTraderContainer.DTO.Pair
@@ -34,16 +34,57 @@ final class DexChartCandleAxisFormatter: IAxisValueFormatter {
     
     private let dateFormatter = DateFormatter()
     
-    var timeFrame: Int = 0
+    var referenceTimeInterval: TimeInterval? = nil
     
-    init() {
-        dateFormatter.dateFormat = "HH:mm\ndd.MM.yyyy"
+    var candles: [DomainLayer.DTO.Candle]? = nil
+        
+    var timeFrame: DomainLayer.DTO.Candle.TimeFrameType? = nil
+    
+    var map: [String: DomainLayer.DTO.Candle]? = nil
+    
+    private var timeFrameValue: Double {
+        return Double(timeFrame?.seconds ?? 0)
     }
+    
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         
-        let time = value * 60 * Double(timeFrame)
-        let date = Date(timeIntervalSince1970: time)
+        let key = "\(value)"
+        guard let date = self.map?[key]?.timestamp else { return "" }
+        guard let timeFrame = self.timeFrame else { return "" }
+                        
+        switch timeFrame {
+        case .M1:
+            if date.isThisYear {
+                dateFormatter.dateFormat = "MMM"
+            } else {
+                dateFormatter.dateFormat = "MMM yyyy"
+            }
+            
+        case .W1:
+            if date.isThisYear {
+                dateFormatter.dateFormat = "MMM dd"
+            } else {
+                dateFormatter.dateFormat = "MMM dd \n yyyy"
+            }
+            
+        case .h1, .h2, .h3, .h4, .h6, .h12, .m5, .m15, .m30:
+            dateFormatter.dateFormat = "HH:mm \n dd.MM.yyyy"
+    
+        case .h24:
+            if date.isToday {
+                return Localizable.Waves.Dexchart.Label.today
+            } else if date.isYesterday {
+                return Localizable.Waves.Dexchart.Label.yesterday
+            } else {
+                if date.isThisMonth {
+                    dateFormatter.dateFormat = "E dd"
+                } else {
+                    dateFormatter.dateFormat = "E dd \n MMM yyyy"
+                }
+            }
+        }
+         
         return dateFormatter.string(from: date)
     }
 }

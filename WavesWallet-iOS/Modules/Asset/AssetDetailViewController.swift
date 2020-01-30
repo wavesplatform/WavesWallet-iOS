@@ -92,6 +92,13 @@ final class AssetDetailViewController: UIViewController {
             eventInput.onNext(.tapBurn(asset: asset, delegate: self))
         }
     }
+    
+    private func showTradeController() {
+        if let section = sections.first(where: {$0.assetBalance != nil}),
+            let asset = section.assetBalance {
+            eventInput.onNext(.showTrade(asset.asset))
+        }
+    }
 }
 
 // MARK: RxFeedback
@@ -374,9 +381,9 @@ extension AssetDetailViewController: UITableViewDataSource {
         let row = sections[indexPath]
 
         switch row {
-        case .balance(let balance):
+        case .balance(let priceAsset):
             let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
-            cell.update(with: balance)
+            cell.update(with: priceAsset)
             cell.receiveAction = { [weak self] in
 
                 guard let self = self else { return }
@@ -385,6 +392,11 @@ extension AssetDetailViewController: UITableViewDataSource {
             cell.sendAction = { [weak self] in
                 guard let self = self else { return }
                 self.showSendController()
+            }
+            
+            cell.exchangeAction = { [weak self] in
+                guard let self = self else { return }
+                self.showTradeController()
             }
             return cell
 
@@ -524,8 +536,8 @@ extension AssetDetailViewController: UITableViewDelegate {
         let row = sections[indexPath]
 
         switch row {
-        case .balance(let balance):
-            return AssetBalanceCell.viewHeight(model: balance, width: tableView.frame.width)
+        case .balance(let priceAsset):
+            return AssetBalanceCell.viewHeight(model: priceAsset, width: tableView.frame.width)
 
         case .spamBalance:
             return AssetBalanceSpamCell.viewHeight()

@@ -40,6 +40,7 @@ enum UITest {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
+
     lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
      
     #if DEBUG 

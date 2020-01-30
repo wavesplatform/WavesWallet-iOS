@@ -53,7 +53,7 @@
 "asset.cell.assetInfo.title" = "Token Info";
 "asset.cell.assetInfo.totalAmount" = "Total amount";
 "asset.cell.balance.avaliableBalance" = "Available balance";
-"asset.cell.balance.button.exchange" = "Exchange";
+"asset.cell.balance.button.trade" = "Trade";
 "asset.cell.balance.button.receive" = "Receive";
 "asset.cell.balance.button.send" = "Send";
 "asset.cell.balance.inOrderBalance" = "In order";
@@ -163,16 +163,9 @@
 "dexlasttrades.label.price" = "Price";
 "dexlasttrades.label.sum" = "Sum";
 "dexlasttrades.label.time" = "Time";
-"dexlist.button.addMarkets" = "Add Markets";
-"dexlist.label.decentralisedExchange" = "Decentralised Exchange";
-"dexlist.label.description" = "Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.";
-"dexlist.label.lastUpdate" = "Last update";
-"dexlist.label.price" = "Price";
-"dexlist.label.today" = "Today";
-"dexlist.label.yesterday" = "Yesterday";
-"dexlist.navigationBar.title" = "Exchange";
 "dexmarket.label.loadingMarkets" = "Loading markets…";
 "dexmarket.navigationBar.title" = "Markets";
+"dexmarket.navigationBar.titleAsset" = "Search pairs to";
 "dexmarket.searchBar.placeholder" = "Search";
 "dexmyorders.label.buy" = "Buy";
 "dexmyorders.label.emptyData" = "Nothing Here…\nYou do not have any orders";
@@ -194,7 +187,6 @@
 "dexorderbook.label.price" = "Price";
 "dexorderbook.label.spread" = "SPREAD";
 "dexorderbook.label.sum" = "Sum";
-"dexsort.navigationBar.title" = "Sorting";
 "dextradercontainer.button.chart" = "Chart";
 "dextradercontainer.button.lastTrades" = "Last trades";
 "dextradercontainer.button.myOrders" = "My orders";
@@ -729,3 +721,6 @@
 "myorders.alert.cancelOrder.title" = "Cancel Order";
 "myorders.alert.cancelOrder.subTitle" = "Are you sure you want to cancel order %@?";
 "dexchart.label.day" = "day";
+"trade.title" = "Trade";
+"dexchart.label.today" = "Today";
+"dexchart.label.yesterday" = "Yesterday";

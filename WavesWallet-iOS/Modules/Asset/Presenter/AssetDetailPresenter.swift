@@ -12,6 +12,7 @@ import RxFeedback
 import RxSwift
 import Extensions
 import DomainLayer
+import WavesSDK
 
 final class AssetDetailPresenter: AssetDetailPresenterProtocol {
 
@@ -119,7 +120,7 @@ private extension AssetDetailPresenter {
 
         case .refreshing:
 
-            let ids = state.assets.map { $0.info.id }
+            let ids = state.assets.map { $0.asset.info.id }
             interactor.refreshAssets(by: ids)
 
             return state.mutate {
@@ -138,14 +139,14 @@ private extension AssetDetailPresenter {
                     return
                 }
 
-                let currentAsset = state.assets.first(where: { $0.info.id == assetId })
+                let currentAsset = state.assets.first(where: { $0.asset.info.id == assetId })
                 if let currentAsset = currentAsset {
                     state.transactionStatus = .loading
-                    state.displayState.currentAsset = currentAsset.info
+                    state.displayState.currentAsset = currentAsset.asset.info
                     state.displayState.sections = mapTosections(from: currentAsset,
                                                                 and: state.transactionStatus)
-                    state.displayState.isFavorite = currentAsset.info.isFavorite
-                    state.displayState.isDisabledFavoriteButton = currentAsset.info.isSpam
+                    state.displayState.isFavorite = currentAsset.asset.info.isFavorite
+                    state.displayState.isDisabledFavoriteButton = currentAsset.asset.info.isSpam
                     state.displayState.action = .changedCurrentAsset
                 } else {
                     state.displayState.action = .none
@@ -156,8 +157,8 @@ private extension AssetDetailPresenter {
 
             return state.mutate {
 
-                let currentAsset = state.assets.first(where: { asset -> Bool in
-                    return asset.info.id == state.displayState.currentAsset.id
+                let currentAsset = state.assets.first(where: { priceAsset -> Bool in
+                    return priceAsset.asset.info.id == state.displayState.currentAsset.id
                 })
 
                 if let asset = currentAsset {
@@ -179,8 +180,8 @@ private extension AssetDetailPresenter {
                 
                 let currentAssetIndex = state.displayState.assets.firstIndex(where: {$0.id == state.displayState.currentAsset.id})
                 
-                var asset = newAssets.first(where: { asset -> Bool in
-                    return asset.info.id == state.displayState.currentAsset.id
+                var asset = newAssets.first(where: { priceAsset -> Bool in
+                    return priceAsset.asset.info.id == state.displayState.currentAsset.id
                 })
 
                 if asset == nil {
@@ -199,9 +200,9 @@ private extension AssetDetailPresenter {
                     state.displayState.sections = mapTosections(from: asset,
                                                                 and: state.transactionStatus)
 
-                    state.displayState.currentAsset = asset.info
-                    state.displayState.isFavorite = asset.info.isFavorite
-                    state.displayState.isDisabledFavoriteButton = asset.info.isSpam
+                    state.displayState.currentAsset = asset.asset.info
+                    state.displayState.isFavorite = asset.asset.info.isFavorite
+                    state.displayState.isDisabledFavoriteButton = asset.asset.info.isSpam
                     state.displayState.isUserInteractionEnabled = true
                     state.displayState.action = .refresh
                 } else {
@@ -210,7 +211,7 @@ private extension AssetDetailPresenter {
                     state.displayState.action = .none
                 }
                 state.displayState.isRefreshing = false
-                state.displayState.assets = newAssets.map { $0.info }
+                state.displayState.assets = newAssets.map { $0.asset.info }
                 state.assets = newAssets
             }
 
@@ -220,8 +221,8 @@ private extension AssetDetailPresenter {
 
             return state.mutate {
                 
-                if let index = state.assets.firstIndex(where: {$0.info.id == state.displayState.currentAsset.id}) {
-                    $0.assets[index].info.isFavorite = on
+                if let index = state.assets.firstIndex(where: {$0.asset.info.id == state.displayState.currentAsset.id}) {
+                    $0.assets[index].asset.info.isFavorite = on
                 }
                 
                 $0.displayState.isFavorite = on
@@ -246,6 +247,11 @@ private extension AssetDetailPresenter {
                 $0.displayState.action = .none
             }
             
+        case .showTrade(let asset):
+            moduleOutput?.showTrade(asset: asset)
+            return state.mutate {
+                $0.displayState.action = .none
+            }
         default:
             break
         }
@@ -261,21 +267,21 @@ private extension AssetDetailPresenter {
 // MARK: Map
 extension AssetDetailPresenter {
 
-    func mapTosections(from asset: AssetDetailTypes.DTO.Asset,
+    func mapTosections(from priceAsset: AssetDetailTypes.DTO.PriceAsset,
                              and transactionStatus: AssetDetailTypes.State.TransactionStatus) -> [AssetDetailTypes.ViewModel.Section]
     {
 
         var balance: AssetDetailTypes.ViewModel.Section!
-        if asset.info.isSpam {
-            balance = .init(kind: .none, rows: [.spamBalance(asset.balance), .tokenBurn(asset.info)])
+        if priceAsset.asset.info.isSpam {
+            balance = .init(kind: .none, rows: [.spamBalance(priceAsset.asset.balance), .tokenBurn(priceAsset.asset.info)])
         }
         else {
-            balance = .init(kind: .none, rows: [.balance(asset.balance)])
+            balance = .init(kind: .none, rows: [.balance(priceAsset)])
         }
         
-        var infoRows: [AssetDetailTypes.ViewModel.Row] = [.assetInfo(asset.info)]
-        if !asset.info.isSpam && !asset.info.isWaves && asset.info.assetBalance.availableBalance > 0 {
-            infoRows.append(.tokenBurn(asset.info))
+        var infoRows: [AssetDetailTypes.ViewModel.Row] = [.assetInfo(priceAsset.asset.info)]
+        if !priceAsset.asset.info.isSpam && !priceAsset.asset.info.isWaves && priceAsset.asset.info.assetBalance.availableBalance > 0 {
+            infoRows.append(.tokenBurn(priceAsset.asset.info))
         }
         let assetInfo: AssetDetailTypes.ViewModel.Section = .init(kind: .none, rows: infoRows)
 
@@ -339,7 +345,7 @@ private extension AssetDetailPresenter {
 
 fileprivate extension AssetDetailTypes.DTO.Asset.Info {
     
-    func emptyAssetBalance() -> AssetDetailTypes.DTO.Asset {
+    func emptyAssetBalance() -> AssetDetailTypes.DTO.PriceAsset {
 
         let decimals = assetBalance.asset.precision
         
@@ -364,6 +370,11 @@ fileprivate extension AssetDetailTypes.DTO.Asset.Info {
                                                                 sponsorBalance: assetBalance.sponsorBalance)
         var info = self
         info.assetBalance = newSmartBalance
-        return AssetDetailTypes.DTO.Asset(info: info, balance: newBalance)
+        let asset = AssetDetailTypes.DTO.Asset(info: info, balance: newBalance)
+        
+        return .init(price: .init(firstPrice: 0,
+                                  lastPrice: 0,
+                                  priceUSD: Money(0, WavesSDKConstants.FiatDecimals)),
+                     asset: asset)
     }
 }

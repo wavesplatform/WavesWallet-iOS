@@ -36,14 +36,13 @@ final class MyOrdersViewController: UIViewController {
         title = Localizable.Waves.Dextradercontainer.Button.myOrders
         view.backgroundColor = .basic50
 
-        scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
         
         let segmentedItems = [Localizable.Waves.Dexmyorders.Label.all,
                               Localizable.Waves.Dexmyorders.Label.active,
                               Localizable.Waves.Dexmyorders.Label.closed,
                               Localizable.Waves.Dexmyorders.Label.cancelled]
-        scrolledTablesComponent.setup(segmentedItems: segmentedItems, tableDataSource: self, tableDelegate: self)
+        scrolledTablesComponent.setup(segmentedItems: segmentedItems.map{ .title($0) }, tableDataSource: self, tableDelegate: self)
     
         setupSystem()
         setupCancelOrderButton()

@@ -20,6 +20,8 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     private var isEnableEnviromentTest: Bool = false
     private var isEnableVersionUpdateTest: Bool = false
     private var isEnableDebugSettingsTest: Bool = false
+    private var isEnableTradeCategoriesConfigTest: Bool = false
+
     private var debugButtonPosition: CGPoint? = nil
     
     public static var defaultValue: ApplicationDebugSettings {
@@ -28,7 +30,8 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
                                         debugButtonPosition: nil,
                                         isEnableEnviromentTest: false,
                                         isEnableVersionUpdateTest: false,
-                                        isEnableDebugSettingsTest: false)
+                                        isEnableDebugSettingsTest: false,
+                                        isEnableTradeCategoriesConfigTest: false)
     }
     
     public static var stringKey: String {
@@ -59,13 +62,15 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
                 debugButtonPosition: CGPoint?,
                 isEnableEnviromentTest: Bool,
                 isEnableVersionUpdateTest: Bool,
-                isEnableDebugSettingsTest: Bool) {
+                isEnableDebugSettingsTest: Bool,
+                isEnableTradeCategoriesConfigTest: Bool) {
         self.isEnableStage = isEnableStage
         self.isEnableEnviromentTest = isEnableEnviromentTest
         self.isEnableVersionUpdateTest = isEnableVersionUpdateTest
         self.isEnableNotificationsSettingTest = isEnableNotificationsSettingTest
         self.debugButtonPosition = debugButtonPosition
         self.isEnableDebugSettingsTest = isEnableDebugSettingsTest
+        self.isEnableTradeCategoriesConfigTest = isEnableTradeCategoriesConfigTest
     }
     
     
@@ -112,6 +117,16 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     public static func setEnableDebugSettingsTest(isEnable: Bool) {
         var settings = ApplicationDebugSettings.get()
         settings.isEnableDebugSettingsTest = isEnable
+        ApplicationDebugSettings.set(settings)
+    }
+    
+    public static var isEnableTradeCategoriesConfigTest: Bool {
+        return ApplicationDebugSettings.get().isEnableTradeCategoriesConfigTest
+    }
+    
+    public static func setEnableTradeCategoriesConfigTest(isEnable: Bool) {
+        var settings = ApplicationDebugSettings.get()
+        settings.isEnableTradeCategoriesConfigTest = isEnable
         ApplicationDebugSettings.set(settings)
     }
 }
