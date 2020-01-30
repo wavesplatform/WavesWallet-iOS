@@ -16,14 +16,6 @@ protocol InfoPagesViewModuleOutput: AnyObject {
 
 private struct Constants {
     
-    #if DEBUG
-    static let appIcon: String = "AppIcon-New-Dev"
-    #elseif TEST
-    static let appIcon: String = "AppIcon-New-Test"
-    #else
-    static let appIcon: String = "AppIcon-New"
-    #endif
-
     static let buttonNext = Localizable.Waves.Hello.Button.next
     static let buttonBegin = Localizable.Waves.Hello.Button.begin
 }
@@ -56,40 +48,22 @@ final class InfoPagesViewController: UIViewController {
     private var isActiveConfirm: Bool = false
     
     weak var output: InfoPagesViewModuleOutput?
-    
-    var isNewUser: Bool = true
-    
+            
     private lazy var pageViews: [UIView] = {
             
         var  views: [UIView] = .init()
         
-        if isNewUser == false {
-            let migrationWavesExchangeView: MigrationWavesExchangeView = MigrationWavesExchangeView.loadView()
-            migrationWavesExchangeView.delegate = self
-            let confirmView: InfoPageConfirmView = InfoPageConfirmView.loadView()
-            confirmView.isNewUser = isNewUser
-            return [migrationWavesExchangeView, confirmView]
-        } else {
-            let welcomeView = ShortInfoPageView.loadView()
-            let needToKnowView = ShortInfoPageView.loadView()
-            let needToKnowLongView = LongInfoPageView.loadView()
-            let protectView = ShortInfoPageView.loadView()
-            let protectLongView = LongInfoPageView.loadView()
-            let migrationWavesExchangeView: MigrationWavesExchangeView = MigrationWavesExchangeView.loadView()
-            let confirmView: InfoPageConfirmView = InfoPageConfirmView.loadView()
-            confirmView.isNewUser = isNewUser
-            migrationWavesExchangeView.delegate = self
-            
-            return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, migrationWavesExchangeView, confirmView]
-        }
+        let welcomeView = ShortInfoPageView.loadView()
+        let needToKnowView = ShortInfoPageView.loadView()
+        let needToKnowLongView = LongInfoPageView.loadView()
+        let protectView = ShortInfoPageView.loadView()
+        let protectLongView = LongInfoPageView.loadView()
+        let confirmView: InfoPageConfirmView = InfoPageConfirmView.loadView()                
+        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, confirmView]
     }()
     
     private lazy var pageModels: [Any] = {
-        
-        guard self.isNewUser == true else {
-            return [MigrationWavesExchangeView.Model.init()]
-        }
-        
+                
         let welcome = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.First.title,
                                               detail: Localizable.Waves.Hello.Page.Info.First.detail,
                                               firstImage: nil, secondImage: nil,
@@ -129,11 +103,8 @@ final class InfoPagesViewController: UIViewController {
                                                  secondImage: Images.iRefreshbrowser42Submit400.image,
                                                  thirdImage: Images.iOs42Submit400.image,
                                                  fourthImage: Images.iWifi42Submit400.image)
-        
-        
-        let migrationWavesExchangeModel = MigrationWavesExchangeView.Model.init()
-        
-        return [welcome, needToKnow, needToKnowLong, protect, protectLong, migrationWavesExchangeModel]
+            
+        return [welcome, needToKnow, needToKnowLong, protect, protectLong]
         
     }()
     
@@ -246,11 +217,8 @@ final class InfoPagesViewController: UIViewController {
             } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
                 nextControl.isEnabled = currentModel.scrolledToBottom
                 toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
-            } else if pageModels[currentPage] is MigrationWavesExchangeView.Model {
-                                                                
-                nextControl.isEnabled = true
-                toolbarLabel.alpha = 1
             }
+            //TODO: Check
         }
         else {
             nextControl.isEnabled = isActiveConfirm
@@ -415,14 +383,6 @@ extension InfoPagesViewController: ShortInfoPageViewDelegate {
         changedPage()
     }
     
-}
-
-extension InfoPagesViewController: MigrationWavesExchangeDelegate {
-    func migrationWavesExchangeAnimationEnd() {
-        if UIApplication.shared.alternateIconName != Constants.appIcon {
-            UIApplication.shared.setAlternateIconName(Constants.appIcon) { _ in }
-        }
-    }
 }
 
 enum InfoPagesViewControllerConstants {

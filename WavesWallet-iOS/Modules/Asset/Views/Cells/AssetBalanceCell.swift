@@ -10,14 +10,17 @@ import UIKit
 import Extensions
 
 fileprivate enum Constants {
-    static let heightViewWithoutBalances: CGFloat = 188
-    static let heightViewWithBalance: CGFloat = 208
+    static let heightViewWithoutBalances: CGFloat = 208
     static let heightBalanceView: CGFloat = 42
     static let heightFirstBalanceView: CGFloat = 28
     static let bottomPadding: CGFloat = 8
     static let heightSeparator: CGFloat = 0.5
     static let countSeparatorsWhenThreeFields: CGFloat = 3
     static let countSeparatorsWhenTwoFields: CGFloat = 3
+    
+    enum Font {
+        static let percentSize: CGFloat = 11
+    }
 }
 
 final class AssetBalanceCell: UITableViewCell, NibReusable {
@@ -36,7 +39,9 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private var thirdSeparatorView: SeparatorView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var balanceLabel: UILabel!
-
+    @IBOutlet private weak var labelPriceUsd: UILabel!
+    @IBOutlet private weak var viewPercent: PercentTickerView!
+    
     @IBOutlet private var sendButton: UIButton!
     @IBOutlet private var receiveButton: UIButton!
     @IBOutlet private var exchangeButton: UIButton!
@@ -99,9 +104,12 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
 
 extension AssetBalanceCell: ViewConfiguration {
 
-    func update(with model: AssetDetailTypes.DTO.Asset.Balance) {
+    
+    func update(with model: AssetDetailTypes.DTO.PriceAsset) {
 
-        options = Options(isHiddenLeased: model.leasedMoney.isZero, isHiddenInOrder: model.inOrderMoney.isZero)
+        let balance = model.asset.balance
+        
+        options = Options(isHiddenLeased: balance.leasedMoney.isZero, isHiddenInOrder: balance.inOrderMoney.isZero)
 
         sendButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.send, for: .normal)
         receiveButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.receive, for: .normal)
@@ -109,19 +117,24 @@ extension AssetBalanceCell: ViewConfiguration {
 
         titleLabel.text = Localizable.Waves.Asset.Cell.Balance.avaliableBalance
 
-        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull(isFiat: model.isFiat),
+        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: balance.avaliableMoney.displayTextFull(isFiat: balance.isFiat),
                                                                          font: balanceLabel.font)
 
         viewLeased.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.leased,
-                                      money: model.leasedMoney,
-                                      isFiat: model.isFiat))
+                                      money: balance.leasedMoney,
+                                      isFiat: balance.isFiat))
         viewInOrder.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.inOrderBalance,
-                                       money: model.inOrderMoney,
-                                       isFiat: model.isFiat))
+                                       money: balance.inOrderMoney,
+                                       isFiat: balance.isFiat))
         viewTotal.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.totalBalance,
-                                     money: model.totalMoney,
-                                     isFiat: model.isFiat))
+                                     money: balance.totalMoney,
+                                     isFiat: balance.isFiat))
 
+        viewPercent.update(with: .init(firstPrice: model.price.firstPrice,
+                                       lastPrice: model.price.lastPrice,
+                                       fontSize: Constants.Font.percentSize))
+        labelPriceUsd.text = "$ " + model.price.priceUSD.displayText
+        
         isNeedsUpdateConstraints = true
         setNeedsUpdateConstraints()
     }
@@ -129,10 +142,10 @@ extension AssetBalanceCell: ViewConfiguration {
 
 extension AssetBalanceCell: ViewCalculateHeight {
 
-    static func viewHeight(model: AssetDetailTypes.DTO.Asset.Balance, width: CGFloat) -> CGFloat {
+    static func viewHeight(model: AssetDetailTypes.DTO.PriceAsset, width: CGFloat) -> CGFloat {
 
-        let isHiddenLeased = model.leasedMoney.isZero
-        let isHiddenInOrder = model.inOrderMoney.isZero
+        let isHiddenLeased = model.asset.balance.leasedMoney.isZero
+        let isHiddenInOrder = model.asset.balance.inOrderMoney.isZero
 
         if isHiddenLeased && isHiddenInOrder {
             return Constants.heightViewWithoutBalances + Constants.bottomPadding

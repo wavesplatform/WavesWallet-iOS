@@ -37,7 +37,7 @@ extension AssetDetailTypes {
             }
         }
 
-        var assets: [DTO.Asset]
+        var assets: [DTO.PriceAsset]
         var transactionStatus: TransactionStatus
         var displayState: DisplayState
     }
@@ -46,7 +46,7 @@ extension AssetDetailTypes {
         case readyView
         case changedAsset(id: String)
         case setTransactions([DomainLayer.DTO.SmartTransaction])
-        case setAssets([DTO.Asset])
+        case setAssets([DTO.PriceAsset])
         case refreshing
         case tapFavorite(on: Bool)
         case tapSend
@@ -98,7 +98,7 @@ extension AssetDetailTypes.ViewModel {
 
     enum Row {
         case balanceSkeleton
-        case balance(AssetDetailTypes.DTO.Asset.Balance)
+        case balance(AssetDetailTypes.DTO.PriceAsset)
         case spamBalance(AssetDetailTypes.DTO.Asset.Balance)
         case viewHistory
         case viewHistoryDisabled
@@ -112,6 +112,17 @@ extension AssetDetailTypes.ViewModel {
 
 extension AssetDetailTypes.DTO {
 
+    struct Price {
+        let firstPrice: Double
+        let lastPrice: Double
+        let priceUSD: Money
+    }
+    
+    struct PriceAsset {
+        let price: Price
+        var asset: Asset
+    }
+    
     struct Asset {
 
         struct Info {
