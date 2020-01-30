@@ -63,6 +63,19 @@
     },
     {
       "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/logo_tether.png"
+      },
+      "assetId": "34N9YcEETLWn93qYQ64EsP1x89tSruJU44RrEMSXXEPJ",
+      "displayName": "Tether USD",
+      "isFiat": false,
+      "isGateway": true,
+      "gatewayId": "USDT",
+      "wavesId": "USDT",
+      "gatewayType": "gateway",
+      "addressRegEx": "^0x[0-9a-fA-F]{40}$"
+    },
+    {
+      "iconUrls": {
         "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/usd.png"
       },
       "assetId": "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck",
@@ -205,6 +218,18 @@
     }
   ],
   "assets": [
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/logo_neutrino.png"
+      },
+      "assetId": "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p",
+      "displayName": "Neutrino",
+      "isFiat": false,
+      "isGateway": false,
+      "wavesId": "USD-N",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
     {
       "iconUrls": {
         "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/mtn.png"
