@@ -64,7 +64,7 @@ extension WidgetSettingsAssetCell: ViewConfiguration {
     
     func update(with model: Model) {
         
-        nameLabel.text = model.asset.displayName
+        nameLabel.text = model.asset.ticker ?? model.asset.displayName
         iconImageContainerView.isHidden = model.isLock == false
         viewDelete.isHidden = model.isLock == true
     }

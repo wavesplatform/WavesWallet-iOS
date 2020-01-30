@@ -120,7 +120,7 @@ public class WidgetSettingsUseCase: WidgetSettingsUseCaseProtocol {
                         let pair = pairs[element.offset]
                         
                         return .init(id: asset.id,
-                                     name: asset.displayName,
+                                     name: asset.ticker ?? asset.displayName,
                                      icon: asset.iconLogo,
                                      amountAsset: pair.amountAsset,
                                      priceAsset: pair.priceAsset)
