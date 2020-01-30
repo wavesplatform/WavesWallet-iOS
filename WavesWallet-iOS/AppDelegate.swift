@@ -11,8 +11,6 @@ import RxSwift
 import IQKeyboardManagerSwift
 import UIKit
 
-import AppsFlyerLib
-
 import WavesSDKExtensions
 import WavesSDK
 import WavesSDKCrypto
@@ -23,9 +21,6 @@ import DataLayer
 import Firebase
 import FirebaseMessaging
 
-#if DEBUG || TEST
-import AppSpectorSDK
-#endif
 
 #if DEBUG
 import SwiftMonkeyPaws
@@ -117,8 +112,7 @@ enum UITest {
     func applicationWillEnterForeground(_ application: UIApplication) {}
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        appCoordinator.applicationDidBecomeActive()        
-        AppsFlyerTracker.shared().trackAppLaunch()
+        appCoordinator.applicationDidBecomeActive()                
         application.applicationIconBadgeNumber = 0
     }
 
@@ -162,6 +156,10 @@ extension AppDelegate {
             return false
         }
         
+        guard let googleServiceInfoPathWaves = Bundle.main.path(forResource: "GoogleService-Info-Waves", ofType: "plist") else {
+            return false
+        }
+        
         guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
             return false
         }
@@ -177,7 +175,8 @@ extension AppDelegate {
         let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
                                                       appsflyerInfo: appsflyerInfoPath,
                                                       amplitudeInfo: amplitudeInfoPath,
-                                                      sentryIoInfoPath: sentryIoInfoPath)
+                                                      sentryIoInfoPath: sentryIoInfoPath,
+                                                      googleServiceInfoForWavesPlatform: googleServiceInfoPathWaves)
         let repositories = RepositoriesFactory(resources: resourses)
         
         UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
@@ -192,15 +191,7 @@ extension AppDelegate {
         SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
                                                            isShortLog: true))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
-        
-        AppsFlyerTracker.shared()?.isDebug = false
-        
-        if let path = Bundle.main.path(forResource: "AppSpector-Info", ofType: "plist"),
-            let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
-            let config = AppSpectorConfig(apiKey: apiKey)
-            AppSpector.run(with: config)
-        }
-
+                        
         #else
         SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error]))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error]

@@ -23,7 +23,6 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
-                vc.add(ReceiveCardModuleBuilder().build(), state: .card)
             }
             else if input?.asset.isFiat == true {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
@@ -51,7 +50,6 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
             vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [.waves, .cryptoCurrency, .fiat, .wavesToken],
                                                                     selectedAsset: nil,
                                                                     showAllList: showAllList)), state: .invoice)
-            vc.add(ReceiveCardModuleBuilder().build(), state: .card)
         }
         
         

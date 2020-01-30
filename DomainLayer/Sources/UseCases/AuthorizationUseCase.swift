@@ -817,8 +817,10 @@ private extension AuthorizationUseCase {
             } else {
                 context.invalidate()
                 if let error = error as? LAError {
+                    SweetLogger.error("biometricDisable \(error.code) \(error.localizedDescription)")
                     observer.onError(error.authorizationUseCaseError)
                 } else {
+                    SweetLogger.error("canEvaluatePolicy false AuthorizationUseCaseError.biometricDisable")
                     observer.onError(AuthorizationUseCaseError.biometricDisable)
                 }
             }
@@ -1111,7 +1113,8 @@ fileprivate extension AuthorizationUseCase {
     }
 
     private func handlerError(_ error: Error) -> Error {
-
+                         
+        logEvent(error)
         switch error {
         case let error as AuthenticationRepositoryError:
             switch error {
@@ -1145,6 +1148,64 @@ fileprivate extension AuthorizationUseCase {
         }
 
         return error
+    }
+    
+    // We have problem with to auth by passcode
+    private func logEvent(_ error: Error) {
+                            
+        switch error {
+        case let error as AuthenticationRepositoryError:
+            switch error {
+            case .attemptsEnded:
+                SweetLogger.error("AuthorizationUseCaseError.attemptsEnded")
+            case .fail:
+                SweetLogger.error("AuthorizationUseCaseError.fail")
+
+            case .passcodeIncorrect:
+                SweetLogger.error("AuthorizationUseCaseError.passcodeIncorrect")
+
+            case .permissionDenied:
+                SweetLogger.error("AuthorizationUseCaseError.permissionDenied")
+            }
+
+        case let error as WalletSeedRepositoryError:
+            switch error {
+            case .permissionDenied:
+                SweetLogger.error("AuthorizationUseCaseError.passwordIncorrect")
+            default:
+                SweetLogger.error("AuthorizationUseCaseError.fail")
+            }
+
+        case let error as AuthorizationUseCaseError:
+            switch error {
+            case .fail:
+                SweetLogger.error("AuthorizationUseCaseError.fail")
+            case .walletAlreadyExist:
+                SweetLogger.error("AuthorizationUseCaseError.walletAlreadyExist")
+            case .walletNotFound:
+                SweetLogger.error("AuthorizationUseCaseError.walletNotFound")
+            case .passcodeNotCreated:
+                SweetLogger.error("AuthorizationUseCaseError.passcodeNotCreated")
+            case .passcodeIncorrect:
+                SweetLogger.error("AuthorizationUseCaseError.passcodeIncorrect")
+            case .passwordIncorrect:
+                SweetLogger.error("AuthorizationUseCaseError.passwordIncorrect")
+            case .permissionDenied:
+                SweetLogger.error("AuthorizationUseCaseError.permissionDenied")
+            case .attemptsEnded:
+                SweetLogger.error("AuthorizationUseCaseError.attemptsEnded")
+            case .biometricDisable:
+                SweetLogger.error("AuthorizationUseCaseError.biometricDisable")
+            case .biometricUserCancel:
+                SweetLogger.error("AuthorizationUseCaseError.biometricUserCancel")
+            case .biometricLockout:
+                SweetLogger.error("AuthorizationUseCaseError.biometricLockout")
+            case .biometricUserFallback:
+                SweetLogger.error("AuthorizationUseCaseError.biometricUserFallback")
+            }
+        default:
+            break
+        }
     }
 }
 
