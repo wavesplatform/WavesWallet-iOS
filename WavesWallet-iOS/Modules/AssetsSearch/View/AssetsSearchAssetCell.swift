@@ -42,7 +42,7 @@ extension AssetsSearchAssetCell: ViewConfiguration {
     
     func update(with model: AssetsSearchAssetCell.Model) {
         
-        titleLabel.text = model.asset.displayName
+        titleLabel.text = model.asset.ticker ?? model.asset.displayName
         
         switch model.state {
         case .lock:
