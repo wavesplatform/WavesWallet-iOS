@@ -129,8 +129,6 @@ internal enum StoryboardScene {
 
     internal static let dexLastTradesViewController = SceneType<WavesWallet_iOS.DexLastTradesViewController>(storyboard: Dex.self, identifier: "DexLastTradesViewController")
 
-    internal static let dexListViewController = SceneType<WavesWallet_iOS.DexListViewController>(storyboard: Dex.self, identifier: "DexListViewController")
-
     internal static let dexMarketViewController = SceneType<WavesWallet_iOS.DexMarketViewController>(storyboard: Dex.self, identifier: "DexMarketViewController")
 
     internal static let dexMyOrdersViewController = SceneType<WavesWallet_iOS.DexMyOrdersViewController>(storyboard: Dex.self, identifier: "DexMyOrdersViewController")
@@ -138,8 +136,6 @@ internal enum StoryboardScene {
     internal static let dexOrderBookViewController = SceneType<WavesWallet_iOS.DexOrderBookViewController>(storyboard: Dex.self, identifier: "DexOrderBookViewController")
 
     internal static let dexScriptAssetMessageViewController = SceneType<WavesWallet_iOS.DexScriptAssetMessageViewController>(storyboard: Dex.self, identifier: "DexScriptAssetMessageViewController")
-
-    internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
 
     internal static let dexTraderContainerViewController = SceneType<WavesWallet_iOS.DexTraderContainerViewController>(storyboard: Dex.self, identifier: "DexTraderContainerViewController")
 
@@ -299,6 +295,11 @@ internal enum StoryboardScene {
     internal static let debugViewController = SceneType<WavesWallet_iOS.DebugViewController>(storyboard: Support.self, identifier: "DebugViewController")
 
     internal static let testViewController = SceneType<WavesWallet_iOS.TestViewController>(storyboard: Support.self, identifier: "TestViewController")
+  }
+  internal enum Trade: StoryboardType {
+    internal static let storyboardName = "Trade"
+
+    internal static let tradeViewController = SceneType<WavesWallet_iOS.TradeViewController>(storyboard: Trade.self, identifier: "TradeViewController")
   }
   internal enum TransactionCard: StoryboardType {
     internal static let storyboardName = "TransactionCard"

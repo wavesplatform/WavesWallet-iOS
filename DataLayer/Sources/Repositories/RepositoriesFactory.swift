@@ -55,7 +55,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var dexRealmRepository: DexRealmRepositoryProtocol = DexRealmRepositoryLocal()
     
-    public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepositoryRemote)
+    public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepositoryRemote, assetsRepository: assetsRepositoryRemote)
     
     public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(environmentRepository: environmentRepositoryInternal, spamAssetsRepository: spamAssets, matcherRepository: matcherRepositoryRemote, assetsRepository: assetsRepositoryRemote)
     
@@ -101,6 +101,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = DevelopmentConfigsRepository()
         
+    public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol = TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
+
     public struct Resources {
         
         public typealias PathForFile = String

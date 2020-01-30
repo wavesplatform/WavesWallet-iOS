@@ -56,6 +56,7 @@ extension DexChart.ViewModel {
         let formatter = numberFormatter
         formatter.minimumFractionDigits = pair.priceAsset.decimals
         formatter.maximumFractionDigits = pair.priceAsset.decimals
+        
         return formatter
     }
 }
@@ -63,9 +64,11 @@ extension DexChart.ViewModel {
 extension DomainLayer.DTO.Candle {
     
     func formatterTime(timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> String{
-        let time = timestamp * 60 * Double(timeFrame.rawValue)
-        let date = Date(timeIntervalSince1970: time)
-        return DomainLayer.DTO.Candle.dateFormatter.string(from: date)
+        
+//        let time = timestamp * 60 * Double(timeFrame.rawValue)
+//        let date = Date(timeIntervalSince1970: time)
+//        return DomainLayer.DTO.Candle.dateFormatter.string(from: date)
+        return "\(timeFrame.shortText)"
     }
     
     private static let dateFormatter: DateFormatter = {

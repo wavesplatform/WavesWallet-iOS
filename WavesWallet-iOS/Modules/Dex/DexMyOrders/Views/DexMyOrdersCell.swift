@@ -47,12 +47,8 @@ final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
             label.font = UIFont.robotoRegular(size: label.font.pointSize)
         }
         setupLocalization()
-        
-        imageViewIcon1.layer.shadowColor = UIColor.black.cgColor
-        imageViewIcon1.layer.shadowOffset = CGSize(width: 0, height: 3)
-        imageViewIcon1.layer.shadowOpacity = 0.2
-        imageViewIcon1.layer.shadowRadius = 3
-        imageViewIcon1.clipsToBounds = false
+        imageViewIcon1.addAssetPairIconShadow()
+        imageViewIcon2.addAssetPairIconShadow()
     }
     
     private func setupLocalization() {
@@ -76,6 +72,7 @@ extension DexMyOrdersCell: ViewHeight {
         return Constants.height
     }
 }
+
 extension DexMyOrdersCell: ViewConfiguration {
     
     struct Model {
@@ -106,12 +103,12 @@ extension DexMyOrdersCell: ViewConfiguration {
             contentView.alpha = Constants.canceledAlpha
         }
         
-        AssetLogo.logo(icon: order.amountAssetIcon, style: .medium)
+        AssetLogo.logo(icon: order.amountAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon1.rx.image)
             .disposed(by: disposeBag)
         
-        AssetLogo.logo(icon: order.priceAssetIcon, style: .medium)
+        AssetLogo.logo(icon: order.priceAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon2.rx.image)
             .disposed(by: disposeBag)

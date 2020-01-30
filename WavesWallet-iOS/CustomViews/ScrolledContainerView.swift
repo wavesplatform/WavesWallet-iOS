@@ -27,7 +27,7 @@ class ContainerView: UIView {
 
 protocol ScrolledContainerViewProtocol {
     
-    func setup(segmentedItems: [String], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
+    func setup(currentIndex: Int, segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
     
     func removeTopView(_ view: UIView, animation: Bool)
     
@@ -72,6 +72,8 @@ final class ScrolledContainerView: UIScrollView {
     
     weak var scrollViewDelegate: UIScrollViewDelegate?
     weak var containerViewDelegate: ScrolledContainerViewDelegate?
+    
+    var isNeedShowBottomShadow: Bool =  true
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -223,13 +225,37 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
     }
     
-    func setup(segmentedItems: [String], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
+    func setup(currentIndex: Int = 0, segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
-        self.segmentedControl.items = segmentedItems
+        if segmentedControl.items.count != segmentedItems.count {
+            subviews.forEach { $0.removeFromSuperview() }
+            tableViews.removeAll()
+            self.currentIndex = currentIndex
+            
+            initComponents(segmentedItems: segmentedItems, tableDataSource: tableDataSource, tableDelegate: tableDelegate)
+        }
+        else {
+            updateComponents(segmentedItems: segmentedItems)
+        }
+    }
+    
+    private func updateComponents(segmentedItems: [NewSegmentedControl.SegmentedItem]) {
+        segmentedControl.items = segmentedItems
+        segmentedControl.setSelectedIndex(currentIndex, animation: false)
+    }
+    
+    private func initComponents(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
+        segmentedControl.items = segmentedItems
         
         for index in 0..<segmentedItems.count {
             
-            let table = UITableView(frame: CGRect(x: CGFloat(index) * frame.size.width,
+            var x: CGFloat {
+                if currentIndex > 0 {
+                    return index == currentIndex ? 0 : -frame.size.width
+                }
+                return  CGFloat(index) * frame.size.width
+            }
+            let table = UITableView(frame: CGRect(x: x,
                                                   y: 0,
                                                   width: frame.size.width,
                                                   height: frame.size.height))
@@ -246,8 +272,8 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
         segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
         segmentedControl.backgroundColor = .basic50
+        segmentedControl.setSelectedIndex(currentIndex, animation: false)
         addSubview(segmentedControl)
-        
         visibleTableView.reloadData()
         setContentSize()
     }
@@ -303,7 +329,6 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     
     func reloadData() {
         
-        layoutIfNeeded()
         
         topOffset = 0
         for view in topContents {
@@ -316,6 +341,8 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             table.contentInset.top = topOffset + segmentedHeight
         }
         
+        layoutIfNeeded()
+
         setContentSize()
         DispatchQueue.main.async {
             self.scrollViewDidScroll(self)
@@ -339,7 +366,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     }
     
     var visibleTableView: UITableView {
-        return tableViews.first(where: {$0.tag == currentIndex})!
+        if let table = tableViews.first(where: {$0.tag == currentIndex}) {
+            return table
+        }
+        return UITableView()
     }
     
     var smallTopOffset: CGFloat {
@@ -378,6 +408,10 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         if scrollView.contentOffset.y < -smallTopOffset {
             firstAvailableViewController().setupBigNavigationBar()
         }
+        else if isSmallNavBar {
+            //TODO: Test code from Version 2.9
+            firstAvailableViewController().setupSmallNavigationBar()
+        }
         
         let table = visibleTableView
         table.frame.origin.y = tableTopPosition
@@ -388,6 +422,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         }
         updateSegmentedShadow()
         scrollViewDelegate?.scrollViewDidScroll?(scrollView)
+        
     }
     
     
@@ -464,11 +499,11 @@ private extension ScrolledContainerView {
         
         if nextIndex < segmentedControl.items.count {
             
-            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(nextIndex)
             
             let currentTable = acceptCurrentTableOffset()
             currentIndex = nextIndex
-            
+            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(nextIndex)
+
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.setContentSize()
                 self.setupSegmentedPosition()
@@ -490,11 +525,11 @@ private extension ScrolledContainerView {
         
         if prevIndex >= 0 {
             
-            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(prevIndex)
             
             let currentTable = acceptCurrentTableOffset()
             currentIndex = prevIndex
-            
+            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(prevIndex)
+
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.setContentSize()
                 self.setupSegmentedPosition()

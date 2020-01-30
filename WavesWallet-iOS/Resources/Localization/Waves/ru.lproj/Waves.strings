@@ -53,7 +53,7 @@
 "asset.cell.assetInfo.title" = "Информация о токене";
 "asset.cell.assetInfo.totalAmount" = "Всего выпущено";
 "asset.cell.balance.avaliableBalance" = "Доступный баланс";
-"asset.cell.balance.button.exchange" = "Обменять";
+"asset.cell.balance.button.trade" = "Торговать";
 "asset.cell.balance.button.receive" = "Получить";
 "asset.cell.balance.button.send" = "Отправить";
 "asset.cell.balance.inOrderBalance" = "В ордерах";
@@ -163,16 +163,9 @@
 "dexlasttrades.label.price" = "Цена";
 "dexlasttrades.label.sum" = "Сумма";
 "dexlasttrades.label.time" = "Время";
-"dexlist.button.addMarkets" = "Добавить пару";
-"dexlist.label.decentralisedExchange" = "Децентрализованная биржа";
-"dexlist.label.description" = "Торгуйте быстро и безопасно. Вы всегда держите свои средства под контролем, даже в момент обмена.";
-"dexlist.label.lastUpdate" = "Последнее обновление";
-"dexlist.label.price" = "Цена";
-"dexlist.label.today" = "Сегодня";
-"dexlist.label.yesterday" = "Вчера";
-"dexlist.navigationBar.title" = "Exchange";
 "dexmarket.label.loadingMarkets" = "Загрузка рынков…";
 "dexmarket.navigationBar.title" = "Рынки";
+"dexmarket.navigationBar.titleAsset" = "Поиск пары к";
 "dexmarket.searchBar.placeholder" = "Поиск";
 "dexmyorders.label.buy" = "Покупка";
 "dexmyorders.label.emptyData" = "Пока ничего нет…\nУ вас нет ордеров";
@@ -194,7 +187,6 @@
 "dexorderbook.label.price" = "Цена";
 "dexorderbook.label.spread" = "РАЗНИЦА";
 "dexorderbook.label.sum" = "Сумма";
-"dexsort.navigationBar.title" = "Сортировка";
 "dextradercontainer.button.chart" = "График";
 "dextradercontainer.button.lastTrades" = "Сделки";
 "dextradercontainer.button.myOrders" = "Мои ордера";
@@ -728,4 +720,5 @@
 "myorders.message.cancelOrder.success" = "Ордер отменен";
 "myorders.alert.cancelOrder.title" = "Отменить ордер";
 "myorders.alert.cancelOrder.subTitle" = "Вы уверены, что хотите отменить ордер %@?";
+"trade.title" = "Торговать";
 "dexchart.label.day" = "день";

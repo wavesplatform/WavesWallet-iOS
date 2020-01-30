@@ -9,7 +9,7 @@
 import Foundation
 import Extensions
 
-final class DexDeepLinkCoordinator: DexCoordinator {
+final class DexDeepLinkCoordinator: TradeCoordinator {
     
     private var navigationRouter: NavigationRouter
     private var windowRouter: WindowRouter

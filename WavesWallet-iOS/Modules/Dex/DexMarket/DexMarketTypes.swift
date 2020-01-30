@@ -13,12 +13,12 @@ import Extensions
 
 enum DexMarket {
     enum ViewModel {}
-
+    enum DTO {}
+    
     enum Event {
         case readyView
         case setPairs([DomainLayer.DTO.Dex.SmartPair])
         case tapCheckMark(index: Int)
-        case tapInfoButton(index: Int)
         case searchTextChange(text: String)
     }
     
@@ -36,6 +36,14 @@ enum DexMarket {
     }
 }
 
+extension DexMarket.DTO {
+    
+    struct Pair {
+        let smartPair: DomainLayer.DTO.Dex.SmartPair
+        let selectedAsset: DomainLayer.DTO.Dex.Asset?
+    }
+}
+
 extension DexMarket.ViewModel {
    
     struct Section: Mutating {
@@ -43,7 +51,7 @@ extension DexMarket.ViewModel {
     }
     
     enum Row {
-        case pair(DomainLayer.DTO.Dex.SmartPair)
+        case pair(DexMarket.DTO.Pair)
     }
     
 }

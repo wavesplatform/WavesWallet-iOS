@@ -61,13 +61,8 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
         
         let feeAssets = sortedAssets.map({ (asset) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset in
             
-            let dexAsset = DomainLayer.DTO.Dex.Asset.init(id: asset.id,
-                                                          name: asset.displayName,
-                                                          shortName: asset.ticker ?? asset.displayName,
-                                                          decimals: asset.precision)
-            
             let rate = baseSettings.feeAssets.first(where: {$0.assetId == asset.id})?.rate ?? 0
-            return DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset(rate: rate, asset: dexAsset)
+            return DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset(rate: rate, asset: asset.dexAsset)
         })
         
         

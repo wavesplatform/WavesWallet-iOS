@@ -14,6 +14,8 @@ import WavesSDK
 
 fileprivate enum Constants {
     static let transactionLimit: Int = 10
+    // Current id is USD-N
+    static let usdAssetId = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"
 }
 
 final class AssetDetailInteractor: AssetDetailInteractorProtocol {
@@ -25,34 +27,71 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
 
     private let assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol = UseCasesFactory.instance.assetsBalanceSettings
 
-    private let refreshAssetsSubject: PublishSubject<[AssetDetailTypes.DTO.Asset]> = PublishSubject<[AssetDetailTypes.DTO.Asset]>()
+    private let refreshAssetsSubject: PublishSubject<[AssetDetailTypes.DTO.PriceAsset]> = PublishSubject<[AssetDetailTypes.DTO.PriceAsset]>()
+    private let pairsPriceRepository: DexPairsPriceRepositoryProtocol = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func assets(by ids: [String]) -> Observable<[AssetDetailTypes.DTO.Asset]> {
+    func assets(by ids: [String]) -> Observable<[AssetDetailTypes.DTO.PriceAsset]> {
 
         return Observable.merge(refreshAssetsSubject.asObserver(),
                                 assets(by: ids,
                                        isNeedUpdate: false))
     }
 
-    private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetDetailTypes.DTO.Asset]> {
+    private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetDetailTypes.DTO.PriceAsset]> {
                 
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap(weak: self) { owner, wallet -> Observable<[AssetDetailTypes.DTO.Asset]> in
-
-                owner.accountBalanceInteractor
-                    .balances(by: wallet)                    
+            .flatMap { [weak self] wallet -> Observable<[AssetDetailTypes.DTO.PriceAsset]>  in
+                guard let self = self else { return Observable.empty() }
+                return self.accountBalanceInteractor.balances()
                     .take(1)
                     .map {
-                        $0.filter { asset -> Bool in
-                            ids.contains(asset.assetId)
-                        }
+                       $0.filter { asset -> Bool in
+                           ids.contains(asset.assetId)
+                       }
                     }
                     .map { $0.map { $0.mapToAsset() } }
-            }
-    }
+                    .flatMap { [weak self] (assets) -> Observable<[AssetDetailTypes.DTO.PriceAsset]> in
+                        guard let self = self else { return Observable.empty() }
+                        let pairs: [DomainLayer.DTO.Dex.SimplePair] = assets.map { .init(amountAsset: $0.info.id, priceAsset: Constants.usdAssetId) }
+                        
+                        let earlyDate = Calendar.current.date(byAdding: .hour, value: -24, to: Date()) ?? Date()
+                        let roundEarlyDate = Date(timeIntervalSince1970: ceil(earlyDate.timeIntervalSince1970 / 60.0) * 60.0)
 
+                        let pairsRateNow = self.pairsPriceRepository.pairsRate(query: .init(pairs: pairs, timestamp: nil))
+                        let pairsRateYesterday = self.pairsPriceRepository.pairsRate(query: .init(pairs: pairs, timestamp: roundEarlyDate))
+
+                        return Observable.zip(pairsRateNow, pairsRateYesterday)
+                            .map { (ratesNow, ratesYertarday) -> [AssetDetailTypes.DTO.PriceAsset] in
+                                
+                                let ratesNowMap = ratesNow.reduce(into: [String: DomainLayer.DTO.Dex.PairRate].init(), {
+                                    $0[$1.amountAssetId] = $1
+                                })
+                                
+                                let ratesYerstardayMap = ratesYertarday.reduce(into: [String: DomainLayer.DTO.Dex.PairRate].init(), {
+                                    $0[$1.amountAssetId] = $1
+                                })
+                                
+                                var priceAssets: [AssetDetailTypes.DTO.PriceAsset] = []
+                                
+                                for asset in assets {
+                                    
+                                    let rateNow = ratesNowMap[asset.info.id]?.rate ?? 0
+                                    let rateYerstarday = ratesYerstardayMap[asset.info.id]?.rate ?? 0
+
+                                    let price = AssetDetailTypes.DTO.Price(firstPrice: rateYerstarday,
+                                                                           lastPrice: rateNow,
+                                                                           priceUSD: Money(value: Decimal(rateNow), WavesSDKConstants.FiatDecimals))
+                                    priceAssets.append(.init(price: price, asset: asset))
+                                }
+                                return priceAssets
+                        }
+                    }
+                }
+    }
+    
     func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
 
         return authorizationInteractor
