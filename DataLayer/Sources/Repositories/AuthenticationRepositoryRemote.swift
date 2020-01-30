@@ -51,12 +51,12 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             guard let wavesPlatformDatabase = self.wavesPlatformDatabase else {
                 return Disposables.create()
             }
-            
-            let database: Database = Database.database()
+                        
+            let wavesExchangeDatabase: Database = Database.database()
             
             let value = self.auth(with: id,
                                   passcode: passcode,
-                                  database: database)
+                                  database: wavesExchangeDatabase)
                 .catchError { (error) -> Observable<String> in
                     
                     return self
@@ -67,11 +67,13 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                             return self.registration(with: id,
                                                      keyForPassword: keyForPassword,
                                                      passcode: passcode,
-                                                     database: database)
+                                                     database: wavesExchangeDatabase)
                                 .map { _ in return keyForPassword }
                     }
                     .flatMap { (keyForPassword) -> Observable<String> in
-                        return self.removeAccount(with: id).map { _ in keyForPassword }
+                        return self.removeAccount(with: id,
+                                                  database: wavesPlatformDatabase)
+                            .map { _ in keyForPassword }
                     }
                     .catchError { (wavesError) -> Observable<String> in
                         return Observable.error(error)
@@ -91,11 +93,11 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             }
     }
     
-    private func removeAccount(with id: String) -> Observable<Bool> {
+    private func removeAccount(with id: String, database: Database) -> Observable<Bool> {
 
         return Observable.create { (observer) -> Disposable in
 
-            let database: DatabaseReference = Database.database().reference()
+            let database: DatabaseReference = database.reference()
 
             let disposable = database.child("\(Constants.rootPath)/\(id)/")
                 .rx

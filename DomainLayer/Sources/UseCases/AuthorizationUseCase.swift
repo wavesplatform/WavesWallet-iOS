@@ -817,8 +817,10 @@ private extension AuthorizationUseCase {
             } else {
                 context.invalidate()
                 if let error = error as? LAError {
+                    SweetLogger.error("biometricDisable \(error.code) \(error.localizedDescription)")
                     observer.onError(error.authorizationUseCaseError)
                 } else {
+                    SweetLogger.error("canEvaluatePolicy false AuthorizationUseCaseError.biometricDisable")
                     observer.onError(AuthorizationUseCaseError.biometricDisable)
                 }
             }
