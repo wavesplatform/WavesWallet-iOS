@@ -39,30 +39,8 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
     
     func registration(with id: String, keyForPassword: String, passcode: String) -> Observable<Bool> {
 
-        if passcode.count == 0 {
-            return Observable.error(AuthenticationRepositoryError.fail)
-        }
-
-        return Observable.create { (observer) -> Disposable in
-
-            let database: DatabaseReference = Database.database().reference()
-
-            let disposable = database.child("\(Constants.rootPath)/\(id)/")
-                .rx
-                .removeValue()
-                .map { $0.child(passcode) }
-                .flatMap({ ref -> Observable<DatabaseReference> in
-                    ref.rx.setValue(keyForPassword)
-                })
-                .subscribe(onNext: { _ in
-                    observer.onNext(true)
-                    observer.onCompleted()
-                }, onError: { error in
-                    observer.onError(self.handlerError(error: error))
-                })
-
-            return Disposables.create([disposable])
-        }
+        let database: Database = Database.database()
+        return registration(with: id, keyForPassword: keyForPassword, passcode: passcode, database: database)
     }
 
     func auth(with id: String, passcode: String) -> Observable<String> {
@@ -81,25 +59,23 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                 .catchError { (error) -> Observable<String> in
                     
                     return self
-                        .isHasAccount(with: id,
-                                      database: wavesPlatformDatabase)
-                        .flatMap { isHasId -> Observable<String> in
-                                
-                                    if isHasId {
-                                        return self
-                                            .auth(with: id, passcode: passcode, database: wavesPlatformDatabase)
-                                            .flatMap { (keyForPassword) -> Observable<String> in
-                                                return self.registration(with: id,
-                                                                         keyForPassword: keyForPassword,
-                                                                         passcode: passcode,
-                                                                         database: database)
-                                                    .map { _ in return keyForPassword }
-                                            }
-                                    } else {
-                                        return Observable.error(error)
-                                    }
-                        }
-                                        
+                        .auth(with: id,
+                              passcode: passcode,
+                              database: wavesPlatformDatabase)
+                        .flatMap { (keyForPassword) -> Observable<String> in
+                            return self.registration(with: id,
+                                                     keyForPassword: keyForPassword,
+                                                     passcode: passcode,
+                                                     database: database)
+                                .map { _ in return keyForPassword }
+                    }
+                    .flatMap { (keyForPassword) -> Observable<String> in
+                        return self.removeAccount(with: id).map { _ in keyForPassword }
+                    }
+                    .catchError { (wavesError) -> Observable<String> in
+                        print("wavesError \(wavesError)")
+                        return Observable.error(error)
+                    }
                 }
                 .bind(to: observer)
             
@@ -115,17 +91,27 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
             }
     }
     
-    private func isHasAccount(with id: String, database: Database) -> Observable<Bool> {
-        
-        return database.reference()
-            .child("\(Constants.rootPath)/\(id)/").rx
-            .value
-            .map { $0 != nil }
-            .catchError { _ -> Observable<Bool> in
-                return Observable.just(false)
-            }
+    private func removeAccount(with id: String) -> Observable<Bool> {
+
+        return Observable.create { (observer) -> Disposable in
+
+            let database: DatabaseReference = Database.database().reference()
+
+            let disposable = database.child("\(Constants.rootPath)/\(id)/")
+                .rx
+                .removeValue()
+                .subscribe(onNext: { _ in
+                    observer.onNext(true)
+                    observer.onCompleted()
+                }, onError: { error in
+                    observer.onError(self.handlerError(error: error))
+                })
+
+            return Disposables.create([disposable])
+        }
     }
 
+    
     private func registration(with id: String,
                               keyForPassword: String,
                               passcode: String,

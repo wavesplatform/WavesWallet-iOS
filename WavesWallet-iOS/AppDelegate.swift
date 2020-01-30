@@ -21,9 +21,6 @@ import DataLayer
 import Firebase
 import FirebaseMessaging
 
-#if DEBUG || TEST
-import AppSpectorSDK
-#endif
 
 #if DEBUG
 import SwiftMonkeyPaws
@@ -194,12 +191,6 @@ extension AppDelegate {
                                                            isShortLog: true))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
                         
-        if let path = Bundle.main.path(forResource: "AppSpector-Info", ofType: "plist"),
-            let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
-            let config = AppSpectorConfig(apiKey: apiKey)
-            AppSpector.run(with: config)
-        }
-
         #else
         SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error]))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error]

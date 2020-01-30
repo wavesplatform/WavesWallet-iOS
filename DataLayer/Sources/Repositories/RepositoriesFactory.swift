@@ -146,21 +146,6 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
             }
         }
         
-//        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfoForWavesPlatform) {
-//
-//            FirebaseApp.configure(options: options)
-//            Database.database().isPersistenceEnabled = false
-//            Fabric.with([Crashlytics.self])
-//        }
-//        
-//        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfoForWavesPlatform) {
-//            
-//            FirebaseApp.configure(name: Constants.firebaseAppWavesPlatform, options: options)
-//            if let app = FirebaseApp.app(name: Constants.firebaseAppWavesPlatform) {
-//                Database.database(app: app).isPersistenceEnabled = false
-//            }
-//        }
-        
         if let apiKey = NSDictionary(contentsOfFile: resources.amplitudeInfo)?["API_KEY"] as? String {
             Amplitude.instance()?.initializeApiKey(apiKey)
             Amplitude.instance()?.setDeviceId(UIDevice.uuid)
