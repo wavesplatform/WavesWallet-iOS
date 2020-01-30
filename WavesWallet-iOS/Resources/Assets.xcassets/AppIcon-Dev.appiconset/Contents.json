@@ -39,13 +39,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "launcher-dev-60@2x.png",
+      "filename" : "AppIcon-New-Dev@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "launcher-dev-60@3x.png",
+      "filename" : "AppIcon-New-Dev@3x.png",
       "scale" : "3x"
     },
     {
