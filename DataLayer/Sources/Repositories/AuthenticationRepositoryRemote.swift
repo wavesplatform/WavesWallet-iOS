@@ -74,7 +74,6 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                         return self.removeAccount(with: id).map { _ in keyForPassword }
                     }
                     .catchError { (wavesError) -> Observable<String> in
-                        print("wavesError \(wavesError)")
                         return Observable.error(error)
                     }
                 }
