@@ -12,6 +12,7 @@ import FirebaseDatabase
 import Foundation
 import RxSwift
 import WavesSDK
+import WavesSDKExtensions
 import DomainLayer
 
 fileprivate enum Constants {
@@ -111,7 +112,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
         }
     }
 
-    
+    //TODO: Check case when remove value internet dissconect
     private func registration(with id: String,
                               keyForPassword: String,
                               passcode: String,
@@ -179,7 +180,30 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
            }
        }
     
+    private func logError(error: Error) {
+        
+        if error is AuthenticationRepositoryError {
+            SweetLogger.error("AuthorizationUseCaseError.attemptsEnded")
+        } else {
+            switch NetworkError.error(by: error) {
+            case .none:
+                SweetLogger.error("AuthenticationRepositoryRemote.none")
+            case .message(let message):
+                SweetLogger.error("AuthenticationRepositoryRemote.message = \(message)")
+            case .notFound:
+                SweetLogger.error("AuthenticationRepositoryRemote.notFound")
+            case .internetNotWorking:
+                SweetLogger.error("AuthenticationRepositoryRemote.internetNotWorking")
+            case .serverError:
+                SweetLogger.error("AuthenticationRepositoryRemote.serverError")
+            case .scriptError:
+                SweetLogger.error("AuthenticationRepositoryRemote.scriptError")
+            }
+        }
+    }
+        
     private func handlerError(error: Error) -> Error {
+                
         if error is AuthenticationRepositoryError {
             return error
         } else {
