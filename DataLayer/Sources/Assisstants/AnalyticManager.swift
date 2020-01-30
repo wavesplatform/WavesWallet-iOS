@@ -10,7 +10,6 @@ import Foundation
 import DomainLayer
 import Amplitude_iOS
 import FirebaseAnalytics
-import AppsFlyerLib
 import WavesSDKCrypto
 
 private struct Constants {
@@ -34,6 +33,5 @@ public final class AnalyticManager: AnalyticManagerProtocol {
         
         Amplitude.instance().logEvent(event.name, withEventProperties: params)
         Analytics.logEvent(event.name.replacingOccurrences(of: " ", with: "_"), parameters: params)
-        AppsFlyerTracker.shared()?.trackEvent(event.name, withValues: params)
     }
 }

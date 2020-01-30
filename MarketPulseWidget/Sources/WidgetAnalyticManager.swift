@@ -9,7 +9,6 @@
 import Foundation
 import DomainLayer
 import Amplitude_iOS
-import AppsFlyerLib
 
 final class WidgetAnalyticManagerInitialization {
     
@@ -24,14 +23,6 @@ final class WidgetAnalyticManagerInitialization {
     
     
     static func setup(resources: Resources) {
-
-        if let root = NSDictionary(contentsOfFile: resources.appsflyerInfo)?["Appsflyer"] as? NSDictionary {
-            if let devKey = root["AppsFlyerDevKey"] as? String,
-                let appId = root["AppleAppID"] as? String {
-                AppsFlyerTracker.shared().appsFlyerDevKey = devKey
-                AppsFlyerTracker.shared().appleAppID = appId
-            }
-        }
 
         if let apiKey = NSDictionary(contentsOfFile: resources.amplitudeInfo)?["API_KEY"] as? String {
             Amplitude.instance()?.initializeApiKey(apiKey)
@@ -48,7 +39,6 @@ final class WidgetAnalyticManager: AnalyticManagerProtocol {
     func setAUUID(_ AUUID: String) {}
     
     func trackEvent(_ event: AnalyticManagerEvent) {
-        Amplitude.instance().logEvent(event.name, withEventProperties: event.params)
-        AppsFlyerTracker.shared()?.trackEvent(event.name, withValues: event.params)
+        Amplitude.instance().logEvent(event.name, withEventProperties: event.params)        
     }
 }

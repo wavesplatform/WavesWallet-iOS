@@ -50,9 +50,9 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController(navigationBarClass: UINavigationBar.self, toolbarClass: nil)
         
-        navigation.tabBarItem.image = Images.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabbarWalletDefault.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabbarWalletActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
-        navigation.tabBarItem.selectedImage = Images.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
 
         return NavigationRouter(navigationController: navigation)
     }()
@@ -61,8 +61,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.tabBarHistory.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabbarHistoryDefault.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabbarHistoryActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -72,8 +72,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.tabBarDex.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabbarDexDefault.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabbarDexActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -83,8 +83,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabbarProfileDefault.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabbarProfileActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -93,7 +93,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     private let popoperButton: PopoperButtonViewController = {
 
         let popoperButton = PopoperButtonViewController()
-        popoperButton.tabBarItem.image = Images.tabbarWavesDefault.image.withRenderingMode(.alwaysOriginal)
+        popoperButton.tabBarItem.image = Images.tabbarActionDefalt.image.withRenderingMode(.alwaysOriginal)
+        popoperButton.tabBarItem.selectedImage = Images.tabbarActionActive.image.withRenderingMode(.alwaysOriginal)
         popoperButton.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return popoperButton
@@ -191,7 +192,7 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
             let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
             vc.moduleOutput = self
             let popup = PopupViewController()
-            popup.contentHeight = 300
+            popup.contentHeight = 204
             popup.present(contentViewController: vc)
 
             return false
@@ -245,9 +246,7 @@ extension MainTabBarCoordinator: WavesPopupModuleOutput {
             let vc = ReceiveContainerModuleBuilder().build(input: nil)
             nav.pushViewController(vc, animated: true)
         }
-    }
-
-    func showExchange() {}
+    }    
 }
 
 // Helper function inserted by Swift 4.2 migrator.

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +13,7 @@
             <objects>
                 <viewController storyboardIdentifier="WavesPopupViewController" id="nGg-aa-PAK" customClass="WavesPopupViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dzL-4s-Eaz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mb6-VY-d6e">
@@ -48,58 +46,31 @@
                                     <action selector="receiveTapped:" destination="nGg-aa-PAK" eventType="touchUpInside" id="ZoA-vI-ZaI"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dod-yi-h5k">
-                                <rect key="frame" x="0.0" y="159" width="375" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="qk7-JZ-lIs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Exchange" image="tSoonExchange48">
-                                    <color key="titleColor" red="0.73725490196078436" green="0.73725490196078436" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="exchangeTapped:" destination="nGg-aa-PAK" eventType="touchUpInside" id="PjK-Ku-Eqc"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZD-vQ-9xi">
-                                <rect key="frame" x="168.5" y="233" width="38" height="38"/>
-                                <state key="normal" image="tabbarWavesActive"/>
+                                <rect key="frame" x="174.5" y="163" width="26" height="29"/>
+                                <state key="normal" image="tabbarActionActive"/>
                                 <connections>
                                     <action selector="dismissTapped:" destination="nGg-aa-PAK" eventType="touchUpInside" id="nXS-Rd-bKl"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ArL-Xa-Zsh">
-                                <rect key="frame" x="271" y="183" width="80" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.12156862745098039" green="0.3529411764705882" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="mb6-VY-d6e" firstAttribute="top" secondItem="RO3-Mk-ap9" secondAttribute="top" constant="15" id="1n3-cp-Nxo"/>
-                            <constraint firstItem="dod-yi-h5k" firstAttribute="leading" secondItem="RO3-Mk-ap9" secondAttribute="leading" id="9Z0-IP-YUd"/>
-                            <constraint firstItem="ArL-Xa-Zsh" firstAttribute="centerY" secondItem="dod-yi-h5k" secondAttribute="centerY" id="CAd-WD-eC4"/>
+                            <constraint firstItem="BZD-vQ-9xi" firstAttribute="top" secondItem="VDN-mL-BQi" secondAttribute="bottom" constant="12" id="46A-pr-uXV"/>
                             <constraint firstItem="VDN-mL-BQi" firstAttribute="top" secondItem="mb6-VY-d6e" secondAttribute="bottom" constant="8" id="DBH-uL-KQK"/>
                             <constraint firstItem="RO3-Mk-ap9" firstAttribute="trailing" secondItem="mb6-VY-d6e" secondAttribute="trailing" id="E2N-Xc-c32"/>
                             <constraint firstItem="VDN-mL-BQi" firstAttribute="leading" secondItem="RO3-Mk-ap9" secondAttribute="leading" id="FAz-4x-7G2"/>
                             <constraint firstAttribute="trailing" secondItem="VDN-mL-BQi" secondAttribute="trailing" id="Mfd-M3-4Mr"/>
                             <constraint firstItem="mb6-VY-d6e" firstAttribute="leading" secondItem="RO3-Mk-ap9" secondAttribute="leading" id="XQn-ZQ-DIZ"/>
                             <constraint firstItem="BZD-vQ-9xi" firstAttribute="centerX" secondItem="dzL-4s-Eaz" secondAttribute="centerX" id="dny-xD-PNB"/>
-                            <constraint firstItem="dod-yi-h5k" firstAttribute="top" secondItem="VDN-mL-BQi" secondAttribute="bottom" constant="8" id="eik-uN-d2C"/>
-                            <constraint firstAttribute="trailing" secondItem="ArL-Xa-Zsh" secondAttribute="trailing" constant="24" id="gv6-Dp-vre"/>
-                            <constraint firstItem="BZD-vQ-9xi" firstAttribute="top" secondItem="dod-yi-h5k" secondAttribute="bottom" constant="10" id="jMD-yv-DEe"/>
-                            <constraint firstAttribute="trailing" secondItem="dod-yi-h5k" secondAttribute="trailing" id="ql9-cV-5tO"/>
+                            <constraint firstItem="RO3-Mk-ap9" firstAttribute="bottom" secondItem="BZD-vQ-9xi" secondAttribute="bottom" constant="12" id="jHV-wj-zIA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RO3-Mk-ap9"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="300"/>
+                    <size key="freeformSize" width="375" height="204"/>
                     <connections>
-                        <outlet property="comingSoonLabel" destination="ArL-Xa-Zsh" id="Qqh-ev-02x"/>
-                        <outlet property="exchangeButton" destination="dod-yi-h5k" id="rYE-9D-s3p"/>
                         <outlet property="receiveButton" destination="VDN-mL-BQi" id="aNk-rg-yPS"/>
                         <outlet property="sendButton" destination="mb6-VY-d6e" id="PAW-qM-xJ3"/>
                     </connections>
@@ -112,7 +83,6 @@
     <resources>
         <image name="asset_receive" width="48" height="48"/>
         <image name="tSend48" width="48" height="48"/>
-        <image name="tSoonExchange48" width="48" height="48"/>
-        <image name="tabbarWavesActive" width="38" height="38"/>
+        <image name="tabbarActionActive" width="26" height="26"/>
     </resources>
 </document>

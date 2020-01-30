@@ -64,8 +64,7 @@ target 'WavesWallet-iOS' do
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
-    # pod 'Reveal-SDK', :configurations => ['Debug']
-    pod 'AppSpectorSDK', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'test-prod']
+#    pod 'Reveal-SDK', :configurations => ['dev-debug', 'dev-adhoc']
     pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
     
     # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
@@ -88,7 +87,6 @@ target 'MarketPulseWidget' do
   pod 'Kingfisher'
   
   pod 'Amplitude-iOS'
-  pod 'AppsFlyerFramework'
   
 end
 
@@ -104,8 +102,7 @@ target 'DataLayer' do
     pod 'Firebase/InAppMessagingDisplay'
     pod 'Firebase/Analytics'
     pod 'Firebase/Messaging'
-
-    pod 'AppsFlyerFramework'
+    
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'Amplitude-iOS'            

@@ -16,7 +16,6 @@ import FirebaseInAppMessaging
 
 import Fabric
 import Crashlytics
-import AppsFlyerLib
 import Amplitude_iOS
 
 //TODO: Rename Local Repository and protocol
@@ -135,14 +134,6 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
             Fabric.with([Crashlytics.self])
         }
         
-        if let root = NSDictionary(contentsOfFile: resources.appsflyerInfo)?["Appsflyer"] as? NSDictionary {
-            if let devKey = root["AppsFlyerDevKey"] as? String,
-                let appId = root["AppleAppID"] as? String {
-                AppsFlyerTracker.shared().appsFlyerDevKey = devKey
-                AppsFlyerTracker.shared().appleAppID = appId
-            }
-        }
-
         if let apiKey = NSDictionary(contentsOfFile: resources.amplitudeInfo)?["API_KEY"] as? String {
             Amplitude.instance()?.initializeApiKey(apiKey)
             Amplitude.instance()?.setDeviceId(UIDevice.uuid)
@@ -154,9 +145,6 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
             SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
                                                                isShortLog: true))
         
-            AppsFlyerTracker.shared()?.isDebug = true
-        #else
-            AppsFlyerTracker.shared()?.isDebug = false
         #endif
         
     }

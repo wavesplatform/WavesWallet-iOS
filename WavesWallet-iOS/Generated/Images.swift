@@ -269,6 +269,16 @@ internal enum Images {
   internal static let tabBarProfileActive = ImageAsset(name: "tab_bar_profile_active")
   internal static let tabBarWallet = ImageAsset(name: "tab_bar_wallet")
   internal static let tabBarWalletActive = ImageAsset(name: "tab_bar_wallet_active")
+  internal static let tabbarActionActive = ImageAsset(name: "tabbarActionActive")
+  internal static let tabbarActionDefalt = ImageAsset(name: "tabbarActionDefalt")
+  internal static let tabbarDexActive = ImageAsset(name: "tabbarDexActive")
+  internal static let tabbarDexDefault = ImageAsset(name: "tabbarDexDefault")
+  internal static let tabbarHistoryActive = ImageAsset(name: "tabbarHistoryActive")
+  internal static let tabbarHistoryDefault = ImageAsset(name: "tabbarHistoryDefault")
+  internal static let tabbarProfileActive = ImageAsset(name: "tabbarProfileActive")
+  internal static let tabbarProfileDefault = ImageAsset(name: "tabbarProfileDefault")
+  internal static let tabbarWalletActive = ImageAsset(name: "tabbarWalletActive")
+  internal static let tabbarWalletDefault = ImageAsset(name: "tabbarWalletDefault")
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
   internal static let tabbarWavesDefault = ImageAsset(name: "tabbarWavesDefault")
   internal static let token80 = ImageAsset(name: "token80")
@@ -562,6 +572,16 @@ internal enum Images {
     tabBarProfileActive,
     tabBarWallet,
     tabBarWalletActive,
+    tabbarActionActive,
+    tabbarActionDefalt,
+    tabbarDexActive,
+    tabbarDexDefault,
+    tabbarHistoryActive,
+    tabbarHistoryDefault,
+    tabbarProfileActive,
+    tabbarProfileDefault,
+    tabbarWalletActive,
+    tabbarWalletDefault,
     tabbarWavesActive,
     tabbarWavesDefault,
     token80,

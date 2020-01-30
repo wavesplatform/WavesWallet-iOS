@@ -11,8 +11,6 @@ import RxSwift
 import IQKeyboardManagerSwift
 import UIKit
 
-import AppsFlyerLib
-
 import WavesSDKExtensions
 import WavesSDK
 import WavesSDKCrypto
@@ -117,8 +115,7 @@ enum UITest {
     func applicationWillEnterForeground(_ application: UIApplication) {}
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        appCoordinator.applicationDidBecomeActive()        
-        AppsFlyerTracker.shared().trackAppLaunch()
+        appCoordinator.applicationDidBecomeActive()                
         application.applicationIconBadgeNumber = 0
     }
 
@@ -192,9 +189,7 @@ extension AppDelegate {
         SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
                                                            isShortLog: true))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
-        
-        AppsFlyerTracker.shared()?.isDebug = false
-        
+                        
         if let path = Bundle.main.path(forResource: "AppSpector-Info", ofType: "plist"),
             let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
             let config = AppSpectorConfig(apiKey: apiKey)
