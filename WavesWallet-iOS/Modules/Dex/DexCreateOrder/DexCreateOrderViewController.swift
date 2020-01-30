@@ -42,7 +42,12 @@ final class DexCreateOrderViewController: UIViewController {
             feeAssets = [DomainLayer.DTO.Dex.Asset(id: WavesSDKConstants.wavesAssetId,
                                                    name: WavesSDKConstants.wavesAssetId,
                                                    shortName: WavesSDKConstants.wavesAssetId,
-                                                   decimals: WavesSDKConstants.WavesDecimals)]
+                                                   decimals: WavesSDKConstants.WavesDecimals,
+                                                   iconLogo: .init(assetId: WavesSDKConstants.wavesAssetId,
+                                                                   name: WavesSDKConstants.wavesAssetId,
+                                                                   url: nil,
+                                                                   isSponsored: false,
+                                                                   hasScript: false))]
             
             createOrderType = .limit
         }

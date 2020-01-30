@@ -96,7 +96,11 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
             guard let self = self else { return Observable.never() }
 
             if newPair.isChecked {
-                return self.dexRealmRepository.save(pair: newPair, accountAddress: wallet.address)
+                return self.dexRealmRepository.save(pair: .init(id: newPair.id,
+                                                                isGeneral: newPair.isGeneral,
+                                                                amountAsset: newPair.amountAsset,
+                                                                priceAsset: newPair.priceAsset),
+                                                    accountAddress: wallet.address)
             }
             return self.dexRealmRepository.delete(by: newPair.id, accountAddress: wallet.address)
             
@@ -159,29 +163,19 @@ private extension DexMarketInteractor {
                             guard index < pairsSearch.pairs.count else { continue }
                             
                             let volume = pairsSearch.pairs[index]?.volumeWaves ?? 0
-                            let localPair = localPairs.first(where: {$0.amountAsset.id == amountAsset.id &&
-                                $0.priceAsset.id == priceAsset.id})
+                            let localPair = localPairs.first(where: {$0.amountAssetId == amountAsset.id &&
+                                $0.priceAssetId == priceAsset.id})
                             
                             let isGeneralAmount = allAssets.first(where: {$0.id == amountAsset.id})?.isGeneral ?? false
                             let isGeneralPrice = allAssets.first(where: {$0.id == priceAsset.id})?.isGeneral ?? false
                             let isGeneral = isGeneralAmount && isGeneralPrice
                             
-                            let dexAmountAsset = DomainLayer.DTO.Dex.Asset(id: amountAsset.id,
-                                                                           name:  amountAsset.displayName,
-                                                                           shortName: amountAsset.ticker ?? amountAsset.displayName,
-                                                                           decimals: amountAsset.precision)
-                            
-                            let dexPriceAsset = DomainLayer.DTO.Dex.Asset(id: priceAsset.id,
-                                                                          name: priceAsset.displayName,
-                                                                          shortName: priceAsset.ticker ?? priceAsset.displayName,
-                                                                          decimals: priceAsset.precision)
-                            
-                            smartPairs.append(.init(smartPair: .init(amountAsset: dexAmountAsset,
-                                                                     priceAsset: dexPriceAsset,
-                                                                     isChecked: localPair?.isChecked ?? false,
+                            smartPairs.append(.init(smartPair: .init(amountAsset: amountAsset.dexAsset,
+                                                                     priceAsset: priceAsset.dexAsset,
+                                                                     isChecked: localPair != nil,
                                                                      isGeneral: isGeneral,
                                                                      sortLevel: localPair?.sortLevel ?? 0),
-                                                    volume: volume))
+                                                                     volume: volume))
 
                         }
                         
@@ -225,18 +219,7 @@ private extension DexMarketInteractor {
                     if let amountAsset = assets.first(where: {$0.id == pair.amountAsset}),
                         let priceAsset = assets.first(where: {$0.id == pair.priceAsset}) {
                         
-                        let dexAmountAsset = DomainLayer.DTO.Dex.Asset(id: amountAsset.id,
-                                                                       name: amountAsset.displayName,
-                                                                       shortName: amountAsset.ticker ?? amountAsset.displayName,
-                                                                       decimals: amountAsset.precision)
-                        
-                        let dexPriceAsset = DomainLayer.DTO.Dex.Asset(id: priceAsset.id,
-                                                                      name: priceAsset.displayName,
-                                                                      shortName: priceAsset.ticker ?? priceAsset.displayName,
-                                                                      decimals: priceAsset.precision)
-                        
-                        
-                        dexPairs.append(.init(amountAsset: dexAmountAsset, priceAsset: dexPriceAsset))
+                        dexPairs.append(.init(amountAsset: amountAsset.dexAsset, priceAsset: priceAsset.dexAsset))
                     }
                 }
 

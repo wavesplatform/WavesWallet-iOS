@@ -15,10 +15,15 @@ import DomainLayer
 final class DexMarketPresenter: DexMarketPresenterProtocol {
  
     var interactor: DexMarketInteractorProtocol!
-    weak var moduleOutput: DexMarketModuleOutput?
 
     private let disposeBag = DisposeBag()
 
+    private let selectedAsset: DomainLayer.DTO.Dex.Asset?
+    
+    init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
+        self.selectedAsset = selectedAsset
+    }
+    
     func system(feedbacks: [DexMarketPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
@@ -64,7 +69,15 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             
             return state.mutate { state in
                 
-                let items = pairs.map { DexMarket.ViewModel.Row.pair($0) }
+                let items: [DexMarket.ViewModel.Row]
+                    
+                if let asset = selectedAsset {
+                    items = pairs.filter {$0.amountAsset.id == asset.id || $0.priceAsset.id == asset.id}
+                        .map { DexMarket.ViewModel.Row.pair(.init(smartPair: $0, selectedAsset: selectedAsset)) }
+                }
+                else {
+                    items = pairs.map { DexMarket.ViewModel.Row.pair(.init(smartPair: $0, selectedAsset: selectedAsset)) }
+                }
                 let section = DexMarket.ViewModel.Section(items: items)
                 state.section = section
                 state.isNeedSearching = false
@@ -79,18 +92,9 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             
             return state.mutate { state in
                 if let pair = state.section.items[index].pair {
-                    state.section.items[index] = DexMarket.ViewModel.Row.pair(pair.mutate {$0.isChecked = !$0.isChecked})
+                    state.section.items[index] = DexMarket.ViewModel.Row.pair(.init(smartPair: pair.mutate {$0.isChecked = !$0.isChecked}, selectedAsset: selectedAsset))
                 }
             }.changeAction(.update)
-            
-        case .tapInfoButton(let index):
-            
-            if let pair = state.section.items[index].pair {
-                
-                let infoPair = DexInfoPair.DTO.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, isGeneral: pair.isGeneral)
-                moduleOutput?.showInfo(pair: infoPair)
-            }
-            return state.changeAction(.none)
             
         case .searchTextChange(let text):
             return state.mutate {
@@ -107,7 +111,7 @@ fileprivate extension DexMarket.ViewModel.Row {
     var pair: DomainLayer.DTO.Dex.SmartPair? {
         switch self {
         case .pair(let pair):
-            return pair
+            return pair.smartPair
         }
     }
 }

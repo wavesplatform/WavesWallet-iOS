@@ -338,15 +338,15 @@ internal enum Localizable {
           internal static var totalBalanceKey: String { return "asset.cell.balance.totalBalance" }
 
           internal enum Button {
-            /// Exchange
-            internal static var exchange: String { return Localizable.tr("Waves", "asset.cell.balance.button.exchange") }
-            internal static var exchangeKey: String { return "asset.cell.balance.button.exchange" }
             /// Receive
             internal static var receive: String { return Localizable.tr("Waves", "asset.cell.balance.button.receive") }
             internal static var receiveKey: String { return "asset.cell.balance.button.receive" }
             /// Send
             internal static var send: String { return Localizable.tr("Waves", "asset.cell.balance.button.send") }
             internal static var sendKey: String { return "asset.cell.balance.button.send" }
+            /// Trade
+            internal static var trade: String { return Localizable.tr("Waves", "asset.cell.balance.button.trade") }
+            internal static var tradeKey: String { return "asset.cell.balance.button.trade" }
           }
         }
       }
@@ -734,9 +734,15 @@ internal enum Localizable {
         /// Month
         internal static var month: String { return Localizable.tr("Waves", "dexchart.label.month") }
         internal static var monthKey: String { return "dexchart.label.month" }
+        /// Today
+        internal static var today: String { return Localizable.tr("Waves", "dexchart.label.today") }
+        internal static var todayKey: String { return "dexchart.label.today" }
         /// Week
         internal static var week: String { return Localizable.tr("Waves", "dexchart.label.week") }
         internal static var weekKey: String { return "dexchart.label.week" }
+        /// Yesterday
+        internal static var yesterday: String { return Localizable.tr("Waves", "dexchart.label.yesterday") }
+        internal static var yesterdayKey: String { return "dexchart.label.yesterday" }
       }
     }
 
@@ -967,42 +973,6 @@ internal enum Localizable {
       }
     }
 
-    internal enum Dexlist {
-
-      internal enum Button {
-        /// Add Markets
-        internal static var addMarkets: String { return Localizable.tr("Waves", "dexlist.button.addMarkets") }
-        internal static var addMarketsKey: String { return "dexlist.button.addMarkets" }
-      }
-
-      internal enum Label {
-        /// Decentralised Exchange
-        internal static var decentralisedExchange: String { return Localizable.tr("Waves", "dexlist.label.decentralisedExchange") }
-        internal static var decentralisedExchangeKey: String { return "dexlist.label.decentralisedExchange" }
-        /// Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.
-        internal static var description: String { return Localizable.tr("Waves", "dexlist.label.description") }
-        internal static var descriptionKey: String { return "dexlist.label.description" }
-        /// Last update
-        internal static var lastUpdate: String { return Localizable.tr("Waves", "dexlist.label.lastUpdate") }
-        internal static var lastUpdateKey: String { return "dexlist.label.lastUpdate" }
-        /// Price
-        internal static var price: String { return Localizable.tr("Waves", "dexlist.label.price") }
-        internal static var priceKey: String { return "dexlist.label.price" }
-        /// Today
-        internal static var today: String { return Localizable.tr("Waves", "dexlist.label.today") }
-        internal static var todayKey: String { return "dexlist.label.today" }
-        /// Yesterday
-        internal static var yesterday: String { return Localizable.tr("Waves", "dexlist.label.yesterday") }
-        internal static var yesterdayKey: String { return "dexlist.label.yesterday" }
-      }
-
-      internal enum Navigationbar {
-        /// Exchange
-        internal static var title: String { return Localizable.tr("Waves", "dexlist.navigationBar.title") }
-        internal static var titleKey: String { return "dexlist.navigationBar.title" }
-      }
-    }
-
     internal enum Dexmarket {
 
       internal enum Label {
@@ -1015,6 +985,9 @@ internal enum Localizable {
         /// Markets
         internal static var title: String { return Localizable.tr("Waves", "dexmarket.navigationBar.title") }
         internal static var titleKey: String { return "dexmarket.navigationBar.title" }
+        /// Search pairs to
+        internal static var titleAsset: String { return Localizable.tr("Waves", "dexmarket.navigationBar.titleAsset") }
+        internal static var titleAssetKey: String { return "dexmarket.navigationBar.titleAsset" }
       }
 
       internal enum Searchbar {
@@ -1144,15 +1117,6 @@ internal enum Localizable {
         /// Order placement for a pair that includes a Smart Asset
         internal static var title: String { return Localizable.tr("Waves", "dexScriptAssetMessage.label.title") }
         internal static var titleKey: String { return "dexScriptAssetMessage.label.title" }
-      }
-    }
-
-    internal enum Dexsort {
-
-      internal enum Navigationbar {
-        /// Sorting
-        internal static var title: String { return Localizable.tr("Waves", "dexsort.navigationBar.title") }
-        internal static var titleKey: String { return "dexsort.navigationBar.title" }
       }
     }
 
@@ -3035,6 +2999,12 @@ internal enum Localizable {
           internal static var notFundsFeeKey: String { return "tokenBurn.label.error.notFundsFee" }
         }
       }
+    }
+
+    internal enum Trade {
+      /// Trade
+      internal static var title: String { return Localizable.tr("Waves", "trade.title") }
+      internal static var titleKey: String { return "trade.title" }
     }
 
     internal enum Transaction {

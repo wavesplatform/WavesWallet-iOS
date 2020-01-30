@@ -59,7 +59,7 @@ final class WalletViewController: UIViewController {
         
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
-        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.name }, tableDataSource: displayData, tableDelegate: displayData)
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ .title($0.name) }, tableDataSource: displayData, tableDelegate: displayData)
 
         setupLanguages()
         setupBigNavigationBar()
@@ -398,7 +398,7 @@ private extension WalletViewController {
     }
 
     func setupSegmetedControl() {
-        scrolledTablesComponent.segmentedControl.items = displays.map{ $0.name }
+        scrolledTablesComponent.segmentedControl.items = displays.map{ .title($0.name) }
     }
 }
 

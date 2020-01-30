@@ -79,3 +79,54 @@ public extension DomainLayer.DTO.Dex.MyOrder {
         return self.totalBalance(priceAmount: self.price.amount, assetAmount: self.amount.amount)
     }
 }
+
+public extension DomainLayer.DTO.Asset {
+    
+    var dexAsset: DomainLayer.DTO.Dex.Asset {
+        return .init(id: id,
+                     name: displayName,
+                     shortName: ticker ?? displayName,
+                     decimals: precision,
+                     iconLogo: iconLogo)
+    }
+}
+
+public extension Array where Element == DomainLayer.DTO.Dex.SimplePair {
+    
+    var assetsIds: [String] {
+        
+        var ids: [String] = []
+        
+        for pair in self {
+            if !ids.contains(pair.amountAsset) {
+                ids.append(pair.amountAsset)
+            }
+            
+            if !ids.contains(pair.priceAsset) {
+                ids.append(pair.priceAsset)
+            }
+        }
+        
+        return ids
+    }
+}
+
+public extension Array where Element == DomainLayer.DTO.Dex.FavoritePair {
+    
+    var assetsIds: [String] {
+        
+        var ids: [String] = []
+        
+        for pair in self {
+            if !ids.contains(pair.amountAssetId) {
+                ids.append(pair.amountAssetId)
+            }
+            
+            if !ids.contains(pair.priceAssetId) {
+                ids.append(pair.priceAssetId)
+            }
+        }
+        
+        return ids
+    }
+}

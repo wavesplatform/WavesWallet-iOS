@@ -11,7 +11,7 @@ import UIKit
 import Extensions
 
 fileprivate enum Constants {
-    static var height: CGFloat = 258
+    static var height: CGFloat = 268
 }
 
 final class AssetBalanceSkeletonCell: SkeletonTableCell, NibReusable {
