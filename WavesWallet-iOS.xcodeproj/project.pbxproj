@@ -861,7 +861,6 @@
 		E95E151322A18C25003552B8 /* WalletSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */; };
 		E95E151522A197B8003552B8 /* WalletSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E151422A197B8003552B8 /* WalletSearchViewController.swift */; };
 		E95F734123DA515000A94674 /* DexMarketSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F733F23DA515000A94674 /* DexMarketSearchCell.swift */; };
-		E95F734223DA515000A94674 /* DexMarketSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95F734023DA515000A94674 /* DexMarketSearchCell.xib */; };
 		E95F734423DA9AB500A94674 /* TradeTypes+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F734323DA9AB500A94674 /* TradeTypes+Mapper.swift */; };
 		E9618D1422EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */; };
 		E9618D1622EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1522EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift */; };
@@ -1046,6 +1045,7 @@
 		E9B1C3AA2382E07000B01B38 /* DexCreateOrderInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1C3A92382E07000B01B38 /* DexCreateOrderInfoViewController.swift */; };
 		E9B1C3AC2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1C3AB2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift */; };
 		E9B387CF23690DCD001FCA60 /* SendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */; };
+		E9B67C6323E32B6D00618904 /* DexMarketSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95F734023DA515000A94674 /* DexMarketSearchCell.xib */; };
 		E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
 		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
@@ -1604,8 +1604,8 @@
 		7B49912722F87C7A005B7123 /* AssetsSearchSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchSystem.swift; sourceTree = "<group>"; };
 		7B49912B22F99B76005B7123 /* AssetsSearchEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchEmptyCell.swift; sourceTree = "<group>"; };
 		7B49912D22F9B470005B7123 /* AssetsSearchModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchModuleOutput.swift; sourceTree = "<group>"; };
-		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		7B4F964523E1BF3E00950D39 /* GoogleService-Info-Waves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Waves.plist"; sourceTree = "<group>"; };
+		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
@@ -6376,6 +6376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B67C6323E32B6D00618904 /* DexMarketSearchCell.xib in Resources */,
 				E9236F1F2216F37300A12FD5 /* AppNewsView.xib in Resources */,
 				E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */,
 				0AF0C67D21AACB3700602197 /* GlobalErrorView.xib in Resources */,
