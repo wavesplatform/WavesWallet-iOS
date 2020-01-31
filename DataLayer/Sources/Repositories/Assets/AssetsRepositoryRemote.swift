@@ -208,9 +208,6 @@ fileprivate extension DomainLayer.DTO.Asset {
         }
         let isWavesToken = isFiat == false && isGateway == false && isWaves == false
         
-        if let ticker = asset.ticker {
-            name = ticker
-        }
         
         self.init(id: asset.id,
                   gatewayId: info?.gatewayId,
