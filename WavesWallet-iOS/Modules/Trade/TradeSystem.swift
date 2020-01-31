@@ -58,7 +58,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             
             var isEmptyFavorites: Bool {
                 if let asset = selectedAsset {
-                    return data.favoritePairs.assetsIds.contains(asset.id)
+                    return data.favoritePairs.assetsIds.contains(asset.id) == false
                 }
                 return data.favoritePairs.count == 0
             }
