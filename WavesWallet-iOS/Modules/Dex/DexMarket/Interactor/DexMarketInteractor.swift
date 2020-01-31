@@ -154,21 +154,25 @@ private extension DexMarketInteractor {
                             let volume: Double
                         }
                         var smartPairs: [SmartVolumePair] = []
+                        let allAssetsMap = allAssets.reduce(into: [String: DomainLayer.DTO.Asset].init(), {
+                            $0[$1.id] = $1
+                        })
+                        let localPairsMap = localPairs.reduce(into: [String: DomainLayer.DTO.Dex.FavoritePair].init(), {
+                            $0[$1.id] = $1
+                        })
                         
                         for (index, queryPair) in searchQueryPairs.enumerated() {
                             
-                            guard let amountAsset = allAssets.first(where: {$0.id == queryPair.amountAsset}) else { break }
-                            guard let priceAsset = allAssets.first(where: {$0.id == queryPair.priceAsset}) else { break }
+                            guard let amountAsset = allAssetsMap[queryPair.amountAsset] else { break }
+                            guard let priceAsset = allAssetsMap[queryPair.priceAsset] else { break }
                            
                             guard index < pairsSearch.pairs.count else { continue }
                             
                             let volume = pairsSearch.pairs[index]?.volumeWaves ?? 0
-                            let localPair = localPairs.first(where: {$0.amountAssetId == amountAsset.id &&
-                                $0.priceAssetId == priceAsset.id})
                             
-                            let isGeneralAmount = allAssets.first(where: {$0.id == amountAsset.id})?.isGeneral ?? false
-                            let isGeneralPrice = allAssets.first(where: {$0.id == priceAsset.id})?.isGeneral ?? false
-                            let isGeneral = isGeneralAmount && isGeneralPrice
+                            let pairId = amountAsset.id + priceAsset.id
+                            let localPair = localPairsMap[pairId]
+                            let isGeneral = amountAsset.isGeneral && priceAsset.isGeneral
                             
                             smartPairs.append(.init(smartPair: .init(amountAsset: amountAsset.dexAsset,
                                                                      priceAsset: priceAsset.dexAsset,
@@ -214,10 +218,14 @@ private extension DexMarketInteractor {
                 guard let self = self else { return Observable.empty() }
                 
                 var dexPairs: [DomainLayer.DTO.Dex.Pair] = []
+                let assetsMap = assets.reduce(into: [String: DomainLayer.DTO.Asset].init(), {
+                    $0[$1.id] = $1
+                })
+                
                 for pair in searchPairs {
                     
-                    if let amountAsset = assets.first(where: {$0.id == pair.amountAsset}),
-                        let priceAsset = assets.first(where: {$0.id == pair.priceAsset}) {
+                    if let amountAsset = assetsMap[pair.amountAsset],
+                        let priceAsset = assetsMap[pair.priceAsset] {
                         
                         dexPairs.append(.init(amountAsset: amountAsset.dexAsset, priceAsset: priceAsset.dexAsset))
                     }
