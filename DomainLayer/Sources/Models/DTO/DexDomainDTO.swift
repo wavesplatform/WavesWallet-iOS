@@ -199,14 +199,16 @@ public extension DomainLayer.DTO.Dex {
         public let amountAsset: Asset
         public let priceAsset: Asset
         public let isGeneral: Bool
+        public let volumeWaves: Double
         
-        public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset, isGeneral: Bool) {
+        public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset, isGeneral: Bool, volumeWaves: Double) {
             self.id = amountAsset.id + priceAsset.id
             self.firstPrice = firstPrice
             self.lastPrice = lastPrice
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
             self.isGeneral = isGeneral
+            self.volumeWaves = volumeWaves
         }
     }
 }

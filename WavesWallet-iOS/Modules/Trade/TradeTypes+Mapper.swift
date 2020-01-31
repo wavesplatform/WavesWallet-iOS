@@ -69,7 +69,8 @@ extension TradeTypes.DTO.Core {
                                                firstPrice: pairPrice.firstPrice,
                                                lastPrice: pairPrice.lastPrice,
                                                isFavorite: favoritePairsMap[pairPrice.id] == true,
-                                               priceUSD: priceUSD))
+                                               priceUSD: priceUSD,
+                                               volumeWaves: pairPrice.volumeWaves))
                 }
             }
                 
@@ -92,6 +93,7 @@ extension TradeTypes.DTO.Core {
                                           rows: [.emptyData]))
             }
             else {
+                categoryPairs.sort(by: {$0.volumeWaves > $1.volumeWaves})
                 uiCategories.append(.init(index: categoryIndex,
                                           isFavorite: false,
                                           name: category.name,
@@ -131,7 +133,8 @@ private extension TradeTypes.DTO.Core {
                                                 firstPrice: pairPrice.firstPrice,
                                                 lastPrice: pairPrice.lastPrice,
                                                 isFavorite: true,
-                                                priceUSD: priceUSD))
+                                                priceUSD: priceUSD,
+                                                volumeWaves: pairPrice.volumeWaves))
             }
         }
                
