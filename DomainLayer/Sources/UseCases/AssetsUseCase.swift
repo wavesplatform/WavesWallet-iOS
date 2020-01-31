@@ -53,7 +53,7 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
         return repositoryRemote
         .assets(by: ids, accountAddress: accountAddress)
         .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
-            guard let self = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
             return self
                 .repositoryLocal
                 .saveAssets(assets, by: accountAddress)

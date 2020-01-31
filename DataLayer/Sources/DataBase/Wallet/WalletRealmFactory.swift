@@ -24,8 +24,9 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_3 = 12 // v2.3
     case version_2_4 = 13 // v2.4
     case version_2_5 = 14 // v2.5
+    case version_2_6 = 15 // v2.9
 
-    static let currentVersion: SchemaVersions = .version_2_5
+    static let currentVersion: SchemaVersions = .version_2_6
 }
 
 fileprivate enum Constants {
@@ -158,6 +159,10 @@ enum WalletRealmFactory {
             if oldSchemaVersion < SchemaVersions.version_2_5.rawValue {
                 removeAsset(migration: migration)
                 removeTransaction(migration: migration)
+            }
+            
+            if oldSchemaVersion < SchemaVersions.version_2_6.rawValue {
+                removeAsset(migration: migration)
             }
         }
 
