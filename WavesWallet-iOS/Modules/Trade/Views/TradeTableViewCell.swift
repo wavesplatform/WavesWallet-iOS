@@ -53,7 +53,22 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
 extension TradeTableViewCell: ViewConfiguration {
     func update(with model: TradeTypes.DTO.Pair) {
         
-        labelTitle.text = model.amountAsset.shortName + " / " + model.priceAsset.shortName
+        let title = model.amountAsset.shortName + " / " + model.priceAsset.shortName
+        let attr = NSMutableAttributedString(string: title)
+        if let asset = model.selectedAsset {
+            
+            var searchAssetString: String {
+                if model.amountAsset.id == asset.id {
+                    return asset.shortName + " /"
+                }
+                return "/ " + asset.shortName
+            }
+            let range = (title as NSString).range(of: searchAssetString)
+            let font = UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: .medium)
+            attr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.basic500,
+                                NSAttributedString.Key.font: font], range: range)
+        }
+        labelTitle.attributedText = attr
         labelVolume.text = model.lastPrice.displayText
         labelPrice.text = "$" + model.priceUSD.displayText
         buttonFav.setImage(model.isFavorite ? Images.favorite14Submit300.image : Images.iconFavEmpty.image, for: .normal)

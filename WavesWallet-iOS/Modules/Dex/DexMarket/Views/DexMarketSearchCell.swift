@@ -50,9 +50,22 @@ extension DexMarketSearchCell: ViewConfiguration {
         let attr = NSMutableAttributedString(string: title)
         
         if let asset = model.selectedAsset {
-            attr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.black,
-                                NSAttributedString.Key.font: UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: .semibold)],
-                               range: (title as NSString).range(of: asset.shortName))
+            labelTitle.textColor = .black
+            labelTitle.font = UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: .semibold)
+            
+            var searchAssetString: String {
+                if model.smartPair.amountAsset.id == asset.id {
+                    return asset.shortName + " /"
+                }
+                return "/ " + asset.shortName
+            }
+            let range = (title as NSString).range(of: searchAssetString)
+            attr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.basic500,
+                                NSAttributedString.Key.font: UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: .medium)],
+                               range: range)
+        }
+        else {
+            labelTitle.textColor = .basic500
         }
         
         labelTitle.attributedText = attr

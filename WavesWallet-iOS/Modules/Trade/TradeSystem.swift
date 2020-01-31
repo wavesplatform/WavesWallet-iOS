@@ -55,7 +55,15 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             state.uiAction = .updateSkeleton(skeletonSection)
 
         case .dataDidLoad(let data):
-            let initialCurrentIndex = state.core.categories.count == 0 && data.categories.count > 0 && data.favoritePairs.count == 0 ? 1 : 0
+            
+            var isEmptyFavorites: Bool {
+                if let asset = selectedAsset {
+                    return data.favoritePairs.assetsIds.contains(asset.id) == false
+                }
+                return data.favoritePairs.count == 0
+            }
+            
+            let initialCurrentIndex: Int = state.core.categories.count == 0 && data.categories.count > 0 && isEmptyFavorites ? 1 : 0
             state.core = data
             state.categories = data.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: selectedAsset)
             state.coreAction = .none
