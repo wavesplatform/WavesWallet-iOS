@@ -215,7 +215,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.init(id: asset.id,
                   gatewayId: info?.gatewayId,
                   wavesId: info?.wavesId,
-                  displayName: name,
+                  name: name,
                   precision: asset.precision,
                   description: description,
                   height: asset.height,

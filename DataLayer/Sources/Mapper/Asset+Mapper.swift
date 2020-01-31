@@ -16,7 +16,7 @@ extension Asset {
         self.id = asset.id
         self.wavesId = asset.wavesId
         self.gatewayId = asset.gatewayId
-        self.displayName = asset.displayName
+        self.name = asset.name
         self.precision = asset.precision
         self.descriptionAsset = asset.description
         self.height = asset.height
@@ -47,7 +47,7 @@ extension DomainLayer.DTO.Asset {
         self.init(id: asset.id,
                   gatewayId: asset.gatewayId,
                   wavesId: asset.wavesId,
-                  displayName: asset.displayName,
+                  name: asset.name,
                   precision: asset.precision,
                   description: asset.descriptionAsset,
                   height: asset.height,

@@ -28,7 +28,7 @@ public extension DomainLayer.DTO {
         public let id: String
         public let gatewayId: String?
         public let wavesId: String?
-        public let displayName: String
+        public let name: String
         public let precision: Int
         public let description: String
         public let height: Int64
@@ -51,12 +51,12 @@ public extension DomainLayer.DTO {
         public var minSponsoredFee: Int64
         public let gatewayType: DomainLayer.DTO.GatewayType?
         
-        public init(id: String, gatewayId: String?, wavesId: String?, displayName: String, precision: Int, description: String, height: Int64, timestamp: Date, sender: String, quantity: Int64, ticker: String?, isReusable: Bool, isSpam: Bool, isFiat: Bool, isGeneral: Bool, isMyWavesToken: Bool, isWavesToken: Bool, isGateway: Bool, isWaves: Bool, modified: Date, addressRegEx: String, iconLogoUrl: String?, hasScript: Bool, minSponsoredFee: Int64, gatewayType: String?) {
+        public init(id: String, gatewayId: String?, wavesId: String?, name: String, precision: Int, description: String, height: Int64, timestamp: Date, sender: String, quantity: Int64, ticker: String?, isReusable: Bool, isSpam: Bool, isFiat: Bool, isGeneral: Bool, isMyWavesToken: Bool, isWavesToken: Bool, isGateway: Bool, isWaves: Bool, modified: Date, addressRegEx: String, iconLogoUrl: String?, hasScript: Bool, minSponsoredFee: Int64, gatewayType: String?) {
             
             self.id = id
             self.gatewayId = gatewayId
             self.wavesId = wavesId
-            self.displayName = displayName
+            self.name = name
             self.precision = precision
             self.description = description
             self.height = height
@@ -90,6 +90,10 @@ public extension DomainLayer.DTO.Asset {
                               url: iconLogoUrl,
                               isSponsored: isSponsored,
                               hasScript: hasScript)
+    }
+    
+    var displayName: String {
+        return ticker ?? name
     }
 
     var icon: String {
