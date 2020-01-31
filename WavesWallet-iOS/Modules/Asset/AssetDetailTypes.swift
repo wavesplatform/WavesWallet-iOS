@@ -129,6 +129,7 @@ extension AssetDetailTypes.DTO {
             let id: String
             let issuer: String
             let name: String
+            let displayName: String
             let description: String
             let issueDate: Date
             let isReusable: Bool

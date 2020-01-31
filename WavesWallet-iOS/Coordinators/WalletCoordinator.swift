@@ -286,7 +286,8 @@ fileprivate extension AssetDetailTypes.DTO.Asset.Info {
     init(asset: DomainLayer.DTO.SmartAssetBalance) {
         id = asset.asset.id
         issuer = asset.asset.sender
-        name = asset.asset.displayName
+        name = asset.asset.name
+        displayName = asset.asset.displayName
         description = asset.asset.description
         issueDate = asset.asset.timestamp
         isReusable = asset.asset.isReusable
