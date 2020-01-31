@@ -53,7 +53,6 @@ extension TradeTypes.DTO.Core {
                     }
                     
                     if let selectedFilter = selectedFilter, selectedFilter.filters.count > 0 {
-                        
                         if selectedFilter.filters.first(where: {$0.ids.contains(pairPrice.amountAsset.id)}) == nil &&
                             selectedFilter.filters.first(where: {$0.ids.contains(pairPrice.priceAsset.id)}) == nil {
                             continue
@@ -70,7 +69,8 @@ extension TradeTypes.DTO.Core {
                                                lastPrice: pairPrice.lastPrice,
                                                isFavorite: favoritePairsMap[pairPrice.id] == true,
                                                priceUSD: priceUSD,
-                                               volumeWaves: pairPrice.volumeWaves))
+                                               volumeWaves: pairPrice.volumeWaves,
+                                               selectedAsset: selectedAsset))
                 }
             }
                 
@@ -134,7 +134,8 @@ private extension TradeTypes.DTO.Core {
                                                 lastPrice: pairPrice.lastPrice,
                                                 isFavorite: true,
                                                 priceUSD: priceUSD,
-                                                volumeWaves: pairPrice.volumeWaves))
+                                                volumeWaves: pairPrice.volumeWaves,
+                                                selectedAsset: selectedAsset))
             }
         }
                

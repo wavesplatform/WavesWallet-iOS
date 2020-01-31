@@ -85,6 +85,7 @@ extension TradeTypes.DTO {
         var isFavorite: Bool
         let priceUSD: Money
         let volumeWaves: Double
+        let selectedAsset: DomainLayer.DTO.Dex.Asset?
     }
     
     struct Category {
