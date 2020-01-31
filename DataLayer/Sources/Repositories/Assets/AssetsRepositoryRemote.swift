@@ -201,8 +201,7 @@ fileprivate extension DomainLayer.DTO.Asset {
             
             if info.gatewayId == Constants.vostokAssetId {
                 description = Constants.vostokAssetDescription
-            }
-            print("id \(asset.id), name \(asset.name) name \(info.displayName)  ")
+            }            
             name = info.displayName
             isFiat = info.isFiat
         }
