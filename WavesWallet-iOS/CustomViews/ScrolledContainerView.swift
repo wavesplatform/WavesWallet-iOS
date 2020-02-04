@@ -266,10 +266,12 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             table.isScrollEnabled = false
             table.backgroundColor = .clear
             table.contentInset.top = segmentedHeight
+            table.estimatedRowHeight = 0
+            table.estimatedSectionHeaderHeight = 0
+            table.sectionHeaderHeight = 0
             addSubview(table)
             tableViews.append(table)
         }
-        
         segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
         segmentedControl.backgroundColor = .basic50
         segmentedControl.setSelectedIndex(currentIndex, animation: false)
@@ -335,7 +337,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             view.frame.origin.y = topOffset
             topOffset += view.frame.size.height
         }
-        
+
         for table in tableViews {
             table.reloadData()
             table.contentInset.top = topOffset + segmentedHeight
