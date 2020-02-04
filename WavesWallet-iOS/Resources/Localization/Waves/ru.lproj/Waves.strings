@@ -734,4 +734,4 @@
 "dexchart.label.yesterday" = "Вчера";
 "asset.cell.balance.button.trade" = "Торговать";
 "dexmarket.navigationBar.titleAsset" = "Поиск пары к";
-"trade.title" = "Торговать";
+"trade.title" = "Торговля";
