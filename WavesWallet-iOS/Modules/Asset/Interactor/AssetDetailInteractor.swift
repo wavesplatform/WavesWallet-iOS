@@ -163,7 +163,8 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
         let id = asset.id
         let issuer = asset.sender
-        let name = asset.displayName
+        let name = asset.name
+        let displayName = asset.displayName
         let description = asset.description
         let issueDate = asset.timestamp
         let isReusable = asset.isReusable
@@ -180,6 +181,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
         return .init(id: id,
                      issuer: issuer,
                      name: name,
+                     displayName: displayName,
                      description: description,
                      issueDate: issueDate,
                      isReusable: isReusable,

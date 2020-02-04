@@ -84,7 +84,7 @@ public extension DomainLayer.DTO.Asset {
     
     var dexAsset: DomainLayer.DTO.Dex.Asset {
         return .init(id: id,
-                     name: displayName,
+                     name: name,
                      shortName: ticker ?? displayName,
                      decimals: precision,
                      iconLogo: iconLogo)

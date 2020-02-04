@@ -188,7 +188,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         if isEnabled {
             let rowSponsorshipModel = TransactionCardSponsorshipDetailCell
                 .Model(balance: .init(balance: balance,
-                                      sign: .none,
+                                      sign: Balance.Sign.none,
                                       style: .small))
 
             rows.append(.sponsorshipDetail(rowSponsorshipModel))

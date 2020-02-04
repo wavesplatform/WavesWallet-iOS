@@ -201,17 +201,17 @@ fileprivate extension DomainLayer.DTO.Asset {
             
             if info.gatewayId == Constants.vostokAssetId {
                 description = Constants.vostokAssetDescription
-            }
-            
+            }            
             name = info.displayName
             isFiat = info.isFiat
         }
         let isWavesToken = isFiat == false && isGateway == false && isWaves == false
-
+        
+        
         self.init(id: asset.id,
                   gatewayId: info?.gatewayId,
                   wavesId: info?.wavesId,
-                  displayName: name,
+                  name: name,
                   precision: asset.precision,
                   description: description,
                   height: asset.height,

@@ -12,6 +12,8 @@ import Extensions
 private enum Constants {
     static let cornerRadius: Float = 3
     static let backgroundAlpha: CGFloat = 0.1
+    static let paddingTopDown: CGFloat = 3
+    static let paddingLeftRight: CGFloat = 8
 }
 
 final class PercentTickerView: UIView {
@@ -32,11 +34,16 @@ final class PercentTickerView: UIView {
         label = .init(frame: bounds)
         label.textAlignment = .center
         addSubview(label)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        self.topAnchor.constraint(equalTo: label.topAnchor, constant: Constants.paddingTopDown).isActive = true
+        self.leftAnchor.constraint(equalTo: label.leftAnchor, constant: -Constants.paddingLeftRight).isActive = true
+        self.rightAnchor.constraint(equalTo: label.rightAnchor, constant: Constants.paddingLeftRight).isActive = true
+        self.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: -Constants.paddingTopDown).isActive = true
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        label.frame = bounds
         background.frame = bounds
     }
 }

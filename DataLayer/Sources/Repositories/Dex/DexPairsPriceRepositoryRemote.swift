@@ -123,7 +123,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                                                                           lastPrice: lastPrice,
                                                                           amountAsset: amountAsset.dexAsset,
                                                                           priceAsset: priceAsset.dexAsset,
-                                                                          isGeneral: priceAsset.isGeneral && amountAsset.isGeneral)
+                                                                          isGeneral: priceAsset.isGeneral && amountAsset.isGeneral,
+                                                                          volumeWaves: pairElement?.volumeWaves ?? 0)
                             listPairs.append(pairPrice)
                         }
                         

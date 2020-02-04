@@ -622,7 +622,7 @@ extension AssetDetailTypes.DTO.Asset.Info {
         }
 
         return AssetsSegmentedControl.Model.Asset(id: id,
-                                                  name: name,
+                                                  name: displayName,
                                                   kind: kind,
                                                   icon: icon,
                                                   isSponsored: assetBalance.asset.isSponsored,
