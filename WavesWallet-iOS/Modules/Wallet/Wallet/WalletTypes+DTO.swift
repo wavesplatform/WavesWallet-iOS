@@ -29,5 +29,23 @@ extension WalletTypes.DTO {
     
     struct Staking {
         
+        struct Payout {
+            let money: Money
+            let date: Date
+        }
+        
+        struct Landing {
+            let percent: Double
+            let startDeposit: Money
+            let featureDeposit: Money
+        }
+        
+        let percent: Double
+        let totalProfit: Money
+        let totalBalance: Money
+        let availableBalance: Money
+        let inStaking: Money
+        let lastPayouts: [Payout]
+        let landing: Landing?
     }
 }

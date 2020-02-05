@@ -81,6 +81,10 @@ final class WalletInteractor: WalletInteractorProtocol {
     func leasing() -> Observable<WalletTypes.DTO.Leasing> {
         return Observable.merge(leasing(isNeedUpdate: true))
     }
+    
+    func staking() -> Observable<WalletTypes.DTO.Staking> {
+        return Observable.empty()
+    }
 }
 
 // MARK: Assistants

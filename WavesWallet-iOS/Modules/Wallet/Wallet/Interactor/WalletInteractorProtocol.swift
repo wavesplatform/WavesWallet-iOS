@@ -13,6 +13,7 @@ import DomainLayer
 protocol WalletInteractorProtocol {
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func leasing() -> Observable<WalletTypes.DTO.Leasing>
+    func staking() -> Observable<WalletTypes.DTO.Staking>
     func isShowCleanWalletBanner() -> Observable<Bool>
     func setCleanWalletBanner() -> Observable<Bool>
     func isHasAppUpdate() -> Observable<Bool>
