@@ -144,21 +144,21 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="A62-G9-ZBv">
                                                             <rect key="frame" x="0.0" y="234" width="382" height="98"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xq2-h9-ZdF" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xq2-h9-ZdF" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="127.5" height="98"/>
                                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
                                                                     <state key="normal" title="Send" image="send48">
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-Oj-INx" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-Oj-INx" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                                     <rect key="frame" x="127.5" y="0.0" width="127" height="98"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <state key="normal" title="Receive" image="receive48">
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dna-QV-sJs" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dna-QV-sJs" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                                     <rect key="frame" x="254.5" y="0.0" width="127.5" height="98"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <state key="normal" title="Trade" image="trade48">
@@ -170,12 +170,11 @@
                                                                 <constraint firstAttribute="height" constant="98" id="rb7-79-J9W"/>
                                                             </constraints>
                                                         </stackView>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOS-MS-qNo" customClass="PercentTickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="50.5" y="115.5" width="50" height="16"/>
+                                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="55" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="hOS-MS-qNo" customClass="PercentTickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                            <rect key="frame" x="50.5" y="115.5" width="55" height="16"/>
                                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="71U-mI-Ofc"/>
-                                                                <constraint firstAttribute="width" constant="50" id="K1g-cY-qls"/>
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WV-t0-WDd">
@@ -197,6 +196,7 @@
                                                         <constraint firstItem="3WV-t0-WDd" firstAttribute="top" secondItem="wOk-Cw-M2i" secondAttribute="bottom" constant="6" id="L05-MW-RPl"/>
                                                         <constraint firstAttribute="bottom" secondItem="A62-G9-ZBv" secondAttribute="bottom" id="Oxs-qg-7ZN"/>
                                                         <constraint firstItem="t9T-hI-N4M" firstAttribute="leading" secondItem="2SU-uZ-e3X" secondAttribute="leading" constant="16" id="UAg-qr-9Uf"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hOS-MS-qNo" secondAttribute="trailing" constant="6" id="XcD-uu-XSG"/>
                                                         <constraint firstItem="wOk-Cw-M2i" firstAttribute="leading" secondItem="pSe-qs-0Fb" secondAttribute="leading" id="dNS-sk-3fs"/>
                                                         <constraint firstItem="hOS-MS-qNo" firstAttribute="leading" secondItem="3WV-t0-WDd" secondAttribute="trailing" constant="6" id="dPS-tJ-KpD"/>
                                                         <constraint firstItem="pSe-qs-0Fb" firstAttribute="leading" secondItem="2SU-uZ-e3X" secondAttribute="leading" constant="16" id="fMf-ex-fQQ"/>
