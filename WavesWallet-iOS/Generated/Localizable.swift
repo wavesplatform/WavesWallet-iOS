@@ -3488,6 +3488,12 @@ internal enum Localizable {
         /// Leasing
         internal static var leasing: String { return Localizable.tr("Waves", "wallet.segmentedControl.leasing") }
         internal static var leasingKey: String { return "wallet.segmentedControl.leasing" }
+        /// new
+        internal static var new: String { return Localizable.tr("Waves", "wallet.segmentedControl.new") }
+        internal static var newKey: String { return "wallet.segmentedControl.new" }
+        /// Staking
+        internal static var staking: String { return Localizable.tr("Waves", "wallet.segmentedControl.staking") }
+        internal static var stakingKey: String { return "wallet.segmentedControl.staking" }
       }
 
       internal enum Updateapp {

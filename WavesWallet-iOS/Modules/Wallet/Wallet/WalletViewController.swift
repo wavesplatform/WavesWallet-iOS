@@ -21,19 +21,21 @@ private extension WalletTypes.DisplayState.Kind {
             return Localizable.Waves.Wallet.Segmentedcontrol.assets
         case .leasing:
             return Localizable.Waves.Wallet.Segmentedcontrol.leasing
+        case .staking:
+            return Localizable.Waves.Wallet.Segmentedcontrol.staking
         }
     }
 }
 
 final class WalletViewController: UIViewController {
 
-    @IBOutlet weak var scrolledTablesComponent: ScrolledContainerView!
+    @IBOutlet private weak var scrolledTablesComponent: ScrolledContainerView!
     @IBOutlet var globalErrorView: GlobalErrorView!
 
     private var displayData: WalletDisplayData!
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing]
+    private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing, .staking]
 
     private var isRefreshing: Bool = false
     private var snackError: String? = nil
@@ -59,12 +61,12 @@ final class WalletViewController: UIViewController {
         
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
-        scrolledTablesComponent.setup(segmentedItems: displays.map{ .title($0.name) }, tableDataSource: displayData, tableDelegate: displayData)
+        
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.segmentedItem }, tableDataSource: displayData, tableDelegate: displayData)
 
         setupLanguages()
         setupBigNavigationBar()
         createMenuButton()
-        setupSegmetedControl()
         setupTableView()
         setupSystem()
         
@@ -387,7 +389,7 @@ private extension WalletViewController {
         case .assets:
             navigationItem.rightBarButtonItems = [buttonAddress, buttonSort]
 
-        case .leasing:
+        case .leasing, .staking:
             navigationItem.rightBarButtonItems = [buttonAddress]
         }
     }
@@ -398,7 +400,7 @@ private extension WalletViewController {
     }
 
     func setupSegmetedControl() {
-        scrolledTablesComponent.segmentedControl.items = displays.map{ .title($0.name) }
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.segmentedItem }, tableDataSource: displayData, tableDelegate: displayData)
     }
 }
 
@@ -423,5 +425,20 @@ extension WalletViewController: WalletDisplayDataDelegate {
     
     func tableViewDidSelect(indexPath: IndexPath) {
         sendEvent.accept(.tapRow(indexPath))
+    }
+}
+
+//MARK: - WalletTypes.DisplayState.Kind
+private extension WalletTypes.DisplayState.Kind {
+    
+    var segmentedItem: NewSegmentedControl.SegmentedItem {
+        
+        switch self {
+        case .assets, .leasing:
+            return .title(name)
+        
+        case .staking:
+            return .ticker(.init(title: name, ticker: Localizable.Waves.Wallet.Segmentedcontrol.new.uppercased()))
+        }
     }
 }

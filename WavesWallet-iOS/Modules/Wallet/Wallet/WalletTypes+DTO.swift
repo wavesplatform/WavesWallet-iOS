@@ -25,4 +25,9 @@ extension WalletTypes.DTO {
         let balance: Balance
         let transactions: [DomainLayer.DTO.SmartTransaction]
     }
+    
+    
+    struct Staking {
+        
+    }
 }

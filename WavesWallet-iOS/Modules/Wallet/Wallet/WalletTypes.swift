@@ -33,6 +33,7 @@ extension WalletTypes {
         enum Kind: Int {
             case assets
             case leasing
+            case staking
         }
 
         enum ContentAction  {
@@ -54,6 +55,7 @@ extension WalletTypes {
         var kind: Kind
         var assets: DisplayState.Display
         var leasing: DisplayState.Display
+        var staking: DisplayState.Display
         var isAppeared: Bool
         var listenerRefreshData: RefreshData
         var refreshData: RefreshData
@@ -69,6 +71,7 @@ extension WalletTypes {
         
         var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
+        var staking: DTO.Staking?
         var displayState: DisplayState
         var isShowCleanWalletBanner: Bool
         var isNeedCleanWalletBanner: Bool

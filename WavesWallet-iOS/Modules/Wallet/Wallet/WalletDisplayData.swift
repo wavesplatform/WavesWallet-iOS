@@ -24,6 +24,7 @@ final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
     private var assetsSections: [Section] = []
     private var leasingSections: [Section] = []
+    private var stakingSections: [Section] = []
     
     private weak var scrolledTablesComponent: ScrolledContainerView!
     

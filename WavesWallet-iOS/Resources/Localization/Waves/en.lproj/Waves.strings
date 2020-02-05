@@ -570,6 +570,8 @@
 "wallet.section.spamAssets" = "Suspicious tokens (%d)";
 "wallet.segmentedControl.assets" = "Tokens";
 "wallet.segmentedControl.leasing" = "Leasing";
+"wallet.segmentedControl.staking" = "Staking";
+"wallet.segmentedControl.new" = "new";
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";

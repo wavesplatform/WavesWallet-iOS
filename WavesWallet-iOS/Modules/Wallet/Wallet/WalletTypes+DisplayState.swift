@@ -14,6 +14,7 @@ extension WalletTypes.DisplayState {
         return WalletTypes.DisplayState(kind: kind,
                                         assets: .initialState(kind: .assets),
                                         leasing: .initialState(kind: .leasing),
+                                        staking: .initialState(kind: .staking),
                                         isAppeared: false,
                                         listenerRefreshData: .none,
                                         refreshData: .refresh,
@@ -28,6 +29,9 @@ extension WalletTypes.DisplayState {
 
             case .leasing:
                 return leasing
+                
+            case .staking:
+                return staking
             }
         }
 
@@ -38,6 +42,9 @@ extension WalletTypes.DisplayState {
 
             case .leasing:
                 leasing = newValue
+                
+            case .staking:
+                staking = newValue
             }
         }
     }
@@ -49,6 +56,8 @@ extension WalletTypes.DisplayState {
             newState.assets = display
         case .leasing:
             newState.leasing = display
+        case .staking:
+            newState.staking = display
         }
         return newState
     }

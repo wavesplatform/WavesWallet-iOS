@@ -30,6 +30,8 @@ extension WalletTypes.State {
             display = state.displayState.assets
         case .leasing:
             display = state.displayState.leasing
+        case .staking:
+            display = state.displayState.staking
         }
 
         display.animateType = .refresh(animated: false)
@@ -46,6 +48,9 @@ extension WalletTypes.State {
             
         case .leasing:
             return leasing != nil
+            
+        case .staking:
+            return staking != nil
         }
     }
 }

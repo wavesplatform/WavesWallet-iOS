@@ -570,6 +570,8 @@
 "wallet.section.spamAssets" = "Подозрительные токены (%d)";
 "wallet.segmentedControl.assets" = "Токены";
 "wallet.segmentedControl.leasing" = "Лизинг";
+"wallet.segmentedControl.staking" = "Стейкинг";
+"wallet.segmentedControl.new" = "new";
 "walletsort.button.position" = "Позиция";
 "walletsort.button.visibility" = "Видимость";
 "walletsort.navigationBar.title" = "Сортировка";
