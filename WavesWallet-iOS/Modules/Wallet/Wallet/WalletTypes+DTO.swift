@@ -36,8 +36,7 @@ extension WalletTypes.DTO {
         
         struct Landing {
             let percent: Double
-            let startDeposit: Money
-            let featureDeposit: Money
+            let minimumDeposit: Money
         }
         
         let percent: Double
@@ -46,6 +45,6 @@ extension WalletTypes.DTO {
         let availableBalance: Money
         let inStaking: Money
         let lastPayouts: [Payout]
-        let landing: Landing?
+        var landing: Landing?
     }
 }
