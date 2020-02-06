@@ -29,6 +29,11 @@ extension WalletTypes.DTO {
     
     struct Staking {
         
+        struct Profit {
+            let percent: Double
+            let total: Money
+        }
+        
         struct Payout {
             let money: Money
             let date: Date
@@ -39,11 +44,14 @@ extension WalletTypes.DTO {
             let minimumDeposit: Money
         }
         
-        let percent: Double
-        let totalProfit: Money
-        let totalBalance: Money
-        let availableBalance: Money
-        let inStaking: Money
+        struct Balance {
+            let total: Money
+            let available: Money
+            let inStaking: Money
+        }
+        
+        let profit: Profit
+        let balance: Balance
         let lastPayouts: [Payout]
         var landing: Landing?
     }
