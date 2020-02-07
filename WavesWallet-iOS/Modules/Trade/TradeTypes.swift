@@ -43,7 +43,7 @@ enum TradeTypes {
                  
         enum CoreAction: Equatable {
             case none
-            case loadData
+            case loadData(DomainLayer.DTO.Dex.Asset?)
             case loadFavoritePairs
             case removeFromFavorite(String)
             case saveToToFavorite(DTO.Pair)
@@ -54,6 +54,7 @@ enum TradeTypes {
         var core: DTO.Core
         var categories: [DTO.Category]
         var selectedFilters: [DTO.SelectedFilter]
+        var selectedAsset: DomainLayer.DTO.Dex.Asset?
     }
 }
 

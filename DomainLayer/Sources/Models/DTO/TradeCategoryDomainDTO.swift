@@ -25,11 +25,16 @@ public extension DomainLayer.DTO {
         public let name: String
         public let filters: [Filter]
         public let pairs: [DomainLayer.DTO.Dex.Pair]
-        
-        public init(name: String, filters: [Filter], pairs: [DomainLayer.DTO.Dex.Pair]) {
+        public let matchingAssets: [DomainLayer.DTO.Dex.Asset]
+                    
+        public init(name: String,
+                    filters: [Filter],
+                    pairs: [DomainLayer.DTO.Dex.Pair],
+                    matchingAssets: [DomainLayer.DTO.Dex.Asset]) {
             self.name = name
             self.filters = filters
             self.pairs = pairs
+            self.matchingAssets = matchingAssets
         }
     }
 }

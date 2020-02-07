@@ -37,7 +37,7 @@ extension TradeTypes.DTO.Core {
         for (index, category) in categories.enumerated() {
 
             var categoryPairs: [TradeTypes.DTO.Pair] = []
-
+            
             let categoryIndex = index + 1
             let selectedFilter = selectedFiltersMap[categoryIndex]
 
