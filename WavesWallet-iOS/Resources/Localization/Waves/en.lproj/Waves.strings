@@ -561,8 +561,8 @@
 "wallet.label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
 "wallet.label.quickNote.description.third" = "The generating balance will be updated after 1000 blocks.";
 "wallet.label.startedLeasing" = "Started Leasing";
-"wallet.label.totalBalance" = "Total balance";
 "wallet.label.viewHistory" = "Transaction history";
+"wallet.label.totalBalance" = "Total balance";
 "wallet.navigationBar.title" = "Wallet";
 "wallet.section.activeNow" = "Active now (%d)";
 "wallet.section.hiddenAssets" = "Hidden tokens (%d)";
@@ -572,6 +572,16 @@
 "wallet.segmentedControl.leasing" = "Leasing";
 "wallet.segmentedControl.staking" = "Staking";
 "wallet.segmentedControl.new" = "new";
+"wallet.stakingbalance.label.totalBalance" = "Total balance";
+"wallet.stakingbalance.label.staking" = "Staking";
+"wallet.stakingbalance.label.available" = "Available";
+"wallet.stakingbalance.button.deposit" = "Deposit";
+"wallet.stakingbalance.button.withdraw" = "Withdraw";
+"wallet.stakingbalance.button.trade" = "Trade";
+"wallet.stakingbalance.button.buy" = "Buy";
+"wallet.stakingheader.estimatedInterest" = "Estimated Interest";
+"wallet.stakingheader.percentPerYear" = "per year";
+
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";

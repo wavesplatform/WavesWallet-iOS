@@ -24,6 +24,7 @@ extension WalletTypes.ViewModel {
         case leasingTransaction(DomainLayer.DTO.SmartTransaction)
         case allHistory
         case quickNote
+        case stakingBalance(WalletTypes.DTO.Staking.Balance)
     }
 
     struct Section {
@@ -37,6 +38,7 @@ extension WalletTypes.ViewModel {
             case general
             case spam(count: Int)
             case hidden(count: Int)
+            case staking(WalletTypes.DTO.Staking.Profit)
         }
 
         var kind: Kind
@@ -131,6 +133,19 @@ extension WalletTypes.ViewModel.Section {
                                                                isExpanded: false)
         sections.append(noteSection)
         return sections
+    }
+    
+    static func map(from staking: WalletTypes.DTO.Staking) -> [WalletTypes.ViewModel.Section] {
+    
+        var rows: [WalletTypes.ViewModel.Row] = []
+        
+        if let landing = staking.landing {
+            
+        }
+        
+        rows.append(.stakingBalance(staking.balance))
+        
+        return [.init(kind: .staking(staking.profit), items: rows, isExpanded: true)]
     }
 }
 

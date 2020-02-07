@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WalletStakingHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rNa-mA-iCM">
+                    <rect key="frame" x="16" y="0.0" width="382" height="110"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OHB-BM-Y7z" customClass="GradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="186" height="110"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Interest" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQq-wN-vUg">
+                                    <rect key="frame" x="16" y="16" width="170" height="16"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="21.23%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-aC-6iN">
+                                    <rect key="frame" x="16" y="34" width="60.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfc-ZX-bqZ">
+                                    <rect key="frame" x="78.5" y="40" width="107.5" height="13.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <constraints>
+                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="leading" secondItem="DIs-aC-6iN" secondAttribute="trailing" constant="2" id="9Gv-Fg-Vb7"/>
+                                <constraint firstItem="DIs-aC-6iN" firstAttribute="top" secondItem="KQq-wN-vUg" secondAttribute="bottom" constant="2" id="D0U-5u-zhI"/>
+                                <constraint firstItem="KQq-wN-vUg" firstAttribute="top" secondItem="OHB-BM-Y7z" secondAttribute="top" constant="16" id="Qzm-WU-A3z"/>
+                                <constraint firstAttribute="trailing" secondItem="KQq-wN-vUg" secondAttribute="trailing" id="XzN-h7-bLH"/>
+                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="bottom" secondItem="DIs-aC-6iN" secondAttribute="bottom" constant="-1" id="ff1-Y4-svf"/>
+                                <constraint firstItem="DIs-aC-6iN" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="lRr-zE-hHU"/>
+                                <constraint firstAttribute="trailing" secondItem="wfc-ZX-bqZ" secondAttribute="trailing" id="ugy-zv-Qzi"/>
+                                <constraint firstItem="KQq-wN-vUg" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="yqo-SL-YJ1"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZoD-eL-eeR" customClass="GradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="196" y="0.0" width="186" height="110"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="ZoD-eL-eeR" secondAttribute="bottom" id="71q-Kn-v9s"/>
+                        <constraint firstItem="ZoD-eL-eeR" firstAttribute="top" secondItem="rNa-mA-iCM" secondAttribute="top" id="9Jl-Cx-VGR"/>
+                        <constraint firstItem="OHB-BM-Y7z" firstAttribute="width" secondItem="ZoD-eL-eeR" secondAttribute="width" id="9ZU-Vz-Ism"/>
+                        <constraint firstItem="ZoD-eL-eeR" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="trailing" constant="10" id="Cpq-fa-JTy"/>
+                        <constraint firstItem="OHB-BM-Y7z" firstAttribute="top" secondItem="rNa-mA-iCM" secondAttribute="top" id="HaZ-O5-qa8"/>
+                        <constraint firstItem="OHB-BM-Y7z" firstAttribute="leading" secondItem="rNa-mA-iCM" secondAttribute="leading" id="KBT-ny-bRc"/>
+                        <constraint firstAttribute="bottom" secondItem="OHB-BM-Y7z" secondAttribute="bottom" id="V3b-8E-Z3J"/>
+                        <constraint firstAttribute="trailing" secondItem="ZoD-eL-eeR" secondAttribute="trailing" id="j65-AS-tWn"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="rNa-mA-iCM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="A0m-4T-V0X"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rNa-mA-iCM" secondAttribute="bottom" id="MMr-is-ehD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rNa-mA-iCM" secondAttribute="trailing" constant="16" id="VHB-AT-Whu"/>
+                <constraint firstItem="rNa-mA-iCM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Wao-Ep-6EL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="labelEstimatedInterest" destination="KQq-wN-vUg" id="zI0-6y-huz"/>
+                <outlet property="labelPercent" destination="DIs-aC-6iN" id="U0v-Wp-B9M"/>
+                <outlet property="labelPercentTitle" destination="wfc-ZX-bqZ" id="PFP-6Q-n5d"/>
+                <outlet property="viewContainer" destination="rNa-mA-iCM" id="YK3-zc-BSj"/>
+                <outlet property="viewEstimetedInterest" destination="OHB-BM-Y7z" id="ib0-4D-sHz"/>
+                <outlet property="viewProfit" destination="ZoD-eL-eeR" id="0Jl-me-zD6"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="121.4392803598201"/>
+        </view>
+    </objects>
+</document>

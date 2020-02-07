@@ -72,6 +72,8 @@ internal enum Images {
   internal static let blockchain80 = ImageAsset(name: "blockchain80")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
+  internal static let buyWithCard = ImageAsset(name: "buyWithCard")
+  internal static let buyWithCardComingSoon = ImageAsset(name: "buyWithCardComingSoon")
   internal static let changearrows14Basic500 = ImageAsset(name: "changearrows14Basic500")
   internal static let chartArrowGreen = ImageAsset(name: "chart_arrow_green")
   internal static let chartArrowRed = ImageAsset(name: "chart_arrow_red")
@@ -299,6 +301,7 @@ internal enum Images {
   internal static let topbarSort = ImageAsset(name: "topbarSort")
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
   internal static let trade48 = ImageAsset(name: "trade48")
+  internal static let trading = ImageAsset(name: "trading")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
   internal static let userimgUpdate = ImageAsset(name: "userimg-Update")
@@ -375,6 +378,8 @@ internal enum Images {
     blockchain80,
     btnBack,
     btnBars,
+    buyWithCard,
+    buyWithCardComingSoon,
     changearrows14Basic500,
     chartArrowGreen,
     chartArrowRed,
@@ -602,6 +607,7 @@ internal enum Images {
     topbarSort,
     touchid48Submit300,
     trade48,
+    trading,
     unhide,
     upChevron,
     userimgUpdate,

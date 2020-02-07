@@ -3496,6 +3496,45 @@ internal enum Localizable {
         internal static var stakingKey: String { return "wallet.segmentedControl.staking" }
       }
 
+      internal enum Stakingbalance {
+
+        internal enum Button {
+          /// Buy
+          internal static var buy: String { return Localizable.tr("Waves", "wallet.stakingbalance.button.buy") }
+          internal static var buyKey: String { return "wallet.stakingbalance.button.buy" }
+          /// Deposit
+          internal static var deposit: String { return Localizable.tr("Waves", "wallet.stakingbalance.button.deposit") }
+          internal static var depositKey: String { return "wallet.stakingbalance.button.deposit" }
+          /// Trade
+          internal static var trade: String { return Localizable.tr("Waves", "wallet.stakingbalance.button.trade") }
+          internal static var tradeKey: String { return "wallet.stakingbalance.button.trade" }
+          /// Withdraw
+          internal static var withdraw: String { return Localizable.tr("Waves", "wallet.stakingbalance.button.withdraw") }
+          internal static var withdrawKey: String { return "wallet.stakingbalance.button.withdraw" }
+        }
+
+        internal enum Label {
+          /// Available
+          internal static var available: String { return Localizable.tr("Waves", "wallet.stakingbalance.label.available") }
+          internal static var availableKey: String { return "wallet.stakingbalance.label.available" }
+          /// Staking
+          internal static var staking: String { return Localizable.tr("Waves", "wallet.stakingbalance.label.staking") }
+          internal static var stakingKey: String { return "wallet.stakingbalance.label.staking" }
+          /// Total balance
+          internal static var totalBalance: String { return Localizable.tr("Waves", "wallet.stakingbalance.label.totalBalance") }
+          internal static var totalBalanceKey: String { return "wallet.stakingbalance.label.totalBalance" }
+        }
+      }
+
+      internal enum Stakingheader {
+        /// Estimated Interest
+        internal static var estimatedInterest: String { return Localizable.tr("Waves", "wallet.stakingheader.estimatedInterest") }
+        internal static var estimatedInterestKey: String { return "wallet.stakingheader.estimatedInterest" }
+        /// per year
+        internal static var percentPerYear: String { return Localizable.tr("Waves", "wallet.stakingheader.percentPerYear") }
+        internal static var percentPerYearKey: String { return "wallet.stakingheader.percentPerYear" }
+      }
+
       internal enum Updateapp {
 
         internal enum Label {

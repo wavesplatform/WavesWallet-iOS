@@ -278,7 +278,10 @@ extension WalletViewController {
     
     func updateView(with state: WalletTypes.DisplayState) {
 
-        displayData.apply(assetsSections: state.assets.visibleSections, leasingSections: state.leasing.visibleSections, animateType: state.animateType) { [weak self] in
+        displayData.apply(assetsSections: state.assets.visibleSections,
+                          leasingSections: state.leasing.visibleSections,
+                          stakingSections: state.staking.visibleSections,
+                          animateType: state.animateType) { [weak self] in
                             
             if state.isRefreshing == false {
                 self?.scrolledTablesComponent.endRefreshing()
@@ -416,7 +419,22 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 // MARK: WalletDisplayDataDelegate
 
 extension WalletViewController: WalletDisplayDataDelegate {
-
+   
+    func withdrawTapped() {
+        print(classForCoder, #function)
+    }
+    
+    func depositTapped() {
+        print(classForCoder, #function)
+    }
+    
+    func tradeTapped() {
+        print(classForCoder, #function)
+    }
+    
+    func buyTapped() {
+        print(classForCoder, #function)
+    }
     
     func showSearchVC(fromStartPosition: CGFloat) {
                 

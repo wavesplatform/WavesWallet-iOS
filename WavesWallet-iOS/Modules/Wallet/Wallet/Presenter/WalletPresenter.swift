@@ -29,6 +29,7 @@ final class WalletPresenter: WalletPresenterProtocol {
 
     private var assetListener: Signal<WalletTypes.Event>?
     private var leasingListener: Signal<WalletTypes.Event>?
+    private var stakingListener: Signal<WalletTypes.Event>?
 
     func system(feedbacks: [Feedback]) {
 
@@ -37,6 +38,8 @@ final class WalletPresenter: WalletPresenterProtocol {
         newFeedbacks.append(queryAssetsListener())
         newFeedbacks.append(queryLeasing())
         newFeedbacks.append(queryLeasingListener())
+        newFeedbacks.append(queryStaking())
+        newFeedbacks.append(queryStakingListener())
         newFeedbacks.append(queryCleanWallet())
         newFeedbacks.append(queryCleanWalletBanner())
         newFeedbacks.append(queryAppUpdate())
@@ -163,6 +166,44 @@ final class WalletPresenter: WalletPresenterProtocol {
         })
     }
 
+    private func queryStakingListener() -> Feedback {
+        return react(request: { (state) -> Types.DisplayState.RefreshData? in
+
+            if state.displayState.kind == .staking {
+                return state.displayState.listenerRefreshData
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+
+            guard let self = self else { return Signal.empty() }
+            return self.stakingListener?.skip(1) ?? Signal.never()
+        })
+    }
+    
+    private func queryStaking() -> Feedback {
+        return react(request: { (state) -> Types.DisplayState.RefreshData? in
+
+            if state.displayState.kind == .staking && state.displayState.refreshData != .none {
+                return state.displayState.refreshData
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+
+            guard let self = self else { return Signal.empty() }
+            let listener = self
+                .interactor
+                .staking()
+                .map { .setStaking($0) }
+                .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
+
+            self.stakingListener = listener
+            return listener
+        })
+    }
 
     private func reduce(state: WalletTypes.State, event: WalletTypes.Event) -> WalletTypes.State {
 
@@ -206,7 +247,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .handlerError(let error):
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
             state.displayState.refreshData = .none
-
+            
             let errorStatus = DisplayErrorState.displayErrorState(hasData: state.hasData, error: error)
             var currentDisplay = state.displayState.currentDisplay
             currentDisplay.errorState = errorStatus
@@ -325,6 +366,22 @@ final class WalletPresenter: WalletPresenterProtocol {
                 state.displayState.listenerRefreshData = state.displayState.refreshData
             }
 
+        case .setStaking(let staking):
+            state.action = .update
+            
+            let sections = WalletTypes.ViewModel.Section.map(from: staking)
+            state.displayState = state.displayState.updateDisplay(kind: .staking,
+                                                                  sections: sections)
+            state.staking = staking
+
+            var currentDisplay = state.displayState.currentDisplay
+            currentDisplay.errorState = .none
+            currentDisplay.isRefreshing = false
+            state.displayState.currentDisplay = currentDisplay
+
+            if state.displayState.refreshData != .none {
+                state.displayState.listenerRefreshData = state.displayState.refreshData
+            }
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
             state.action = .none

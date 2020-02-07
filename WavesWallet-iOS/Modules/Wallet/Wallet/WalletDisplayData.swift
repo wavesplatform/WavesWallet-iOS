@@ -18,6 +18,10 @@ private enum Constants {
 protocol WalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
     func showSearchVC(fromStartPosition: CGFloat)
+    func withdrawTapped()
+    func depositTapped()
+    func tradeTapped()
+    func buyTapped()
 }
 
 final class WalletDisplayData: NSObject {
@@ -39,10 +43,11 @@ final class WalletDisplayData: NSObject {
         self.scrolledTablesComponent = scrolledTablesComponent
     }
     
-    func apply(assetsSections: [WalletTypes.ViewModel.Section], leasingSections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
+    func apply(assetsSections: [WalletTypes.ViewModel.Section], leasingSections: [WalletTypes.ViewModel.Section], stakingSections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
         
         self.assetsSections = assetsSections
         self.leasingSections = leasingSections
+        self.stakingSections = stakingSections
         
         CATransaction.begin()
         CATransaction.setCompletionBlock {
@@ -82,7 +87,13 @@ final class WalletDisplayData: NSObject {
         if tableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue {
             return assetsSections
         }
-        return leasingSections
+        else if tableView.tag == WalletTypes.DisplayState.Kind.leasing.rawValue {
+            return leasingSections
+        }
+        else if tableView.tag == WalletTypes.DisplayState.Kind.staking.rawValue {
+            return stakingSections
+        }
+        return []
     }
     
     private func searchTapped(_ cell: UITableViewCell) {
@@ -166,6 +177,24 @@ extension WalletDisplayData: UITableViewDataSource {
             let cell = tableView.dequeueAndRegisterCell() as WalletQuickNoteCell
             cell.setupLocalization()
             return cell
+            
+        case .stakingBalance(let balance):
+            let cell = tableView.dequeueAndRegisterCell() as WalletStakingBalanceCell
+            cell.update(with: balance)
+            cell.withdrawAction = { [weak self] in
+                self?.delegate?.withdrawTapped()
+            }
+            cell.depositAction = { [weak self] in
+                self?.delegate?.depositTapped()
+            }
+            cell.tradeAction = { [weak self] in
+                self?.delegate?.tradeTapped()
+            }
+            cell.buyAction = { [weak self] in
+                self?.delegate?.buyTapped()
+            }
+            return cell
+
         }
     }
     
@@ -213,6 +242,11 @@ extension WalletDisplayData: UITableViewDelegate {
             }
             return view
         }
+        else if let header = model.stakingHeader {
+            let view = tableView.dequeueAndRegisterHeaderFooter() as WalletStakingHeaderView
+            view.update(with: header)
+            return view
+        }
         
         return nil
     }
@@ -220,11 +254,13 @@ extension WalletDisplayData: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let model = sections(by: tableView)[section]
         
-        if model.header == nil {
-            return CGFloat.minValue
-        } else {
+        if model.header != nil {
             return WalletHeaderView.viewHeight()
         }
+        else if model.stakingHeader != nil {
+            return WalletStakingHeaderView.viewHeight()
+        }
+        return CGFloat.minValue
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -279,6 +315,9 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .quickNote:
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
+            
+        case .stakingBalance:
+            return WalletStakingBalanceCell.viewHeight()
         }
     }
     
@@ -292,6 +331,15 @@ extension WalletDisplayData: UITableViewDelegate {
 }
 
 fileprivate extension WalletTypes.ViewModel.Section {
+    
+    var stakingHeader: WalletTypes.DTO.Staking.Profit? {
+        switch kind {
+        case .staking(let profit):
+            return profit
+        default:
+            return nil
+        }
+    }
     
     var header: String? {
         

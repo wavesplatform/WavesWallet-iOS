@@ -213,4 +213,20 @@ public extension UIColor {
     @nonobjc class var clearBlue: UIColor {
         return UIColor(red: 51.0 / 255.0, green: 129.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
     }
+    
+    @nonobjc class var orangeYellow: UIColor {
+      return UIColor(red: 1.0, green: 160.0 / 255.0, blue: 0.0, alpha: 1.0)
+    }
+
+    @nonobjc class var pumpkinOrange: UIColor {
+      return UIColor(red: 250.0 / 255.0, green: 115.0 / 255.0, blue: 0.0, alpha: 1.0)
+    }
+
+    @nonobjc class var azure: UIColor {
+       return UIColor(red: 0.0, green: 149.0 / 255.0, blue: 1.0, alpha: 1.0)
+     }
+
+    @nonobjc class var azureTwo: UIColor {
+        return UIColor(red: 14.0 / 255.0, green: 175.0 / 255.0, blue: 1.0, alpha: 1.0)
+    }
 }

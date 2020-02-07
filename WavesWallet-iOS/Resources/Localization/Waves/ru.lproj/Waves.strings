@@ -561,8 +561,8 @@
 "wallet.label.quickNote.description.second" = "Вы можете отменить транзакцию лизинга, как только она появится в блокчейне, что обычно занимает около минуты.";
 "wallet.label.quickNote.description.third" = "Генерирующий баланс обновится после 1000 блоков.";
 "wallet.label.startedLeasing" = "Передача в лизинг";
-"wallet.label.totalBalance" = "Всего";
 "wallet.label.viewHistory" = "История транзакций";
+"wallet.label.totalBalance" = "Всего";
 "wallet.navigationBar.title" = "Кошелёк";
 "wallet.section.activeNow" = "Активных сейчас (%d)";
 "wallet.section.hiddenAssets" = "Скрытые токены (%d)";
@@ -572,6 +572,16 @@
 "wallet.segmentedControl.leasing" = "Лизинг";
 "wallet.segmentedControl.staking" = "Стейкинг";
 "wallet.segmentedControl.new" = "new";
+"wallet.stakingbalance.label.totalBalance" = "Общий баланс";
+"wallet.stakingbalance.label.staking" = "В стейкинге";
+"wallet.stakingbalance.label.available" = "Доступно";
+"wallet.stakingbalance.button.deposit" = "Пополнить";
+"wallet.stakingbalance.button.withdraw" = "Снять";
+"wallet.stakingbalance.button.trade" = "Торговать";
+"wallet.stakingbalance.button.buy" = "Купить";
+"wallet.stakingheader.estimatedInterest" = "Годовой доход";
+"wallet.stakingheader.percentPerYear" = "";
+
 "walletsort.button.position" = "Позиция";
 "walletsort.button.visibility" = "Видимость";
 "walletsort.navigationBar.title" = "Сортировка";

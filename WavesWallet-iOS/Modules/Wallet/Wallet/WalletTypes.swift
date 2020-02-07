@@ -82,6 +82,7 @@ extension WalletTypes {
     enum Event {
         case setAssets([DomainLayer.DTO.SmartAssetBalance])
         case setLeasing(DTO.Leasing)
+        case setStaking(DTO.Staking)
         case handlerError(Error)
         case refresh
         case viewWillAppear

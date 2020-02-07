@@ -83,7 +83,18 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
     
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-        return Observable.empty()
+        
+        return Observable.create { (subscribe) -> Disposable in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                subscribe.onNext(WalletTypes.DTO.Staking(profit: .init(percent: 20.565, total: Money(45254, 2)),
+                                                         balance: .init(total: Money(303043, 2), available: Money(243030, 2), inStaking: Money(10013, 2)),
+                                                         lastPayouts: [],
+                                                         landing: nil))
+                    subscribe.onCompleted()
+            }
+            return Disposables.create()
+        }
     }
 }
 
