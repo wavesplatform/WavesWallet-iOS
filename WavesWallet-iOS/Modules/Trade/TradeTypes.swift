@@ -26,7 +26,7 @@ enum TradeTypes {
         case favoriteTapped(DTO.Pair)
         case favoriteDidSuccessRemove
         case favoriteDidSuccessSave([DomainLayer.DTO.Dex.FavoritePair])
-        case filterTapped(DomainLayer.DTO.TradeCategory.Filter, atCategory: Int)
+        case filterTapped(TradeTypes.DTO.Category.Filter, atCategory: Int)
         case deleteFilter(atCategory: Int)
     }
     
@@ -52,8 +52,8 @@ enum TradeTypes {
         var uiAction: UIAction
         var coreAction: CoreAction
         var core: DTO.Core
-        var categories: [DTO.Category]
-        var selectedFilters: [DTO.SelectedFilter]
+        var categories: [ViewModel.Category]
+        var selectedFilters: [TradeTypes.DTO.SelectedFilter]
         var selectedAsset: DomainLayer.DTO.Dex.Asset?
     }
 }
@@ -62,13 +62,13 @@ extension TradeTypes.DTO {
     
     struct SelectedFilter: Equatable {
         let categoryIndex: Int
-        var filters: [DomainLayer.DTO.TradeCategory.Filter]
+        var filters: [TradeTypes.DTO.Category.Filter]
     }
     
     struct Filter {
         let categoryIndex: Int
-        let selectedFilters: [DomainLayer.DTO.TradeCategory.Filter]
-        let filters: [DomainLayer.DTO.TradeCategory.Filter]
+        let selectedFilters: [TradeTypes.DTO.Category.Filter]
+        let filters: [TradeTypes.DTO.Category.Filter]
     }
     
     struct Input {
@@ -88,7 +88,43 @@ extension TradeTypes.DTO {
         let volumeWaves: Double
         let selectedAsset: DomainLayer.DTO.Dex.Asset?
     }
-    
+            
+    struct Core {
+        var pairsPrice: [DomainLayer.DTO.Dex.PairPrice]
+        var pairsRate: [DomainLayer.DTO.Dex.PairRate]
+        var favoritePairs: [DomainLayer.DTO.Dex.FavoritePair]
+        var categories: [TradeTypes.DTO.Category]
+    }
+         
+    struct Category {
+        
+        public struct Filter: Equatable {
+            public let name: String
+            public let ids: [String]
+            
+            public init(name: String, ids: [String]) {
+                self.name = name
+                self.ids = ids
+            }
+        }
+        
+        public let name: String
+        public let filters: [Filter]
+        public let pairs: [DomainLayer.DTO.Dex.Pair]
+                            
+        public init(name: String,
+                    filters: [Filter],
+                    pairs: [DomainLayer.DTO.Dex.Pair]) {
+            
+            self.name = name
+            self.filters = filters
+            self.pairs = pairs
+        }
+    }
+}
+
+extension TradeTypes.ViewModel {
+  
     struct Category {
         let index: Int
         let isFavorite: Bool
@@ -97,16 +133,6 @@ extension TradeTypes.DTO {
         var rows: [TradeTypes.ViewModel.Row]
     }
     
-    struct Core {
-        var pairsPrice: [DomainLayer.DTO.Dex.PairPrice]
-        var pairsRate: [DomainLayer.DTO.Dex.PairRate]
-        var favoritePairs: [DomainLayer.DTO.Dex.FavoritePair]
-        var categories: [DomainLayer.DTO.TradeCategory]
-    }
-}
-
-extension TradeTypes.ViewModel {
-  
     struct SectionSkeleton {
         var rows: [RowSkeleton]
     }
@@ -168,9 +194,9 @@ extension TradeTypes.State: Equatable {
     }
 }
 
-extension Array where Element == TradeTypes.DTO.Category {
+extension Array where Element == TradeTypes.ViewModel.Category {
 
-    func category(_ tableView: UITableView) -> TradeTypes.DTO.Category {
+    func category(_ tableView: UITableView) -> TradeTypes.ViewModel.Category {
         return self[tableView.tag]
     }
 }

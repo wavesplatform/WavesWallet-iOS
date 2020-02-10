@@ -24,7 +24,7 @@ final class TradeViewController: UIViewController {
     @IBOutlet private weak var tableViewSkeleton: UITableView!
     @IBOutlet private weak var errorView: GlobalErrorView!
     
-    private var categories: [TradeTypes.DTO.Category] = []
+    private var categories: [TradeTypes.ViewModel.Category] = []
     private var sectionSkeleton = TradeTypes.ViewModel.SectionSkeleton(rows: [])
     
     private var disposeBag: DisposeBag = DisposeBag()
@@ -270,7 +270,7 @@ private extension TradeViewController {
 //MARK: - TradeFilterHeaderViewDelegate
 extension TradeViewController: TradeFilterHeaderViewDelegate {
     
-    func tradeAltsHeaderViewDidTapFilter(filter: DomainLayer.DTO.TradeCategory.Filter, atCategory: Int) {
+    func tradeAltsHeaderViewDidTapFilter(filter: TradeTypes.DTO.Category.Filter, atCategory: Int) {
         system.send(.filterTapped(filter, atCategory: atCategory))
     }
     

@@ -311,14 +311,9 @@ private extension TradeSystem {
                 return self.dexRealmRepository.delete(by: id, accountAddress: wallet.address)
         }
     }
-    
+            
     func loadData(selectedAsset: DomainLayer.DTO.Dex.Asset?) -> Observable<TradeTypes.DTO.Core> {
         
-        /*
-        category -> pairs OR assets/selecteAsset
-         
-         
-         */
         return auth.authorizedWallet()
             .flatMap { [weak self] (wallet) -> Observable<TradeTypes.DTO.Core> in
                 guard let self = self else { return Observable.empty() }
@@ -326,59 +321,136 @@ private extension TradeSystem {
                 let tradeCagegories = self.tradeCategoriesRepository.tradeCagegories(accountAddress: wallet.address)
                 let favoritePairs = self.dexRealmRepository.list(by: wallet.address)
                 
-                return Observable.zip(tradeCagegories, favoritePairs)
-                    .flatMap { [weak self] (categories, favoritePairs) -> Observable<TradeTypes.DTO.Core> in
-                        guard let self = self else { return Observable.empty() }
-                        
-                        var pairs: [DomainLayer.DTO.Dex.SimplePair] = []
                                                 
-                        for category in categories {
+                return Observable.zip(tradeCagegories, favoritePairs)
+                    .flatMap { [weak self] (categories, favoritePairs) -> Observable<(pairs: [DomainLayer.DTO.CorrectionPairs.Pair],
+                                                                                      categories: [TradeTypes.DTO.Category],
+                                                                                      favoritePairs: [DomainLayer.DTO.Dex.FavoritePair])> in
+                
+                        guard let self = self else { return Observable.empty() }
+                                                                        
+                        let dataCategories = categories.map { category -> TradeTypes.DTO.Category in
+                                  
+                            let filters: [TradeTypes.DTO.Category.Filter] = category.filters.map { .init(name: $0.name, ids: $0.ids) }
                             
+                            var pairs = category.pairs
                                                         
-                            for pair in category.pairs {
-                                let simplePair = DomainLayer.DTO.Dex.SimplePair(amountAsset: pair.amountAsset.id,
-                                                                                priceAsset: pair.priceAsset.id)
-                                if !pairs.contains(simplePair) {
-                                    pairs.append(simplePair)
+                            if let asset = selectedAsset {
+                                pairs = pairs.filterByAsset(asset.id)
+
+                                if pairs.count == 0 {
+                                    pairs = category.matchingAssets.map { DomainLayer.DTO.Dex.Pair.init(amountAsset: asset,
+                                                                                                        priceAsset: $0) }
                                 }
                             }
-                            
-//                            category.matchingAssets.map { DomainLayer.DTO.Dex.SimplePair(amountAsset: pair.amountAsset.id,
-//                            priceAsset: pair.priceAsset.id) }
-                        }
 
-                        
-                                                
-                        if let asset = selectedAsset {
-                            pairs = pairs.filter { $0.amountAsset == asset.id || $0.priceAsset == asset.id }
+                            return TradeTypes.DTO.Category.init(name: category.name,
+                                                                filters: filters,
+                                                                pairs: pairs)
                         }
-                        
-                        
-                                                                        
-                        for pair in favoritePairs {
-                            let simplePair = DomainLayer.DTO.Dex.SimplePair(amountAsset: pair.amountAssetId, priceAsset: pair.priceAssetId)
-                            if !pairs.contains(simplePair) {
-                                pairs.append(simplePair)
+                                                                                                   
+                        var pairsSet: [DomainLayer.DTO.CorrectionPairs.Pair] = []
+
+                        let simpleFavoritePairs  = favoritePairs.map { DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAssetId,
+                                                                                                            priceAsset: $0.priceAssetId) }
+
+                        let simplePairs  = dataCategories.map { $0.pairs.map { DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAsset.id,
+                                                                                                                    priceAsset: $0.priceAsset.id) } }
+                            .flatMap { $0}
+
+                        pairsSet.append(contentsOf: simpleFavoritePairs)
+                        pairsSet.append(contentsOf: simplePairs)
+
+                        return self
+                            .correctionPairsUseCase
+                            .correction(pairs: Array(pairsSet))
+                            .map { (pairs: $0,
+                                    categories: dataCategories,
+                                    favoritePairs: favoritePairs) }
+                }
+                .flatMap { [weak self] (pairs, categories, favoritePairs) -> Observable<TradeTypes.DTO.Core> in
+                    
+                    guard let self = self else { return Observable.empty() }
+        
+                    let pairsPrice = self.pairsPriceRepository.pairs(accountAddress: wallet.address,
+                                                                     pairs: pairs.map { DomainLayer.DTO.Dex.SimplePair.init(amountAsset: $0.amountAsset,
+                                                                                                                            priceAsset: $0.priceAsset) })
+                    let pairsRate = self.pairsPriceRepository.pairsRate(query: .init(pairs: pairs.map { .init(amountAsset: $0.amountAsset,
+                                                                                                              priceAsset: Constants.usdAssetId)},
+                                                                                     timestamp: nil))
+                    
+                    let mapPairs = pairs.reduce(into: [String: DomainLayer.DTO.CorrectionPairs.Pair].init(), { $0[$1.keyPair] = $1 } )
+                    
+                    let tradeCategories = categories.map { (category) -> TradeTypes.DTO.Category in
+                                                                       
+                        let pairs = category.pairs.map { (pair) -> DomainLayer.DTO.Dex.Pair? in
+                                
+                            if mapPairs[pair.keyPair] != nil {
+                                return DomainLayer.DTO.Dex.Pair.init(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset)
+                            } else if mapPairs[pair.inversionKeyPair] != nil {
+                                return DomainLayer.DTO.Dex.Pair.init(amountAsset: pair.priceAsset, priceAsset: pair.amountAsset)
                             }
+                            return nil
                         }
-                                                                                                
-                        let pairsPrice = self.pairsPriceRepository.pairs(accountAddress: wallet.address, pairs: pairs)
-                        let pairsRate = self.pairsPriceRepository.pairsRate(query: .init(pairs: pairs.map { .init(amountAsset: $0.amountAsset,
-                                                                                                                  priceAsset: Constants.usdAssetId)},
-                                                                                         timestamp: nil))
+                        .compactMap { $0 }
                         
-//                        self.correctionPairsUseCase.correction(pairs: <#T##[DomainLayer.DTO.CorrectionPairs.Pair]#>)
-                        
-                        return Observable.zip(pairsPrice, pairsRate)
-                            .map { (pairsPrice, pairsRate) -> TradeTypes.DTO.Core in
-                           
-                                return TradeTypes.DTO.Core(pairsPrice: pairsPrice,
-                                                           pairsRate: pairsRate,
-                                                           favoritePairs: favoritePairs,
-                                                           categories: categories)
+                        return TradeTypes.DTO.Category.init(name: category.name,
+                                                            filters: category.filters,
+                                                            pairs: pairs)
+                    }
+                    
+                    return Observable.zip(pairsPrice, pairsRate)
+                        .map { (arg) -> TradeTypes.DTO.Core in
+                                                        
+                            let (pairsPrice, pairsRate) = arg
+                            return TradeTypes.DTO.Core(pairsPrice: pairsPrice,
+                                                       pairsRate: pairsRate,
+                                                       favoritePairs: favoritePairs,
+                                                       categories: tradeCategories)
 
-                        }
+                    }
                 }
         }
     }
 }
+
+private extension Array where Element == DomainLayer.DTO.CorrectionPairs.Pair {
+    
+    func hasAsset(_ assetId: String) -> Bool {
+        return filterByAsset(assetId).count > 0
+    }
+    
+    func filterByAsset(_ assetId: String) -> [DomainLayer.DTO.CorrectionPairs.Pair] {
+        return self.filter { $0.amountAsset == assetId || $0.priceAsset == assetId }
+    }
+}
+
+private extension Array where Element == DomainLayer.DTO.Dex.Pair {
+    
+    func hasAsset(_ assetId: String) -> Bool {
+        return filterByAsset(assetId).count > 0
+    }
+    
+    func filterByAsset(_ assetId: String) -> [DomainLayer.DTO.Dex.Pair] {
+        return self.filter { $0.amountAsset.id == assetId || $0.priceAsset.id == assetId }
+    }
+}
+
+private extension DomainLayer.DTO.CorrectionPairs.Pair {
+    
+    var keyPair: String {
+        return "\(amountAsset)/\(priceAsset)"
+    }
+}
+
+private extension DomainLayer.DTO.Dex.Pair {
+
+    var keyPair: String {
+        return "\(amountAsset.id)/\(priceAsset.id)"
+    }
+    
+    var inversionKeyPair: String {
+        return "\(priceAsset.id)/\(amountAsset.id)"
+    }
+}
+

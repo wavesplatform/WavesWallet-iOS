@@ -72,8 +72,7 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                     }
                 }
                 
-                
-                
+                                
                 return self
                     .assetsRepoitory
                     .assets(by: assetsIds, accountAddress: accountAddress)

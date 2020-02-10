@@ -119,10 +119,10 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: - SimplePair
+//TODO: Refactor SimplePair
 public extension DomainLayer.DTO.Dex {
     
-    struct SimplePair: Equatable {
+    struct SimplePair: Equatable, Hashable {
         public let amountAsset: String
         public let priceAsset: String
         
