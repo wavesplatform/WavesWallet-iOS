@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,7 +74,7 @@
                                                                 <rect key="frame" x="0.0" y="78" width="343" height="24"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="24" id="2qr-4d-ymV"/>
+                                                                    <constraint firstAttribute="height" priority="750" constant="24" id="2qr-4d-ymV"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -94,6 +94,8 @@
                                                 <constraints>
                                                     <constraint firstItem="Jwz-OJ-YiX" firstAttribute="leading" secondItem="5rm-2G-kqi" secondAttribute="leading" constant="16" id="01m-Tg-jKQ"/>
                                                     <constraint firstAttribute="trailing" secondItem="Jwz-OJ-YiX" secondAttribute="trailing" constant="16" id="Ni6-yC-juZ"/>
+                                                    <constraint firstItem="Jwz-OJ-YiX" firstAttribute="top" secondItem="5rm-2G-kqi" secondAttribute="top" id="qIN-uQ-yEl"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Jwz-OJ-YiX" secondAttribute="bottom" id="uWf-xy-3VB"/>
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bio-ZP-ebk" userLabel="cionomat info">
