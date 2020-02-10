@@ -34,7 +34,7 @@ private enum Constants {
 
 protocol TradeFilterHeaderViewDelegate: AnyObject {
 
-    func tradeAltsHeaderViewDidTapFilter(filter: DomainLayer.DTO.TradeCategory.Filter, atCategory: Int)
+    func tradeAltsHeaderViewDidTapFilter(filter: TradeTypes.DTO.Category.Filter, atCategory: Int)
     func tradeDidTapClear(atCategory: Int)
 }
 

@@ -12,7 +12,7 @@ import RxSwift
 public extension DomainLayer.DTO {
     enum CorrectionPairs {
        
-        public struct Pair {
+        public struct Pair: Equatable, Hashable {
             public let amountAsset: String
             public let priceAsset: String
             
