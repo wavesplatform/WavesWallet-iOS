@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import DomainLayer
 import Extensions
+import Crashlytics
+
 
 enum Debug {
 
@@ -34,6 +36,7 @@ extension Debug {
         case enviromentTestSwitch(_ isOn: Bool)
         case tradeCategoriesConfig(_ isOn: Bool)
         case info(_ version: String, _ deviceId: String)
+        case crash
     }
     
     struct Section: SectionProtocol {
@@ -123,7 +126,8 @@ extension DebugViewController: UITableViewDelegate {
              .versionTestSwitch,
              .enviromentTestSwitch,
              .tradeCategoriesConfig,
-             .developmentConfigsSwitch:
+             .developmentConfigsSwitch,
+             .crash:
             return DebugSwitchCell.cellHeight()
             
         case .info:
@@ -141,6 +145,18 @@ extension DebugViewController: UITableViewDataSource {
         let row = displayState[indexPath]
         
         switch row {
+            
+        case .crash:
+            let cell: DebugSwitchCell = tableView.dequeueCell()
+            cell.update(with: .init(title: "Crash",
+                                    isOn: false))
+            
+            cell.switchChangedValue = { isOn in
+                Crashlytics.sharedInstance().crash()
+            }
+            
+            return cell
+            
         case .developmentConfigsSwitch(let isOn):
             
             let cell: DebugSwitchCell = tableView.dequeueCell()
@@ -160,6 +176,7 @@ extension DebugViewController: UITableViewDataSource {
                                     isOn: isOn))
             
             cell.switchChangedValue = { isOn in
+                
                 ApplicationDebugSettings.setupIsEnableStage(isEnable: isOn)
             }
             return cell
@@ -310,7 +327,8 @@ private extension DebugViewController {
                                                                              stageNet],
                                                                             current)],
                                                kind: .enviroment),
-                                         .init(rows: [.stageSwitch(isEnableStage),
+                                         .init(rows: [.crash,
+                                                      .stageSwitch(isEnableStage),
                                                       .notificationDevSwitch(isEnableNotificationsSettingDev),
                                                       .versionTestSwitch(isEnableVersionUpdateTest),
                                                       .enviromentTestSwitch(isEnableEnviromentTest),
