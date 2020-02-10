@@ -64,10 +64,8 @@ target 'WavesWallet-iOS' do
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
-#    pod 'Reveal-SDK', :configurations => ['dev-debug', 'dev-adhoc']
-    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
-    
-    # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
+    pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
+    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']        
 end
 
 

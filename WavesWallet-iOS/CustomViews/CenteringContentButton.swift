@@ -16,15 +16,22 @@ final class CenteringContentButton: UIButton {
 
     @IBInspectable var titleTopPadding: CGFloat = Constants.titleTopPadding
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.titleLabel?.numberOfLines = 1
+        self.titleLabel?.lineBreakMode = .byTruncatingTail
+        self.titleLabel?.textAlignment = .center
+        self.layoutIfNeeded()
+    }
+    
     override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
 
         let iconSize = super.imageRect(forContentRect: contentRect).size
         let titleSize = super.titleRect(forContentRect: contentRect).size
-
+                
         var height = iconSize.height
-
-
-            height += titleSize.height + titleTopPadding
+        height += titleSize.height + titleTopPadding
 
 
         return CGRect(x: (contentRect.size.width - iconSize.width) * 0.5,
@@ -32,12 +39,18 @@ final class CenteringContentButton: UIButton {
                       width: iconSize.width,
                       height: iconSize.height)
     }
-
+    
+    override func contentRect(forBounds bounds: CGRect) -> CGRect {
+        return super.contentRect(forBounds: bounds)
+    }
+    
     override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
 
-        let titleSize = super.titleRect(forContentRect: contentRect).size
+        var titleSize = super.titleRect(forContentRect: contentRect).size
+        titleSize.width = contentRect.width
+        
         let iconSize = super.imageRect(forContentRect: contentRect).size
-
+                
         var height = titleSize.height
 
         if iconSize.height > 0 {

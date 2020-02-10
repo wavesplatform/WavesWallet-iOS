@@ -200,6 +200,12 @@ platform :ios do
     download_certificates
     download_resources
   end
+  
+  lane :test_install do
+    test_enviroment
+    download_certificates
+    download_resources
+  end
 
   lane :dev_download_resources do
     dev_enviroment    
