@@ -33,7 +33,7 @@ enum UIGlobalConstants {
     enum URL {
         static let termsOfUse = "https://waves.exchange/files/Terms_Of_Use_Waves.Exchange.pdf"
         static let termsOfConditions = "https://waves.exchange/files/Privacy_Policy_Waves.Exchange.pdf"
-        static let medium = "https://medium.com/@waves.exchange"
+        static let medium = "https://medium.com/wavesexchange"
         static let telegram = "https://t.me/wavesexchange_announcements"
         static let support = "https://support.waves.exchange/"
         static let faq = "https://waves.exchange/faq"
