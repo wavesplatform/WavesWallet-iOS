@@ -149,6 +149,7 @@ PODS:
     - Realm (= 3.17.1)
   - RESideMenu (4.0.7)
   - Result (4.1.0)
+  - Reveal-SDK (20)
   - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
   - RxFeedback (2.0.0):
@@ -219,6 +220,7 @@ DEPENDENCIES:
   - QRCodeReader.swift (~> 9.0.1)
   - RealmSwift
   - RESideMenu (from `https://github.com/wavesplatform/RESideMenu.git`)
+  - Reveal-SDK (~> 20)
   - RxCocoa
   - RxFeedback
   - RxGesture
@@ -304,6 +306,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - Reveal-SDK
 
 EXTERNAL SOURCES:
   IdentityImg:
@@ -372,6 +375,7 @@ SPEC CHECKSUMS:
   RealmSwift: 4d3c9233544b9cd08a8913e0872b9038eb99b054
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxFeedback: 49bb931caf6d05e315d5b5366c0991ad1474ea36
   RxGesture: c1b7bf17166b0ef9d642a9510f8bac5785f18990
@@ -392,6 +396,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 49ed39f5664105e27f198028e59b1e6ce50d9689
+PODFILE CHECKSUM: d41e26a87082b03855a062e2046a69582d8217ff
 
 COCOAPODS: 1.8.1
