@@ -161,7 +161,7 @@ end
 
 target 'DomainLayerTests' do
     project 'WavesWallet-iOS.xcodeproj'
-    inherit! :search_paths         
+        
 end
 
 target 'DataLayerTests' do

@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Extensions
 import WavesSDKCrypto
 
 public protocol CorrectionPairsUseCaseLogicProtocol {
@@ -15,6 +16,8 @@ public protocol CorrectionPairsUseCaseLogicProtocol {
 }
 
 public final class CorrectionPairsUseCaseLogic: CorrectionPairsUseCaseLogicProtocol {
+    
+    public init() {}
     
     public static func mapCorrectPairs(settingsIdsPairs: [String], pairs: [DomainLayer.DTO.CorrectionPairs.Pair]) -> [DomainLayer.DTO.CorrectionPairs.Pair] {
         
@@ -41,14 +44,16 @@ public final class CorrectionPairsUseCaseLogic: CorrectionPairsUseCaseLogicProto
                 amount = pair.amountAsset
                 price = pair.priceAsset
             } else {
-                let amountBytes = WavesCrypto.shared.base58decode(input: pair.amountAsset).data?.hexDescription ?? ""
-                let priceBytes = WavesCrypto.shared.base58decode(input: pair.priceAsset).data?.hexDescription ?? ""
+                                
+                let amountBytes = Data(fromArray: WavesCrypto.shared.base58decode(input: pair.amountAsset) ?? [])
+                let priceBytes = Data(fromArray: WavesCrypto.shared.base58decode(input: pair.priceAsset) ?? [])
+
+                let amountHex = amountBytes.hexDescription
+                let priceHex = priceBytes.hexDescription
                 
-                if amountBytes > priceBytes {
-                    
+                if amountHex > priceHex {
                     amount = pair.amountAsset
                     price = pair.priceAsset
-                    
                 } else {
                     amount = pair.priceAsset
                     price = pair.amountAsset
