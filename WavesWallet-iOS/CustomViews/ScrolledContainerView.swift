@@ -75,8 +75,6 @@ final class ScrolledContainerView: UIScrollView {
     weak var scrollViewDelegate: UIScrollViewDelegate?
     weak var containerViewDelegate: ScrolledContainerViewDelegate?
     
-    var isNeedShowBottomShadow: Bool =  true
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
