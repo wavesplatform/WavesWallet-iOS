@@ -191,6 +191,10 @@ private extension SendConfirmationViewController {
         }
         labelFeeAmount.text = input.fee.displayText + " " + input.feeName
         labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayText, font: labelBalance.font)
-        labelGatewayFeeAmount.text = (input.gateWayFeeAmount?.displayText ?? "") + " " + (input.gateWayFeeName ?? "")
+        
+        let gateWayFeeAmount = input.gateWayFeeAmount?.displayText ?? ""
+        let gateWayFeeName = input.gateWayFeeName ?? ""
+        
+        labelGatewayFeeAmount.text = gateWayFeeAmount + " " + gateWayFeeName
     }
 }
