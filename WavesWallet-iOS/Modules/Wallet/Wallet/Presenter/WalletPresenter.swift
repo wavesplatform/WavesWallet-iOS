@@ -292,8 +292,13 @@ final class WalletPresenter: WalletPresenterProtocol {
             switch section.kind {
             case .balance:
                 let row = section.items[indexPath.row]
-                if case .allHistory = row {
-                    moduleOutput?.showHistoryForLeasing()
+                if case .historyCell(let type) = row {
+                    switch type {
+                    case .leasing:
+                        moduleOutput?.showHistoryForLeasing()
+                    default:
+                        break
+                    }
                 }
 
             case .hidden:
@@ -313,6 +318,18 @@ final class WalletPresenter: WalletPresenterProtocol {
                     .map { $0.leasingTransaction }
                     .compactMap { $0 }
                 moduleOutput?.showLeasingTransaction(transactions: leasingTransactions, index: indexPath.row)
+                
+            case .staking:
+                let row = section.items[indexPath.row]
+                if case .historyCell(let type) = row {
+                   switch type {
+                   case .staking:
+                       moduleOutput?.showPayoutsHistory()
+                   default:
+                       break
+                   }
+                }
+                
             default:
                 break
             }
@@ -369,7 +386,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .setStaking(let staking):
             state.action = .update
             
-            let sections = WalletTypes.ViewModel.Section.map(from: staking)
+            let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
             state.displayState = state.displayState.updateDisplay(kind: .staking,
                                                                   sections: sections)
             state.staking = staking
@@ -410,6 +427,53 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .isHasAppUpdate(let isHasAppUpdate):
             state.isHasAppUpdate = isHasAppUpdate
             state.action = .none
+        
+        case .openStakingFaq:
+            moduleOutput?.openStakingFaq()
+            state.action = .none
+            
+        case .openTrade:
+            moduleOutput?.openTrade()
+            state.action = .none
+
+        case .openBuy:
+            moduleOutput?.openBuy()
+            state.action = .none
+
+        case .openDeposit:
+            moduleOutput?.openDeposit()
+            state.action = .none
+
+        case .openWithdraw:
+            moduleOutput?.openWithdraw()
+            state.action = .none
+            
+        case .openFb(let text):
+            moduleOutput?.openFb(sharedText: text)
+            state.action = .none
+            
+        case .openVk(let text):
+            moduleOutput?.openVk(sharedText: text)
+            state.action = .none
+            
+        case .openTw(let text):
+            moduleOutput?.openTw(sharedText: text)
+            state.action = .none
+            
+        case .showPayout(let payout):
+            moduleOutput?.showPayout(payout: payout)
+            state.action = .none
+            
+        case .startStaking:
+            
+            if let staking = state.staking {
+                let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: true)
+                state.displayState = state.displayState.updateDisplay(kind: .staking, sections: sections)
+            }
+            
+            state.hasSkipLanding = true
+            state.action = .update
+
         }
     }
 

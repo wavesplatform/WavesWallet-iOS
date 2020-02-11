@@ -22,6 +22,13 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func depositTapped()
     func tradeTapped()
     func buyTapped()
+    func openStakingFaq()
+    func openTw(_ sharedText: String)
+    func openFb(_ sharedText: String)
+    func openVk(_ sharedText: String)
+    func showPayout(payout: WalletTypes.DTO.Staking.Payout)
+    func startStakingTapped()
+
 }
 
 final class WalletDisplayData: NSObject {
@@ -160,9 +167,9 @@ extension WalletDisplayData: UITableViewDataSource {
             cell.update(with: transaction)
             return cell
             
-        case .allHistory:
+        case .historyCell(let type):
             let cell = tableView.dequeueAndRegisterCell() as WalletHistoryCell
-            cell.update(with: ())
+            cell.update(with: type)
             return cell
             
         case .hidden:
@@ -195,6 +202,31 @@ extension WalletDisplayData: UITableViewDataSource {
             }
             return cell
 
+        case .stakingLastPayoutsTitle:
+            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLastPyoutsTitleCell
+            cell.update(with: ())
+            return cell
+            
+        case .stakingLastPayouts(let payouts):
+            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLastPayoutsCell
+            cell.update(with: payouts)
+            cell.didSelectPayout = { [weak self] payout in
+                self?.delegate?.showPayout(payout: payout)
+            }
+            return cell
+            
+        case .emptyHistoryPayouts:
+            let cell = tableView.dequeueAndRegisterCell() as AssetEmptyHistoryCell
+            cell.update(with: Localizable.Waves.Wallet.Stakingpayouts.youDontHavePayouts)
+            return cell
+            
+        case .landing(let landing):
+            let cell = tableView.dequeueAndRegisterCell() as WalletLandingCell
+            cell.update(with: landing)
+            cell.startStaking = { [weak self] in
+                self?.delegate?.startStakingTapped()
+            }
+            return cell
         }
     }
     
@@ -245,6 +277,18 @@ extension WalletDisplayData: UITableViewDelegate {
         else if let header = model.stakingHeader {
             let view = tableView.dequeueAndRegisterHeaderFooter() as WalletStakingHeaderView
             view.update(with: header)
+            view.howWorksAction = { [weak self] in
+                self?.delegate?.openStakingFaq()
+            }
+            view.twAction = { [weak self] text in
+                self?.delegate?.openTw(text)
+            }
+            view.fbAction = { [weak self] text in
+                self?.delegate?.openFb(text)
+            }
+            view.vkAction = { [weak self] text in
+                self?.delegate?.openVk(text)
+            }
             return view
         }
         
@@ -307,7 +351,7 @@ extension WalletDisplayData: UITableViewDelegate {
         case .leasingTransaction:
             return WalletLeasingCell.cellHeight()
             
-        case .allHistory:
+        case .historyCell:
             return WalletHistoryCell.cellHeight()
             
         case .hidden:
@@ -318,6 +362,19 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .stakingBalance:
             return WalletStakingBalanceCell.viewHeight()
+            
+        case .stakingLastPayoutsTitle:
+            return WalletStakingLastPyoutsTitleCell.viewHeight()
+            
+        case .stakingLastPayouts:
+            return WalletStakingLastPayoutsCell.viewHeight()
+            
+        case .emptyHistoryPayouts:
+            return AssetEmptyHistoryCell.cellHeight()
+            
+        case .landing:
+            
+            return tableView.frame.size.height - scrolledTablesComponent.bigTopOffset - scrolledTablesComponent.segmentedHeight
         }
     }
     

@@ -580,7 +580,21 @@
 "wallet.stakingbalance.button.trade" = "Торговать";
 "wallet.stakingbalance.button.buy" = "Купить";
 "wallet.stakingheader.estimatedInterest" = "Годовой доход";
-"wallet.stakingheader.percentPerYear" = "";
+"wallet.stakingheader.perYear" = "";
+"wallet.stakingheader.howItWorks" = "Как это работает?";
+"wallet.stakingheader.totalProfit" = "Всего получено";
+"wallet.stakingheader.share" = "Поделиться";
+"wallet.sharedTitle" = "Я заработал %@ USDN пассивного дохода со средней годовой доходностью %@, лежа на диване!";
+"wallet.stakingPayouts.lastPayouts" = "Последние выплаты";
+"wallet.stakingPayouts.profit" = "Прибыль";
+"wallet.stakingPayouts.payoutsHistory" = "История выплат";
+"wallet.stakingPayouts.youDontHavePayouts" = "У вас нет ни одной выплаты";
+"wallet.landing.earn" = "Earn %@";
+"wallet.landing.annualInterest" = "Annual Interest by doing NOTHING.";
+"wallet.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
+"wallet.landing.howItWorks" = "Как это работает?";
+"wallet.landing.next" = "Далее";
+"wallet.landing.startStaking" = "Начать Стейкинг";
 
 "walletsort.button.position" = "Позиция";
 "walletsort.button.visibility" = "Видимость";

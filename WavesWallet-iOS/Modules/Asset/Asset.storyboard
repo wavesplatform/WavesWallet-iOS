@@ -325,7 +325,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetChartCell" rowHeight="220" id="b9R-B1-Yaa" customClass="AssetChartCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="537.5" width="414" height="220"/>
+                                        <rect key="frame" x="0.0" y="471.5" width="414" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b9R-B1-Yaa" id="eVl-Qt-H8z">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
@@ -461,7 +461,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetDetailCell" rowHeight="550" id="E9c-K9-oHe" customClass="AssetDetailCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="757.5" width="414" height="550"/>
+                                        <rect key="frame" x="0.0" y="691.5" width="414" height="550"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E9c-K9-oHe" id="0KQ-nU-hQ7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="550"/>
@@ -1274,6 +1274,5 @@
         <image name="tSend48" width="48" height="48"/>
         <image name="trade48" width="40" height="40"/>
         <image name="userimgDone80Success400" width="80" height="80"/>
-        <image name="wallet_arrow_right" width="14" height="14"/>
     </resources>
 </document>

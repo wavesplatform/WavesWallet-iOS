@@ -18,7 +18,8 @@ extension WalletTypes.State {
                                  isShowCleanWalletBanner: false,
                                  isNeedCleanWalletBanner: false,
                                  isHasAppUpdate: false,
-                                 action: .none)
+                                 action: .none,
+                                 hasSkipLanding: false)
     }
 
     func changeDisplay(state: inout WalletTypes.State, kind: WalletTypes.DisplayState.Kind) {

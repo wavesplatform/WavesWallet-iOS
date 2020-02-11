@@ -9,11 +9,19 @@
 import UIKit
 import Extensions
 
-final class AssetEmptyHistoryCell: UITableViewCell, Reusable {
+final class AssetEmptyHistoryCell: UITableViewCell, NibReusable {
 
     @IBOutlet weak var viewContainer: UIView!
-
+    @IBOutlet weak var labelTitle: UILabel!
+    
     class func cellHeight() -> CGFloat {
         return 56
+    }
+}
+
+extension AssetEmptyHistoryCell: ViewConfiguration {
+    
+    func update(with model: String) {
+        labelTitle.text = model
     }
 }

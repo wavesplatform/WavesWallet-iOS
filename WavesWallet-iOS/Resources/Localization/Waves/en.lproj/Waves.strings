@@ -580,7 +580,21 @@
 "wallet.stakingbalance.button.trade" = "Trade";
 "wallet.stakingbalance.button.buy" = "Buy";
 "wallet.stakingheader.estimatedInterest" = "Estimated Interest";
-"wallet.stakingheader.percentPerYear" = "per year";
+"wallet.stakingheader.perYear" = "per year";
+"wallet.stakingheader.howItWorks" = "How it works?";
+"wallet.stakingheader.totalProfit" = "Total Profit";
+"wallet.stakingheader.share" = "Share";
+"wallet.sharedTitle" = "I earned %@ USDN passive income, with an average annual yield of %@, lying on the couch!";
+"wallet.stakingPayouts.lastPayouts" = "Last Payouts";
+"wallet.stakingPayouts.profit" = "Profit";
+"wallet.stakingPayouts.payoutsHistory" = "Payouts History";
+"wallet.stakingPayouts.youDontHavePayouts" = "You don't have any payouts yet";
+"wallet.landing.earn" = "Earn %@";
+"wallet.landing.annualInterest" = "Annual Interest by doing NOTHING.";
+"wallet.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
+"wallet.landing.howItWorks" = "How it works?";
+"wallet.landing.next" = "Next";
+"wallet.landing.startStaking" = "Start Staking";
 
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
