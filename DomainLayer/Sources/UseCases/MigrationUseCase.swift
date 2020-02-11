@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+//TODO Move realm to DataService
 import Realm
 import RealmSwift
 import WavesSDKCrypto
