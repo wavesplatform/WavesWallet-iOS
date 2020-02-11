@@ -937,9 +937,6 @@
 		E9983F2423ACBC7400859136 /* MyOrdersTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9983F2323ACBC7400859136 /* MyOrdersTypes.swift */; };
 		E9983F2623ACC07C00859136 /* MyOrdersModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9983F2523ACC07C00859136 /* MyOrdersModuleBuilder.swift */; };
 		E9983F2823ACFAC400859136 /* DexDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9983F2723ACFAC400859136 /* DexDomainDTO+Mapper.swift */; };
-		E999E6A62323D5C300EDDF45 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E999E6A52323D5C300EDDF45 /* WavesSDK.framework */; };
-		E999E6A82323D5C900EDDF45 /* WavesSDKCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E999E6A72323D5C900EDDF45 /* WavesSDKCrypto.framework */; };
-		E999E6AA2323D5D200EDDF45 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E999E6A92323D5D200EDDF45 /* WavesSDKExtensions.framework */; };
 		E999E6AB2323D61300EDDF45 /* Waves Exchange Market.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E9B190A722E7CD99008220B7 /* Waves Exchange Market.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E99A3B7522BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7422BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift */; };
 		E99A3B7722BE5DB70070AC76 /* GatewayDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7622BE5DB70070AC76 /* GatewayDomainDTO.swift */; };
@@ -2544,9 +2541,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E999E6AA2323D5D200EDDF45 /* WavesSDKExtensions.framework in Frameworks */,
-				E999E6A82323D5C900EDDF45 /* WavesSDKCrypto.framework in Frameworks */,
-				E999E6A62323D5C300EDDF45 /* WavesSDK.framework in Frameworks */,
 				E953CE3E22EB19D5001D5800 /* DomainLayer.framework in Frameworks */,
 				E953CE3F22EB19D5001D5800 /* Extensions.framework in Frameworks */,
 				E9B190A922E7CD99008220B7 /* NotificationCenter.framework in Frameworks */,
@@ -6294,7 +6288,7 @@
 					};
 					7BF89E9522272A5E00853F9D = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = F7E954E31EA8FE0700A804DE;
 					};
@@ -10421,7 +10415,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 2.9.1;
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=500 -Xfrontend -warn-long-expression-type-checking=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = Exchange;
