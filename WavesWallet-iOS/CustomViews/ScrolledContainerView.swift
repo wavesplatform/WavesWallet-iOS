@@ -54,6 +54,8 @@ protocol ScrolledContainerViewProtocol {
     var visibleTableView: UITableView { get }
     
     var smallTopOffset: CGFloat { get }
+    
+    var bigTopOffset: CGFloat { get }
 }
 
 @objc protocol ScrolledContainerViewDelegate: AnyObject {
@@ -377,6 +379,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     var smallTopOffset: CGFloat {
         return Constants.smallNavBarHeight + navigationBarOriginY
     }
+    
+    var bigTopOffset: CGFloat {
+        return Constants.bigNavBarHeight + navigationBarOriginY
+    }
 }
 
 //MARK: - Actions
@@ -589,10 +595,6 @@ private extension ScrolledContainerView {
     
     var isSmallNavBar: Bool {
         return firstAvailableViewController().isSmallNavigationBar
-    }
-    
-    var bigTopOffset: CGFloat {
-        return Constants.bigNavBarHeight + navigationBarOriginY
     }
     
     var tableTopPosition: CGFloat {

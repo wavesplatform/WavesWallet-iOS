@@ -1067,26 +1067,26 @@ You do not have any orders</string>
                         <viewControllerLayoutGuide type="bottom" id="Jvl-QC-S70"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="e8z-EF-Vr6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="information22Multy" translatesAutoresizingMaskIntoConstraints="NO" id="tsW-gp-0Zb">
-                                <rect key="frame" x="175.5" y="15" width="24" height="24"/>
+                                <rect key="frame" x="163.5" y="15" width="48" height="48"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BCC / WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lo2-xT-OcO">
-                                <rect key="frame" x="5" y="53" width="365" height="21"/>
+                                <rect key="frame" x="5" y="77" width="365" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMX-0Q-5ve">
-                                <rect key="frame" x="164.5" y="82" width="46.5" height="16"/>
+                                <rect key="frame" x="164.5" y="106" width="46.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omR-nU-AFb">
-                                <rect key="frame" x="0.0" y="142" width="375" height="155"/>
+                                <rect key="frame" x="0.0" y="166" width="375" height="155"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu2-d2-UUP">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>

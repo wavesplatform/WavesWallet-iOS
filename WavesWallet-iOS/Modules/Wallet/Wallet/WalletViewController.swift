@@ -419,6 +419,9 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 // MARK: WalletDisplayDataDelegate
 
 extension WalletViewController: WalletDisplayDataDelegate {
+    func startStakingTapped() {
+        sendEvent.accept(.startStaking)
+    }
     
     func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
         sendEvent.accept(.showPayout(payout))

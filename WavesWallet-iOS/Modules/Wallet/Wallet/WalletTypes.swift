@@ -77,6 +77,7 @@ extension WalletTypes {
         var isNeedCleanWalletBanner: Bool
         var isHasAppUpdate: Bool
         var action: Action
+        var hasSkipLanding: Bool
     }
 
     enum Event {
@@ -108,6 +109,7 @@ extension WalletTypes {
         case openVk(String)
         case openTw(String)
         case showPayout(WalletTypes.DTO.Staking.Payout)
+        case startStaking
     }
 }
 

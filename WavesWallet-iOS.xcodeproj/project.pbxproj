@@ -912,6 +912,8 @@
 		E988EDF823F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */; };
 		E988EDF923F2912400B742C1 /* WalletStakingPayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */; };
 		E988EDFB23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDFA23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib */; };
+		E988EDFE23F2BD8600B742C1 /* WalletLandingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDFC23F2BD8500B742C1 /* WalletLandingCell.swift */; };
+		E988EDFF23F2BD8600B742C1 /* WalletLandingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDFD23F2BD8500B742C1 /* WalletLandingCell.xib */; };
 		E98A1A162301A0EF00E7EAAD /* MatcherRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */; };
 		E98F0589236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F0588236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift */; };
 		E98F1D2D22A5E2E600B4A8C4 /* WalletUpdateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */; };
@@ -2213,6 +2215,8 @@
 		E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletStakingPayoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletStakingPayoutCollectionViewCell.xib; sourceTree = "<group>"; };
 		E988EDFA23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetEmptyHistoryCell.xib; sourceTree = "<group>"; };
+		E988EDFC23F2BD8500B742C1 /* WalletLandingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLandingCell.swift; sourceTree = "<group>"; };
+		E988EDFD23F2BD8500B742C1 /* WalletLandingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletLandingCell.xib; sourceTree = "<group>"; };
 		E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryLocal.swift; sourceTree = "<group>"; };
 		E98F0588236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexDeepLinkLoadingViewController.swift; sourceTree = "<group>"; };
 		E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUpdateAppView.swift; sourceTree = "<group>"; };
@@ -3409,6 +3413,8 @@
 				E988EDED23F26D2900B742C1 /* WalletStakingLastPayoutsCell.xib */,
 				E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */,
 				E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */,
+				E988EDFC23F2BD8500B742C1 /* WalletLandingCell.swift */,
+				E988EDFD23F2BD8500B742C1 /* WalletLandingCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -6447,6 +6453,7 @@
 				E95E14F5229FF63B003552B8 /* WalletQuickNoteCell.xib in Resources */,
 				7B9DC3282382C04700DCCA75 /* Fabric-Info.plist in Resources */,
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
+				E988EDFF23F2BD8600B742C1 /* WalletLandingCell.xib in Resources */,
 				7B65B6F722F9D647007D5C53 /* KeyboardControl.xib in Resources */,
 				7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */,
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
@@ -7439,6 +7446,7 @@
 				0A14E3F721875F5600EA7E91 /* CreateAliasInputCell.swift in Sources */,
 				E95B6B13219C345B00A85B5D /* TokenBurnConfirmationIDView.swift in Sources */,
 				0A7CCDAC218A138D005D372B /* MyAddressPresenter.swift in Sources */,
+				E988EDFE23F2BD8600B742C1 /* WalletLandingCell.swift in Sources */,
 				E983665E21F5972300178A8A /* TransactionScriptErrorView.swift in Sources */,
 				7B26A89022EEECC200E7B024 /* WidgetSettingsAssetCell.swift in Sources */,
 				E9B087962163886800937644 /* DexChartTypes.swift in Sources */,

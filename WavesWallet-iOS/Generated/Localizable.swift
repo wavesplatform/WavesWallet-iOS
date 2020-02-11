@@ -3461,6 +3461,29 @@ internal enum Localizable {
         }
       }
 
+      internal enum Landing {
+        /// Annual Interest by doing NOTHING.
+        internal static var annualInterest: String { return Localizable.tr("Waves", "wallet.landing.annualInterest") }
+        internal static var annualInterestKey: String { return "wallet.landing.annualInterest" }
+        /// Earn %@
+        internal static func earn(_ p1: String) -> String {
+          return Localizable.tr("Waves", "wallet.landing.earn", p1)
+        }
+        /// How it works?
+        internal static var howItWorks: String { return Localizable.tr("Waves", "wallet.landing.howItWorks") }
+        internal static var howItWorksKey: String { return "wallet.landing.howItWorks" }
+        /// Next
+        internal static var next: String { return Localizable.tr("Waves", "wallet.landing.next") }
+        internal static var nextKey: String { return "wallet.landing.next" }
+        /// the profit you earn when you start staking %@
+        internal static func profitWhenStaking(_ p1: String) -> String {
+          return Localizable.tr("Waves", "wallet.landing.profitWhenStaking", p1)
+        }
+        /// Start Staking
+        internal static var startStaking: String { return Localizable.tr("Waves", "wallet.landing.startStaking") }
+        internal static var startStakingKey: String { return "wallet.landing.startStaking" }
+      }
+
       internal enum Navigationbar {
         /// Wallet
         internal static var title: String { return Localizable.tr("Waves", "wallet.navigationBar.title") }

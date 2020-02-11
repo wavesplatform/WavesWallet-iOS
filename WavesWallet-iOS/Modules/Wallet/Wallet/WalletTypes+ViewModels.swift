@@ -33,6 +33,7 @@ extension WalletTypes.ViewModel {
         case stakingLastPayoutsTitle
         case stakingLastPayouts([WalletTypes.DTO.Staking.Payout])
         case emptyHistoryPayouts
+        case landing(WalletTypes.DTO.Staking.Landing)
     }
 
     struct Section {
@@ -47,6 +48,7 @@ extension WalletTypes.ViewModel {
             case spam(count: Int)
             case hidden(count: Int)
             case staking(WalletTypes.DTO.Staking.Profit)
+            case landing
         }
 
         var kind: Kind
@@ -143,12 +145,13 @@ extension WalletTypes.ViewModel.Section {
         return sections
     }
     
-    static func map(from staking: WalletTypes.DTO.Staking) -> [WalletTypes.ViewModel.Section] {
+    static func map(from staking: WalletTypes.DTO.Staking, hasSkingLanding: Bool) -> [WalletTypes.ViewModel.Section] {
     
         var rows: [WalletTypes.ViewModel.Row] = []
         
-        if let landing = staking.landing {
-            
+        if let landing = staking.landing, hasSkingLanding == false {
+            rows.append(.landing(landing))
+            return [.init(kind: .landing, items: rows, isExpanded: true)]
         }
         
         rows.append(.stakingBalance(staking.balance))

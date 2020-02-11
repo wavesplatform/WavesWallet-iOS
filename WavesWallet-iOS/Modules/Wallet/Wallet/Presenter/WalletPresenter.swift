@@ -386,7 +386,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .setStaking(let staking):
             state.action = .update
             
-            let sections = WalletTypes.ViewModel.Section.map(from: staking)
+            let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
             state.displayState = state.displayState.updateDisplay(kind: .staking,
                                                                   sections: sections)
             state.staking = staking
@@ -463,6 +463,17 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .showPayout(let payout):
             moduleOutput?.showPayout(payout: payout)
             state.action = .none
+            
+        case .startStaking:
+            
+            if let staking = state.staking {
+                let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: true)
+                state.displayState = state.displayState.updateDisplay(kind: .staking, sections: sections)
+            }
+            
+            state.hasSkipLanding = true
+            state.action = .update
+
         }
     }
 

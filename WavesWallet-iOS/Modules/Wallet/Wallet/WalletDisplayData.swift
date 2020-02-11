@@ -27,6 +27,8 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func openFb(_ sharedText: String)
     func openVk(_ sharedText: String)
     func showPayout(payout: WalletTypes.DTO.Staking.Payout)
+    func startStakingTapped()
+
 }
 
 final class WalletDisplayData: NSObject {
@@ -217,6 +219,14 @@ extension WalletDisplayData: UITableViewDataSource {
             let cell = tableView.dequeueAndRegisterCell() as AssetEmptyHistoryCell
             cell.update(with: Localizable.Waves.Wallet.Stakingpayouts.youDontHavePayouts)
             return cell
+            
+        case .landing(let landing):
+            let cell = tableView.dequeueAndRegisterCell() as WalletLandingCell
+            cell.update(with: landing)
+            cell.startStaking = { [weak self] in
+                self?.delegate?.startStakingTapped()
+            }
+            return cell
         }
     }
     
@@ -361,6 +371,10 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()
+            
+        case .landing:
+            
+            return tableView.frame.size.height - scrolledTablesComponent.bigTopOffset - scrolledTablesComponent.segmentedHeight
         }
     }
     
