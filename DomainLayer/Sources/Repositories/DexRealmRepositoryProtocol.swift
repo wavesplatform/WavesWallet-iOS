@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 
+//TODO: Rename to Trade
 public protocol DexRealmRepositoryProtocol {
     
     func save(pair: DomainLayer.DTO.Dex.SavePair, accountAddress: String) -> Observable<Bool>
