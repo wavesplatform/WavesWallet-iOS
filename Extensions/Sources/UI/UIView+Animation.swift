@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIView {
 
-    public static let fastDurationAnimation: TimeInterval = 0.24
+    static let fastDurationAnimation: TimeInterval = 0.24
 
     func shake() {
         self.transform = CGAffineTransform(translationX: 20, y: 0)

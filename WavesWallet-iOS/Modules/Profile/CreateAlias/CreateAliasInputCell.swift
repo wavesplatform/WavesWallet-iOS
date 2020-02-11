@@ -73,7 +73,7 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
 
     private func setupTextField() {
 
-        inputTextField.autocapitalizationType = .none
+        inputTextField.autocapitalizationType = nil
 
         let title = Localizable.Waves.Createalias.Cell.Input.Textfiled.Input.title
         let placeholder = Localizable.Waves.Createalias.Cell.Input.Textfiled.Input.placeholder

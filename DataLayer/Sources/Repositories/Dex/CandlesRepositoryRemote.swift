@@ -105,8 +105,11 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
         return Observable.zip(environmentRepository.servicesEnvironment(),
                               matcherRepository.matcherPublicKey(),
                               getMatcherSwapConfigs())
-            .flatMap{ [weak self] (servicesEnvironment, publicKeyAccount, swapConfigs) -> Observable<(queries: [DataService.Query.CandleFilters],
-                                                                                                      servicesEnvironment: ApplicationEnviroment)> in
+            .flatMap{ (servicesEnvironment,
+                        publicKeyAccount,
+                        swapConfigs) -> Observable<(queries: [DataService.Query.CandleFilters],
+                                                    servicesEnvironment: ApplicationEnviroment)> in
+                
                 let swapDate = swapConfigs.matcherSwapTimestamp
                 let swapMatcherAddress = swapConfigs.matcherSwapAddress
                 let timestampServerDiff = servicesEnvironment.timestampServerDiff

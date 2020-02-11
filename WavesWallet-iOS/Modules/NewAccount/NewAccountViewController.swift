@@ -77,8 +77,8 @@ final class NewAccountViewController: UIViewController {
     private func setupTextField() {
 
         accountNameInput.autocapitalizationType = .words
-        passwordInput.autocapitalizationType = .none
-        confirmPasswordInput.autocapitalizationType = .none
+        passwordInput.autocapitalizationType = nil
+        confirmPasswordInput.autocapitalizationType = nil
         
         accountNameInput.update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Accountname.title,
                                                            kind: .text,

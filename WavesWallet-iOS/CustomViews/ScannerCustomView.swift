@@ -23,7 +23,11 @@ final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
     
     var isTorchOn = false
     
-    func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool, reader: QRCodeReader?) {
+    func setupComponents(showCancelButton: Bool,
+                         showSwitchCameraButton: Bool,
+                         showTorchButton: Bool,
+                         showOverlayView: Bool,
+                         reader: QRCodeReader?) {
         
         addSubview(cameraView)
         

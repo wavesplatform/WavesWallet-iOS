@@ -26,7 +26,7 @@ public struct ShadowOptions {
 
 public extension CALayer {
 
-    public func setupShadow(options: ShadowOptions) {
+    func setupShadow(options: ShadowOptions) {
         shadowColor = options.color.cgColor
         shadowOffset = options.offset
         shadowOpacity = options.opacity
@@ -37,7 +37,7 @@ public extension CALayer {
         }        
     }
 
-    public func removeShadow() {
+    func removeShadow() {
         shadowColor = nil
         shadowOffset = CGSize.zero
         shadowOpacity = 0

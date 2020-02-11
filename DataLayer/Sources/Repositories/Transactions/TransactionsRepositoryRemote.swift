@@ -89,10 +89,8 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
-
-                guard let self = self else { return Observable.never() }
-                
+            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+                                
                 let limit = min(Constants.maxLimit, offset + limit)
                 
                 return servicesEnvironment
@@ -110,10 +108,8 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
-                
-                guard let self = self else { return Observable.never() }
-                
+            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+                                                
                 return servicesEnvironment
                     .wavesServices
                     .nodeServices

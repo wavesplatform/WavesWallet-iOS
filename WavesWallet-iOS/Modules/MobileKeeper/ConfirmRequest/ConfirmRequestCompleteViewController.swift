@@ -40,11 +40,11 @@ final class ConfirmRequestCompleteViewController: UIViewController {
         if let completedRequest = completedRequest {
             
             switch completedRequest.response.kind {
-            case .error(let error):
+            case .error:
                 imageView.image = Images.error80Error500.image
                 labelTitle.text = Localizable.Waves.Keeper.Transaction.failed
 
-            case .success(let success):
+            case .success:
                 imageView.image = Images.userimgDone80Success400.image
                 labelTitle.text = Localizable.Waves.Keeper.Transaction.confirmed
                 break

@@ -67,7 +67,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
 
             do {
                 try realm.write {
-                    realm.add(balances.map { AssetBalance(balance: $0) }, update: true)
+                    realm.add(balances.map { AssetBalance(balance: $0) }, update: .all)
                 }
                 observer.onNext(true)
                 observer.onCompleted()

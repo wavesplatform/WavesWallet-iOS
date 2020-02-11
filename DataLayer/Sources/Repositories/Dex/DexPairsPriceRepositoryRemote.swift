@@ -86,6 +86,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             })
     }
     
+    // TODO: Any model from dataservice return like null. Need refactor
     func pairs(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
         guard pairs.count > 0 else { return Observable.just([]) }
@@ -204,3 +205,4 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         })
     }
 }
+

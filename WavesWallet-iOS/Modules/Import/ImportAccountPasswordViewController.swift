@@ -88,8 +88,8 @@ extension ImportAccountPasswordViewController {
     private func setupTextField() {
 
         accountTextField.autocapitalizationType = .words
-        passwordTextField.autocapitalizationType = .none
-        confirmPasswordTextField.autocapitalizationType = .none
+        passwordTextField.autocapitalizationType = nil
+        confirmPasswordTextField.autocapitalizationType = nil
 
         accountTextField.update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Accountname.title,
                                                            kind: .text,

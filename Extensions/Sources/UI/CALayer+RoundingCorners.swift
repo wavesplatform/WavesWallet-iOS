@@ -15,7 +15,7 @@ fileprivate enum Constants {
 
 public extension CALayer {
 
-    public func clip() {
+    func clip() {
 
         self.mask = {
             let mask = CAShapeLayer()
@@ -26,7 +26,7 @@ public extension CALayer {
         }()
     }
 
-    public func clip(roundedRect rect: CGRect? = nil,
+    func clip(roundedRect rect: CGRect? = nil,
                      byRoundingCorners corners: UIRectCorner = .allCorners,
                      cornerRadius: CGFloat,
                      inverse: Bool = false) {
@@ -52,11 +52,11 @@ public extension CALayer {
         }()
     }
 
-    public func removeClip() {
+    func removeClip() {
         self.mask = nil
     }
 
-    public func border(roundedRect rect: CGRect? = nil,
+    func border(roundedRect rect: CGRect? = nil,
                        byRoundingCorners corners: UIRectCorner = .allCorners,
                        cornerRadius: CGFloat,
                        borderWidth: CGFloat,
@@ -96,7 +96,7 @@ public extension CALayer {
         addSublayer(border)
     }
 
-    public func removeBorder() {
+    func removeBorder() {
         self.sublayers?
             .filter { $0.name == Constants.maskName }
             .forEach { $0.removeFromSuperlayer() }

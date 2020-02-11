@@ -122,7 +122,7 @@ final class SendConfirmationViewController: UIViewController {
 
 extension SendConfirmationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        confirmTapped(buttonConfirm)
+        confirmTapped(buttonConfirm as Any)
         return true
     }
 }

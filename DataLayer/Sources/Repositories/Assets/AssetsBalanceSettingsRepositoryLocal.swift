@@ -123,7 +123,8 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
             do {
                 let settingsRealms = settings.map { AssetBalanceSettings($0) }
                 try realm.write {
-                    realm.add(settingsRealms, update: true)
+                    realm.add(settingsRealms,
+                              update: .all)
                 }
 
                 observer.onNext(true)

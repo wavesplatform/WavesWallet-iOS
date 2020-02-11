@@ -391,7 +391,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
             do {
                 try realm.write {
-                    realm.add(anyList, update: true)
+                    realm.add(anyList, update: .all)
                 }
                 observer.onNext(true)
                 observer.onCompleted()

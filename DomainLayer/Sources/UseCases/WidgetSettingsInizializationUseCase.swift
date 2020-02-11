@@ -57,10 +57,10 @@ public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUs
                     .correctionPairsUseCase
                     .correction(pairs: assets.map { DomainLayer.DTO.CorrectionPairs.Pair.init(amountAsset: $0.id,
                                                                                               priceAsset: WavesSDKConstants.wavesAssetId) })
-                    .flatMap({ (pairsAfterCorrection) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
+                    .flatMap({ [weak self] (pairsAfterCorrection) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
+                                                
+                        guard let self = self else { return Observable.never() }
                         
-                        
-                        //TODO: Remove
                         return self.repositories
                             .dexPairsPriceRepository
                             .searchPairs(.init(kind: .pairs(pairsAfterCorrection.map { .init(amountAsset: $0.amountAsset,

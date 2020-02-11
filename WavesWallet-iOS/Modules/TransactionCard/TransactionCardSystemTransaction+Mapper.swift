@@ -426,10 +426,10 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         if myOrder.kind == .sell {
             sign = .minus
             title = Localizable.Waves.Transactioncard.Title.Exchange.sellPair(amountDisplayName, priceDisplayName)
-            viewModelEchange = .buy(.init(balance: transfer.total, sign: .none, style: .small))
+            viewModelEchange = .buy(.init(balance: transfer.total, sign: nil, style: .small))
         } else {
             sign = .plus
-            viewModelEchange = .sell(.init(balance: transfer.total, sign: .none, style: .small))
+            viewModelEchange = .sell(.init(balance: transfer.total, sign: nil, style: .small))
             title = Localizable.Waves.Transactioncard.Title.Exchange.buyPair(amountDisplayName, priceDisplayName)
         }
 
@@ -443,7 +443,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowExchangeModel = TransactionCardExchangeCell.Model.init(amount: viewModelEchange,
                                                                       price: .init(balance: transfer.price,
-                                                                                   sign: .none,
+                                                                                   sign: nil,
                                                                                    style: .small))
 
         rows.append(contentsOf:[.exchange(rowExchangeModel)])
@@ -502,7 +502,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
                                                                info: .balance(.init(balance: transfer.balance,
-                                                                                    sign: .none,
+                                                                                    sign: nil,
                                                                                     style: .large)))
 
         rows.append(contentsOf:[.general(rowGeneralModel)])
@@ -864,7 +864,7 @@ extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
                                        address: address,
                                        name: name),
                   balance: .init(balance: balance,
-                                 sign: .none,
+                                 sign: nil,
                                  style: .small),
                   isEditName: isEditName)
 

@@ -89,7 +89,7 @@ final class DexTraderContainerViewController: UIViewController {
 extension DexTraderContainerViewController: DexTraderContainerInputProtocol {
     func addViewController(_ viewController: UIViewController, isScrollEnabled: Bool) {
         viewControllers.append(viewController)
-        if let index = viewControllers.index(of: viewController), isScrollEnabled {
+        if let index = viewControllers.firstIndex(of: viewController), isScrollEnabled {
             scrolledPages.append(index)
         }
     }

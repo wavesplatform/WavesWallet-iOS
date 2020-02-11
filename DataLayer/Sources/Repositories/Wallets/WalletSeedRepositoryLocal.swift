@@ -68,7 +68,7 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
 
                 do {
                     try realm.write {
-                        realm.add(SeedItem.init(seed: walletSeed), update: true)
+                        realm.add(SeedItem.init(seed: walletSeed), update: .all)
                     }
                     observer.onNext(walletSeed)
                     observer.onCompleted()

@@ -228,7 +228,7 @@ fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
                                                                                          ticker: feeAsset.ticker),
                                                                          money: .init(fee.amount,
                                                                                       feeAsset.precision)),
-                                                   sign: .none,
+                                                   sign: Balance.Sign.none,
                                                    style: .small)
         
         return ConfirmRequestFeeAndTimestampCell.Model(date: timestamp,

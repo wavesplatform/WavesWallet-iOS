@@ -9,7 +9,7 @@
 import Foundation
 
 public extension DomainLayer.DTO {
-    public struct SponsorshipTransaction {
+    struct SponsorshipTransaction {
 
         public let type: Int
         public let id: String

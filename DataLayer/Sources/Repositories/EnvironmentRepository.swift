@@ -256,8 +256,7 @@ private extension EnvironmentRepository {
             }
             
             let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
-            
-            //TODO: mutex
+                        
             if let value = try? self.localEnvironments.value() {
                 var newValue = value
                 newValue[key] = environment

@@ -83,7 +83,7 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
     
     
     func showWord(_ word: String) {
-        let index = words.index(of: word)!
+        let index = words.firstIndex(of: word)!
         let button = buttons[index]
         
         UIView.animate(withDuration: 0.2, animations: {

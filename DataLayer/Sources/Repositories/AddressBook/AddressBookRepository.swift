@@ -108,8 +108,7 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
     func delete(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool> {
 
         return Observable.create({ observer -> Disposable in
-            //TODO: Remove !
-            
+                        
             do {
                 let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
 

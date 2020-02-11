@@ -59,7 +59,8 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
 
             do {
                 try realm.write({
-                    realm.add(assets.map { Asset(asset: $0) }, update: true)
+                    realm.add(assets.map { Asset(asset: $0) },
+                              update: .all)
                 })
                 observer.onNext(true)
                 observer.onCompleted()

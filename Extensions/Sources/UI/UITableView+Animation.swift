@@ -10,7 +10,7 @@ import UIKit
 
 public extension UITableView {
 
-    public func reloadDataWithAnimationTheCrossDissolve(completion: (() -> Void)? = nil) {
+    func reloadDataWithAnimationTheCrossDissolve(completion: (() -> Void)? = nil) {
         UIView.transition(with: self,
                           duration: 0.24,
                           options: [.transitionCrossDissolve,

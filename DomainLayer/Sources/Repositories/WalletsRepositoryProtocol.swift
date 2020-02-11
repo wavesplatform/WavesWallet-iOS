@@ -9,16 +9,9 @@
 import Foundation
 import RxSwift
 
-//TODO: Remove
-public enum WalletsRepositoryError: Error {
-    case fail
-    case notFound
-}
-
 public struct WalletsRepositorySpecifications {
     public let isLoggedIn: Bool
 }
-
 
 public protocol WalletsRepositoryProtocol {
     

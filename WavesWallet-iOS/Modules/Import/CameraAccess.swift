@@ -49,8 +49,10 @@ enum CameraAccess {
                     failure?()
                 }
             }
-            case .authorized: success?()
-            case .restricted, .denied: failure?()
+        case .authorized: success?()
+        case .restricted, .denied: failure?()
+        default:
+            failure?()
         }
     }
     

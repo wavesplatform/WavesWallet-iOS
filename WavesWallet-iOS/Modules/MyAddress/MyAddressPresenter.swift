@@ -202,6 +202,6 @@ private extension MyAddressPresenter {
 
         return Types.DisplayState(sections: [],
                                   isAppeared: false,
-                                  action: .none)
+                                  action: nil)
     }
 }

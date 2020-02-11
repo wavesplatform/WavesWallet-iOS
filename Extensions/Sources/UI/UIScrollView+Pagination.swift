@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIScrollView {
     
-    public var currentPage: Int {
+    var currentPage: Int {
         return Int(contentOffset.x / bounds.size.width)
     }
 }

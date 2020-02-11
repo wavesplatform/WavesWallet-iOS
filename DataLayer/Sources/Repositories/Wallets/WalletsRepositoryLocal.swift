@@ -25,12 +25,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -50,12 +50,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
             
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
             
@@ -63,8 +63,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 observer.onNext(.init(wallet: object))
                 observer.onCompleted()
             } else {
-                observer.onError(WalletsRepositoryError.notFound)
-                SweetLogger.error(WalletsRepositoryError.notFound)
+                observer.onError(RepositoryError.notFound)
+                SweetLogger.error(RepositoryError.notFound)
             }
 
             return Disposables.create()
@@ -76,12 +76,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -89,7 +89,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 observer.onNext(.init(wallet: object))
                 observer.onCompleted()
             } else {
-                observer.onError(WalletsRepositoryError.notFound)
+                observer.onError(RepositoryError.notFound)
             }
 
             return Disposables.create()
@@ -100,24 +100,24 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             do {
                 try realm.write {
-                    realm.add(WalletEncryption(wallet: walletEncryption), update: true)
+                    realm.add(WalletEncryption(wallet: walletEncryption), update: .all)
                 }
                 observer.onNext(walletEncryption)
                 observer.onCompleted()
             } catch let error {
                 SweetLogger.error(error)
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -129,13 +129,13 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
                 observer.onNext(false)
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -148,12 +148,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                     observer.onCompleted()
                 } else {
                     observer.onNext(false)
-                    observer.onError(WalletsRepositoryError.fail)
+                    observer.onError(RepositoryError.fail)
                 }
             } catch let error {
                 SweetLogger.error(error)
                 observer.onNext(false)
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -166,24 +166,24 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             do {
                 try realm.write {
-                    realm.add(WalletItem(wallet: wallet), update: true)
+                    realm.add(WalletItem(wallet: wallet), update: .all)
                 }
                 observer.onNext(wallet)
                 observer.onCompleted()
             } catch let error {
                 SweetLogger.error(error)
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -195,25 +195,25 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             do {
                 try realm.write {
                     let walletItems = wallets.map { WalletItem(wallet: $0) }
-                    realm.add(walletItems, update: true)
+                    realm.add(walletItems, update: .all)
                 }
                 observer.onNext(wallets)
                 observer.onCompleted()
             } catch let error {
                 SweetLogger.error(error)
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -225,13 +225,13 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
                 observer.onNext(false)
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -244,8 +244,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                     observer.onCompleted()
                 } else {
                     observer.onNext(false)
-                    observer.onError(WalletsRepositoryError.notFound)                    
-                    SweetLogger.error(WalletsRepositoryError.notFound)
+                    observer.onError(RepositoryError.notFound)                    
+                    SweetLogger.error(RepositoryError.notFound)
                 }
                 
                 let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
@@ -255,7 +255,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
             } catch let error {
                 SweetLogger.error(error)
                 observer.onNext(false)
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -268,12 +268,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -294,12 +294,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = self.realm else {
-                observer.onError(WalletsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 

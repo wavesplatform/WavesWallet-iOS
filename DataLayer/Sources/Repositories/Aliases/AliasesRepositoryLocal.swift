@@ -57,7 +57,7 @@ final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
                         alias.name = $0.name
                         alias.originalName = $0.originalName
                         return alias
-                    }, update: true)
+                    }, update: .all)
                 })
                 observer.onNext(true)
                 observer.onCompleted()
