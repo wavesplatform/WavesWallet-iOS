@@ -17,7 +17,7 @@ private enum Constants {
     static let userGroupsKey = "group.com.wavesplatform"
 }
 
-
+//TODO: Two targets
 final class WidgetSettingsRepositoryStorage: WidgetSettingsRepositoryProtocol {
     
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings?> {

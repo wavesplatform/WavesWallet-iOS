@@ -11,6 +11,7 @@ import DomainLayer
 import RxSwift
 import WavesSDKExtensions
 
+//TODO: Two Target
 final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
     
     private var internalPublicKeyAccount: PublicKeyAccount?
