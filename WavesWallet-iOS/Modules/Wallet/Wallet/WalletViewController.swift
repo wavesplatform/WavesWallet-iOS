@@ -419,21 +419,36 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 // MARK: WalletDisplayDataDelegate
 
 extension WalletViewController: WalletDisplayDataDelegate {
+    func openTw(_ sharedText: String) {
+        sendEvent.accept(.openTw(sharedText))
+    }
+    
+    func openFb(_ sharedText: String) {
+        sendEvent.accept(.openFb(sharedText))
+    }
+    
+    func openVk(_ sharedText: String) {
+        sendEvent.accept(.openVk(sharedText))
+    }
+    
+    func openStakingFaq() {
+        sendEvent.accept(.openStakingFaq)
+    }
    
     func withdrawTapped() {
-        print(classForCoder, #function)
+        sendEvent.accept(.openWithdraw)
     }
     
     func depositTapped() {
-        print(classForCoder, #function)
+        sendEvent.accept(.openDeposit)
     }
     
     func tradeTapped() {
-        print(classForCoder, #function)
+        sendEvent.accept(.openTrade)
     }
     
     func buyTapped() {
-        print(classForCoder, #function)
+        sendEvent.accept(.openBuy)
     }
     
     func showSearchVC(fromStartPosition: CGFloat) {

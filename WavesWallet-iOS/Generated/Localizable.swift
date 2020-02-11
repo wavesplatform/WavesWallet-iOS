@@ -3396,6 +3396,10 @@ internal enum Localizable {
     }
 
     internal enum Wallet {
+      /// I earned %@ USDN passive income, with an average annual yield of %@, lying on the couch!
+      internal static func sharedTitle(_ p1: String, _ p2: String) -> String {
+        return Localizable.tr("Waves", "wallet.sharedTitle", p1, p2)
+      }
 
       internal enum Button {
         /// Start Lease
@@ -3530,9 +3534,27 @@ internal enum Localizable {
         /// Estimated Interest
         internal static var estimatedInterest: String { return Localizable.tr("Waves", "wallet.stakingheader.estimatedInterest") }
         internal static var estimatedInterestKey: String { return "wallet.stakingheader.estimatedInterest" }
+        /// How it works?
+        internal static var howItWorks: String { return Localizable.tr("Waves", "wallet.stakingheader.howItWorks") }
+        internal static var howItWorksKey: String { return "wallet.stakingheader.howItWorks" }
         /// per year
-        internal static var percentPerYear: String { return Localizable.tr("Waves", "wallet.stakingheader.percentPerYear") }
-        internal static var percentPerYearKey: String { return "wallet.stakingheader.percentPerYear" }
+        internal static var perYear: String { return Localizable.tr("Waves", "wallet.stakingheader.perYear") }
+        internal static var perYearKey: String { return "wallet.stakingheader.perYear" }
+        /// Share
+        internal static var share: String { return Localizable.tr("Waves", "wallet.stakingheader.share") }
+        internal static var shareKey: String { return "wallet.stakingheader.share" }
+        /// Total Profit
+        internal static var totalProfit: String { return Localizable.tr("Waves", "wallet.stakingheader.totalProfit") }
+        internal static var totalProfitKey: String { return "wallet.stakingheader.totalProfit" }
+      }
+
+      internal enum Stakingpayouts {
+        /// Last Payouts
+        internal static var lastPayouts: String { return Localizable.tr("Waves", "wallet.stakingPayouts.lastPayouts") }
+        internal static var lastPayoutsKey: String { return "wallet.stakingPayouts.lastPayouts" }
+        /// Profit
+        internal static var profit: String { return Localizable.tr("Waves", "wallet.stakingPayouts.profit") }
+        internal static var profitKey: String { return "wallet.stakingPayouts.profit" }
       }
 
       internal enum Updateapp {

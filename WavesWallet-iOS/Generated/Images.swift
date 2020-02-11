@@ -117,6 +117,7 @@ internal enum Images {
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
+  internal static let fb20White = ImageAsset(name: "fb20White")
   internal static let flag18Brazil = ImageAsset(name: "flag18Brazil")
   internal static let flag18Britain = ImageAsset(name: "flag18Britain")
   internal static let flag18China = ImageAsset(name: "flag18China")
@@ -152,6 +153,7 @@ internal enum Images {
   internal static let iconDraglock22Disabled400 = ImageAsset(name: "iconDraglock22Disabled400")
   internal static let iconInfo18Basic300 = ImageAsset(name: "iconInfo18Basic300")
   internal static let iconNews404 = ImageAsset(name: "iconNews404")
+  internal static let iconTokenNeutrino = ImageAsset(name: "iconTokenNeutrino")
   internal static let iconAction = ImageAsset(name: "icon_action")
   internal static let iconCert = ImageAsset(name: "icon_cert")
   internal static let iconExchange = ImageAsset(name: "icon_exchange")
@@ -302,6 +304,7 @@ internal enum Images {
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
   internal static let trade48 = ImageAsset(name: "trade48")
   internal static let trading = ImageAsset(name: "trading")
+  internal static let twitter20White = ImageAsset(name: "twitter20White")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
   internal static let userimgUpdate = ImageAsset(name: "userimg-Update")
@@ -327,6 +330,7 @@ internal enum Images {
   internal static let viewexplorer18Black = ImageAsset(name: "viewexplorer18Black")
   internal static let visibility18Basic500 = ImageAsset(name: "visibility18Basic500")
   internal static let visibility18Black = ImageAsset(name: "visibility18Black")
+  internal static let vk20White = ImageAsset(name: "vk20White")
   internal static let wallet80 = ImageAsset(name: "wallet80")
   internal static let walletArrowGreen = ImageAsset(name: "wallet_arrow_green")
   internal static let walletArrowHeader = ImageAsset(name: "wallet_arrow_header")
@@ -423,6 +427,7 @@ internal enum Images {
     faceid48Submit300,
     favorite14Submit300,
     favoriteMini14Submit300,
+    fb20White,
     flag18Brazil,
     flag18Britain,
     flag18China,
@@ -458,6 +463,7 @@ internal enum Images {
     iconDraglock22Disabled400,
     iconInfo18Basic300,
     iconNews404,
+    iconTokenNeutrino,
     iconAction,
     iconCert,
     iconExchange,
@@ -608,6 +614,7 @@ internal enum Images {
     touchid48Submit300,
     trade48,
     trading,
+    twitter20White,
     unhide,
     upChevron,
     userimgUpdate,
@@ -633,6 +640,7 @@ internal enum Images {
     viewexplorer18Black,
     visibility18Basic500,
     visibility18Black,
+    vk20White,
     wallet80,
     walletArrowGreen,
     walletArrowHeader,

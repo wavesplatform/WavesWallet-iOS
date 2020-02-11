@@ -116,6 +116,38 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
+    func openTw(sharedText: String) {
+        
+        print(sharedText)
+    }
+    
+    func openVk(sharedText: String) {
+        print(sharedText)
+    }
+    
+    func openFb(sharedText: String) {
+        print(sharedText)
+    }
+    
+    func openTrade() {
+        print("openTrade")
+    }
+    
+    func openBuy() {
+        print("openTrade")
+    }
+    
+    func openDeposit() {
+        print("openTrade")
+    }
+    
+    func openWithdraw() {
+        print("openTrade")
+    }
+    
+    func openStakingFaq() {
+        BrowserViewController.openURL(URL(string: UIGlobalConstants.URL.stakingFaq)!)
+    }
     
     func openAppStore() {
         

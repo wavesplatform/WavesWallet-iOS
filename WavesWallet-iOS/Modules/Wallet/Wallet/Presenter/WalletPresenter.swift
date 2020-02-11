@@ -410,6 +410,38 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .isHasAppUpdate(let isHasAppUpdate):
             state.isHasAppUpdate = isHasAppUpdate
             state.action = .none
+        
+        case .openStakingFaq:
+            moduleOutput?.openStakingFaq()
+            state.action = .none
+            
+        case .openTrade:
+            moduleOutput?.openTrade()
+            state.action = .none
+
+        case .openBuy:
+            moduleOutput?.openBuy()
+            state.action = .none
+
+        case .openDeposit:
+            moduleOutput?.openDeposit()
+            state.action = .none
+
+        case .openWithdraw:
+            moduleOutput?.openWithdraw()
+            state.action = .none
+            
+        case .openFb(let text):
+            moduleOutput?.openFb(sharedText: text)
+            state.action = .none
+            
+        case .openVk(let text):
+            moduleOutput?.openVk(sharedText: text)
+            state.action = .none
+            
+        case .openTw(let text):
+            moduleOutput?.openTw(sharedText: text)
+            state.action = .none
         }
     }
 

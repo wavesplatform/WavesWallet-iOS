@@ -22,6 +22,10 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func depositTapped()
     func tradeTapped()
     func buyTapped()
+    func openStakingFaq()
+    func openTw(_ sharedText: String)
+    func openFb(_ sharedText: String)
+    func openVk(_ sharedText: String)
 }
 
 final class WalletDisplayData: NSObject {
@@ -195,6 +199,15 @@ extension WalletDisplayData: UITableViewDataSource {
             }
             return cell
 
+        case .stakingLastPayoutsTitle:
+            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLastPyoutsTitleCell
+            cell.update(with: ())
+            return cell
+            
+        case .stakingLastPayouts(let payouts):
+            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLastPayoutsCell
+            cell.update(with: payouts)
+            return cell
         }
     }
     
@@ -245,6 +258,18 @@ extension WalletDisplayData: UITableViewDelegate {
         else if let header = model.stakingHeader {
             let view = tableView.dequeueAndRegisterHeaderFooter() as WalletStakingHeaderView
             view.update(with: header)
+            view.howWorksAction = { [weak self] in
+                self?.delegate?.openStakingFaq()
+            }
+            view.twAction = { [weak self] text in
+                self?.delegate?.openTw(text)
+            }
+            view.fbAction = { [weak self] text in
+                self?.delegate?.openFb(text)
+            }
+            view.vkAction = { [weak self] text in
+                self?.delegate?.openVk(text)
+            }
             return view
         }
         
@@ -318,6 +343,12 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .stakingBalance:
             return WalletStakingBalanceCell.viewHeight()
+            
+        case .stakingLastPayoutsTitle:
+            return WalletStakingLastPyoutsTitleCell.viewHeight()
+            
+        case .stakingLastPayouts:
+            return WalletStakingLastPayoutsCell.viewHeight()
         }
     }
     

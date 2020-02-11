@@ -21,7 +21,18 @@ final class WalletStakingHeaderView: UITableViewHeaderFooterView, NibReusable {
     @IBOutlet private weak var viewEstimetedInterest: GradientView!
     @IBOutlet private weak var viewProfit: GradientView!
     @IBOutlet private weak var viewContainer: UIView!
-
+    @IBOutlet private weak var buttonHowWorkds: UIButton!
+    @IBOutlet weak var labelTotalProfit: UILabel!
+    @IBOutlet weak var labelTotalProfitValue: UILabel!
+    @IBOutlet weak var labelShare: UILabel!
+    
+    var howWorksAction:(() -> Void)?
+    var twAction:((String) -> Void)?
+    var fbAction:((String) -> Void)?
+    var vkAction:((String) -> Void)?
+    
+    private var sharedText = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.setupShadow(options: .init(offset: CGSize(width: 0, height: 5),
@@ -43,7 +54,26 @@ final class WalletStakingHeaderView: UITableViewHeaderFooterView, NibReusable {
     
     private func setupLocalization() {
         labelEstimatedInterest.text = Localizable.Waves.Wallet.Stakingheader.estimatedInterest
-        labelPercentTitle.text = "% " + Localizable.Waves.Wallet.Stakingheader.percentPerYear
+        labelPercentTitle.text = "% " + Localizable.Waves.Wallet.Stakingheader.perYear
+        buttonHowWorkds.setTitle(Localizable.Waves.Wallet.Stakingheader.howItWorks, for: .normal)
+        labelTotalProfit.text = Localizable.Waves.Wallet.Stakingheader.totalProfit
+        labelShare.text = Localizable.Waves.Wallet.Stakingheader.share
+    }
+    
+    @IBAction private func howWorksTapped(_ sender: Any) {
+        howWorksAction?()
+    }
+    
+    @IBAction private func twitterTapped(_ sender: Any) {
+        twAction?(sharedText)
+    }
+    
+    @IBAction private func fbTapped(_ sender: Any) {
+        fbAction?(sharedText)
+    }
+    
+    @IBAction private func vkTapped(_ sender: Any) {
+        vkAction?(sharedText)
     }
 }
 
@@ -52,6 +82,13 @@ extension WalletStakingHeaderView: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Staking.Profit) {
 
         setupLocalization()
+        
+        sharedText = Localizable.Waves.Wallet.sharedTitle(model.total.displayText,
+                                                          String(format: "%.02f%%", model.percent))
+        
+        labelTotalProfitValue.attributedText = .styleForBalance(text: model.total.displayText,
+                                                                font: labelTotalProfitValue.font,
+                                                                weight: .bold)
         
         labelPercent.attributedText = .styleForBalance(text: String(format: "%.02f", model.percent),
                                                        font: labelPercent.font,

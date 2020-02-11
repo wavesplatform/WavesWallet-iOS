@@ -25,6 +25,8 @@ extension WalletTypes.ViewModel {
         case allHistory
         case quickNote
         case stakingBalance(WalletTypes.DTO.Staking.Balance)
+        case stakingLastPayoutsTitle
+        case stakingLastPayouts([WalletTypes.DTO.Staking.Payout])
     }
 
     struct Section {
@@ -144,7 +146,8 @@ extension WalletTypes.ViewModel.Section {
         }
         
         rows.append(.stakingBalance(staking.balance))
-        
+        rows.append(.stakingLastPayoutsTitle)
+        rows.append(.stakingLastPayouts(staking.lastPayouts))
         return [.init(kind: .staking(staking.profit), items: rows, isExpanded: true)]
     }
 }

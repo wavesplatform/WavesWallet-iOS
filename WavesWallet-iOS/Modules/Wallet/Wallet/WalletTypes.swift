@@ -99,6 +99,14 @@ extension WalletTypes {
         case isShowCleanWalletBanner(Bool)
         case completeCleanWalletBanner(Bool)
         case isHasAppUpdate(Bool)
+        case openStakingFaq
+        case openWithdraw
+        case openBuy
+        case openDeposit
+        case openTrade
+        case openFb(String)
+        case openVk(String)
+        case openTw(String)
     }
 }
 
