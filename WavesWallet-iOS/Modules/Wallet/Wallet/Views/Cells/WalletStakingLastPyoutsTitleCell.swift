@@ -10,7 +10,7 @@ import UIKit
 import Extensions
 
 private enum Constants {
-    static let height: CGFloat = 60
+    static let height: CGFloat = 50
 }
 
 final class WalletStakingLastPyoutsTitleCell: UITableViewCell, NibReusable {

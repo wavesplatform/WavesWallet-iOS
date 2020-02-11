@@ -587,6 +587,8 @@
 "wallet.sharedTitle" = "I earned %@ USDN passive income, with an average annual yield of %@, lying on the couch!";
 "wallet.stakingPayouts.lastPayouts" = "Last Payouts";
 "wallet.stakingPayouts.profit" = "Profit";
+"wallet.stakingPayouts.payoutsHistory" = "Payouts History";
+"wallet.stakingPayouts.youDontHavePayouts" = "You don't have any payouts yet";
 
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";

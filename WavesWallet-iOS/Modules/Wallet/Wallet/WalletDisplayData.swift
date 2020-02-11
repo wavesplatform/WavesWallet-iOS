@@ -26,6 +26,7 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func openTw(_ sharedText: String)
     func openFb(_ sharedText: String)
     func openVk(_ sharedText: String)
+    func showPayout(payout: WalletTypes.DTO.Staking.Payout)
 }
 
 final class WalletDisplayData: NSObject {
@@ -164,9 +165,9 @@ extension WalletDisplayData: UITableViewDataSource {
             cell.update(with: transaction)
             return cell
             
-        case .allHistory:
+        case .historyCell(let type):
             let cell = tableView.dequeueAndRegisterCell() as WalletHistoryCell
-            cell.update(with: ())
+            cell.update(with: type)
             return cell
             
         case .hidden:
@@ -207,6 +208,14 @@ extension WalletDisplayData: UITableViewDataSource {
         case .stakingLastPayouts(let payouts):
             let cell = tableView.dequeueAndRegisterCell() as WalletStakingLastPayoutsCell
             cell.update(with: payouts)
+            cell.didSelectPayout = { [weak self] payout in
+                self?.delegate?.showPayout(payout: payout)
+            }
+            return cell
+            
+        case .emptyHistoryPayouts:
+            let cell = tableView.dequeueAndRegisterCell() as AssetEmptyHistoryCell
+            cell.update(with: Localizable.Waves.Wallet.Stakingpayouts.youDontHavePayouts)
             return cell
         }
     }
@@ -332,7 +341,7 @@ extension WalletDisplayData: UITableViewDelegate {
         case .leasingTransaction:
             return WalletLeasingCell.cellHeight()
             
-        case .allHistory:
+        case .historyCell:
             return WalletHistoryCell.cellHeight()
             
         case .hidden:
@@ -349,6 +358,9 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .stakingLastPayouts:
             return WalletStakingLastPayoutsCell.viewHeight()
+            
+        case .emptyHistoryPayouts:
+            return AssetEmptyHistoryCell.cellHeight()
         }
     }
     

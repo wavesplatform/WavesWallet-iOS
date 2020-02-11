@@ -434,6 +434,7 @@ extension AssetDetailViewController: UITableViewDataSource {
 
         case .viewHistoryDisabled:
             let cell: AssetEmptyHistoryCell = tableView.dequeueAndRegisterCell()
+            cell.update(with: Localizable.Waves.Asset.Cell.viewHistory)
             return cell
 
         case .assetInfo(let info):

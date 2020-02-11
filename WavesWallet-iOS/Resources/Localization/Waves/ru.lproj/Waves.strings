@@ -587,6 +587,8 @@
 "wallet.sharedTitle" = "Я заработал %@ USDN пассивного дохода со средней годовой доходностью %@, лежа на диване!";
 "wallet.stakingPayouts.lastPayouts" = "Последние выплаты";
 "wallet.stakingPayouts.profit" = "Прибыль";
+"wallet.stakingPayouts.payoutsHistory" = "История выплат";
+"wallet.stakingPayouts.youDontHavePayouts" = "У вас нет ни одной выплаты";
 
 "walletsort.button.position" = "Позиция";
 "walletsort.button.visibility" = "Видимость";

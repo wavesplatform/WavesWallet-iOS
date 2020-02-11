@@ -909,6 +909,9 @@
 		E988EDEF23F26D2900B742C1 /* WalletStakingLastPayoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDED23F26D2900B742C1 /* WalletStakingLastPayoutsCell.xib */; };
 		E988EDF323F26E3F00B742C1 /* WalletPayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDF223F26E3F00B742C1 /* WalletPayoutView.swift */; };
 		E988EDF523F26E5100B742C1 /* WalletPayoutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDF423F26E5100B742C1 /* WalletPayoutView.xib */; };
+		E988EDF823F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */; };
+		E988EDF923F2912400B742C1 /* WalletStakingPayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */; };
+		E988EDFB23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDFA23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib */; };
 		E98A1A162301A0EF00E7EAAD /* MatcherRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */; };
 		E98F0589236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F0588236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift */; };
 		E98F1D2D22A5E2E600B4A8C4 /* WalletUpdateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */; };
@@ -2207,6 +2210,9 @@
 		E988EDED23F26D2900B742C1 /* WalletStakingLastPayoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletStakingLastPayoutsCell.xib; sourceTree = "<group>"; };
 		E988EDF223F26E3F00B742C1 /* WalletPayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPayoutView.swift; sourceTree = "<group>"; };
 		E988EDF423F26E5100B742C1 /* WalletPayoutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletPayoutView.xib; sourceTree = "<group>"; };
+		E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletStakingPayoutCollectionViewCell.swift; sourceTree = "<group>"; };
+		E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletStakingPayoutCollectionViewCell.xib; sourceTree = "<group>"; };
+		E988EDFA23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetEmptyHistoryCell.xib; sourceTree = "<group>"; };
 		E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryLocal.swift; sourceTree = "<group>"; };
 		E98F0588236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexDeepLinkLoadingViewController.swift; sourceTree = "<group>"; };
 		E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUpdateAppView.swift; sourceTree = "<group>"; };
@@ -3313,6 +3319,7 @@
 				0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */,
 				0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */,
 				0AF921D0212E07B2003BA067 /* AssetEmptyHistoryCell.swift */,
+				E988EDFA23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib */,
 				0AF921D1212E07B2003BA067 /* AssetChartCell.swift */,
 				0AF921D2212E07B2003BA067 /* AssetDetailCell.swift */,
 				0AF921D3212E07B2003BA067 /* AssetBalanceCell.swift */,
@@ -3400,6 +3407,8 @@
 				E988EDE923F2666E00B742C1 /* WalletStakingLastPyoutsTitleCell.xib */,
 				E988EDEC23F26D2900B742C1 /* WalletStakingLastPayoutsCell.swift */,
 				E988EDED23F26D2900B742C1 /* WalletStakingLastPayoutsCell.xib */,
+				E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */,
+				E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -6469,6 +6478,7 @@
 				E9C1B90E236C6D9500F8E988 /* ForceUpdateApp.storyboard in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				E95E14F7229FF7A6003552B8 /* WalletAssetSkeletonCell.xib in Resources */,
+				E988EDFB23F2ABD500B742C1 /* AssetEmptyHistoryCell.xib in Resources */,
 				E988EDEB23F2666E00B742C1 /* WalletStakingLastPyoutsTitleCell.xib in Resources */,
 				0A4399662150465E0032E608 /* NewAccount.storyboard in Resources */,
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
@@ -6505,6 +6515,7 @@
 				E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */,
 				7B9DC32C2382C04700DCCA75 /* environment_mainnet.json in Resources */,
 				7B5EDEC42253618C009C2B3B /* AccessibilityIdentifiers.strings in Resources */,
+				E988EDF923F2912400B742C1 /* WalletStakingPayoutCollectionViewCell.xib in Resources */,
 				E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */,
 				7BDA6ADF222E9664001DE71C /* TransactionCard.storyboard in Resources */,
 				E9239572237518B7009C4091 /* PushNotificationsAlertView.xib in Resources */,
@@ -7294,6 +7305,7 @@
 				E965702321935F2F0052F0FC /* DexCreateOrderInteractor.swift in Sources */,
 				7BFB480622FC742F002B19F8 /* BiometricType.swift in Sources */,
 				E9DC662023ECA96600889AA3 /* WalletStakingHeaderView.swift in Sources */,
+				E988EDF823F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift in Sources */,
 				0ADD6C832167948500B06917 /* ProfileHeaderView.swift in Sources */,
 				0ACC0233217E2BA1000E3EE0 /* DynamicHeaderTableView.swift in Sources */,
 				0A7CCDB2218A138D005D372B /* MyAddressAliacesSkeletonCell.swift in Sources */,

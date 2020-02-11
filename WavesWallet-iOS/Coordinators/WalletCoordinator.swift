@@ -116,8 +116,16 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
+
+    func showPayoutsHistory() {
+        print("showPayoutsHistory")
+    }
+    
+    func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
+        print("payout tapped", payout)
+    }
+    
     func openTw(sharedText: String) {
-        
         print(sharedText)
     }
     
@@ -134,15 +142,15 @@ extension WalletCoordinator: WalletModuleOutput {
     }
     
     func openBuy() {
-        print("openTrade")
+        print("openBuy")
     }
     
     func openDeposit() {
-        print("openTrade")
+        print("openDeposit")
     }
     
     func openWithdraw() {
-        print("openTrade")
+        print("openWithdraw")
     }
     
     func openStakingFaq() {

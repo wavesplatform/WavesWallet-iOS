@@ -14,6 +14,11 @@ import DomainLayer
 
 extension WalletTypes.ViewModel {
     enum Row {
+        enum HistoryCellType {
+            case leasing
+            case staking
+        }
+        
         case search
         case hidden
         case asset(DomainLayer.DTO.SmartAssetBalance)
@@ -22,11 +27,12 @@ extension WalletTypes.ViewModel {
         case historySkeleton
         case balance(WalletTypes.DTO.Leasing.Balance)
         case leasingTransaction(DomainLayer.DTO.SmartTransaction)
-        case allHistory
+        case historyCell(HistoryCellType)
         case quickNote
         case stakingBalance(WalletTypes.DTO.Staking.Balance)
         case stakingLastPayoutsTitle
         case stakingLastPayouts([WalletTypes.DTO.Staking.Payout])
+        case emptyHistoryPayouts
     }
 
     struct Section {
@@ -112,7 +118,7 @@ extension WalletTypes.ViewModel.Section {
         var sections: [WalletTypes.ViewModel.Section] = []
 
         let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
-        let historyRow = WalletTypes.ViewModel.Row.allHistory
+        let historyRow = WalletTypes.ViewModel.Row.historyCell(.leasing)
         let mainSection: WalletTypes.ViewModel.Section = .init(kind: .balance,
                                                                items: [balanceRow, historyRow],
                                                                isExpanded: true)
@@ -147,7 +153,13 @@ extension WalletTypes.ViewModel.Section {
         
         rows.append(.stakingBalance(staking.balance))
         rows.append(.stakingLastPayoutsTitle)
-        rows.append(.stakingLastPayouts(staking.lastPayouts))
+        if staking.lastPayouts.count > 0 {
+            rows.append(.stakingLastPayouts(staking.lastPayouts))
+            rows.append(.historyCell(.staking))
+        }
+        else {
+            rows.append(.emptyHistoryPayouts)
+        }
         return [.init(kind: .staking(staking.profit), items: rows, isExpanded: true)]
     }
 }

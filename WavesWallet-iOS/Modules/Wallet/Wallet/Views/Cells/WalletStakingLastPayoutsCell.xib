@@ -17,21 +17,32 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3v-YA-n2C">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="XuF-fG-8VM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
-                    </scrollView>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YEh-Ih-E8d">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="ExZ-SD-MrB"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="mj2-hS-3P5"/>
+                        </connections>
+                    </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="U3v-YA-n2C" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IWd-L6-au1"/>
-                    <constraint firstItem="U3v-YA-n2C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="T7B-EN-cEh"/>
-                    <constraint firstAttribute="trailing" secondItem="U3v-YA-n2C" secondAttribute="trailing" id="ZQR-js-xkP"/>
-                    <constraint firstAttribute="bottom" secondItem="U3v-YA-n2C" secondAttribute="bottom" id="wX9-dw-3Ia"/>
+                    <constraint firstItem="XuF-fG-8VM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MUe-5K-LWn"/>
+                    <constraint firstAttribute="trailing" secondItem="XuF-fG-8VM" secondAttribute="trailing" id="OcG-CC-LN6"/>
+                    <constraint firstAttribute="bottom" secondItem="XuF-fG-8VM" secondAttribute="bottom" id="RQz-bF-QNA"/>
+                    <constraint firstItem="XuF-fG-8VM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="v6R-kB-Uyf"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="scrollView" destination="U3v-YA-n2C" id="mzC-lG-GZv"/>
+                <outlet property="collectionView" destination="XuF-fG-8VM" id="6p5-VQ-vF7"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="161.71875"/>
         </tableViewCell>

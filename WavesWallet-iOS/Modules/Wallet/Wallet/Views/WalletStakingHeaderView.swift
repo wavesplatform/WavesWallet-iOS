@@ -46,7 +46,6 @@ final class WalletStakingHeaderView: UITableViewHeaderFooterView, NibReusable {
         viewEstimetedInterest.direction = .custom(GradientView.Settings(startPoint: CGPoint(x: 0, y: 1),
                                                                         endPoint: CGPoint(x: 0, y: 0),
                                                                         locations: [0.0, 0.6]))
-      
         viewProfit.startColor = .azureTwo
         viewProfit.endColor = .azure
         viewProfit.direction = .horizontal            

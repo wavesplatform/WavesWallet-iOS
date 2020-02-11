@@ -87,15 +87,19 @@ final class WalletInteractor: WalletInteractorProtocol {
         return Observable.create { (subscribe) -> Disposable in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                
+                let payouts: [WalletTypes.DTO.Staking.Payout] = [.init(money: Money(14344, 2), date: Date()),
+                .init(money: Money(432, 2), date: Date().addingTimeInterval(60*60*24*14)),
+                .init(money: Money(432443, 2), date: Date().addingTimeInterval(60*60*24*3*3*3)),
+                .init(money: Money(43242, 2), date: Date().addingTimeInterval(60*60*24*13)),
+                .init(money: Money(4324, 2), date: Date().addingTimeInterval(60*60*24*11)),
+                .init(money: Money(144324344, 2), date: Date().addingTimeInterval(60*60*24*3)),
+                .init(money: Money(4324, 2), date: Date().addingTimeInterval(60*60*24*12*5))]
+                
+                
                 subscribe.onNext(WalletTypes.DTO.Staking(profit: .init(percent: 20.565, total: Money(45254, 2)),
                                                          balance: .init(total: Money(303043, 2), available: Money(243030, 2), inStaking: Money(10013, 2)),
-                                                         lastPayouts: [.init(money: Money(14344, 2), date: Date()),
-                                                                       .init(money: Money(432, 2), date: Date().addingTimeInterval(60*60*24*14)),
-                                                                       .init(money: Money(432443, 2), date: Date().addingTimeInterval(60*60*24*3*3*3)),
-                                                                       .init(money: Money(43242, 2), date: Date().addingTimeInterval(60*60*24*13)),
-                                                                       .init(money: Money(4324, 2), date: Date().addingTimeInterval(60*60*24*11)),
-                                                                       .init(money: Money(144324344, 2), date: Date().addingTimeInterval(60*60*24*3)),
-                                                                       .init(money: Money(4324, 2), date: Date().addingTimeInterval(60*60*24*12*5))],
+                                                         lastPayouts: [],
                                                          landing: nil))
                     subscribe.onCompleted()
             }

@@ -278,54 +278,8 @@
                                             <outlet property="collectionView" destination="NDr-qv-csd" id="dyh-ux-b8W"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetEmptyHistoryCell" rowHeight="66" id="6F7-fJ-Zp4" customClass="AssetEmptyHistoryCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="471.5" width="414" height="66"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6F7-fJ-Zp4" id="k2Z-2a-Q7v">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oft-Zh-ldZ" customClass="BorderButtView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="4" width="382" height="48"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View history" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEZ-bq-JX7">
-                                                            <rect key="frame" x="14" y="14" width="94" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="jAu-Xe-pYg">
-                                                            <rect key="frame" x="354" y="17" width="14" height="14"/>
-                                                        </imageView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="3dr-nD-rWI"/>
-                                                        <constraint firstItem="aEZ-bq-JX7" firstAttribute="leading" secondItem="Oft-Zh-ldZ" secondAttribute="leading" constant="14" id="Szs-sh-56s"/>
-                                                        <constraint firstAttribute="trailing" secondItem="jAu-Xe-pYg" secondAttribute="trailing" constant="14" id="UYF-iB-qXa"/>
-                                                        <constraint firstItem="jAu-Xe-pYg" firstAttribute="centerY" secondItem="Oft-Zh-ldZ" secondAttribute="centerY" id="w9n-I5-ok2"/>
-                                                        <constraint firstItem="aEZ-bq-JX7" firstAttribute="centerY" secondItem="Oft-Zh-ldZ" secondAttribute="centerY" id="zrK-34-HGl"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="2"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Oft-Zh-ldZ" firstAttribute="leading" secondItem="k2Z-2a-Q7v" secondAttribute="leading" constant="16" id="NdG-Ra-hvP"/>
-                                                <constraint firstItem="Oft-Zh-ldZ" firstAttribute="top" secondItem="k2Z-2a-Q7v" secondAttribute="top" constant="4" id="Xzz-jX-QuT"/>
-                                                <constraint firstAttribute="trailing" secondItem="Oft-Zh-ldZ" secondAttribute="trailing" constant="16" id="iFl-WP-llg"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <outlet property="viewContainer" destination="Oft-Zh-ldZ" id="bHr-FU-LvG"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetChartCell" rowHeight="220" id="b9R-B1-Yaa" customClass="AssetChartCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="537.5" width="414" height="220"/>
+                                        <rect key="frame" x="0.0" y="471.5" width="414" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b9R-B1-Yaa" id="eVl-Qt-H8z">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
@@ -461,7 +415,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetDetailCell" rowHeight="550" id="E9c-K9-oHe" customClass="AssetDetailCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="757.5" width="414" height="550"/>
+                                        <rect key="frame" x="0.0" y="691.5" width="414" height="550"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E9c-K9-oHe" id="0KQ-nU-hQ7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="550"/>
@@ -1274,6 +1228,5 @@
         <image name="tSend48" width="48" height="48"/>
         <image name="trade48" width="40" height="40"/>
         <image name="userimgDone80Success400" width="80" height="80"/>
-        <image name="wallet_arrow_right" width="14" height="14"/>
     </resources>
 </document>

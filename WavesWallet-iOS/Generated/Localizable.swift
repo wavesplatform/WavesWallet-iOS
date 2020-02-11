@@ -3552,9 +3552,15 @@ internal enum Localizable {
         /// Last Payouts
         internal static var lastPayouts: String { return Localizable.tr("Waves", "wallet.stakingPayouts.lastPayouts") }
         internal static var lastPayoutsKey: String { return "wallet.stakingPayouts.lastPayouts" }
+        /// Payouts History
+        internal static var payoutsHistory: String { return Localizable.tr("Waves", "wallet.stakingPayouts.payoutsHistory") }
+        internal static var payoutsHistoryKey: String { return "wallet.stakingPayouts.payoutsHistory" }
         /// Profit
         internal static var profit: String { return Localizable.tr("Waves", "wallet.stakingPayouts.profit") }
         internal static var profitKey: String { return "wallet.stakingPayouts.profit" }
+        /// You don't have any payouts yet
+        internal static var youDontHavePayouts: String { return Localizable.tr("Waves", "wallet.stakingPayouts.youDontHavePayouts") }
+        internal static var youDontHavePayoutsKey: String { return "wallet.stakingPayouts.youDontHavePayouts" }
       }
 
       internal enum Updateapp {

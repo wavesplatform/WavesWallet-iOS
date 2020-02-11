@@ -292,8 +292,13 @@ final class WalletPresenter: WalletPresenterProtocol {
             switch section.kind {
             case .balance:
                 let row = section.items[indexPath.row]
-                if case .allHistory = row {
-                    moduleOutput?.showHistoryForLeasing()
+                if case .historyCell(let type) = row {
+                    switch type {
+                    case .leasing:
+                        moduleOutput?.showHistoryForLeasing()
+                    default:
+                        break
+                    }
                 }
 
             case .hidden:
@@ -313,6 +318,18 @@ final class WalletPresenter: WalletPresenterProtocol {
                     .map { $0.leasingTransaction }
                     .compactMap { $0 }
                 moduleOutput?.showLeasingTransaction(transactions: leasingTransactions, index: indexPath.row)
+                
+            case .staking:
+                let row = section.items[indexPath.row]
+                if case .historyCell(let type) = row {
+                   switch type {
+                   case .staking:
+                       moduleOutput?.showPayoutsHistory()
+                   default:
+                       break
+                   }
+                }
+                
             default:
                 break
             }
@@ -441,6 +458,10 @@ final class WalletPresenter: WalletPresenterProtocol {
             
         case .openTw(let text):
             moduleOutput?.openTw(sharedText: text)
+            state.action = .none
+            
+        case .showPayout(let payout):
+            moduleOutput?.showPayout(payout: payout)
             state.action = .none
         }
     }
