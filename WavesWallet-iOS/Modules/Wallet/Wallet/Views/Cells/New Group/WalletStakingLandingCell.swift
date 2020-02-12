@@ -11,9 +11,10 @@ import Extensions
 
 private enum Constants {
     static let blueViewRadius = CGSize(width: 14, height: 14)
+    static let blueDottedViewRadius = CGSize(width: 10, height: 10)
 }
 
-final class WalletLandingCell: UITableViewCell, NibReusable {
+final class WalletStakingLandingCell: UITableViewCell, NibReusable {
 
     @IBOutlet private weak var blueTopView: UIView!
     @IBOutlet private weak var labelEarnPercent: UILabel!
@@ -39,7 +40,7 @@ final class WalletLandingCell: UITableViewCell, NibReusable {
         
         let maskPath = UIBezierPath(roundedRect: blueTopView.bounds,
                                     byRoundingCorners: [.topLeft, .bottomLeft],
-                                    cornerRadii: Constants.blueViewRadius)
+                                    cornerRadii: Constants.blueDottedViewRadius)
 
         shapeLayer.path = maskPath.cgPath
     }
@@ -62,7 +63,7 @@ final class WalletLandingCell: UITableViewCell, NibReusable {
     }
 }
 
-extension WalletLandingCell: ViewConfiguration {
+extension WalletStakingLandingCell: ViewConfiguration {
     
 //    struct Model {
 //        let totalValue: Money
@@ -100,7 +101,7 @@ extension WalletLandingCell: ViewConfiguration {
     }
 }
 
-private extension WalletLandingCell {
+private extension WalletStakingLandingCell {
     func setupUI() {
         
     }

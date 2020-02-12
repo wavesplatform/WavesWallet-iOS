@@ -83,10 +83,10 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
     
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-        
+                
         return Observable.create { (subscribe) -> Disposable in
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 
                 let payouts: [WalletTypes.DTO.Staking.Payout] = [.init(money: Money(14344, 2), date: Date()),
                                                                  .init(money: Money(432, 2), date: Date().addingTimeInterval(60*60*24*14)),

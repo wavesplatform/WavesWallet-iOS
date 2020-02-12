@@ -225,7 +225,7 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
             
         case .landing(let landing):
-            let cell = tableView.dequeueAndRegisterCell() as WalletLandingCell
+            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLandingCell
             cell.update(with: landing)
             cell.startStaking = { [weak self] in
                 self?.delegate?.startStakingTapped()

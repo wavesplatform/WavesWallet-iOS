@@ -14,7 +14,7 @@ extension WalletTypes.State {
     static func initialState() -> WalletTypes.State {
         return WalletTypes.State(assets: [],
                                  leasing: nil,
-                                 displayState: .initialState(kind: .assets),
+                                 displayState: .initialState(kind: .staking),
                                  isShowCleanWalletBanner: false,
                                  isNeedCleanWalletBanner: false,
                                  isHasAppUpdate: false,
