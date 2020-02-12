@@ -50,7 +50,11 @@ final class WalletDisplayData: NSObject {
         self.scrolledTablesComponent = scrolledTablesComponent
     }
     
-    func apply(assetsSections: [WalletTypes.ViewModel.Section], leasingSections: [WalletTypes.ViewModel.Section], stakingSections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
+    func apply(assetsSections: [WalletTypes.ViewModel.Section],
+               leasingSections: [WalletTypes.ViewModel.Section],
+               stakingSections: [WalletTypes.ViewModel.Section],
+               animateType: WalletTypes.DisplayState.ContentAction,
+               completed: @escaping (() -> Void)) {
         
         self.assetsSections = assetsSections
         self.leasingSections = leasingSections
@@ -90,6 +94,22 @@ final class WalletDisplayData: NSObject {
         CATransaction.commit()
     }
     
+    var isNeedSetupSearchBarPosition: Bool {
+        
+        return assetsSections.first(where: { (section) -> Bool in
+            switch section.kind {
+            case .search:
+                return true
+            default:
+                return false
+            }
+        }) != nil &&
+            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue &&
+            scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
+    }
+    
     private func sections(by tableView: UITableView) -> [Section] {
         if tableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue {
             return assetsSections
@@ -112,22 +132,6 @@ final class WalletDisplayData: NSObject {
             
             delegate?.showSearchVC(fromStartPosition: rectInSuperview.origin.y)
         }
-    }
-    
-    var isNeedSetupSearchBarPosition: Bool {
-        
-        return assetsSections.first(where: { (section) -> Bool in
-            switch section.kind {
-            case .search:
-                return true
-            default:
-                return false
-            }
-        }) != nil &&
-            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue &&
-            scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
-            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
-            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
     }
 }
 
@@ -239,6 +243,8 @@ extension WalletDisplayData: UITableViewDataSource {
     }
 }
 
+//MARK: UITableViewDelegate
+
 extension WalletDisplayData: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -273,8 +279,7 @@ extension WalletDisplayData: UITableViewDelegate {
                 self?.tapSection.accept(section)
             }
             return view
-        }
-        else if let header = model.stakingHeader {
+        } else if let header = model.stakingHeader {
             let view = tableView.dequeueAndRegisterHeaderFooter() as WalletStakingHeaderView
             view.update(with: header)
             view.howWorksAction = { [weak self] in
@@ -300,10 +305,10 @@ extension WalletDisplayData: UITableViewDelegate {
         
         if model.header != nil {
             return WalletHeaderView.viewHeight()
-        }
-        else if model.stakingHeader != nil {
+        } else if model.stakingHeader != nil {
             return WalletStakingHeaderView.viewHeight()
         }
+        
         return CGFloat.minValue
     }
     

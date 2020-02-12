@@ -21,6 +21,7 @@ private enum Constants {
     static let vostokAssetId = "Vostok"
 }
 
+//TODO: REFACTOR Move Repository to AssetsUseCase
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols

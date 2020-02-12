@@ -12,17 +12,27 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
 
     public let repositories: RepositoriesFactoryProtocol
     
+    public let storages: StoragesFactoryProtocol
+    
     public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
     
     public static var instance: UseCasesFactory!
     
-    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+    init(repositories: RepositoriesFactoryProtocol,
+         authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol,
+         storages: StoragesFactoryProtocol) {
         self.repositories = repositories
+        self.storages = storages
         self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
     }
     
-    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
-        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
+    public class func initialization(repositories: RepositoriesFactoryProtocol,
+                                     authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol,
+                                     storages: StoragesFactoryProtocol) {
+        
+        self.instance = UseCasesFactory(repositories: repositories,
+                                        authorizationInteractorLocalizable: authorizationInteractorLocalizable,
+                                        storages: storages)
     }
     
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
@@ -85,8 +95,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     public private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol = {
         
         let interactor = AssetsBalanceSettingsUseCase(assetsBalanceSettingsRepositoryLocal: repositories.assetsBalanceSettingsRepositoryLocal,
-                                                         environmentRepository: repositories.environmentRepository,
-                                                         authorizationInteractor: authorization)
+                                                      environmentRepository: repositories.environmentRepository,
+                                                      authorizationInteractor: authorization)
 
         return interactor
     }()
@@ -122,7 +132,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     
     public private(set) lazy var widgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol = {
         
-        let useCase = WidgetSettingsInizializationUseCase(repositories: repositories, useCases: self)
+        let useCase = WidgetSettingsInizializationUseCase(repositories: repositories,
+                                                          useCases: self)
         return useCase
     }()
     
