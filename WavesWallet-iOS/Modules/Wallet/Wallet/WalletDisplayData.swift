@@ -226,6 +226,7 @@ extension WalletDisplayData: UITableViewDataSource {
             
         case .landing(let landing):
             let cell = tableView.dequeueAndRegisterCell() as WalletStakingLandingCell
+            cell.minHeight = tableView.frame.size.height - scrolledTablesComponent.bigTopOffset - scrolledTablesComponent.segmentedHeight
             cell.update(with: landing)
             cell.startStaking = { [weak self] in
                 self?.delegate?.startStakingTapped()
@@ -379,12 +380,22 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .landing:
             
-            return tableView.frame.size.height - scrolledTablesComponent.bigTopOffset - scrolledTablesComponent.segmentedHeight
+            return UITableView.automaticDimension
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.tableView(tableView, heightForRowAt: indexPath)
+        
+        let items = sections(by: tableView)[indexPath.section].items
+        let row = items[indexPath.row]
+        
+        switch row {
+        case .landing:
+            return tableView.frame.size.height - scrolledTablesComponent.bigTopOffset - scrolledTablesComponent.segmentedHeight
+            
+        default:
+            return self.tableView(tableView, heightForRowAt: indexPath)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

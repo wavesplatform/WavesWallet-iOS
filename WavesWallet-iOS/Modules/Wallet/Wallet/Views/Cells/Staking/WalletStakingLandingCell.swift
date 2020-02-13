@@ -14,7 +14,23 @@ private enum Constants {
     static let blueDottedViewRadius = CGSize(width: 10, height: 10)
 }
 
-final class WalletStakingLandingCell: UITableViewCell, NibReusable {
+final class WalletStakingLadingInfoView: UIView {
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var subTitleLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
+    
+    @IBOutlet private weak var titleLabelTop: NSLayoutConstraint!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        if Platform.isIphone5 {
+            titleLabelTop.constant = 0
+        }
+    }
+}
+
+final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable {
 
     @IBOutlet private weak var blueTopView: UIView!
     @IBOutlet private weak var labelEarnPercent: UILabel!
@@ -24,6 +40,12 @@ final class WalletStakingLandingCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var buttonNext: HighlightedButton!
     @IBOutlet private weak var labelHowItWorks: UILabel!
     
+    @IBOutlet private weak var firstInfoView: WalletStakingLadingInfoView!
+    @IBOutlet private weak var secondInfoView: WalletStakingLadingInfoView!
+    @IBOutlet private weak var thirdInfoView: WalletStakingLadingInfoView!
+    @IBOutlet private weak var pageControl: PageControl!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    
     private let shapeLayer = CAShapeLayer()
     private var currentPageIndex: Int = 0
     
@@ -31,7 +53,6 @@ final class WalletStakingLandingCell: UITableViewCell, NibReusable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         blueTopView.layer.mask = shapeLayer
     }
     
@@ -56,8 +77,7 @@ final class WalletStakingLandingCell: UITableViewCell, NibReusable {
         //TODO -  поравить логику
         if currentPageIndex == 0 {
             buttonNext.setTitle(Localizable.Waves.Wallet.Landing.next, for: .normal)
-        }
-        else {
+        } else {
             buttonNext.setTitle(Localizable.Waves.Wallet.Landing.startStaking, for: .normal)
         }
     }
@@ -101,8 +121,12 @@ extension WalletStakingLandingCell: ViewConfiguration {
     }
 }
 
-private extension WalletStakingLandingCell {
-    func setupUI() {
+extension WalletStakingLandingCell: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        self.pageControl.currentPage = scrollView.currentPage
     }
 }
+
+

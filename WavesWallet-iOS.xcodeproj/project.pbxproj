@@ -589,6 +589,9 @@
 		7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
+		7BC17E7523F569F400F76B7B /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7423F569F400F76B7B /* PageControl.swift */; };
+		7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */; };
+		7BC17E7923F5908100F76B7B /* DeviceLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
@@ -1847,6 +1850,9 @@
 		7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepository.swift; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
+		7BC17E7423F569F400F76B7B /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinHeightTableViewCell.swift; sourceTree = "<group>"; };
+		7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLayoutConstraint.swift; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
@@ -3411,7 +3417,7 @@
 				E95E14F4229FF63B003552B8 /* WalletQuickNoteCell.xib */,
 				E95E151022A18C25003552B8 /* WalletSearchTableViewCell.swift */,
 				E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */,
-				7BD579A523F413640001C601 /* New Group */,
+				7BD579A523F413640001C601 /* Staking */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3432,51 +3438,45 @@
 		0AF92281212E1234003BA067 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				E95C495E23E11E6B00DF1B26 /* PercentTickerView.swift */,
-				7B3902A62237A74900AAFDB8 /* ActionsControl.swift */,
-				7B3902A82237A75600AAFDB8 /* ActionsControl.xib */,
 				7B39029622366D0100AAFDB8 /* AddressBookButton.swift */,
-				0AF9228D212E1234003BA067 /* AssetSegmented */,
-				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
-				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
 				E9310D1C217942C8008BF3EE /* BlueBgView.swift */,
 				0AF922A2212E1234003BA067 /* BorderButtView.swift */,
 				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
-				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
-				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
 				0AF6AD24218A54840004F107 /* CopyableImageView.swift */,
 				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
 				04831F8321697A4F006D1ED6 /* CustomGradientView.swift */,
 				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
-				7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */,
-				7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */,
 				0AF9228C212E1234003BA067 /* DottedLineView.swift */,
 				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
 				0ACC0232217E2BA1000E3EE0 /* DynamicHeaderTableView.swift */,
-				0AF92288212E1234003BA067 /* EmptyCell.swift */,
-				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
-				0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */,
-				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
 				0AF922A3212E1234003BA067 /* GradientView.swift */,
-				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
 				7BDC6D7822C3CD8400614E6B /* InputScrollButtonsView.swift */,
 				E9F78A3C229E98B40065324B /* NewSegmentedControl.swift */,
-				0A96F1CF2151B6A9005E148F /* Passcode */,
 				0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */,
+				E95C495E23E11E6B00DF1B26 /* PercentTickerView.swift */,
 				E904525920B4EF4200A490E5 /* PopupViewController.swift */,
 				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
 				E9F78A3E229E990D0065324B /* ScrolledContainerView.swift */,
-				0AF92298212E1234003BA067 /* SegmentedControl */,
 				0AF92296212E1234003BA067 /* SeparatorView.swift */,
 				0A43996821504CF60032E608 /* SideMenu.swift */,
+				0A762D9621639FCC0019D447 /* WavesButton.swift */,
+				7BC17E7323F569DF00F76B7B /* ActionsControl */,
+				0AF9228D212E1234003BA067 /* AssetSegmented */,
+				7BC17E6C23F5697700F76B7B /* BalanceLabel */,
+				7BC17E6D23F5699E00F76B7B /* ContactDetailView */,
+				7BC17E6E23F569AA00F76B7B /* DebugView */,
+				7BC17E6F23F569B400F76B7B /* EmptyCell */,
+				7BC17E7023F569BF00F76B7B /* GlobalErrorView */,
+				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
+				0A96F1CF2151B6A9005E148F /* Passcode */,
+				0AF92298212E1234003BA067 /* SegmentedControl */,
 				0AF92292212E1234003BA067 /* Skeleton */,
 				0AACD59721A59E6300B30815 /* SweetSnackbar */,
-				0AF92297212E1234003BA067 /* TickerView.swift */,
-				0AF92282212E1234003BA067 /* TickerView.xib */,
-				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
-				7BDA6AE922313E85001DE71C /* TransactionImageView.xib */,
+				7BC17E7123F569C900F76B7B /* TickerView */,
+				7BC17E7223F569D300F76B7B /* TransactionImageView */,
 				E9A2268B2159666E006E0CE1 /* UIKit */,
-				0A762D9621639FCC0019D447 /* WavesButton.swift */,
+				7BC17E7423F569F400F76B7B /* PageControl.swift */,
+				7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -4273,7 +4273,79 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		7BD579A523F413640001C601 /* New Group */ = {
+		7BC17E6C23F5697700F76B7B /* BalanceLabel */ = {
+			isa = PBXGroup;
+			children = (
+				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
+				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
+			);
+			path = BalanceLabel;
+			sourceTree = "<group>";
+		};
+		7BC17E6D23F5699E00F76B7B /* ContactDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
+				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
+			);
+			path = ContactDetailView;
+			sourceTree = "<group>";
+		};
+		7BC17E6E23F569AA00F76B7B /* DebugView */ = {
+			isa = PBXGroup;
+			children = (
+				7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */,
+				7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */,
+			);
+			path = DebugView;
+			sourceTree = "<group>";
+		};
+		7BC17E6F23F569B400F76B7B /* EmptyCell */ = {
+			isa = PBXGroup;
+			children = (
+				0AF92288212E1234003BA067 /* EmptyCell.swift */,
+				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
+			);
+			path = EmptyCell;
+			sourceTree = "<group>";
+		};
+		7BC17E7023F569BF00F76B7B /* GlobalErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */,
+				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
+			);
+			path = GlobalErrorView;
+			sourceTree = "<group>";
+		};
+		7BC17E7123F569C900F76B7B /* TickerView */ = {
+			isa = PBXGroup;
+			children = (
+				0AF92297212E1234003BA067 /* TickerView.swift */,
+				0AF92282212E1234003BA067 /* TickerView.xib */,
+			);
+			path = TickerView;
+			sourceTree = "<group>";
+		};
+		7BC17E7223F569D300F76B7B /* TransactionImageView */ = {
+			isa = PBXGroup;
+			children = (
+				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
+				7BDA6AE922313E85001DE71C /* TransactionImageView.xib */,
+			);
+			path = TransactionImageView;
+			sourceTree = "<group>";
+		};
+		7BC17E7323F569DF00F76B7B /* ActionsControl */ = {
+			isa = PBXGroup;
+			children = (
+				7B3902A62237A74900AAFDB8 /* ActionsControl.swift */,
+				7B3902A82237A75600AAFDB8 /* ActionsControl.xib */,
+			);
+			path = ActionsControl;
+			sourceTree = "<group>";
+		};
+		7BD579A523F413640001C601 /* Staking */ = {
 			isa = PBXGroup;
 			children = (
 				E9DC661B23ECA06600889AA3 /* WalletStakingBalanceCell.swift */,
@@ -4287,7 +4359,7 @@
 				E988EDFC23F2BD8500B742C1 /* WalletStakingLandingCell.swift */,
 				E988EDFD23F2BD8500B742C1 /* WalletStakingLandingCell.xib */,
 			);
-			path = "New Group";
+			path = Staking;
 			sourceTree = "<group>";
 		};
 		7BD6E10322E5ACE000BAAFC8 /* View */ = {
@@ -4609,6 +4681,7 @@
 				7BFB47E422FC742E002B19F8 /* UIAlertController+Factory.swift */,
 				7BFB47F022FC742E002B19F8 /* Modal */,
 				7BFB47E722FC742E002B19F8 /* Skeleton */,
+				7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -7367,6 +7440,7 @@
 				0A20606821822C3A0048CF83 /* AddressesKeysViewController.swift in Sources */,
 				E9DF24F62221ED640077F2EB /* AssetDetailInteractor.swift in Sources */,
 				E9B087FE2163886800937644 /* DexMyOrdersCell.swift in Sources */,
+				7BC17E7923F5908100F76B7B /* DeviceLayoutConstraint.swift in Sources */,
 				E9939B4522302E3800B50E67 /* InfoPageConfirmView.swift in Sources */,
 				E944300C226E643B00EB6257 /* WalletSortModuleBuilder.swift in Sources */,
 				0A59331B21870B130059A77A /* AliasesTypes.swift in Sources */,
@@ -7405,6 +7479,7 @@
 				7BD6E10522E5AE0200BAAFC8 /* DebugHeaderView.swift in Sources */,
 				0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */,
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
+				7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				0AF922FE212E1234003BA067 /* GradientView.swift in Sources */,
 				0AF922F3212E1234003BA067 /* SeparatorView.swift in Sources */,
@@ -7477,6 +7552,7 @@
 				E9B087FB2163886800937644 /* DexMyOrdersModuleBuilder.swift in Sources */,
 				0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */,
 				0A071E77215DB07C007D9750 /* ChooseAccountTypes.swift in Sources */,
+				7BC17E7523F569F400F76B7B /* PageControl.swift in Sources */,
 				0AF921FE212E07B3003BA067 /* AssetTransactionSkeletonCell.swift in Sources */,
 				E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */,
 				E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */,
@@ -10388,7 +10464,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3986;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
