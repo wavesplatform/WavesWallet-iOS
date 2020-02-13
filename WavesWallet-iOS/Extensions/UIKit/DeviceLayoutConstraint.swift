@@ -9,7 +9,7 @@
 import UIKit
 import DeviceKit
 
-@IBDesignable class DeviceLayoutConstraint: NSLayoutConstraint {
+class DeviceLayoutConstraint: NSLayoutConstraint {
     
     enum Inch: Double {
                 

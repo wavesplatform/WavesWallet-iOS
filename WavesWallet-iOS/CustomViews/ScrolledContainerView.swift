@@ -266,6 +266,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             table.isScrollEnabled = false
             table.backgroundColor = .clear
             table.contentInset.top = segmentedHeight
+            table.scrollIndicatorInsets.top = segmentedHeight
             table.estimatedRowHeight = 0
             table.estimatedSectionHeaderHeight = 0
             table.sectionHeaderHeight = 0

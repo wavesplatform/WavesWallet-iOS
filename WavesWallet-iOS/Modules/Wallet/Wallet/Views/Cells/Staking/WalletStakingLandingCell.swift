@@ -22,11 +22,7 @@ final class WalletStakingLadingInfoView: UIView {
     @IBOutlet private weak var titleLabelTop: NSLayoutConstraint!
     
     override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        if Platform.isIphone5 {
-            titleLabelTop.constant = 0
-        }
+        super.awakeFromNib()        
     }
 }
 
@@ -84,13 +80,7 @@ final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable {
 }
 
 extension WalletStakingLandingCell: ViewConfiguration {
-    
-//    struct Model {
-//        let totalValue: Money
-//        let percent: Double
-//        let minimumDeposite: Money
-//    }
-    
+        
     func update(with model: WalletTypes.DTO.Staking.Landing) {
         
         let percent = String(format: "%.02f", model.percent)

@@ -226,7 +226,7 @@ extension WalletDisplayData: UITableViewDataSource {
             
         case .landing(let landing):
             let cell = tableView.dequeueAndRegisterCell() as WalletStakingLandingCell
-            cell.minHeight = tableView.frame.size.height - scrolledTablesComponent.bigTopOffset - scrolledTablesComponent.segmentedHeight
+//            cell.minHeight = tableView.frame.size.height - scrolledTablesComponent.bigTopOffset - scrolledTablesComponent.segmentedHeight
             cell.update(with: landing)
             cell.startStaking = { [weak self] in
                 self?.delegate?.startStakingTapped()
