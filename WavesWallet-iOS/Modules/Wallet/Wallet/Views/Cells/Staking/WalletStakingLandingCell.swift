@@ -56,6 +56,9 @@ final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable, Local
     
     public var didSelectLinkWith: ((URL) -> Void)?
     
+    private var isLastPage: Bool {
+        return scrollView.currentPage == (scrollView.maxPages - 1)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,7 +86,7 @@ final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable, Local
         
         guard let model = self.model else { return }
         guard let profitValue = profitValue else { return }
-                        
+                                
         let totalProfitValue = WalletStakingLandingCell.totalProfitValue
         let money: Double = profitValue + (totalProfitValue ?? 0)
         
@@ -94,16 +97,19 @@ final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable, Local
                                model.minimumDeposit.decimals)
                 
         labelMoney.attributedText = NSMutableAttributedString.stakingProfit(totalValue: totalValue)
-               
     }
     
     @IBAction private func nextTapped(_ sender: Any) {
-        startStaking?()
+        if isLastPage {
+            startStaking?()
+        } else {
+            scrollView.nextPage()
+        }
     }
     
     private func ifNeedUpdateNextButton() {
-                
-        if scrollView.currentPage == 0 {
+                        
+        if isLastPage == false {
             buttonNext.setTitle(Localizable.Waves.Staking.Landing.next, for: .normal)
         } else {
             buttonNext.setTitle(Localizable.Waves.Staking.Landing.startStaking, for: .normal)
@@ -143,15 +149,8 @@ extension WalletStakingLandingCell: ViewConfiguration {
         faqLabel.delegate = self
         
         if let url = URL(string: UIGlobalConstants.URL.stakingFaq) {
-            
-                                    
-            faqLabel.activeLinkAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-                                             NSAttributedString.Key.foregroundColor: UIColor.submit400,
-                                             NSAttributedString.Key.underlineStyle: NSNumber(value: false)]
-            faqLabel.linkAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-                                       NSAttributedString.Key.foregroundColor: UIColor.submit400,
-                                       NSAttributedString.Key.underlineStyle: NSNumber(value: false)]
-            
+            faqLabel.activeLinkAttributes = NSMutableAttributedString.stakingFaqAttributted()
+            faqLabel.linkAttributes = NSMutableAttributedString.stakingFaqAttributted()
             faqLabel.addLink(to: url, with: faq.faqRange)
         }
         
@@ -175,10 +174,10 @@ extension NSMutableAttributedString {
     }
     
     static func stakingProfit(totalValue: Money) -> NSMutableAttributedString {
-                                       
-        let attr = NSMutableAttributedString(string: "$" + totalValue.displayText)
+                                               
+        let attr = NSMutableAttributedString(string: "$" + totalValue.displayTextFull(isFiat: true))
         attr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.submit300],
-                           range: (attr.string as NSString).range(of: totalValue.displayTextFull(isFiat: false)))
+                           range: (attr.string as NSString).range(of: totalValue.displayTextFull(isFiat: true)))
         return attr
     }
             
@@ -193,6 +192,13 @@ extension NSMutableAttributedString {
                     
         return attr
     }
+    
+    static func stakingFaqAttributted() -> [NSAttributedString.Key: Any] {
+        
+        return [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                NSAttributedString.Key.foregroundColor: UIColor.submit400,
+                NSAttributedString.Key.underlineStyle: NSNumber(value: false)]
+    }
             
     static func stakingFaq() -> (string: NSMutableAttributedString, faqRange: NSRange) {
                             
@@ -206,11 +212,8 @@ extension NSMutableAttributedString {
                            range: .init(location: 0, length: attr.string.count))
         
         let faqRange = (attr.string as NSString).range(of: faq)
-        
-        
-        attr.addAttributes([.font: UIFont.systemFont(ofSize: 12),
-                            .foregroundColor: UIColor.submit400,
-                            NSAttributedString.Key.underlineStyle: NSNumber(value: false)],
+                
+        attr.addAttributes(NSMutableAttributedString.stakingFaqAttributted(),
                            range: faqRange)
                     
         return (string: attr, faqRange: faqRange)
@@ -238,6 +241,3 @@ extension WalletStakingLandingCell: TTTAttributedLabelDelegate {
         self.didSelectLinkWith?(url)
     }
 }
-
-
-

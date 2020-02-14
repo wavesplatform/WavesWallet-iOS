@@ -180,7 +180,7 @@ extension WalletViewController {
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
-        let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
+            let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
             return self
                 .rx
