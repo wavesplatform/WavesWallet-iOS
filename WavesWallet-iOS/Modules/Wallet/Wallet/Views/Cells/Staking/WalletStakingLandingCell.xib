@@ -106,16 +106,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0T6-dJ-fDG">
-                        <rect key="frame" x="213.5" y="240.5" width="200" height="195.5"/>
+                        <rect key="frame" x="0.0" y="240.5" width="627" height="195.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="v9F-QR-ETd">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="195.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1881" height="195.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9V-IM-07y" customClass="WalletStakingLadingInfoView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="195.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="627" height="195.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="slide1" translatesAutoresizingMaskIntoConstraints="NO" id="foX-ZR-amJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="124"/>
+                                                <rect key="frame" x="213.5" y="0.0" width="200" height="124"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="124" id="PfD-fp-tQe" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                         <userDefinedRuntimeAttributes>
@@ -146,13 +146,13 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy USD-N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZO-hb-RnC" userLabel="Top">
-                                                <rect key="frame" x="8" y="158" width="184" height="20.5"/>
+                                                <rect key="frame" x="8" y="158" width="611" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="with fiat or crypto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKC-mp-kbv" userLabel="Bottom">
-                                                <rect key="frame" x="8" y="178.5" width="184" height="17"/>
+                                                <rect key="frame" x="8" y="178.5" width="611" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -161,8 +161,6 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="top" secondItem="foX-ZR-amJ" secondAttribute="top" id="26O-34-IEE"/>
-                                            <constraint firstAttribute="right" secondItem="foX-ZR-amJ" secondAttribute="right" id="5Nh-cV-LOb"/>
-                                            <constraint firstItem="foX-ZR-amJ" firstAttribute="left" secondItem="f9V-IM-07y" secondAttribute="left" id="B7A-2k-ok7"/>
                                             <constraint firstItem="4ZO-hb-RnC" firstAttribute="top" secondItem="foX-ZR-amJ" secondAttribute="bottom" constant="34" id="HcM-Wi-XbY" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
@@ -188,6 +186,7 @@
                                             <constraint firstItem="4ZO-hb-RnC" firstAttribute="leading" secondItem="f9V-IM-07y" secondAttribute="leading" constant="8" id="bZb-zk-NFI"/>
                                             <constraint firstAttribute="trailing" secondItem="eKC-mp-kbv" secondAttribute="trailing" constant="8" id="fdL-DR-afC"/>
                                             <constraint firstItem="eKC-mp-kbv" firstAttribute="leading" secondItem="f9V-IM-07y" secondAttribute="leading" constant="8" id="qms-bN-bsY"/>
+                                            <constraint firstItem="foX-ZR-amJ" firstAttribute="centerX" secondItem="f9V-IM-07y" secondAttribute="centerX" id="weo-Bw-Mq5"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="foX-ZR-amJ" id="Z7a-y2-Ojq"/>
@@ -197,10 +196,10 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpf-mB-SLn" customClass="WalletStakingLadingInfoView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="200" y="0.0" width="200" height="195.5"/>
+                                        <rect key="frame" x="627" y="0.0" width="627" height="195.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="slide2" translatesAutoresizingMaskIntoConstraints="NO" id="J1A-0C-Q4R">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="124"/>
+                                                <rect key="frame" x="213.5" y="0.0" width="200" height="124"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="124" id="JAi-Vk-be8" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                         <userDefinedRuntimeAttributes>
@@ -231,13 +230,13 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy USD-N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGl-zR-mAE" userLabel="Top">
-                                                <rect key="frame" x="8" y="158" width="184" height="20.5"/>
+                                                <rect key="frame" x="8" y="158" width="611" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="with fiat or crypto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owF-Gv-hr7" userLabel="Bottom">
-                                                <rect key="frame" x="8" y="178.5" width="184" height="17"/>
+                                                <rect key="frame" x="8" y="178.5" width="611" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -246,12 +245,10 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="owF-Gv-hr7" secondAttribute="bottom" id="Me1-nA-9vu"/>
-                                            <constraint firstAttribute="right" secondItem="J1A-0C-Q4R" secondAttribute="right" id="QEQ-Rq-D02"/>
                                             <constraint firstAttribute="top" secondItem="J1A-0C-Q4R" secondAttribute="top" id="Ukp-FK-cmQ"/>
                                             <constraint firstItem="owF-Gv-hr7" firstAttribute="top" secondItem="PGl-zR-mAE" secondAttribute="bottom" id="XsU-sc-hua"/>
                                             <constraint firstAttribute="trailing" secondItem="owF-Gv-hr7" secondAttribute="trailing" constant="8" id="bOI-m5-ODy"/>
                                             <constraint firstAttribute="trailing" secondItem="PGl-zR-mAE" secondAttribute="trailing" constant="8" id="cgP-h5-W3l"/>
-                                            <constraint firstItem="J1A-0C-Q4R" firstAttribute="left" secondItem="wpf-mB-SLn" secondAttribute="left" id="ePZ-f0-agr"/>
                                             <constraint firstItem="PGl-zR-mAE" firstAttribute="leading" secondItem="wpf-mB-SLn" secondAttribute="leading" constant="8" id="geq-Ea-Ktx"/>
                                             <constraint firstItem="PGl-zR-mAE" firstAttribute="top" secondItem="J1A-0C-Q4R" secondAttribute="bottom" constant="34" id="j5O-xX-5Ro" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <userDefinedRuntimeAttributes>
@@ -272,6 +269,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </constraint>
+                                            <constraint firstItem="J1A-0C-Q4R" firstAttribute="centerX" secondItem="wpf-mB-SLn" secondAttribute="centerX" id="pxF-EY-eeI"/>
                                             <constraint firstItem="owF-Gv-hr7" firstAttribute="leading" secondItem="wpf-mB-SLn" secondAttribute="leading" constant="8" id="zbl-HE-q9Z"/>
                                         </constraints>
                                         <connections>
@@ -282,10 +280,10 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3xX-CJ-Xe4" customClass="WalletStakingLadingInfoView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="400" y="0.0" width="200" height="195.5"/>
+                                        <rect key="frame" x="1254" y="0.0" width="627" height="195.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="slide3" translatesAutoresizingMaskIntoConstraints="NO" id="AMA-lW-Urv">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="124"/>
+                                                <rect key="frame" x="213.5" y="0.0" width="200" height="124"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="124" id="6FP-6D-0IY" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                         <userDefinedRuntimeAttributes>
@@ -316,13 +314,13 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy USD-N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2B-7q-Ppe" userLabel="Top">
-                                                <rect key="frame" x="8" y="158" width="184" height="20.5"/>
+                                                <rect key="frame" x="8" y="158" width="611" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="with fiat or crypto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7C5-jc-CFf" userLabel="Bottom">
-                                                <rect key="frame" x="8" y="178.5" width="184" height="17"/>
+                                                <rect key="frame" x="8" y="178.5" width="611" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -331,11 +329,9 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="k2B-7q-Ppe" firstAttribute="leading" secondItem="3xX-CJ-Xe4" secondAttribute="leading" constant="8" id="4Vs-yx-7a4"/>
-                                            <constraint firstAttribute="right" secondItem="AMA-lW-Urv" secondAttribute="right" id="7eV-QD-rEV"/>
                                             <constraint firstAttribute="bottom" secondItem="7C5-jc-CFf" secondAttribute="bottom" id="BEJ-Sb-bqT"/>
                                             <constraint firstAttribute="trailing" secondItem="7C5-jc-CFf" secondAttribute="trailing" constant="8" id="VDM-gY-aNo"/>
                                             <constraint firstItem="7C5-jc-CFf" firstAttribute="top" secondItem="k2B-7q-Ppe" secondAttribute="bottom" id="XZx-Bv-ZjF"/>
-                                            <constraint firstItem="AMA-lW-Urv" firstAttribute="left" secondItem="3xX-CJ-Xe4" secondAttribute="left" id="fOX-jJ-dzo"/>
                                             <constraint firstItem="k2B-7q-Ppe" firstAttribute="top" secondItem="AMA-lW-Urv" secondAttribute="bottom" constant="34" id="gvx-gP-1T4" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
@@ -352,6 +348,7 @@
                                             <constraint firstItem="7C5-jc-CFf" firstAttribute="leading" secondItem="3xX-CJ-Xe4" secondAttribute="leading" constant="8" id="hF5-dT-RSB"/>
                                             <constraint firstAttribute="top" secondItem="AMA-lW-Urv" secondAttribute="top" id="pdJ-tq-ovZ"/>
                                             <constraint firstAttribute="trailing" secondItem="k2B-7q-Ppe" secondAttribute="trailing" constant="8" id="qAw-mx-0ef"/>
+                                            <constraint firstItem="AMA-lW-Urv" firstAttribute="centerX" secondItem="3xX-CJ-Xe4" secondAttribute="centerX" id="sYN-Yk-ob4"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="AMA-lW-Urv" id="ykN-o3-HFO"/>
@@ -370,20 +367,10 @@
                             <constraint firstItem="3xX-CJ-Xe4" firstAttribute="height" secondItem="0T6-dJ-fDG" secondAttribute="height" id="9er-Oj-E0S"/>
                             <constraint firstItem="v9F-QR-ETd" firstAttribute="trailing" secondItem="Dnw-se-Nv5" secondAttribute="trailing" id="NCO-b6-b0A"/>
                             <constraint firstItem="v9F-QR-ETd" firstAttribute="bottom" secondItem="Dnw-se-Nv5" secondAttribute="bottom" id="Wl4-vS-jnT"/>
-                            <constraint firstAttribute="width" constant="200" id="d4x-mn-9vk" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
-                                        <real key="value" value="172"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="inch4">
-                                        <real key="value" value="172"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
-                                        <real key="value" value="172"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </constraint>
+                            <constraint firstItem="wpf-mB-SLn" firstAttribute="width" secondItem="0T6-dJ-fDG" secondAttribute="width" id="bR8-VL-33Q"/>
                             <constraint firstItem="v9F-QR-ETd" firstAttribute="leading" secondItem="Dnw-se-Nv5" secondAttribute="leading" id="lhg-H8-HmM"/>
+                            <constraint firstItem="3xX-CJ-Xe4" firstAttribute="width" secondItem="0T6-dJ-fDG" secondAttribute="width" id="mdF-so-Wlf"/>
+                            <constraint firstItem="f9V-IM-07y" firstAttribute="width" secondItem="0T6-dJ-fDG" secondAttribute="width" id="xdY-J8-Lhk"/>
                         </constraints>
                         <viewLayoutGuide key="contentLayoutGuide" id="Dnw-se-Nv5"/>
                         <viewLayoutGuide key="frameLayoutGuide" id="K7w-Gb-F7A"/>
@@ -486,6 +473,7 @@
                     <constraint firstItem="szL-Kb-jPa" firstAttribute="leading" secondItem="bcK-6x-dtJ" secondAttribute="leading" constant="-10" id="gly-jk-1lq"/>
                     <constraint firstItem="6dQ-RM-bIg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jYA-9E-fSf"/>
                     <constraint firstItem="szL-Kb-jPa" firstAttribute="top" secondItem="SKW-Pj-RM5" secondAttribute="bottom" constant="8" id="kba-G6-1WE"/>
+                    <constraint firstAttribute="trailing" secondItem="0T6-dJ-fDG" secondAttribute="trailing" id="kg5-ao-5yF"/>
                     <constraint firstItem="0T6-dJ-fDG" firstAttribute="centerX" secondItem="4RX-Eb-jy5" secondAttribute="centerX" id="ktg-hx-nF0"/>
                     <constraint firstItem="4RX-Eb-jy5" firstAttribute="top" secondItem="bcK-6x-dtJ" secondAttribute="bottom" constant="54" id="m8P-s5-1f8" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <userDefinedRuntimeAttributes>
@@ -515,6 +503,7 @@
                     </constraint>
                     <constraint firstItem="myn-kx-9vF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="qgR-da-7tJ"/>
                     <constraint firstItem="szL-Kb-jPa" firstAttribute="bottom" secondItem="ufL-DJ-Csi" secondAttribute="bottom" constant="8" id="rW1-1r-xxv"/>
+                    <constraint firstItem="0T6-dJ-fDG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uZm-rp-bAK"/>
                     <constraint firstAttribute="trailing" secondItem="6dQ-RM-bIg" secondAttribute="trailing" constant="10" id="yBU-v2-k24"/>
                 </constraints>
             </tableViewCellContentView>

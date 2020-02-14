@@ -232,53 +232,13 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             tableViews.removeAll()
             self.currentIndex = currentIndex
             
-            initComponents(segmentedItems: segmentedItems, tableDataSource: tableDataSource, tableDelegate: tableDelegate)
+            initComponents(segmentedItems: segmentedItems,
+                           tableDataSource: tableDataSource,
+                           tableDelegate: tableDelegate)
         }
         else {
             updateComponents(segmentedItems: segmentedItems)
         }
-    }
-    
-    private func updateComponents(segmentedItems: [NewSegmentedControl.SegmentedItem]) {
-        segmentedControl.items = segmentedItems
-        segmentedControl.setSelectedIndex(currentIndex, animation: false)
-    }
-    
-    private func initComponents(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
-        segmentedControl.items = segmentedItems
-        
-        for index in 0..<segmentedItems.count {
-            
-            var x: CGFloat {
-                if currentIndex > 0 {
-                    return index == currentIndex ? 0 : -frame.size.width
-                }
-                return  CGFloat(index) * frame.size.width
-            }
-            let table = UITableView(frame: CGRect(x: x,
-                                                  y: 0,
-                                                  width: frame.size.width,
-                                                  height: frame.size.height))
-            table.tag = index
-            table.dataSource = tableDataSource
-            table.delegate = tableDelegate
-            table.separatorStyle = .none
-            table.isScrollEnabled = false
-            table.backgroundColor = .clear
-            table.contentInset.top = segmentedHeight
-            table.scrollIndicatorInsets.top = segmentedHeight
-            table.estimatedRowHeight = 0
-            table.estimatedSectionHeaderHeight = 0
-            table.sectionHeaderHeight = 0
-            addSubview(table)
-            tableViews.append(table)
-        }
-        segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
-        segmentedControl.backgroundColor = .basic50
-        segmentedControl.setSelectedIndex(currentIndex, animation: false)
-        addSubview(segmentedControl)
-        visibleTableView.reloadData()
-        setContentSize()
     }
     
     func removeTopView(_ view: UIView, animation: Bool) {
@@ -297,6 +257,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             
             for table in self.tableViews {
                 table.contentInset.top = self.topOffset + self.segmentedHeight
+                table.scrollIndicatorInsets.top = self.topOffset + self.segmentedHeight
             }
             
             self.scrollViewDidScroll(self)
@@ -324,6 +285,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             
             for table in self.tableViews {
                 table.contentInset.top = self.topOffset + self.segmentedHeight
+                table.scrollIndicatorInsets.top = self.topOffset + self.segmentedHeight
             }
             
             self.scrollViewDidScroll(self)
@@ -331,8 +293,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     }
     
     func reloadData() {
-        
-        
+                
         topOffset = 0
         for view in topContents {
             view.frame.origin.y = topOffset
@@ -342,6 +303,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         for table in tableViews {
             table.reloadData()
             table.contentInset.top = topOffset + segmentedHeight
+            table.scrollIndicatorInsets.top = topOffset + segmentedHeight
         }
         
         layoutIfNeeded()
@@ -382,6 +344,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     var bigTopOffset: CGFloat {
         return Constants.bigNavBarHeight + navigationBarOriginY
     }
+    
+    var tableVisibleHeight: CGFloat {
+        return visibleTableView.frame.size.height - bigTopOffset - segmentedHeight
+    }
 }
 
 //MARK: - Actions
@@ -414,8 +380,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         
         if scrollView.contentOffset.y < -smallTopOffset {
             firstAvailableViewController().setupBigNavigationBar()
-        }
-        else if isSmallNavBar {
+        } else if isSmallNavBar {
             //TODO: Test code from Version 2.9
             firstAvailableViewController().setupSmallNavigationBar()
         }
@@ -443,6 +408,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
 }
 
 //MARK: - SegmentedControlDelegate
+
 extension ScrolledContainerView: NewSegmentedControlDelegate {
     
     func segmentedControlDidChangeIndex(_ index: Int) {
@@ -456,8 +422,59 @@ extension ScrolledContainerView: NewSegmentedControlDelegate {
 }
 
 
+// MARK: Private
+
 private extension ScrolledContainerView {
     
+    func updateComponents(segmentedItems: [NewSegmentedControl.SegmentedItem]) {
+        segmentedControl.items = segmentedItems
+        segmentedControl.setSelectedIndex(currentIndex, animation: false)
+    }
+    
+    func initComponents(segmentedItems: [NewSegmentedControl.SegmentedItem],
+                                tableDataSource: UITableViewDataSource,
+                                tableDelegate: UITableViewDelegate) {
+        
+        segmentedControl.items = segmentedItems
+        
+        for index in 0..<segmentedItems.count {
+            
+            var x: CGFloat {
+                if currentIndex > 0 {
+                    return index == currentIndex ? 0 : -frame.size.width
+                }
+                return  CGFloat(index) * frame.size.width
+            }
+            let table = UITableView(frame: CGRect(x: x,
+                                                  y: 0,
+                                                  width: frame.size.width,
+                                                  height: frame.size.height))
+            table.tag = index
+            table.dataSource = tableDataSource
+            table.delegate = tableDelegate
+            table.separatorStyle = .none
+            table.isScrollEnabled = false
+            table.backgroundColor = .clear
+            table.contentInset.top = segmentedHeight
+            table.scrollIndicatorInsets.top = segmentedHeight
+            table.estimatedRowHeight = 0
+            table.estimatedSectionHeaderHeight = 0
+            table.sectionHeaderHeight = 0
+            addSubview(table)
+            tableViews.append(table)
+        }
+        segmentedControl.frame = .init(x: 0,
+                                       y: topSegmentOffset,
+                                       width: frame.size.width,
+                                       height: Constants.segmentedHeight)
+        
+        segmentedControl.backgroundColor = .basic50
+        segmentedControl.setSelectedIndex(currentIndex, animation: false)
+        addSubview(segmentedControl)
+        visibleTableView.reloadData()
+        setContentSize()
+    }
+        
     func setupSegmentedPosition() {
         segmentedControl.frame.origin.y = topSegmentOffset
     }

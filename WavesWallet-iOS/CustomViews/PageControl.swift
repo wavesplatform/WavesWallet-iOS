@@ -12,6 +12,7 @@ import UIKit
 private enum Constants {
     static let deffaultNumberOfPages: Int = 3
     static let padding: CGFloat = 8
+    static let durationAnimation: TimeInterval = 0.3
 }
 
 public class PageControl: UIStackView {
@@ -78,7 +79,7 @@ public class PageControl: UIStackView {
 
             
             UIView.transition(with: imageView,
-                              duration: 0.3,
+                              duration: Constants.durationAnimation,
                               options: .transitionCrossDissolve,
                               animations: {
                                 if i == self.currentPage {
