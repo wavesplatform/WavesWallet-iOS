@@ -99,7 +99,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                     subscribe.onNext(WalletTypes.DTO.Staking(profit: .init(percent: 20.565, total: Money(45254, 2)),
                                                          balance: .init(total: Money(303043, 2), available: Money(243030, 2), inStaking: Money(43144, 2)),
                                                          lastPayouts: [],
-                                                         landing: .init(percent: 20, minimumDeposit: Money(1000000, 2))))
+                                                         landing: .init(percent: 12, minimumDeposit: Money(10000000000, 6))))
                     subscribe.onCompleted()
             }
             return Disposables.create()

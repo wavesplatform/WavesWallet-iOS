@@ -572,6 +572,8 @@
 "wallet.segmentedControl.leasing" = "Leasing";
 "wallet.segmentedControl.staking" = "Staking";
 "wallet.segmentedControl.new" = "new";
+
+
 "wallet.stakingbalance.label.totalBalance" = "Total balance";
 "wallet.stakingbalance.label.staking" = "Staking";
 "wallet.stakingbalance.label.available" = "Available";
@@ -589,12 +591,29 @@
 "wallet.stakingPayouts.profit" = "Profit";
 "wallet.stakingPayouts.payoutsHistory" = "Payouts History";
 "wallet.stakingPayouts.youDontHavePayouts" = "You don't have any payouts yet";
-"wallet.landing.earn" = "Earn %@";
-"wallet.landing.annualInterest" = "Annual Interest by doing NOTHING.";
-"wallet.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
-"wallet.landing.howItWorks" = "How it works?";
-"wallet.landing.next" = "Next";
-"wallet.landing.startStaking" = "Start Staking";
+
+"staking.landing.earn" = "Earn %@";
+"staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
+"staking.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
+"staking.landing.howItWorks" = "How it works?";
+"staking.landing.next" = "Next";
+"staking.landing.startStaking" = "Start Staking";
+
+"staking.landing.slide.buyusdn.title" = "Buy USD-N";
+"staking.landing.slide.buyusdn.subtitle" = "with fiat or crypto";
+
+"staking.landing.slide.buyusdn.title" = "Buy USD-N";
+"staking.landing.slide.buyusdn.subtitle" = "with fiat or crypto";
+
+"staking.landing.slide.depositusdn.title" = "Deposit USD-N";
+"staking.landing.slide.depositusdn.subtitle" = "to smart contract";
+
+"staking.landing.slide.passiveincome.title" = "Enjoy your passive income";
+"staking.landing.slide.passiveincome.subtitle" = "every day";
+
+
+"staking.landing.faq.part.one" = "Still have questions? Please visit %@";
+"staking.landing.faq.part.two" = "FAQ";
 
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";

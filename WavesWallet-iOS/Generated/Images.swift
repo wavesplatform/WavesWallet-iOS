@@ -137,6 +137,8 @@ internal enum Images {
   internal static let flag18Spain = ImageAsset(name: "flag18Spain")
   internal static let flag18Turkey = ImageAsset(name: "flag18Turkey")
   internal static let forwardChevron = ImageAsset(name: "forward-chevron")
+  internal static let gorshok = ImageAsset(name: "gorshok")
+  internal static let group327 = ImageAsset(name: "group327")
   internal static let hide = ImageAsset(name: "hide")
   internal static let hidekeyboard24Multy = ImageAsset(name: "hidekeyboard24Multy")
   internal static let history = ImageAsset(name: "history")
@@ -228,6 +230,11 @@ internal enum Images {
   internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
   internal static let shareAddress = ImageAsset(name: "share_address")
   internal static let sizefull14Basic500 = ImageAsset(name: "sizefull14Basic500")
+  internal static let slide1 = ImageAsset(name: "slide1")
+  internal static let slide2 = ImageAsset(name: "slide2")
+  internal static let slide3 = ImageAsset(name: "slide3")
+  internal static let slidePointDot = ImageAsset(name: "slide_point_dot")
+  internal static let slidePointLine = ImageAsset(name: "slide_point_line")
   internal static let sponsoritem18White = ImageAsset(name: "sponsoritem18White")
   internal static let star = ImageAsset(name: "star")
   internal static let starSearchSmall = ImageAsset(name: "starSearchSmall")
@@ -447,6 +454,8 @@ internal enum Images {
     flag18Spain,
     flag18Turkey,
     forwardChevron,
+    gorshok,
+    group327,
     hide,
     hidekeyboard24Multy,
     history,
@@ -538,6 +547,11 @@ internal enum Images {
     share18Submit400,
     shareAddress,
     sizefull14Basic500,
+    slide1,
+    slide2,
+    slide3,
+    slidePointDot,
+    slidePointLine,
     sponsoritem18White,
     star,
     starSearchSmall,

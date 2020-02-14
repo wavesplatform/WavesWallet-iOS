@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TTTAttributedLabel
 import AVFoundation
 import Extensions
 import DomainLayer
