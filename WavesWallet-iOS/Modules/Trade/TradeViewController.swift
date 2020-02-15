@@ -285,7 +285,7 @@ extension TradeViewController: ScrolledContainerViewDelegate {
         setupHeaderShadow()
         
         let category = categories[index]
-        scrolledTableView.segmentedControl.isNeedShowBottomShadow = category.header == nil
+        scrolledTableView.isNeedShowBottomShadow = category.header == nil
     }
 }
 

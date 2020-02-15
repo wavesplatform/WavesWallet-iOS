@@ -16,7 +16,7 @@ private enum Constants {
     static let progressBarMinSmallPercent: CGFloat = 2
 }
 
-final class WalletStakingBalanceCell: UITableViewCell, NibReusable {
+final class StakingBalanceCell: UITableViewCell, NibReusable {
 
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelTotalBalance: UILabel!
@@ -78,7 +78,7 @@ final class WalletStakingBalanceCell: UITableViewCell, NibReusable {
     }
 }
 
-extension WalletStakingBalanceCell: ViewConfiguration {
+extension StakingBalanceCell: ViewConfiguration {
     
     func update(with model: WalletTypes.DTO.Staking.Balance) {
         
@@ -110,7 +110,7 @@ extension WalletStakingBalanceCell: ViewConfiguration {
     }
 }
 
-extension WalletStakingBalanceCell: ViewHeight {
+extension StakingBalanceCell: ViewHeight {
     static func viewHeight() -> CGFloat {
         return Constants.height
     }

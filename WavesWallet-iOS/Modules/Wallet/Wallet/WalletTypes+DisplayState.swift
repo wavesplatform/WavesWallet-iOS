@@ -103,8 +103,10 @@ extension WalletTypes.DisplayState {
         switch kind {
         case .assets:
             display = assets
+            
         case .leasing:
             display = leasing
+            
         case .staking:
             display = staking
         }

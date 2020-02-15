@@ -109,6 +109,16 @@ final class WalletViewController: UIViewController {
         }
         scrolledTablesComponent.reloadData()
     }
+    
+    //TODO: Refactor method. I dont know how its work
+    var isNeedSetupSearchBarPosition: Bool {
+        
+        displayData.isAssetsSectionsHaveSearch &&
+            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue &&
+            scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
+    }
 }
 
 //MARK: - MainTabBarControllerProtocol
@@ -180,7 +190,7 @@ extension WalletViewController {
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
-            let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
+        let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
             return self
                 .rx
@@ -297,7 +307,8 @@ extension WalletViewController {
         default:
             break
         }
-        scrolledTablesComponent.segmentedControl.setSelectedIndex(displays.firstIndex(of: state.kind) ?? 0, animation: false)
+        scrolledTablesComponent.setSelectedIndex(displays.firstIndex(of: state.kind) ?? 0,
+                                                 animation: false)
         setupRightButons(kind: state.kind)
     }
 
@@ -365,7 +376,7 @@ private extension WalletViewController {
 
     func setupSearchBarOffset() {
         
-        if isSmallNavigationBar && displayData.isNeedSetupSearchBarPosition {
+        if isSmallNavigationBar && isNeedSetupSearchBarPosition {
             
             let diff = (scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight()) - (scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset)
             

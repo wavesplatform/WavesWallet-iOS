@@ -66,7 +66,7 @@ final class ScrolledContainerView: UIScrollView {
     
     private(set) var tableViews: [UITableView] = []
     private(set) var topContents: [UIView] = []
-    private(set) var segmentedControl = NewSegmentedControl()
+    private var segmentedControl = NewSegmentedControl()
     
     private var currentIndex: Int = 0
     private var isAnimationTable: Bool = false
@@ -125,6 +125,21 @@ final class ScrolledContainerView: UIScrollView {
             if view.frame.size.width != frame.size.width {
                 view.frame.size.width = frame.size.width
             }
+        }
+    }
+    
+    func setSelectedIndex(_ index: Int, animation: Bool = false) {
+        segmentedControl.setSelectedIndex(index, animation: animation)
+        showScreen(index: index)
+    }
+    
+    var isNeedShowBottomShadow: Bool {
+        get {
+            return segmentedControl.isNeedShowBottomShadow
+        }
+        
+        set {
+            segmentedControl.isNeedShowBottomShadow = newValue
         }
     }
 }
@@ -519,6 +534,44 @@ private extension ScrolledContainerView {
         }
     }
     
+    
+    func showScreen(index: Int) {
+        
+        guard index < segmentedControl.items.count else {
+            return
+        }
+        
+        guard index >= 0 else {
+            return
+        }
+        
+        let direction: CGFloat = (index - currentIndex) > 0  ? 1 : -1
+        
+        let pointScale: CGFloat = CGFloat(min(abs(currentIndex - index), 1))
+        
+        
+        let currentTable = acceptCurrentTableOffset()
+        currentIndex = index
+        containerViewDelegate?.scrolledContainerViewDidScrollToIndex(index)
+
+        UIView.animate(withDuration: Constants.animationDuration) {
+            self.setContentSize()
+            self.setupSegmentedPosition()
+        }
+        
+        updateSegmentedShadow()
+        let newTable = visibleTableView
+        newTable.frame.origin.x = (frame.size.width * pointScale) * direction
+        updateNewTableOffset(newTable)
+        
+        updateSwipeAnimationBlock {
+            newTable.frame.origin.x = 0
+            currentTable.frame.origin.x = (self.frame.size.width * pointScale) * (direction * -1)
+        }
+        
+    }
+        
+        
     func showNextScreen(nextIndex: Int) {
         
         if nextIndex < segmentedControl.items.count {

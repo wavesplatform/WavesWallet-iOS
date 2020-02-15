@@ -399,6 +399,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             if state.displayState.refreshData != .none {
                 state.displayState.listenerRefreshData = state.displayState.refreshData
             }
+            
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
             state.action = .none

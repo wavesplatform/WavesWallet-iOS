@@ -16,7 +16,7 @@ private enum Constants {
     static let secondYear: Double = 31536000
 }
 
-final class WalletStakingLadingInfoView: UIView {
+final class StakingLadingInfoView: UIView {
     @IBOutlet private(set) weak var titleLabel: UILabel!
     @IBOutlet private(set) weak var subTitleLabel: UILabel!
     @IBOutlet private(set) weak var imageView: UIImageView!
@@ -28,7 +28,7 @@ final class WalletStakingLadingInfoView: UIView {
     }
 }
 
-final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable, Localization {
+final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localization {
 
     @IBOutlet private weak var blueTopView: UIView!
     @IBOutlet private weak var labelEarnPercent: UILabel!
@@ -39,9 +39,9 @@ final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable, Local
     @IBOutlet private weak var labelHowItWorks: UILabel!
     @IBOutlet private weak var faqLabel: TTTAttributedLabel!
     
-    @IBOutlet private weak var firstInfoView: WalletStakingLadingInfoView!
-    @IBOutlet private weak var secondInfoView: WalletStakingLadingInfoView!
-    @IBOutlet private weak var thirdInfoView: WalletStakingLadingInfoView!
+    @IBOutlet private weak var firstInfoView: StakingLadingInfoView!
+    @IBOutlet private weak var secondInfoView: StakingLadingInfoView!
+    @IBOutlet private weak var thirdInfoView: StakingLadingInfoView!
     @IBOutlet private weak var pageControl: PageControl!
     @IBOutlet private weak var scrollView: UIScrollView!
     
@@ -87,10 +87,10 @@ final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable, Local
         guard let model = self.model else { return }
         guard let profitValue = profitValue else { return }
                                 
-        let totalProfitValue = WalletStakingLandingCell.totalProfitValue
+        let totalProfitValue = StakingLandingCell.totalProfitValue
         let money: Double = profitValue + (totalProfitValue ?? 0)
         
-        WalletStakingLandingCell.totalProfitValue = money
+        StakingLandingCell.totalProfitValue = money
         
         let amount = Int64(money * pow(10, Double(model.minimumDeposit.decimals)))
         let totalValue = Money(amount,
@@ -130,7 +130,7 @@ final class WalletStakingLandingCell: MinHeightTableViewCell, NibReusable, Local
     }
 }
 
-extension WalletStakingLandingCell: ViewConfiguration {
+extension StakingLandingCell: ViewConfiguration {
         
     func update(with model: WalletTypes.DTO.Staking.Landing) {
         
@@ -222,7 +222,7 @@ extension NSMutableAttributedString {
 
 //MARK: UIScrollViewDelegate
 
-extension WalletStakingLandingCell: UIScrollViewDelegate {
+extension StakingLandingCell: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.pageControl.currentPage = scrollView.currentPage
@@ -232,7 +232,7 @@ extension WalletStakingLandingCell: UIScrollViewDelegate {
 
 //MARK: UIScrollViewDelegate
 
-extension WalletStakingLandingCell: TTTAttributedLabelDelegate {
+extension StakingLandingCell: TTTAttributedLabelDelegate {
     
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         

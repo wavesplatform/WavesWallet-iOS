@@ -31,6 +31,7 @@ protocol WalletDisplayDataDelegate: AnyObject {
 
 }
 
+//Refactor method
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
     private var assetsSections: [Section] = []
@@ -72,7 +73,10 @@ final class WalletDisplayData: NSObject {
         case .refresh(let animated):
             
             if animated {
-                UIView.transition(with: scrolledTablesComponent, duration: Constants.animationDuration, options: [.transitionCrossDissolve], animations: {
+                UIView.transition(with: scrolledTablesComponent,
+                                  duration: Constants.animationDuration,
+                                  options: [.transitionCrossDissolve],
+                                  animations: {
                     self.scrolledTablesComponent.reloadData()
                 }, completion: nil)
             } else {
@@ -94,8 +98,7 @@ final class WalletDisplayData: NSObject {
         CATransaction.commit()
     }
     
-    //TODO: Refactor method. I dont know how its work
-    var isNeedSetupSearchBarPosition: Bool {
+    var isAssetsSectionsHaveSearch: Bool {
         
         return assetsSections.first(where: { (section) -> Bool in
             switch section.kind {
@@ -104,12 +107,9 @@ final class WalletDisplayData: NSObject {
             default:
                 return false
             }
-        }) != nil &&
-            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue &&
-            scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
-            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
-            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
+        }) != nil
     }
+    
 }
 
 // MARK: Private
@@ -196,7 +196,7 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
             
         case .stakingBalance(let balance):
-            let cell = tableView.dequeueAndRegisterCell() as WalletStakingBalanceCell
+            let cell = tableView.dequeueAndRegisterCell() as StakingBalanceCell
             cell.update(with: balance)
             cell.withdrawAction = { [weak self] in
                 self?.delegate?.withdrawTapped()
@@ -231,7 +231,7 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
             
         case .landing(let landing):
-            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLandingCell
+            let cell = tableView.dequeueAndRegisterCell() as StakingLandingCell
             cell.minHeight = scrolledTablesComponent.tableVisibleHeight
             cell.update(with: landing)
             cell.startStaking = { [weak self] in
@@ -373,7 +373,7 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
             
         case .stakingBalance:
-            return WalletStakingBalanceCell.viewHeight()
+            return StakingBalanceCell.viewHeight()
             
         case .stakingLastPayoutsTitle:
             return WalletStakingLastPyoutsTitleCell.viewHeight()
