@@ -33,7 +33,7 @@ public extension DomainLayer.DTO {
         }
 
         public struct Transfer: Equatable {
-            public let balance: Balance
+            public let balance: DomainLayer.DTO.Balance
             public let asset: Asset
 
             //It is for sent too (sender)
@@ -43,7 +43,7 @@ public extension DomainLayer.DTO {
             
             public let myAccount: Account
 
-            public init(balance: Balance, asset: Asset, recipient: Account, attachment: String?, hasSponsorship: Bool, myAccount: Account) {
+            public init(balance: DomainLayer.DTO.Balance, asset: Asset, recipient: Account, attachment: String?, hasSponsorship: Bool, myAccount: Account) {
                 self.balance = balance
                 self.asset = asset
                 self.recipient = recipient
@@ -66,11 +66,11 @@ public extension DomainLayer.DTO {
                 public let sender: Account
                 public let kind: Kind
                 public let pair: AssetPair
-                public let price: Balance
-                public let amount: Balance
-                public let total: Balance
+                public let price: DomainLayer.DTO.Balance
+                public let amount: DomainLayer.DTO.Balance
+                public let total: DomainLayer.DTO.Balance
 
-                public init(timestamp: Date, expiration: Date, sender: Account, kind: Kind, pair: AssetPair, price: Balance, amount: Balance, total: Balance) {
+                public init(timestamp: Date, expiration: Date, sender: Account, kind: Kind, pair: AssetPair, price: DomainLayer.DTO.Balance, amount: DomainLayer.DTO.Balance, total: DomainLayer.DTO.Balance) {
                     self.timestamp = timestamp
                     self.expiration = expiration
                     self.sender = sender
@@ -82,15 +82,15 @@ public extension DomainLayer.DTO {
                 }
             }
 
-            public let price: Balance
-            public let amount: Balance
-            public let total: Balance
-            public let buyMatcherFee: Balance
-            public let sellMatcherFee: Balance
+            public let price: DomainLayer.DTO.Balance
+            public let amount: DomainLayer.DTO.Balance
+            public let total: DomainLayer.DTO.Balance
+            public let buyMatcherFee: DomainLayer.DTO.Balance
+            public let sellMatcherFee: DomainLayer.DTO.Balance
             public let order1: Order
             public let order2: Order
 
-            public init(price: Balance, amount: Balance, total: Balance, buyMatcherFee: Balance, sellMatcherFee: Balance, order1: Order, order2: Order) {
+            public init(price: DomainLayer.DTO.Balance, amount: DomainLayer.DTO.Balance, total: DomainLayer.DTO.Balance, buyMatcherFee: DomainLayer.DTO.Balance, sellMatcherFee: DomainLayer.DTO.Balance, order1: Order, order2: Order) {
                 self.price = price
                 self.amount = amount
                 self.total = total
@@ -103,11 +103,11 @@ public extension DomainLayer.DTO {
 
         public struct Leasing: Equatable {
             public let asset: Asset
-            public let balance: Balance
+            public let balance: DomainLayer.DTO.Balance
             public let account: Account
             public let myAccount: Account
 
-            public init(asset: Asset, balance: Balance, account: Account, myAccount: Account) {
+            public init(asset: Asset, balance: DomainLayer.DTO.Balance, account: Account, myAccount: Account) {
                 self.asset = asset
                 self.balance = balance
                 self.account = account
@@ -117,10 +117,10 @@ public extension DomainLayer.DTO {
 
         public struct Issue: Equatable {
             public let asset: Asset
-            public let balance: Balance
+            public let balance: DomainLayer.DTO.Balance
             public let description: String?
 
-            public init(asset: Asset, balance: Balance, description: String?) {
+            public init(asset: Asset, balance: DomainLayer.DTO.Balance, description: String?) {
                 self.asset = asset
                 self.balance = balance
                 self.description = description
@@ -138,12 +138,12 @@ public extension DomainLayer.DTO {
                 }
             }
             
-            public let total: Balance
+            public let total: DomainLayer.DTO.Balance
             public let asset: Asset
             public let attachment: String?
             public let transfers: [Transfer]
 
-            public init(total: Balance, asset: Asset, attachment: String?, transfers: [Transfer]) {
+            public init(total: DomainLayer.DTO.Balance, asset: Asset, attachment: String?, transfers: [Transfer]) {
                 self.total = total
                 self.asset = asset
                 self.attachment = attachment
@@ -162,13 +162,13 @@ public extension DomainLayer.DTO {
                 }
             }
             
-            public let total: Balance
-            public let myTotal: Balance
+            public let total: DomainLayer.DTO.Balance
+            public let myTotal: DomainLayer.DTO.Balance
             public let asset: Asset
             public let attachment: String?
             public let transfers: [Transfer]
 
-            public init(total: Balance, myTotal: Balance, asset: Asset, attachment: String?, transfers: [Transfer]) {
+            public init(total: DomainLayer.DTO.Balance, myTotal: DomainLayer.DTO.Balance, asset: Asset, attachment: String?, transfers: [Transfer]) {
                 self.total = total
                 self.myTotal = myTotal
                 self.asset = asset
@@ -239,14 +239,14 @@ public extension DomainLayer.DTO {
         public let type: Int
         public let kind: Kind
         public let timestamp: Date
-        public let totalFee: Balance
+        public let totalFee: DomainLayer.DTO.Balance
         public let feeAsset: Asset
         public let height: Int64?
         public let confirmationHeight: Int64
         public let sender: Account
         public let status: Status
 
-        public init(id: String, type: Int, kind: Kind, timestamp: Date, totalFee: Balance, feeAsset: Asset, height: Int64?, confirmationHeight: Int64, sender: Account, status: Status) {
+        public init(id: String, type: Int, kind: Kind, timestamp: Date, totalFee: DomainLayer.DTO.Balance, feeAsset: Asset, height: Int64?, confirmationHeight: Int64, sender: Account, status: Status) {
             self.id = id
             self.type = type
             self.kind = kind

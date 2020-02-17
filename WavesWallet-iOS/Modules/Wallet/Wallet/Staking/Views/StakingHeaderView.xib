@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WalletStakingHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="StakingHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="129"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -165,7 +165,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkE-R1-tEe">
-                                    <rect key="frame" x="48" y="86" width="20" height="22"/>
+                                    <rect key="frame" x="48" y="77" width="40" height="40"/>
                                     <state key="normal" image="fb20White"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
@@ -177,7 +177,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viz-O7-ZeU">
-                                    <rect key="frame" x="80" y="86" width="20" height="22"/>
+                                    <rect key="frame" x="100" y="77" width="40" height="40"/>
                                     <state key="normal" image="vk20White"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
@@ -284,6 +284,7 @@
                 <outlet property="labelShare" destination="ws0-BJ-OWm" id="PTP-58-emY"/>
                 <outlet property="labelTotalProfit" destination="TZl-19-EVs" id="RTz-Bp-jJI"/>
                 <outlet property="labelTotalProfitValue" destination="DfT-5y-5Vm" id="sT2-Es-yB1"/>
+                <outlet property="tickerLabel" destination="3un-k2-XlX" id="DK9-kR-9e5"/>
                 <outlet property="viewContainer" destination="rNa-mA-iCM" id="YK3-zc-BSj"/>
                 <outlet property="viewEstimetedInterest" destination="OHB-BM-Y7z" id="ib0-4D-sHz"/>
                 <outlet property="viewProfit" destination="ZoD-eL-eeR" id="0Jl-me-zD6"/>

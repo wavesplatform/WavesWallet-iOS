@@ -287,19 +287,19 @@ extension WalletDisplayData: UITableViewDelegate {
             }
             return view
         } else if let header = model.stakingHeader {
-            let view = tableView.dequeueAndRegisterHeaderFooter() as WalletStakingHeaderView
+            let view = tableView.dequeueAndRegisterHeaderFooter() as StakingHeaderView
             view.update(with: header)
             view.howWorksAction = { [weak self] in
                 self?.delegate?.openStakingFaq()
             }
-            view.twAction = { [weak self] text in
-                self?.delegate?.openTw(text)
+            view.twAction = { [weak self] in
+                self?.delegate?.openTw("text")
             }
-            view.fbAction = { [weak self] text in
-                self?.delegate?.openFb(text)
+            view.fbAction = { [weak self] in
+                self?.delegate?.openFb("text")
             }
-            view.vkAction = { [weak self] text in
-                self?.delegate?.openVk(text)
+            view.vkAction = { [weak self] in
+                self?.delegate?.openVk("")
             }
             return view
         }
@@ -313,7 +313,7 @@ extension WalletDisplayData: UITableViewDelegate {
         if model.header != nil {
             return WalletHeaderView.viewHeight()
         } else if model.stakingHeader != nil {
-            return WalletStakingHeaderView.viewHeight()
+            return StakingHeaderView.viewHeight()
         }
         
         return CGFloat.minValue

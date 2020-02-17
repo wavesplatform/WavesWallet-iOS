@@ -13,7 +13,7 @@ private enum Contants {
     static let height: CGFloat = 118
 }
 
-final class WalletStakingHeaderView: UITableViewHeaderFooterView, NibReusable {
+final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable {
 
     @IBOutlet private weak var labelEstimatedInterest: UILabel!
     @IBOutlet private weak var labelPercentTitle: UILabel!
@@ -24,16 +24,17 @@ final class WalletStakingHeaderView: UITableViewHeaderFooterView, NibReusable {
         
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var buttonHowWorkds: UIButton!
+    
     @IBOutlet weak var labelTotalProfit: UILabel!
     @IBOutlet weak var labelTotalProfitValue: UILabel!
     @IBOutlet weak var labelShare: UILabel!
+    @IBOutlet weak var tickerLabel: UILabel!
     
-    var howWorksAction:(() -> Void)?
-    var twAction:((String) -> Void)?
-    var fbAction:((String) -> Void)?
-    var vkAction:((String) -> Void)?
-    
-    private var sharedText = ""
+    var howWorksAction: (() -> Void)?
+    var twAction: (() -> Void)?
+    var fbAction: (() -> Void)?
+    var vkAction: (() -> Void)?
+        
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,7 +57,7 @@ final class WalletStakingHeaderView: UITableViewHeaderFooterView, NibReusable {
     
     private func setupLocalization() {
         labelEstimatedInterest.text = Localizable.Waves.Wallet.Stakingheader.estimatedInterest
-        labelPercentTitle.text = "% " + Localizable.Waves.Wallet.Stakingheader.perYear
+        labelPercentTitle.text = Localizable.Waves.Wallet.Stakingheader.perYear
         buttonHowWorkds.setTitle(Localizable.Waves.Wallet.Stakingheader.howItWorks, for: .normal)
         labelTotalProfit.text = Localizable.Waves.Wallet.Stakingheader.totalProfit
         labelShare.text = Localizable.Waves.Wallet.Stakingheader.share
@@ -67,28 +68,27 @@ final class WalletStakingHeaderView: UITableViewHeaderFooterView, NibReusable {
     }
     
     @IBAction private func twitterTapped(_ sender: Any) {
-        twAction?(sharedText)
+        twAction?()
     }
     
     @IBAction private func fbTapped(_ sender: Any) {
-        fbAction?(sharedText)
+        fbAction?()
     }
     
     @IBAction private func vkTapped(_ sender: Any) {
-        vkAction?(sharedText)
+        vkAction?()
     }
 }
 
-extension WalletStakingHeaderView: ViewConfiguration {
+extension StakingHeaderView: ViewConfiguration {
     
     func update(with model: WalletTypes.DTO.Staking.Profit) {
 
         setupLocalization()
-        
-        sharedText = Localizable.Waves.Wallet.sharedTitle(model.total.displayText,
-                                                          String(format: "%.02f%%", model.percent))
-        
-        labelTotalProfitValue.attributedText = .styleForBalance(text: model.total.displayText,
+                        
+        tickerLabel.text = model.total.currency.displayText
+        let balanceProfit = model.total.displayTextWithoutCurrencyName
+        labelTotalProfitValue.attributedText = .styleForBalance(text: balanceProfit ,
                                                                 font: labelTotalProfitValue.font,
                                                                 weight: .bold)
         
@@ -99,7 +99,7 @@ extension WalletStakingHeaderView: ViewConfiguration {
     }
 }
 
-extension WalletStakingHeaderView: ViewHeight {
+extension StakingHeaderView: ViewHeight {
     
     static func viewHeight() -> CGFloat {
         return Contants.height

@@ -7,28 +7,32 @@
 //
 
 import Foundation
+import Extensions
 
-public struct Balance: Equatable {
-    public struct Currency: Equatable {
-        public let title: String
-        public let ticker: String?
-        
-        public init(title: String, ticker: String?) {
-            self.title = title
-            self.ticker = ticker
+public extension DomainLayer.DTO {
+
+    struct Balance: Equatable {
+        public struct Currency: Equatable {
+            public let title: String
+            public let ticker: String?
+            
+            public init(title: String, ticker: String?) {
+                self.title = title
+                self.ticker = ticker
+            }
         }
-    }
 
-    public let currency: Currency
-    public let money: Money
-    
-    public init(currency: Currency, money: Money) {
-        self.currency = currency
-        self.money = money
+        public let currency: Currency
+        public let money: Money
+        
+        public init(currency: Currency, money: Money) {
+            self.currency = currency
+            self.money = money
+        }
     }
 }
 
-public extension Balance {
+public extension DomainLayer.DTO.Balance {
 
     enum Sign: String, Equatable {
         case none = ""
@@ -68,4 +72,11 @@ public extension Balance {
         return money.displayText
     }
 
+}
+
+public extension DomainLayer.DTO.Balance.Currency {
+    
+    var displayText: String {
+        return ticker ?? title
+    }
 }

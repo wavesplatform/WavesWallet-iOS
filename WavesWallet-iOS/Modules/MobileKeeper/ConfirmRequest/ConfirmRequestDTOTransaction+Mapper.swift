@@ -57,7 +57,7 @@ extension ConfirmRequest.DTO.Transaction  {
             return .descriptionLabel(Localizable.Waves.Transactioncard.Title.scriptInvocation)
             
         case .transfer(let tx):
-            return .balance(.init(balance: Balance.init(currency: .init(title: tx.asset.displayName,
+            return .balance(.init(balance: DomainLayer.DTO.Balance.init(currency: .init(title: tx.asset.displayName,
                                                                         ticker: tx.asset.ticker),
                                                         money: .init(tx.amount.amount,
                                                                      tx.asset.precision)),

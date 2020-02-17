@@ -582,7 +582,7 @@
 "wallet.stakingbalance.button.trade" = "Trade";
 "wallet.stakingbalance.button.buy" = "Buy";
 "wallet.stakingheader.estimatedInterest" = "Estimated Interest";
-"wallet.stakingheader.perYear" = "per year";
+"wallet.stakingheader.perYear" = "%% per year";
 "wallet.stakingheader.howItWorks" = "How it works?";
 "wallet.stakingheader.totalProfit" = "Total Profit";
 "wallet.stakingheader.share" = "Share";

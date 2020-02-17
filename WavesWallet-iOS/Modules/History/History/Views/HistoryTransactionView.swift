@@ -42,7 +42,7 @@ final class HistoryTransactionView: UIView, NibOwnerLoadable {
 
 fileprivate extension HistoryTransactionView {
 
-    func update(with asset: DomainLayer.DTO.Asset, balance: Balance, sign: Balance.Sign = .none) {
+    func update(with asset: DomainLayer.DTO.Asset, balance: DomainLayer.DTO.Balance, sign: DomainLayer.DTO.Balance.Sign = .none) {
 
         labelValue.attributedText = styleForBalance(balance, sign: sign, ticker: balance.currency.ticker, isSpam: asset.isSpam)
         
@@ -66,7 +66,7 @@ fileprivate extension HistoryTransactionView {
         
         var text = ""
         let balance = tx.amount
-        let sign: Balance.Sign!
+        let sign: DomainLayer.DTO.Balance.Sign!
         let ticker = balance.currency.ticker
         
         if tx.myOrder.kind == .sell {
@@ -87,7 +87,7 @@ fileprivate extension HistoryTransactionView {
         }
     }
     
-    func styleForBalance(_ balance: Balance, sign: Balance.Sign, ticker: String?, isSpam: Bool) -> NSAttributedString {
+    func styleForBalance(_ balance: DomainLayer.DTO.Balance, sign: DomainLayer.DTO.Balance.Sign, ticker: String?, isSpam: Bool) -> NSAttributedString {
         
         let balanceTitle = balance.displayShortText(sign: sign, withoutCurrency: ticker != nil || isSpam == true)
         let attr = NSMutableAttributedString.init(attributedString: .styleForBalance(text: balanceTitle, font: labelValue.font))

@@ -30,8 +30,8 @@ extension WalletTypes.DTO {
     struct Staking {
         
         struct Profit {
-            let percent: Double
-            let total: Money
+            let percent: Double 
+            let total: DomainLayer.DTO.Balance
         }
         
         struct Payout {
@@ -41,7 +41,7 @@ extension WalletTypes.DTO {
         
         struct Landing {
             let percent: Double
-            let minimumDeposit: Money
+            let minimumDeposit: DomainLayer.DTO.Balance
         }
         
         struct Balance {

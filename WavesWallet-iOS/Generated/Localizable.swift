@@ -3606,7 +3606,7 @@ internal enum Localizable {
         /// How it works?
         internal static var howItWorks: String { return Localizable.tr("Waves", "wallet.stakingheader.howItWorks") }
         internal static var howItWorksKey: String { return "wallet.stakingheader.howItWorks" }
-        /// per year
+        /// %% per year
         internal static var perYear: String { return Localizable.tr("Waves", "wallet.stakingheader.perYear") }
         internal static var perYearKey: String { return "wallet.stakingheader.perYear" }
         /// Share

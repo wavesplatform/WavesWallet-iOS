@@ -206,7 +206,7 @@ extension DomainLayer.DTO.TransferTransaction {
             return nil
         }
 
-        let feeBalance: Balance = feeAsset.balance(fee)
+        let feeBalance: DomainLayer.DTO.Balance = feeAsset.balance(fee)
 
         return .init(id: id,
                      type: type,
@@ -328,8 +328,8 @@ extension DomainLayer.DTO.ExchangeTransaction {
         let total = assetPair.totalBalance(priceAmount: self.price,
                                            assetAmount: self.amount)
 
-        var buyMatcherFee: Balance!
-        var sellMatcherFee: Balance!
+        var buyMatcherFee: DomainLayer.DTO.Balance!
+        var sellMatcherFee: DomainLayer.DTO.Balance!
         
         if let matcherFeeAssetId = order1.matcherFeeAssetId {
             guard let matcherFeeAsset = assets[matcherFeeAssetId] else { return nil }

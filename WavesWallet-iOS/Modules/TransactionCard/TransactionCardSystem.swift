@@ -280,11 +280,11 @@ fileprivate extension TransactionCardSystem {
             let feeAssetId = query.order.feeAsset ?? WavesSDKConstants.wavesAssetId
             
             let balance = self.getAsset(feeAssetId)
-                .flatMap({ [weak self] (asset) -> Observable<Balance> in
+                .flatMap({ [weak self] (asset) -> Observable<DomainLayer.DTO.Balance> in
                     
                     guard let self = self else { return Observable.empty() }
                     
-                    let fee: Observable<Balance> = { () -> Observable<Money> in
+                    let fee: Observable<DomainLayer.DTO.Balance> = { () -> Observable<Money> in
                         if let fee = query.order.fee {
                             return Observable.just(Money(fee, asset.precision))
                         } else {
@@ -293,7 +293,7 @@ fileprivate extension TransactionCardSystem {
                                                   feeAsset: feeAssetId)
                         }
                     }()
-                    .map { Balance(currency: .init(title: asset.displayName,
+                    .map { DomainLayer.DTO.Balance(currency: .init(title: asset.displayName,
                                                    ticker: asset.ticker),
                                    money: $0) }
                     

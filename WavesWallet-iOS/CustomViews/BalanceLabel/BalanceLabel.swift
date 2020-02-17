@@ -27,8 +27,8 @@ final class BalanceLabel: UIView, NibOwnerLoadable {
             case small
         }
 
-        let balance: Balance
-        let sign: Balance.Sign?
+        let balance: DomainLayer.DTO.Balance
+        let sign: DomainLayer.DTO.Balance.Sign?
         let style: Style
     }
 

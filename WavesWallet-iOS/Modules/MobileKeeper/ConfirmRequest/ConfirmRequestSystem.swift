@@ -191,7 +191,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
             
             for payment in tx.payment {
                 
-                let paymentBalance: BalanceLabel.Model = .init(balance: Balance.init(currency: .init(title: payment.asset.displayName,
+                let paymentBalance: BalanceLabel.Model = .init(balance: DomainLayer.DTO.Balance.init(currency: .init(title: payment.asset.displayName,
                                                                                                  ticker: payment.asset.ticker),
                                                                                      money: .init(payment.amount.amount,
                                                                                                   payment.asset.precision)),
@@ -224,11 +224,11 @@ fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
         let feeAsset = self.transaction.feeAsset
         let fee = self.transaction.fee
         
-        let feeBalance: BalanceLabel.Model = .init(balance: Balance.init(currency: .init(title: feeAsset.displayName,
+        let feeBalance: BalanceLabel.Model = .init(balance: DomainLayer.DTO.Balance.init(currency: .init(title: feeAsset.displayName,
                                                                                          ticker: feeAsset.ticker),
                                                                          money: .init(fee.amount,
                                                                                       feeAsset.precision)),
-                                                   sign: Balance.Sign.none,
+                                                   sign: DomainLayer.DTO.Balance.Sign.none,
                                                    style: .small)
         
         return ConfirmRequestFeeAndTimestampCell.Model(date: timestamp,
