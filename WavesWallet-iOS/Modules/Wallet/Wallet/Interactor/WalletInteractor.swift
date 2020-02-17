@@ -100,7 +100,8 @@ final class WalletInteractor: WalletInteractorProtocol {
                                                          balance: .init(total: Money(303043, 2), available: Money(243030, 2), inStaking: Money(43144, 2)),
                                                          lastPayouts: [],
                                                          landing: nil))
-//                        .init(percent: 12, minimumDeposit: Money(10000000000, 6)))
+                        
+//.init(percent: 12, minimumDeposit: Money(10000000000, 6)))
                     subscribe.onCompleted()
             }
             return Disposables.create()

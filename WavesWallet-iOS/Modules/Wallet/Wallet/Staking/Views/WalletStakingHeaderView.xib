@@ -11,40 +11,39 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WalletStakingHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="129"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rNa-mA-iCM">
-                    <rect key="frame" x="16" y="0.0" width="382" height="110"/>
+                    <rect key="frame" x="16" y="0.0" width="382" height="121"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OHB-BM-Y7z" customClass="GradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="186" height="110"/>
+                            <rect key="frame" x="0.0" y="0.0" width="186" height="121"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Interest" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQq-wN-vUg">
-                                    <rect key="frame" x="16" y="13" width="170" height="16"/>
+                                    <rect key="frame" x="16" y="12" width="160" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="21.23%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-aC-6iN">
-                                    <rect key="frame" x="16" y="31" width="60.5" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21.23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-aC-6iN">
+                                    <rect key="frame" x="16" y="32" width="45.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfc-ZX-bqZ">
-                                    <rect key="frame" x="78.5" y="37" width="9.5" height="13.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="% per year" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfc-ZX-bqZ">
+                                    <rect key="frame" x="63.5" y="35.5" width="56" height="13.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3D-an-RuV">
-                                    <rect key="frame" x="0.0" y="54.5" width="112" height="40"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3D-an-RuV">
+                                    <rect key="frame" x="16" y="64.5" width="85" height="14"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="Cb0-xw-52J"/>
+                                        <constraint firstAttribute="height" constant="14" id="e1o-dy-SaC"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                    <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
                                     <state key="normal" title="How it works?">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -53,7 +52,7 @@
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MyM-Ja-dqZ">
-                                    <rect key="frame" x="16" y="84" width="96" height="0.5"/>
+                                    <rect key="frame" x="16" y="78" width="85" height="0.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="0.5" id="AWH-RE-oBA"/>
@@ -63,18 +62,55 @@
                             <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
                                 <constraint firstItem="MyM-Ja-dqZ" firstAttribute="trailing" secondItem="a3D-an-RuV" secondAttribute="trailing" id="4Je-vj-yrg"/>
-                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="leading" secondItem="DIs-aC-6iN" secondAttribute="trailing" constant="2" id="9Gv-Fg-Vb7"/>
-                                <constraint firstItem="DIs-aC-6iN" firstAttribute="top" secondItem="KQq-wN-vUg" secondAttribute="bottom" constant="2" id="D0U-5u-zhI"/>
-                                <constraint firstItem="a3D-an-RuV" firstAttribute="top" secondItem="DIs-aC-6iN" secondAttribute="bottom" constant="3" id="PlK-rx-4bD"/>
-                                <constraint firstItem="KQq-wN-vUg" firstAttribute="top" secondItem="OHB-BM-Y7z" secondAttribute="top" constant="13" id="Qzm-WU-A3z"/>
-                                <constraint firstAttribute="trailing" secondItem="KQq-wN-vUg" secondAttribute="trailing" id="XzN-h7-bLH"/>
-                                <constraint firstItem="MyM-Ja-dqZ" firstAttribute="leading" secondItem="a3D-an-RuV" secondAttribute="leading" constant="16" id="Zf9-Im-1zo"/>
-                                <constraint firstItem="MyM-Ja-dqZ" firstAttribute="bottom" secondItem="a3D-an-RuV" secondAttribute="bottom" constant="-10" id="c46-5T-LOl"/>
-                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="bottom" secondItem="DIs-aC-6iN" secondAttribute="bottom" constant="-1" id="ff1-Y4-svf"/>
-                                <constraint firstItem="DIs-aC-6iN" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="lRr-zE-hHU"/>
+                                <constraint firstItem="DIs-aC-6iN" firstAttribute="top" secondItem="KQq-wN-vUg" secondAttribute="bottom" constant="4" id="D0U-5u-zhI"/>
+                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="centerY" secondItem="DIs-aC-6iN" secondAttribute="centerY" id="Mup-Iu-5f5"/>
+                                <constraint firstItem="a3D-an-RuV" firstAttribute="top" secondItem="DIs-aC-6iN" secondAttribute="bottom" constant="12" id="PlK-rx-4bD" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="a3D-an-RuV" secondAttribute="bottom" constant="28" id="QDL-Ry-2Yi"/>
+                                <constraint firstItem="KQq-wN-vUg" firstAttribute="top" secondItem="OHB-BM-Y7z" secondAttribute="top" constant="12" id="Qzm-WU-A3z"/>
+                                <constraint firstAttribute="trailing" secondItem="KQq-wN-vUg" secondAttribute="trailing" constant="10" id="XzN-h7-bLH"/>
+                                <constraint firstItem="MyM-Ja-dqZ" firstAttribute="leading" secondItem="a3D-an-RuV" secondAttribute="leading" id="Zf9-Im-1zo"/>
+                                <constraint firstItem="MyM-Ja-dqZ" firstAttribute="bottom" secondItem="a3D-an-RuV" secondAttribute="bottom" id="c46-5T-LOl"/>
+                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="leading" secondItem="DIs-aC-6iN" secondAttribute="trailing" constant="2" id="dfj-yz-nKb"/>
+                                <constraint firstItem="DIs-aC-6iN" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="lRr-zE-hHU" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a3D-an-RuV" secondAttribute="trailing" constant="10" id="soX-ja-hAf"/>
-                                <constraint firstItem="a3D-an-RuV" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" id="thW-Pb-DDr"/>
-                                <constraint firstItem="KQq-wN-vUg" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="yqo-SL-YJ1"/>
+                                <constraint firstItem="a3D-an-RuV" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="thW-Pb-DDr" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
+                                <constraint firstItem="KQq-wN-vUg" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="yqo-SL-YJ1" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -83,22 +119,22 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZoD-eL-eeR" customClass="GradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="196" y="0.0" width="186" height="110"/>
+                            <rect key="frame" x="196" y="0.0" width="186" height="121"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Profit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZl-19-EVs">
-                                    <rect key="frame" x="16" y="13" width="66" height="16"/>
+                                    <rect key="frame" x="16" y="12" width="160" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="99,999.12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DfT-5y-5Vm">
-                                    <rect key="frame" x="16" y="31" width="83" height="20.5"/>
+                                    <rect key="frame" x="16" y="32" width="83" height="20.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJX-mA-8kM">
-                                    <rect key="frame" x="106" y="33.5" width="44" height="16"/>
+                                    <rect key="frame" x="105" y="34.5" width="44" height="16"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD-N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3un-k2-XlX">
                                             <rect key="frame" x="0.0" y="0.0" width="44" height="16"/>
@@ -122,41 +158,48 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ws0-BJ-OWm">
-                                    <rect key="frame" x="16" y="59.5" width="35" height="16"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ws0-BJ-OWm">
+                                    <rect key="frame" x="16" y="60.5" width="35" height="22.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkE-R1-tEe">
-                                    <rect key="frame" x="50" y="75.5" width="30" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="Kw7-0m-khM"/>
-                                        <constraint firstAttribute="width" constant="30" id="wwO-II-Jsl"/>
-                                    </constraints>
+                                    <rect key="frame" x="48" y="86" width="20" height="22"/>
                                     <state key="normal" image="fb20White"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="fbTapped:" destination="-1" eventType="touchUpInside" id="VW8-0Q-CsM"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viz-O7-ZeU">
-                                    <rect key="frame" x="88" y="75.5" width="30" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="30" id="Ggm-nN-fqk"/>
-                                        <constraint firstAttribute="height" constant="30" id="sOx-CE-ojk"/>
-                                    </constraints>
+                                    <rect key="frame" x="80" y="86" width="20" height="22"/>
                                     <state key="normal" image="vk20White"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="vkTapped:" destination="-1" eventType="touchUpInside" id="5mH-02-Fz7"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lt2-t2-3rc">
-                                    <rect key="frame" x="12" y="75.5" width="30" height="30"/>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lt2-t2-3rc">
+                                    <rect key="frame" x="16" y="87" width="20" height="20"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="30" id="2Xa-J6-JD9"/>
-                                        <constraint firstAttribute="height" constant="30" id="bmu-fw-ZFz"/>
+                                        <constraint firstAttribute="width" constant="20" id="Oxa-QM-e9z"/>
+                                        <constraint firstAttribute="height" constant="20" id="mfI-wu-Z8d"/>
                                     </constraints>
                                     <state key="normal" image="twitter20White"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="twitterTapped:" destination="-2" eventType="touchUpInside" id="5ma-DJ-d8z"/>
                                     </connections>
@@ -165,18 +208,44 @@
                             <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
                                 <constraint firstItem="ws0-BJ-OWm" firstAttribute="top" secondItem="DfT-5y-5Vm" secondAttribute="bottom" constant="8" id="2Pv-EG-bVY"/>
-                                <constraint firstItem="DfT-5y-5Vm" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="8AC-0r-bTH"/>
+                                <constraint firstItem="DfT-5y-5Vm" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="8AC-0r-bTH" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
                                 <constraint firstItem="viz-O7-ZeU" firstAttribute="centerY" secondItem="kkE-R1-tEe" secondAttribute="centerY" id="ESZ-da-XsT"/>
-                                <constraint firstItem="kkE-R1-tEe" firstAttribute="leading" secondItem="Lt2-t2-3rc" secondAttribute="trailing" constant="8" symbolic="YES" id="KRB-xy-aAt"/>
-                                <constraint firstItem="TZl-19-EVs" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="LPC-VC-NaA"/>
+                                <constraint firstItem="kkE-R1-tEe" firstAttribute="leading" secondItem="Lt2-t2-3rc" secondAttribute="trailing" constant="12" id="KRB-xy-aAt"/>
+                                <constraint firstItem="TZl-19-EVs" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="LPC-VC-NaA" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
+                                <constraint firstAttribute="trailing" secondItem="TZl-19-EVs" secondAttribute="trailing" constant="10" id="VIC-Rx-oK3"/>
                                 <constraint firstItem="mJX-mA-8kM" firstAttribute="centerY" secondItem="DfT-5y-5Vm" secondAttribute="centerY" id="W2r-2K-XJl"/>
-                                <constraint firstItem="DfT-5y-5Vm" firstAttribute="top" secondItem="TZl-19-EVs" secondAttribute="bottom" constant="2" id="Xol-aw-N67"/>
-                                <constraint firstItem="TZl-19-EVs" firstAttribute="top" secondItem="ZoD-eL-eeR" secondAttribute="top" constant="13" id="bcV-tP-xwI"/>
-                                <constraint firstItem="viz-O7-ZeU" firstAttribute="leading" secondItem="kkE-R1-tEe" secondAttribute="trailing" constant="8" symbolic="YES" id="daz-QJ-FSf"/>
-                                <constraint firstItem="Lt2-t2-3rc" firstAttribute="leading" secondItem="ws0-BJ-OWm" secondAttribute="leading" constant="-4" id="fX8-ij-NNU"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mJX-mA-8kM" secondAttribute="trailing" constant="5" id="hjY-Il-Dv4"/>
-                                <constraint firstItem="Lt2-t2-3rc" firstAttribute="top" secondItem="ws0-BJ-OWm" secondAttribute="bottom" id="kqP-s1-8v6"/>
-                                <constraint firstItem="mJX-mA-8kM" firstAttribute="leading" secondItem="DfT-5y-5Vm" secondAttribute="trailing" constant="7" id="oHB-TQ-tPC"/>
+                                <constraint firstItem="DfT-5y-5Vm" firstAttribute="top" secondItem="TZl-19-EVs" secondAttribute="bottom" constant="4" id="Xol-aw-N67"/>
+                                <constraint firstItem="TZl-19-EVs" firstAttribute="top" secondItem="ZoD-eL-eeR" secondAttribute="top" constant="12" id="bcV-tP-xwI"/>
+                                <constraint firstItem="viz-O7-ZeU" firstAttribute="leading" secondItem="kkE-R1-tEe" secondAttribute="trailing" constant="12" id="daz-QJ-FSf"/>
+                                <constraint firstItem="Lt2-t2-3rc" firstAttribute="leading" secondItem="ws0-BJ-OWm" secondAttribute="leading" id="fX8-ij-NNU"/>
+                                <constraint firstAttribute="bottom" secondItem="Lt2-t2-3rc" secondAttribute="bottom" constant="14" id="fnw-LX-TT5"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mJX-mA-8kM" secondAttribute="trailing" constant="10" id="hjY-Il-Dv4"/>
+                                <constraint firstItem="Lt2-t2-3rc" firstAttribute="top" secondItem="ws0-BJ-OWm" secondAttribute="bottom" constant="4" id="kqP-s1-8v6"/>
+                                <constraint firstItem="mJX-mA-8kM" firstAttribute="leading" secondItem="DfT-5y-5Vm" secondAttribute="trailing" constant="6" id="oHB-TQ-tPC"/>
                                 <constraint firstItem="kkE-R1-tEe" firstAttribute="centerY" secondItem="Lt2-t2-3rc" secondAttribute="centerY" id="qhf-7J-61a"/>
                                 <constraint firstItem="ws0-BJ-OWm" firstAttribute="leading" secondItem="DfT-5y-5Vm" secondAttribute="leading" id="vfP-i0-gXm"/>
                             </constraints>
@@ -187,7 +256,6 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="ZoD-eL-eeR" secondAttribute="bottom" id="71q-Kn-v9s"/>
                         <constraint firstItem="ZoD-eL-eeR" firstAttribute="top" secondItem="rNa-mA-iCM" secondAttribute="top" id="9Jl-Cx-VGR"/>
@@ -202,7 +270,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="rNa-mA-iCM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="A0m-4T-V0X"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rNa-mA-iCM" secondAttribute="bottom" id="MMr-is-ehD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rNa-mA-iCM" secondAttribute="bottom" constant="8" id="MMr-is-ehD"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rNa-mA-iCM" secondAttribute="trailing" constant="16" id="VHB-AT-Whu"/>
                 <constraint firstItem="rNa-mA-iCM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Wao-Ep-6EL"/>
             </constraints>
@@ -220,7 +288,7 @@
                 <outlet property="viewEstimetedInterest" destination="OHB-BM-Y7z" id="ib0-4D-sHz"/>
                 <outlet property="viewProfit" destination="ZoD-eL-eeR" id="0Jl-me-zD6"/>
             </connections>
-            <point key="canvasLocation" x="137.59999999999999" y="121.4392803598201"/>
+            <point key="canvasLocation" x="137.59999999999999" y="129.98500749625188"/>
         </view>
     </objects>
     <resources>

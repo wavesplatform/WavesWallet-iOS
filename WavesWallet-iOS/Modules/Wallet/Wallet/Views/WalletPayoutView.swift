@@ -42,7 +42,7 @@ extension WalletPayoutView: ViewConfiguration {
     }
     
     func update(with model: Model) {
-    
+        
         labelProfit.text = Localizable.Waves.Wallet.Stakingpayouts.profit
         labelProfitValue.attributedText = .styleForBalance(text: "+\(model.balance.displayText)",
                                                            font: labelProfitValue.font)

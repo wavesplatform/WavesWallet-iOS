@@ -62,6 +62,7 @@ protocol ScrolledContainerViewProtocol {
     func scrolledContainerViewDidScrollToIndex(_ index: Int)
 }
 
+//TODO: Refactor
 final class ScrolledContainerView: UIScrollView {
     
     private(set) var tableViews: [UITableView] = []
@@ -319,6 +320,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             table.reloadData()
             table.contentInset.top = topOffset + segmentedHeight
             table.scrollIndicatorInsets.top = topOffset + segmentedHeight
+            
         }
         
         layoutIfNeeded()
@@ -472,9 +474,9 @@ private extension ScrolledContainerView {
             table.backgroundColor = .clear
             table.contentInset.top = segmentedHeight
             table.scrollIndicatorInsets.top = segmentedHeight
-            table.estimatedRowHeight = 0
-            table.estimatedSectionHeaderHeight = 0
-            table.sectionHeaderHeight = 0
+            table.estimatedRowHeight = UITableView.automaticDimension
+            table.estimatedSectionHeaderHeight = UITableView.automaticDimension
+            table.sectionHeaderHeight = UITableView.automaticDimension
             addSubview(table)
             tableViews.append(table)
         }

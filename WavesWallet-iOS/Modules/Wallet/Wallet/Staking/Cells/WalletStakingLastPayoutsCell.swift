@@ -1,4 +1,4 @@
-//
+    //
 //  WalletStakingLastPayoutsCell.swift
 //  WavesWallet-iOS
 //
@@ -30,7 +30,6 @@ final class WalletStakingLastPayoutsCell: UITableViewCell, NibReusable {
         collectionView.isPagingEnabled = true
         (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).minimumLineSpacing = Constants.collectionViewSpacing
     }
-    
 }
 
 extension WalletStakingLastPayoutsCell: ViewConfiguration {

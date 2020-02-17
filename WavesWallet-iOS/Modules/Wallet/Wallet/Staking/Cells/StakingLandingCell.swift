@@ -51,6 +51,7 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localizatio
     
     private static var totalProfitValue: Double? = nil
     private var profitValue: Double? = nil
+    private var deffaultProfitValue: Double? = nil
     
     public var startStaking: (() -> Void)?
     
@@ -92,9 +93,12 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localizatio
         
         StakingLandingCell.totalProfitValue = money
         
-        let amount = Int64(money * pow(10, Double(model.minimumDeposit.decimals)))
+        let deffaultValue = model.percent
+        let amount = Int64((money + (deffaultProfitValue ?? 0)) * pow(10, Double(model.minimumDeposit.decimals)))
+                                
         let totalValue = Money(amount,
                                model.minimumDeposit.decimals)
+        
                 
         labelMoney.attributedText = NSMutableAttributedString.stakingProfit(totalValue: totalValue)
     }
@@ -136,7 +140,10 @@ extension StakingLandingCell: ViewConfiguration {
         
         self.model = model
                 
-        self.profitValue = ((model.minimumDeposit.doubleValue * (model.percent / 100)) / Constants.secondYear) / 10
+        let deffaultProfitValue = model.minimumDeposit.doubleValue * (model.percent / 100)
+                    
+        self.deffaultProfitValue = deffaultProfitValue
+        self.profitValue = (deffaultProfitValue / Constants.secondYear) / 10
                         
         labelEarnPercent.attributedText = NSMutableAttributedString.stakingEarnPercent(percent: model.percent)
         labelAnnualInterests.text = Localizable.Waves.Staking.Landing.annualInterest

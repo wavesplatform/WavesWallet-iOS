@@ -2823,6 +2823,7 @@
 		0A4C9A2620ED3A180095A417 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				7BD579A523F413640001C601 /* Staking */,
 				0AF92215212E0F1F003BA067 /* Views */,
 				0A4B176220FC031E00F996F2 /* Interactor */,
 				0A4B175F20FC028500F996F2 /* Presenter */,
@@ -3391,8 +3392,6 @@
 				E98F1D2E22A5E2F200B4A8C4 /* WalletUpdateAppView.xib */,
 				E96358A322A73D62008A3395 /* WalletClearAssetsView.swift */,
 				E96358A522A73D70008A3395 /* WalletClearAssetsView.xib */,
-				E9DC661F23ECA96600889AA3 /* WalletStakingHeaderView.swift */,
-				E9DC662123ECA99800889AA3 /* WalletStakingHeaderView.xib */,
 				E988EDF223F26E3F00B742C1 /* WalletPayoutView.swift */,
 				E988EDF423F26E5100B742C1 /* WalletPayoutView.xib */,
 				0AF92217212E0F1F003BA067 /* Cells */,
@@ -3417,7 +3416,6 @@
 				E95E14F4229FF63B003552B8 /* WalletQuickNoteCell.xib */,
 				E95E151022A18C25003552B8 /* WalletSearchTableViewCell.swift */,
 				E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */,
-				7BD579A523F413640001C601 /* Staking */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4130,6 +4128,32 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
+		7B9542C223FAC77C0079AB18 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E9DC661B23ECA06600889AA3 /* StakingBalanceCell.swift */,
+				E9DC661C23ECA06600889AA3 /* StakingBalanceCell.xib */,
+				E988EDE823F2666E00B742C1 /* WalletStakingLastPyoutsTitleCell.swift */,
+				E988EDE923F2666E00B742C1 /* WalletStakingLastPyoutsTitleCell.xib */,
+				E988EDEC23F26D2900B742C1 /* WalletStakingLastPayoutsCell.swift */,
+				E988EDED23F26D2900B742C1 /* WalletStakingLastPayoutsCell.xib */,
+				E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */,
+				E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */,
+				E988EDFC23F2BD8500B742C1 /* StakingLandingCell.swift */,
+				E988EDFD23F2BD8500B742C1 /* StakingLandingCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7B9542C323FAC7A30079AB18 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9DC661F23ECA96600889AA3 /* WalletStakingHeaderView.swift */,
+				E9DC662123ECA99800889AA3 /* WalletStakingHeaderView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		7B97B03722FC784F008BA3F4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -4348,16 +4372,8 @@
 		7BD579A523F413640001C601 /* Staking */ = {
 			isa = PBXGroup;
 			children = (
-				E9DC661B23ECA06600889AA3 /* StakingBalanceCell.swift */,
-				E9DC661C23ECA06600889AA3 /* StakingBalanceCell.xib */,
-				E988EDE823F2666E00B742C1 /* WalletStakingLastPyoutsTitleCell.swift */,
-				E988EDE923F2666E00B742C1 /* WalletStakingLastPyoutsTitleCell.xib */,
-				E988EDEC23F26D2900B742C1 /* WalletStakingLastPayoutsCell.swift */,
-				E988EDED23F26D2900B742C1 /* WalletStakingLastPayoutsCell.xib */,
-				E988EDF623F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.swift */,
-				E988EDF723F2912300B742C1 /* WalletStakingPayoutCollectionViewCell.xib */,
-				E988EDFC23F2BD8500B742C1 /* StakingLandingCell.swift */,
-				E988EDFD23F2BD8500B742C1 /* StakingLandingCell.xib */,
+				7B9542C323FAC7A30079AB18 /* Views */,
+				7B9542C223FAC77C0079AB18 /* Cells */,
 			);
 			path = Staking;
 			sourceTree = "<group>";
