@@ -10,8 +10,7 @@ import UIKit
 import Extensions
 import DeviceKit
 
-private enum Constants {
-    static let height: CGFloat = 286
+private enum Constants {    
     static let progressBarPadding: CGFloat = 32
     static let progressBarMinMediumPercent: CGFloat = 3.5
     static let progressBarMinSmallPercent: CGFloat = 2
@@ -28,10 +27,11 @@ final class StakingBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var labelStakingTitle: UILabel!
     @IBOutlet private weak var labelAvailableTitle: UILabel!
     @IBOutlet private weak var labelAvailable: UILabel!
-    @IBOutlet private weak var labelWithdraw: UILabel!
-    @IBOutlet private weak var labelDeposit: UILabel!
-    @IBOutlet private weak var labelTrade: UILabel!
-    @IBOutlet private weak var labelBuy: UILabel!
+    
+    @IBOutlet private weak var withdrawButton: UIButton!
+    @IBOutlet private weak var depositButton: UIButton!
+    @IBOutlet private weak var tradeButton: UIButton!
+    @IBOutlet private weak var buyButton: UIButton!
     
     private var stakingPercent: CGFloat = 0
 
@@ -45,10 +45,10 @@ final class StakingBalanceCell: UITableViewCell, NibReusable {
         viewContainer.addTableCellShadowStyle()
         
         if Platform.isSmallDevices {
-            labelBuy.font = UIFont.systemFont(ofSize: 12)
-            labelDeposit.font = UIFont.systemFont(ofSize: 12)
-            labelWithdraw.font = UIFont.systemFont(ofSize: 12)
-            labelTrade.font = UIFont.systemFont(ofSize: 12)
+            buyButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            depositButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            withdrawButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            tradeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         }
     }
     
@@ -85,10 +85,18 @@ extension StakingBalanceCell: Localization {
         labelTotalBalanceTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.totalBalance
         labelAvailableTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.available
         labelStakingTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.staking
-        labelWithdraw.text = Localizable.Waves.Wallet.Stakingbalance.Button.withdraw
-        labelDeposit.text = Localizable.Waves.Wallet.Stakingbalance.Button.deposit
-        labelTrade.text = Localizable.Waves.Wallet.Stakingbalance.Button.trade
-        labelBuy.text = Localizable.Waves.Wallet.Stakingbalance.Button.buy
+        
+        buyButton.setTitle(Localizable.Waves.Wallet.Stakingbalance.Button.buy,
+                           for: .normal)
+        
+        withdrawButton.setTitle(Localizable.Waves.Wallet.Stakingbalance.Button.withdraw,
+                                for: .normal)
+        
+        depositButton.setTitle(Localizable.Waves.Wallet.Stakingbalance.Button.deposit,
+                               for: .normal)
+        
+        tradeButton.setTitle(Localizable.Waves.Wallet.Stakingbalance.Button.trade,
+                            for: .normal)
     }
 }
 
@@ -128,10 +136,3 @@ extension StakingBalanceCell: ViewConfiguration {
         setNeedsUpdateConstraints()
     }
 }
-
-//// MARK: ViewHeight
-//extension StakingBalanceCell: ViewHeight {
-//    static func viewHeight() -> CGFloat {
-//        return Constants.height
-//    }
-//}

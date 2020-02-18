@@ -15,12 +15,11 @@ private enum Constants {
 
 final class StakingPayoutCollectionViewCell: UICollectionViewCell, NibReusable {
 
-    @IBOutlet private weak var payoutView: WalletPayoutView!
-
+    @IBOutlet private weak var payoutView: StakingPayoutView!
 }
 
 // MARK: ViewConfiguration
-
+        
 extension StakingPayoutCollectionViewCell: ViewConfiguration {
     
     func update(with model: WalletTypes.DTO.Staking.Payout) {

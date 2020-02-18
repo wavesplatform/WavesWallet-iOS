@@ -371,15 +371,15 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .quickNote:
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
-            
+                
         case .stakingBalance:
             return UITableView.automaticDimension
             
         case .stakingLastPayoutsTitle:
-            return StakingLastPayoutsTitleCell.viewHeight()
+            return UITableView.automaticDimension
             
         case .stakingLastPayouts:
-            return StakingLastPayoutsCell.viewHeight()
+            return UITableView.automaticDimension
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()

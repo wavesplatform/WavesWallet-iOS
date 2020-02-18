@@ -109,7 +109,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                                                                         inStaking: .init(currency: .init(title: "USDB",
                                                                                                          ticker: "USDB"),
                                                                                          money: Money(45254, 2))),
-                                                         lastPayouts: [],
+                                                         lastPayouts: payouts,
                                                          landing: nil))
 //                        .init(currency: .init(title: "USDB",
 //                                        ticker: "USDB"),

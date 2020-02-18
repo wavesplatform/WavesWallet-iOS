@@ -45,14 +45,6 @@ extension StakingLastPayoutsCell: ViewConfiguration {
     }
 }
 
-// MARK: ViewHeight
-    
-extension StakingLastPayoutsCell: ViewHeight {
-    static func viewHeight() -> CGFloat {
-        return StakingPayoutCollectionViewCell.viewHeight()
-    }
-}
-
 // MARK: UICollectionViewDelegate
 
 extension StakingLastPayoutsCell: UICollectionViewDelegate {
@@ -100,7 +92,6 @@ extension StakingLastPayoutsCell: UICollectionViewDataSource {
 extension StakingLastPayoutsCell: UIScrollViewDelegate {
     
     //TODO: Duplicate code from AssetTransactionsCell.swift
-    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         if abs(velocity.x) < abs(velocity.y) { return }

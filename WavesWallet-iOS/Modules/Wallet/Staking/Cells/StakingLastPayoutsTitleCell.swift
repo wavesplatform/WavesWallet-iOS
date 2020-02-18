@@ -9,10 +9,6 @@
 import UIKit
 import Extensions
 
-private enum Constants {
-    static let height: CGFloat = 46
-}
-
 final class StakingLastPayoutsTitleCell: UITableViewCell, NibReusable {
 
     @IBOutlet private weak var labelTitle: UILabel!
@@ -27,11 +23,5 @@ extension StakingLastPayoutsTitleCell: ViewConfiguration {
     
     func update(with model: Void) {
         labelTitle.text = Localizable.Waves.Wallet.Stakingpayouts.lastPayouts
-    }
-}
-
-extension StakingLastPayoutsTitleCell: ViewHeight {
-    static func viewHeight() -> CGFloat {
-        return Constants.height
     }
 }

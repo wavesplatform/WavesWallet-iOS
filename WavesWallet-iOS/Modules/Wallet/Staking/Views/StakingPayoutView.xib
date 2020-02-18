@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StakingPayoutView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="labelDate" destination="1TM-pw-ww8" id="Nw7-IC-iDf"/>
+                <outlet property="labelProfit" destination="uWS-Xe-83m" id="ieQ-dO-UbP"/>
+                <outlet property="shadowView" destination="BUb-mv-3Fs" id="jS0-UW-ibk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="68"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUb-mv-3Fs">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="68"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTokenNeutrino" translatesAutoresizingMaskIntoConstraints="NO" id="f3S-Kh-vO0">
+                    <rect key="frame" x="14" y="10" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="fVC-OD-D9E"/>
+                        <constraint firstAttribute="height" constant="48" id="jDt-pc-cFh"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mab-Zr-tFG">
+                    <rect key="frame" x="70" y="3" width="344" height="62"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWS-Xe-83m">
+                            <rect key="frame" x="8" y="7" width="33" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="132" placeholderIntrinsicHeight="19" translatesAutoresizingMaskIntoConstraints="NO" id="0q7-L2-SXP">
+                            <rect key="frame" x="8" y="29" width="132" height="19"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dec 31, 2019" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TM-pw-ww8">
+                            <rect key="frame" x="259.5" y="24" width="68.5" height="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="0q7-L2-SXP" secondAttribute="bottom" constant="14" id="9dO-Kj-giJ"/>
+                        <constraint firstAttribute="trailing" secondItem="1TM-pw-ww8" secondAttribute="trailing" constant="16" id="KJw-U0-Jj8"/>
+                        <constraint firstItem="1TM-pw-ww8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0q7-L2-SXP" secondAttribute="trailing" constant="8" id="NZ9-1X-B56"/>
+                        <constraint firstItem="0q7-L2-SXP" firstAttribute="leading" secondItem="mab-Zr-tFG" secondAttribute="leading" constant="8" id="Num-Nm-yjW"/>
+                        <constraint firstItem="0q7-L2-SXP" firstAttribute="top" secondItem="uWS-Xe-83m" secondAttribute="bottom" constant="6" id="aeV-Fl-Raq"/>
+                        <constraint firstItem="uWS-Xe-83m" firstAttribute="leading" secondItem="mab-Zr-tFG" secondAttribute="leading" constant="8" id="b4I-8f-ZOj"/>
+                        <constraint firstItem="1TM-pw-ww8" firstAttribute="centerY" secondItem="mab-Zr-tFG" secondAttribute="centerY" id="xit-QT-KgS"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uWS-Xe-83m" firstAttribute="top" secondItem="f3S-Kh-vO0" secondAttribute="top" id="13R-7L-7ef"/>
+                <constraint firstItem="BUb-mv-3Fs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="8FD-nO-maY"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BUb-mv-3Fs" secondAttribute="trailing" id="Abm-iS-gWb"/>
+                <constraint firstItem="f3S-Kh-vO0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="EWA-Ru-5jr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="f3S-Kh-vO0" secondAttribute="bottom" constant="10" id="Ma7-Ok-jTI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mab-Zr-tFG" secondAttribute="trailing" id="OVk-ze-jn3"/>
+                <constraint firstItem="BUb-mv-3Fs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="RvF-59-aeI"/>
+                <constraint firstItem="mab-Zr-tFG" firstAttribute="leading" secondItem="f3S-Kh-vO0" secondAttribute="trailing" constant="8" id="Tnd-fW-jEF"/>
+                <constraint firstAttribute="bottom" secondItem="BUb-mv-3Fs" secondAttribute="bottom" id="hDI-ve-QS2"/>
+                <constraint firstItem="f3S-Kh-vO0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="14" id="jTM-Y9-coM"/>
+                <constraint firstItem="mab-Zr-tFG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="k18-gb-KYq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.59999999999999" y="-191.6041979010495"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iconTokenNeutrino" width="48" height="48"/>
+    </resources>
+</document>

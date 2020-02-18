@@ -156,14 +156,13 @@ extension WalletTypes.ViewModel.Section {
         
         rows.append(.stakingBalance(staking.balance))
         rows.append(.stakingLastPayoutsTitle)
-        
-//        staking.lastPayouts
-//        if staking.lastPayouts.count > 0 {
-            rows.append(.stakingLastPayouts([]))
+                
+        if staking.lastPayouts.count > 0 {
+            rows.append(.stakingLastPayouts(staking.lastPayouts))
             rows.append(.historyCell(.staking))
-//        } else {
+        } else {
             rows.append(.emptyHistoryPayouts)
-//        }
+        }
         
         return [.init(kind: .staking(staking.profit), items: rows, isExpanded: true)]
     }

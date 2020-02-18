@@ -100,6 +100,7 @@ internal enum Images {
   internal static let deleteAllCopy = ImageAsset(name: "deleteAllCopy")
   internal static let dex = ImageAsset(name: "dex")
   internal static let dex80 = ImageAsset(name: "dex80")
+  internal static let disableBg = ImageAsset(name: "disableBg")
   internal static let disclosure = ImageAsset(name: "disclosure")
   internal static let doneBtn = ImageAsset(name: "done_btn")
   internal static let downChevron = ImageAsset(name: "down-chevron")
@@ -417,6 +418,7 @@ internal enum Images {
     deleteAllCopy,
     dex,
     dex80,
+    disableBg,
     disclosure,
     doneBtn,
     downChevron,

@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Payouts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqA-Pg-7DK">
-                        <rect key="frame" x="16" y="17" width="78" height="16"/>
+                        <rect key="frame" x="16" y="10" width="288" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -26,7 +26,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="aqA-Pg-7DK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5y1-GP-y5l"/>
-                    <constraint firstItem="aqA-Pg-7DK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Oxe-Zw-jJV"/>
+                    <constraint firstAttribute="trailing" secondItem="aqA-Pg-7DK" secondAttribute="trailing" constant="16" id="b0J-Yz-KIn"/>
+                    <constraint firstAttribute="bottom" secondItem="aqA-Pg-7DK" secondAttribute="bottom" constant="18" id="cQR-DF-gZY"/>
+                    <constraint firstItem="aqA-Pg-7DK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ewN-3i-ace"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
