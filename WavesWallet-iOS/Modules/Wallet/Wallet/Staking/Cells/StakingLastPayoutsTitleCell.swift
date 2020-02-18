@@ -13,7 +13,7 @@ private enum Constants {
     static let height: CGFloat = 46
 }
 
-final class WalletStakingLastPyoutsTitleCell: UITableViewCell, NibReusable {
+final class StakingLastPayoutsTitleCell: UITableViewCell, NibReusable {
 
     @IBOutlet private weak var labelTitle: UILabel!
     
@@ -23,14 +23,14 @@ final class WalletStakingLastPyoutsTitleCell: UITableViewCell, NibReusable {
 
 }
 
-extension WalletStakingLastPyoutsTitleCell: ViewConfiguration {
+extension StakingLastPayoutsTitleCell: ViewConfiguration {
     
     func update(with model: Void) {
         labelTitle.text = Localizable.Waves.Wallet.Stakingpayouts.lastPayouts
     }
 }
 
-extension WalletStakingLastPyoutsTitleCell: ViewHeight {
+extension StakingLastPayoutsTitleCell: ViewHeight {
     static func viewHeight() -> CGFloat {
         return Constants.height
     }

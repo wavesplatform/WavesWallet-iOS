@@ -158,6 +158,28 @@ extension StakingLandingCell: ViewConfiguration {
     }
 }
 
+//MARK: UIScrollViewDelegate
+
+extension StakingLandingCell: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.pageControl.currentPage = scrollView.currentPage
+        ifNeedUpdateNextButton()
+    }
+}
+
+//MARK: UIScrollViewDelegate
+
+extension StakingLandingCell: TTTAttributedLabelDelegate {
+    
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        
+        guard let url = url else { return }
+        
+        self.didSelectLinkWith?(url)
+    }
+}
+
 // MARK: NSMutableAttributedString
 
 fileprivate extension NSMutableAttributedString {
@@ -218,27 +240,5 @@ fileprivate extension NSMutableAttributedString {
                            range: faqRange)
                     
         return (string: attr, faqRange: faqRange)
-    }
-}
-
-//MARK: UIScrollViewDelegate
-
-extension StakingLandingCell: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.pageControl.currentPage = scrollView.currentPage
-        ifNeedUpdateNextButton()
-    }
-}
-
-//MARK: UIScrollViewDelegate
-
-extension StakingLandingCell: TTTAttributedLabelDelegate {
-    
-    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        
-        guard let url = url else { return }
-        
-        self.didSelectLinkWith?(url)
     }
 }

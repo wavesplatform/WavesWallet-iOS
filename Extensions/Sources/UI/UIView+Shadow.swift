@@ -114,9 +114,7 @@ extension UIView {
         if self.borderWidth != Constants.deffaultValue {
             layer.borderWidth = CGFloat(self.borderWidth) / UIScreen.main.scale
             layer.borderColor = self.borderColor?.cgColor
-        }
-
-        
+        }        
     }
 
     @objc private func swizzled_shadow_layoutSubviews() {

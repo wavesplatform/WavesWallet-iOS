@@ -26,7 +26,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21.23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-aC-6iN">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="21.23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-aC-6iN">
                                     <rect key="frame" x="16" y="32" width="45.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -38,7 +38,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3D-an-RuV">
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3D-an-RuV">
                                     <rect key="frame" x="16" y="64.5" width="85" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="e1o-dy-SaC"/>
@@ -127,45 +127,14 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="99,999.12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DfT-5y-5Vm">
-                                    <rect key="frame" x="16" y="32" width="83" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJX-mA-8kM">
-                                    <rect key="frame" x="105" y="34.5" width="44" height="16"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD-N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3un-k2-XlX">
-                                            <rect key="frame" x="0.0" y="0.0" width="44" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.99999600648880005" green="1" blue="1" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="3un-k2-XlX" firstAttribute="top" secondItem="mJX-mA-8kM" secondAttribute="top" id="2V3-Wj-OGF"/>
-                                        <constraint firstItem="3un-k2-XlX" firstAttribute="leading" secondItem="mJX-mA-8kM" secondAttribute="leading" id="934-Wp-8Rk"/>
-                                        <constraint firstAttribute="width" constant="44" id="TMj-yi-erL"/>
-                                        <constraint firstAttribute="trailing" secondItem="3un-k2-XlX" secondAttribute="trailing" id="WpP-1B-Jqy"/>
-                                        <constraint firstAttribute="height" constant="16" id="lbi-qY-qi6"/>
-                                        <constraint firstAttribute="bottom" secondItem="3un-k2-XlX" secondAttribute="bottom" id="sf1-QQ-h8B"/>
-                                    </constraints>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                            <real key="value" value="2"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ws0-BJ-OWm">
-                                    <rect key="frame" x="16" y="60.5" width="35" height="22.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" text="Share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ws0-BJ-OWm">
+                                    <rect key="frame" x="16" y="67" width="35" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkE-R1-tEe">
-                                    <rect key="frame" x="48" y="77" width="40" height="40"/>
+                                    <rect key="frame" x="48" y="86" width="20" height="22"/>
                                     <state key="normal" image="fb20White"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
@@ -177,7 +146,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viz-O7-ZeU">
-                                    <rect key="frame" x="100" y="77" width="40" height="40"/>
+                                    <rect key="frame" x="80" y="86" width="20" height="22"/>
                                     <state key="normal" image="vk20White"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
@@ -204,23 +173,15 @@
                                         <action selector="twitterTapped:" destination="-2" eventType="touchUpInside" id="5ma-DJ-d8z"/>
                                     </connections>
                                 </button>
+                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="162" placeholderIntrinsicHeight="27" translatesAutoresizingMaskIntoConstraints="NO" id="Nwn-9U-WM3" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="32" width="162" height="27"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
-                                <constraint firstItem="ws0-BJ-OWm" firstAttribute="top" secondItem="DfT-5y-5Vm" secondAttribute="bottom" constant="8" id="2Pv-EG-bVY"/>
-                                <constraint firstItem="DfT-5y-5Vm" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="8AC-0r-bTH" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
-                                            <real key="value" value="12"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
-                                            <real key="value" value="12"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
-                                            <real key="value" value="12"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </constraint>
+                                <constraint firstItem="ws0-BJ-OWm" firstAttribute="top" secondItem="Nwn-9U-WM3" secondAttribute="bottom" constant="8" id="4mb-2n-nzT"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nwn-9U-WM3" secondAttribute="trailing" constant="8" id="D0h-Id-l7I"/>
                                 <constraint firstItem="viz-O7-ZeU" firstAttribute="centerY" secondItem="kkE-R1-tEe" secondAttribute="centerY" id="ESZ-da-XsT"/>
                                 <constraint firstItem="kkE-R1-tEe" firstAttribute="leading" secondItem="Lt2-t2-3rc" secondAttribute="trailing" constant="12" id="KRB-xy-aAt"/>
                                 <constraint firstItem="TZl-19-EVs" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="LPC-VC-NaA" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -237,17 +198,15 @@
                                     </userDefinedRuntimeAttributes>
                                 </constraint>
                                 <constraint firstAttribute="trailing" secondItem="TZl-19-EVs" secondAttribute="trailing" constant="10" id="VIC-Rx-oK3"/>
-                                <constraint firstItem="mJX-mA-8kM" firstAttribute="centerY" secondItem="DfT-5y-5Vm" secondAttribute="centerY" id="W2r-2K-XJl"/>
-                                <constraint firstItem="DfT-5y-5Vm" firstAttribute="top" secondItem="TZl-19-EVs" secondAttribute="bottom" constant="4" id="Xol-aw-N67"/>
                                 <constraint firstItem="TZl-19-EVs" firstAttribute="top" secondItem="ZoD-eL-eeR" secondAttribute="top" constant="12" id="bcV-tP-xwI"/>
                                 <constraint firstItem="viz-O7-ZeU" firstAttribute="leading" secondItem="kkE-R1-tEe" secondAttribute="trailing" constant="12" id="daz-QJ-FSf"/>
                                 <constraint firstItem="Lt2-t2-3rc" firstAttribute="leading" secondItem="ws0-BJ-OWm" secondAttribute="leading" id="fX8-ij-NNU"/>
                                 <constraint firstAttribute="bottom" secondItem="Lt2-t2-3rc" secondAttribute="bottom" constant="14" id="fnw-LX-TT5"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mJX-mA-8kM" secondAttribute="trailing" constant="10" id="hjY-Il-Dv4"/>
+                                <constraint firstItem="ws0-BJ-OWm" firstAttribute="leading" secondItem="Nwn-9U-WM3" secondAttribute="leading" id="ftb-7K-bd4"/>
+                                <constraint firstItem="Nwn-9U-WM3" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="jN8-r0-mR7"/>
                                 <constraint firstItem="Lt2-t2-3rc" firstAttribute="top" secondItem="ws0-BJ-OWm" secondAttribute="bottom" constant="4" id="kqP-s1-8v6"/>
-                                <constraint firstItem="mJX-mA-8kM" firstAttribute="leading" secondItem="DfT-5y-5Vm" secondAttribute="trailing" constant="6" id="oHB-TQ-tPC"/>
+                                <constraint firstItem="Nwn-9U-WM3" firstAttribute="top" secondItem="TZl-19-EVs" secondAttribute="bottom" constant="4" id="p2D-AZ-tym"/>
                                 <constraint firstItem="kkE-R1-tEe" firstAttribute="centerY" secondItem="Lt2-t2-3rc" secondAttribute="centerY" id="qhf-7J-61a"/>
-                                <constraint firstItem="ws0-BJ-OWm" firstAttribute="leading" secondItem="DfT-5y-5Vm" secondAttribute="leading" id="vfP-i0-gXm"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -277,14 +236,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="balanceLabel" destination="Nwn-9U-WM3" id="vZp-sM-LQu"/>
                 <outlet property="buttonHowWorkds" destination="a3D-an-RuV" id="tdR-Bm-KvE"/>
                 <outlet property="labelEstimatedInterest" destination="KQq-wN-vUg" id="zI0-6y-huz"/>
                 <outlet property="labelPercent" destination="DIs-aC-6iN" id="U0v-Wp-B9M"/>
                 <outlet property="labelPercentTitle" destination="wfc-ZX-bqZ" id="PFP-6Q-n5d"/>
                 <outlet property="labelShare" destination="ws0-BJ-OWm" id="PTP-58-emY"/>
                 <outlet property="labelTotalProfit" destination="TZl-19-EVs" id="RTz-Bp-jJI"/>
-                <outlet property="labelTotalProfitValue" destination="DfT-5y-5Vm" id="sT2-Es-yB1"/>
-                <outlet property="tickerLabel" destination="3un-k2-XlX" id="DK9-kR-9e5"/>
                 <outlet property="viewContainer" destination="rNa-mA-iCM" id="YK3-zc-BSj"/>
                 <outlet property="viewEstimetedInterest" destination="OHB-BM-Y7z" id="ib0-4D-sHz"/>
                 <outlet property="viewProfit" destination="ZoD-eL-eeR" id="0Jl-me-zD6"/>

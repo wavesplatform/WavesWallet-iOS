@@ -11,7 +11,7 @@ import WavesSDKCrypto
 
 public extension DomainLayer.DTO {
     
-    public class PrivateKey: DomainLayer.DTO.PublicKey {
+    class PrivateKey: DomainLayer.DTO.PublicKey {
         
         public let privateKey: [UInt8]
         public let seed: [UInt8]

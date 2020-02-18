@@ -213,12 +213,12 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
 
         case .stakingLastPayoutsTitle:
-            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLastPyoutsTitleCell
+            let cell = tableView.dequeueAndRegisterCell() as StakingLastPayoutsTitleCell
             cell.update(with: ())
             return cell
             
         case .stakingLastPayouts(let payouts):
-            let cell = tableView.dequeueAndRegisterCell() as WalletStakingLastPayoutsCell
+            let cell = tableView.dequeueAndRegisterCell() as StakingLastPayoutsCell
             cell.update(with: payouts)
             cell.didSelectPayout = { [weak self] payout in
                 self?.delegate?.showPayout(payout: payout)
@@ -373,19 +373,18 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
             
         case .stakingBalance:
-            return StakingBalanceCell.viewHeight()
+            return UITableView.automaticDimension
             
         case .stakingLastPayoutsTitle:
-            return WalletStakingLastPyoutsTitleCell.viewHeight()
+            return StakingLastPayoutsTitleCell.viewHeight()
             
         case .stakingLastPayouts:
-            return WalletStakingLastPayoutsCell.viewHeight()
+            return StakingLastPayoutsCell.viewHeight()
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()
             
         case .landing:
-            
             return UITableView.automaticDimension
         }
     }

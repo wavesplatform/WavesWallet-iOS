@@ -26,20 +26,19 @@ final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable {
     @IBOutlet private weak var buttonHowWorkds: UIButton!
     
     @IBOutlet weak var labelTotalProfit: UILabel!
-    @IBOutlet weak var labelTotalProfitValue: UILabel!
     @IBOutlet weak var labelShare: UILabel!
-    @IBOutlet weak var tickerLabel: UILabel!
+    @IBOutlet weak var balanceLabel: BalanceLabel!
+    
     
     var howWorksAction: (() -> Void)?
     var twAction: (() -> Void)?
     var fbAction: (() -> Void)?
     var vkAction: (() -> Void)?
         
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        viewProfit.setupShadow(options: .init(offset: CGSize(width: 0, height: 2),
+        viewProfit.setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
                                               color: .black,
                                               opacity: 0.1,
                                               shadowRadius: 4,
@@ -86,16 +85,19 @@ extension StakingHeaderView: ViewConfiguration {
 
         setupLocalization()
                         
-        tickerLabel.text = model.total.currency.displayText
-        let balanceProfit = model.total.displayTextWithoutCurrencyName
-        labelTotalProfitValue.attributedText = .styleForBalance(text: balanceProfit ,
-                                                                font: labelTotalProfitValue.font,
-                                                                weight: .bold)
+        let backgroundColor: UIColor = UIColor.white.withAlphaComponent(0.15)
+        
+        balanceLabel.update(with: .init(balance: model.total,
+                                        sign: nil,
+                                        style: .custom(font: UIFont.systemFont(ofSize: 17,
+                                                                               weight: .bold),
+                                                       textColor: .white,
+                                                       tickerStyle: .custom(backgroundColor: backgroundColor,
+                                                                            textColor: .white))))
         
         labelPercent.attributedText = .styleForBalance(text: String(format: "%.02f", model.percent),
                                                        font: labelPercent.font,
                                                        weight: .bold)
-        
     }
 }
 

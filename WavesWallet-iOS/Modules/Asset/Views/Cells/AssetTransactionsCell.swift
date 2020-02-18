@@ -31,7 +31,10 @@ final class AssetTransactionsCell: UITableViewCell, Reusable {
         collectionView.backgroundColor = .basic50
         collectionView.contentInset = Constants.contentInset
         collectionView.isPagingEnabled = true
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).minimumLineSpacing = Constants.collectionViewSpacing
+        
+        if let collectionViewLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            collectionViewLayout.minimumLineSpacing = Constants.collectionViewSpacing
+        }
     }
 
     class func cellHeight() -> CGFloat {

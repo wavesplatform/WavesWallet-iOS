@@ -13,20 +13,24 @@ private enum Constants {
     static let height: CGFloat = 76
 }
 
-final class WalletStakingPayoutCollectionViewCell: UICollectionViewCell, NibReusable {
+final class StakingPayoutCollectionViewCell: UICollectionViewCell, NibReusable {
 
     @IBOutlet private weak var payoutView: WalletPayoutView!
 
 }
 
-extension WalletStakingPayoutCollectionViewCell: ViewConfiguration {
+// MARK: ViewConfiguration
+
+extension StakingPayoutCollectionViewCell: ViewConfiguration {
     
     func update(with model: WalletTypes.DTO.Staking.Payout) {
         payoutView.update(with: .init(balance: model.money, date: model.date))
     }
 }
 
-extension WalletStakingPayoutCollectionViewCell: ViewHeight {
+// MARK: ViewHeight
+
+extension StakingPayoutCollectionViewCell: ViewHeight {
     static func viewHeight() -> CGFloat {
         return Constants.height
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Extensions
+import DeviceKit
 
 private enum Constants {
     static let height: CGFloat = 286
@@ -19,8 +20,9 @@ private enum Constants {
 final class StakingBalanceCell: UITableViewCell, NibReusable {
 
     @IBOutlet private weak var viewContainer: UIView!
-    @IBOutlet private weak var labelTotalBalance: UILabel!
     @IBOutlet private weak var labelTotalBalanceTitle: UILabel!
+    @IBOutlet private weak var totalBalanceLabel: BalanceLabel!
+    
     @IBOutlet private weak var leasedWidth: NSLayoutConstraint!
     @IBOutlet private weak var labelStaking: UILabel!
     @IBOutlet private weak var labelStakingTitle: UILabel!
@@ -41,6 +43,13 @@ final class StakingBalanceCell: UITableViewCell, NibReusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
+        
+        if Platform.isSmallDevices {
+            labelBuy.font = UIFont.systemFont(ofSize: 12)
+            labelDeposit.font = UIFont.systemFont(ofSize: 12)
+            labelWithdraw.font = UIFont.systemFont(ofSize: 12)
+            labelTrade.font = UIFont.systemFont(ofSize: 12)
+        }
     }
     
     override func updateConstraints() {
@@ -66,8 +75,13 @@ final class StakingBalanceCell: UITableViewCell, NibReusable {
     @IBAction private func buyTapped(_ sender: Any) {
         buyAction?()
     }
+}
+
+// MARK: Localization
+
+extension StakingBalanceCell: Localization {
     
-    private func setupLocalization() {
+    func setupLocalization() {
         labelTotalBalanceTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.totalBalance
         labelAvailableTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.available
         labelStakingTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.staking
@@ -78,40 +92,46 @@ final class StakingBalanceCell: UITableViewCell, NibReusable {
     }
 }
 
+// MARK: ViewConfiguration
+
 extension StakingBalanceCell: ViewConfiguration {
     
     func update(with model: WalletTypes.DTO.Staking.Balance) {
         
         setupLocalization()
         
+        let inStakingBalance = model.inStaking.money
+        let availableBalance = model.available.money
+                        
         labelAvailable.attributedText = .styleForBalance(text: model.available.displayText,
                                                          font: labelAvailable.font)
 
         labelStaking.attributedText = .styleForBalance(text: model.inStaking.displayText,
                                                        font: labelStaking.font)
-
-        labelTotalBalance.attributedText = .styleForBalance(text: model.total.displayText,
-                                                            font: labelTotalBalance.font)
+            
+        totalBalanceLabel.update(with: .init(balance: model.total,
+                                             sign: nil,
+                                             style: .large))
         
-        stakingPercent = CGFloat(model.inStaking.amount) / CGFloat(model.available.amount) * 100
-
-        if stakingPercent < Constants.progressBarMinSmallPercent {
-            stakingPercent = Constants.progressBarMinSmallPercent
-        }
+        stakingPercent = CGFloat(inStakingBalance.amount) / CGFloat(availableBalance.amount) * 100
 
         if stakingPercent.isNaN {
             stakingPercent = 0
         }
-
+        
+        if stakingPercent < Constants.progressBarMinSmallPercent {
+            stakingPercent = Constants.progressBarMinSmallPercent
+        }
+    
         stakingPercent = min(stakingPercent, 100)
 
         setNeedsUpdateConstraints()
-
     }
 }
 
-extension StakingBalanceCell: ViewHeight {
-    static func viewHeight() -> CGFloat {
-        return Constants.height
-    }
-}
+//// MARK: ViewHeight
+//extension StakingBalanceCell: ViewHeight {
+//    static func viewHeight() -> CGFloat {
+//        return Constants.height
+//    }
+//}

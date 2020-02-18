@@ -45,9 +45,9 @@ extension WalletTypes.DTO {
         }
         
         struct Balance {
-            let total: Money
-            let available: Money
-            let inStaking: Money
+            let total: DomainLayer.DTO.Balance
+            let available: DomainLayer.DTO.Balance
+            let inStaking: DomainLayer.DTO.Balance
         }
         
         let profit: Profit

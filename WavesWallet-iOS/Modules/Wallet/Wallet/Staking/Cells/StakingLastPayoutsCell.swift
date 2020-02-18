@@ -14,7 +14,8 @@ private enum Constants {
     static let contentInset = UIEdgeInsets.init(top: 0, left: 16, bottom: 0, right: 16)
 }
 
-final class WalletStakingLastPayoutsCell: UITableViewCell, NibReusable {
+//TODO: Copy/Paste from AssetTransactionsCell
+final class StakingLastPayoutsCell: UITableViewCell, NibReusable {
 
     @IBOutlet private weak var collectionView: UICollectionView!
     
@@ -28,11 +29,15 @@ final class WalletStakingLastPayoutsCell: UITableViewCell, NibReusable {
         
         collectionView.contentInset = Constants.contentInset
         collectionView.isPagingEnabled = true
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).minimumLineSpacing = Constants.collectionViewSpacing
+        if let collectionViewLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            collectionViewLayout.minimumLineSpacing = Constants.collectionViewSpacing
+        }
     }
 }
 
-extension WalletStakingLastPayoutsCell: ViewConfiguration {
+// MARK: ViewConfiguration
+    
+extension StakingLastPayoutsCell: ViewConfiguration {
     
     func update(with model: [WalletTypes.DTO.Staking.Payout]) {
         lastPayouts = model
@@ -40,15 +45,17 @@ extension WalletStakingLastPayoutsCell: ViewConfiguration {
     }
 }
 
-extension WalletStakingLastPayoutsCell: ViewHeight {
+// MARK: ViewHeight
+    
+extension StakingLastPayoutsCell: ViewHeight {
     static func viewHeight() -> CGFloat {
-        return WalletStakingPayoutCollectionViewCell.viewHeight()
+        return StakingPayoutCollectionViewCell.viewHeight()
     }
 }
 
 // MARK: UICollectionViewDelegate
 
-extension WalletStakingLastPayoutsCell: UICollectionViewDelegate {
+extension StakingLastPayoutsCell: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
@@ -60,17 +67,17 @@ extension WalletStakingLastPayoutsCell: UICollectionViewDelegate {
 
 // MARK: UICollectionViewDelegate
 
-extension WalletStakingLastPayoutsCell: UICollectionViewDelegateFlowLayout {
+extension StakingLastPayoutsCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width - Constants.contentInset.left * 2,
-                      height: WalletStakingPayoutCollectionViewCell.viewHeight())
+                      height: StakingPayoutCollectionViewCell.viewHeight())
     }
 }
 
 // MARK: UICollectionViewDataSource
 
-extension WalletStakingLastPayoutsCell: UICollectionViewDataSource {
+extension StakingLastPayoutsCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return lastPayouts.count
@@ -82,7 +89,7 @@ extension WalletStakingLastPayoutsCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell: WalletStakingPayoutCollectionViewCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
+        let cell: StakingPayoutCollectionViewCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
 
         cell.update(with: lastPayouts[indexPath.row])
 
@@ -90,7 +97,7 @@ extension WalletStakingLastPayoutsCell: UICollectionViewDataSource {
     }
 }
 
-extension WalletStakingLastPayoutsCell: UIScrollViewDelegate {
+extension StakingLastPayoutsCell: UIScrollViewDelegate {
     
     //TODO: Duplicate code from AssetTransactionsCell.swift
     

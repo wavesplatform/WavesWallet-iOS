@@ -110,11 +110,14 @@ final class WalletViewController: UIViewController {
         scrolledTablesComponent.reloadData()
     }
     
+    var isAssetDisplay: Bool {
+        return scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue
+    }
+    
     //TODO: Refactor method. I dont know how its work
     var isNeedSetupSearchBarPosition: Bool {
         
-        displayData.isAssetsSectionsHaveSearch &&
-            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue &&
+        return displayData.isAssetsSectionsHaveSearch && isAssetDisplay &&
             scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
             scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
             scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
@@ -264,7 +267,10 @@ extension WalletViewController {
         return [subscriptionSections]
     }
 
-    func addTopViewBanners(hasData: Bool, isShowCleanWalletBanner: Bool, isHasAppUpdate: Bool) {
+    func addTopViewBanners(hasData: Bool,
+                           isShowCleanWalletBanner: Bool,
+                           isHasAppUpdate: Bool) {
+        
         if hasData && !hasAddingViewBanners {
             hasAddingViewBanners = true
             if isHasAppUpdate {
@@ -383,8 +389,7 @@ private extension WalletViewController {
             var offset: CGFloat = 0
             if diff > WalletSearchTableViewCell.viewHeight() / 2 {
                 offset = -scrolledTablesComponent.smallTopOffset
-            }
-            else {
+            } else {
                 offset = -scrolledTablesComponent.smallTopOffset + WalletSearchTableViewCell.viewHeight()
             }
             offset += scrolledTablesComponent.topOffset
@@ -393,7 +398,6 @@ private extension WalletViewController {
             scrolledTablesComponent.setContentOffset(.init(x: 0, y: offset), animated: true)
         }
     }
-
     
     func setupLanguages() {
         navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
@@ -416,7 +420,8 @@ private extension WalletViewController {
     }
 
     func setupSegmetedControl() {
-        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.segmentedItem }, tableDataSource: displayData, tableDelegate: displayData)
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.segmentedItem },
+                                      tableDataSource: displayData, tableDelegate: displayData)
     }
 }
 
@@ -432,6 +437,7 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 // MARK: WalletDisplayDataDelegate
 
 extension WalletViewController: WalletDisplayDataDelegate {
+    
     func startStakingTapped() {
         sendEvent.accept(.startStaking)
     }

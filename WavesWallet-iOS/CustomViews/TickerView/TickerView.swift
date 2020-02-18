@@ -18,10 +18,13 @@ fileprivate enum Constants {
 final class TickerView: UIView, NibOwnerLoadable {
 
     struct Model {
-
+        
+        //TODO: Rename
         enum Style {
-            case soft // Example Money Ticker
-            case normal // Example Spam Ticker
+            case soft //SPAM
+            case normal //ticker
+            case custom(backgroundColor: UIColor,
+                        textColor: UIColor) //TICKER
         }
 
         let text: String
@@ -42,15 +45,27 @@ final class TickerView: UIView, NibOwnerLoadable {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        layer.removeBorder()
+        
         switch style {
         case .normal:
             backgroundColor = .basic100
+            titleLabel.textColor = .info500
             layer.clip(cornerRadius: Constants.cornerRadius)
-            layer.removeBorder()
-            
+                        
         case .soft:
             backgroundColor = .white
-            layer.border(cornerRadius: Constants.cornerRadius, borderWidth: 0.5, borderColor: .info500)
+            titleLabel.textColor = .info500
+            layer.border(cornerRadius: Constants.cornerRadius,
+                         borderWidth: 0.5, borderColor: .info500)
+            
+        case .custom(let backgroundColor,
+                     let textColor):
+            
+            self.backgroundColor = backgroundColor
+            self.titleLabel.textColor = textColor
+            layer.clip(cornerRadius: Constants.cornerRadius)
         }
     }
 
@@ -64,7 +79,6 @@ extension TickerView: ViewConfiguration {
     func update(with model: TickerView.Model) {
 
         titleLabel.text = model.text
-        titleLabel.textColor = .info500
         self.style = model.style
         setNeedsLayout()        
     }

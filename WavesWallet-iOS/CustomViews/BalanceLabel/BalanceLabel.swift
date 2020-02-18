@@ -20,11 +20,13 @@ final class BalanceLabel: UIView, NibOwnerLoadable {
     @IBOutlet private var stackView: UIStackView!
 
     struct Model {
-
-        //mb need custom style ?
+        
         enum Style {
             case large
             case small
+            case custom(font: UIFont,
+                        textColor: UIColor,
+                        tickerStyle: TickerView.Model.Style)
         }
 
         let balance: DomainLayer.DTO.Balance
@@ -51,38 +53,37 @@ extension BalanceLabel: ViewConfiguration {
         var hasTicker = false
 
         if let ticker = balance.currency.ticker {
-            tickerView.update(with: .init(text: ticker,
-                                          style: .normal))
+            
+            switch model.style {
+            case .custom(_, _, let tickerStyle):
+                tickerView.update(with: .init(text: ticker,
+                                              style: tickerStyle))
+            default:
+                tickerView.update(with: .init(text: ticker,
+                                              style: .normal))
+            }
             tickerView.isHidden = false
             hasTicker = true
         } else {
             tickerView.isHidden = true
         }
 
-
         switch model.style {
-        case .large:
-
-            let text = balance.displayText(sign: model.sign ?? .none,
-                                           withoutCurrency: true)
-
-
-            let string = NSMutableAttributedString()
-            string.append(.styleForBalance(text: text,
-                                           font: UIFont.boldSystemFont(ofSize: 22)))
             
-
-            if hasTicker == false {
-                let name = NSMutableAttributedString(string: " \(balance.currency.title)",
-                                                     attributes: [.font: UIFont.systemFont(ofSize: 22,
-                                                                                           weight: .regular)])
-                string.append(name)
-            }
-
-            titleLabel.attributedText = string
-
+        case .custom(let font, let textColor, _):
+            
+            titleLabel.attributedText = NSMutableAttributedString.attributtedString(model: model,
+                                                                                    hasTicker: hasTicker,
+                                                                                    font: font,
+                                                                                    textColor: textColor)
+        case .large:
+            
+            titleLabel.attributedText = NSMutableAttributedString.attributtedString(model: model,
+                                                                                    hasTicker: hasTicker,
+                                                                                    font: UIFont.systemFont(ofSize: 22,
+                                                                                                            weight: .regular),
+                                                                                    textColor: .black)
         case .small:
-
 
             let text = balance.displayText(sign: model.sign ?? .none,
                                            withoutCurrency: hasTicker)
@@ -95,5 +96,34 @@ extension BalanceLabel: ViewConfiguration {
         }
 
         setNeedsUpdateConstraints()
+    }
+}
+
+fileprivate extension NSMutableAttributedString {
+    
+    static func attributtedString(model: BalanceLabel.Model,
+                                  hasTicker: Bool,
+                                  font: UIFont,
+                                  textColor: UIColor) -> NSMutableAttributedString {
+        
+        let balance = model.balance
+        
+        let text = balance.displayText(sign: model.sign ?? .none,
+                                       withoutCurrency: true)
+
+
+        let string = NSMutableAttributedString()
+        string.append(.styleForBalance(text: text,
+                                       font: font))
+        
+        string.addAttributes([.foregroundColor: textColor], range: NSRange(location: 0, length: string.length))
+
+        if hasTicker == false {
+            let name = NSMutableAttributedString(string: " \(balance.currency.title)",
+                attributes: [.font: font])
+            string.append(name)
+        }
+        
+        return string
     }
 }
