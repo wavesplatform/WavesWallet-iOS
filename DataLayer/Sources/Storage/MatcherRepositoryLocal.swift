@@ -14,9 +14,9 @@ import WavesSDKExtensions
 //TODO: Two Target
 final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
     
-    private var internalPublicKeyAccount: PublicKeyAccount?
+    private var internalPublicKeyAccount: DomainLayer.DTO.PublicKey?
     
-    private var publicKeyAccount: PublicKeyAccount? {
+    private var publicKeyAccount: DomainLayer.DTO.PublicKey? {
         get {
             objc_sync_enter(self)
             defer { objc_sync_exit(self) }
@@ -36,14 +36,14 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
         self.matcherRepositoryRemote = matcherRepositoryRemote
     }
     
-    func matcherPublicKey() -> Observable<PublicKeyAccount> {
+    func matcherPublicKey() -> Observable<DomainLayer.DTO.PublicKey> {
         
         if let publicKey = publicKeyAccount {
             return Observable.just(publicKey)
         }
 
         return matcherPublicKeyShare
-            .flatMap({ [weak self] (publicKey) -> Observable<PublicKeyAccount> in
+            .flatMap({ [weak self] (publicKey) -> Observable<DomainLayer.DTO.PublicKey> in
                 guard let self = self else { return Observable.empty() }
 
                 self.publicKeyAccount = publicKey
@@ -51,7 +51,7 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
             })
     }
     
-    private lazy var matcherPublicKeyShare: Observable<PublicKeyAccount> = {
+    private lazy var matcherPublicKeyShare: Observable<DomainLayer.DTO.PublicKey> = {
         return matcherRepositoryRemote.matcherPublicKey()
             .share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
     }()

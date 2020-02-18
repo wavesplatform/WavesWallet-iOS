@@ -418,8 +418,8 @@
 		7B5FAABA22BBE3EC00621A44 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */; };
 		7B5FAABB22BBE3EC00621A44 /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6122BBE3EC00621A44 /* WordList.swift */; };
 		7B5FAABC22BBE3EC00621A44 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6222BBE3EC00621A44 /* Hash.swift */; };
-		7B5FAABD22BBE3EC00621A44 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6322BBE3EC00621A44 /* Address.swift */; };
-		7B5FAABE22BBE3EC00621A44 /* PublicKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6422BBE3EC00621A44 /* PublicKeyAccount.swift */; };
+		7B5FAABD22BBE3EC00621A44 /* AddressValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6322BBE3EC00621A44 /* AddressValidator.swift */; };
+		7B5FAABE22BBE3EC00621A44 /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6422BBE3EC00621A44 /* PublicKey.swift */; };
 		7B5FAABF22BBE3EC00621A44 /* PrivateKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6522BBE3EC00621A44 /* PrivateKeyAccount.swift */; };
 		7B5FAAC022BBE3EC00621A44 /* RXCrypto+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6622BBE3EC00621A44 /* RXCrypto+SHA.swift */; };
 		7B5FAAC122BBE3EC00621A44 /* Data+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6722BBE3EC00621A44 /* Data+AES.swift */; };
@@ -733,6 +733,7 @@
 		7BF66F9023F2D846004CAC8B /* WavesSDKCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF66F8F23F2D846004CAC8B /* WavesSDKCrypto.framework */; };
 		7BF66F9223F2D846004CAC8B /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF66F9123F2D846004CAC8B /* WavesSDKExtensions.framework */; };
 		7BF66F9423F2EBAE004CAC8B /* Data+Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF66F9323F2EBAE004CAC8B /* Data+Bytes.swift */; };
+		7BF74C5C23FBF85E005F10FC /* StakingLadingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF74C5B23FBF85E005F10FC /* StakingLadingInfoView.swift */; };
 		7BF89E9922272A5E00853F9D /* MonkeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E9822272A5E00853F9D /* MonkeyTest.swift */; };
 		7BFB480022FC742F002B19F8 /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47DD22FC742C002B19F8 /* SmartTransactionDTO+EncodingToString.swift */; };
 		7BFB480222FC742F002B19F8 /* AssetsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47E022FC742D002B19F8 /* AssetsRepositoryMock.swift */; };
@@ -1712,8 +1713,8 @@
 		7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
 		7B5FAA6122BBE3EC00621A44 /* WordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
 		7B5FAA6222BBE3EC00621A44 /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
-		7B5FAA6322BBE3EC00621A44 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		7B5FAA6422BBE3EC00621A44 /* PublicKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKeyAccount.swift; sourceTree = "<group>"; };
+		7B5FAA6322BBE3EC00621A44 /* AddressValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressValidator.swift; sourceTree = "<group>"; };
+		7B5FAA6422BBE3EC00621A44 /* PublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		7B5FAA6522BBE3EC00621A44 /* PrivateKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKeyAccount.swift; sourceTree = "<group>"; };
 		7B5FAA6622BBE3EC00621A44 /* RXCrypto+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RXCrypto+SHA.swift"; sourceTree = "<group>"; };
 		7B5FAA6722BBE3EC00621A44 /* Data+AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+AES.swift"; sourceTree = "<group>"; };
@@ -2019,6 +2020,7 @@
 		7BF66F8F23F2D846004CAC8B /* WavesSDKCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WavesSDKCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF66F9123F2D846004CAC8B /* WavesSDKExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WavesSDKExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF66F9323F2EBAE004CAC8B /* Data+Bytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Bytes.swift"; sourceTree = "<group>"; };
+		7BF74C5B23FBF85E005F10FC /* StakingLadingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingLadingInfoView.swift; sourceTree = "<group>"; };
 		7BF89E9622272A5E00853F9D /* MonkeyTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeyTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF89E9822272A5E00853F9D /* MonkeyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkeyTest.swift; sourceTree = "<group>"; };
 		7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSettingsRepositoryStorage.swift; sourceTree = "<group>"; };
@@ -3827,6 +3829,8 @@
 		7B5FAA2522BBE3EB00621A44 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7B5FAA6522BBE3EC00621A44 /* PrivateKeyAccount.swift */,
+				7B5FAA6422BBE3EC00621A44 /* PublicKey.swift */,
 				7B97B06B22FC784F008BA3F4 /* Balance.swift */,
 				7B5FAA2622BBE3EB00621A44 /* DTO */,
 				7B5FAA4522BBE3EC00621A44 /* ResponseType.swift */,
@@ -3946,9 +3950,7 @@
 			children = (
 				7B5FAA6122BBE3EC00621A44 /* WordList.swift */,
 				7B5FAA6222BBE3EC00621A44 /* Hash.swift */,
-				7B5FAA6322BBE3EC00621A44 /* Address.swift */,
-				7B5FAA6422BBE3EC00621A44 /* PublicKeyAccount.swift */,
-				7B5FAA6522BBE3EC00621A44 /* PrivateKeyAccount.swift */,
+				7B5FAA6322BBE3EC00621A44 /* AddressValidator.swift */,
 				7B5FAA6622BBE3EC00621A44 /* RXCrypto+SHA.swift */,
 				7B5FAA6722BBE3EC00621A44 /* Data+AES.swift */,
 			);
@@ -4150,6 +4152,7 @@
 			children = (
 				E9DC661F23ECA96600889AA3 /* StakingHeaderView.swift */,
 				E9DC662123ECA99800889AA3 /* StakingHeaderView.xib */,
+				7BF74C5B23FBF85E005F10FC /* StakingLadingInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6979,7 +6982,7 @@
 				7B5FAA7722BBE3EC00621A44 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
 				7B9DC35E2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift in Sources */,
 				7B5FAAB122BBE3EC00621A44 /* AddressUseCase.swift in Sources */,
-				7B5FAABE22BBE3EC00621A44 /* PublicKeyAccount.swift in Sources */,
+				7B5FAABE22BBE3EC00621A44 /* PublicKey.swift in Sources */,
 				7BDC6D6E22C398F600614E6B /* AnalyticManagerEvent+AddressBook.swift in Sources */,
 				7BDC6D5C22C3978400614E6B /* AnalyticManagerEvent+Alias.swift in Sources */,
 				7B5FAAC122BBE3EC00621A44 /* Data+AES.swift in Sources */,
@@ -7000,7 +7003,7 @@
 				7B5FAA8C22BBE3EC00621A44 /* SponsorshipTransactionDomainDTO.swift in Sources */,
 				7BDC6D4422C3965900614E6B /* AnalyticManagerEvent+ImportAccount.swift in Sources */,
 				7B5FAACF22BCEA3500621A44 /* AliasesUseCaseProtocol.swift in Sources */,
-				7B5FAABD22BBE3EC00621A44 /* Address.swift in Sources */,
+				7B5FAABD22BBE3EC00621A44 /* AddressValidator.swift in Sources */,
 				7B5FAA6F22BBE3EC00621A44 /* AccountSettingsRepositoryProtocol.swift in Sources */,
 				7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */,
 				E94AF03223D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift in Sources */,
@@ -7382,6 +7385,7 @@
 				E9F78A3D229E98B40065324B /* NewSegmentedControl.swift in Sources */,
 				7BDA6ADB222D8D16001DE71C /* TransactionCardType.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
+				7BF74C5C23FBF85E005F10FC /* StakingLadingInfoView.swift in Sources */,
 				0AACD5AB21A6CAC800B30815 /* SweetSnackBack+Factory.swift in Sources */,
 				E9B087AA2163886800937644 /* DexOrderBookPresenter.swift in Sources */,
 				0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */,

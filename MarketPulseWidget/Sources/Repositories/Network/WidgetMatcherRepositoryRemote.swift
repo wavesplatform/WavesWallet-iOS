@@ -27,11 +27,11 @@ final class WidgetMatcherRepositoryRemote: MatcherRepositoryProtocol {
                 }
     }
     
-    func matcherPublicKey() -> Observable<PublicKeyAccount> {
+    func matcherPublicKey() -> Observable<DomainLayer.DTO.PublicKey> {
         return publicKeyMatcherService
                 .publicKey()
                 .map {
-                    return PublicKeyAccount(publicKey: Base58Encoder.decode($0))
+                    return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0))
                 }
     }
 }

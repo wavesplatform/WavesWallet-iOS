@@ -9,7 +9,7 @@ import Foundation
 import WavesSDK
 import WavesSDKCrypto
 
-public class Address {
+public class AddressValidator {
     static let AddressVersion: UInt8 = 1
     static let ChecksumLength = 4
     static let HashLength = 20
@@ -63,7 +63,7 @@ public class Address {
     
     public class func scheme(from publicKey: String) -> String? {
         
-        let address = Address.addressFromPublicKey(publicKey: publicKey.bytes)
+        let address = AddressValidator.addressFromPublicKey(publicKey: publicKey.bytes)
         let bytes = Base58Encoder.decode(address)
         guard bytes.count == AddressLength else { return nil }
         guard bytes[0] == AddressVersion else { return nil }

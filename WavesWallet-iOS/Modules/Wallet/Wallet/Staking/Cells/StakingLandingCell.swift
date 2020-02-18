@@ -16,18 +16,6 @@ private enum Constants {
     static let secondYear: Double = 31536000
 }
 
-final class StakingLadingInfoView: UIView {
-    @IBOutlet private(set) weak var titleLabel: UILabel!
-    @IBOutlet private(set) weak var subTitleLabel: UILabel!
-    @IBOutlet private(set) weak var imageView: UIImageView!
-    
-    @IBOutlet private weak var titleLabelTop: NSLayoutConstraint!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()        
-    }
-}
-
 final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localization {
 
     @IBOutlet private weak var blueTopView: UIView!
@@ -94,8 +82,8 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localizatio
         StakingLandingCell.totalProfitValue = money
         
         let minimumDeposit =  model.minimumDeposit.money
-        let deffaultValue = model.percent
-        let amount = Int64((money + (deffaultProfitValue ?? 0)) * pow(10, Double(minimumDeposit.decimals)))
+        let deffaultProfitValue = self.deffaultProfitValue ?? 0
+        let amount = Int64((money + deffaultProfitValue) * pow(10, Double(minimumDeposit.decimals)))
                                 
         let totalValue = Money(amount,
                                minimumDeposit.decimals)
@@ -135,6 +123,8 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localizatio
     }
 }
 
+//MARK: ViewConfiguration
+
 extension StakingLandingCell: ViewConfiguration {
         
     func update(with model: WalletTypes.DTO.Staking.Landing) {
@@ -168,7 +158,9 @@ extension StakingLandingCell: ViewConfiguration {
     }
 }
 
-extension NSMutableAttributedString {
+// MARK: NSMutableAttributedString
+
+fileprivate extension NSMutableAttributedString {
     
     static func stakingEarnPercent(percent: Double) -> NSMutableAttributedString {
                 

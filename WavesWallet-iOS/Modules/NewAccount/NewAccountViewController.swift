@@ -14,7 +14,7 @@ import DomainLayer
 
 private struct Avatar {
     let address: String
-    let privateKey: PrivateKeyAccount
+    let privateKey: DomainLayer.DTO.PrivateKey
     let index: Int
 }
 
@@ -151,7 +151,7 @@ final class NewAccountViewController: UIViewController {
             let index = object.offset
             let view = object.element
             let seed = WordList.generatePhrase()
-            let privateKey = PrivateKeyAccount(seedStr: seed)
+            let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed)
 
             view.avatarDidTap = { [weak self] view, address in
                 guard let self = self else { return }

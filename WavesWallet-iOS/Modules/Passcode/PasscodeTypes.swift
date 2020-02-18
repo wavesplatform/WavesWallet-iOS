@@ -28,7 +28,7 @@ extension PasscodeTypes.DTO {
     }
 
     struct Account: Hashable {
-        let privateKey: PrivateKeyAccount
+        let privateKey: DomainLayer.DTO.PrivateKey
         let password: String
         let name: String
         let needBackup: Bool

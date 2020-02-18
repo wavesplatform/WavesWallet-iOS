@@ -13,7 +13,7 @@ import Extensions
 
 public protocol MatcherRepositoryProtocol {
     
-    func matcherPublicKey() -> Observable<PublicKeyAccount>
+    func matcherPublicKey() -> Observable<DomainLayer.DTO.PublicKey>
 
     func settingsIdsPairs() -> Observable<[String]>
 }

@@ -26,7 +26,7 @@ protocol SignatureProtocol {
 
 extension SignatureProtocol {
 
-    var publicKey: PublicKeyAccount {
+    var publicKey: DomainLayer.DTO.PublicKey {
         return signedWallet.publicKey
     }
 

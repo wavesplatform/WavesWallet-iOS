@@ -22,11 +22,11 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func matcherPublicKey() -> Observable<PublicKeyAccount> {
+    func matcherPublicKey() -> Observable<DomainLayer.DTO.PublicKey> {
         
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<PublicKeyAccount> in
+            .flatMapLatest({ (servicesEnvironment) -> Observable<DomainLayer.DTO.PublicKey> in
                 
                 return servicesEnvironment
                     .wavesServices
@@ -34,7 +34,7 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
                     .publicKeyMatcherService
                     .publicKey()                                        
                     .map {
-                        return PublicKeyAccount(publicKey: Base58Encoder.decode($0))
+                        return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0))
                     }
             })
     }

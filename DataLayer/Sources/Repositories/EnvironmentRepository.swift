@@ -124,7 +124,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         
         //TODO: Need refactor address class
         
-        Address.walletEnvironment = localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
+        AddressValidator.walletEnvironment = localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
                                                             kind: kind)
     }
     
@@ -209,7 +209,7 @@ private extension EnvironmentRepository {
                 enviromentService.timestampServerDiff = enviroment.timestampServerDiff
                 WavesSDK.shared.enviroment = enviromentService
                 
-                Address.walletEnvironment = enviroment.walletEnvironment
+                AddressValidator.walletEnvironment = enviroment.walletEnvironment
                 return Observable.just(enviroment)
             })
         

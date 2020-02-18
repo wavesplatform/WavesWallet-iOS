@@ -1008,7 +1008,7 @@ private extension SendViewController {
     }
 
     var isValidLocalAddress: Bool {
-        return Address.isValidAddress(address: recipientAddressView.text)
+        return AddressValidator.isValidAddress(address: recipientAddressView.text)
     }
     
     var isValidCryptocyrrencyAddress: Bool {
@@ -1022,7 +1022,7 @@ private extension SendViewController {
                 isValidLocalAddress == false
         }
         else if selectedAsset?.asset.isVostok == true {
-            return Address.isValidVostokAddress(address: address)
+            return AddressValidator.isValidVostokAddress(address: address)
         }
         return false
     }

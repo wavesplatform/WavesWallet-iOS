@@ -16,7 +16,7 @@ enum ImportTypes {
 
 extension ImportTypes.DTO {
     struct Account {
-        let privateKey: PrivateKeyAccount
+        let privateKey: DomainLayer.DTO.PrivateKey
         let password: String
         let name: String
     }

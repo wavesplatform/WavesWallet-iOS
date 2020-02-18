@@ -15,7 +15,7 @@ import Extensions
 import DomainLayer
 
 protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
-    func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
+    func userCompletedInputSeed(_ keyAccount: DomainLayer.DTO.PrivateKey)
 }
 
 private enum Constants {
@@ -54,7 +54,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
     
-    private var currentKeyAccount: PrivateKeyAccount?
+    private var currentKeyAccount: DomainLayer.DTO.PrivateKey?
     private var hasCheckValidationSeed = false
     
     weak var delegate: ImportWelcomeBackViewControllerDelegate?
@@ -133,7 +133,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     
     private func createAccount(seed: String) {
         
-        let privateKey = PrivateKeyAccount(seedStr: seed)
+        let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed)
         currentKeyAccount = privateKey
         
         iconImages.image = identity.createImage(by: privateKey.address, size: iconImages.frame.size)
