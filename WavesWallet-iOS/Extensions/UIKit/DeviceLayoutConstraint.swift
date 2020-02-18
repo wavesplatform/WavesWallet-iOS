@@ -57,9 +57,7 @@ public extension Device {
     }
 }
 
-
-
-class DeviceLayoutConstraint: NSLayoutConstraint {
+public class DeviceLayoutConstraint: NSLayoutConstraint {
     
     @IBInspectable var smallDevices: CGFloat = 0.0 {
         didSet {
