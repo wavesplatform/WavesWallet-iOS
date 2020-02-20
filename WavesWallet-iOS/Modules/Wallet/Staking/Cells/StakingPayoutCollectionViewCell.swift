@@ -14,8 +14,15 @@ private enum Constants {
 }
 
 final class StakingPayoutCollectionViewCell: UICollectionViewCell, NibReusable {
-
+    
     @IBOutlet private weak var payoutView: StakingPayoutView!
+    @IBOutlet private weak var shadowView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        shadowView.addTableCellShadowStyle()
+        clipsToBounds = false
+    }
 }
 
 // MARK: ViewConfiguration
@@ -23,7 +30,9 @@ final class StakingPayoutCollectionViewCell: UICollectionViewCell, NibReusable {
 extension StakingPayoutCollectionViewCell: ViewConfiguration {
     
     func update(with model: WalletTypes.DTO.Staking.Payout) {
-        payoutView.update(with: .init(balance: model.money, date: model.date))
+        payoutView.update(with: .init(profit: model.profit,
+                                      assetIconURL: model.assetIconURL,
+                                      date: model.date))
     }
 }
 

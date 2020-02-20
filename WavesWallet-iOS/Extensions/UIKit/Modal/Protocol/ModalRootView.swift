@@ -43,7 +43,9 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let headerTopY = max(self.layoutInsets.top, -(self.tableView.contentOffset.y - self.layoutInsets.top))
+        let headerTopY = max(self.layoutInsets.top,
+                             -(self.tableView.contentOffset.y - self.layoutInsets.top))
+        
         var frame = CGRect(x: 0,
                            y: headerTopY,
                            width: tableView.frame.size.width,
@@ -76,7 +78,6 @@ class ModalRootView: UIView, ModalScrollViewRootView {
         tableView.tableHeaderView = fakeHeaderView
         tableView.superview?.insertSubview(headerView, aboveSubview: tableView)
     }
-
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setNeedsLayout()

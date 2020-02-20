@@ -15,17 +15,6 @@ private struct Constants {
     static let velocityForDismiss: CGFloat = 0.95
 }
 
-protocol ModalScrollViewContext {
-
-    var scrollView: UIScrollView { get }
-
-    func visibleScrollViewHeight(for size: CGSize) -> CGFloat
-}
-
-protocol ModalScrollViewRootView: AnyObject {
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
-}
-
 class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
     private var needUpdateInsets: Bool = true

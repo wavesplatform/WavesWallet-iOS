@@ -35,7 +35,8 @@ extension WalletTypes.DTO {
         }
         
         struct Payout {
-            let money: Money
+            let profit: DomainLayer.DTO.Balance
+            let assetIconURL: DomainLayer.DTO.Asset.Icon
             let date: Date
         }
         

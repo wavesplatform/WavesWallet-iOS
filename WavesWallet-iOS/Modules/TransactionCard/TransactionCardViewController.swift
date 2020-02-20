@@ -43,6 +43,7 @@ protocol TransactionCardModuleInput: AnyObject {
     func deleteContact(address: String, contact: DomainLayer.DTO.Contact)
 }
 
+
 final class TransactionCardScroll: ModalTableView {
 
     fileprivate var arrowButton: UIButton = {

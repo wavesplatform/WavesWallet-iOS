@@ -14,12 +14,16 @@ protocol Router {
     var viewController: UIViewController { get }
 
     func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?)
-
+    
     func dismiss(animated: Bool, completion: (() -> Void)?)
 }
 
 extension Router {
 
+    func present(_ router: Router, animated: Bool, completion: (() -> Void)?) {
+        present(router.viewController, animated: animated, completion: completion)
+    }
+    
     func present(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
 
         if #available(iOS 13, *) {

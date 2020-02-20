@@ -35,6 +35,14 @@ final class StakingLastPayoutsCell: UITableViewCell, NibReusable {
     }
 }
 
+// MARK: ViewHeight
+    
+extension StakingLastPayoutsCell: ViewHeight {
+    static func viewHeight() -> CGFloat {
+        return StakingPayoutCollectionViewCell.viewHeight()
+    }
+}
+
 // MARK: ViewConfiguration
     
 extension StakingLastPayoutsCell: ViewConfiguration {
@@ -49,7 +57,8 @@ extension StakingLastPayoutsCell: ViewConfiguration {
 
 extension StakingLastPayoutsCell: UICollectionViewDelegate {
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
 
         didSelectPayout?(lastPayouts[indexPath.row])
         collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
@@ -61,7 +70,9 @@ extension StakingLastPayoutsCell: UICollectionViewDelegate {
 
 extension StakingLastPayoutsCell: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width - Constants.contentInset.left * 2,
                       height: StakingPayoutCollectionViewCell.viewHeight())
     }
@@ -92,7 +103,9 @@ extension StakingLastPayoutsCell: UICollectionViewDataSource {
 extension StakingLastPayoutsCell: UIScrollViewDelegate {
     
     //TODO: Duplicate code from AssetTransactionsCell.swift
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                   withVelocity velocity: CGPoint,
+                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         if abs(velocity.x) < abs(velocity.y) { return }
         
@@ -129,7 +142,5 @@ extension StakingLastPayoutsCell: UIScrollViewDelegate {
         currentIndex = Int(cellToSwipe)
         let indexPath:IndexPath = IndexPath(row: currentIndex, section:0)
         collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
-        
-    }
-    
+    }    
 }

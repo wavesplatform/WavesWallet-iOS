@@ -10,11 +10,15 @@ import UIKit
 
 public protocol ModuleBuilder {
     associatedtype Input
-    func build(input: Input) -> UIViewController
+    associatedtype ViewController: UIViewController
+    
+    func build(input: Input) -> ViewController
 }
 
-public extension ModuleBuilder where Input == Void {
-    func build() -> UIViewController {
+public extension ModuleBuilder where Input == Void, ViewController: UIViewController {
+    func build() -> ViewController {
         return build(input: ())
     }
 }
+
+

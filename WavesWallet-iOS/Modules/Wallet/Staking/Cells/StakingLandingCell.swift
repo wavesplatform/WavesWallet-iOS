@@ -16,7 +16,7 @@ private enum Constants {
     static let secondYear: Double = 31536000
 }
 
-final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localization {
+final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
 
     @IBOutlet private weak var blueTopView: UIView!
     @IBOutlet private weak var labelEarnPercent: UILabel!
@@ -108,6 +108,10 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localizatio
             buttonNext.setTitle(Localizable.Waves.Staking.Landing.startStaking, for: .normal)
         }
     }
+}
+
+// MARK: Localization
+extension StakingLandingCell: Localization {
     
     func setupLocalization() {
         
@@ -123,7 +127,7 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable, Localizatio
     }
 }
 
-//MARK: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension StakingLandingCell: ViewConfiguration {
         

@@ -120,7 +120,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "UI-Develop"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-FIRAnalyticsDebugEnabled"

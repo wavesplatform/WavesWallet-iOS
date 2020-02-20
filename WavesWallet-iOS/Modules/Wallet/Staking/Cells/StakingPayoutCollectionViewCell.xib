@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +17,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="173" height="76"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kF-fI-Jf7">
+                        <rect key="frame" x="0.0" y="0.0" width="173" height="76"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jy7-Kl-HN3" customClass="StakingPayoutView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="173" height="68"/>
                     </view>
@@ -24,13 +30,18 @@
             <constraints>
                 <constraint firstItem="Jy7-Kl-HN3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3zt-Ko-GlY"/>
                 <constraint firstAttribute="bottom" secondItem="Jy7-Kl-HN3" secondAttribute="bottom" constant="8" id="OkG-Bg-VU4"/>
+                <constraint firstAttribute="bottom" secondItem="5kF-fI-Jf7" secondAttribute="bottom" id="Q4m-Ib-SIN"/>
+                <constraint firstItem="5kF-fI-Jf7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="RTp-Dd-Vxb"/>
+                <constraint firstAttribute="trailing" secondItem="5kF-fI-Jf7" secondAttribute="trailing" id="flu-Zs-k8u"/>
                 <constraint firstAttribute="trailing" secondItem="Jy7-Kl-HN3" secondAttribute="trailing" id="rF4-Xs-qPu"/>
+                <constraint firstItem="5kF-fI-Jf7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vGM-Rw-MaO"/>
                 <constraint firstItem="Jy7-Kl-HN3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zZk-Oz-O7S"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="173" height="75"/>
             <connections>
                 <outlet property="payoutView" destination="Jy7-Kl-HN3" id="bOk-VB-tbY"/>
+                <outlet property="shadowView" destination="5kF-fI-Jf7" id="HYA-CD-1Cp"/>
             </connections>
             <point key="canvasLocation" x="226.81159420289856" y="161.04910714285714"/>
         </collectionViewCell>

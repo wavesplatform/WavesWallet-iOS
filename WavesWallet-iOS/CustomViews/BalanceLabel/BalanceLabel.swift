@@ -23,6 +23,7 @@ final class BalanceLabel: UIView, NibOwnerLoadable {
         
         enum Style {
             case large
+            case medium
             case small
             case custom(font: UIFont,
                         textColor: UIColor,
@@ -83,6 +84,15 @@ extension BalanceLabel: ViewConfiguration {
                                                                                     font: UIFont.systemFont(ofSize: 22,
                                                                                                             weight: .regular),
                                                                                     textColor: .black)
+            
+        case .medium:
+            
+            titleLabel.attributedText = NSMutableAttributedString.attributtedString(model: model,
+                                                                                         hasTicker: hasTicker,
+                                                                                         font: UIFont.systemFont(ofSize:17,
+                                                                                                                 weight: .regular),
+                                                                                         textColor: .black)
+            
         case .small:
 
             let text = balance.displayText(sign: model.sign ?? .none,

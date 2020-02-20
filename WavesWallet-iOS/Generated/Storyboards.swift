@@ -276,6 +276,11 @@ internal enum StoryboardScene {
 
     internal static let serverMaintenanceViewController = SceneType<WavesWallet_iOS.ServerMaintenanceViewController>(storyboard: ServerMaintenance.self, identifier: "ServerMaintenanceViewController")
   }
+  internal enum StakingTransfer: StoryboardType {
+    internal static let storyboardName = "StakingTransfer"
+
+    internal static let stakingTransferViewController = SceneType<WavesWallet_iOS.StakingTransferViewController>(storyboard: StakingTransfer.self, identifier: "StakingTransferViewController")
+  }
   internal enum StartLeasing: StoryboardType {
     internal static let storyboardName = "StartLeasing"
 
@@ -329,6 +334,9 @@ internal enum StoryboardScene {
     internal static let storyboardName = "WidgetSettings"
 
     internal static let widgetSettingsViewController = SceneType<WavesWallet_iOS.WidgetSettingsViewController>(storyboard: WidgetSettings.self, identifier: "WidgetSettingsViewController")
+  }
+  internal enum Xib: StoryboardType {
+    internal static let storyboardName = "XIB"
   }
 }
 

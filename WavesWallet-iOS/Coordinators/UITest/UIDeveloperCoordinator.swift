@@ -20,6 +20,8 @@ final class UIDeveloperCoordinator: Coordinator {
     
     weak var delegate: HelloCoordinatorDelegate?
     
+    lazy var coordinator = StakingTransferCoordinator.init(router: self.windowRouter)
+    
     init(windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
         self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
@@ -27,16 +29,13 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
-//        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
-//        
-//        addChildCoordinatorAndStart(childCoordinator: coordinator)
-//                
-//        let vc = TradeModuleBuilder(output: self).bui
-//        navigationRouter.pushViewController(vc)
-//        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
+        self.windowRouter.setRootViewController(UIViewController())
+        
+        
+        coordinator.start()
+        
+        
     }
-    
-    
 }
 
 extension UIDeveloperCoordinator {
