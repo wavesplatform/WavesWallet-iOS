@@ -16,9 +16,18 @@ enum StakingTransfer {
     enum ViewModel {}
 }
 
+extension StakingTransfer.DTO {
+ 
+    enum Kind {
+        case deposit
+        case withdraw
+        case card
+    }
+}
+    
 extension StakingTransfer {
     enum Event {
-        
+        case viewDidAppear
     }
 }
     
@@ -26,7 +35,8 @@ extension StakingTransfer {
         
     struct State {
         struct Core {
-            var text: String
+            
+            let kind: StakingTransfer.DTO.Kind
         }
         
         struct UI {
@@ -57,6 +67,6 @@ extension StakingTransfer.ViewModel {
         case scrollButtons(StakingTransferScrollButtonsCell.Model)
         case error(StakingTransferErrorCell.Model)
         case feeInfo(StakingTransferFeeInfoCell.Model)
-        case button(StakingTransferButtonCell.Model)        
+        case button(StakingTransferButtonCell.Model)
     }
 }

@@ -521,6 +521,7 @@
 		7B922D962402D94900271443 /* PayoutsHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B922D952402D94900271443 /* PayoutsHistoryViewController.swift */; };
 		7B922D982402D95400271443 /* PayoutsHistorySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B922D972402D95400271443 /* PayoutsHistorySystem.swift */; };
 		7B922D9B2402D96C00271443 /* PayoutsHistoryProfitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B922D9A2402D96C00271443 /* PayoutsHistoryProfitCell.swift */; };
+		7B922D9D2402E31900271443 /* StakingTransferTypes+Initial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B922D9C2402E31900271443 /* StakingTransferTypes+Initial.swift */; };
 		7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; };
 		7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393C822DF5827006634A6 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624722DC973E0029DA37 /* WavesSDK.framework */; };
@@ -1852,6 +1853,7 @@
 		7B922D952402D94900271443 /* PayoutsHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryViewController.swift; sourceTree = "<group>"; };
 		7B922D972402D95400271443 /* PayoutsHistorySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsHistorySystem.swift; sourceTree = "<group>"; };
 		7B922D9A2402D96C00271443 /* PayoutsHistoryProfitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryProfitCell.swift; sourceTree = "<group>"; };
+		7B922D9C2402E31900271443 /* StakingTransferTypes+Initial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Initial.swift"; sourceTree = "<group>"; };
 		7B97B03822FC784F008BA3F4 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		7B97B03922FC784F008BA3F4 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		7B97B03A22FC784F008BA3F4 /* CGFloat+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
@@ -4195,6 +4197,7 @@
 				7B922D832402C43A00271443 /* Views */,
 				7B85E62B23FD67F600365829 /* Cells */,
 				7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */,
+				7B922D9C2402E31900271443 /* StakingTransferTypes+Initial.swift */,
 				7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */,
 				7B85E61F23FD311300365829 /* StakingTransfer.storyboard */,
 				7B85E64023FD821B00365829 /* StakingTransferSystem.swift */,
@@ -8043,6 +8046,7 @@
 				7B3681982314260C000D5592 /* ConfirmRequestViewController.swift in Sources */,
 				04831F6221691429006D1ED6 /* HighlightedView.swift in Sources */,
 				E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */,
+				7B922D9D2402E31900271443 /* StakingTransferTypes+Initial.swift in Sources */,
 				0A7CCDB5218A138D005D372B /* MyAddressInfoAddressCell.swift in Sources */,
 				E9B086B42163883000937644 /* AddressBookModuleOutput.swift in Sources */,
 				E9B087C22163886800937644 /* DexTraderContainerViewController.swift in Sources */,

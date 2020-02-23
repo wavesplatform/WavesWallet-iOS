@@ -13,7 +13,7 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
     
     override func initialState() -> State! {
 
-        let core: State.Core = .init(text: "")
+        let core: State.Core = .init(kind: .card)
         let ui: State.UI = .init(sections: [],
                                  action: .none)
         
@@ -28,5 +28,9 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
 
     override func reduce(event: Event, state: inout State) {
         
+//        switch event {
+//
+//        }
     }
 }
+

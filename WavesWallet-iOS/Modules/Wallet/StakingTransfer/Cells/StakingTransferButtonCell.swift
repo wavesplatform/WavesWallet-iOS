@@ -27,14 +27,12 @@ final class StakingTransferButtonCell: UITableViewCell, NibReusable {
     }
 }
 
-
 // MARK: ViewConfiguration
 
 extension StakingTransferButtonCell: ViewConfiguration {
  
     func update(with model: BlueButton.Model) {
-                
-
+        button.update(with: model)
     }
 }
 
