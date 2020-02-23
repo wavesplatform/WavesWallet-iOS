@@ -265,7 +265,7 @@ final class SendViewController: UIViewController {
     }
 }
 
-//MARK: - TransactionFeeViewDelegate
+// MARK: - TransactionFeeViewDelegate
 extension SendViewController: TransactionFeeViewDelegate {
     func transactionFeeViewDidTap() {
         
@@ -282,7 +282,7 @@ extension SendViewController: TransactionFeeViewDelegate {
     }
 }
 
-//MARK: - SendFeeModuleOutput
+// MARK: - SendFeeModuleOutput
 extension SendViewController: SendFeeModuleOutput {
     
     func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.SmartAssetBalance, fee: Money) {
@@ -298,7 +298,7 @@ extension SendViewController: SendFeeModuleOutput {
     }
 }
 
-//MARK: - SendResultDelegate
+// MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {
     func sendResultDidTapFinish() {
         if let action = backTappedAction {
@@ -320,7 +320,7 @@ extension SendViewController: SendResultDelegate {
     }
 }
 
-//MARK: - FeedBack
+// MARK: - FeedBack
 private extension SendViewController {
     
     func setupFeedBack() {
@@ -420,7 +420,7 @@ private extension SendViewController {
     }
 }
 
-//MARK: - MoneyTextFieldDelegate
+// MARK: - MoneyTextFieldDelegate
 extension SendViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
@@ -430,7 +430,7 @@ extension SendViewController: AmountInputViewDelegate {
     }
 }
 
-//MARK: - AssetListModuleOutput
+// MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         
@@ -440,7 +440,7 @@ extension SendViewController: AssetListModuleOutput {
     }
 }
 
-//MARK: - AssetSelectViewDelegate
+// MARK: - AssetSelectViewDelegate
 extension SendViewController: AssetSelectViewDelegate {
    
     func assetViewDidTapChangeAsset() {
@@ -453,7 +453,7 @@ extension SendViewController: AssetSelectViewDelegate {
     }
 }
 
-//MARK: - Data
+// MARK: - Data
 private extension SendViewController {
     var inputAmountValues: [Money] {
         
@@ -489,7 +489,7 @@ private extension SendViewController {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension SendViewController {
 
     
@@ -813,7 +813,7 @@ private extension SendViewController {
     }
 }
 
-//MARK: - AddressInputViewDelegate
+// MARK: - AddressInputViewDelegate
 
 extension SendViewController: AddressInputViewDelegate {
   
@@ -941,7 +941,7 @@ extension SendViewController: AddressInputViewDelegate {
 }
 
 
-//MARK: - AddressBookModuleOutput
+// MARK: - AddressBookModuleOutput
 
 extension SendViewController: AddressBookModuleOutput {
    
@@ -953,14 +953,14 @@ extension SendViewController: AddressBookModuleOutput {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension SendViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
 }
 
-//MARK: - Validation
+// MARK: - Validation
 private extension SendViewController {
 
     var isCorrectMinCryptocyrrencyAmount: Bool {
@@ -1125,7 +1125,7 @@ private extension DeepLink {
     }
 }
 
-//MARK: - TTTAttributedLabelDelegate
+// MARK: - TTTAttributedLabelDelegate
 extension SendViewController: TTTAttributedLabelDelegate {
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         UIApplication.shared.openURLAsync(url)

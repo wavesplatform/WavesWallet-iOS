@@ -145,7 +145,7 @@ final class ScrolledContainerView: UIScrollView {
     }
 }
 
-//MARK: - ScrolledContainerViewProtocol
+// MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
     
     func reloadSectionWithOpenAnimation(section: Int) {
@@ -367,7 +367,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension ScrolledContainerView {
     
     @objc func handlerRightSwipe(_ gesture: UISwipeGestureRecognizer) {
@@ -385,7 +385,7 @@ private extension ScrolledContainerView {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension ScrolledContainerView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -424,7 +424,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
     }
 }
 
-//MARK: - SegmentedControlDelegate
+// MARK: - SegmentedControlDelegate
 
 extension ScrolledContainerView: NewSegmentedControlDelegate {
     

@@ -12,6 +12,22 @@ import Extensions
 final class ModalTableViewController: ModalScrollViewController, NibReusable {
             
     @IBOutlet var tableView: ModalTableView!
+        
+    var tableDataSource: UITableViewDataSource? {
+        didSet {
+            if isViewLoaded {
+                setupDataSources()
+            }
+        }
+    }
+    
+    var tableDelegate: UITableViewDelegate? {
+        didSet {
+            if isViewLoaded {
+                setupDataSources()
+            }
+        }
+    }
     
     weak var delegate: ModalTableControllerDelegate? {
         didSet {
@@ -31,6 +47,7 @@ final class ModalTableViewController: ModalScrollViewController, NibReusable {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupDataSources()
     }
                     
@@ -53,8 +70,9 @@ final class ModalTableViewController: ModalScrollViewController, NibReusable {
 private extension ModalTableViewController {
     
     func setupDataSources() {
-        self.tableView.delegate = self.delegate?.tableDelegate
-        self.tableView.dataSource = self.delegate?.tableDataSource
+        self.tableView.delegate = self.tableDelegate
+        self.tableView.dataSource = self.tableDataSource
+        self.rootView.delegate = self
     }
 }
 

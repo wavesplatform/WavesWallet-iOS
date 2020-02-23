@@ -63,7 +63,7 @@ extension DexOrderBook.ViewModel {
     }
 }
 
-//MARK: - DTO
+// MARK: - DTO
 extension DexOrderBook.DTO {
     
     struct LastPrice {
@@ -97,7 +97,7 @@ extension DexOrderBook.DTO {
     }
 }
 
-//MARK: - Row
+// MARK: - Row
 extension DexOrderBook.ViewModel.Row {
     
     var lastPrice: DexOrderBook.DTO.LastPrice? {
@@ -129,14 +129,14 @@ extension DexOrderBook.ViewModel.Row {
 }
 
 
-//MARK: - LastPrice
+// MARK: - LastPrice
 extension DexOrderBook.DTO.LastPrice {
     static func empty(decimals: Int) -> DexOrderBook.DTO.LastPrice {
         return DexOrderBook.DTO.LastPrice(price: Money(0, decimals), percent: 0, orderType: nil)
     }
 }
 
-//MARK: - State
+// MARK: - State
 extension DexOrderBook.State {
   
     static var initialState: DexOrderBook.State {

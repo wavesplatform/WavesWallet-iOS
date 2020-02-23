@@ -26,7 +26,7 @@ final class DexOrderBookHeaderView: DexTraderContainerBaseHeaderView, NibOwnerLo
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 
 extension DexOrderBookHeaderView: ViewConfiguration {
     

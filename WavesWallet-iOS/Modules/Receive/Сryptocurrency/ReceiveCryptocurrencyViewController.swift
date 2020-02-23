@@ -73,7 +73,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
 }
 
 
-//MARK: - FeedBack
+// MARK: - FeedBack
 private extension ReceiveCryptocurrencyViewController {
     
     func setupFeedBack() {
@@ -133,7 +133,7 @@ private extension ReceiveCryptocurrencyViewController {
 
 
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 private extension ReceiveCryptocurrencyViewController {
     
    
@@ -179,7 +179,7 @@ private extension ReceiveCryptocurrencyViewController {
     }
 }
 
-//MARK: - ReceiveAssetViewDelegate
+// MARK: - ReceiveAssetViewDelegate
 extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {

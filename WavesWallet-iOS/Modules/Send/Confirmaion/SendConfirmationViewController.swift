@@ -118,7 +118,7 @@ final class SendConfirmationViewController: UIViewController {
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 
 extension SendConfirmationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -127,7 +127,7 @@ extension SendConfirmationViewController: UITextFieldDelegate {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension SendConfirmationViewController {
     
     func showError(_ isShow: Bool) {

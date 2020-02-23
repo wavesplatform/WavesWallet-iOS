@@ -36,7 +36,7 @@ final class DexInfoViewController: UIViewController {
 }
 
 
-//MARK: - Actions
+// MARK: - Actions
 
 private extension DexInfoViewController {
     
@@ -64,7 +64,7 @@ private extension DexInfoViewController {
     }
 }
 
-//MARK: - Setup UI
+// MARK: - Setup UI
 
 private extension DexInfoViewController {
  

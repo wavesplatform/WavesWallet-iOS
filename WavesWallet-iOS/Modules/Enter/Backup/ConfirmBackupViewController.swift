@@ -63,7 +63,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         output?.userConfirmBackup()
     }
     
-    //MARK: - ConfirmBackupStackListViewDelegate
+    // MARK: - ConfirmBackupStackListViewDelegate
     
     func confirmBackupStackListViewDidTapWord(_ word: String) {
         stackTopView.addWord(word)
@@ -96,7 +96,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
     }
     
     
-    //MARK: - ConfirmBackupStackInputViewDelegate
+    // MARK: - ConfirmBackupStackInputViewDelegate
     
     func confirmBackupStackInputViewDidRemoveWord(_ word: String) {
         stackListView.showWord(word)

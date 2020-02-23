@@ -2947,6 +2947,19 @@ internal enum Localizable {
           }
         }
       }
+
+      internal enum Transfer {
+
+        internal enum Cell {
+
+          internal enum Description {
+            /// • The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.\n\n• After a successful payment on the partners' website,\n  USDN will be credited to your account within a few\n  minutes.\n\n• The minimum amount is %@ USDN. The maximum\n  amount is %@ USDN.\n\n• If you have problems with your payment, please create\n  a ticket on the support website.
+            internal static func title(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "staking.transfer.cell.description.title", p1, p2)
+            }
+          }
+        }
+      }
     }
 
     internal enum Startleasing {

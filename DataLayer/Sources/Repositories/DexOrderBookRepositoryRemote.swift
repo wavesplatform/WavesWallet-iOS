@@ -317,7 +317,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     }
 }
 
-//MARK: - Markets Sort
+// MARK: - Markets Sort
 private extension DexOrderBookRepositoryRemote {
     
     func sort(pairs: [DomainLayer.DTO.Dex.SmartPair], realm: Realm) -> [DomainLayer.DTO.Dex.SmartPair] {

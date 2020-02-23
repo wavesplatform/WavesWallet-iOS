@@ -95,7 +95,7 @@ extension DexTraderContainerViewController: DexTraderContainerInputProtocol {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexTraderContainerViewController {
     
     @objc func infoTapped() {
@@ -105,7 +105,7 @@ private extension DexTraderContainerViewController {
     
 }
 
-//MARK: - DexTranderContainerSegmentedControlDelegate
+// MARK: - DexTranderContainerSegmentedControlDelegate
 extension DexTraderContainerViewController: DexTraderContainerSegmentedControlDelegate {
     
     func segmentedControlDidChangeState(_ state: DexTraderContainerSegmentedControl.SegmentedState) {
@@ -115,7 +115,7 @@ extension DexTraderContainerViewController: DexTraderContainerSegmentedControlDe
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension DexTraderContainerViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -130,7 +130,7 @@ extension DexTraderContainerViewController: UIScrollViewDelegate {
 }
 
 
-//MARK: - Setup UI
+// MARK: - Setup UI
 private extension DexTraderContainerViewController {
     
     func setupScrollEnabled(currentPage: Int) {

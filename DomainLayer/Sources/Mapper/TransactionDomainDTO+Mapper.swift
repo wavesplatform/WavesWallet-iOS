@@ -752,7 +752,7 @@ extension DomainLayer.DTO.DataTransaction {
     }
 }
 
-//MARK: InvokeScriptTransaction
+// MARK: InvokeScriptTransaction
 
 extension DomainLayer.DTO.InvokeScriptTransaction {
 

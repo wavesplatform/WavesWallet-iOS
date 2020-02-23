@@ -126,7 +126,9 @@ extension ModalScrollViewController: ModalPresentationAnimatorContext {
 
 extension ModalScrollViewController: UIScrollViewDelegate {
 
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                   withVelocity velocity: CGPoint,
+                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
         let dismissBlock = {
             targetContentOffset.pointee = scrollView.contentOffset

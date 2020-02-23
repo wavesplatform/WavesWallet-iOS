@@ -780,3 +780,17 @@
 "asset.cell.balance.button.trade" = "Trade";
 "dexmarket.navigationBar.titleAsset" = "Search pairs to";
 "trade.title" = "Trade";
+
+
+"staking.transfer.cell.description.title" = "• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.
+
+• After a successful payment on the partners' website,
+  USDN will be credited to your account within a few
+  minutes.
+
+• The minimum amount is %@ USDN. The maximum
+  amount is %@ USDN.
+
+• If you have problems with your payment, please create
+  a ticket on the support website.";
+

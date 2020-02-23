@@ -56,7 +56,6 @@ final class AppNewsView: PopupActionView<AppNewsView.Model> {
         super.awakeFromNib()
         labelSubtitle.delegate = self
         buttonOkey.setTitle(Localizable.Waves.Appnews.Button.okey, for: .normal)
-        
     }
         
     @IBAction private func okeyTapped(_ sender: Any) {
@@ -75,21 +74,7 @@ final class AppNewsView: PopupActionView<AppNewsView.Model> {
         if let subtitle = try? Down.init(markdownString: model.subtitle).toAttributedString(.default,
                                                                                             styler: DownStyler(configuration: downStyler)) {
             labelSubtitle.attributedText = subtitle
-            
-            subtitle.enumerateAttributes(in: NSMakeRange(0, subtitle.length),
-                                                          options: .longestEffectiveRangeNotRequired)
-            { (attributes, range, _) in
-
-                if let subAttribute = attributes.first(where: { $0.key == NSAttributedString.Key.link }) {
-                                        
-                    if let url = subAttribute.value as? URL {
-                        labelSubtitle.addLink(to: url, with: range)
-                    } else if let string = subAttribute.value as? String,
-                        let url = URL(string: string) {
-                        labelSubtitle.addLink(to: url, with: range)
-                    }
-                }
-            }
+            labelSubtitle.addLinks(from: subtitle)
             
         } else {
             labelSubtitle.text = model.subtitle

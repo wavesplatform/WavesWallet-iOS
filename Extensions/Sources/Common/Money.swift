@@ -92,7 +92,7 @@ public extension Money {
     }
 }
 
-//MARK: - Calculation
+// MARK: - Calculation
 public extension Money {
     
     static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {

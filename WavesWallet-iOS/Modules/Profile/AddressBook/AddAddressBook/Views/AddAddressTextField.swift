@@ -97,7 +97,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
 }
 
-//MARK: - Actions
+// MARK: - Actions
 
 private extension AddAddressTextField {
 
@@ -148,7 +148,7 @@ private extension AddAddressTextField {
     }
 }
 
-//MARK: - QRCodeReaderViewController
+// MARK: - QRCodeReaderViewController
 
 private extension AddAddressTextField {
     

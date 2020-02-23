@@ -84,7 +84,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     }
     
     
-    //MARK: - Methods
+    // MARK: - Methods
     func setupTitle(title: String) {
         labelTitle.text = title
     }
@@ -119,7 +119,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     }
 }
 
-//MARK: - ViewConfiguration
+// MARK: - ViewConfiguration
 
 extension DexCreateOrderInputView: ViewConfiguration {
 
@@ -131,7 +131,7 @@ extension DexCreateOrderInputView: ViewConfiguration {
     }
 }
 
-//MARK: - InputNumericTextFieldDelegate
+// MARK: - InputNumericTextFieldDelegate
 extension DexCreateOrderInputView: MoneyTextFieldDelegate {
   
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
@@ -139,7 +139,7 @@ extension DexCreateOrderInputView: MoneyTextFieldDelegate {
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension DexCreateOrderInputView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -151,7 +151,7 @@ extension DexCreateOrderInputView: UITextFieldDelegate {
     }
 }
 
-//MARK: - InputScrollButtonsViewDelegate
+// MARK: - InputScrollButtonsViewDelegate
 extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
     
     func updateAmount(_ amount: Money) {
@@ -176,7 +176,7 @@ extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexCreateOrderInputView {
    
     @IBAction func plusTapped(_ sender: Any) {
@@ -197,7 +197,7 @@ private extension DexCreateOrderInputView {
     }
 }
 
-//MARK: - Change frame
+// MARK: - Change frame
 private extension DexCreateOrderInputView {
     
     func updateViewHeight(inputValue: Money, animation: Bool) {

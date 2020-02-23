@@ -73,7 +73,7 @@ final class ReceiveInvoiceViewController: UIViewController {
     }
 }
 
-//MARK: - AssetSelectView
+// MARK: - AssetSelectView
 extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {
@@ -93,7 +93,7 @@ extension ReceiveInvoiceViewController: AssetListModuleOutput {
     }
 }
 
-//MARK: - MoneyTextFieldDelegate
+// MARK: - MoneyTextFieldDelegate
 extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
 
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
@@ -102,7 +102,7 @@ extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension ReceiveInvoiceViewController {
     
     

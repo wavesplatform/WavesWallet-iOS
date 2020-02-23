@@ -99,7 +99,7 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     }
 }
 
-//MARK: - StartLeasingErrorDelegate
+// MARK: - StartLeasingErrorDelegate
 extension StartLeasingCancelConfirmationViewController: StartLeasingErrorDelegate {
     func startLeasingDidFail(error: NetworkError) {
         

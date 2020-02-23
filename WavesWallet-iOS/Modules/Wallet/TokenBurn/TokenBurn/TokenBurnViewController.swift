@@ -74,7 +74,7 @@ final class TokenBurnViewController: UIViewController {
 }
 
 
-//MARK: - TokenBurnLoadingViewControllerDelegate
+// MARK: - TokenBurnLoadingViewControllerDelegate
 extension TokenBurnViewController: TokenBurnLoadingViewControllerDelegate {
     
     func tokenBurnLoadingViewControllerDidFail(error: Error) {
@@ -95,7 +95,7 @@ extension TokenBurnViewController: TokenBurnLoadingViewControllerDelegate {
 
 
 
-//MARK: - Data
+// MARK: - Data
 private extension TokenBurnViewController {
     
     func loadWavesBalance() {
@@ -136,7 +136,7 @@ private extension TokenBurnViewController {
     }
 }
 
-//MARK: - AmountInputViewDelegate
+// MARK: - AmountInputViewDelegate
 extension TokenBurnViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
@@ -151,14 +151,14 @@ extension TokenBurnViewController: AmountInputViewDelegate {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension TokenBurnViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension TokenBurnViewController {
     
     func loadFee() {

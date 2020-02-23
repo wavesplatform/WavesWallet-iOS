@@ -102,7 +102,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     
     private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
     
-    //MARK: - Actions
+    // MARK: - Actions
     @IBAction private func addressDidChange(_ sender: Any) {
        
         hideLoadingState()
@@ -150,7 +150,7 @@ extension AddressInputView: ViewConfiguration {
     }
 }
 
-//MARK: - Methods
+// MARK: - Methods
 extension AddressInputView {
     
     func showLoadingState() {
@@ -187,7 +187,7 @@ extension AddressInputView {
     }
 }
 
-//MARK: - InputScrollButtonsViewDelegate
+// MARK: - InputScrollButtonsViewDelegate
 extension AddressInputView: InputScrollButtonsViewDelegate {
     
     func inputScrollButtonsViewDidTapAt(index: Int) {
@@ -201,7 +201,7 @@ extension AddressInputView: InputScrollButtonsViewDelegate {
 }
 
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension AddressInputView: UITextFieldDelegate {
   
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -223,7 +223,7 @@ extension AddressInputView: UITextFieldDelegate {
 }
 
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 
 private extension AddressInputView {
     
@@ -274,7 +274,7 @@ private extension AddressInputView {
     }
 }
 
-//MARK: - Change frame
+// MARK: - Change frame
 
 private extension AddressInputView {
     
@@ -327,7 +327,7 @@ private extension AddressInputView {
     }
 }
 
-//MARK: - QRCodeReader
+// MARK: - QRCodeReader
 
 private extension AddressInputView {
     

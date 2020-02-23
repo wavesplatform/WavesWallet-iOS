@@ -97,7 +97,7 @@ final class NewSegmentedControl: UIScrollView {
 
 }
 
-//MARK: - Methods
+// MARK: - Methods
 extension NewSegmentedControl {
     
     func setSelectedIndex(_ index: Int, animation: Bool) {
@@ -127,7 +127,7 @@ extension NewSegmentedControl {
     }
 }
 
-//MARK: - UI Settings
+// MARK: - UI Settings
 private extension NewSegmentedControl {
     
     var titleButtons: [UIButton] {

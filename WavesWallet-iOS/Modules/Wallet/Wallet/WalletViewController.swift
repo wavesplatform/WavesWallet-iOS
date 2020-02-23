@@ -124,7 +124,7 @@ final class WalletViewController: UIViewController {
     }
 }
 
-//MARK: - MainTabBarControllerProtocol
+// MARK: - MainTabBarControllerProtocol
 extension WalletViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
@@ -132,7 +132,7 @@ extension WalletViewController: MainTabBarControllerProtocol {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension WalletViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -148,7 +148,7 @@ extension WalletViewController: UIScrollViewDelegate {
     }
 }
 
-//MARK: - ScrolledContainerViewDelegate
+// MARK: - ScrolledContainerViewDelegate
 extension WalletViewController: ScrolledContainerViewDelegate {
     
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
@@ -425,7 +425,7 @@ private extension WalletViewController {
     }
 }
 
-//MARK: - WalletLeasingBalanceCellDelegate
+// MARK: - WalletLeasingBalanceCellDelegate
 extension WalletViewController: WalletLeasingBalanceCellDelegate {
     
     func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money) {
@@ -488,7 +488,7 @@ extension WalletViewController: WalletDisplayDataDelegate {
     }
 }
 
-//MARK: - WalletTypes.DisplayState.Kind
+// MARK: - WalletTypes.DisplayState.Kind
 private extension WalletTypes.DisplayState.Kind {
     
     var segmentedItem: NewSegmentedControl.SegmentedItem {

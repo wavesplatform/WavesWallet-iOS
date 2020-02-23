@@ -52,7 +52,7 @@ final class AddressBookViewController: UIViewController {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 
 private extension AddressBookViewController {
     
@@ -75,7 +75,7 @@ private extension AddressBookViewController {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension AddressBookViewController {
     
     @objc func addUserTapped() {
@@ -170,7 +170,7 @@ extension AddressBookViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - AddressBookCellDelegate
+// MARK: - AddressBookCellDelegate
 
 extension AddressBookViewController: AddressBookCellDelegate {
     

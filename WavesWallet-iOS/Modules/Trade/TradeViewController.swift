@@ -113,7 +113,7 @@ final class TradeViewController: UIViewController {
     }
 }
 
-//MARK: - TradeRefreshOutput
+// MARK: - TradeRefreshOutput
 extension TradeViewController: TradeRefreshOutput {
   
     func pairsDidChange() {
@@ -121,7 +121,7 @@ extension TradeViewController: TradeRefreshOutput {
     }
 }
 
-//MARK: - Feedback
+// MARK: - Feedback
 private extension TradeViewController {
     
     func setupSystem() {
@@ -240,7 +240,7 @@ private extension TradeViewController {
 }
 
 
-//MARK: - UI
+// MARK: - UI
 private extension TradeViewController {
     
     var visibleHeaderView: TradeFilterHeaderView? {
@@ -267,7 +267,7 @@ private extension TradeViewController {
     
 }
 
-//MARK: - TradeFilterHeaderViewDelegate
+// MARK: - TradeFilterHeaderViewDelegate
 extension TradeViewController: TradeFilterHeaderViewDelegate {
     
     func tradeAltsHeaderViewDidTapFilter(filter: TradeTypes.DTO.Category.Filter, atCategory: Int) {
@@ -279,7 +279,7 @@ extension TradeViewController: TradeFilterHeaderViewDelegate {
     }
 }
 
-//MARK: ScrolledContainerViewDelegate
+// MARK: ScrolledContainerViewDelegate
 extension TradeViewController: ScrolledContainerViewDelegate {
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
         setupHeaderShadow()
@@ -299,7 +299,7 @@ extension TradeViewController: UIScrollViewDelegate {
 
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension TradeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -313,7 +313,7 @@ extension TradeViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension TradeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -411,7 +411,7 @@ extension TradeViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - ScrolledContainerView
+// MARK: - ScrolledContainerView
 private extension ScrolledContainerView {
     
     enum Animation {

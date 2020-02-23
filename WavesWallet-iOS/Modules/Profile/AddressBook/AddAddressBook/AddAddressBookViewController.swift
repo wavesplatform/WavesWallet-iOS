@@ -75,7 +75,7 @@ final class AddAddressBookViewController: UIViewController {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 
 private extension AddAddressBookViewController {
     
@@ -177,7 +177,7 @@ private extension AddAddressBookViewController {
 
 }
 
-//MARK: - AddAddressTextFieldDelegate
+// MARK: - AddAddressTextFieldDelegate
 extension AddAddressBookViewController: AddAddressTextFieldDelegate {
     
     func addAddressTextField(_ textField: AddAddressTextField, didChange text: String) {

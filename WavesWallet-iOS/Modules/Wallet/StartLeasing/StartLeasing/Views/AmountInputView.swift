@@ -20,6 +20,8 @@ protocol AmountInputViewDelegate: AnyObject {
     func amountInputView(didChangeValue value: Money)
 }
 
+//TODO: Refactor
+@available(*, deprecated, message: "It is class has many responsibilities")
 final class AmountInputView: UIView, NibOwnerLoadable {
     
     private var isShowInputScrollView = false
@@ -118,7 +120,7 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension AmountInputView {
     
     func addBorderShadow() {
@@ -150,7 +152,7 @@ private extension AmountInputView {
     }
 }
 
-//MARK: - MoneyTextFieldDelegate
+// MARK: - MoneyTextFieldDelegate
 extension AmountInputView: MoneyTextFieldDelegate {
     
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
@@ -159,7 +161,7 @@ extension AmountInputView: MoneyTextFieldDelegate {
     }
 }
 
-//MARK: - ViewConfiguration
+// MARK: - ViewConfiguration
 extension AmountInputView: ViewConfiguration {
     
     func update(with input: [String]) {
@@ -170,7 +172,7 @@ extension AmountInputView: ViewConfiguration {
 }
 
 
-//MARK: - InputScrollButtonsViewDelegate
+// MARK: - InputScrollButtonsViewDelegate
 extension AmountInputView: InputScrollButtonsViewDelegate {
 
     func inputScrollButtonsViewDidTapAt(index: Int) {
@@ -185,7 +187,7 @@ extension AmountInputView: InputScrollButtonsViewDelegate {
 }
 
 
-//MARK: - Change frame
+// MARK: - Change frame
 private extension AmountInputView {
     
     func updateViewHeight(inputValue: Money, animation: Bool) {

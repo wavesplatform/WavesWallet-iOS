@@ -456,7 +456,7 @@ extension AssetDetailViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - TokenBurnTransactionDelegate
+// MARK: - TokenBurnTransactionDelegate
 
 extension AssetDetailViewController: TokenBurnTransactionDelegate {
     func tokenBurnDidSuccessBurn(amount: Money) {

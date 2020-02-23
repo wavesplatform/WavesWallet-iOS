@@ -48,7 +48,7 @@ final class MyAddressViewController: UIViewController {
     }
 }
 
-//MARK: - MyAddressInfoAddressCellDelegate
+// MARK: - MyAddressInfoAddressCellDelegate
 extension MyAddressViewController: MyAddressInfoAddressCellDelegate {
   
     func myAddressInfoAddressCellDidTapShareAddress(_ address: String) {

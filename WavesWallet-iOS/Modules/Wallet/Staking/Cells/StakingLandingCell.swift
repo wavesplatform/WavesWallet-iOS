@@ -162,7 +162,7 @@ extension StakingLandingCell: ViewConfiguration {
     }
 }
 
-//MARK: UIScrollViewDelegate
+// MARK: UIScrollViewDelegate
 
 extension StakingLandingCell: UIScrollViewDelegate {
     
@@ -172,7 +172,7 @@ extension StakingLandingCell: UIScrollViewDelegate {
     }
 }
 
-//MARK: UIScrollViewDelegate
+// MARK: UIScrollViewDelegate
 
 extension StakingLandingCell: TTTAttributedLabelDelegate {
     

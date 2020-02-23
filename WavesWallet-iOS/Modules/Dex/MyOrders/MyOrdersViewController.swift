@@ -155,7 +155,7 @@ final class MyOrdersViewController: UIViewController {
     }
 }
 
-//MARK: - ScrolledContainerViewDelegate
+// MARK: - ScrolledContainerViewDelegate
 extension MyOrdersViewController: ScrolledContainerViewDelegate {
     
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
@@ -165,7 +165,7 @@ extension MyOrdersViewController: ScrolledContainerViewDelegate {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension MyOrdersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -181,7 +181,7 @@ extension MyOrdersViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension MyOrdersViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -223,7 +223,7 @@ extension MyOrdersViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - TransactionCardCoordinator
+// MARK: - TransactionCardCoordinator
 
 extension MyOrdersViewController: TransactionCardCoordinatorDelegate {
 
@@ -234,7 +234,7 @@ extension MyOrdersViewController: TransactionCardCoordinatorDelegate {
 }
 
 
-//MARK: - MGSwipeTableCellDelegate
+// MARK: - MGSwipeTableCellDelegate
 extension MyOrdersViewController: MGSwipeTableCellDelegate {
    
     func swipeTableCell(_ cell: MGSwipeTableCell, canSwipe direction: MGSwipeDirection, from point: CGPoint) -> Bool {

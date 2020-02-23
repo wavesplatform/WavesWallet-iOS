@@ -98,7 +98,7 @@ final class WalletSearchViewController: UIViewController  {
     }
 }
 
-//MARK: - RXFeedBack
+// MARK: - RXFeedBack
 private extension WalletSearchViewController {
     
     func setupFeedBack() {
@@ -148,7 +148,7 @@ private extension WalletSearchViewController {
 }
 
 
-//MARK: - UI
+// MARK: - UI
 private extension WalletSearchViewController {
     
     func setupButtonCancel() {
@@ -178,7 +178,7 @@ private extension WalletSearchViewController {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension WalletSearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -213,7 +213,7 @@ extension WalletSearchViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension WalletSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

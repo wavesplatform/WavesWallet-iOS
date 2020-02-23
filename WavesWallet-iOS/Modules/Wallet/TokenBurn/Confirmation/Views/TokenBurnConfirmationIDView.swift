@@ -37,7 +37,7 @@ final class TokenBurnConfirmationIDView: UIView, NibOwnerLoadable {
     }
 }
 
-//MARK: - ViewConfiguration
+// MARK: - ViewConfiguration
 extension TokenBurnConfirmationIDView: ViewConfiguration {
     
     struct Model {
@@ -56,7 +56,7 @@ extension TokenBurnConfirmationIDView: ViewConfiguration {
     }
 }
 
-//MARK: - NSLayoutConstraint
+// MARK: - NSLayoutConstraint
 private extension TokenBurnConfirmationIDView {
     var heightConstraint : NSLayoutConstraint {
         return constraints.first(where: {$0.firstAttribute == NSLayoutConstraint.Attribute.height})!

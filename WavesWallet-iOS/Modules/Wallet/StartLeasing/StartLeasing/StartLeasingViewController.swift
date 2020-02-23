@@ -91,7 +91,7 @@ final class StartLeasingViewController: UIViewController {
 }
 
 
-//MARK: - StartLeasingErrorDelegate
+// MARK: - StartLeasingErrorDelegate
 extension StartLeasingViewController: StartLeasingErrorDelegate {
     func startLeasingDidFail(error: NetworkError) {
         
@@ -104,7 +104,7 @@ extension StartLeasingViewController: StartLeasingErrorDelegate {
     }
 }
 
-//MARK: - Setup
+// MARK: - Setup
 private extension StartLeasingViewController {
     
     func validateAlias() {
@@ -277,7 +277,7 @@ private extension StartLeasingViewController {
     }
 }
 
-//MARK: - StartLeasingAmountViewDelegate
+// MARK: - StartLeasingAmountViewDelegate
 extension StartLeasingViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
@@ -287,7 +287,7 @@ extension StartLeasingViewController: AmountInputViewDelegate {
     }
 }
 
-//MARK: - StartLeasingGeneratorViewDelegate
+// MARK: - StartLeasingGeneratorViewDelegate
 extension StartLeasingViewController: AddressInputViewDelegate {
 
     func addressInputViewDidSelectContactAtIndex(_ index: Int) {
@@ -332,7 +332,7 @@ extension StartLeasingViewController: AddressInputViewDelegate {
     }
 }
 
-//MARK: - AddressBookModuleBuilderOutput
+// MARK: - AddressBookModuleBuilderOutput
 extension StartLeasingViewController: AddressBookModuleOutput {
     func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact) {
         order.recipient = contact.address
@@ -342,7 +342,7 @@ extension StartLeasingViewController: AddressBookModuleOutput {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension StartLeasingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()

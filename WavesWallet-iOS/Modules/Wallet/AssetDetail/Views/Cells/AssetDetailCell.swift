@@ -77,7 +77,7 @@ final class AssetDetailCell: UITableViewCell, Reusable {
     
     @IBAction func copyIDTapped(_ sender: Any) {
         
-            UIPasteboard.general.string = idLabel.text
+        UIPasteboard.general.string = idLabel.text
         
         let button = sender as! UIButton
         button.setImage(Images.checkSuccess.image, for: .normal)

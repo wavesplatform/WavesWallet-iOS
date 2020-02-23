@@ -238,7 +238,7 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 }
 
-//MARK: - WalletSearchViewControllerDelegate
+// MARK: - WalletSearchViewControllerDelegate
 extension WalletCoordinator: WalletSearchViewControllerDelegate {
     
     func walletSearchViewControllerDidTapCancel(_ searchController: WalletSearchViewController) {
@@ -300,7 +300,7 @@ extension WalletCoordinator: AssetDetailModuleOutput {
     }
 }
 
-//MARK: - TransactionCardCoordinatorDelegate
+// MARK: - TransactionCardCoordinatorDelegate
 extension WalletCoordinator: TransactionCardCoordinatorDelegate {
     func transactionCardCoordinatorCanceledLeasing() {
         walletViewContoller.viewWillAppear(false)

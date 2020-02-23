@@ -510,7 +510,7 @@ extension AppCoordinator: DebugViewControllerDelegate {
     }
 }
 
-//MARK: - ServerMaintenance
+// MARK: - ServerMaintenance
 
 private extension AppCoordinator {
     
@@ -547,7 +547,7 @@ private extension AppCoordinator {
 }
 
 
-//MARK: - ForceUpdate
+// MARK: - ForceUpdate
 
 private extension AppCoordinator {
     func checkAndRunForceUpdate() {

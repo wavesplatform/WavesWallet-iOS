@@ -29,7 +29,7 @@ final class DexChartCandleRightAxisFormatter: IAxisValueFormatter {
     }
 }
 
-//MARK: - DexChartCandleAxisFormatter
+// MARK: - DexChartCandleAxisFormatter
 final class DexChartCandleAxisFormatter: IAxisValueFormatter {
     
     private let dateFormatter = DateFormatter()
@@ -89,7 +89,7 @@ final class DexChartCandleAxisFormatter: IAxisValueFormatter {
     }
 }
 
-//MARK: - DexChartBarAxisFormatter
+// MARK: - DexChartBarAxisFormatter
 final class DexChartBarAxisFormatter: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
@@ -98,7 +98,7 @@ final class DexChartBarAxisFormatter: IAxisValueFormatter {
 }
 
 
-//MARK: - DexChartBarRightAxisFormatter
+// MARK: - DexChartBarRightAxisFormatter
 final class DexChartBarRightAxisFormatter: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {

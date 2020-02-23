@@ -110,14 +110,14 @@ private extension AssetListViewController {
 }
 
 
-//MARK: - SearchBarViewDelegate
+// MARK: - SearchBarViewDelegate
 extension AssetListViewController: SearchBarViewDelegate {
     func searchBarDidChangeText(_ searchText: String) {
         sendEvent.accept(.searchTextChange(text: searchText))
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension AssetListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -129,7 +129,7 @@ extension AssetListViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension AssetListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,7 +153,7 @@ extension AssetListViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 private extension AssetListViewController {
     
     private func createButtonList() {

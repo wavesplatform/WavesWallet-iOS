@@ -52,7 +52,11 @@ extension StakingTransfer.ViewModel {
     }
     
     enum Row {
-//        case general()
-//        case address()
+        case balance(StakingTransferBalanceCell.Model)
+        case inputField(StakingTransferInputFieldCell.Model)
+        case scrollButtons(StakingTransferScrollButtonsCell.Model)
+        case error(StakingTransferErrorCell.Model)
+        case feeInfo(StakingTransferFeeInfoCell.Model)
+        case button(StakingTransferButtonCell.Model)        
     }
 }

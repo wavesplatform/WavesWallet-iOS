@@ -250,7 +250,7 @@ extension WalletDisplayData: UITableViewDataSource {
     }
 }
 
-//MARK: UITableViewDelegate
+// MARK: UITableViewDelegate
 
 extension WalletDisplayData: UITableViewDelegate {
     

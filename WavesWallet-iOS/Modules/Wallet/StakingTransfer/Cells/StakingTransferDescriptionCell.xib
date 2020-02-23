@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakingTransferDescriptionCell" rowHeight="317" id="3Qi-cb-kdI" customClass="StakingTransferDescriptionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="317"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Qi-cb-kdI" id="llT-QG-YZC">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="317"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vY-4Z-mFc" customClass="TTTAttributedLabel">
+                        <rect key="frame" x="16" y="0.0" width="382" height="297"/>
+                        <string key="text">• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.
+
+• After a successful payment on the partners' website, 
+  USDN will be credited to your account within a few 
+  minutes.
+
+• The minimum amount is 10 USDN. The maximum 
+  amount is 3,000 USDN.
+
+• If you have problems with your payment, please create 
+  a ticket on the support website.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="7vY-4Z-mFc" secondAttribute="bottom" constant="20" id="2KO-R6-9RG"/>
+                    <constraint firstAttribute="trailing" secondItem="7vY-4Z-mFc" secondAttribute="trailing" constant="16" id="SZA-tL-vfu"/>
+                    <constraint firstItem="7vY-4Z-mFc" firstAttribute="top" secondItem="llT-QG-YZC" secondAttribute="top" id="Uue-c4-tI7"/>
+                    <constraint firstItem="7vY-4Z-mFc" firstAttribute="leading" secondItem="llT-QG-YZC" secondAttribute="leading" constant="16" id="nig-I5-vcY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLabel" destination="7vY-4Z-mFc" id="wBq-2y-omH"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="61.272321428571423"/>
+        </tableViewCell>
+    </objects>
+</document>

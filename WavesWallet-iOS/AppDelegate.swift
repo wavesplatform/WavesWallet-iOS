@@ -192,8 +192,8 @@ extension AppDelegate {
     func setupServices() {
         #if DEBUG || TEST
         
-        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
-                                                           isShortLog: true))
+//        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
+//                                                           isShortLog: true))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
                         
         #else
@@ -212,7 +212,7 @@ extension AppDelegate {
     }
 }
 
-//MARK: - UNUserNotificationCenterDelegate
+// MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,   withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

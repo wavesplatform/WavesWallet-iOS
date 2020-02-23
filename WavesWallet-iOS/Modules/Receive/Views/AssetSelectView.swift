@@ -112,7 +112,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     }
 }
 
-//MARK: - ViewConfiguration
+// MARK: - ViewConfiguration
 extension AssetSelectView: ViewConfiguration {
     
     struct Model {
@@ -149,7 +149,7 @@ extension AssetSelectView: ViewConfiguration {
     }
 }
 
-//MARK: - Setup UI
+// MARK: - Setup UI
 private extension AssetSelectView {
     
     func addBorderShadow() {

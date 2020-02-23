@@ -40,7 +40,7 @@ final class DexCompleteOrderViewController: UIViewController {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexCompleteOrderViewController {
     
     @IBAction func okeyTapped(_ sender: Any) {
@@ -48,7 +48,7 @@ private extension DexCompleteOrderViewController {
     }
 }
 
-//MARK: - Setup
+// MARK: - Setup
 
 private extension DexCompleteOrderViewController {
     

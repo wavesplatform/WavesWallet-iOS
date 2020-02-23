@@ -74,7 +74,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension TokenBurnConfirmationViewController {
  
     func setupData() {

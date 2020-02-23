@@ -90,7 +90,7 @@ fileprivate extension DexMarketViewController {
     }
 }
 
-//MARK: - Setup UI
+// MARK: - Setup UI
 private extension DexMarketViewController {
     
     func setupViews(isLoadingState: Bool) {
@@ -121,7 +121,7 @@ private extension DexMarketViewController {
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension DexMarketViewController: SearchBarViewDelegate {
 
     @objc private func search(_ searchText: String) {
@@ -142,7 +142,7 @@ extension DexMarketViewController: SearchBarViewDelegate {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension DexMarketViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -151,7 +151,7 @@ extension DexMarketViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension DexMarketViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
