@@ -55,8 +55,11 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
                                      action: .none)
 
         let sections = section(by: core)
+        
+        
 
         return State(ui: .init(sections: sections,
+                               title: "",
                                action: .update),
                      core: core)
     }

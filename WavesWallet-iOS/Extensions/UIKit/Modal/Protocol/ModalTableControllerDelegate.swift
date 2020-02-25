@@ -9,12 +9,6 @@
 import UIKit
 
 protocol ModalTableControllerDelegate: AnyObject {
-
-    //weak
-    var tableDataSource: UITableViewDataSource? { get }
-    
-    //weak
-    var tableDelegate: UITableViewDelegate? { get }
     
     func modalHeaderView() -> UIView
 
@@ -22,7 +16,6 @@ protocol ModalTableControllerDelegate: AnyObject {
     
     func visibleScrollViewHeight(for size: CGSize) -> CGFloat
     
-    func bottomScrollInset(for size: CGSize) -> CGFloat
-    
+    func bottomScrollInset(for size: CGSize) -> CGFloat    
 }
 

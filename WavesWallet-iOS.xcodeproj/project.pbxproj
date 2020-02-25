@@ -289,6 +289,8 @@
 		7B26A88C22ED191900E7B024 /* WidgetSettingsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88B22ED191900E7B024 /* WidgetSettingsModuleBuilder.swift */; };
 		7B26A88E22EEEA7000E7B024 /* WidgetSettingsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88D22EEEA7000E7B024 /* WidgetSettingsModuleOutput.swift */; };
 		7B26A89022EEECC200E7B024 /* WidgetSettingsAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */; };
+		7B2AE4B82402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B2AE4B72402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib */; };
+		7B2AE4BA2402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AE4B92402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift */; };
 		7B3681982314260C000D5592 /* ConfirmRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */; };
 		7B36819A23142625000D5592 /* ConfirmRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819923142625000D5592 /* ConfirmRequestType.swift */; };
 		7B36819D23142639000D5592 /* ConfirmRequestSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */; };
@@ -1621,6 +1623,8 @@
 		7B26A88B22ED191900E7B024 /* WidgetSettingsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsModuleBuilder.swift; sourceTree = "<group>"; };
 		7B26A88D22EEEA7000E7B024 /* WidgetSettingsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsModuleOutput.swift; sourceTree = "<group>"; };
 		7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsAssetCell.swift; sourceTree = "<group>"; };
+		7B2AE4B72402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StakingTransferSkeletonBalanceCell.xib; sourceTree = "<group>"; };
+		7B2AE4B92402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferSkeletonBalanceCell.swift; sourceTree = "<group>"; };
 		7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestViewController.swift; sourceTree = "<group>"; };
 		7B36819923142625000D5592 /* ConfirmRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestType.swift; sourceTree = "<group>"; };
 		7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestSystem.swift; sourceTree = "<group>"; };
@@ -4208,6 +4212,8 @@
 		7B85E62B23FD67F600365829 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7B2AE4B92402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift */,
+				7B2AE4B72402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib */,
 				7B85E62C23FD684C00365829 /* StakingTransferBalanceCell.swift */,
 				7B85E62E23FD697200365829 /* StakingTransferBalanceCell.xib */,
 				7B85E63223FD6BAC00365829 /* StakingTransferInputFieldCell.swift */,
@@ -6715,6 +6721,7 @@
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				7B9DC32A2382C04700DCCA75 /* Amplitude-Info.plist in Resources */,
+				7B2AE4B82402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib in Resources */,
 				7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */,
 				7B8FA1F223FEA06000C4C3EF /* BalanceInputField.xib in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
@@ -8129,6 +8136,7 @@
 				E9413AC222FA3D9C002C4A97 /* DexChartSettings.swift in Sources */,
 				0ADD801E21F22FFA0075FC59 /* PresentationCoordinator.swift in Sources */,
 				E9B087EF2163886800937644 /* DexLastTradesTypes.swift in Sources */,
+				7B2AE4BA2402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift in Sources */,
 				7B88186223044B7F00AB0549 /* Language+List.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				E9B087ED2163886800937644 /* DexLastTradesPresenterProtocol.swift in Sources */,

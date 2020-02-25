@@ -117,7 +117,7 @@ extension MoneyTextField {
     
     func clearInput() {
         text = nil
-        setNeedUpdateTextField()
+        setNeedUpdateTextField(isNeedNotify: false)
     }
     
     func clear() {

@@ -785,34 +785,33 @@
 
 "staking.transfer.cell.transactionfee.title" = "Transaction Fee:";
 
-"staking.transfer.withdraw.cell.balance.title" = "Staking balance:";
+"staking.transfer.withdraw.cell.input.title" = "Staking balance:";
 "staking.transfer.withdraw.title" = "Withdraw";
 "staking.transfer.withdraw.cell.input.title" = "Withdraw from %@";
 "staking.transfer.withdraw.cell.input.title.url" = "Smart Contract";
-"staking.transfer.withdraw.button.title" = "Withdraw"
+"staking.transfer.withdraw.button.title" = "Withdraw";
 
-"staking.transfer.deposit.cell.balance.title" = "Available balance:";
+"staking.transfer.deposit.cell.input.title" = "Available balance:";
 "staking.transfer.deposit.title" = "Deposit";
 "staking.transfer.deposit.cell.input.title" = "Deposit to %@";
 "staking.transfer.deposit.cell.input.title.url" = "Smart Contract";
 "staking.transfer.deposit.button.title" = "Deposit";
 
-"staking.transfer.buy.cell.balance.title" = "Amount";
-"staking.transfer.buy.title" = "Buy with Card";
+"staking.transfer.card.cell.input.title" = "Amount";
+"staking.transfer.card.title" = "Buy with Card";
 
-"staking.transfer.buy.cell.description.title.part1" =
-"• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.
+"staking.transfer.card.cell.description.title.part1" = "• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.";
 
-• After a successful payment on the partners' website,
-  USDN will be credited to your account within a few
-  minutes.
+"staking.transfer.card.cell.description.title.part2" = "• After a successful payment on the partners' website, USDN will be credited to your account within a few minutes.";
 
-• The minimum amount is %@ USDN. The maximum
-  amount is %@ USDN.
+"staking.transfer.card.cell.description.title.part3" = "• The minimum amount is %@. The maximum amount is %@.";
 
-%@";
+"staking.transfer.card.cell.description.title.part4" = "• If you have problems with your payment, please create a ticket on the %@ website.";
 
-"staking.transfer.buy.cell.description.title.part2" = "• If you have problems with your payment, please create a ticket on the %@ website.";
+"staking.transfer.card.cell.description.title.part4.url" = "support";
 
-"staking.transfer.buy.cell.description.title.part2.url" = "support"
+"staking.transfer.error.maxamount" = "Max amount is %@.";
+
+"staking.transfer.error.minamount" = "Min amount is %@.";
+
 

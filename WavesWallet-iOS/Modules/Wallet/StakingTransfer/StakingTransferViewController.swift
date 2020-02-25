@@ -28,25 +28,27 @@ extension UIViewController {
     }
 }
 
+protocol StakingTransferModuleOutput: AnyObject {
+    func stakingTransferOpenURL(_ url: URL)
+}
+
 final class StakingTransferViewController: UIViewController, ModalTableControllerDelegate {
         
-    private var modalTableViewController: ModalTableViewController = ModalTableViewController.create()
+    private let modalTableViewController: ModalTableViewController = ModalTableViewController.create()
+    
+    private var tableView: UITableView {
+        return modalTableViewController.tableView
+    }
     
     private lazy var stakingTransferHeaderView: StakingTransferHeaderView = StakingTransferHeaderView.loadFromNib()
-    
-    weak var tableDataSource: UITableViewDataSource? {
-        return self
-    }
-    
-    weak var tableDelegate: UITableViewDelegate? {
-        return self
-    }
-    
+        
     private let disposeBag: DisposeBag = DisposeBag()
            
-    private var stakingTransferSystem: System<StakingTransfer.State, StakingTransfer.Event>! = StakingTransferSystem()
+    private var system: System<StakingTransfer.State, StakingTransfer.Event>! = StakingTransferSystem()
     
     private var sections: [Types.ViewModel.Section] = .init()
+    
+    weak var moduleOutput: StakingTransferModuleOutput?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +62,7 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
         
         setupUI()
         
-        stakingTransferSystem
+        system
             .start()
             .drive(onNext: { [weak self] (state) in
                 guard let self = self else { return }
@@ -71,11 +73,19 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
         
     }
     
-//    override func viewDidAppea
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        system.send(.viewDidAppear)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        system.send(.viewDidAppear)
+    }
     
     private func setupUI() {
-        modalTableViewController.tableView.separatorStyle = .none
-        modalTableViewController.tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
     }
 }
 
@@ -87,6 +97,20 @@ extension StakingTransferViewController {
     
     private func update(state: Types.State.UI) {
         
+        self.sections = state.sections
+        
+        stakingTransferHeaderView.update(with: .init(title: state.title))
+        
+        switch state.action {
+        case .none:
+            break
+            
+        case .update:
+            tableView.reloadData()
+            
+        case .error(let networkError):
+            break
+        }
     }
 }
     
@@ -113,135 +137,218 @@ extension StakingTransferViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 10
+        return sections[section].rows.count
     }
             
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
+        let row = sections[indexPath]
+        
+        switch row {
+        case .balance(let model):
             
-        case 0:
-            let cell: StakingTransferBalanceCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            let cell: StakingTransferBalanceCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
             
-            cell?.update(with: .init(assetURL: .init(assetId: "WAVES",
-                                                     name: "WAVES",
-                                                     url: nil,
-                                                     isSponsored: false,
-                                                     hasScript: false),
-                                     title: "Test",
-                                     money: Money(10000000, 100)))
-                            
-            return cell!
-        case 1:
-            let cell: StakingTransferInputFieldCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-                            
-            let fullText = "Deposit to Smart Contract"
-                    
-            let url = URL.init(string: "HTTP://ya.ru")!
+        case .inputField(let model):
             
-            let string = NSMutableAttributedString(string: fullText)
-            string.addAttributes([NSAttributedString.Key.link: url], range: fullText.nsRange(of: "Contract")!)
+            let cell: StakingTransferInputFieldCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.update(with: model)
             
-            cell?.update(with: .init(title: string,
-                                     balance: .init(style: .normal,
-                                                    state: .empty(6,
-                                                                  .init(title: "USDN",
-                                                                        ticker: "USDN")))))
-                            
-            return cell!
+            cell.didSelectLinkWith = { [weak self] url in
+                self?.moduleOutput?.stakingTransferOpenURL(url)
+            }
             
-        case 2:
-            let cell: StakingTransferInputFieldCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-                    
-
-                            
-            return cell!
-        case 3:
-            let cell: StakingTransferErrorCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.didChangeInput = { [weak self] money in
+                self?.system.send(.input(money))
+            }
             
-            cell?.update(with: .init(title: "Min value is 10 USDN"))
+            return cell
             
-            return cell!
+        case .button(let model):
             
-        case 4:
-            let cell: StakingTransferScrollButtonsCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-                    
-            cell?.update(with: .init(buttons: ["100%", "75%", "50%", "25%", "10%"]))
+            let cell: StakingTransferButtonCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
             
-            return cell!
-
-        case 5:
-            let cell: StakingTransferDescriptionCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+        case .scrollButtons(let model):
             
-//            cell?.update(with: .init(buttons: ["100%", "75%", "50%", "25%", "10%"]))
-            
-            let fullText = """
-• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.
-
-• After a successful payment on the partners' website,
-  USDN will be credited to your account within a few
-  minutes.
-
-• The minimum amount is 10 USDN. The maximum
-  amount is 3,000 USDN.
-
-• If you have problems with your payment, please create
-  a ticket on the support website.
-"""
-                        
-            let url = URL.init(string: "HTTP://ya.ru")!
-            
-            let string = NSMutableAttributedString(string: fullText)
-            
-            
-            string.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.basic500,
-                                  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)],
-                                 range: NSRange.init(location: 0,
-                                                     length: string.length))
+            let cell: StakingTransferScrollButtonsCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.update(with: model)
+            cell.didTapView = { [weak self, weak cell] index in
                 
-            string.addAttributes([NSAttributedString.Key.link: url], range: fullText.nsRange(of: "support")!)
+                if let value = cell?.value(for: index),
+                    let assistanceButton = StakingTransfer.DTO.AssistanceButton.init(rawValue: value) {
+                    self?.system.send(.tapAssistanceButton(assistanceButton))
+                }
+            }
+            return cell
             
-            cell?.update(with: string)
+        case .error(let model):
             
-            return cell!
+            let cell: StakingTransferErrorCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
             
-        case 6:
-            let cell: StakingTransferFeeInfoCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+        case .feeInfo(let model):
             
+            let cell: StakingTransferFeeInfoCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
             
-            cell?.update(with: .init(balance: .init(currency: .init(title: "USDN",
-                                                                    ticker: "USDN"),
-                                                    money: .init(10000000,
-                                                                 8))))
-            return cell!
+        case .description(let model):
             
-        case 7:
+            let cell: StakingTransferDescriptionCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
             
-            let cell: StakingTransferButtonCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-            
-//            cell?.update(with: .init(assetURL: .init(assetId: "WAVES", name: "WAVES", url: nil, isSponsored: false, hasScript: false), title: "Test", money: Money.init(10000000, 100)))
-            
-            return cell!
-            
-            
-        default:
-            let cell: StakingTransferBalanceCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-            
-            cell?.update(with: .init(assetURL: .init(assetId: "WAVES", name: "WAVES", url: nil, isSponsored: false, hasScript: false), title: "Test", money: Money.init(10000000, 100)))
-            
-            return cell!
         }
+        
+//        switch indexPath.row {
+//
+//        case 0:
+//            let cell: StakingTransferBalanceCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+//            cell?.update(with: .init(assetURL: .init(assetId: "WAVES",
+//                                                     name: "WAVES",
+//                                                     url: nil,
+//                                                     isSponsored: false,
+//                                                     hasScript: false),
+//                                     title: "Test",
+//                                     money: Money(10000000, 100)))
+//
+//            return cell!
+//        case 1:
+//            let cell: StakingTransferInputFieldCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+//            let fullText = "Deposit to Smart Contract"
+//
+//            let url = URL.init(string: "HTTP://ya.ru")!
+//
+//            let string = NSMutableAttributedString(string: fullText)
+//            string.addAttributes([NSAttributedString.Key.link: url], range: fullText.nsRange(of: "Contract")!)
+//
+//            cell?.update(with: .init(title: string,
+//                                     balance: .init(style: .normal,
+//                                                    state: .empty(6,
+//                                                                  .init(title: "USDN",
+//                                                                        ticker: "USDN")))))
+//
+//            return cell!
+//
+//        case 2:
+//            let cell: StakingTransferInputFieldCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+//
+//
+//            return cell!
+//        case 3:
+//            let cell: StakingTransferErrorCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+//            cell?.update(with: .init(title: "Min value is 10 USDN"))
+//
+//            return cell!
+//
+//        case 4:
+//            let cell: StakingTransferScrollButtonsCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+//            cell?.update(with: .init(buttons: ["100%", "75%", "50%", "25%", "10%"]))
+//
+//            return cell!
+//
+//        case 5:
+//            let cell: StakingTransferDescriptionCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+////            cell?.update(with: .init(buttons: ["100%", "75%", "50%", "25%", "10%"]))
+//
+//            let fullText = """
+//• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.
+//
+//• After a successful payment on the partners' website,
+//  USDN will be credited to your account within a few
+//  minutes.
+//
+//• The minimum amount is 10 USDN. The maximum
+//  amount is 3,000 USDN.
+//
+//• If you have problems with your payment, please create
+//  a ticket on the support website.
+//"""
+//
+//            let url = URL.init(string: "HTTP://ya.ru")!
+//
+//            let string = NSMutableAttributedString(string: fullText)
+//
+//
+//            string.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.basic500,
+//                                  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)],
+//                                 range: NSRange.init(location: 0,
+//                                                     length: string.length))
+//
+//            string.addAttributes([NSAttributedString.Key.link: url], range: fullText.nsRange(of: "support")!)
+//
+//            cell?.update(with: string)
+//
+//            return cell!
+//
+//        case 6:
+//            let cell: StakingTransferFeeInfoCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+//
+//            cell?.update(with: .init(balance: .init(currency: .init(title: "USDN",
+//                                                                    ticker: "USDN"),
+//                                                    money: .init(10000000,
+//                                                                 8))))
+//            return cell!
+//
+//        case 7:
+//
+//            let cell: StakingTransferButtonCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+////            cell?.update(with: .init(assetURL: .init(assetId: "WAVES", name: "WAVES", url: nil, isSponsored: false, hasScript: false), title: "Test", money: Money.init(10000000, 100)))
+//
+//            return cell!
+//
+//
+//        default:
+//            let cell: StakingTransferBalanceCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+//
+//            cell?.update(with: .init(assetURL: .init(assetId: "WAVES", name: "WAVES", url: nil, isSponsored: false, hasScript: false), title: "Test", money: Money.init(10000000, 100)))
+//
+//            return cell!
+//        }
     }
 }
 
 extension StakingTransferViewController: UITableViewDelegate {
  
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+//        let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
+//        switch item {
+//        case .historySkeleton:
+//            let skeletonCell: WalletHistorySkeletonCell? = cell as? WalletHistorySkeletonCell
+//            skeletonCell?.startAnimation()
+//
+//        case .assetSkeleton:
+//            let skeletonCell: WalletAssetSkeletonCell? = cell as? WalletAssetSkeletonCell
+//            skeletonCell?.startAnimation()
+//
+//        case .balanceSkeleton:
+//            let skeletonCell: WalletLeasingBalanceSkeletonCell? = cell as? WalletLeasingBalanceSkeletonCell
+//            skeletonCell?.startAnimation()
+//        default:
+//            break
+//        }
     }
 }
 

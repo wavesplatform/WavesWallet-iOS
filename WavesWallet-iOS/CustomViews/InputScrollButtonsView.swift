@@ -50,6 +50,10 @@ final class InputScrollButtonsView: UIScrollView {
         return CGSize.init(width: size.width,
                            height: Constants.buttonHeight)
     }
+    
+    func value(for index: Int) -> String? {
+        return input[index]
+    }
 }
 
 // MARK: ViewConfiguration

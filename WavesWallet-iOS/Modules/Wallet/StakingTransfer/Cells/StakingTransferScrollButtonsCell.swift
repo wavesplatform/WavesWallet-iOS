@@ -19,6 +19,10 @@ final class StakingTransferScrollButtonsCell: UITableViewCell, NibReusable {
     @IBOutlet private var inputScrollButtonsView: InputScrollButtonsView!
     
     var didTapView: ((_ index: Int) -> Void)?
+    
+    func value(for index: Int) -> String? {
+        return inputScrollButtonsView.value(for: index)
+    }
 }
 
 // MARK: ViewConfiguration

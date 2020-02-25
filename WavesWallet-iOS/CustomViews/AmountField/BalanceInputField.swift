@@ -41,22 +41,26 @@ final class BalanceInputField: UIView, NibOwnerLoadable {
             
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        loadNibContent()
-        
+        loadNibContent()        
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        numberTextField.moneyDelegate = self
     }
 }
 
-
 // MARK: - Private Methods
+
 private extension BalanceInputField  {
     
     func setNeedUpdateStyle() {
-        //TODO: Set cool colorSeparatorView
+        
         switch style {
         case .normal:
-            self.separatorView.lineColor = .black
+            self.separatorView.lineColor = UIColor.accent100
         case .error:
-            self.separatorView.lineColor = .red
+            self.separatorView.lineColor = UIColor.error500
         }
     }
 }

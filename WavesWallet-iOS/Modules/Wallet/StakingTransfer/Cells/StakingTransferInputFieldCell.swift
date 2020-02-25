@@ -23,6 +23,11 @@ final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var titleLabel: TTTAttributedLabel!
             
     var didSelectLinkWith: ((URL) -> Void)?
+    var didChangeInput: ((_ value: Money) -> Void)? {
+        didSet {
+            balanceInputField.didChangeInput = didChangeInput
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,6 +35,7 @@ final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
         titleLabel.activeLinkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.linkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.delegate = self
+        balanceInputField.didChangeInput = didChangeInput
     }
 }
 

@@ -31,6 +31,7 @@ enum TransactionCard {
             }
 
             var sections: [Section]
+            var title: String
             var action: Action
         }
 

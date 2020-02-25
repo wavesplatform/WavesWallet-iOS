@@ -103,3 +103,30 @@ public extension Money {
         return Money((decimalValue * pow(10, priceDecimals)).int64Value, priceDecimals)
     }
 }
+
+public extension Money {
+    
+    static func > (left: Money, right: Money) -> Bool {
+        return left.decimalValue > right.decimalValue
+    }
+    
+    static func < (left: Money, right: Money) -> Bool {
+        return left.decimalValue < right.decimalValue
+    }
+    
+    static func >= (left: Money, right: Money) -> Bool {
+        return left.decimalValue >= right.decimalValue
+    }
+    
+    static func <= (left: Money, right: Money) -> Bool {
+        return left.decimalValue <= right.decimalValue
+    }
+    
+    static func != (left: Money, right: Money) -> Bool {
+        return left.decimalValue != right.decimalValue
+    }
+    
+    static func == (left: Money, right: Money) -> Bool {
+        return left.decimalValue == right.decimalValue
+    }
+}
