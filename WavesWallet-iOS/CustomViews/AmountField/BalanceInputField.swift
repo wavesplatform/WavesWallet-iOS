@@ -37,7 +37,7 @@ final class BalanceInputField: UIView, NibOwnerLoadable {
         }
     }
     
-    var didChangeInput: ((_ value: Money) -> Void)?
+    var didChangeInput: ((_ value: Money?) -> Void)?
             
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -47,6 +47,10 @@ final class BalanceInputField: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         numberTextField.moneyDelegate = self
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        return numberTextField.becomeFirstResponder()
     }
 }
 
@@ -96,6 +100,7 @@ extension BalanceInputField: ViewConfiguration {
 extension BalanceInputField: MoneyTextFieldDelegate {
     
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
-        didChangeInput?(value)
+        
+        didChangeInput?(textField.hasInput == true ? value : nil)
     }
 }

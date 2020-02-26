@@ -62,7 +62,7 @@ extension StakingTransfer.DTO.Card {
             let currency: DomainLayer.DTO.Balance.Currency = .init(title: asset.name,
                                                                    ticker: asset.ticker)
             
-            if let inputCard = inputCard, let amount = inputCard.amount {
+            if let inputCard = inputCard, let amount = inputCard.amount, amount.amount > 0 {
                 return .balance(DomainLayer.DTO.Balance.init(currency: currency,
                                                              money: amount))
             } else {
@@ -86,16 +86,8 @@ extension StakingTransfer.DTO.Card {
         return inputField
     }
     
-    func sections(inputCard: StakingTransfer.DTO.InputCard?) -> [StakingTransfer.ViewModel.Section] {
-                
-        let assistanceButton: StakingTransfer.DTO.AssistanceButton = .max
+    func error(inputCard: StakingTransfer.DTO.InputCard?) -> StakingTransfer.ViewModel.Row? {
         
-        let buttons: StakingTransferScrollButtonsCell.Model =
-            .init(buttons: [assistanceButton.rawValue])
-                    
-        let description: StakingTransferDescriptionCell.Model = .init(attributedString: .descriptionCardAttributedString(minAmount: minAmount, maxAmount: maxAmount))
-        
-                
         let error: StakingTransferErrorCell.Model? = {
             
             switch inputCard?.error {
@@ -111,6 +103,25 @@ extension StakingTransfer.DTO.Card {
             }
         }()
         
+        if let error = error {
+            return .error(error)
+        } else {
+            return nil
+        }
+    }
+    
+    func sections(inputCard: StakingTransfer.DTO.InputCard?) -> [StakingTransfer.ViewModel.Section] {
+                
+        let assistanceButton: StakingTransfer.DTO.AssistanceButton = .max
+        
+        let buttons: StakingTransferScrollButtonsCell.Model =
+            .init(buttons: [assistanceButton.rawValue])
+                    
+        let description: StakingTransferDescriptionCell.Model = .init(attributedString: .descriptionCardAttributedString(minAmount: minAmount, maxAmount: maxAmount))
+        
+                
+        let error: StakingTransfer.ViewModel.Row? = self.error(inputCard: inputCard)
+        
         let inputField: StakingTransferInputFieldCell.Model = self.inputField(inputCard: inputCard)
                 
         var rows: [StakingTransfer.ViewModel.Row] = .init()
@@ -118,7 +129,7 @@ extension StakingTransfer.DTO.Card {
         rows.append(.inputField(inputField))
         
         if let error = error {
-            rows.append(.error(error))
+            rows.append(error)
         }
                         
         rows.append(contentsOf: [.scrollButtons(buttons),

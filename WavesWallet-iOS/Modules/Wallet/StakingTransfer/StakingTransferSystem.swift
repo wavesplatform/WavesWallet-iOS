@@ -66,26 +66,83 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
                 break
             }
             
-        case .input(let input):
+        case .input(let input, let indexPath):
             
             guard let card = state.core.data?.card else { return }
                         
+            let prevInputCard = state.core.input?.card
             let minAmount = card.minAmount
             let maxAmount = card.maxAmount
             
             var error: StakingTransfer.DTO.InputCard.Error? = nil
-            
-            if input > maxAmount.money {
-                error = .maxAmount
-            } else if input < minAmount.money {
-                error = .minAmount
+             
+            if let input = input {
+                if input > maxAmount.money {
+                    error = .maxAmount
+                } else if input < minAmount.money {
+                    error = .minAmount
+                }
             }
+            
+            
+//            let needRemoveError: Bool
                         
             state.core.input = .card(.init(amount: input, error: error))
             state.core.action = .none
             
-            state.ui.sections = card.sections(inputCard: state.core.input?.card)
-            state.ui.action = .update
+            
+            var inputCard = state.core.input?.card
+            
+            var sections = state.ui.sections
+            var section = sections.first
+//            section?.rows
+            
+            var insertRows: [IndexPath] = .init()
+            var deleteRows: [IndexPath] = .init()
+            var reloadRows: [IndexPath] = .init()
+                                    
+//            if hasPrevError && error != nil {
+//                deleteRows.append(IndexPath(row: 1, section: 0))
+//            }
+
+//            if error != nil {
+//
+//            }
+            
+            let hasPrevError = prevInputCard?.error != nil
+            let hasError = error != nil
+            let reloadError = hasPrevError && hasError
+            
+            if hasPrevError {
+                state.ui.remove(indexPath: IndexPath(row: 1, section: 0))
+            }
+                                                           
+            if hasError {
+                if let errorRow  = card.error(inputCard: inputCard) {
+                    state.ui.add(row: errorRow, indexPath: IndexPath(row: 1, section: 0))
+                }
+            }
+            
+                        
+            if reloadError {
+                reloadRows.append(IndexPath(row: 1, section: 0))
+            } else  {
+                
+                if hasPrevError {
+                    deleteRows.append(IndexPath(row: 1, section: 0))
+                }
+                                             
+                if hasError {
+                    insertRows.append(IndexPath(row: 1, section: 0))
+                }
+            }
+            
+            
+            state.ui.action = .updateRows(insertRows,
+                                          deleteRows,
+                                          reloadRows)
+            
+            
             
             break
         case .showCard(let card):
@@ -121,14 +178,19 @@ private struct ShowCardQuery: SystemQuery {
         
         let balance: DomainLayer.DTO.Balance = DomainLayer.DTO.Balance.init(currency: .init(title: "USDN",
                                                                                             ticker: "USDN"),
-                                                                            money: Money.init(1000000,
-                                                                                              10))
+                                                                            money: Money.init(0,
+                                                                                              2))
+        
+        let max: DomainLayer.DTO.Balance = DomainLayer.DTO.Balance.init(currency: .init(title: "USDN",
+                        ticker: "USDN"),
+                                                                        money: Money.init(1000,
+                                                                                          2))
         
         let card: StakingTransfer.DTO.Card = StakingTransfer.DTO.Card.init(asset: .init(id: "",
                                                                                         gatewayId: "",
                                                                                         wavesId: "",
                                                                                         name: "USDN",
-                                                                                        precision: 10,
+                                                                                        precision: 2,
                                                                                         description: "",
                                                                                         height: 1,
                                                                                         timestamp: Date(),
@@ -150,7 +212,7 @@ private struct ShowCardQuery: SystemQuery {
                                                                                         minSponsoredFee: 10,
                                                                                         gatewayType: nil),
                                                                            minAmount: balance,
-                                                                           maxAmount: balance)
+                                                                           maxAmount: max)
         
         return Signal.just(.showCard(card))
     }

@@ -38,6 +38,28 @@ public extension DataSourceProtocol {
             sections[section] = newValue
         }
     }
+    
+    mutating func remove(indexPath: IndexPath) {
+        
+        var section = self[indexPath.section]
+        
+        var rows = section.rows
+        rows.remove(at: indexPath.row)
+        section.rows = rows
+        
+        self[indexPath.section] = section
+    }
+    
+    mutating func add(row: Section.Row, indexPath: IndexPath) {
+        
+        var section = self[indexPath.section]
+        
+        var rows = section.rows
+        rows.insert(row, at: indexPath.row)
+        section.rows = rows
+        
+        self[indexPath.section] = section
+    }
 }
 
 public extension SectionProtocol {

@@ -106,9 +106,66 @@ extension StakingTransferViewController {
             break
             
         case .update:
+            
+//            [tableView beginUpdates];
+//            [tableView endUpdates];
+//            tableView.beginUpdates()
+            tableView.reloadData()
+//            tableView.endUpdates()
+            
+        case .updateRows(let insertRows, let deleteRows, let reloadRows):
+            
+            tableView.beginUpdates()
+            
+            
+            if deleteRows.count > 0 {
+                tableView.deleteRows(at: deleteRows, with: .fade)
+            }
+            
+            if insertRows.count > 0 {
+                tableView.insertRows(at: insertRows, with: .fade)
+            }
+            
+            if reloadRows.count > 0 {
+                tableView.reloadRows(at: reloadRows, with: .none)
+            }
+            
+            
+//            updateCell(indexPath: IndexPath.init(row: 0, section: 0))
+            tableView.endUpdates()
+            
+        case .updateAndBecomeFirstRow(let indexPath):
+            break
+            
+//            tableView.beginUpdates()
             tableView.reloadData()
             
+//            tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+//            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+//            tableView.insertRows(at: [indexPath], with: .fade)
+//            tableView.endUpdates()
+            
         case .error(let networkError):
+            break
+            
+        default:
+            break
+        }
+    }
+    
+    private func updateCell(indexPath: IndexPath) {
+        
+            
+        let model = self.sections[indexPath]
+        
+        
+        switch model {
+        case .inputField(let model):
+        
+            guard let cell  = tableView.cellForRow(at: indexPath) as? StakingTransferInputFieldCell else { return }
+            cell.update(with: model)
+            
+        default:
             break
         }
     }
@@ -161,7 +218,7 @@ extension StakingTransferViewController: UITableViewDataSource {
             }
             
             cell.didChangeInput = { [weak self] money in
-                self?.system.send(.input(money))
+                self?.system.send(.input(money, indexPath))
             }
             
             return cell
@@ -333,6 +390,9 @@ extension StakingTransferViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
+        if cell is StakingTransferInputFieldCell {
+//            cell.becomeFirstResponder()
+        }
 //        let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
 //        switch item {
 //        case .historySkeleton:

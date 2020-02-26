@@ -82,7 +82,7 @@ extension StakingTransfer {
         case showDeposit(StakingTransfer.DTO.Deposit)
         case showWithdraw(StakingTransfer.DTO.Withdraw)
         case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
-        case input(Money)
+        case input(Money?, IndexPath)
     }
 }
     
@@ -104,10 +104,14 @@ extension StakingTransfer {
             var input: StakingTransfer.DTO.InputData?
         }
         
-        struct UI {
+        struct UI: DataSourceProtocol {
             enum Action {
                 case none
                 case update
+                case updateAndBecomeFirstRow(IndexPath)
+                case updateRows(_ insertRows: [IndexPath],
+                                _ deleteRows: [IndexPath],
+                                _ reloadRows: [IndexPath])
                 case error(NetworkError)
             }
 
