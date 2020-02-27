@@ -12,7 +12,7 @@ import DomainLayer
 
 final class StakingTransferScrollButtonsCell: UITableViewCell, NibReusable {
     
-    struct Model {
+    struct Model: Hashable {
         let buttons: [String]
     }
     
@@ -22,6 +22,11 @@ final class StakingTransferScrollButtonsCell: UITableViewCell, NibReusable {
     
     func value(for index: Int) -> String? {
         return inputScrollButtonsView.value(for: index)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        inputScrollButtonsView.inputDelegate = self
     }
 }
 

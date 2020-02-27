@@ -13,7 +13,7 @@ import TTTAttributedLabel
 
 final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
     
-    struct Model {
+    struct Model: Hashable {
                 
         let title: NSAttributedString        
         let balance: BalanceInputField.Model

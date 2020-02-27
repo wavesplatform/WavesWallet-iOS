@@ -107,44 +107,32 @@ extension StakingTransferViewController {
             
         case .update:
             
-//            [tableView beginUpdates];
-//            [tableView endUpdates];
-//            tableView.beginUpdates()
-            tableView.reloadData()
-//            tableView.endUpdates()
-            
-        case .updateRows(let insertRows, let deleteRows, let reloadRows):
-            
-            tableView.beginUpdates()
-            
-            
-            if deleteRows.count > 0 {
-                tableView.deleteRows(at: deleteRows, with: .fade)
-            }
-            
-            if insertRows.count > 0 {
-                tableView.insertRows(at: insertRows, with: .fade)
-            }
-            
-            if reloadRows.count > 0 {
-                tableView.reloadRows(at: reloadRows, with: .none)
-            }
-            
-            
-//            updateCell(indexPath: IndexPath.init(row: 0, section: 0))
-            tableView.endUpdates()
-            
-        case .updateAndBecomeFirstRow(let indexPath):
-            break
-            
-//            tableView.beginUpdates()
             tableView.reloadData()
             
-//            tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
-//            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-//            tableView.insertRows(at: [indexPath], with: .fade)
-//            tableView.endUpdates()
+        case .updateRows(let insertRows, let deleteRows, let reloadRows, let updateRows):
+               
+            let needUpdateTable = (deleteRows.count + insertRows.count + reloadRows.count) > 0
             
+            if needUpdateTable {
+                tableView.beginUpdates()
+
+                if deleteRows.count > 0 {
+                    tableView.deleteRows(at: deleteRows, with: .fade)
+                }
+
+                if insertRows.count > 0 {
+                    tableView.insertRows(at: insertRows, with: .fade)
+                }
+
+                if reloadRows.count > 0 {
+                    tableView.reloadRows(at: reloadRows, with: .none)
+                }
+                
+                tableView.endUpdates()
+            }
+                                    
+            updateRows.forEach { updateCellByModel(indexPath: $0) }
+                                    
         case .error(let networkError):
             break
             
@@ -153,16 +141,18 @@ extension StakingTransferViewController {
         }
     }
     
-    private func updateCell(indexPath: IndexPath) {
-        
-            
+    private func updateCellByModel(indexPath: IndexPath) {
+                    
         let model = self.sections[indexPath]
-        
-        
+                
         switch model {
         case .inputField(let model):
         
             guard let cell  = tableView.cellForRow(at: indexPath) as? StakingTransferInputFieldCell else { return }
+            cell.update(with: model)
+            
+        case .button(let model):
+            guard let cell  = tableView.cellForRow(at: indexPath) as? StakingTransferButtonCell else { return }
             cell.update(with: model)
             
         default:
@@ -227,6 +217,11 @@ extension StakingTransferViewController: UITableViewDataSource {
             
             let cell: StakingTransferButtonCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
             cell.update(with: model)
+            
+            cell.didTouchButton = { [weak self] in
+                self?.system.send(.tapSendButton)
+            }
+            
             return cell
             
         case .scrollButtons(let model):

@@ -37,6 +37,20 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
 
     override func reduce(event: Event, state: inout State) {
         
+        switch state.core.kind {
+        case .card:
+            return reduceForCard(event: event, state: &state)
+            
+        case .deposit:
+            break
+            
+        case .withdraw:
+            break
+        }
+    }
+        
+    func reduceForCard(event: Event, state: inout State) {
+        
         switch event {
         case .viewDidAppear:
             
@@ -53,98 +67,22 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
             }
         case .tapAssistanceButton(let assistanceButton):
             
-            switch assistanceButton {
-            case .max:
-                break
-            case .percent100:
-                break
-            case .percent75:
-                break
-            case .percent50:
-                break
-            case .percent25:
-                break
-            }
+            guard case .max = assistanceButton else { return }
             
+            guard let money = state.core.data?.card?.maxAmount.money else { return }
+                
+            let indexPath = IndexPath(row: 0, section: 0)
+            
+            changeCardStateAfterInput(input: money,
+                                      indexPath: indexPath,
+                                      state: &state)
+                        
         case .input(let input, let indexPath):
             
-            guard let card = state.core.data?.card else { return }
-                        
-            let prevInputCard = state.core.input?.card
-            let minAmount = card.minAmount
-            let maxAmount = card.maxAmount
+            changeCardStateAfterInput(input: input,
+                                      indexPath: indexPath,
+                                      state: &state)
             
-            var error: StakingTransfer.DTO.InputCard.Error? = nil
-             
-            if let input = input {
-                if input > maxAmount.money {
-                    error = .maxAmount
-                } else if input < minAmount.money {
-                    error = .minAmount
-                }
-            }
-            
-            
-//            let needRemoveError: Bool
-                        
-            state.core.input = .card(.init(amount: input, error: error))
-            state.core.action = .none
-            
-            
-            var inputCard = state.core.input?.card
-            
-            var sections = state.ui.sections
-            var section = sections.first
-//            section?.rows
-            
-            var insertRows: [IndexPath] = .init()
-            var deleteRows: [IndexPath] = .init()
-            var reloadRows: [IndexPath] = .init()
-                                    
-//            if hasPrevError && error != nil {
-//                deleteRows.append(IndexPath(row: 1, section: 0))
-//            }
-
-//            if error != nil {
-//
-//            }
-            
-            let hasPrevError = prevInputCard?.error != nil
-            let hasError = error != nil
-            let reloadError = hasPrevError && hasError
-            
-            if hasPrevError {
-                state.ui.remove(indexPath: IndexPath(row: 1, section: 0))
-            }
-                                                           
-            if hasError {
-                if let errorRow  = card.error(inputCard: inputCard) {
-                    state.ui.add(row: errorRow, indexPath: IndexPath(row: 1, section: 0))
-                }
-            }
-            
-                        
-            if reloadError {
-                reloadRows.append(IndexPath(row: 1, section: 0))
-            } else  {
-                
-                if hasPrevError {
-                    deleteRows.append(IndexPath(row: 1, section: 0))
-                }
-                                             
-                if hasError {
-                    insertRows.append(IndexPath(row: 1, section: 0))
-                }
-            }
-            
-            
-            state.ui.action = .updateRows(insertRows,
-                                          deleteRows,
-                                          reloadRows)
-            
-            
-            
-            break
         case .showCard(let card):
             
             state.core.action = .none
@@ -152,7 +90,19 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
             
             state.ui.sections = card.sections(inputCard: state.core.input?.card)
             state.ui.action = .update
+
+        case .tapSendButton:
             
+            guard let card = state.core.data?.card else { return }
+            
+            let rowsCount = state.ui.sections[0].rows.count
+            let indexPath = IndexPath(row: max(rowsCount - 1, 0), section: 0)
+                                            
+            state.ui.replace(row: card.button(status: .active), indexPath: indexPath)
+            state.ui.action = .updateRows([],
+                                          [],
+                                          [],
+                                          [indexPath])
         case .showDeposit(let deposit):
             break
             
@@ -164,7 +114,79 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
 
 
 private extension StakingTransferSystem {
-    
+ 
+    func changeCardStateAfterInput(input: Money?, indexPath: IndexPath, state: inout State) {
+
+        guard let card = state.core.data?.card else { return }
+        
+        let prevInputCard = state.core.input?.card
+        let minAmount = card.minAmount
+        let maxAmount = card.maxAmount
+        
+        var error: StakingTransfer.DTO.InputCard.Error? = nil
+        
+        if let input = input {
+            if input > maxAmount.money {
+                error = .maxAmount
+            } else if input < minAmount.money {
+                error = .minAmount
+            }
+        }
+        
+        let newInputCard: StakingTransfer.DTO.InputCard = .init(amount: input, error: error)
+        
+        state.core.input = .card(newInputCard)
+        state.core.action = .none
+        
+        let hasPrevError = prevInputCard?.error != nil
+        let hasError = error != nil
+        let reloadError = hasPrevError && hasError
+        
+        let inputField = card.inputField(inputCard: newInputCard)
+        
+        state.ui.remove(indexPath: indexPath)
+        state.ui.add(row: inputField, indexPath: indexPath)
+        
+        let nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+        
+        if hasPrevError {
+            state.ui.remove(indexPath: nextIndexPath)
+        }
+        
+        let rowsCount = state.ui.sections[0].rows.count
+        let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
+        
+        if hasError {
+            if let errorRow  = card.error(inputCard: newInputCard) {
+                state.ui.add(row: errorRow, indexPath: nextIndexPath)
+            }
+        }
+        
+        state.ui.replace(row: card.button(status: hasError == true ? .disabled : .active), indexPath: indexPathButton)
+        
+        var insertRows: [IndexPath] = .init()
+        var deleteRows: [IndexPath] = .init()
+        var reloadRows: [IndexPath] = .init()
+        
+        if reloadError {
+            reloadRows.append(nextIndexPath)
+        } else  {
+            
+            if hasPrevError {
+                deleteRows.append(nextIndexPath)
+            }
+            
+            if hasError {
+                insertRows.append(nextIndexPath)
+            }
+        }
+        
+        state.core.action = .none
+        state.ui.action = .updateRows(insertRows,
+                                      deleteRows,
+                                      reloadRows,
+                                      [indexPath, indexPathButton])
+    }
 }
 
 

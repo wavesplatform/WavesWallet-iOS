@@ -55,7 +55,7 @@ extension StakingTransfer.State.UI {
 
 extension StakingTransfer.DTO.Card {
     
-    func inputField(inputCard: StakingTransfer.DTO.InputCard?) -> StakingTransferInputFieldCell.Model {
+    func inputField(inputCard: StakingTransfer.DTO.InputCard?) -> StakingTransfer.ViewModel.Row {
         
         let inputState: BalanceInputField.State = {
             
@@ -83,7 +83,7 @@ extension StakingTransfer.DTO.Card {
                 .init(title: title,
                       balance: input)
         
-        return inputField
+        return .inputField(inputField)
     }
     
     func error(inputCard: StakingTransfer.DTO.InputCard?) -> StakingTransfer.ViewModel.Row? {
@@ -122,11 +122,11 @@ extension StakingTransfer.DTO.Card {
                 
         let error: StakingTransfer.ViewModel.Row? = self.error(inputCard: inputCard)
         
-        let inputField: StakingTransferInputFieldCell.Model = self.inputField(inputCard: inputCard)
+        let inputField = self.inputField(inputCard: inputCard)
                 
         var rows: [StakingTransfer.ViewModel.Row] = .init()
         
-        rows.append(.inputField(inputField))
+        rows.append(inputField)
         
         if let error = error {
             rows.append(error)
@@ -135,10 +135,24 @@ extension StakingTransfer.DTO.Card {
         rows.append(contentsOf: [.scrollButtons(buttons),
                                  .description(description)])
         
+                    
+        let button = self.button(status: .disabled)
+        rows.append(button)
+        
         let section: StakingTransfer.ViewModel.Section =
             .init(rows: rows)
         
         return [section]
+    }
+    
+    func button(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
+        
+        let buttonTitle = Localizable.Waves.Staking.Transfer.Card.title
+        
+        let button = StakingTransferButtonCell.Model.init(title: buttonTitle,
+                                                          status: status)
+        
+        return .button(button)
     }
 }
 

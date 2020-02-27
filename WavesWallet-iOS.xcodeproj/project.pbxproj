@@ -291,6 +291,8 @@
 		7B26A89022EEECC200E7B024 /* WidgetSettingsAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */; };
 		7B2AE4B82402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B2AE4B72402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib */; };
 		7B2AE4BA2402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AE4B92402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift */; };
+		7B2AE4BD2407E6E60034B892 /* StakingTransferCardUISystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AE4BC2407E6E60034B892 /* StakingTransferCardUISystem.swift */; };
+		7B2AE4BF2407E76A0034B892 /* StakingTransferCardSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AE4BE2407E76A0034B892 /* StakingTransferCardSystem.swift */; };
 		7B3681982314260C000D5592 /* ConfirmRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */; };
 		7B36819A23142625000D5592 /* ConfirmRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819923142625000D5592 /* ConfirmRequestType.swift */; };
 		7B36819D23142639000D5592 /* ConfirmRequestSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */; };
@@ -1625,6 +1627,8 @@
 		7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsAssetCell.swift; sourceTree = "<group>"; };
 		7B2AE4B72402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StakingTransferSkeletonBalanceCell.xib; sourceTree = "<group>"; };
 		7B2AE4B92402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferSkeletonBalanceCell.swift; sourceTree = "<group>"; };
+		7B2AE4BC2407E6E60034B892 /* StakingTransferCardUISystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferCardUISystem.swift; sourceTree = "<group>"; };
+		7B2AE4BE2407E76A0034B892 /* StakingTransferCardSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferCardSystem.swift; sourceTree = "<group>"; };
 		7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestViewController.swift; sourceTree = "<group>"; };
 		7B36819923142625000D5592 /* ConfirmRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestType.swift; sourceTree = "<group>"; };
 		7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestSystem.swift; sourceTree = "<group>"; };
@@ -3707,6 +3711,15 @@
 			path = UITest;
 			sourceTree = "<group>";
 		};
+		7B2AE4BB2407E6D30034B892 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				7B2AE4BC2407E6E60034B892 /* StakingTransferCardUISystem.swift */,
+				7B2AE4BE2407E76A0034B892 /* StakingTransferCardSystem.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
 		7B368196231425ED000D5592 /* ConfirmRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -4205,6 +4218,7 @@
 				7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */,
 				7B85E61F23FD311300365829 /* StakingTransfer.storyboard */,
 				7B85E64023FD821B00365829 /* StakingTransferSystem.swift */,
+				7B2AE4BB2407E6D30034B892 /* Card */,
 			);
 			path = StakingTransfer;
 			sourceTree = "<group>";
@@ -7725,6 +7739,7 @@
 				E9443014226E64F600EB6257 /* WalletSortInteractorProtocol.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
 				7BD6E10522E5AE0200BAAFC8 /* DebugHeaderView.swift in Sources */,
+				7B2AE4BD2407E6E60034B892 /* StakingTransferCardUISystem.swift in Sources */,
 				0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */,
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
 				7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */,
@@ -8031,6 +8046,7 @@
 				E96FEA25226E962300C0EE22 /* WalletSortEmptyAssetsCell.swift in Sources */,
 				7B0FD98723195D6A0004B52B /* ConfirmRequestCompleteViewController.swift in Sources */,
 				E9B087AB2163886800937644 /* DexOrderBookModuleOutput.swift in Sources */,
+				7B2AE4BF2407E76A0034B892 /* StakingTransferCardSystem.swift in Sources */,
 				E9A3AFAE222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift in Sources */,
 				7B390299223698D300AAFDB8 /* TransactionCardKeyValueCell.swift in Sources */,
 				7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */,

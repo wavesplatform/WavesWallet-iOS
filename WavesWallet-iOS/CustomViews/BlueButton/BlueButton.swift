@@ -11,8 +11,8 @@ import Extensions
 
 final class BlueButton: UIView, NibOwnerLoadable {
     
-    struct Model {
-        enum Status {
+    struct Model: Hashable {
+        enum Status: Hashable {
             case disabled
             case active
             case loading

@@ -19,6 +19,7 @@ public protocol DataSourceProtocol {
 }
 
 public extension DataSourceProtocol {
+    
     subscript(indexPath: IndexPath) -> Section.Row {
         get {
             return sections[indexPath.section].rows[indexPath.row]
@@ -60,9 +61,24 @@ public extension DataSourceProtocol {
         
         self[indexPath.section] = section
     }
+    
+    mutating func replace(row: Section.Row, indexPath: IndexPath) {
+        
+        var section = self[indexPath.section]
+        
+        var rows = section.rows
+        
+        if indexPath.row > rows.count {
+            rows[indexPath.row] = row
+        }
+        
+        section.rows = rows
+        self[indexPath.section] = section
+    }
 }
 
 public extension SectionProtocol {
+    
     subscript(index: Int) -> Row {
         get {
             return rows[index]

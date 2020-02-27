@@ -12,7 +12,7 @@ import Kingfisher
 
 public enum AssetLogo {
     
-    public struct Icon: Equatable, Codable {
+    public struct Icon: Hashable, Codable {
         public let assetId: String
         public let name: String
         public let url: String?

@@ -11,8 +11,8 @@ import Extensions
 
 public extension DomainLayer.DTO {
 
-    struct Balance: Equatable {
-        public struct Currency: Equatable {
+    struct Balance: Hashable {
+        public struct Currency: Hashable {
             public let title: String
             public let ticker: String?
             

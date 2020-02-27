@@ -11,6 +11,10 @@ import Extensions
 import DomainLayer
 import WavesSDK
 
+//TODO remove
+import RxSwift
+import RxCocoa
+
 enum StakingTransfer {
     enum DTO {}
     
@@ -77,52 +81,67 @@ extension StakingTransfer.DTO {
 extension StakingTransfer {
     enum Event {
         case viewDidAppear
-//        case loadData(StakingTransfer.DTO.Data)
+        
         case showCard(StakingTransfer.DTO.Card)
         case showDeposit(StakingTransfer.DTO.Deposit)
         case showWithdraw(StakingTransfer.DTO.Withdraw)
+        case tapSendButton
         case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
         case input(Money?, IndexPath)
     }
 }
-    
+
+/*
+
+ 
+ Event -> Mutate State -> State
+ 
+ UI Event ->
+ 
+ Backend Event -> x
+
+
+*/
+
 extension StakingTransfer {
         
-    struct State {
-        
-        struct Core {
-            enum Action {
-                case none
-                case loadCard
-                case loadDeposit
-                case loadWithdraw
-              }
-            
-            let kind: StakingTransfer.DTO.Kind
-            var action: StakingTransfer.State.Core.Action
-            var data: StakingTransfer.DTO.Data?
-            var input: StakingTransfer.DTO.InputData?
-        }
-        
-        struct UI: DataSourceProtocol {
-            enum Action {
-                case none
-                case update
-                case updateAndBecomeFirstRow(IndexPath)
-                case updateRows(_ insertRows: [IndexPath],
-                                _ deleteRows: [IndexPath],
-                                _ reloadRows: [IndexPath])
-                case error(NetworkError)
-            }
-
-            var sections: [ViewModel.Section]
-            var title: String
-            var action: Action
-        }
-    
-        var ui: UI
-        var core: Core
-    }
+//    struct State {
+//        
+//        struct Core {
+//            enum Action {
+//                case none
+//                case loadCard
+//                case loadDeposit
+//                case loadWithdraw
+//                case send
+//              }
+//            
+//            let kind: StakingTransfer.DTO.Kind
+//            var action: StakingTransfer.State.Core.Action
+//            
+//            var data: StakingTransfer.DTO.Data?
+//            var input: StakingTransfer.DTO.InputData?
+//        }
+//        
+//        struct UI: DataSourceProtocol {
+//            enum Action {
+//                case none
+//                case update
+//                case updateRows(_ insertRows: [IndexPath],
+//                                _ deleteRows: [IndexPath],
+//                                _ reloadRows: [IndexPath],
+//                                _ updateRows: [IndexPath])
+//                case error(NetworkError)
+//            }
+//
+//            var sections: [ViewModel.Section]
+//            var title: String
+//            var action: Action
+//        }
+//    
+//        var ui: UI
+//        var core: Core
+//    }
 }
 
 extension StakingTransfer.ViewModel {
@@ -131,7 +150,7 @@ extension StakingTransfer.ViewModel {
         var rows: [Row]
     }
     
-    enum Row {
+    enum Row: Hashable {
         case balance(StakingTransferBalanceCell.Model)
         case inputField(StakingTransferInputFieldCell.Model)
         case scrollButtons(StakingTransferScrollButtonsCell.Model)
@@ -165,3 +184,85 @@ extension StakingTransfer.DTO.InputData {
         }
     }
 }
+
+
+
+extension StakingTransfer {
+    
+    struct Card {
+        struct State {
+            
+                        enum Action {
+                            case none
+                            case loadCard
+                            case loadDeposit
+                            case loadWithdraw
+                            case send
+                          }
+            
+                        let kind: StakingTransfer.DTO.Kind
+                        var action: StakingTransfer.State.Core.Action
+            
+                        var data: StakingTransfer.DTO.Data?
+                        var input: StakingTransfer.DTO.InputData?
+        }
+        
+        enum Event {
+            case uiCommand(StakingTransfer.UI.Command)
+            case showCard
+        }
+        
+        var state: State
+        var uiEvent: StakingTransfer.UI.Event?
+    }
+}
+
+extension StakingTransfer {
+   
+    struct UI {
+        struct State: DataSourceProtocol {
+            enum Action {
+                case none
+                case update
+                case updateRows(_ insertRows: [IndexPath],
+                                _ deleteRows: [IndexPath],
+                                _ reloadRows: [IndexPath],
+                                _ updateRows: [IndexPath])
+                case error(NetworkError)
+            }
+
+            var sections: [ViewModel.Section]
+            var title: String
+            var action: Action
+        }
+        
+        enum Command {
+            case viewDidAppear
+            case tapSendButton
+            case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
+            case input(Money?, IndexPath)
+        }
+        
+        enum Event {
+            case viewDidAppear
+            case tapSendButton
+            case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
+            case input(Money?, IndexPath)
+            case update(State)
+        }
+        
+        var state: State
+        var command: StakingTransfer.UI.Command?
+    }
+}
+
+
+//class ViewController {
+//    var stakingTransferUISystem: StakingTransferCardUISystem = StakingTransferCardUISystem()
+//
+//
+//    init() {
+//
+//        stakingTransferUISystem.start()
+//    }
+//}

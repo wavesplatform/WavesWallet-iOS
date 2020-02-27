@@ -49,8 +49,10 @@ final class MoneyTextField: UITextField {
     var value: Money {
         
         set {
-            setDecimals(newValue.decimals, forceUpdateMoney: false)
-            setValue(value: newValue)
+            if self.value != newValue {
+                setDecimals(newValue.decimals, forceUpdateMoney: false)
+                setValue(value: newValue)
+            }
         }
         
         get {
@@ -61,6 +63,10 @@ final class MoneyTextField: UITextField {
                 return Money(0, decimals)
             }
         }
+    }
+    
+    var hasInput: Bool {
+        return text?.count ?? 0 > 0
     }
     
     override var text: String? {
@@ -123,6 +129,7 @@ extension MoneyTextField {
     func clear() {
         decimals = 0
         hasSetDecimals = false
+        clearInput()
     }
 }
 

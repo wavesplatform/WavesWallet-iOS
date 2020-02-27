@@ -13,7 +13,7 @@ import RxSwift
 
 final class StakingTransferBalanceCell: UITableViewCell, NibReusable {
     
-    struct Model {
+    struct Model: Hashable {
         let assetURL: AssetLogo.Icon
         let title: String
         let money: Money

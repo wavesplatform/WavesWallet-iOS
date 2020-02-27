@@ -50,8 +50,11 @@ open class System<S, E> {
                     },
                     feedback: newSideEffects)
 
+        internalSystem(driver: system)
+        
         return system
     }
+    
 
     public func send(_ event: Event) {
         inputEvent.onNext(event)
@@ -67,6 +70,10 @@ open class System<S, E> {
         return []
     }
     
+    open func internalSystem(driver: Driver<State>) -> Void {
+        
+    }
+        
     open func reduce(event: Event, state: inout State) {
         assertMethodNeedOverriding()
     }

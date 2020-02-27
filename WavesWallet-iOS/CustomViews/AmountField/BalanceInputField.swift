@@ -12,17 +12,17 @@ import DomainLayer
 
 final class BalanceInputField: UIView, NibOwnerLoadable {
         
-    enum Style {
+    enum Style: Hashable {
         case normal
         case error
     }
     
-    enum State {
+    enum State: Hashable {
         case empty(_ decimal: Int, _ currency: DomainLayer.DTO.Balance.Currency)
         case balance(DomainLayer.DTO.Balance)
     }
     
-    struct Model {
+    struct Model: Hashable {
         let style: Style
         let state: State
     }
@@ -89,7 +89,6 @@ extension BalanceInputField: ViewConfiguration {
             
             tickerView.update(with: .init(text: balance.currency.displayText,
                                           style: .normal))
-            
             numberTextField.value = balance.money
         }
     }

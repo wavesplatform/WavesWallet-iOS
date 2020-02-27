@@ -84,6 +84,8 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        tableView.setNeedsLayout()
         setNeedsLayout()
     }
 }

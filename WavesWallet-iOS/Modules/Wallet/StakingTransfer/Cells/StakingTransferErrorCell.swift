@@ -12,7 +12,7 @@ import UIKit
 
 final class StakingTransferErrorCell: UITableViewCell, NibReusable {
     
-    struct Model {
+    struct Model: Hashable {
         let title: String
     }
     

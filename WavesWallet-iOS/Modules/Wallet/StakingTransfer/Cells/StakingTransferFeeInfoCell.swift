@@ -13,7 +13,7 @@ import RxSwift
 
 final class StakingTransferFeeInfoCell: UITableViewCell, NibReusable {
     
-    struct Model {
+    struct Model: Hashable {
         let balance: DomainLayer.DTO.Balance
     }
         

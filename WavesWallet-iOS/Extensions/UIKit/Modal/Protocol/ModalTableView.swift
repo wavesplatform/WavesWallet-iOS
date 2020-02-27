@@ -14,19 +14,20 @@ class ModalTableView: UITableView {
     private(set) lazy var backgroundModalView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.isUserInteractionEnabled = false
         return view
     }()
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        backgroundModalView.isUserInteractionEnabled = false
+        
         backgroundModalView.frame = CGRect(x: 0,
-                                           y: contentSize.height,
+                                           y: abs(contentOffset.y),
                                            width: bounds.width,
-                                           height: max(contentSize.height, bounds.height))
+                                           height: max(contentSize.height, bounds.height) * 2)
 
-        insertSubview(backgroundModalView, at: 0)
+        insertSubview(backgroundModalView, at: 0)                
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
@@ -39,11 +40,12 @@ class ModalTableView: UITableView {
             }
         }
         
-        let backgroundModalFrame = backgroundModalView.convert(backgroundModalView.frame, to: self)
-        
-        if backgroundModalFrame.contains(point) {
-            return self
-        }
+        //TODO: Testing
+//        let backgroundModalFrame = backgroundModalView.convert(backgroundModalView.frame, to: self)
+//        
+//        if backgroundModalFrame.contains(point) {
+//            return self
+//        }
 
         return super.hitTest(point, with: event)
     }
