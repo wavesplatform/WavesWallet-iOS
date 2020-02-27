@@ -54,17 +54,8 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
         switch event {
         case .viewDidAppear:
             
-            switch state.core.kind {
-            case .card:
-                state.core.action = .loadCard
-                
-            case .deposit:
-                state.core.action = .loadDeposit
-                
-            case .withdraw:
-                state.core.action = .loadWithdraw
-                
-            }
+            state.core.action = .loadCard
+          
         case .tapAssistanceButton(let assistanceButton):
             
             guard case .max = assistanceButton else { return }
@@ -98,18 +89,69 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
             let rowsCount = state.ui.sections[0].rows.count
             let indexPath = IndexPath(row: max(rowsCount - 1, 0), section: 0)
                                             
-            state.ui.replace(row: card.button(status: .active), indexPath: indexPath)
+            state.ui.replace(row: card.button(status: .loading), indexPath: indexPath)
             state.ui.action = .updateRows([],
                                           [],
                                           [],
                                           [indexPath])
-        case .showDeposit(let deposit):
-            break
             
-        case .showWithdraw(let withdraw):
+            state.core.action = .sendCard
+        default:
             break
         }
     }
+    
+    func reduceForDeposit(event: Event, state: inout State) {
+         
+         switch event {
+         case .viewDidAppear:
+             
+             state.core.action = .loadCard
+           
+         case .tapAssistanceButton(let assistanceButton):
+             
+             guard case .max = assistanceButton else { return }
+             
+             guard let money = state.core.data?.card?.maxAmount.money else { return }
+                 
+             let indexPath = IndexPath(row: 0, section: 0)
+             
+             changeCardStateAfterInput(input: money,
+                                       indexPath: indexPath,
+                                       state: &state)
+                         
+         case .input(let input, let indexPath):
+             
+             changeCardStateAfterInput(input: input,
+                                       indexPath: indexPath,
+                                       state: &state)
+             
+         case .showCard(let card):
+             
+             state.core.action = .none
+             state.core.data = .card(card)
+             
+             state.ui.sections = card.sections(inputCard: state.core.input?.card)
+             state.ui.action = .update
+
+         case .tapSendButton:
+             
+             guard let card = state.core.data?.card else { return }
+             
+             let rowsCount = state.ui.sections[0].rows.count
+             let indexPath = IndexPath(row: max(rowsCount - 1, 0), section: 0)
+                                             
+             state.ui.replace(row: card.button(status: .loading), indexPath: indexPath)
+             state.ui.action = .updateRows([],
+                                           [],
+                                           [],
+                                           [indexPath])
+             
+             state.core.action = .sendCard
+         default:
+             break
+         }
+     }
 }
 
 

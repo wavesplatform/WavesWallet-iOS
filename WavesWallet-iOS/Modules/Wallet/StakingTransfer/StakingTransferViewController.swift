@@ -32,6 +32,7 @@ protocol StakingTransferModuleOutput: AnyObject {
     func stakingTransferOpenURL(_ url: URL)
 }
 
+
 final class StakingTransferViewController: UIViewController, ModalTableControllerDelegate {
         
     private let modalTableViewController: ModalTableViewController = ModalTableViewController.create()
@@ -44,6 +45,7 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
         
     private let disposeBag: DisposeBag = DisposeBag()
            
+    //TODO: Change module builde
     private var system: System<StakingTransfer.State, StakingTransfer.Event>! = StakingTransferSystem()
     
     private var sections: [Types.ViewModel.Section] = .init()
@@ -60,13 +62,13 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
         
         stakingTransferHeaderView.translatesAutoresizingMaskIntoConstraints = true
         
+        
         setupUI()
         
         system
             .start()
             .drive(onNext: { [weak self] (state) in
                 guard let self = self else { return }
-                self.update(state: state.core)
                 self.update(state: state.ui)
             })
             .disposed(by: disposeBag)
@@ -90,12 +92,10 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
 }
 
 extension StakingTransferViewController {
-
-    private func update(state: Types.State.Core) {
-        
-    }
     
-    private func update(state: Types.State.UI) {
+    private func update(state: StakingTransfer.State.UI) {
+        
+        print("Update state")
         
         self.sections = state.sections
         

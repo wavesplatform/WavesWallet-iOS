@@ -25,6 +25,7 @@ extension StakingTransfer.State.UI {
         }
     }
     
+    
     static func initialStateCard() -> StakingTransfer.State.UI {
                         
         let title = Localizable.Waves.Staking.Transfer.Card.title
@@ -33,20 +34,20 @@ extension StakingTransfer.State.UI {
                                         title: title,
                                         action: .update)
     }
-    
+
     static func initialStateDeposit() -> StakingTransfer.State.UI {
-        
+
         let title = Localizable.Waves.Staking.Transfer.Deposit.title
-        
+
         return StakingTransfer.State.UI(sections: [],
                                         title: title,
                                         action: .update)
     }
-    
+
     static func initialStateWithdraw() -> StakingTransfer.State.UI {
-        
+
         let title = Localizable.Waves.Staking.Transfer.Withdraw.title
-        
+
         return StakingTransfer.State.UI(sections: [],
                                         title: title,
                                         action: .update)
@@ -148,7 +149,7 @@ extension StakingTransfer.DTO.Card {
     func button(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
         
         let buttonTitle = Localizable.Waves.Staking.Transfer.Card.title
-        
+            
         let button = StakingTransferButtonCell.Model.init(title: buttonTitle,
                                                           status: status)
         

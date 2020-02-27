@@ -68,7 +68,7 @@ public extension DataSourceProtocol {
         
         var rows = section.rows
         
-        if indexPath.row > rows.count {
+        if indexPath.row < rows.count {
             rows[indexPath.row] = row
         }
         
