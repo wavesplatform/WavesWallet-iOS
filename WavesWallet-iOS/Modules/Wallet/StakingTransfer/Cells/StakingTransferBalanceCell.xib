@@ -55,7 +55,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="2q6-ge-Y93" secondAttribute="trailing" id="EXz-Va-xDf"/>
                     <constraint firstItem="2q6-ge-Y93" firstAttribute="top" secondItem="NXW-II-IoL" secondAttribute="top" id="G5j-g1-fKu"/>
-                    <constraint firstAttribute="bottom" secondItem="2q6-ge-Y93" secondAttribute="bottom" id="dbT-tT-1ut"/>
+                    <constraint firstAttribute="bottom" secondItem="2q6-ge-Y93" secondAttribute="bottom" constant="28" id="dbT-tT-1ut"/>
                     <constraint firstItem="2q6-ge-Y93" firstAttribute="leading" secondItem="NXW-II-IoL" secondAttribute="leading" id="htX-pG-wwU"/>
                 </constraints>
             </tableViewCellContentView>

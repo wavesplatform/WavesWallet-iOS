@@ -37,7 +37,7 @@
 //            case tapSendButton
 //            case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
 //            case input(Money?, IndexPath)
-//            case newData(StakingTransfer.DTO.Card)
+//            case newData(StakingTransfer.DTO.Data.Card)
 //        }
 //        
 //        enum Action {
@@ -48,8 +48,8 @@
 //                
 //        var action: StakingTransfer.Card.Action
 //        
-//        var data: StakingTransfer.DTO.Card?
-//        var input: StakingTransfer.DTO.InputCard?
+//        var data: StakingTransfer.DTO.Data.Card?
+//        var input: InputDataStakingTransfer.DTO.InputData.Card?
 //        
 //        var uiState: StakingTransfer.UI.State?
 //        var setNeedUpdateUI: Bool

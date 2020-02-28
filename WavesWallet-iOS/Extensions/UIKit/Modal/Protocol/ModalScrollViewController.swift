@@ -27,7 +27,9 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        setNeedUpdateInset()
+        if needUpdateInsets {
+            setNeedUpdateInset(animated: false)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,14 +68,13 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
 extension ModalScrollViewController  {
 
-    private func setNeedUpdateInset() {
-        if needUpdateInsets {
-            setupInsets()
-            view.layoutIfNeeded()
-        }
+    func setNeedUpdateInset(animated: Bool = false) {
+        
+        setupInsets(animated: animated)
+        view.layoutIfNeeded()
     }
 
-    private func setupInsets() {
+    private func setupInsets(animated: Bool) {
 
         let bottom = bottomScrollInset(for: scrollView.frame.size)
         let top = scrollView.frame.height - visibleScrollViewHeight(for: scrollView.frame.size)
@@ -81,7 +82,11 @@ extension ModalScrollViewController  {
         scrollView.contentInset.bottom = bottom
         scrollView.contentInset.top = top
         scrollView.scrollIndicatorInsets.top = contentOffset
-        scrollView.contentOffset.y = -(contentOffset)
+        
+        var content = scrollView.contentOffset
+        content.y = -(contentOffset)
+        scrollView.setContentOffset(content, animated: animated)
+        scrollView.scrollIndicatorInsets.top = max(0, -(scrollView.contentOffset.y))
     }
 
     private func setupScrollView() {
@@ -152,6 +157,7 @@ extension ModalScrollViewController: UIScrollViewDelegate {
             view.scrollViewDidScroll(scrollView)
         }
 
+        //TODO: Check speed
         setupScrollView()
     }
 }

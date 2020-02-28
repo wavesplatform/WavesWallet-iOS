@@ -62,7 +62,6 @@ final class ModalTableViewController: ModalScrollViewController, NibReusable {
     static func create() -> ModalTableViewController {
         return ModalTableViewController.loadFromNib()
     }
-    
 }
 
 // MARK: Private

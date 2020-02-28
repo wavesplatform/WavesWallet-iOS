@@ -14,7 +14,7 @@ import DomainLayer
 
 final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer.Event> {
     
-    private var kind: StakingTransfer.DTO.Kind = .card
+    private var kind: StakingTransfer.DTO.Kind = .deposit
     
     override func initialState() -> State! {
 
@@ -31,7 +31,7 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
     }
 
     override func internalFeedbacks() -> [Feedback] {
-        return [ShowCardQuery().feedBack]
+        return [ShowCardQuery().feedBack, ShowDepositQuery().feedBack]
         
     }
 
@@ -42,7 +42,7 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
             return reduceForCard(event: event, state: &state)
             
         case .deposit:
-            break
+            return reduceForDeposit(event: event, state: &state)
             
         case .withdraw:
             break
@@ -59,8 +59,9 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
         case .tapAssistanceButton(let assistanceButton):
             
             guard case .max = assistanceButton else { return }
+            guard let card = state.core.data?.card else { return }
             
-            guard let money = state.core.data?.card?.maxAmount.money else { return }
+            let money = card.maxAmount.money
                 
             let indexPath = IndexPath(row: 0, section: 0)
             
@@ -79,7 +80,7 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
             state.core.action = .none
             state.core.data = .card(card)
             
-            state.ui.sections = card.sections(inputCard: state.core.input?.card)
+            state.ui.sections = card.sections(input: state.core.input?.card)
             state.ui.action = .update
 
         case .tapSendButton:
@@ -106,10 +107,12 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
          switch event {
          case .viewDidAppear:
              
-             state.core.action = .loadCard
+             state.core.action = .loadDeposit
            
          case .tapAssistanceButton(let assistanceButton):
-             
+                         
+            state.ui.action = .none
+            
              guard case .max = assistanceButton else { return }
              
              guard let money = state.core.data?.card?.maxAmount.money else { return }
@@ -122,16 +125,17 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
                          
          case .input(let input, let indexPath):
              
-             changeCardStateAfterInput(input: input,
-                                       indexPath: indexPath,
-                                       state: &state)
+            state.ui.action = .none
+            changeCardStateAfterInput(input: input,
+                                      indexPath: indexPath,
+                                      state: &state)
              
-         case .showCard(let card):
+         case .showDeposit(let deposit):
              
              state.core.action = .none
-             state.core.data = .card(card)
+             state.core.data = .deposit(deposit)
              
-             state.ui.sections = card.sections(inputCard: state.core.input?.card)
+             state.ui.sections = deposit.sections(input: state.core.input?.deposit)
              state.ui.action = .update
 
          case .tapSendButton:
@@ -165,7 +169,7 @@ private extension StakingTransferSystem {
         let minAmount = card.minAmount
         let maxAmount = card.maxAmount
         
-        var error: StakingTransfer.DTO.InputCard.Error? = nil
+        var error: StakingTransfer.DTO.InputData.Card.Error? = nil
         
         if let input = input {
             if input > maxAmount.money {
@@ -175,7 +179,7 @@ private extension StakingTransferSystem {
             }
         }
         
-        let newInputCard: StakingTransfer.DTO.InputCard = .init(amount: input, error: error)
+        let newInputCard: StakingTransfer.DTO.InputData.Card = .init(amount: input, error: error)
         
         state.core.input = .card(newInputCard)
         state.core.action = .none
@@ -184,7 +188,7 @@ private extension StakingTransferSystem {
         let hasError = error != nil
         let reloadError = hasPrevError && hasError
         
-        let inputField = card.inputField(inputCard: newInputCard)
+        let inputField = card.inputField(input: newInputCard)
         
         state.ui.remove(indexPath: indexPath)
         state.ui.add(row: inputField, indexPath: indexPath)
@@ -198,10 +202,8 @@ private extension StakingTransferSystem {
         let rowsCount = state.ui.sections[0].rows.count
         let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
         
-        if hasError {
-            if let errorRow  = card.error(inputCard: newInputCard) {
-                state.ui.add(row: errorRow, indexPath: nextIndexPath)
-            }
+        if let error = newInputCard.error, hasError == true {
+            state.ui.add(row: card.error(by: error), indexPath: nextIndexPath)
         }
         
         state.ui.replace(row: card.button(status: hasError == true ? .disabled : .active), indexPath: indexPathButton)
@@ -231,6 +233,37 @@ private extension StakingTransferSystem {
     }
 }
 
+fileprivate extension DomainLayer.DTO.Asset {
+    
+    static func assetUSDN() -> DomainLayer.DTO.Asset {
+        return .init(id: "",
+                     gatewayId: "",
+                     wavesId: "",
+                     name: "USDN",
+                     precision: 6,
+                     description: "",
+                     height: 1,
+                     timestamp: Date(),
+                     sender: "",
+                     quantity: 10,
+                     ticker: "USDN",
+                     isReusable: false,
+                     isSpam: false,
+                     isFiat: false,
+                     isGeneral: false,
+                     isMyWavesToken: false,
+                     isWavesToken: false,
+                     isGateway: false,
+                     isWaves: false,
+                     modified: Date(),
+                     addressRegEx: "",
+                     iconLogoUrl: nil,
+                     hasScript: false,
+                     minSponsoredFee: 10,
+                     gatewayType: nil)
+    }
+}
+
 
 private struct ShowCardQuery: SystemQuery {
     
@@ -250,34 +283,35 @@ private struct ShowCardQuery: SystemQuery {
                                                                         money: Money.init(1000,
                                                                                           2))
         
-        let card: StakingTransfer.DTO.Card = StakingTransfer.DTO.Card.init(asset: .init(id: "",
-                                                                                        gatewayId: "",
-                                                                                        wavesId: "",
-                                                                                        name: "USDN",
-                                                                                        precision: 2,
-                                                                                        description: "",
-                                                                                        height: 1,
-                                                                                        timestamp: Date(),
-                                                                                        sender: "",
-                                                                                        quantity: 10,
-                                                                                        ticker: "USDN",
-                                                                                        isReusable: false,
-                                                                                        isSpam: false,
-                                                                                        isFiat: false,
-                                                                                        isGeneral: false,
-                                                                                        isMyWavesToken: false,
-                                                                                        isWavesToken: false,
-                                                                                        isGateway: false,
-                                                                                        isWaves: false,
-                                                                                        modified: Date(),
-                                                                                        addressRegEx: "",
-                                                                                        iconLogoUrl: nil,
-                                                                                        hasScript: false,
-                                                                                        minSponsoredFee: 10,
-                                                                                        gatewayType: nil),
-                                                                           minAmount: balance,
-                                                                           maxAmount: max)
+        let card: StakingTransfer.DTO.Data.Card = StakingTransfer.DTO.Data.Card.init(asset: .assetUSDN(),
+                                                                                     minAmount: balance,
+                                                                                     maxAmount: max)
         
         return Signal.just(.showCard(card))
+    }
+}
+
+private struct ShowDepositQuery: SystemQuery {
+    
+    func react(state: StakingTransfer.State) ->  Self? {
+        return state.core.action == .loadDeposit ? self : nil
+    }
+    
+    func effects(query: Self) -> Signal<StakingTransfer.Event> {
+        
+        let balance: DomainLayer.DTO.Balance = DomainLayer.DTO.Balance.init(currency: .init(title: "USDN",
+                                                                                            ticker: "USDN"),
+                                                                            money: Money.init(0, 2))
+        
+        let max: DomainLayer.DTO.Balance = DomainLayer.DTO.Balance.init(currency: .init(title: "USDN",
+                                                                                        ticker: "USDN"),
+                                                                        money: Money.init(1000,
+                                                                                          2))
+        
+        let deposit: StakingTransfer.DTO.Data.Deposit = .init(asset: DomainLayer.DTO.Asset.assetUSDN(),
+                                                              availableBalance: balance,
+                                                              transactionFeeBalance: max)
+        
+        return Signal.just(.showDeposit(deposit))
     }
 }

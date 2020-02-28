@@ -94,9 +94,7 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
 extension StakingTransferViewController {
     
     private func update(state: StakingTransfer.State.UI) {
-        
-        print("Update state")
-        
+                        
         self.sections = state.sections
         
         stakingTransferHeaderView.update(with: .init(title: state.title))
@@ -106,9 +104,11 @@ extension StakingTransferViewController {
             break
             
         case .update:
-            
+                                                
             tableView.reloadData()
-            
+            self.modalTableViewController.setNeedUpdateInset(animated: true)
+
+                                            
         case .updateRows(let insertRows, let deleteRows, let reloadRows, let updateRows):
                
             let needUpdateTable = (deleteRows.count + insertRows.count + reloadRows.count) > 0
@@ -172,7 +172,7 @@ extension StakingTransferViewController {
     }
     
     func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return size.height
+        return sections.count == 0 ? size.height : tableView.contentSize.height
     }
     
     func bottomScrollInset(for size: CGSize) -> CGFloat {

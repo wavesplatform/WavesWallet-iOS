@@ -52,10 +52,7 @@ class ModalRootView: UIView, ModalScrollViewRootView {
                            height: self.headerHeight)
         frame.origin.y = headerTopY
 
-        self.headerView?.frame = frame
-
-
-        self.tableView.scrollIndicatorInsets.top = max(0, -(self.tableView.contentOffset.y))
+        self.headerView?.frame = frame        
     }
 
     private func setupHeaderView() {
@@ -85,7 +82,7 @@ class ModalRootView: UIView, ModalScrollViewRootView {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        tableView.setNeedsLayout()
-        setNeedsLayout()
+        tableView.layoutSubviews()
+        layoutSubviews()
     }
 }

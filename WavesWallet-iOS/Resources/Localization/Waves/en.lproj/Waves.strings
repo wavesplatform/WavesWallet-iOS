@@ -787,14 +787,12 @@
 
 "staking.transfer.withdraw.cell.input.title" = "Staking balance:";
 "staking.transfer.withdraw.title" = "Withdraw";
-"staking.transfer.withdraw.cell.input.title" = "Withdraw from %@";
-"staking.transfer.withdraw.cell.input.title.url" = "Smart Contract";
+"staking.transfer.withdraw.cell.input.title" = "Withdraw from Smart Contract";
 "staking.transfer.withdraw.button.title" = "Withdraw";
 
 "staking.transfer.deposit.cell.input.title" = "Available balance:";
 "staking.transfer.deposit.title" = "Deposit";
-"staking.transfer.deposit.cell.input.title" = "Deposit to %@";
-"staking.transfer.deposit.cell.input.title.url" = "Smart Contract";
+"staking.transfer.deposit.cell.input.title" = "Deposit to Smart Contract";
 "staking.transfer.deposit.button.title" = "Deposit";
 
 "staking.transfer.card.cell.input.title" = "Amount";

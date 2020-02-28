@@ -175,7 +175,7 @@
 //        let minAmount = card.minAmount
 //        let maxAmount = card.maxAmount
 //
-//        var error: StakingTransfer.DTO.InputCard.Error? = nil
+//        var error: InputDataStakingTransfer.DTO.InputData.Card.Error? = nil
 //
 //        if let input = input {
 //            if input > maxAmount.money {
@@ -185,7 +185,7 @@
 //            }
 //        }
 //
-//        let newInputCard: StakingTransfer.DTO.InputCard = .init(amount: input, error: error)
+//        let newInputCard: InputDataStakingTransfer.DTO.InputData.Card = .init(amount: input, error: error)
 //        let hasPrevError = prevInputCard?.error != nil
 //        let hasError = error != nil
 //        let reloadError = hasPrevError && hasError
@@ -256,7 +256,7 @@
 //                                                                        money: Money.init(1000,
 //                                                                                          2))
 //        
-//        let card: StakingTransfer.DTO.Card = StakingTransfer.DTO.Card.init(asset: .init(id: "",
+//        let card: StakingTransfer.DTO.Data.Card = StakingTransfer.DTO.Data.Card.init(asset: .init(id: "",
 //                                                                                        gatewayId: "",
 //                                                                                        wavesId: "",
 //                                                                                        name: "USDN",

@@ -3014,16 +3014,9 @@ internal enum Localizable {
           internal enum Cell {
 
             internal enum Input {
-              /// Deposit to %@
-              internal static func title(_ p1: String) -> String {
-                return Localizable.tr("Waves", "staking.transfer.deposit.cell.input.title", p1)
-              }
-
-              internal enum Title {
-                /// Smart Contract
-                internal static var url: String { return Localizable.tr("Waves", "staking.transfer.deposit.cell.input.title.url") }
-                internal static var urlKey: String { return "staking.transfer.deposit.cell.input.title.url" }
-              }
+              /// Deposit to Smart Contract
+              internal static var title: String { return Localizable.tr("Waves", "staking.transfer.deposit.cell.input.title") }
+              internal static var titleKey: String { return "staking.transfer.deposit.cell.input.title" }
             }
           }
         }
@@ -3053,16 +3046,9 @@ internal enum Localizable {
           internal enum Cell {
 
             internal enum Input {
-              /// Withdraw from %@
-              internal static func title(_ p1: String) -> String {
-                return Localizable.tr("Waves", "staking.transfer.withdraw.cell.input.title", p1)
-              }
-
-              internal enum Title {
-                /// Smart Contract
-                internal static var url: String { return Localizable.tr("Waves", "staking.transfer.withdraw.cell.input.title.url") }
-                internal static var urlKey: String { return "staking.transfer.withdraw.cell.input.title.url" }
-              }
+              /// Withdraw from Smart Contract
+              internal static var title: String { return Localizable.tr("Waves", "staking.transfer.withdraw.cell.input.title") }
+              internal static var titleKey: String { return "staking.transfer.withdraw.cell.input.title" }
             }
           }
         }
