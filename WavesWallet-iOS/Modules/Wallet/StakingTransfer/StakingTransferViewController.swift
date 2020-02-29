@@ -172,7 +172,12 @@ extension StakingTransferViewController {
     }
     
     func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return sections.count == 0 ? size.height : tableView.contentSize.height
+        
+        let layoutInsets = (findNavigationController()?.layoutInsets.top ?? 0)
+        print("size \(size) layoutInsets \(layoutInsets) tableView \(tableView.frame.size) view \(view.frame.size) CT \(tableView.contentSize.height)")
+        
+        return 667
+        return (sections.count == 0 ? size.height : tableView.contentSize.height) - layoutInsets
     }
     
     func bottomScrollInset(for size: CGSize) -> CGFloat {
