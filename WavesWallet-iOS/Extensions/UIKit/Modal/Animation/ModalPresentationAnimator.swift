@@ -47,10 +47,7 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let parentFrame = transitionContext.finalFrame(for: parentController)
 
         
-        let maxHeight = parentFrame.inset(by: UIEdgeInsets(top: 0,
-                                                            left: 0,
-                                                            bottom: 0,
-                                                            right: 0)).height
+        let maxHeight = parentFrame.height
         let width = parentFrame.size.width
         var height = maxHeight
 

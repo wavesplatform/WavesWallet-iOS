@@ -29,7 +29,11 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
-        self.windowRouter.setRootViewController(UIViewController())
+        let view = UIViewController()
+        view.view = UIView()
+        view.view.frame = UIScreen.main.bounds
+        view.navigationItem.title = "UIDeveloper"
+        self.windowRouter.setRootViewController(CustomNavigationController(rootViewController: view))
         
         
         coordinator.start()

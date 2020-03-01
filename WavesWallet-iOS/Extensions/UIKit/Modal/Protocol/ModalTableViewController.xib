@@ -19,23 +19,23 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oco-tc-CxY" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
-                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oco-tc-CxY" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oco-tc-CxY" secondAttribute="trailing" id="Skd-rw-qRS"/>
-                <constraint firstItem="oco-tc-CxY" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Z6U-n8-STW"/>
-                <constraint firstItem="oco-tc-CxY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ksQ-k7-lQZ"/>
+                <constraint firstAttribute="trailing" secondItem="oco-tc-CxY" secondAttribute="trailing" id="Skd-rw-qRS"/>
+                <constraint firstItem="oco-tc-CxY" firstAttribute="top" secondItem="wjq-6q-Zfe" secondAttribute="top" id="Z6U-n8-STW"/>
+                <constraint firstItem="oco-tc-CxY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ksQ-k7-lQZ"/>
                 <constraint firstAttribute="bottom" secondItem="oco-tc-CxY" secondAttribute="bottom" id="vDo-Ky-fao"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <viewLayoutGuide key="safeArea" id="wjq-6q-Zfe"/>
             <connections>
                 <outlet property="tableView" destination="oco-tc-CxY" id="xUL-5U-H9M"/>
             </connections>
-            <point key="canvasLocation" x="139" y="106"/>
+            <point key="canvasLocation" x="137.68115942028987" y="105.80357142857143"/>
         </view>
     </objects>
 </document>

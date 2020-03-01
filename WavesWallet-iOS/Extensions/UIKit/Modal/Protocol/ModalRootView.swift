@@ -42,7 +42,7 @@ class ModalRootView: UIView, ModalScrollViewRootView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
+            
         let headerTopY = max(self.layoutInsets.top,
                              -(self.tableView.contentOffset.y - self.layoutInsets.top))
         
