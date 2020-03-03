@@ -291,8 +291,6 @@
 		7B26A89022EEECC200E7B024 /* WidgetSettingsAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */; };
 		7B2AE4B82402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B2AE4B72402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib */; };
 		7B2AE4BA2402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AE4B92402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift */; };
-		7B2AE4BD2407E6E60034B892 /* StakingTransferCardUISystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AE4BC2407E6E60034B892 /* StakingTransferCardUISystem.swift */; };
-		7B2AE4BF2407E76A0034B892 /* StakingTransferCardSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2AE4BE2407E76A0034B892 /* StakingTransferCardSystem.swift */; };
 		7B3681982314260C000D5592 /* ConfirmRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */; };
 		7B36819A23142625000D5592 /* ConfirmRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819923142625000D5592 /* ConfirmRequestType.swift */; };
 		7B36819D23142639000D5592 /* ConfirmRequestSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */; };
@@ -486,8 +484,6 @@
 		7B85E63D23FD7BCE00365829 /* StakingTransferButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E63C23FD7BCE00365829 /* StakingTransferButtonCell.xib */; };
 		7B85E63F23FD7BFB00365829 /* StakingTransferButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E63E23FD7BFB00365829 /* StakingTransferButtonCell.swift */; };
 		7B85E64123FD821B00365829 /* StakingTransferSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E64023FD821B00365829 /* StakingTransferSystem.swift */; };
-		7B85E64323FDCE8200365829 /* XIB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E64223FDCE8200365829 /* XIB.xib */; };
-		7B85E64523FDCEAF00365829 /* XIB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E64423FDCEAF00365829 /* XIB.storyboard */; };
 		7B88185F2304279A00AB0549 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FC22FC742F002B19F8 /* Language.swift */; };
 		7B8818602304474E00AB0549 /* AuthorizationInteractorLocalizableImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47F822FC742E002B19F8 /* AuthorizationInteractorLocalizableImp.swift */; };
 		7B88186223044B7F00AB0549 /* Language+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B88186123044B7F00AB0549 /* Language+List.swift */; };
@@ -807,7 +803,6 @@
 		7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FA22FC742F002B19F8 /* BiometricManager+String.swift */; };
 		7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */; };
 		7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */; };
-		7BFFCFB62407EDF200118BAC /* delet_StakingTransferTypeas+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFFCFB52407EDF200118BAC /* delet_StakingTransferTypeas+Card.swift */; };
 		A3521B8E7F8D5AFE73837B59 /* Pods_Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F48C7630D481FB8B18C7CDD /* Pods_Extensions.framework */; };
 		B5B2F5FE86DB13C5F1ABC764 /* Pods_DomainLayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCD1A311B65E78F9D8E3AFB /* Pods_DomainLayerTests.framework */; };
 		CE9236ADA9B30C0AE5EAC713 /* Pods_DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C4770FECD0D0B762C47A43 /* Pods_DomainLayer.framework */; };
@@ -1631,8 +1626,6 @@
 		7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsAssetCell.swift; sourceTree = "<group>"; };
 		7B2AE4B72402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StakingTransferSkeletonBalanceCell.xib; sourceTree = "<group>"; };
 		7B2AE4B92402F4500034B892 /* StakingTransferSkeletonBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferSkeletonBalanceCell.swift; sourceTree = "<group>"; };
-		7B2AE4BC2407E6E60034B892 /* StakingTransferCardUISystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferCardUISystem.swift; sourceTree = "<group>"; };
-		7B2AE4BE2407E76A0034B892 /* StakingTransferCardSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferCardSystem.swift; sourceTree = "<group>"; };
 		7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestViewController.swift; sourceTree = "<group>"; };
 		7B36819923142625000D5592 /* ConfirmRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestType.swift; sourceTree = "<group>"; };
 		7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestSystem.swift; sourceTree = "<group>"; };
@@ -1842,8 +1835,6 @@
 		7B85E63C23FD7BCE00365829 /* StakingTransferButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingTransferButtonCell.xib; sourceTree = "<group>"; };
 		7B85E63E23FD7BFB00365829 /* StakingTransferButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferButtonCell.swift; sourceTree = "<group>"; };
 		7B85E64023FD821B00365829 /* StakingTransferSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferSystem.swift; sourceTree = "<group>"; };
-		7B85E64223FDCE8200365829 /* XIB.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XIB.xib; sourceTree = "<group>"; };
-		7B85E64423FDCEAF00365829 /* XIB.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = XIB.storyboard; sourceTree = "<group>"; };
 		7B88186123044B7F00AB0549 /* Language+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Language+List.swift"; sourceTree = "<group>"; };
 		7B8818662305639600AB0549 /* ActionSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetViewController.swift; sourceTree = "<group>"; };
 		7B8818672305639600AB0549 /* ActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
@@ -2148,7 +2139,6 @@
 		7BFB47FC22FC742F002B19F8 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeParser.swift; sourceTree = "<group>"; };
 		7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserWithoutBackupStorageTrack.swift; sourceTree = "<group>"; };
-		7BFFCFB52407EDF200118BAC /* delet_StakingTransferTypeas+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "delet_StakingTransferTypeas+Card.swift"; sourceTree = "<group>"; };
 		8A551BA048F9720698C5BF39 /* Pods-Extensions.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.release-dev.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.release-dev.xcconfig"; sourceTree = "<group>"; };
 		8B03F78A9DF177D8D9723E8D /* Pods-MonkeyTest.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release-dev.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release-dev.xcconfig"; sourceTree = "<group>"; };
 		8C9A1159470FED7057790330 /* Pods-DataLayer.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.release-prod.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.release-prod.xcconfig"; sourceTree = "<group>"; };
@@ -3719,16 +3709,6 @@
 			path = UITest;
 			sourceTree = "<group>";
 		};
-		7B2AE4BB2407E6D30034B892 /* Card */ = {
-			isa = PBXGroup;
-			children = (
-				7BFFCFB52407EDF200118BAC /* delet_StakingTransferTypeas+Card.swift */,
-				7B2AE4BC2407E6E60034B892 /* StakingTransferCardUISystem.swift */,
-				7B2AE4BE2407E76A0034B892 /* StakingTransferCardSystem.swift */,
-			);
-			path = Card;
-			sourceTree = "<group>";
-		};
 		7B368196231425ED000D5592 /* ConfirmRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -4200,8 +4180,6 @@
 				7B85E62123FD328400365829 /* ModalTableViewController.swift */,
 				7B85E62323FD349100365829 /* ModalTableViewController.xib */,
 				7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */,
-				7B85E64223FDCE8200365829 /* XIB.xib */,
-				7B85E64423FDCEAF00365829 /* XIB.storyboard */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -4230,7 +4208,6 @@
 				7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */,
 				7B85E61F23FD311300365829 /* StakingTransfer.storyboard */,
 				7B85E64023FD821B00365829 /* StakingTransferSystem.swift */,
-				7B2AE4BB2407E6D30034B892 /* Card */,
 			);
 			path = StakingTransfer;
 			sourceTree = "<group>";
@@ -6758,7 +6735,6 @@
 				E96FEA26226E962300C0EE22 /* WalletSortEmptyAssetsCell.xib in Resources */,
 				E9B087BF2163886800937644 /* SearchBarView.xib in Resources */,
 				7B9DC31A2382C04700DCCA75 /* Appsflyer-Info.plist in Resources */,
-				7B85E64523FDCEAF00365829 /* XIB.storyboard in Resources */,
 				7B85E63723FD7AB500365829 /* StakingTransferScrollButtonsCell.xib in Resources */,
 				0AA8CAD421527672000D09E6 /* PasscodeView.xib in Resources */,
 				7B9DC3202382C04700DCCA75 /* environment_stagenet_test.json in Resources */,
@@ -6856,7 +6832,6 @@
 				7BD6E10A22E5AEEB00BAAFC8 /* DebugHeaderView.xib in Resources */,
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
-				7B85E64323FDCE8200365829 /* XIB.xib in Resources */,
 				7B60E2BE2316CC0500113C38 /* ConfirmRequestTransactionKindView.xib in Resources */,
 				E97A283623D0585B00C4C8C4 /* TradeHeaderSkeletonCell.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
@@ -7752,7 +7727,6 @@
 				E9443014226E64F600EB6257 /* WalletSortInteractorProtocol.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
 				7BD6E10522E5AE0200BAAFC8 /* DebugHeaderView.swift in Sources */,
-				7B2AE4BD2407E6E60034B892 /* StakingTransferCardUISystem.swift in Sources */,
 				0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */,
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
 				7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */,
@@ -7951,7 +7925,6 @@
 				E9CD0D3521815849001A99B3 /* AddAddressBookTypes.swift in Sources */,
 				E941219A23CED5D4002858A0 /* TradeSystem.swift in Sources */,
 				7BDA6AF622316078001DE71C /* TransactionCardMassSentRecipientCell.swift in Sources */,
-				7BFFCFB62407EDF200118BAC /* delet_StakingTransferTypeas+Card.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
 				044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */,
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
@@ -8062,7 +8035,6 @@
 				E96FEA25226E962300C0EE22 /* WalletSortEmptyAssetsCell.swift in Sources */,
 				7B0FD98723195D6A0004B52B /* ConfirmRequestCompleteViewController.swift in Sources */,
 				E9B087AB2163886800937644 /* DexOrderBookModuleOutput.swift in Sources */,
-				7B2AE4BF2407E76A0034B892 /* StakingTransferCardSystem.swift in Sources */,
 				E9A3AFAE222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift in Sources */,
 				7B390299223698D300AAFDB8 /* TransactionCardKeyValueCell.swift in Sources */,
 				7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */,
@@ -10775,7 +10747,7 @@
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = Exchange;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev 1583155185";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/Resources/ObjCBridgingHeader.h";

@@ -32,13 +32,16 @@ protocol StakingTransferModuleOutput: AnyObject {
     func stakingTransferOpenURL(_ url: URL)
 }
 
-
-final class StakingTransferViewController: UIViewController, ModalTableControllerDelegate {
-        
-    private let modalTableViewController: ModalTableViewController = ModalTableViewController.create()
+final class StakingTransferViewController: ModalScrollViewController {
+               
+    @IBOutlet var tableView: ModalTableView!
     
-    private var tableView: UITableView {
-        return modalTableViewController.tableView
+    override var scrollView: UIScrollView {
+        return tableView
+    }
+    
+    private var rootView: ModalRootView {
+        return view as! ModalRootView
     }
     
     private lazy var stakingTransferHeaderView: StakingTransferHeaderView = StakingTransferHeaderView.loadFromNib()
@@ -55,14 +58,12 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addViewController(viewController: modalTableViewController, rootView: view)
-        modalTableViewController.delegate = self
-        modalTableViewController.tableDelegate = self
-        modalTableViewController.tableDataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        rootView.delegate = self
         
         stakingTransferHeaderView.translatesAutoresizingMaskIntoConstraints = true
-        
-        
+                
         setupUI()
         
         system
@@ -89,6 +90,28 @@ final class StakingTransferViewController: UIViewController, ModalTableControlle
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .onDrag
     }
+    
+    
+    override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
+        
+        let layoutInsets = (findNavigationController()?.layoutInsets.top ?? 0)
+        print("size \(size) layoutInsets \(layoutInsets) tableView \(tableView.frame.size) view \(view.frame.size) CT \(tableView.contentSize.height)")
+        //
+        ////        return size.height
+        //
+        //        let sizeA = min((size.height - tableView.contentSize.height), size.height)
+        //
+        
+        //        if tableView.contentSize.height > size.height {
+        //            return size.height
+        //        }
+        print("tableView.contentSize.height \(tableView.contentSize.height)")
+            return 425
+    }
+    
+    override func bottomScrollInset(for size: CGSize) -> CGFloat {
+        return 0
+    }
 }
 
 extension StakingTransferViewController {
@@ -104,10 +127,7 @@ extension StakingTransferViewController {
             break
             
         case .update:
-                                                
             tableView.reloadData()
-            self.modalTableViewController.setNeedUpdateInset(animated: true)
-
                                             
         case .updateRows(let insertRows, let deleteRows, let reloadRows, let updateRows):
                
@@ -161,7 +181,9 @@ extension StakingTransferViewController {
     }
 }
     
-extension StakingTransferViewController {
+// MARK: ModalRootViewDelegate
+
+extension StakingTransferViewController: ModalRootViewDelegate {
     
     func modalHeaderView() -> UIView {
         return stakingTransferHeaderView
@@ -170,20 +192,9 @@ extension StakingTransferViewController {
     func modalHeaderHeight() -> CGFloat {
         return 82
     }
-    
-    func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        
-        let layoutInsets = (findNavigationController()?.layoutInsets.top ?? 0)
-        print("size \(size) layoutInsets \(layoutInsets) tableView \(tableView.frame.size) view \(view.frame.size) CT \(tableView.contentSize.height)")
-        
-        return 667
-        return (sections.count == 0 ? size.height : tableView.contentSize.height) - layoutInsets
-    }
-    
-    func bottomScrollInset(for size: CGSize) -> CGFloat {
-        return 0
-    }
 }
+
+// MARK: UITableViewDataSource
 
 extension StakingTransferViewController: UITableViewDataSource {
     
@@ -261,122 +272,10 @@ extension StakingTransferViewController: UITableViewDataSource {
             return cell
             
         }
-        
-//        switch indexPath.row {
-//
-//        case 0:
-//            let cell: StakingTransferBalanceCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-//            cell?.update(with: .init(assetURL: .init(assetId: "WAVES",
-//                                                     name: "WAVES",
-//                                                     url: nil,
-//                                                     isSponsored: false,
-//                                                     hasScript: false),
-//                                     title: "Test",
-//                                     money: Money(10000000, 100)))
-//
-//            return cell!
-//        case 1:
-//            let cell: StakingTransferInputFieldCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-//            let fullText = "Deposit to Smart Contract"
-//
-//            let url = URL.init(string: "HTTP://ya.ru")!
-//
-//            let string = NSMutableAttributedString(string: fullText)
-//            string.addAttributes([NSAttributedString.Key.link: url], range: fullText.nsRange(of: "Contract")!)
-//
-//            cell?.update(with: .init(title: string,
-//                                     balance: .init(style: .normal,
-//                                                    state: .empty(6,
-//                                                                  .init(title: "USDN",
-//                                                                        ticker: "USDN")))))
-//
-//            return cell!
-//
-//        case 2:
-//            let cell: StakingTransferInputFieldCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-//
-//
-//            return cell!
-//        case 3:
-//            let cell: StakingTransferErrorCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-//            cell?.update(with: .init(title: "Min value is 10 USDN"))
-//
-//            return cell!
-//
-//        case 4:
-//            let cell: StakingTransferScrollButtonsCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-//            cell?.update(with: .init(buttons: ["100%", "75%", "50%", "25%", "10%"]))
-//
-//            return cell!
-//
-//        case 5:
-//            let cell: StakingTransferDescriptionCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-////            cell?.update(with: .init(buttons: ["100%", "75%", "50%", "25%", "10%"]))
-//
-//            let fullText = """
-//• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.
-//
-//• After a successful payment on the partners' website,
-//  USDN will be credited to your account within a few
-//  minutes.
-//
-//• The minimum amount is 10 USDN. The maximum
-//  amount is 3,000 USDN.
-//
-//• If you have problems with your payment, please create
-//  a ticket on the support website.
-//"""
-//
-//            let url = URL.init(string: "HTTP://ya.ru")!
-//
-//            let string = NSMutableAttributedString(string: fullText)
-//
-//
-//            string.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.basic500,
-//                                  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)],
-//                                 range: NSRange.init(location: 0,
-//                                                     length: string.length))
-//
-//            string.addAttributes([NSAttributedString.Key.link: url], range: fullText.nsRange(of: "support")!)
-//
-//            cell?.update(with: string)
-//
-//            return cell!
-//
-//        case 6:
-//            let cell: StakingTransferFeeInfoCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-//
-//            cell?.update(with: .init(balance: .init(currency: .init(title: "USDN",
-//                                                                    ticker: "USDN"),
-//                                                    money: .init(10000000,
-//                                                                 8))))
-//            return cell!
-//
-//        case 7:
-//
-//            let cell: StakingTransferButtonCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-////            cell?.update(with: .init(assetURL: .init(assetId: "WAVES", name: "WAVES", url: nil, isSponsored: false, hasScript: false), title: "Test", money: Money.init(10000000, 100)))
-//
-//            return cell!
-//
-//
-//        default:
-//            let cell: StakingTransferBalanceCell? = tableView.dequeueAndRegisterCell(indexPath: indexPath)
-//
-//            cell?.update(with: .init(assetURL: .init(assetId: "WAVES", name: "WAVES", url: nil, isSponsored: false, hasScript: false), title: "Test", money: Money.init(10000000, 100)))
-//
-//            return cell!
-//        }
     }
 }
+
+// MARK: UITableViewDelegate
 
 extension StakingTransferViewController: UITableViewDelegate {
  
@@ -412,19 +311,10 @@ extension StakingTransferViewController: UITableViewDelegate {
     }
 }
 
-extension StakingTransferViewController: UIScrollViewDelegate {
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-                                   withVelocity velocity: CGPoint,
-                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        self.modalTableViewController.scrollViewWillEndDragging(scrollView,
-                                                                withVelocity: velocity,
-                                                                targetContentOffset: targetContentOffset)
-    }
+extension StakingTransferViewController {
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.modalTableViewController.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         
         let yOffset = scrollView.contentOffset.y + scrollView.contentInset.top
         
@@ -435,4 +325,3 @@ extension StakingTransferViewController: UIScrollViewDelegate {
         }
     }
 }
-

@@ -37,10 +37,13 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let parentKey = isPresentation ? UITransitionContextViewControllerKey.from : UITransitionContextViewControllerKey.to
 
         guard let parentController = transitionContext.viewController(forKey: parentKey) else { return }
-        guard let controller = transitionContext.viewController(forKey: key) else { return }
+        guard var controller = transitionContext.viewController(forKey: key) else { return }
 
+        if let nav = controller as? UINavigationController {
+//            controller = nav.topViewController ?? controller
+        }
+        
         if isPresentation {
-
             transitionContext.containerView.addSubview(controller.view)
         }
 

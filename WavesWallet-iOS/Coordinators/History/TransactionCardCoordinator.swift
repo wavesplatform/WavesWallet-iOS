@@ -34,6 +34,11 @@ final class TransactionCardCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private var navigationRouter: NavigationRouter!
+
+    private lazy var modalTransitioning = ModalViewControllerTransitioning { [weak self] in
+        guard let self = self else { return }
+        self.removeFromParentCoordinator()
+    }
     
     private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
         guard let self = self else { return }
@@ -68,6 +73,11 @@ final class TransactionCardCoordinator: Coordinator {
         let vc = TransactionCardBuilder(output: self)
             .build(input: .init(kind: self.kind,
                                 callbackInput: callbackInput))
+        
+        modalRouter.viewController.modalPresentationStyle = .custom
+        modalRouter.viewController.transitioningDelegate = modalTransitioning
+        
+        
         
         modalRouter.pushViewController(vc)
         navigationRouter.present(modalRouter, animated: true, completion: nil)

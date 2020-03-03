@@ -21,7 +21,18 @@ class ModalRouter: NavigationRouter {
          dismiss: ModalPresentationController.DismissCompleted?) {
         self.dismiss = dismiss
         super.init(navigationController: navigationController)
-        navigationController.modalPresentationStyle = .custom
-        navigationController.transitioningDelegate = modalTransitioning
+//        navigationController.modalPresentationStyle = .custom
+//        navigationController.transitioningDelegate = modalTransitioning
+    }
+    
+    override func pushViewController(_ viewController: UIViewController,
+                                     animated: Bool = true,
+                                     completion: (() -> Void)? = nil) {
+        
+//        viewController.modalPresentationStyle = .custom
+//        viewController.transitioningDelegate = modalTransitioning
+        super.pushViewController(viewController,
+                                 animated: animated,
+                                 completion: completion)
     }
 }

@@ -27,7 +27,14 @@ class ModalTableView: UITableView {
                                            width: bounds.width,
                                            height: max(contentSize.height, bounds.height) * 2)
 
-        insertSubview(backgroundModalView, at: 0)                
+        insertSubview(backgroundModalView, at: 0)
+
+//        backgroundModalView.frame = CGRect(x: 0,
+//                                           y: contentSize.height,
+//                                           width: bounds.width,
+//                                           height: max(contentSize.height, bounds.height))
+        
+//        insertSubview(backgroundModalView, at: 0)
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?

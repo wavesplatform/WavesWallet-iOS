@@ -96,7 +96,7 @@ extension NavigationRouter: Router {
                 viewController.modalPresentationStyle = .fullScreen
             }
         }
-        navigationController.present(viewController, animated: animated, completion: completion)
+        navigationController.topViewController?.present(viewController, animated: animated, completion: completion)
     }
 
     func dismiss(animated: Bool, completion: (() -> Void)?) {

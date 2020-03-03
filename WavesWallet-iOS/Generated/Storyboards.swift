@@ -338,9 +338,6 @@ internal enum StoryboardScene {
 
     internal static let widgetSettingsViewController = SceneType<WavesWallet_iOS.WidgetSettingsViewController>(storyboard: WidgetSettings.self, identifier: "WidgetSettingsViewController")
   }
-  internal enum Xib: StoryboardType {
-    internal static let storyboardName = "XIB"
-  }
 }
 
 internal enum StoryboardSegue {
