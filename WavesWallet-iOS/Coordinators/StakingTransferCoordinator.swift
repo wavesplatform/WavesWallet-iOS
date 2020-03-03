@@ -16,22 +16,23 @@ final class StakingTransferCoordinator: Coordinator {
 
     private var router: Router
     
-    private lazy var modelRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
+    private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
         self?.removeCoordinators()
     }
-
-    private let stakingTransferViewController: StakingTransferViewController = StakingTransferViewController()
     
     init(router: Router){
         self.router = router
         
-        let vc = StoryboardScene.StakingTransfer.stakingTransferViewController.instantiate()
-        
-//        let vc = ModalTableModuleBuilder().build(input: stakingTransferViewController)
-        modelRouter.pushViewController(vc)
+
     }
 
     func start() {
-        router.present(modelRouter, animated: true, completion: nil)
+        let vc = StoryboardScene.StakingTransfer.stakingTransferViewController.instantiate()
+        modalRouter.pushViewController(vc)
+        router.present(modalRouter, animated: true, completion: nil)
     }
+    
+    deinit {
+         print("deinit")
+     }
 }

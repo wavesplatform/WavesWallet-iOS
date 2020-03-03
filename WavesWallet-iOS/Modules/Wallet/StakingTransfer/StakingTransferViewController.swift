@@ -75,12 +75,7 @@ final class StakingTransferViewController: ModalScrollViewController {
             .disposed(by: disposeBag)
         
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        system.send(.viewDidAppear)
-    }
-    
+     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         system.send(.viewDidAppear)
@@ -91,22 +86,14 @@ final class StakingTransferViewController: ModalScrollViewController {
         tableView.keyboardDismissMode = .onDrag
     }
     
+    deinit {
+        print("deinit")
+    }
     
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
         
         let layoutInsets = (findNavigationController()?.layoutInsets.top ?? 0)
-        print("size \(size) layoutInsets \(layoutInsets) tableView \(tableView.frame.size) view \(view.frame.size) CT \(tableView.contentSize.height)")
-        //
-        ////        return size.height
-        //
-        //        let sizeA = min((size.height - tableView.contentSize.height), size.height)
-        //
-        
-        //        if tableView.contentSize.height > size.height {
-        //            return size.height
-        //        }
-        print("tableView.contentSize.height \(tableView.contentSize.height)")
-            return 425
+        return 425
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {

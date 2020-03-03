@@ -37,11 +37,14 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let parentKey = isPresentation ? UITransitionContextViewControllerKey.from : UITransitionContextViewControllerKey.to
 
         guard let parentController = transitionContext.viewController(forKey: parentKey) else { return }
-        guard var controller = transitionContext.viewController(forKey: key) else { return }
+        guard let controller = transitionContext.viewController(forKey: key) else { return }
+        
+        var context: ModalPresentationAnimatorContext? = nil
 
         if let nav = controller as? UINavigationController {
-//            controller = nav.topViewController ?? controller
+            context = (nav.topViewController ?? controller) as? ModalPresentationAnimatorContext
         }
+        
         
         if isPresentation {
             transitionContext.containerView.addSubview(controller.view)
@@ -54,7 +57,7 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let width = parentFrame.size.width
         var height = maxHeight
 
-        if let context = controller as? ModalPresentationAnimatorContext {
+        if let context = context {
             height = context.contentHeight(for: CGSize(width: width,
                                                        height: maxHeight))
         }
@@ -64,13 +67,13 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let initialFrame: CGRect =  calculateFrame(isPresentation: !isPresentation,
                                                     maxSize: maxSize,
                                                     height: height,
-                                                    controller: controller)
+                                                    context: context)
 
 
         let finalFrame: CGRect = calculateFrame(isPresentation: isPresentation,
                                                 maxSize: maxSize,
                                                 height: height,
-                                                controller: controller)
+                                                context: context)
 
         let animationDuration = transitionDuration(using: transitionContext)
         controller.view.frame = initialFrame
@@ -82,14 +85,17 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         })
     }
 
-    private func calculateFrame(isPresentation: Bool, maxSize: CGSize, height: CGFloat, controller: UIViewController) -> CGRect {
+    private func calculateFrame(isPresentation: Bool,
+                                maxSize: CGSize,
+                                height: CGFloat,
+                                context: ModalPresentationAnimatorContext?) -> CGRect {
 
         var frame: CGRect!
 
         let maxHeight = maxSize.height
         let width = maxSize.width
 
-        if let context = controller as? ModalPresentationAnimatorContext {
+        if let context = context {
 
             let appY = context.appearingContentHeight(for: maxSize)
             let dissY = context.disappearingContentHeight(for: maxSize)

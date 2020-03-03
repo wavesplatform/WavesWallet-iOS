@@ -16,9 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBS-pt-5Ff" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="842"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TBS-pt-5Ff" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="QSa-4o-ScQ"/>
                                 <connections>
                                     <outlet property="dataSource" destination="nE9-4x-JBl" id="ATh-V9-APq"/>
                                     <outlet property="delegate" destination="nE9-4x-JBl" id="lGA-D3-SaD"/>
@@ -27,9 +28,9 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ieJ-fJ-Wnf" firstAttribute="bottom" secondItem="TBS-pt-5Ff" secondAttribute="bottom" id="7ar-OQ-Jvc"/>
+                            <constraint firstAttribute="bottom" secondItem="TBS-pt-5Ff" secondAttribute="bottom" id="7ar-OQ-Jvc"/>
                             <constraint firstItem="TBS-pt-5Ff" firstAttribute="leading" secondItem="ieJ-fJ-Wnf" secondAttribute="leading" id="SQc-va-f2F"/>
-                            <constraint firstItem="TBS-pt-5Ff" firstAttribute="top" secondItem="Zm7-Jc-0Ig" secondAttribute="top" constant="20" symbolic="YES" id="Zcq-rI-b4w"/>
+                            <constraint firstItem="TBS-pt-5Ff" firstAttribute="top" secondItem="ieJ-fJ-Wnf" secondAttribute="top" id="Zcq-rI-b4w"/>
                             <constraint firstItem="ieJ-fJ-Wnf" firstAttribute="trailing" secondItem="TBS-pt-5Ff" secondAttribute="trailing" id="gOR-dx-Za9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ieJ-fJ-Wnf"/>

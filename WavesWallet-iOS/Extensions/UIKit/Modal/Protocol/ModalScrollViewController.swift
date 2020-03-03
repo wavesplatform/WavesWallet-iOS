@@ -27,9 +27,10 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if needUpdateInsets {
+//        if needUpdateInsets {
+            needUpdateInsets = false
             setNeedUpdateInset(animated: false)
-        }
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,8 +39,8 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupScrollView()        
-        needUpdateInsets = false
+        setupScrollView()
+                
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,7 +88,7 @@ extension ModalScrollViewController  {
         scrollView.contentInset.bottom = bottom
         scrollView.contentInset.top = top
         scrollView.scrollIndicatorInsets.top = contentOffset
-        
+                
         var content = scrollView.contentOffset
         content.y = -(contentOffset)
         scrollView.setContentOffset(content, animated: animated)

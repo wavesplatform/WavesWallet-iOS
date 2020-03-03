@@ -20,7 +20,7 @@ final class UIDeveloperCoordinator: Coordinator {
     
     weak var delegate: HelloCoordinatorDelegate?
     
-    lazy var coordinator = StakingTransferCoordinator.init(router: self.windowRouter)
+    lazy var coordinator = StakingTransferCoordinator.init(router: self.navigationRouter)
     
     init(windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
@@ -33,12 +33,12 @@ final class UIDeveloperCoordinator: Coordinator {
         view.view = UIView()
         view.view.frame = UIScreen.main.bounds
         view.navigationItem.title = "UIDeveloper"
-        self.windowRouter.setRootViewController(CustomNavigationController(rootViewController: view))
-        
-        
-        coordinator.start()
-        
-        
+        self.navigationRouter.pushViewController(view)
+        self.windowRouter.setRootViewController(self.navigationRouter.viewController,
+                                                animated: .none,
+                                                completion: { 
+            self.coordinator.start()
+        })
     }
 }
 

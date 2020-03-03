@@ -18,6 +18,7 @@ protocol ModalRootViewDelegate {
     func modalHeaderView() -> UIView
 
     func modalHeaderHeight() -> CGFloat
+        
 }
 
 class ModalRootView: UIView, ModalScrollViewRootView {
@@ -43,9 +44,11 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     override func layoutSubviews() {
         super.layoutSubviews()
             
-        let headerTopY = max(self.layoutInsets.top,
-                             -(self.tableView.contentOffset.y - self.layoutInsets.top))
+        let modalHeaderTopBoundY = self.layoutInsets.top
         
+        let headerTopY = max(modalHeaderTopBoundY,
+                             -(self.tableView.contentOffset.y - modalHeaderTopBoundY))
+                        
         var frame = CGRect(x: 0,
                            y: headerTopY,
                            width: tableView.frame.size.width,
@@ -81,7 +84,7 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+                        
         tableView.layoutSubviews()
         layoutSubviews()
     }

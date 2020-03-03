@@ -29,7 +29,9 @@ class WindowRouter: NSObject {
         setRootViewController(router.viewController, animated: animated)
     }
         
-    public func setRootViewController(_ viewController: UIViewController, animated: AnimateKind? = nil) {
+    public func setRootViewController(_ viewController: UIViewController,
+                                      animated: AnimateKind? = nil,
+                                      completion: (()  -> Void)? = nil) {
 
         if let animated = animated {
             switch animated {
@@ -39,17 +41,20 @@ class WindowRouter: NSObject {
                    self.window.rootViewController = viewController
                     UIView.transition(from: view, to: viewController.view, duration: Constants.animationDuration, options: [.transitionCrossDissolve], completion: { animated in
                         self.windowDidAppear()
+                        completion?()
                     })
                 } else {
                     self.window.rootViewController = viewController
                     self.window.makeKeyAndVisible()
                     self.windowDidAppear()
+                    completion?()
                 }
             }
         } else {
             self.window.rootViewController = viewController
             self.window.makeKeyAndVisible()
             self.windowDidAppear()
+            completion?()
         }
 	}
     

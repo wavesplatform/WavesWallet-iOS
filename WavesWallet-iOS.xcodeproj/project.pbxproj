@@ -637,6 +637,8 @@
 		7BCFC36824092AB000B8AF1C /* StakingTransferTypes+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
+		7BD3605B240EC51C006F3A77 /* UIScreen+SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */; };
+		7BD3605D240EF3AE006F3A77 /* StakingTransferInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605C240EF3AD006F3A77 /* StakingTransferInteractor.swift */; };
 		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
 		7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */; };
 		7BD6E10222E50EB200BAAFC8 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */; };
@@ -1943,6 +1945,8 @@
 		7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Card.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
+		7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+SafeArea.swift"; sourceTree = "<group>"; };
+		7BD3605C240EF3AD006F3A77 /* StakingTransferInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferInteractor.swift; sourceTree = "<group>"; };
 		7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
 		7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -3207,6 +3211,7 @@
 				7B85E61023FD1D6600365829 /* NavigationRouter+Utils.swift */,
 				7B1A337624011AFD00AE54B9 /* StringProtocol+Ranges.swift */,
 				7B0D1B8224029FA700442B7B /* TTAttributed+Utils.swift */,
+				7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4208,6 +4213,7 @@
 				7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */,
 				7B85E61F23FD311300365829 /* StakingTransfer.storyboard */,
 				7B85E64023FD821B00365829 /* StakingTransferSystem.swift */,
+				7BD3605C240EF3AD006F3A77 /* StakingTransferInteractor.swift */,
 			);
 			path = StakingTransfer;
 			sourceTree = "<group>";
@@ -7566,6 +7572,7 @@
 				044D6C8E21978CED003861A2 /* EditAccountNameModuleBuilder.swift in Sources */,
 				044D6C8F21978CED003861A2 /* EditAccountNameViewController.swift in Sources */,
 				E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */,
+				7BD3605B240EC51C006F3A77 /* UIScreen+SafeArea.swift in Sources */,
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,
 				0A14E3E821871B7700EA7E91 /* AliasesHeadCell.swift in Sources */,
@@ -7703,6 +7710,7 @@
 				E95E151222A18C25003552B8 /* WalletSearchTableViewCell.swift in Sources */,
 				7B922D922402D91400271443 /* PayoutsHistoryTypes.swift in Sources */,
 				E9F69B9822A522E400CDBD00 /* WalletSearchPresenter.swift in Sources */,
+				7BD3605D240EF3AE006F3A77 /* StakingTransferInteractor.swift in Sources */,
 				E9B088132163886800937644 /* DexMarketInteractor.swift in Sources */,
 				E95E151522A197B8003552B8 /* WalletSearchViewController.swift in Sources */,
 				0AED6BBA216620F000481B42 /* ProfileTypes.swift in Sources */,
