@@ -20,7 +20,6 @@ private struct Constants {
     static let shiftIndexInLenght: Int = 1
 }
 
-
 private struct OrderQuery: Equatable {
 
     let order: DomainLayer.DTO.Dex.MyOrder
@@ -181,10 +180,10 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
             order.status = .cancelled
             state.core.kind = .order(order)
-
+            state.core.action = .none
+            
             let sections = section(by: state.core)
             state.ui.sections = sections
-            state.core.action = .none
             state.ui.action = .didCancelOrder
 
         case .handlerError(let error):
