@@ -107,28 +107,29 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
          switch event {
          case .viewDidAppear:
              
-             state.core.action = .loadDeposit
+            state.ui.action = .none
+            state.core.action = .loadDeposit
            
          case .tapAssistanceButton(let assistanceButton):
                          
             state.ui.action = .none
             
-             guard case .max = assistanceButton else { return }
+//             guard case .max = assistanceButton else { return }
              
-             guard let money = state.core.data?.card?.maxAmount.money else { return }
+//             guard let money = state.core.data?.deposit?.maxAmount.money else { return }
                  
-             let indexPath = IndexPath(row: 0, section: 0)
+//             let indexPath = IndexPath(row: 0, section: 0)
              
-             changeCardStateAfterInput(input: money,
-                                       indexPath: indexPath,
-                                       state: &state)
+//             changeDepositStateAfterInput(input: money,
+//                                          indexPath: indexPath,
+//                                          state: &state)
                          
          case .input(let input, let indexPath):
              
             state.ui.action = .none
-            changeCardStateAfterInput(input: input,
-                                      indexPath: indexPath,
-                                      state: &state)
+            changeDepositStateAfterInput(input: input,
+                                         indexPath: indexPath,
+                                         state: &state)
              
          case .showDeposit(let deposit):
              
@@ -161,6 +162,12 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
 
 private extension StakingTransferSystem {
  
+    func changeDepositStateAfterInput(input: Money?, indexPath: IndexPath, state: inout State) {
+        
+        guard let deposit = state.core.data?.deposit else { return }
+        
+    }
+            
     func changeCardStateAfterInput(input: Money?, indexPath: IndexPath, state: inout State) {
 
         guard let card = state.core.data?.card else { return }

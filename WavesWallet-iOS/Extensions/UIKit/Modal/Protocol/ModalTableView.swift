@@ -23,7 +23,7 @@ class ModalTableView: UITableView {
 
         
         backgroundModalView.frame = CGRect(x: 0,
-                                           y: max(contentSize.height, contentOffset.y),
+                                           y: max(contentSize.height, abs(contentOffset.y)),
                                            width: bounds.width,
                                            height: max(contentSize.height, bounds.height) * 2)
 
@@ -39,13 +39,12 @@ class ModalTableView: UITableView {
                 return self
             }
         }
+                
+        let backgroundModalFrame = backgroundModalView.convert(backgroundModalView.frame, to: self)
         
-        //TODO: Testing
-//        let backgroundModalFrame = backgroundModalView.convert(backgroundModalView.frame, to: self)
-//        
-//        if backgroundModalFrame.contains(point) {
-//            return self
-//        }
+        if backgroundModalFrame.contains(point) {
+            return self
+        }
 
         return super.hitTest(point, with: event)
     }

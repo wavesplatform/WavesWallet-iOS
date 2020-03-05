@@ -61,9 +61,9 @@ final class StakingTransferViewController: ModalScrollViewController {
         tableView.delegate = self
         tableView.dataSource = self
         rootView.delegate = self
-        
-        stakingTransferHeaderView.translatesAutoresizingMaskIntoConstraints = true
                 
+        self.navigationItem.isNavigationBarHidden = true
+                    
         setupUI()
         
         system
@@ -85,15 +85,11 @@ final class StakingTransferViewController: ModalScrollViewController {
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .onDrag
     }
-    
-    deinit {
-        print("deinit")
-    }
-    
+        
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
         
-        let layoutInsets = (findNavigationController()?.layoutInsets.top ?? 0)
-        return 425
+        print("self.layoutInsets.top \(self.layoutInsets.top)")
+        return 425 + self.layoutInsets.top
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {

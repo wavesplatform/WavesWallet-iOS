@@ -44,14 +44,12 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         if let nav = controller as? UINavigationController {
             context = (nav.topViewController ?? controller) as? ModalPresentationAnimatorContext
         }
-        
-        
+                
         if isPresentation {
             transitionContext.containerView.addSubview(controller.view)
         }
 
         let parentFrame = transitionContext.finalFrame(for: parentController)
-
         
         let maxHeight = parentFrame.height
         let width = parentFrame.size.width

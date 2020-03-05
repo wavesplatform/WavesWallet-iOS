@@ -30,9 +30,5 @@ final class StakingTransferCoordinator: Coordinator {
         let vc = StoryboardScene.StakingTransfer.stakingTransferViewController.instantiate()
         modalRouter.pushViewController(vc)
         router.present(modalRouter, animated: true, completion: nil)
-    }
-    
-    deinit {
-         print("deinit")
-     }
+    }        
 }

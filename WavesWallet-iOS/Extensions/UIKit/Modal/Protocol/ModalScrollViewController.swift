@@ -27,10 +27,11 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-//        if needUpdateInsets {
+        print("frame \(view.frame)")
+        if needUpdateInsets {
             needUpdateInsets = false
             setNeedUpdateInset(animated: false)
-//        }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,10 +75,10 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
 extension ModalScrollViewController  {
 
-    func setNeedUpdateInset(animated: Bool = false) {
+    private func setNeedUpdateInset(animated: Bool = false) {
         
         setupInsets(animated: animated)
-        view.layoutIfNeeded()
+//        view.layoutIfNeeded()
     }
 
     private func setupInsets(animated: Bool) {
@@ -124,7 +125,7 @@ extension ModalScrollViewController: ModalPresentationAnimatorContext {
     func disappearingContentHeight(for size:  CGSize) -> CGFloat {
 
         if scrollView.contentOffset.y < 0 {
-            return scrollView.bounds.height + scrollView.contentOffset.y
+            return scrollView.bounds.height + scrollView.contentOffset.y + scrollView.contentInset.top
         } else {
             return scrollView.bounds.height
         }

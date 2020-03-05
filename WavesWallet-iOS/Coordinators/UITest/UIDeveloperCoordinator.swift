@@ -37,8 +37,12 @@ final class UIDeveloperCoordinator: Coordinator {
         self.windowRouter.setRootViewController(self.navigationRouter.viewController,
                                                 animated: .none,
                                                 completion: { 
-            self.coordinator.start()
+                                                                
         })
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+            self.coordinator.start()
+        }
     }
 }
 
