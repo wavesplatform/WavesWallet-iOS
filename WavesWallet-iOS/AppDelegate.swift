@@ -6,21 +6,20 @@
 //  Copyright © 2017 Waves Exchange. All rights reserved.
 //
 
+import IQKeyboardManagerSwift
 import RESideMenu
 import RxSwift
-import IQKeyboardManagerSwift
 import UIKit
 
-import WavesSDKExtensions
 import WavesSDK
 import WavesSDKCrypto
+import WavesSDKExtensions
 
-import Extensions
-import DomainLayer
 import DataLayer
+import DomainLayer
+import Extensions
 import Firebase
 import FirebaseMessaging
-
 
 #if DEBUG
 import SwiftMonkeyPaws
@@ -35,20 +34,18 @@ enum UITest {
 #endif
 
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var disposeBag: DisposeBag = DisposeBag()
     var window: UIWindow?
-
+    
     var appCoordinator: AppCoordinator!
-
+    
     lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
-     
-    #if DEBUG 
+    
+    #if DEBUG
     var paws: MonkeyPaws?
     #endif
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         var url: URL?
         
         if let path = launchOptions?[.url] as? String {
@@ -58,8 +55,8 @@ enum UITest {
         if let scheme = url?.scheme, DeepLink.scheme != scheme {
             return false
         }
-                
-        var deepLink: DeepLink? = nil
+        
+        var deepLink: DeepLink?
         
         if let url = url {
             deepLink = DeepLink(url: url)
@@ -70,17 +67,17 @@ enum UITest {
         setupUI()
         setupServices()
         
-        let router = WindowRouter.windowFactory(window: self.window!)
+        let router = WindowRouter.windowFactory(window: window!)
         
         appCoordinator = AppCoordinator(router, deepLink: deepLink)
-
+        
         migrationInteractor
             .migration()
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { (_) in
-
-            }, onError: { (_) in
-
+            .subscribe(onNext: { _ in
+                
+            }, onError: { _ in
+                
             }, onCompleted: {
                 self.appCoordinator.start()
                 
@@ -91,33 +88,32 @@ enum UITest {
         
         return true
     }
-
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-                
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         if DeepLink.scheme != url.scheme {
             return false
         }
         
-        self.appCoordinator.openURL(link: DeepLink(url: url))
-                
+        appCoordinator.openURL(link: DeepLink(url: url))
+        
         return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {}
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         appCoordinator.applicationDidEnterBackground()
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {}
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
-        appCoordinator.applicationDidBecomeActive()                
+        appCoordinator.applicationDidBecomeActive()
         application.applicationIconBadgeNumber = 0
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {}
-
+    
     func application(_ application: UIApplication,
                      open url: URL,
                      sourceApplication: String?,
@@ -131,12 +127,11 @@ enum UITest {
 }
 
 extension AppDelegate {
-    
     func setupUI() {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = .basic50
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = .basic50
         
         #if DEBUG
         if UITest.isEnabledonkeyTest {
@@ -146,12 +141,11 @@ extension AppDelegate {
         
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
-
+        
         Language.load(localizable: Localizable.self, languages: Language.list)
     }
-            
+    
     func setupLayers() -> Bool {
-        
         guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
             return false
         }
@@ -180,7 +174,7 @@ extension AppDelegate {
         let repositories = RepositoriesFactory(resources: resourses)
         
         UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
-
+        
         UNUserNotificationCenter.current().delegate = self
         return true
     }
@@ -191,28 +185,25 @@ extension AppDelegate {
         SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
                                                            isShortLog: true))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
-                        
+        
         #else
         SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error]))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error]
         
         #endif
     }
-
-    class func shared() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-
-    var menuController: RESideMenu {
-        return self.window?.rootViewController as! RESideMenu
-    }
+    
+    class func shared() -> AppDelegate { UIApplication.shared.delegate as! AppDelegate }
+    
+    var menuController: RESideMenu { window?.rootViewController as! RESideMenu }
 }
 
-//MARK: - UNUserNotificationCenterDelegate
+// MARK: - UNUserNotificationCenterDelegate
+
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,   withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
     }
-
 }

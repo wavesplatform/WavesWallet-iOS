@@ -251,6 +251,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                                                         specifications: specifications,
                                                         realm: realm)
 
+            // TODO: - .bind(to: observer) странное поведение
             let dispose = Observable
                 .arrayWithChangeset(from: txsResult)
                 .flatMap({ [weak self] (list, changeSet) -> Observable<[DomainLayer.DTO.AnyTransaction]> in

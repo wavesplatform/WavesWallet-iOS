@@ -291,6 +291,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
     func listenerWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
 
+        // TODO: - .bind(to: observer) странное поведение
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {

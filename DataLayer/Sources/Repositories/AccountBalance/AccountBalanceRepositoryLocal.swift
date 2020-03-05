@@ -122,7 +122,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
-
+            // TODO: - .bind(to: observer) странное поведение
             let result = realm.objects(AssetBalance.self)
             let collection = Observable.collection(from: result)
                 .skip(1)

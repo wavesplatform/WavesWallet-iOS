@@ -750,6 +750,16 @@
 		7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FA22FC742F002B19F8 /* BiometricManager+String.swift */; };
 		7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */; };
 		7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */; };
+		87C9D311240F9FA4009C6319 /* PayoutsHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87C9D310240F9FA4009C6319 /* PayoutsHistory.storyboard */; };
+		87C9D313240FA13E009C6319 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C9D312240FA13E009C6319 /* PayoutsHistoryVC.swift */; };
+		87C9D315240FA1FF009C6319 /* PayoutsHistorySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C9D314240FA1FF009C6319 /* PayoutsHistorySystem.swift */; };
+		87C9D317240FA25A009C6319 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C9D316240FA25A009C6319 /* PayoutsHistoryBuilder.swift */; };
+		87C9D31B240FA82E009C6319 /* PayoutsTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C9D319240FA82E009C6319 /* PayoutsTransactionCell.swift */; };
+		87C9D31E240FD4B7009C6319 /* PayoutsHistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C9D31D240FD4B7009C6319 /* PayoutsHistoryTypes.swift */; };
+		87C9D3202410FB61009C6319 /* PayoutsTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87C9D31F2410FB61009C6319 /* PayoutsTransactionView.xib */; };
+		87D2887D24110CE20021781E /* PayoutsTransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D2887C24110CE20021781E /* PayoutsTransactionCell.xib */; };
+		87D288802411170D0021781E /* UITableViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D2887F2411170D0021781E /* UITableViewCellContainer.swift */; };
+		87D2888624111D9D0021781E /* ContainerContentConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D2888524111D9D0021781E /* ContainerContentConstraints.swift */; };
 		A3521B8E7F8D5AFE73837B59 /* Pods_Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F48C7630D481FB8B18C7CDD /* Pods_Extensions.framework */; };
 		B5B2F5FE86DB13C5F1ABC764 /* Pods_DomainLayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCD1A311B65E78F9D8E3AFB /* Pods_DomainLayerTests.framework */; };
 		CE9236ADA9B30C0AE5EAC713 /* Pods_DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C4770FECD0D0B762C47A43 /* Pods_DomainLayer.framework */; };
@@ -2027,6 +2037,16 @@
 		7BFB47FC22FC742F002B19F8 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeParser.swift; sourceTree = "<group>"; };
 		7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserWithoutBackupStorageTrack.swift; sourceTree = "<group>"; };
+		87C9D310240F9FA4009C6319 /* PayoutsHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayoutsHistory.storyboard; sourceTree = "<group>"; };
+		87C9D312240FA13E009C6319 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
+		87C9D314240FA1FF009C6319 /* PayoutsHistorySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsHistorySystem.swift; sourceTree = "<group>"; };
+		87C9D316240FA25A009C6319 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
+		87C9D319240FA82E009C6319 /* PayoutsTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsTransactionCell.swift; sourceTree = "<group>"; };
+		87C9D31D240FD4B7009C6319 /* PayoutsHistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryTypes.swift; sourceTree = "<group>"; };
+		87C9D31F2410FB61009C6319 /* PayoutsTransactionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayoutsTransactionView.xib; sourceTree = "<group>"; };
+		87D2887C24110CE20021781E /* PayoutsTransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayoutsTransactionCell.xib; sourceTree = "<group>"; };
+		87D2887F2411170D0021781E /* UITableViewCellContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellContainer.swift; sourceTree = "<group>"; };
+		87D2888524111D9D0021781E /* ContainerContentConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerContentConstraints.swift; sourceTree = "<group>"; };
 		8A551BA048F9720698C5BF39 /* Pods-Extensions.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.release-dev.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.release-dev.xcconfig"; sourceTree = "<group>"; };
 		8B03F78A9DF177D8D9723E8D /* Pods-MonkeyTest.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release-dev.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release-dev.xcconfig"; sourceTree = "<group>"; };
 		8C9A1159470FED7057790330 /* Pods-DataLayer.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.release-prod.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.release-prod.xcconfig"; sourceTree = "<group>"; };
@@ -3207,6 +3227,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				87C9D30F240F9F6C009C6319 /* PayoutsHistory */,
 				E941218E23CED5D3002858A0 /* Trade */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				7B8818652305639600AB0549 /* ActionSheet */,
@@ -4631,6 +4652,46 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
+		87C9D30F240F9F6C009C6319 /* PayoutsHistory */ = {
+			isa = PBXGroup;
+			children = (
+				87C9D318240FA7E5009C6319 /* PayoutsTransactionCell */,
+				87C9D316240FA25A009C6319 /* PayoutsHistoryBuilder.swift */,
+				87C9D31D240FD4B7009C6319 /* PayoutsHistoryTypes.swift */,
+				87C9D314240FA1FF009C6319 /* PayoutsHistorySystem.swift */,
+				87C9D312240FA13E009C6319 /* PayoutsHistoryVC.swift */,
+				87C9D310240F9FA4009C6319 /* PayoutsHistory.storyboard */,
+			);
+			path = PayoutsHistory;
+			sourceTree = "<group>";
+		};
+		87C9D318240FA7E5009C6319 /* PayoutsTransactionCell */ = {
+			isa = PBXGroup;
+			children = (
+				87C9D319240FA82E009C6319 /* PayoutsTransactionCell.swift */,
+				87D2887C24110CE20021781E /* PayoutsTransactionCell.xib */,
+				87C9D31F2410FB61009C6319 /* PayoutsTransactionView.xib */,
+			);
+			path = PayoutsTransactionCell;
+			sourceTree = "<group>";
+		};
+		87D2887E241116D40021781E /* UITooling */ = {
+			isa = PBXGroup;
+			children = (
+				87D2888424111D850021781E /* Helpers */,
+				87D2887F2411170D0021781E /* UITableViewCellContainer.swift */,
+			);
+			path = UITooling;
+			sourceTree = "<group>";
+		};
+		87D2888424111D850021781E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				87D2888524111D9D0021781E /* ContainerContentConstraints.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E921ED02222DDA2B00DE286D /* DexScriptAssetMessage */ = {
 			isa = PBXGroup;
 			children = (
@@ -5988,6 +6049,7 @@
 				0A97974F2108805100407F67 /* Generated */,
 				0ADD7FF721F22FFA0075FC59 /* Coordinators */,
 				0AF92281212E1234003BA067 /* CustomViews */,
+				87D2887E241116D40021781E /* UITooling */,
 				0AF58F8B2191909200C8A4B3 /* Modules */,
 				0A979752210885B500407F67 /* Resources */,
 			);
@@ -6424,6 +6486,7 @@
 				7B9DC3282382C04700DCCA75 /* Fabric-Info.plist in Resources */,
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
 				7B65B6F722F9D647007D5C53 /* KeyboardControl.xib in Resources */,
+				87C9D3202410FB61009C6319 /* PayoutsTransactionView.xib in Resources */,
 				7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */,
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
 				0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */,
@@ -6476,6 +6539,7 @@
 				7B9DC32E2382C04700DCCA75 /* environment_mainnet_test.json in Resources */,
 				0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */,
 				7B9DC31C2382C04700DCCA75 /* fee.json in Resources */,
+				87D2887D24110CE20021781E /* PayoutsTransactionCell.xib in Resources */,
 				7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */,
 				0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */,
 				044D6C8B21978C9C003861A2 /* EditAccountName.storyboard in Resources */,
@@ -6531,6 +6595,7 @@
 				E941219B23CED5D4002858A0 /* TradeTableViewCell.xib in Resources */,
 				7B9DC3262382C04700DCCA75 /* GoogleService-Info.plist in Resources */,
 				0AF92202212E07B3003BA067 /* AssetTransactionSkeletonCell.xib in Resources */,
+				87C9D311240F9FA4009C6319 /* PayoutsHistory.storyboard in Resources */,
 				7B9DC3302382C04700DCCA75 /* spam.scv in Resources */,
 				0A071E7A215DB0A9007D9750 /* ChooseAccount.storyboard in Resources */,
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
@@ -7215,6 +7280,7 @@
 				E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */,
 				7B49912C22F99B76005B7123 /* AssetsSearchEmptyCell.swift in Sources */,
 				E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */,
+				87D2888624111D9D0021781E /* ContainerContentConstraints.swift in Sources */,
 				E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */,
 				E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */,
 				7BDA6AD9222D8D0A001DE71C /* TransactionCardSystem.swift in Sources */,
@@ -7271,6 +7337,7 @@
 				7B5EDEC222522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift in Sources */,
 				E9B087E22163886800937644 /* DexCreateOrderModuleBuilder.swift in Sources */,
 				E9D36DF32175C755001E6DF0 /* AssetListPresenter.swift in Sources */,
+				87C9D313240FA13E009C6319 /* PayoutsHistoryVC.swift in Sources */,
 				E965702321935F2F0052F0FC /* DexCreateOrderInteractor.swift in Sources */,
 				7BFB480622FC742F002B19F8 /* BiometricType.swift in Sources */,
 				0ADD6C832167948500B06917 /* ProfileHeaderView.swift in Sources */,
@@ -7281,6 +7348,7 @@
 				04831F6421691429006D1ED6 /* SuccessSystemMessageView.swift in Sources */,
 				7B9B326122E6004700DB1C59 /* DebugRootView.swift in Sources */,
 				0A5933162183604F0059A77A /* AddressesKeysPresenter.swift in Sources */,
+				87D288802411170D0021781E /* UITableViewCellContainer.swift in Sources */,
 				0ADD803621F22FFB0075FC59 /* PasscodeLogInCoordinator.swift in Sources */,
 				E95C495F23E11E6B00DF1B26 /* PercentTickerView.swift in Sources */,
 				E9D36DEF2175C755001E6DF0 /* ReceiveInvoiceInteractor.swift in Sources */,
@@ -7288,6 +7356,7 @@
 				7B3902AD2237D31900AAFDB8 /* TransactionCardShowAllCell.swift in Sources */,
 				E9B0879F2163886800937644 /* DexChartCandlePriceView.swift in Sources */,
 				E9D36DCD2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift in Sources */,
+				87C9D31B240FA82E009C6319 /* PayoutsTransactionCell.swift in Sources */,
 				0ADD7FAB21F22FB60075FC59 /* PasteboardButton.swift in Sources */,
 				E9D36DE02175C755001E6DF0 /* ReceiveAddressViewController.swift in Sources */,
 				0A96F1DA2152CDB7005E148F /* PasscodeTypes.swift in Sources */,
@@ -7325,6 +7394,7 @@
 				E9B086B92163883000937644 /* AddressBookTypes.swift in Sources */,
 				7BFB480D22FC742F002B19F8 /* QRCodeReader+Factory.swift in Sources */,
 				E9B086B12163883000937644 /* AddAddressTextField.swift in Sources */,
+				87C9D315240FA1FF009C6319 /* PayoutsHistorySystem.swift in Sources */,
 				0AF9222F212E0F1F003BA067 /* WalletAssetSkeletonCell.swift in Sources */,
 				E9B088112163886800937644 /* DexMarketTypes.swift in Sources */,
 				7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */,
@@ -7484,6 +7554,7 @@
 				E922D46323CF0081002CFCED /* TradeFilterHeaderView.swift in Sources */,
 				E9B087B32163886800937644 /* DexOrderBookInteractor.swift in Sources */,
 				E96C924C23AA2BB600C4B6C5 /* DexSegmentedControl.swift in Sources */,
+				87C9D317240FA25A009C6319 /* PayoutsHistoryBuilder.swift in Sources */,
 				E97A283523D0585B00C4C8C4 /* TradeHeaderSkeletonCell.swift in Sources */,
 				E9F69B9C22A5333500CDBD00 /* WalletSearchHeaderCell.swift in Sources */,
 				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
@@ -7737,6 +7808,7 @@
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
 				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
 				7B60E2BC2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift in Sources */,
+				87C9D31E240FD4B7009C6319 /* PayoutsHistoryTypes.swift in Sources */,
 				E9B1C3AC2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,

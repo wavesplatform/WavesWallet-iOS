@@ -93,7 +93,8 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
 
             let objects = realm.objects(AssetBalanceSettings.self)
                 .filter("assetId IN %@",ids)
-
+            
+            // TODO: - .bind(to: observer) странное поведение
             let dispose = Observable
                 .collection(from: objects)                
                 .map({ (results) -> [DomainLayer.DTO.AssetBalanceSettings] in

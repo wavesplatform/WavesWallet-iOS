@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public extension UITableView {
+extension UITableView {
     public func registerHeaderFooter<HeaderFooter>(type: HeaderFooter.Type)
         where HeaderFooter: UITableViewHeaderFooterView & NibReusable {
         register(HeaderFooter.nib, forHeaderFooterViewReuseIdentifier: HeaderFooter.reuseIdentifier)
@@ -48,7 +48,7 @@ public extension UITableView {
 
 // MARK: - Register and dequeue cell
 
-public extension UITableView {
+extension UITableView {
     public func registerCell<Cell>(type: Cell.Type)
         where Cell: UITableViewCell & NibReusable {
         register(Cell.nib, forCellReuseIdentifier: Cell.reuseIdentifier)

@@ -289,6 +289,7 @@ private extension EnvironmentRepository {
                 observer.onNext(enviroment)
                 observer.onCompleted()
             } else {
+                // TODO: - .bind(to: observer) странное поведение
                 let disposable = self.remoteAccountEnvironmentShare.bind(to: observer)
                 disposables.append(disposable)
             }

@@ -27,6 +27,14 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
+        let payoutsBuilder = PayoutsHistoryBuilder()
+        let vc = payoutsBuilder.build()
+        
+        let navController = CustomNavigationController(rootViewController: vc)
+        
+        windowRouter.window.rootViewController = navController
+        windowRouter.window.makeKeyAndVisible()
+        
 //        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
 //        
 //        addChildCoordinatorAndStart(childCoordinator: coordinator)

@@ -242,26 +242,51 @@ DEPENDENCIES:
   - UPCarouselFlowLayout
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Alamofire
     - Amplitude-iOS
+    - Charts
     - Crashlytics
     - CryptoSwift
     - CSV.swift
+    - DeviceKit
+    - Down
     - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
+    - FirebaseAuth
+    - FirebaseAuthInterop
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
+    - FirebaseDatabase
+    - FirebaseInAppMessaging
+    - FirebaseInAppMessagingDisplay
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
+    - GoogleUtilities
+    - GTMSessionFetcher
     - IQKeyboardManagerSwift
     - KeychainAccess
     - Kingfisher
     - Koloda
+    - leveldb-library
     - MGSwipeTableCell
     - Moya
+    - nanopb
     - pop
+    - Protobuf
     - QRCode
     - QRCodeReader.swift
     - ReachabilitySwift
     - Realm
     - RealmSwift
     - Result
+    - Reveal-SDK
     - RxCocoa
     - RxFeedback
     - RxGesture
@@ -281,32 +306,6 @@ SPEC REPOS:
     - TTTAttributedLabel
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
-  trunk:
-    - Charts
-    - DeviceKit
-    - Down
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAnalyticsInterop
-    - FirebaseAuth
-    - FirebaseAuthInterop
-    - FirebaseCore
-    - FirebaseCoreDiagnostics
-    - FirebaseCoreDiagnosticsInterop
-    - FirebaseDatabase
-    - FirebaseInAppMessaging
-    - FirebaseInAppMessagingDisplay
-    - FirebaseInstanceID
-    - FirebaseMessaging
-    - GoogleAppMeasurement
-    - GoogleDataTransport
-    - GoogleDataTransportCCTSupport
-    - GoogleUtilities
-    - GTMSessionFetcher
-    - leveldb-library
-    - nanopb
-    - Protobuf
-    - Reveal-SDK
 
 EXTERNAL SOURCES:
   IdentityImg:
@@ -398,4 +397,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 5ad0724e10b25d6f9343ee4b089fecd571da9456
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.9.0

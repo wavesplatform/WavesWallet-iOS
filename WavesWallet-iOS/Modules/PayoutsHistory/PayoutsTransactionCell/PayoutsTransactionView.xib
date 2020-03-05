@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PayoutsTransactionView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="assetImageView" destination="0Ng-xf-rVy" id="DBE-Oj-5MC"/>
+                <outlet property="dateTransactionLabel" destination="q76-IW-m1h" id="oo4-vI-TNk"/>
+                <outlet property="titleTransactionLabel" destination="maJ-8b-DWI" id="UJ7-G7-mHH"/>
+                <outlet property="transactionCurrencyContainerView" destination="36G-p0-TTR" id="04R-tq-qb6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PayoutsTransactionView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="117"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Ng-xf-rVy">
+                    <rect key="frame" x="20" y="34.5" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="C2L-XG-iPM"/>
+                        <constraint firstAttribute="height" constant="48" id="b7e-jN-qjh"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maJ-8b-DWI">
+                    <rect key="frame" x="76" y="10" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q76-IW-m1h">
+                    <rect key="frame" x="358" y="10" width="42" height="97"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="120" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="36G-p0-TTR" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="76" y="37" width="120" height="70"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="q76-IW-m1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="maJ-8b-DWI" secondAttribute="trailing" constant="12" id="0VY-ra-gU5"/>
+                <constraint firstItem="q76-IW-m1h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="2Rm-E2-exi"/>
+                <constraint firstItem="0Ng-xf-rVy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="2qy-Np-4Hz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="q76-IW-m1h" secondAttribute="bottom" constant="10" id="5Ga-Cg-Loa"/>
+                <constraint firstItem="maJ-8b-DWI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="771-oQ-I2R"/>
+                <constraint firstItem="0Ng-xf-rVy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Blt-t6-6LR"/>
+                <constraint firstAttribute="bottom" secondItem="36G-p0-TTR" secondAttribute="bottom" constant="10" id="ICo-1y-m5J"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="q76-IW-m1h" secondAttribute="trailing" constant="14" id="Oeg-uW-cCX"/>
+                <constraint firstItem="q76-IW-m1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="36G-p0-TTR" secondAttribute="trailing" constant="12" id="TFb-Fu-sbM"/>
+                <constraint firstItem="0Ng-xf-rVy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" constant="10" id="aQr-6C-l38"/>
+                <constraint firstAttribute="bottom" secondItem="0Ng-xf-rVy" secondAttribute="bottom" priority="999" constant="10" id="g7y-sD-VCK"/>
+                <constraint firstItem="maJ-8b-DWI" firstAttribute="leading" secondItem="0Ng-xf-rVy" secondAttribute="trailing" constant="8" id="gwB-cU-QLj"/>
+                <constraint firstItem="36G-p0-TTR" firstAttribute="leading" secondItem="0Ng-xf-rVy" secondAttribute="trailing" constant="8" id="vm3-m8-DrK"/>
+                <constraint firstItem="36G-p0-TTR" firstAttribute="top" secondItem="maJ-8b-DWI" secondAttribute="bottom" constant="6" id="vzQ-Th-mVV"/>
+                <constraint firstItem="q76-IW-m1h" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="zDZ-E3-HDS"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="-124.21875"/>
+        </view>
+    </objects>
+</document>
