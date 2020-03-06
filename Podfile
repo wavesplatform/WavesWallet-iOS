@@ -25,6 +25,8 @@ target 'WavesWallet-iOS' do
     # inherit! :search_paths
 
     project 'WavesWallet-iOS.xcodeproj'
+
+    pod 'SwiftLint'
     
     # UI
     pod 'RxCocoa'
