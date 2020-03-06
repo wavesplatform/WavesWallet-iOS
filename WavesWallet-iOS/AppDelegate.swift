@@ -173,8 +173,9 @@ extension AppDelegate {
                                                       googleServiceInfoForWavesPlatform: googleServiceInfoPathWaves)
         let repositories = RepositoriesFactory(resources: resourses)
         
-        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
-        
+        UseCasesFactory.initialization(repositories: repositories,
+                                       authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+
         UNUserNotificationCenter.current().delegate = self
         return true
     }

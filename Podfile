@@ -25,6 +25,8 @@ target 'WavesWallet-iOS' do
     # inherit! :search_paths
 
     project 'WavesWallet-iOS.xcodeproj'
+
+    pod 'SwiftLint'
     
     # UI
     pod 'RxCocoa'
@@ -71,6 +73,7 @@ end
 
 target 'MarketPulseWidget' do
   project 'WavesWallet-iOS.xcodeproj'
+  pod 'SwiftLint'
   
   pod 'RxSwift'
   pod 'RxSwiftExt'
@@ -91,6 +94,7 @@ end
 target 'DataLayer' do
     inherit! :search_paths  
     project 'WavesWallet-iOS.xcodeproj'
+    pod 'SwiftLint'
     
     # External Service
     pod 'Firebase/Core'
@@ -129,6 +133,8 @@ target 'DomainLayer' do
     # inherit! :search_paths
     project 'WavesWallet-iOS.xcodeproj'
 
+    pod 'SwiftLint'
+
     # DB
     pod 'RealmSwift'
     pod 'RxRealm'
@@ -146,7 +152,9 @@ end
 
 target 'Extensions' do
     # inherit! :search_paths
-    project 'WavesWallet-iOS.xcodeproj'    
+    project 'WavesWallet-iOS.xcodeproj'
+
+    pod 'SwiftLint'    
 
     # Assisstant
     pod 'RxSwift'
