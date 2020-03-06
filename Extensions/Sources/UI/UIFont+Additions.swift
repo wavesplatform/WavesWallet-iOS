@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIFont {
 
-    public class var titleH1: UIFont {
+    class var titleH1: UIFont {
         return UIFont.systemFont(ofSize: 34.0, weight: .bold)
     }
 

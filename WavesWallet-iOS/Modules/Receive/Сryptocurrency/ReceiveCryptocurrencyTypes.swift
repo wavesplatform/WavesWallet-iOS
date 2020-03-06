@@ -16,13 +16,13 @@ enum ReceiveCryptocurrency {
     
     enum Event {
         case generateAddress(asset: DomainLayer.DTO.Asset)
-        case addressDidGenerate(ResponseType<DTO.DisplayInfo>)
+        case addressDidGenerate(ResponseType<DTO.DisplayInfo>)        
     }
     
     struct State: Mutating, Equatable {
         enum Action: Equatable {
             case none
-            case addressDidGenerate(DTO.DisplayInfo)
+            case addressDidGenerate
             case addressDidFailGenerate(NetworkError)
         }
         
@@ -36,7 +36,7 @@ enum ReceiveCryptocurrency {
 extension ReceiveCryptocurrency.DTO {
     
     struct DisplayInfo: Equatable {
-        let address: String
+        let addresses: [String]
         let assetName: String
         let assetShort: String
         let minAmount: Money

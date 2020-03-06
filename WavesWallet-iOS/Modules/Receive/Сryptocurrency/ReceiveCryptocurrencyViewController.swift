@@ -56,7 +56,6 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
         
         UseCasesFactory.instance.analyticManager.trackEvent(.receive(.receiveTap(assetName: info.assetName)))
-
     }
     
     private func setupAssetInfo(_ asset: DomainLayer.DTO.SmartAssetBalance) {
@@ -72,8 +71,8 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     }
 }
 
-
 //MARK: - FeedBack
+
 private extension ReceiveCryptocurrencyViewController {
     
     func setupFeedBack() {
@@ -100,8 +99,6 @@ private extension ReceiveCryptocurrencyViewController {
                 default:
                     break
                 }
-                
-                self.displayInfo = state.displayInfo
 
                 switch state.action {
                 case .addressDidGenerate:

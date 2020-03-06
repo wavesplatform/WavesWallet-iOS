@@ -11,10 +11,10 @@ import Extensions
 
 struct ReceiveAddressModuleBuilder: ModuleBuilder {
   
-    func build(input: ReceiveAddress.DTO.Info) -> UIViewController {
+    func build(input: [ReceiveAddress.DTO.Info]) -> UIViewController {
         
         let vc = StoryboardScene.Receive.receiveAddressViewController.instantiate()
-        vc.input = input
+        vc.moduleInput = input
         return vc
     }
 }

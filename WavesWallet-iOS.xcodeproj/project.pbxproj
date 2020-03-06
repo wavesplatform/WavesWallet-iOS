@@ -575,6 +575,8 @@
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
+		7BD3605F241170E1006F3A77 /* ReceiveAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605E241170E1006F3A77 /* ReceiveAddressView.swift */; };
+		7BD3606124117145006F3A77 /* ReceiveAddressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD3606024117145006F3A77 /* ReceiveAddressView.xib */; };
 		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
 		7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */; };
 		7BD6E10222E50EB200BAAFC8 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */; };
@@ -1833,6 +1835,8 @@
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
+		7BD3605E241170E1006F3A77 /* ReceiveAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressView.swift; sourceTree = "<group>"; };
+		7BD3606024117145006F3A77 /* ReceiveAddressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiveAddressView.xib; sourceTree = "<group>"; };
 		7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
 		7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -5642,17 +5646,17 @@
 		E9D36D6B2175C754001E6DF0 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
-				E9D36D6C2175C754001E6DF0 /* Сryptocurrency */,
-				E9D36D7D2175C754001E6DF0 /* Card */,
-				E9D36D8C2175C754001E6DF0 /* ReceiveTypes.swift */,
-				E9D36D8D2175C754001E6DF0 /* CardComplete */,
 				E9D36D932175C754001E6DF0 /* Receive.storyboard */,
-				E9D36D942175C754001E6DF0 /* ReceiveContainerViewController.swift */,
 				E9D36D952175C754001E6DF0 /* ReceiveContainerModuleBuilder.swift */,
+				E9D36D942175C754001E6DF0 /* ReceiveContainerViewController.swift */,
+				E9D36D8C2175C754001E6DF0 /* ReceiveTypes.swift */,
+				E9D36D6C2175C754001E6DF0 /* Сryptocurrency */,
 				E9D36D972175C754001E6DF0 /* Address */,
+				E9D36D7D2175C754001E6DF0 /* Card */,
+				E9D36D8D2175C754001E6DF0 /* CardComplete */,
 				E9D36DA02175C754001E6DF0 /* Generate */,
-				E9D36DA82175C754001E6DF0 /* Views */,
 				E9D36DAB2175C754001E6DF0 /* Invoice */,
+				E9D36DA82175C754001E6DF0 /* Views */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -5731,6 +5735,8 @@
 				E9D36D982175C754001E6DF0 /* ReceiveAddressViewController.swift */,
 				E9D36D9B2175C754001E6DF0 /* ReceiveAddressModuleBuilder.swift */,
 				E9D36D9E2175C754001E6DF0 /* ReceiveAddressTypes.swift */,
+				7BD3605E241170E1006F3A77 /* ReceiveAddressView.swift */,
+				7BD3606024117145006F3A77 /* ReceiveAddressView.xib */,
 			);
 			path = Address;
 			sourceTree = "<group>";
@@ -6510,6 +6516,7 @@
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
+				7BD3606124117145006F3A77 /* ReceiveAddressView.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
@@ -7548,6 +7555,7 @@
 				7BFB480822FC742F002B19F8 /* SkeletonAnimatable.swift in Sources */,
 				0A59330C218343B00059A77A /* AddressesKeysAliacesCell.swift in Sources */,
 				0AFF5C7B215BCFEA00B82940 /* AccountPasswordModuleBuilder.swift in Sources */,
+				7BD3605F241170E1006F3A77 /* ReceiveAddressView.swift in Sources */,
 				7B3681A923155499000D5592 /* ConfirmRequestFromToCell.swift in Sources */,
 				0AF921EC212E07B3003BA067 /* AssetDetailInteractorProtocol.swift in Sources */,
 				0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */,

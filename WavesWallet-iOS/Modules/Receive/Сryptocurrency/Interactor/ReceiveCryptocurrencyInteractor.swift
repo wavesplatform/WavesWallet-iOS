@@ -29,7 +29,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 return self.gatewayRepository.startDepositProcess(address: wallet.address, asset: asset)
                     .map({ (startDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
                         
-                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: startDeposit.address,
+                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [startDeposit.address],
                                                                                 assetName: asset.displayName,
                                                                                 assetShort: asset.ticker ?? "",
                                                                                 minAmount: startDeposit.minAmount,
@@ -51,7 +51,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 return Observable.zip(tunnel, rate)
                     .flatMap({ (tunnel, rate) ->  Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
                         
-                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: tunnel.address,
+                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [tunnel.address],
                                                                                 assetName: asset.displayName,
                                                                                 assetShort: currencyFrom,
                                                                                 minAmount: tunnel.min,
