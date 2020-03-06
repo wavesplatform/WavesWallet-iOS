@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="257" id="F7u-3l-dnn" customClass="PayoutsTransactionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="257"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F7u-3l-dnn" id="vlH-EY-4uO">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="257"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Pq-e7-211" customClass="PayoutsTransactionView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="16" y="4" width="382" height="249"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="8Pq-e7-211" secondAttribute="trailing" constant="16" id="Qvf-R6-nxL"/>
+                    <constraint firstItem="8Pq-e7-211" firstAttribute="leading" secondItem="vlH-EY-4uO" secondAttribute="leading" constant="16" id="czZ-Lb-62f"/>
+                    <constraint firstItem="8Pq-e7-211" firstAttribute="top" secondItem="vlH-EY-4uO" secondAttribute="top" constant="4" id="uCH-jh-cGt"/>
+                    <constraint firstAttribute="bottom" secondItem="8Pq-e7-211" secondAttribute="bottom" constant="4" id="wkK-Ve-Suo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="payoutsTransactionView" destination="8Pq-e7-211" id="DoM-g9-6qm"/>
+            </connections>
+            <point key="canvasLocation" x="34.782608695652179" y="90.066964285714278"/>
+        </tableViewCell>
+    </objects>
+</document>

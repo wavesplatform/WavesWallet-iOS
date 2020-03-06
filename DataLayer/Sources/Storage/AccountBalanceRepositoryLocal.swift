@@ -124,6 +124,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
             }
 
             let result = realm.objects(AssetBalance.self)
+            // TODO: - .bind(to: observer) странное поведение
             let collection = Observable.collection(from: result)
                 .skip(1)
                 .map { $0.toArray() }

@@ -54,6 +54,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                         
             let wavesExchangeDatabase: Database = Database.database()
             
+            // TODO: - .bind(to: observer) странное поведение
             let value = self.auth(with: id,
                                   passcode: passcode,
                                   database: wavesExchangeDatabase)
@@ -156,6 +157,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
                    .child(Constants.rootPath)
                    .child(id)
 
+               // TODO: - .bind(to: observer) странное поведение
                let value = self.lastTry(database: database)
                    .flatMap({ nTry -> Observable<String> in
 
