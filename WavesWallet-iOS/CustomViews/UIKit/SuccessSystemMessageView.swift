@@ -67,7 +67,7 @@ private extension SuccessSystemMessageView {
         
         let width = frame.size.width - Constants.textLeftOffset - Constants.textRightOffset
         let height = message.maxHeight(font: label.font, forWidth: width)
-        label.frame = CGRect(x: Constants.textLeftOffset , y: 0, width: width, height: height)
+        label.frame = CGRect(x: Constants.textLeftOffset, y: 0, width: width, height: height)
         frame.size.height = max(height + Constants.textTopOffset + Constants.textBottomOffset, Constants.height)
         frame.origin.y = UIScreen.main.bounds.size.height - frame.size.height
     }
@@ -80,16 +80,13 @@ private extension SuccessSystemMessageView {
         
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.alpha = 1
-            
         }) { (complete) in
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(Int(Constants.showTime * 1000)) , execute: {
-                
-                UIView.animate(withDuration: Constants.animationDuration, animations: {
-                    self.alpha = 0
-                }, completion: { (complete) in
-                    self.removeFromSuperview()
-                })
+            let deadline = DispatchTime.now() + DispatchTimeInterval.milliseconds(Int(Constants.showTime * 1000))
+            DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
+                UIView.animate(withDuration: Constants.animationDuration,
+                               animations: { self.alpha = 0 },
+                               completion: { (complete) in self.removeFromSuperview() })
             })
         }
     }

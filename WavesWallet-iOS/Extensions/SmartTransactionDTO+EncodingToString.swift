@@ -435,7 +435,7 @@ extension DomainLayer.DTO.SmartTransaction {
     private var attachmentData: String {
 
         guard let attachment = self.attachmentAny else { return "" }
-        guard attachment.count > 0 else { return "" }
+        guard attachment.isNotEmpty else { return "" }
 
         return "Attachment: \(attachment)\n"
     }

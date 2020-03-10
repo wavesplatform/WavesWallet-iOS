@@ -6,37 +6,38 @@
 //  Copyright © 2018 Pavel Gubin. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
+import UIKit
 
-fileprivate enum Constants {
-    
+private enum Constants {
     // MARK: - UI Settings
+    
     static let BgAlpha: CGFloat = 0.4
     static let DragImageFrame = CGRect(x: (UIScreen.main.bounds.size.width - 36) / 2.0, y: 6, width: 36, height: 4)
     static let CornerRadius: CGFloat = 12
     static let AnimationDuration: TimeInterval = 0.3
-
+    
     // MARK: Container Settings
+    
     static let DefaultTopContainerTopOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 150 : 64
     static let BottomContainerOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 30 : 0
     static let ContainerOffsetOfDragPoint: CGFloat = 20
     
     // MARK: - Gesture Settings
+    
     static let MinumOffsetToScrollTop: CGFloat = 150
 }
 
 final class PopupViewController: UIViewController {
-
     private var bgView = UIView(frame: UIScreen.main.bounds)
-    private var contentView : UIView!
-    private var topContainerOffset : CGFloat = Constants.DefaultTopContainerTopOffset
+    private var contentView: UIView!
+    private var topContainerOffset: CGFloat = Constants.DefaultTopContainerTopOffset
     private let dragImage = UIImageView(frame: Constants.DragImageFrame)
     private var isDragMode = false
     
     private var gestureTap: UITapGestureRecognizer!
     
-    var onDismiss:(() -> Void)?
+    var onDismiss: (() -> Void)?
     
     // Use if screen is not have full size
     var contentHeight: CGFloat = 0 {
@@ -52,13 +53,12 @@ final class PopupViewController: UIViewController {
         view.backgroundColor = .clear
         bgView.backgroundColor = .black
         bgView.alpha = 0
-
+        
         setupMainContentView()
         setupGestures()
     }
     
     func present(contentViewController: UIViewController, animated: Bool = true) {
-        
         let topController = self.topController
         topController.view.addSubview(bgView)
         
@@ -77,12 +77,11 @@ final class PopupViewController: UIViewController {
         
         showView(animated: animated)
     }
- 
+    
     func present(contentView: UIView, animated: Bool) {
-                
         contentView.frame = CGRect(x: 0, y: Constants.ContainerOffsetOfDragPoint,
-                                                  width: contentView.frame.size.width,
-                                                  height: contentView.frame.size.height - Constants.ContainerOffsetOfDragPoint)
+                                   width: contentView.frame.size.width,
+                                   height: contentView.frame.size.height - Constants.ContainerOffsetOfDragPoint)
         self.contentView.addSubview(contentView)
         
         view.frame.origin.y = view.frame.size.height
@@ -94,7 +93,7 @@ final class PopupViewController: UIViewController {
         UIView.animate(withDuration: Constants.AnimationDuration, animations: {
             self.view.frame.origin.y = self.view.frame.size.height
             self.bgView.alpha = 0
-        }) { (compeleted) in
+        }) { _ in
             completed?()
             
             self.onDismiss?()
@@ -112,9 +111,10 @@ final class PopupViewController: UIViewController {
                 self.view.frame.origin.y = 0
                 self.bgView.alpha = Constants.BgAlpha
             }
-        } else {
-            self.view.frame.origin.y = 0
-            self.bgView.alpha = Constants.BgAlpha
+        }
+        else {
+            view.frame.origin.y = 0
+            bgView.alpha = Constants.BgAlpha
         }
     }
     
@@ -124,32 +124,28 @@ final class PopupViewController: UIViewController {
                 self.view.frame.origin.y = self.view.frame.height
                 self.bgView.alpha = 0
             }
-        } else {
-            self.view.frame.origin.y = self.view.frame.height
-            self.bgView.alpha = 0
+        }
+        else {
+            view.frame.origin.y = view.frame.height
+            bgView.alpha = 0
         }
     }
-  
 }
-
 
 // MARK: - Gesture Actions
 
 private extension PopupViewController {
-    
-    
     @objc func tapGesture(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             let location = gesture.location(in: view)
             
-            if location.y <= topContainerOffset || isDragPoint(location: location){
+            if location.y <= topContainerOffset || isDragPoint(location: location) {
                 dismissPopup()
             }
         }
     }
- 
+    
     @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
-        
         if gesture.state == .began {
             let location = CGPoint(x: gesture.location(in: view).x, y: gesture.location(in: view).y - 10)
             
@@ -166,20 +162,19 @@ private extension PopupViewController {
             }
         }
         else if gesture.state == .changed {
-            
             if isDragMode {
-                let translation = gesture.translation(in: self.view)
-                self.view.frame.origin.y += translation.y
+                let translation = gesture.translation(in: view)
+                view.frame.origin.y += translation.y
                 
-                if self.view.frame.origin.y <= 0 {
-                    self.view.frame.origin.y = 0
+                if view.frame.origin.y <= 0 {
+                    view.frame.origin.y = 0
                 }
                 
-                let alpha = 1.0 - self.view.frame.origin.y / contentView.frame.size.height
+                let alpha = 1.0 - view.frame.origin.y / contentView.frame.size.height
                 let newAlpha = alpha * Constants.BgAlpha
                 bgView.alpha = newAlpha
                 
-                gesture.setTranslation(.zero, in: self.view)
+                gesture.setTranslation(.zero, in: view)
             }
         }
         else if gesture.state == .failed {
@@ -187,21 +182,20 @@ private extension PopupViewController {
         }
     }
     
-    
     func isDragPoint(location: CGPoint) -> Bool {
         return location.y <= topContainerOffset + 20 && location.y >= topContainerOffset - 20
     }
-    
 }
-
 
 // MARK: - SetupUI
 
 private extension PopupViewController {
-    
     func setupMainContentView() {
-        
-        contentView = UIView(frame: CGRect(x: 0, y: topContainerOffset, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - topContainerOffset))
+        let contentViewFrame = CGRect(x: 0,
+                                      y: topContainerOffset,
+                                      width: UIScreen.main.bounds.size.width,
+                                      height: UIScreen.main.bounds.size.height - topContainerOffset)
+        contentView = UIView(frame: contentViewFrame)
         contentView.backgroundColor = UIColor.white
         
         dragImage.image = Images.dragElem.image
@@ -216,7 +210,10 @@ private extension PopupViewController {
         shadowView.layer.shadowRadius = 4
         view.addSubview(shadowView)
         
-        let maskPath = UIBezierPath(roundedRect: contentView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: Constants.CornerRadius, height: Constants.CornerRadius))
+        let maskPath = UIBezierPath(roundedRect: contentView.bounds,
+                                    byRoundingCorners: [.topLeft, .topRight],
+                                    cornerRadii: CGSize(width: Constants.CornerRadius,
+                                                        height: Constants.CornerRadius))
         let shape = CAShapeLayer()
         shape.path = maskPath.cgPath
         contentView.layer.mask = shape
@@ -235,11 +232,8 @@ private extension PopupViewController {
 }
 
 extension PopupViewController: UIGestureRecognizerDelegate {
-    
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        
         if gestureRecognizer == gestureTap {
-            
             let location = gestureTap.location(in: view)
             
             if location.y <= topContainerOffset || isDragPoint(location: location) {
@@ -247,26 +241,20 @@ extension PopupViewController: UIGestureRecognizerDelegate {
             }
             
             return false
-            
-        }
-        
-        return true
-        
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == gestureTap {
-            return true
         }
         
         return true
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
+    }
 }
 
 // MARK: - Additional Methods
+
 private extension PopupViewController {
-    
     func animateToTop() {
         UIView.animate(withDuration: Constants.AnimationDuration) {
             self.view.frame.origin.y = 0

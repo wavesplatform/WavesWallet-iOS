@@ -28,7 +28,9 @@ final class BrowserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done(sender:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                           target: self,
+                                                           action: #selector(done(sender:)))
         
         setupWebView()
         setupLoader()
@@ -45,16 +47,13 @@ final class BrowserViewController: UIViewController {
  
         webView.navigationDelegate = self
         view.addSubview(webView)
-        
     }
     
     private func setupLoader() {
-        
         loader = UIActivityIndicatorView(style: .gray)
         loader.hidesWhenStopped = true
         loader.startAnimating()
         view.addSubview(loader)
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -68,7 +67,6 @@ final class BrowserViewController: UIViewController {
         webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeInsets.bottom, right: 0)
 
         loader.center = view.center
-        
     }
     
     // MARK: - Content
@@ -79,22 +77,16 @@ final class BrowserViewController: UIViewController {
     
     @objc func done(sender: Any) {
         dismiss(animated: true)
-        
     }
-
 }
 
-
 extension BrowserViewController: WKNavigationDelegate {
-    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         finishLoading()
     }
-    
 }
 
 extension BrowserViewController {
-    
     static func openURL(_ url: URL) {
         if let vc = AppDelegate.shared().window?.rootViewController {
             openURL(url, toViewController: vc)

@@ -6550,6 +6550,7 @@
 				7B9393CC22DF5827006634A6 /* Embed Frameworks */,
 				E9B190BB22E7CD9A008220B7 /* Embed App Extensions */,
 				5FAF4597FE7F72DBCD62054E /* [CP] Embed Pods Frameworks */,
+				8752A27E2412809C00B968C7 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -7080,6 +7081,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "GENERATED_PATH=\"$PROJECT_DIR/MarketPulseWidget/Sources/Generated\"\nPROJECT_PATH=\"$PROJECT_DIR/MarketPulseWidget\"\nPROJECT_PARENT_PATH=$PROJECT_DIR\n\necho \"SwiftGen Begin\"\n\nHAS_NEED_GENERATE_CODE=\"$(ruby $PROJECT_DIR/fastlane/swiftgenhash.ruby Widget $PROJECT_PATH $PROJECT_PARENT_PATH)\"\n\necho \"SwiftGen Need $HAS_NEED_GENERATE_CODE\"\n\nif [ \"$HAS_NEED_GENERATE_CODE\" == false ] ; then\n    echo \"SwiftGen Cancel\"\n    exit\nfi \n\nrm -rf $GENERATED_PATH\nmkdir $GENERATED_PATH\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $GENERATED_PATH/Images.swift --param enumName=Images $PROJECT_PATH/Resources/WidgetAssets.xcassets\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=Localizable --templatePath $PROJECT_DIR/Templates/structured-swift4.stencil -o $GENERATED_PATH/Localizable.swift $PROJECT_PATH/Resources/Localization/en.lproj/WavesMarketPulse.strings\n\n";
+		};
+		8752A27E2412809C00B968C7 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# \"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		998B1C8FFA65B3E372245AD9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

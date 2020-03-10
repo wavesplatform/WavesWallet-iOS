@@ -20,16 +20,20 @@ final class ModalViewControllerTransitioning: NSObject {
 
 extension ModalViewControllerTransitioning: UIViewControllerTransitioningDelegate {
 
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ModalPresentationAnimator(isPresentation: true)
+    func animationController(forPresented presented: UIViewController,
+                             presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        ModalPresentationAnimator(isPresentation: true)
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ModalPresentationAnimator(isPresentation: false)
+        ModalPresentationAnimator(isPresentation: false)
     }
 
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController?  {
-        return ModalPresentationController(presentedViewController: presented, presenting: presenting, dismiss: { [weak self] in
+    func presentationController(forPresented presented: UIViewController,
+                                presenting: UIViewController?,
+                                source: UIViewController) -> UIPresentationController?  {
+        ModalPresentationController(presentedViewController: presented, presenting: presenting, dismiss: { [weak self] in
             guard let self = self else { return }
             self.dismiss?()
         })

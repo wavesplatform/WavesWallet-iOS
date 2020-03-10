@@ -140,7 +140,5 @@ extension ModalPresentationController: UIGestureRecognizerDelegate {
         return rect.contains(location)
     }
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return true
-    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool { true }
 }

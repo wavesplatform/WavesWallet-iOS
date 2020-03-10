@@ -6,14 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import UIKit
-import DomainLayer
 
-private struct Constants {
-    
-    static let firstPosition: CGPoint = CGPoint(x: 44, y: 44)
-    
+private enum Constants {
+    static let firstPosition = CGPoint(x: 44, y: 44)
+
     static let size: CGFloat = 35
 }
 
@@ -21,13 +20,12 @@ protocol DebugWindowRouterDelegate: AnyObject {
     func relaunchApplication()
 }
 
-final class DebugRootView: UIView  {
-    
-    private lazy var debugView: DebugView = DebugView(frame: .zero)
-    
-    private lazy var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlerPanGesture(_:)))
-    
-    var debugPosition: CGPoint = CGPoint.zero
+final class DebugRootView: UIView {
+    private lazy var debugView = DebugView(frame: .zero)
+
+    private lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlerPanGesture(_:)))
+
+    var debugPosition: CGPoint = .zero
     
     let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
     
@@ -57,7 +55,6 @@ final class DebugRootView: UIView  {
     }
     
     @objc private func handlerPanGesture(_ recognizer: UIPanGestureRecognizer) {
-        
         let location = recognizer.location(in: self)
         
         switch recognizer.state {
@@ -69,7 +66,7 @@ final class DebugRootView: UIView  {
             var newFrame = debugView.frame
             newFrame.origin = CGPoint(x: location.x - newFrame.width * 0.5, y: location.y - newFrame.height * 0.5)
             
-            if self.frame.contains(newFrame) == false {
+            if frame.contains(newFrame) == false {
                 return
             }
             
@@ -77,7 +74,6 @@ final class DebugRootView: UIView  {
             
         default:
             ApplicationDebugSettings.debugButtonPosition = location
-            
         }
     }
     
@@ -90,18 +86,15 @@ final class DebugRootView: UIView  {
 
 extension DebugRootView: UIGestureRecognizerDelegate {}
 
-
 final class DebugWindow: UIWindow {
-    
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        
         let hitView = super.hitTest(point, with: event)
         
-        if (hitView?.isKind(of: DebugView.self) ?? false) == true  {
+        if (hitView?.isKind(of: DebugView.self) ?? false) == true {
             return nil
         }
         
-        if (hitView is DebugRootView)  {
+        if hitView is DebugRootView {
             return nil
         }
         
@@ -110,13 +103,11 @@ final class DebugWindow: UIWindow {
 }
 
 final class DebugWindowRouter: WindowRouter {
-    
     private let contentView: UIView = UIView()
     
     private lazy var debugRootView = DebugRootView()
     
     private lazy var debugWindow: DebugWindow = {
-        
         let window = DebugWindow()
         let vc = UIViewController()
         vc.view = debugRootView
@@ -157,25 +148,22 @@ final class DebugWindowRouter: WindowRouter {
 // MARK: DebugViewControllerDelegate
 
 extension DebugWindowRouter: DebugViewControllerDelegate {
-    
     func dissmissDebugVC(isNeedRelaunchApp: Bool) {
-        
         debugRootView.updateContent()
         
         debugWindow.rootViewController?.presentedViewController?.dismiss(animated: true, completion: nil)
         
         if isNeedRelaunchApp {
-            self.delegate?.relaunchApplication()
+            delegate?.relaunchApplication()
         }
     }
     
     func relaunchApplication() {
-        self.delegate?.relaunchApplication()
+        delegate?.relaunchApplication()
     }
 }
 
 extension WindowRouter {
-    
     #if DEBUG || TEST
     
     static func windowFactory(window: UIWindow) -> DebugWindowRouter {

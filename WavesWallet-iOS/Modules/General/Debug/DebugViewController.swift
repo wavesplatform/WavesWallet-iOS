@@ -12,7 +12,6 @@ import DomainLayer
 import Extensions
 import Crashlytics
 
-
 enum Debug {
 
     struct DisplayState: DataSourceProtocol {
@@ -90,9 +89,8 @@ final class DebugViewController: UIViewController {
 
 extension DebugViewController: UITableViewDelegate {
     
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return ProfileHeaderView.viewHeight()
+        ProfileHeaderView.viewHeight()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -107,7 +105,6 @@ extension DebugViewController: UITableViewDelegate {
             
         case .other:
             view.update(with: "Other")
-            
         }
         
         return view
@@ -141,7 +138,6 @@ extension DebugViewController: UITableViewDelegate {
 extension DebugViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let row = displayState[indexPath]
         
         switch row {
@@ -224,7 +220,7 @@ extension DebugViewController: UITableViewDataSource {
             }
             return cell
             
-        case .enviroments(let envriroments, let current):
+        case let .enviroments(envriroments, current):
             
             let cell: DebugEnviromentsCell = tableView.dequeueCell()
             cell.update(with: DebugEnviromentsCell.Model(chainId: current.chainId, name: current.name))
@@ -234,7 +230,7 @@ extension DebugViewController: UITableViewDataSource {
             }
             return cell
 
-        case .info(let version, let deviceId):
+        case let .info(version, deviceId):
             let cell: DebugInfoCell = tableView.dequeueCell()
             
             cell.update(with: DebugInfoCell.Model.init(version: version,
@@ -248,11 +244,11 @@ extension DebugViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayState[section].rows.count
+        displayState[section].rows.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return displayState.sections.count
+        displayState.sections.count
     }
 }
 
@@ -266,7 +262,7 @@ private extension DebugViewController {
         
         for value in envriroments {
             
-            let action = UIAlertAction(title: value.name, style: .default) { [weak self] (action) in
+            let action = UIAlertAction(title: value.name, style: .default) { [weak self] action in
                 self?.changeEnviroment(value)
             }
             
@@ -308,7 +304,7 @@ private extension DebugViewController {
         let stageNet: Debug.Enviroment = .init(name: "Stagenet",
                                                chainId: "S")
         
-        var current: Debug.Enviroment! = nil
+        var current: Debug.Enviroment!
         
         switch environmentRepository.environmentKind {
             
@@ -338,8 +334,6 @@ private extension DebugViewController {
                                                kind: .other)]
         
         let state = Debug.DisplayState(sections: sections)
-        
-        
         return state
     }
     
@@ -359,7 +353,7 @@ private extension DebugViewController {
         paths.append(contentsOf: trashDirectory)
         paths.append(contentsOf: userDirectory)
         
-        paths.forEach { (file) in
+        paths.forEach { file in
             clearFolder(tempFolderPath: file)
         }
     }

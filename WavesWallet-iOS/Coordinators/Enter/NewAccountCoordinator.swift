@@ -18,7 +18,7 @@ final class NewAccountCoordinator: Coordinator {
 
     private let completed: ((NewAccountTypes.DTO.Account, _ isSkipBackup: Bool) -> Void)
 
-    init(navigationRouter: NavigationRouter, completed: @escaping ((NewAccountTypes.DTO.Account,Bool) -> Void)) {
+    init(navigationRouter: NavigationRouter, completed: @escaping ((NewAccountTypes.DTO.Account, Bool) -> Void)) {
         self.completed = completed
         self.navigationRouter = navigationRouter
     }

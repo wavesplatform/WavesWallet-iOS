@@ -190,7 +190,11 @@ extension UIViewController {
 
 extension UIViewController {
 
-    @discardableResult func showWarningSnack(title: String, subtitle: String, icon: UIImage = Images.refresh18White.image, didTap: @escaping (() -> Void), didSwipe: @escaping (() -> Void)) -> String {
+    @discardableResult func showWarningSnack(title: String,
+                                             subtitle: String,
+                                             icon: UIImage = Images.refresh18White.image,
+                                             didTap: @escaping (() -> Void),
+                                             didSwipe: @escaping (() -> Void)) -> String {
 
         let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),

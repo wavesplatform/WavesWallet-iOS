@@ -242,7 +242,7 @@ extension InfoPagesViewController {
 extension InfoPagesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pageViews.count
+        pageViews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -255,17 +255,19 @@ extension InfoPagesViewController: UICollectionViewDataSource {
             
             pageView.delegate = self
             pageView.update(with: pageModel as! ShortInfoPageView.Model)
-            
         } else if let pageView = pageView as? LongInfoPageView {
             let pageModel = pageModels[indexPath.item]
 
-            pageView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0)
+            pageView.scrollView.contentInset = UIEdgeInsets(top: 0,
+                                                            left: 0,
+                                                            bottom: view.bounds.height - toolbarView.frame.minY,
+                                                            right: 0)
             pageView.delegate = self
             pageView.update(with: pageModel as! LongInfoPageView.Model)
-        }
-        else if let pageView = pageView as? InfoPageConfirmView {
+        } else if let pageView = pageView as? InfoPageConfirmView {
             pageView.delegate = self
-            pageView.setupContentInset(UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0))
+            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0)
+            pageView.setupContentInset(contentInset)
         }
         
         pageView.backgroundColor = .basic50
@@ -277,7 +279,9 @@ extension InfoPagesViewController: UICollectionViewDataSource {
 
 extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
         
         let pageView = pageViews[indexPath.item]
         
@@ -294,23 +298,23 @@ extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollect
         view?.infoPagesViewWillDisplayDisplaying()
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.bounds.size
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        collectionView.bounds.size
     }
             
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+    func collectionView(_ collectionView: UICollectionView,
+                        didEndDisplaying cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
         let view = self.pageViews[indexPath.row] as? InfoPagesViewDisplayingProtocol
         
         view?.infoPagesViewDidEndDisplaying()
     }
-    
 }
 
 extension InfoPagesViewController: UIScrollViewDelegate {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         if scrollView == collectionView {
         
             let offsetX = scrollView.contentOffset.x
@@ -330,13 +334,11 @@ extension InfoPagesViewController: UIScrollViewDelegate {
             
             changedPage()
             prevOffsetX = scrollView.contentOffset.x
- 
         } 
     }
 }
 
 extension InfoPagesViewController: InfoPageConfirmViewDelegate {
-    
     func infoPageConfirmView(isActive: Bool) {
         isActiveConfirm = isActive
         changedPage()
@@ -355,9 +357,7 @@ extension InfoPagesViewController: LongInfoPageViewDelegate {
     
     func longInfoPageViewDidScrollToBottom(view: LongInfoPageView) {
         
-        guard let index = pageViews.firstIndex(where: { (pageView) -> Bool in
-            return pageView == view
-        }) else { return }
+        guard let index = pageViews.firstIndex(where: { pageView -> Bool in return pageView == view }) else { return }
         
         if let model = pageModels[index] as? LongInfoPageView.Model {
              model.scrolledToBottom = true
@@ -365,16 +365,12 @@ extension InfoPagesViewController: LongInfoPageViewDelegate {
         
         changedPage()
     }
-    
 }
 
 extension InfoPagesViewController: ShortInfoPageViewDelegate {
     
     func shortInfoPageViewDidScrollToBottom(view: ShortInfoPageView) {
-        
-        guard let index = pageViews.firstIndex(where: { (pageView) -> Bool in
-            return pageView == view
-        }) else { return }
+        guard let index = pageViews.firstIndex(where: { pageView -> Bool in return pageView == view }) else { return }
         
         if let model = pageModels[index] as? ShortInfoPageView.Model {
             model.scrolledToBottom = true
@@ -382,7 +378,6 @@ extension InfoPagesViewController: ShortInfoPageViewDelegate {
         
         changedPage()
     }
-    
 }
 
 enum InfoPagesViewControllerConstants {
@@ -407,12 +402,11 @@ enum InfoPagesViewControllerConstants {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 0
         
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 34, weight: .bold), NSAttributedString.Key.kern: 0.4,
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 34, weight: .bold),
+                          NSAttributedString.Key.kern: 0.4,
                           NSAttributedString.Key.foregroundColor: UIColor.black,
-                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
-        
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key: Any]
         return attributes
-        
     }()
     
     static let subtitleAttributes: [NSAttributedString.Key: Any] = {
@@ -420,14 +414,13 @@ enum InfoPagesViewControllerConstants {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 0
         
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .semibold), NSAttributedString.Key.kern: 0.4,
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .semibold),
+                          NSAttributedString.Key.kern: 0.4,
                           NSAttributedString.Key.foregroundColor: UIColor.black,
-                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key: Any]
         
         return attributes
-        
     }()
-    
     
     static let textAttributes: [NSAttributedString.Key: Any] = {
         
@@ -436,10 +429,8 @@ enum InfoPagesViewControllerConstants {
         
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.kern: -0.1,
                           NSAttributedString.Key.foregroundColor: UIColor.black,
-                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key: Any]
         
         return attributes
-        
     }()
-    
 }

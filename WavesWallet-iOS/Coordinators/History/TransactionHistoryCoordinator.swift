@@ -6,11 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import RxSwift
+import UIKit
 
 final class TransactionHistoryCoordinator: Coordinator {
-
     enum Display {
         case showTransactionHistory
         case addAddress(_ address: String, FinishedAddressBook)
@@ -25,37 +24,36 @@ final class TransactionHistoryCoordinator: Coordinator {
     private let router: NavigationRouter
 
     private var lastDisplay: Display?
-    
+
     init(transactions: [DomainLayer.DTO.SmartTransaction],
          currentIndex: Int,
          router: NavigationRouter) {
-        
         self.router = router
         self.transactions = transactions
         self.currentIndex = currentIndex
     }
-    
+
     func start() {
         showDisplay(.showTransactionHistory)
     }
 }
 
 extension TransactionHistoryCoordinator: PresentationCoordinator {
-
     func showDisplay(_ display: Display) {
-
-        self.lastDisplay = display
+        lastDisplay = display
 
         switch display {
         case .showTransactionHistory:
-            let transactionHistoryViewController = TransactionHistoryModuleBuilder(output: self).build(input: .init(transactions: transactions, currentIndex: currentIndex)) as! TransactionHistoryViewController
+            let transactionHistoryViewController = TransactionHistoryModuleBuilder(output: self)
+                .build(input: .init(transactions: transactions, currentIndex: currentIndex)) as! TransactionHistoryViewController
             transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
             transactionHistoryViewController.modalPresentationStyle = .custom
             router.present(transactionHistoryViewController, animated: true, completion: nil)
 
         case .addAddress(let address, _):
 
-            let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
+            let vc = AddAddressBookModuleBuilder(output: self)
+                .build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
             router.dismiss(animated: true) { [weak self] in
                 guard let self = self else { return }
                 self.router.pushViewController(vc)
@@ -64,8 +62,8 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
 
         case .editContact(let contact, _):
 
-            let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .edit(contact: contact,
-                                                                                                                 isMutable: false)))
+            let addAddressBookInput = AddAddressBook.DTO.Input(kind: .edit(contact: contact, isMutable: false))
+            let vc = AddAddressBookModuleBuilder(output: self).build(input: addAddressBookInput)
             router.dismiss(animated: true) { [weak self] in
                 guard let self = self else { return }
                 self.router.pushViewController(vc)
@@ -78,11 +76,10 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
 // MARK: TransactionHistoryModuleOutput
 
 extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
-
     func transactionHistoryDidDismiss() {
         removeFromParentCoordinator()
     }
-    
+
     func transactionHistoryAddAddressToHistoryBook(address: String, finished: @escaping FinishedAddressBook) {
         showDisplay(.addAddress(address, finished))
     }
@@ -92,23 +89,23 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
     }
 }
 
-
 // MARK: - StartLeasingModuleOutput
+
 extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
-    
     func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {}
 }
-// MARK: AddAddressBookModuleOutput
-extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 
+// MARK: AddAddressBookModuleOutput
+
+extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
     func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
         switch transaction.kind {
         case .sent(let tx):
             router.dismiss(animated: false)
-            
+
             let model = Send.DTO.InputModel.ResendTransaction(address: tx.recipient.address,
-                                                             asset: tx.asset,
-                                                             amount: tx.balance.money)
+                                                              asset: tx.asset,
+                                                              amount: tx.balance.money)
             let send = SendModuleBuilder().build(input: .resendTransaction(model))
             router.pushViewController(send)
 
@@ -118,14 +115,13 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
     }
 
     func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
-        
         switch transaction.kind {
         case .startedLeasing(let leasing):
             router.dismiss(animated: false)
-            
+
             let cancelOrder = StartLeasingTypes.DTO.CancelOrder(leasingTX: transaction.id,
-                                                               amount: leasing.balance.money,
-                                                               fee: Money(0, 0))
+                                                                amount: leasing.balance.money,
+                                                                fee: Money(0, 0))
             let vc = StartLeasingConfirmModuleBuilder(output: self, errorDelegate: nil).build(input: .cancel(cancelOrder))
             router.pushViewController(vc, animated: true)
 
@@ -148,10 +144,8 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 }
 
 extension TransactionHistoryCoordinator {
-
     func finishedAddToAddressBook(contact: TransactionHistoryTypes.DTO.ContactState) {
-
-        _ = self.router.popViewController(animated: true, completed: { [weak self] in
+        _ = router.popViewController(animated: true, completed: { [weak self] in
             guard let self = self else { return }
             self.lastDisplay?.finishedAddressBook?(contact, true)
             self.showDisplay(.showTransactionHistory)
@@ -160,12 +154,10 @@ extension TransactionHistoryCoordinator {
 }
 
 // MARK: Assistant
+
 extension TransactionHistoryCoordinator.Display {
-
     var finishedAddressBook: TransactionHistoryModuleOutput.FinishedAddressBook? {
-
         switch self {
-
         case .addAddress(_, let finishedAddressBook):
             return finishedAddressBook
 

@@ -36,7 +36,7 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     }
     
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
-        return repositories.analyticManager
+        repositories.analyticManager
     }()
     
     public private(set) lazy var accountBalance: AccountBalanceUseCaseProtocol = {

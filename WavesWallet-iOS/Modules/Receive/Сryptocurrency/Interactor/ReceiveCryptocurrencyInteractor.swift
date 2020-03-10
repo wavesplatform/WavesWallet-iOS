@@ -19,15 +19,15 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
-        
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+        auth.authorizedWallet()
+            .flatMap{ [weak self] wallet -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
           
             guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
             
             switch gatewayType {
             case .gateway:
                 return self.gatewayRepository.startDepositProcess(address: wallet.address, asset: asset)
-                    .map({ (startDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
+                    .map { startDeposit -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
                         
                         let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: startDeposit.address,
                                                                                 assetName: asset.displayName,
@@ -36,7 +36,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                                 icon: asset.iconLogo)
                         
                         return ResponseType(output: displayInfo, error: nil)
-                    })
+                    }
                 
             case .coinomat:
                 guard let currencyFrom = asset.gatewayId,
@@ -49,7 +49,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 
                 let rate = self.coinomatRepository.getRate(asset: asset)
                 return Observable.zip(tunnel, rate)
-                    .flatMap({ (tunnel, rate) ->  Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+                    .flatMap { tunnel, rate -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
                         
                         let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: tunnel.address,
                                                                                 assetName: asset.displayName,
@@ -57,15 +57,15 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                                 minAmount: tunnel.min,
                                                                                 icon: asset.iconLogo)
                         return Observable.just(ResponseType(output: displayInfo, error: nil))
-                    })
+                    }
             }
-        })
-        .catchError({ (error) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+        }
+        .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
             if let networkError = error as? NetworkError {
                 return Observable.just(ResponseType(output: nil, error: networkError))
             }
             
             return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-        })
+        }
     }
 }

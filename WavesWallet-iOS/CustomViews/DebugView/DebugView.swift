@@ -6,16 +6,14 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
 
 final class DebugView: UIView, NibOwnerLoadable {
-    
     @IBOutlet private(set) var chainIdLabel: UILabel!
     
-    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
-                                                                                 action: #selector(handlerTapGesture(recognizer:)))
+    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(handlerTapGesture(recognizer:)))
     
     var didTapOnView: (() -> Void)?
     
@@ -35,7 +33,7 @@ final class DebugView: UIView, NibOwnerLoadable {
         tapGesture.delegate = self
         tapGesture.numberOfTapsRequired = 2
         addGestureRecognizer(tapGesture)
-        self.backgroundColor = .submit400
+        backgroundColor = .submit400
     }
     
     override func awakeFromNib() {
@@ -44,7 +42,7 @@ final class DebugView: UIView, NibOwnerLoadable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.cornerRadius = Float(self.frame.width * 0.5)
+        cornerRadius = Float(frame.width * 0.5)
     }
     
     @objc func handlerTapGesture(recognizer: UITapGestureRecognizer) {
@@ -53,9 +51,5 @@ final class DebugView: UIView, NibOwnerLoadable {
 }
 
 extension DebugView: UIGestureRecognizerDelegate {
-
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool { true }
 }

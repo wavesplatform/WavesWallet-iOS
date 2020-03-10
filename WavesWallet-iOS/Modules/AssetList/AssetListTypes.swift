@@ -6,16 +6,14 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
 import DomainLayer
 import Extensions
+import Foundation
 
-//TODO: Rename AssetBalanceList
+// TODO: Rename AssetBalanceList
 enum AssetList {
-    
     enum DTO {}
     enum ViewModel {}
-    
     
     enum Event {
         case readyView
@@ -38,9 +36,7 @@ enum AssetList {
     }
 }
 
-
 extension AssetList.ViewModel {
-    
     struct Section: Mutating {
         var items: [Row]
     }
@@ -58,7 +54,6 @@ extension AssetList.ViewModel {
 }
 
 extension AssetList.DTO {
-    
     struct Input {
         let filters: [AssetList.DTO.Filter]
         let selectedAsset: DomainLayer.DTO.SmartAssetBalance?
@@ -76,15 +71,11 @@ extension AssetList.DTO {
 }
 
 extension AssetList.State: Equatable {
-    
-     static func == (lhs: AssetList.State, rhs: AssetList.State) -> Bool {
-        return lhs.isAppeared == rhs.isAppeared &&
-               lhs.isMyList == rhs.isMyList
+    static func == (lhs: AssetList.State, rhs: AssetList.State) -> Bool {
+        lhs.isAppeared == rhs.isAppeared && lhs.isMyList == rhs.isMyList
     }
 }
 
 extension AssetList.ViewModel.Section {
-    var isEmptyAssetsBalance: Bool {
-        return items.filter({$0.asset.availableBalance > 0}).count == 0
-    }
+    var isEmptyAssetsBalance: Bool { items.filter { $0.asset.availableBalance > 0 }.isEmpty }
 }

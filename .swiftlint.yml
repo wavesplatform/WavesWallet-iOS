@@ -1,0 +1,329 @@
+
+included:
+  - WavesWallet-iOS
+  - DomainLayer
+  - DataLayer
+  - Extensions
+  - MarketPulseWidget
+
+excluded:
+  - Pods/
+
+# Выключенные правила из дефолтного сета включенных правил
+disabled_rules:
+- block_based_kvo
+- closure_parameter_position
+# Closure parameters should be on the same line as opening brace.
+#
+# true: [1, 2].map { $0 + 1 }
+#
+# false:
+#
+# [1, 2].map {
+#  number in
+#  number + 1
+# }
+#
+- force_cast #скорее всего мы еще не готовы к этому
+- force_try #скорее всего мы еще не готовы к этому
+- function_parameter_count #пока еще не готовы
+- identifier_name #к этому не готовы
+- private_over_fileprivate #использваоние private в замен fileprivate
+- trailing_whitespace # думаю что пока не готовы к этому
+- unused_optional_binding # использование != nil вместо let _ = (думаю что каждый должен сам решать этот момент)
+
+
+# Включенные правила не из дефолтного сета включенных правил
+opt_in_rules:
+- anyobject_protocol
+# Использование AnyObject в замен class
+# Enabled by default: Disabled
+
+- array_init
+# Enabled by default: Disabled
+
+#- attributes
+# Наличие атрибутов на одной линии где и объявление переменных/функций/классов
+# Enabled by default: Disabled
+
+- closure_end_indentation
+# Закрывающая скобка в клоужере должна иметь сопоставляемый отступ от начальной скобки
+# Enabled by default: Disabled
+# Правильно:
+#
+# function(
+#     closure: { x in
+#         print(x)
+#     },
+#     anotherClosure: { y in
+#         print(y)
+#     })
+#
+# function(parameter: param,
+#          closure: { x in
+#     print(x)
+# })
+#
+#
+# Неправильно:
+#
+# function(
+#     closure: { x in
+#         print(x)
+# },
+#   anotherClosure: { y in
+#         print(y)
+# })
+
+- closure_spacing
+# Одинарные отступы в кложуре сначала и в конце (Если она однострочная)
+# Enabled by default: Disabled
+# Правильно: [].map ({ $0.description })
+# Неправильно: [].map( {$0})
+
+- collection_alignment
+# Одинаковый отступ у коллекций (массив в столбик будет иметь одинаковый отступ от начала страницы если он имеет перенос)
+# Enabled by default: Disabled
+# Правильно:
+#
+# doThings(arg: [
+#     "foo": 1,
+#     "bar": 2,
+#     "fizz": 2,
+#     "buzz": 2
+# ])
+#
+# Неправильно:
+#
+# let meals = [
+#                 "breakfast": "oatmeal",
+#                 "lunch": "sandwich",
+#     "dinner": "burger"
+# ]
+
+- convenience_type
+# Enabled by default: Disabled
+#
+# Правильно:
+# enum AnyEnum {
+#     static let constant: Int = 0
+# }
+#
+# Неправильно:
+# struct AnyStruct {
+#     static let contant: Int = 0
+# }
+
+
+- discouraged_optional_boolean # пока не уверен что можно втащить
+# Enabled by default: Disabled
+# Правильно: var foo: Bool
+# Неправильно: var foo: Bool?
+
+- discouraged_optional_collection #пока не уверен что можно втащить
+# Enabled by default: Disabled
+# Правильно: var foo: [Int]
+# Неправильно: var foo: [Int]?
+
+- empty_collection_literal # очень похоже на empty_count
+# Enabled by default: Disabled
+# Правильно:
+# myArray = []
+# myArray.isEmpty
+# Неправильно:
+# myArray == []
+# myDict != [:]
+
+- empty_count
+# Enabled by default: Disabled
+# Правильно:
+# [Int]().isEmpty
+# [Int]().count > 1
+# Неправильно:
+# [Int]().count == 0
+
+- empty_string
+# Enabled by default: Disabled
+# Правильно: myString.isEmpty
+# Неправильно: myString == ""
+
+- expiring_todo
+# TODOs и FIXME должны резолвится в отведенное время
+# Правильно:
+# // TODO: [12/31/9999]
+# // TODO(note)
+# Неправильно:
+# // TODO: [10/14/2019]
+# // FIXME: [10/14/2019]
+
+- fallthrough
+# Ключевое слово fallthrough следует избегать
+
+- fatal_error_message
+# Каждый fatalError должен иметь сообщение
+
+- first_where
+# Использование first(where:) взамен filter(condition).first
+
+- force_unwrapping # не уверен до конца, тк может быть слишком много ошибок
+# Избегание форс анврапа переменных
+
+- identical_operands
+# Сравнивание переменной саму с собой
+# Правильно:
+# 1 == 2
+# foo == bar
+# Неправильно:
+# 1 == 1
+# foo == foo
+
+- implicit_return
+# Неявный return в однострочных функциях или клоужерах
+
+- implicitly_unwrapped_optional
+# Неявное развертывание опционала
+
+- joined_default_parameter
+# Неиспользовать явно определенные параметры функций которые определены как дефотлные
+
+- last_where
+# Использовать .last(where:) вместо .filter { }.last
+
+- legacy_random
+# использовать type.random(in:) вместо arc4random(10)
+
+- let_var_whitespace
+#
+
+#- last_where
+
+- literal_expression_end_indentation
+- lower_acl_than_parent
+
+- modifier_order # разобраться как это работает  warning, preferred_modifier_order: [override, acl, setterACL, dynamic, mutators, lazy, final, required, convenience, typeMethods, owned]
+
+#- multiline_literal_brackets
+#
+
+#- multiline_parameters
+#
+
+- number_separator
+#
+
+- no_extension_access_modifier обсудить это, возможно лучше будет делать так
+#
+
+- operator_usage_whitespace
+# операторы должны разделяться одиночным пробелом
+# Правильно: let foo = 1 + 2
+# Неправильно: let foo = 1+2
+
+- optional_enum_case_matching
+# Matching an enum case against an optional enum without ‘?’ is supported on Swift 5.1 and above.
+
+- overridden_super_call
+# Some overridden methods should always call super
+
+- pattern_matching_keywords
+# Combine multiple pattern matching bindings by moving keywords out of tuples.
+
+- private_action
+# IBActions должны быть приватными
+
+- private_outlet
+# IBOutlets должны быть приватными
+
+- redundant_type_annotation
+#
+
+- sorted_imports
+#
+
+- syntactic_sugar
+#
+
+- toggle_bool
+#
+
+- trailing_closure
+#
+
+- trailing_newline
+#
+
+#- trailing_whitespace
+#
+
+- unavailable_function
+#
+
+- unneeded_parentheses_in_closure_argument
+#
+
+- unowned_variable_capture
+#
+
+######
+#- unused_declaration #погуглить потом об этом по подробнее
+#
+
+#- unused_import
+#
+#####
+
+- vertical_parameter_alignment
+#
+
+#- vertical_whitespace_between_cases
+#
+
+- vertical_whitespace_closing_braces
+#
+
+#- vertical_whitespace_opening_braces
+
+- yoda_condition
+  
+line_length:
+  ignores_urls: true
+  ignores_comments: true
+  ignores_interpolated_strings: true
+  warning: 130
+  error: 130
+  
+nesting:
+    type_level:
+        warning: 3 # Глубина вложенности типов не больше 3
+        error: 3
+
+file_length:
+  warning: 600
+  error: 700
+  
+large_tuple:
+  warning: 3
+  error: 3 # Корректно: (Int, Int) или (Int, Int, Int). Warning / Error: (Int, Int, Int, Int)
+
+function_body_length:
+  warning: 40
+  error: 60
+
+# к этому пока не готовы
+identifier_name:
+  excluded:
+    - id
+
+number_separator:
+  minimum_length: 5
+  
+comma: error
+# Enabled by default: Enabled
+# Правильно: func abc(a: String, b: String) { }
+# Неправильно: func abc(a: String ,b: String) { }
+  
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+  
+# force_cast: error
