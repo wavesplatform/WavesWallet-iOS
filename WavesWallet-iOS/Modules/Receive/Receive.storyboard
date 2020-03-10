@@ -132,71 +132,68 @@
         <scene sceneID="caL-6H-vCp">
             <objects>
                 <viewController storyboardIdentifier="ReceiveAddressViewController" id="Oys-9L-jOE" customClass="ReceiveAddressViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="pFy-JO-ZLe" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="pFy-JO-ZLe" customClass="ReceiveAddressView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c2B-px-0tu" customClass="NewSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="hXj-h3-aWO"/>
-                                </constraints>
-                            </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="500" translatesAutoresizingMaskIntoConstraints="NO" id="JZF-Be-gL4">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tjI-FY-WQj">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c2B-px-0tu" customClass="NewSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="hXj-h3-aWO"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hef-eN-eEf">
-                                        <rect key="frame" x="0.0" y="0.0" width="415" height="564"/>
+                                        <rect key="frame" x="0.0" y="52" width="375" height="615"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="prp-fd-NxW">
-                                                <rect key="frame" x="20" y="20" width="375" height="460"/>
-                                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="615" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="llH-7v-T4g">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="519"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </scrollView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNd-em-nyg">
+                                                <rect key="frame" x="16" y="543" width="343" height="48"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="460" id="Sh9-p9-xBl"/>
+                                                    <constraint firstAttribute="height" constant="48" id="qEN-L1-8ic"/>
                                                 </constraints>
-                                            </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3o-oV-1LA">
-                                                <rect key="frame" x="20" y="500" width="375" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="dpD-SI-mk8"/>
-                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                 <state key="normal" title="Button"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="g3o-oV-1LA" firstAttribute="top" secondItem="prp-fd-NxW" secondAttribute="bottom" constant="20" id="4bv-2T-w7q"/>
-                                            <constraint firstItem="prp-fd-NxW" firstAttribute="top" secondItem="hef-eN-eEf" secondAttribute="top" constant="20" symbolic="YES" id="M0s-uL-EjP"/>
-                                            <constraint firstAttribute="trailing" secondItem="g3o-oV-1LA" secondAttribute="trailing" constant="20" id="T00-os-inm"/>
-                                            <constraint firstAttribute="trailing" secondItem="prp-fd-NxW" secondAttribute="trailing" constant="20" symbolic="YES" id="Twn-fV-zYs"/>
-                                            <constraint firstItem="g3o-oV-1LA" firstAttribute="leading" secondItem="hef-eN-eEf" secondAttribute="leading" constant="20" id="UoS-KF-63W"/>
-                                            <constraint firstAttribute="bottom" secondItem="g3o-oV-1LA" secondAttribute="bottom" constant="20" id="odB-Yl-p9U"/>
-                                            <constraint firstItem="prp-fd-NxW" firstAttribute="leading" secondItem="hef-eN-eEf" secondAttribute="leading" constant="20" symbolic="YES" id="wP8-tw-AHF"/>
+                                            <constraint firstAttribute="trailing" secondItem="wNd-em-nyg" secondAttribute="trailing" constant="16" id="DGy-kX-VoZ"/>
+                                            <constraint firstItem="wNd-em-nyg" firstAttribute="top" secondItem="llH-7v-T4g" secondAttribute="bottom" constant="24" id="FeA-66-p4e"/>
+                                            <constraint firstItem="wNd-em-nyg" firstAttribute="leading" secondItem="hef-eN-eEf" secondAttribute="leading" constant="16" id="PRT-K0-DFf"/>
+                                            <constraint firstItem="llH-7v-T4g" firstAttribute="leading" secondItem="hef-eN-eEf" secondAttribute="leading" id="RaI-S4-SLD"/>
+                                            <constraint firstAttribute="trailing" secondItem="llH-7v-T4g" secondAttribute="trailing" id="RlG-C9-rbF"/>
+                                            <constraint firstItem="llH-7v-T4g" firstAttribute="top" secondItem="hef-eN-eEf" secondAttribute="top" id="X3z-Ix-5Fm"/>
+                                            <constraint firstAttribute="bottom" secondItem="wNd-em-nyg" secondAttribute="bottom" constant="24" id="jw6-1s-Oha"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="hef-eN-eEf" firstAttribute="leading" secondItem="d5J-nH-tCI" secondAttribute="leading" id="W34-oT-0N3"/>
-                                    <constraint firstItem="hef-eN-eEf" firstAttribute="top" secondItem="d5J-nH-tCI" secondAttribute="top" id="lUy-gU-0ln"/>
-                                    <constraint firstItem="hef-eN-eEf" firstAttribute="bottom" secondItem="d5J-nH-tCI" secondAttribute="bottom" id="m5p-uB-n9K"/>
-                                    <constraint firstItem="prp-fd-NxW" firstAttribute="width" secondItem="JZF-Be-gL4" secondAttribute="width" id="nNW-o7-23r"/>
-                                    <constraint firstItem="hef-eN-eEf" firstAttribute="trailing" secondItem="d5J-nH-tCI" secondAttribute="trailing" id="o12-VT-ztJ"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="d5J-nH-tCI"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="ggE-8K-l9q"/>
-                            </scrollView>
+                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="JZF-Be-gL4" firstAttribute="top" secondItem="c2B-px-0tu" secondAttribute="bottom" id="PYo-sF-qmI"/>
-                            <constraint firstItem="c2B-px-0tu" firstAttribute="leading" secondItem="L3O-59-ucL" secondAttribute="leading" id="QtN-W9-Hk1"/>
-                            <constraint firstItem="c2B-px-0tu" firstAttribute="top" secondItem="L3O-59-ucL" secondAttribute="top" id="Vkl-UU-fLY"/>
-                            <constraint firstItem="JZF-Be-gL4" firstAttribute="trailing" secondItem="L3O-59-ucL" secondAttribute="trailing" id="dMO-sl-sDr"/>
-                            <constraint firstItem="JZF-Be-gL4" firstAttribute="leading" secondItem="L3O-59-ucL" secondAttribute="leading" id="iXr-jR-C6j"/>
-                            <constraint firstItem="JZF-Be-gL4" firstAttribute="bottom" secondItem="L3O-59-ucL" secondAttribute="bottom" id="l2Z-gC-EjK"/>
-                            <constraint firstItem="L3O-59-ucL" firstAttribute="trailing" secondItem="c2B-px-0tu" secondAttribute="trailing" id="rsr-pN-bnD"/>
+                            <constraint firstItem="L3O-59-ucL" firstAttribute="bottom" secondItem="tjI-FY-WQj" secondAttribute="bottom" id="7el-Do-XwZ"/>
+                            <constraint firstItem="tjI-FY-WQj" firstAttribute="leading" secondItem="L3O-59-ucL" secondAttribute="leading" id="DQe-D2-WxJ"/>
+                            <constraint firstItem="tjI-FY-WQj" firstAttribute="top" secondItem="L3O-59-ucL" secondAttribute="top" id="Etd-yS-2K2"/>
+                            <constraint firstAttribute="trailing" secondItem="tjI-FY-WQj" secondAttribute="trailing" id="afL-rf-gPt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L3O-59-ucL"/>
+                        <connections>
+                            <outlet property="closeButton" destination="wNd-em-nyg" id="PHj-xn-OyF"/>
+                            <outlet property="scrollView" destination="llH-7v-T4g" id="5Jn-5B-iHb"/>
+                            <outlet property="segmentedControl" destination="c2B-px-0tu" id="jSZ-wJ-h7M"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9tg-5Q-Lmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -212,13 +209,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIX-Ps-Wsh">
-                                <rect key="frame" x="16" y="0.0" width="343" height="344.5"/>
+                                <rect key="frame" x="16" y="0.0" width="343" height="424.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="Elm-aI-vHo">
-                                        <rect key="frame" x="131.5" y="44" width="80" height="80"/>
+                                        <rect key="frame" x="91.5" y="44" width="160" height="160"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSI-DY-lc2">
-                                        <rect key="frame" x="16" y="148" width="311" height="41"/>
+                                        <rect key="frame" x="16" y="228" width="311" height="41"/>
                                         <string key="text">You have been redirected
 to «Indacoin»</string>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -226,7 +223,7 @@ to «Indacoin»</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckg-qj-jEb">
-                                        <rect key="frame" x="16" y="197" width="311" height="31.5"/>
+                                        <rect key="frame" x="16" y="277" width="311" height="31.5"/>
                                         <string key="text">After payment has been made your balance
 will be updated</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -234,7 +231,7 @@ will be updated</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXP-Mn-XOs" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="272.5" width="311" height="48"/>
+                                        <rect key="frame" x="16" y="352.5" width="311" height="48"/>
                                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="UNJ-Bj-qfs"/>
@@ -319,7 +316,7 @@ will be updated</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="53.5"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Warning600" translatesAutoresizingMaskIntoConstraints="NO" id="anI-4p-u2F">
-                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The minimum amount of deposit is 0.001 BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZz-wN-tfl">
                                                                 <rect key="frame" x="32" y="0.0" width="311" height="16"/>
@@ -351,7 +348,7 @@ will be updated</string>
                                                         <rect key="frame" x="0.0" y="67.5" width="343" height="67.5"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning18Disabled500" translatesAutoresizingMaskIntoConstraints="NO" id="wfa-kf-8b7">
-                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send only BTC to this deposit address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5g-FS-0FS">
                                                                 <rect key="frame" x="32" y="0.0" width="311" height="16"/>
@@ -622,10 +619,10 @@ will be updated</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="changearrows14Basic500" translatesAutoresizingMaskIntoConstraints="NO" id="JwD-Bi-yzb">
-                                        <rect key="frame" x="345" y="15" width="14" height="14"/>
+                                        <rect key="frame" x="331" y="8" width="28" height="28"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hO4-j8-2jN">
-                                        <rect key="frame" x="237" y="14" width="104" height="16"/>
+                                        <rect key="frame" x="223" y="14" width="104" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -664,7 +661,7 @@ will be updated</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TtF-Wf-fMd">
-                                        <rect key="frame" x="227" y="0.0" width="148" height="38"/>
+                                        <rect key="frame" x="213" y="0.0" width="162" height="38"/>
                                         <connections>
                                             <action selector="changeCurrency:" destination="e7F-Ai-9Sa" eventType="touchUpInside" id="maC-kP-Crb"/>
                                         </connections>
@@ -689,7 +686,7 @@ will be updated</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTj-be-qkW">
-                                <rect key="frame" x="16" y="188" width="343" height="102.5"/>
+                                <rect key="frame" x="16" y="188" width="343" height="130.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Warning600" translatesAutoresizingMaskIntoConstraints="NO" id="aGa-js-MsY">
                                         <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
@@ -711,13 +708,13 @@ will be updated</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pVisa28" translatesAutoresizingMaskIntoConstraints="NO" id="dpi-gh-f92">
-                                        <rect key="frame" x="32" y="59.5" width="28" height="28"/>
+                                        <rect key="frame" x="32" y="59.5" width="56" height="56"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pMastercard28" translatesAutoresizingMaskIntoConstraints="NO" id="NHN-NK-AWq">
-                                        <rect key="frame" x="68" y="59.5" width="28" height="28"/>
+                                        <rect key="frame" x="96" y="59.5" width="56" height="56"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55c-R4-mZY" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="101.5" width="343" height="1"/>
+                                        <rect key="frame" x="0.0" y="129.5" width="343" height="1"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="xg7-8i-z3o"/>
@@ -745,7 +742,7 @@ will be updated</string>
                                 </constraints>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4Mq-eg-U13">
-                                <rect key="frame" x="177.5" y="229.5" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="243.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrZ-xV-OTi" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="16" y="595" width="343" height="48"/>

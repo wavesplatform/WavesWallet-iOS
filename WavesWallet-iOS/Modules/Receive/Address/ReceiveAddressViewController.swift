@@ -17,31 +17,30 @@ private enum Constants {
 }
 
 final class ReceiveAddressViewController: UIViewController {
-        
-    @IBOutlet private weak var buttonShare: UIButton!
-    @IBOutlet private weak var buttonCopy: UIButton!
-    @IBOutlet private weak var labelAddress: UILabel!
-    @IBOutlet private weak var iconAsset: UIImageView!
-    @IBOutlet private weak var imageQR: UIImageView!
-    @IBOutlet private weak var labelQRCode: UILabel!
-    @IBOutlet private weak var buttonCopyInvoiceLink: UIButton!
-    @IBOutlet private weak var labelInvoiceLink: UILabel!
-    @IBOutlet private weak var labelInvoiceLinkLocalized: UILabel!
-    @IBOutlet private weak var viewInvoice: UIView!
-    @IBOutlet private weak var viewInvoiceHeight: NSLayoutConstraint!
-    @IBOutlet private weak var buttonClose: UIButton!
+    
+    struct Model {
+        let assetName: String
+        let addressesInfo: [ReceiveAddress.DTO.Info]    
+    }
     
     private var disposeBag: DisposeBag = DisposeBag()
-
-    var moduleInput: [ReceiveAddress.DTO.Info]?
+    
+    private var receiveAddressView: ReceiveAddressView {
+        return view as! ReceiveAddressView
+    }
+    
+    var moduleInput: [ReceiveAddress.DTO.Info]? {
+        didSet {
+            title = Localizable.Waves.Receiveaddress.Label.yourAddress(moduleInput?.first?.assetName ?? "")
+            receiveAddressView.update(with: moduleInput ?? [])
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.hidesBackButton = true
-//        setupInfo()
-//        setupLocalization()
-//        createCancelButton()
+        receiveAddressView.delegate = self
+        createBackWhiteButton()
+        createCancelButton()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,14 +52,16 @@ final class ReceiveAddressViewController: UIViewController {
     }
     
     private func createCancelButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarClosewhite.image, style: .plain, target: self, action: #selector(cancelTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarInfowhite.image, style: .plain, target: self, action: #selector(cancelTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
     }
-
-    @IBAction func closeTapped(_ sender: Any) {
-        cancelTapped()
+    
+    func infoTapped() {
+       //TODO:
     }
     
+    
+    //TODO: Coordinator
     @objc private func cancelTapped() {
         if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetDetailViewController.classForCoder()}) {
             navigationController?.popToViewController(assetVc, animated: true)
@@ -69,40 +70,22 @@ final class ReceiveAddressViewController: UIViewController {
             navigationController?.popToRootViewController(animated: true)
         }
     }
-//
-//    private func setupLocalization() {
-//        labelQRCode.text = Localizable.Waves.Receiveaddress.Label.yourQRCode
-//        buttonClose.setTitle(Localizable.Waves.Receiveaddress.Button.close, for: .normal)
-//        labelInvoiceLinkLocalized.text = Localizable.Waves.Receiveaddress.Label.linkToInvoice
-//        buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copy, for: .normal)
-//        buttonShare.setTitle(Localizable.Waves.Receiveaddress.Button.share, for: .normal)
-//    }
-    
-    private func setupInfo() {
-        
-//        title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
-//        labelAddress.text = input.address
-//
-//        AssetLogo.logo(icon: input.icon,
-//                       style: .large)
-//            .observeOn(MainScheduler.instance)
-//            .bind(to: iconAsset.rx.image)
-//            .disposed(by: disposeBag)
-//
-//        imageQR.image = QRCode(input.qrCode)?.image
-//
-//        if input.invoiceLink == nil {
-//            viewInvoiceHeight.constant = 0
-//        }
-//        labelInvoiceLink.text = input.invoiceLink
-    }
  
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-
 }
 
-
-
+extension ReceiveAddressViewController: ReceiveAddressViewDelegate {
+    
+    func closeTapped() {
+        cancelTapped()
+    }
+    
+    //TODO: Coordinator
+    func sharedTapped(_ info: ReceiveAddress.DTO.Info) {
+        
+        let activityVC = UIActivityViewController(activityItems: [info.address], applicationActivities: [])
+        present(activityVC, animated: true, completion: nil)
+    }
+}

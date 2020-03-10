@@ -80,35 +80,38 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         }
     }
     
+    // TODO: Coordinator
+    
     private func showCryptocurrencyAddressInfo(_ info: ReceiveCryptocurrency.DTO.DisplayInfo) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.simulatingCryptocurrencyTime) {
             
-            let addressInfo = ReceiveAddress.DTO.Info(assetName: info.assetName,
-                                                      address: info.address,
-                                                      icon: info.icon,
-                                                      qrCode: info.address,
-                                                      invoiceLink: nil,
-                                                      isSponsored: false,
-                                                      hasScript: false)
+            let input = info.addresses.map { ReceiveAddress.DTO.Info(assetName: info.assetName,
+                                                                     address: $0,
+                                                                     displayName: "Artyr",
+                                                                     icon: info.icon,
+                                                                     qrCode: $0,
+                                                                     isSponsored: false,
+                                                                     hasScript: false) }
             
-            let vc = ReceiveAddressModuleBuilder().build(input: addressInfo)
+            let vc = ReceiveAddressModuleBuilder().build(input: input)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
+    // TODO: Coordinator
     private func showInvoceAddressInfo(_ info: ReceiveInvoice.DTO.DisplayInfo) {
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.simulatingCryptocurrencyTime) {
             
             let addressInfo = ReceiveAddress.DTO.Info(assetName: info.assetName,
                                                       address: info.address,
+                                                      displayName: "Artyr",
                                                       icon: info.icon,
                                                       qrCode: info.invoiceLink,
-                                                      invoiceLink: info.invoiceLink,
                                                       isSponsored: info.isSponsored,
                                                       hasScript: info.hasScript)
             
-            let vc = ReceiveAddressModuleBuilder().build(input: addressInfo)
+            let vc = ReceiveAddressModuleBuilder().build(input: [addressInfo])
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

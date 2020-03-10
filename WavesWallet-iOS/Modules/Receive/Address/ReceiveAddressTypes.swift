@@ -15,9 +15,9 @@ enum ReceiveAddress {
         struct Info {
             let assetName: String
             let address: String
+            let displayName: String
             let icon: AssetLogo.Icon
-            let qrCode: String
-            let invoiceLink: String?
+            let qrCode: String            
             let isSponsored: Bool
             let hasScript: Bool
         }

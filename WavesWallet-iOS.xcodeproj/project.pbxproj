@@ -466,6 +466,7 @@
 		7B8818742305639700AB0549 /* ActionSheet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B88186D2305639600AB0549 /* ActionSheet.storyboard */; };
 		7B881876230590BB00AB0549 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B881875230590BB00AB0549 /* DeepLink.swift */; };
 		7B8818782305926E00AB0549 /* WidgetSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8818772305926E00AB0549 /* WidgetSettingsCoordinator.swift */; };
+		7B8997E62416487F00823DB6 /* ReceiveAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997E52416487F00823DB6 /* ReceiveAddressView.swift */; };
 		7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; };
 		7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393C822DF5827006634A6 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624722DC973E0029DA37 /* WavesSDK.framework */; };
@@ -575,8 +576,8 @@
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
-		7BD3605F241170E1006F3A77 /* ReceiveAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605E241170E1006F3A77 /* ReceiveAddressView.swift */; };
-		7BD3606124117145006F3A77 /* ReceiveAddressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD3606024117145006F3A77 /* ReceiveAddressView.xib */; };
+		7BD3605F241170E1006F3A77 /* ReceiveAddressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */; };
+		7BD3606124117145006F3A77 /* ReceiveAddressCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD3606024117145006F3A77 /* ReceiveAddressCardView.xib */; };
 		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
 		7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */; };
 		7BD6E10222E50EB200BAAFC8 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */; };
@@ -1755,6 +1756,7 @@
 		7B88186D2305639600AB0549 /* ActionSheet.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActionSheet.storyboard; sourceTree = "<group>"; };
 		7B881875230590BB00AB0549 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
 		7B8818772305926E00AB0549 /* WidgetSettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSettingsCoordinator.swift; sourceTree = "<group>"; };
+		7B8997E52416487F00823DB6 /* ReceiveAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressView.swift; sourceTree = "<group>"; };
 		7B97B03822FC784F008BA3F4 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		7B97B03922FC784F008BA3F4 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		7B97B03A22FC784F008BA3F4 /* CGFloat+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
@@ -1835,8 +1837,8 @@
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
-		7BD3605E241170E1006F3A77 /* ReceiveAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressView.swift; sourceTree = "<group>"; };
-		7BD3606024117145006F3A77 /* ReceiveAddressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiveAddressView.xib; sourceTree = "<group>"; };
+		7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressCardView.swift; sourceTree = "<group>"; };
+		7BD3606024117145006F3A77 /* ReceiveAddressCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiveAddressCardView.xib; sourceTree = "<group>"; };
 		7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
 		7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -5735,8 +5737,9 @@
 				E9D36D982175C754001E6DF0 /* ReceiveAddressViewController.swift */,
 				E9D36D9B2175C754001E6DF0 /* ReceiveAddressModuleBuilder.swift */,
 				E9D36D9E2175C754001E6DF0 /* ReceiveAddressTypes.swift */,
-				7BD3605E241170E1006F3A77 /* ReceiveAddressView.swift */,
-				7BD3606024117145006F3A77 /* ReceiveAddressView.xib */,
+				7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */,
+				7BD3606024117145006F3A77 /* ReceiveAddressCardView.xib */,
+				7B8997E52416487F00823DB6 /* ReceiveAddressView.swift */,
 			);
 			path = Address;
 			sourceTree = "<group>";
@@ -6516,7 +6519,7 @@
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
-				7BD3606124117145006F3A77 /* ReceiveAddressView.xib in Resources */,
+				7BD3606124117145006F3A77 /* ReceiveAddressCardView.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
@@ -7555,7 +7558,7 @@
 				7BFB480822FC742F002B19F8 /* SkeletonAnimatable.swift in Sources */,
 				0A59330C218343B00059A77A /* AddressesKeysAliacesCell.swift in Sources */,
 				0AFF5C7B215BCFEA00B82940 /* AccountPasswordModuleBuilder.swift in Sources */,
-				7BD3605F241170E1006F3A77 /* ReceiveAddressView.swift in Sources */,
+				7BD3605F241170E1006F3A77 /* ReceiveAddressCardView.swift in Sources */,
 				7B3681A923155499000D5592 /* ConfirmRequestFromToCell.swift in Sources */,
 				0AF921EC212E07B3003BA067 /* AssetDetailInteractorProtocol.swift in Sources */,
 				0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */,
@@ -7739,6 +7742,7 @@
 				E96DAB73228EEC87005ED12B /* WalletSortSegmentedControl.swift in Sources */,
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */,
+				7B8997E62416487F00823DB6 /* ReceiveAddressView.swift in Sources */,
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
 				7B3902A72237A74900AAFDB8 /* ActionsControl.swift in Sources */,
 				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,

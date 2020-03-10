@@ -92,6 +92,8 @@ private extension ReceiveCryptocurrencyViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
+                self?.displayInfo = state.displayInfo
+                
                 guard let self = self else { return }
                 switch state.action {
                 case .none:
