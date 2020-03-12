@@ -8,6 +8,8 @@
 
 import DomainLayer
 import Extensions
+import RxCocoa
+import RxSwift
 import UIKit
 
 class PayoutsHistoryVC: UIViewController {
@@ -16,13 +18,27 @@ class PayoutsHistoryVC: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     
+    private var payoutsHistoryVMs: [PayoutsHistoryState.UI.PayoutTransactionVM] = []
+    
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+        
+        system?
+            .start()
+            .drive(onNext: { [weak self] state in self?.bindUI(state.ui) })
+            .disposed(by: disposeBag)
     }
     
     private func initialSetup() {
-        title = "Payouts History"
+        
+        createBackButton()
+        setupBigNavigationBar()
+        
+        navigationItem.title = "Payouts History"
+        navigationItem.barTintColor = .white
         
         do {
             tableView.registerCell(type: PayoutsTransactionCell.self)
@@ -31,6 +47,20 @@ class PayoutsHistoryVC: UIViewController {
             tableView.separatorStyle = .none
             tableView.dataSource = self
             tableView.delegate = self
+        }
+    }
+    
+    private func bindUI(_ state: PayoutsHistoryState.UI) {
+        switch state {
+        case .dataLoadded(let viewModels):
+            self.payoutsHistoryVMs = viewModels
+            tableView.reloadData()
+        case .showLoadingIndicator:
+            break
+        case .hideLoadingIndicator:
+            break
+        case .loadingError(let message):
+            break
         }
     }
 }
@@ -42,13 +72,8 @@ extension PayoutsHistoryVC {
 }
 
 extension PayoutsHistoryVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { payoutsHistoryVMs.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: PayoutsTransactionCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)

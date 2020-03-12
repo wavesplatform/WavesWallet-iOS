@@ -71,4 +71,6 @@ public protocol RepositoriesFactoryProtocol {
     var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol { get }
     
     var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol { get }
+    
+    var massTransferRepository: MassTransferRepositoryProtocol { get }
 }

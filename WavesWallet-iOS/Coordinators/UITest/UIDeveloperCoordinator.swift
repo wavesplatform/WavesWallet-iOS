@@ -29,20 +29,34 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
-        let view = UIViewController()
-        view.view = UIView()
-        view.view.frame = UIScreen.main.bounds
-        view.navigationItem.title = "UIDeveloper"
-        self.navigationRouter.pushViewController(view)
+        let builder = PayoutsHistoryBuilder()
+        
+        let vc = builder.build(input: Void())
+        self.navigationRouter.pushViewController(vc)
         self.windowRouter.setRootViewController(self.navigationRouter.viewController,
                                                 animated: .none,
-                                                completion: { 
-                                                                
+                                                completion: {
+
         })
-        
+
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
             self.coordinator.start()
         }
+        
+//        let view = UIViewController()
+//        view.view = UIView()
+//        view.view.frame = UIScreen.main.bounds
+//        view.navigationItem.title = "UIDeveloper"
+//        self.navigationRouter.pushViewController(view)
+//        self.windowRouter.setRootViewController(self.navigationRouter.viewController,
+//                                                animated: .none,
+//                                                completion: {
+//
+//        })
+//
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+//            self.coordinator.start()
+//        }
     }
 }
 

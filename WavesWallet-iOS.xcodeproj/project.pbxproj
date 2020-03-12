@@ -811,6 +811,8 @@
 		8752A27924127ABE00B968C7 /* ResetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A27724127ABE00B968C7 /* ResetableView.swift */; };
 		8752A27A24127ABE00B968C7 /* UITableViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A27824127ABE00B968C7 /* UITableViewCellContainer.swift */; };
 		8752A27D24127AD500B968C7 /* ContainerContentConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A27C24127AD500B968C7 /* ContainerContentConstraints.swift */; };
+		87F09D512417CD6E001E2394 /* MassTransferRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */; };
+		87F09D532417CE79001E2394 /* MassTransferRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */; };
 		A3521B8E7F8D5AFE73837B59 /* Pods_Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F48C7630D481FB8B18C7CDD /* Pods_Extensions.framework */; };
 		B5B2F5FE86DB13C5F1ABC764 /* Pods_DomainLayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCD1A311B65E78F9D8E3AFB /* Pods_DomainLayerTests.framework */; };
 		CE9236ADA9B30C0AE5EAC713 /* Pods_DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C4770FECD0D0B762C47A43 /* Pods_DomainLayer.framework */; };
@@ -2155,6 +2157,8 @@
 		8752A27724127ABE00B968C7 /* ResetableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetableView.swift; sourceTree = "<group>"; };
 		8752A27824127ABE00B968C7 /* UITableViewCellContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellContainer.swift; sourceTree = "<group>"; };
 		8752A27C24127AD500B968C7 /* ContainerContentConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerContentConstraints.swift; sourceTree = "<group>"; };
+		87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryRemote.swift; sourceTree = "<group>"; };
+		87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryProtocol.swift; sourceTree = "<group>"; };
 		8A551BA048F9720698C5BF39 /* Pods-Extensions.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.release-dev.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.release-dev.xcconfig"; sourceTree = "<group>"; };
 		8B03F78A9DF177D8D9723E8D /* Pods-MonkeyTest.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release-dev.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release-dev.xcconfig"; sourceTree = "<group>"; };
 		8C9A1159470FED7057790330 /* Pods-DataLayer.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.release-prod.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.release-prod.xcconfig"; sourceTree = "<group>"; };
@@ -3905,6 +3909,7 @@
 				7B5FAA0D22BBE3EB00621A44 /* WalletsRepositoryProtocol.swift */,
 				E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */,
 				7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */,
+				87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -4796,6 +4801,7 @@
 				7BF50A2D22D8B95400582783 /* SpamAssetsRepository.swift */,
 				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
 				7BF50A3722D8B95400582783 /* TransactionsRepositoryRemote.swift */,
+				87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -7243,6 +7249,7 @@
 				7B5FAA9422BBE3EC00621A44 /* ScriptTransactionDomainDTO.swift in Sources */,
 				7B5FAA8222BBE3EC00621A44 /* AuthenticationRepositoryProtocol.swift in Sources */,
 				E99A3B7722BE5DB70070AC76 /* GatewayDomainDTO.swift in Sources */,
+				87F09D532417CE79001E2394 /* MassTransferRepositoryProtocol.swift in Sources */,
 				7B5FAA9622BBE3EC00621A44 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
 				7BDC6D5022C396FD00614E6B /* AnalyticManagerEvent+WavesQuickAction.swift in Sources */,
 				7B5FAA9722BBE3EC00621A44 /* IssueTransactionDomainDTO.swift in Sources */,
@@ -7530,6 +7537,7 @@
 				7BF50A7C22D8B95400582783 /* AnyTransaction.swift in Sources */,
 				7BF50A8F22D8B95400582783 /* UnrecognisedTransaction+Mapper.swift in Sources */,
 				7BF50AAA22D8B95400582783 /* AccountBalanceRepositoryRemote.swift in Sources */,
+				87F09D512417CD6E001E2394 /* MassTransferRepositoryRemote.swift in Sources */,
 				7BF50AC022D8B95400582783 /* SpamCSV+Assisstants.swift in Sources */,
 				7BF50AAC22D8B95400582783 /* MatcherRepositoryRemote.swift in Sources */,
 				7B896FE123F34FA000F45A70 /* AddressBookRepository.swift in Sources */,

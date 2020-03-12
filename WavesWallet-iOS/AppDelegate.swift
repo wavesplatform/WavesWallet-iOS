@@ -175,8 +175,8 @@ extension AppDelegate {
     func setupServices() {
         #if DEBUG || TEST
         
-//        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
-//                                                           isShortLog: true))
+        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
+                                                           isShortLog: true))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
         
         #else

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDK
 
 struct PayoutsHistoryState {
     
@@ -17,12 +18,14 @@ struct PayoutsHistoryState {
         case dataLoadded([PayoutTransactionVM])
     }
     
-    struct Core {
-        
+    enum Core {
+        case isLoading
+        case loadingError(Error)
+        case dataLoaded(DataService.Response<[DataService.DTO.MassTransferTransaction]>)
     }
     
-    let ui: UI
-    let core: Core
+    var ui: UI
+    var core: Core
 }
 
 extension PayoutsHistoryState.UI {
@@ -35,5 +38,9 @@ extension PayoutsHistoryState.UI {
 }
 
 enum PayoutsHistoryEvents {
+    case performLoading
+    case pullToRefresh
     
+    case dataLoaded(DataService.Response<[DataService.DTO.MassTransferTransaction]>)
+    case loadingError
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
+import DomainLayer
 import Extensions
 import Foundation
 
@@ -25,7 +26,11 @@ final class PayoutsHistoryBuilder: ModuleBuilder {
     
     func build() -> UIViewController {
         let viewController = StoryboardScene.PayoutsHistory.payoutsHistoryVC.instantiate()
-        let system = PayoutsHistorySystem()
+        
+        let massTransferRepository = UseCasesFactory.instance.repositories.massTransferRepository
+        let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
+        
+        let system = PayoutsHistorySystem(massTransferRepository: massTransferRepository, enviroment: enviroment)
         
         viewController.system = system
         

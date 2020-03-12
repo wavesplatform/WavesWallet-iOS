@@ -113,6 +113,12 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         
 
     public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol = TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
+    
+    public private(set) lazy var massTransferRepository: MassTransferRepositoryProtocol = {
+        MassTransferRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+    }()
+        
+    
     public struct Resources {
         
         public typealias PathForFile = String

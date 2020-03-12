@@ -53,11 +53,11 @@ final class ProfileInfoCell: UITableViewCell, Reusable {
 
 private extension ProfileInfoCell {
 
-    @IBAction func deleteAccount(sender: UIButton) {
+    @IBAction private func deleteAccount(sender: UIButton) {
         deleteButtonDidTap?()
     }
 
-    @IBAction func logoutAccount(sender: UIButton) {
+    @IBAction private func logoutAccount(sender: UIButton) {
         logoutButtonDidTap?()
     }
 }

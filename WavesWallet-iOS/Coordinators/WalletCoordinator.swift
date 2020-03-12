@@ -118,7 +118,10 @@ final class WalletCoordinator: Coordinator {
 extension WalletCoordinator: WalletModuleOutput {
 
     func showPayoutsHistory() {
-        print("showPayoutsHistory")
+        let payoutsBuilder = PayoutsHistoryBuilder()
+        let payoutsHistoryVC = payoutsBuilder.build()
+        
+        navigationRouter.pushViewController(payoutsHistoryVC)
     }
     
     func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
