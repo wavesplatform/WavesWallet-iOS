@@ -76,6 +76,7 @@ final class ReceiveInvoiceViewController: UIViewController {
 //MARK: - AssetSelectView
 extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
     
+    // TODO: Coordinator
     func assetViewDidTapChangeAsset() {
         let assetInput = AssetList.DTO.Input(filters: input.filters,
                                              selectedAsset: selectedAsset,

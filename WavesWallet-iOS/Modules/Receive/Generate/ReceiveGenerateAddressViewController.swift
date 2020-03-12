@@ -19,8 +19,9 @@ final class ReceiveGenerateAddressViewController: UIViewController {
 
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelGenerate: UILabel!
-    
-    var input: ReceiveGenerate.DTO.GenerateType!
+         
+    private var coordinator: ReceiveAddressCoordinator?
+    var input: ReceiveGenerateAddress.DTO.GenerateType!
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +56,15 @@ final class ReceiveGenerateAddressViewController: UIViewController {
     
     private func acceptGeneratingAddress() {
         
+        guard let navigationController = navigationController else { return }
         guard let type = input else { return }
-        switch type {
-        case .cryptoCurrency(let displayInfo):
-            showCryptocurrencyAddressInfo(displayInfo)
         
-        case .invoice(let displayInfo):
-            showInvoceAddressInfo(displayInfo)
+        // TODO: The Code need will move to parent Coordinator
+        coordinator = ReceiveAddressCoordinator(navigationRouter: NavigationRouter(navigationController: navigationController),
+                                                generateType: type)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.simulatingCryptocurrencyTime) { [weak self] in
+            self?.coordinator?.start()
         }
     }
     
@@ -73,47 +76,10 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         
         switch type {
         case .cryptoCurrency(let info):
-            title = Localizable.Waves.Receivegenerate.Label.yourAddress(info.assetName)
+            title = Localizable.Waves.Receivegenerate.Label.yourAddress(info.asset.displayName)
             
         case .invoice(let info):
             title = Localizable.Waves.Receivegenerate.Label.yourAddress(info.assetName)
         }
-    }
-    
-    // TODO: Coordinator
-    
-    private func showCryptocurrencyAddressInfo(_ info: ReceiveCryptocurrency.DTO.DisplayInfo) {
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.simulatingCryptocurrencyTime) {
-            
-            let input = info.addresses.map { ReceiveAddress.DTO.Info(assetName: info.assetName,
-                                                                     address: $0,
-                                                                     displayName: "Artyr",
-                                                                     icon: info.icon,
-                                                                     qrCode: $0,
-                                                                     isSponsored: false,
-                                                                     hasScript: false) }
-            
-            let vc = ReceiveAddressModuleBuilder().build(input: input)
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
-    // TODO: Coordinator
-    private func showInvoceAddressInfo(_ info: ReceiveInvoice.DTO.DisplayInfo) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.simulatingCryptocurrencyTime) {
-            
-            let addressInfo = ReceiveAddress.DTO.Info(assetName: info.assetName,
-                                                      address: info.address,
-                                                      displayName: "Artyr",
-                                                      icon: info.icon,
-                                                      qrCode: info.invoiceLink,
-                                                      isSponsored: info.isSponsored,
-                                                      hasScript: info.hasScript)
-            
-            let vc = ReceiveAddressModuleBuilder().build(input: [addressInfo])
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
     }
 }

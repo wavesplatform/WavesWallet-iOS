@@ -15,7 +15,7 @@ private enum Constants {
 }
 
 protocol ReceiveAddressViewDelegate: AnyObject {        
-    func sharedTapped(_ info: ReceiveAddress.DTO.Info)
+    func sharedTapped(_ info: ReceiveAddress.ViewModel.Address)
     func closeTapped()
 }
 
@@ -128,7 +128,7 @@ private extension ReceiveAddressView {
         self.receiveAddressViews.removeAll()
     }
     
-    private func addressCardView(model: ReceiveAddress.DTO.Info) -> ReceiveAddressCardView {
+    private func addressCardView(model: ReceiveAddress.ViewModel.Address) -> ReceiveAddressCardView {
         
         let view: ReceiveAddressCardView = ReceiveAddressCardView.loadView()
         view.translatesAutoresizingMaskIntoConstraints = true
@@ -141,7 +141,7 @@ private extension ReceiveAddressView {
 
 extension ReceiveAddressView: ViewConfiguration {
     
-    func update(with model: [ReceiveAddress.DTO.Info]) {
+    func update(with model: [ReceiveAddress.ViewModel.Address]) {
         
         var modelAll = model
         modelAll.append(contentsOf: model)
@@ -149,7 +149,7 @@ extension ReceiveAddressView: ViewConfiguration {
         
         segmentedControl.isHidden = model.count < 1
         
-        segmentedControl.update(with: modelAll.map { NewSegmentedControl.SegmentedItem.title($0.displayName) })
+        segmentedControl.update(with: modelAll.map { NewSegmentedControl.SegmentedItem.title($0.addressTypeName) })
         
         removeAllReceiveAddressCardViews()
                         

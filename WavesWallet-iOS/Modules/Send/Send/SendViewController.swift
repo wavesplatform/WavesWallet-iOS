@@ -1020,8 +1020,7 @@ private extension SendViewController {
                 selectedAsset?.asset.isGateway == true &&
                 selectedAsset?.asset.isFiat == false &&
                 isValidLocalAddress == false
-        }
-        else if selectedAsset?.asset.isVostok == true {
+        } else if selectedAsset?.asset.isVostok == true {
             return Address.isValidVostokAddress(address: address)
         }
         return false

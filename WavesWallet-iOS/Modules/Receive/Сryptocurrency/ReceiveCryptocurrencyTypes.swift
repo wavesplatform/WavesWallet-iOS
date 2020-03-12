@@ -36,10 +36,13 @@ enum ReceiveCryptocurrency {
 extension ReceiveCryptocurrency.DTO {
     
     struct DisplayInfo: Equatable {
-        let addresses: [String]
-        let assetName: String
-        let assetShort: String
+        struct Address: Equatable {
+            let name: String
+            let address: String
+        }
+        
+        let addresses: [Address]
+        let asset: DomainLayer.DTO.Asset
         let minAmount: Money
-        let icon: AssetLogo.Icon
     }
 }

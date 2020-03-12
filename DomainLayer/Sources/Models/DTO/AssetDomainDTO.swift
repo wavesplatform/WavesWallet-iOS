@@ -105,6 +105,11 @@ public extension DomainLayer.DTO.Asset {
         return displayName
     }
     
+    // TODO: Refactor
+    var isBTC: Bool {
+        return gatewayId == "BTC"
+    }
+    
     var isMonero: Bool {
         return gatewayId == "XMR"
     }

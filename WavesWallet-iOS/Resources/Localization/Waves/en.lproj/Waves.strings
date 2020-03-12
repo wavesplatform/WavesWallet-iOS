@@ -735,3 +735,13 @@
 "asset.cell.balance.button.trade" = "Trade";
 "dexmarket.navigationBar.titleAsset" = "Search pairs to";
 "trade.title" = "Trade";
+
+"receiveAddress.tootltip.title" = "Help";
+
+"receiveAddress.tootltip.btc.title" = "Bitcoin Address Options";
+"receiveAddress.tootltip.btc.subtitle" = "SegWit Addresses beginning with \"bc1\" reduce transaction fees, but may not work everywhere. Regular Addresses beginning with \"1\" work everywhere. Both are safe to use.";
+
+"receiveAddress.tootltip.general.title" = "Enter this address into %@ client or wallet";
+"receiveAddress.tootltip.general.subtitle" = "Once the transaction is confirmed, the gateway will process the transfer of %@ token to your Waves account. Please note that the gateway doesn't apply any fees to this operation.";
+
+

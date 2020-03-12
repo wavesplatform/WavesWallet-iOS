@@ -36,9 +36,9 @@ final class ReceiveAddressCardView: UIView, NibLoadable {
     @IBOutlet private weak var bottomAssetIconLayoutConstraint: NSLayoutConstraint!
     
     private let disposeBag: DisposeBag = DisposeBag()
-    private var model: ReceiveAddress.DTO.Info? = nil
+    private var model: ReceiveAddress.ViewModel.Address? = nil
     
-    var shareTapped: ((ReceiveAddress.DTO.Info) -> Void)? = nil
+    var shareTapped: ((ReceiveAddress.ViewModel.Address) -> Void)? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -88,7 +88,7 @@ private extension ReceiveAddressCardView {
 
 extension ReceiveAddressCardView: ViewConfiguration {
     
-    func update(with model: ReceiveAddress.DTO.Info) {
+    func update(with model: ReceiveAddress.ViewModel.Address) {
         self.model = model
         
         labelQRCode.text = Localizable.Waves.Receiveaddress.Label.yourQRCode
@@ -103,6 +103,6 @@ extension ReceiveAddressCardView: ViewConfiguration {
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
 
-        imageQR.image = QRCode(model.qrCode)?.image
+        imageQR.image = QRCode(model.address)?.image
     }
 }

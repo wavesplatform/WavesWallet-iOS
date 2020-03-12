@@ -9,11 +9,18 @@
 import UIKit
 import Extensions
 
-struct ReceiveAddressModuleBuilder: ModuleBuilder {
+class ReceiveAddressModuleBuilder: ModuleBuilderOutput {
   
-    func build(input: [ReceiveAddress.DTO.Info]) -> UIViewController {
+    weak var output: ReceiveAddressViewControllerModuleOutput?
+    
+    init(output: ReceiveAddressViewControllerModuleOutput?) {
+        self.output = output
+    }
+    
+    func build(input: ReceiveAddress.ViewModel.DisplayData) -> UIViewController {
         
         let vc = StoryboardScene.Receive.receiveAddressViewController.instantiate()
+        vc.moduleOutput = output
         vc.moduleInput = input
         return vc
     }

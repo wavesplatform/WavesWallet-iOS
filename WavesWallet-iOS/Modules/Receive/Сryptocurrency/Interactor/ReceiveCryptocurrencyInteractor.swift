@@ -29,11 +29,9 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 return self.gatewayRepository.startDepositProcess(address: wallet.address, asset: asset)
                     .map({ (startDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
                         
-                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [startDeposit.address],
-                                                                                assetName: asset.displayName,
-                                                                                assetShort: asset.ticker ?? "",
-                                                                                minAmount: startDeposit.minAmount,
-                                                                                icon: asset.iconLogo)
+                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [startDeposit.address.displayInfoAddress()],
+                                                                                asset: asset,
+                                                                                minAmount: startDeposit.minAmount)
                         
                         return ResponseType(output: displayInfo, error: nil)
                     })
@@ -51,11 +49,9 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 return Observable.zip(tunnel, rate)
                     .flatMap({ (tunnel, rate) ->  Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
                         
-                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [tunnel.address],
-                                                                                assetName: asset.displayName,
-                                                                                assetShort: currencyFrom,
-                                                                                minAmount: tunnel.min,
-                                                                                icon: asset.iconLogo)
+                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [tunnel.address.displayInfoAddress()],
+                                                                                asset: asset,
+                                                                                minAmount: tunnel.min)
                         return Observable.just(ResponseType(output: displayInfo, error: nil))
                     })
             }
@@ -67,5 +63,23 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
             
             return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
         })
+    }
+}
+
+private extension String {
+    func displayInfoAddress() -> ReceiveCryptocurrency.DTO.DisplayInfo.Address {
+        
+        let new = NSPredicate(format: "SELF MATCHES %@", "((bc|tb)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87}))")
+        let old = NSPredicate(format: "SELF MATCHES %@", "([13]|[mn2])[a-km-zA-HJ-NP-Z1-9]{25,39}")
+        
+        var name: String = ""
+        if new.evaluate(with: self) {
+            name = "SegWit Address"
+        } else if old.evaluate(with: self) {
+            name = "Legasy Address"
+        }
+                
+        return ReceiveCryptocurrency.DTO.DisplayInfo.Address.init(name: name,
+                                                                  address: self)
     }
 }
