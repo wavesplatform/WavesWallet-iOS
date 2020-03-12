@@ -23,6 +23,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let accountBalance = UseCasesFactory.instance.accountBalance
     private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
+    private let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
     
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
@@ -119,6 +120,12 @@ final class SendInteractor: SendInteractorProtocol {
                 guard let gatewayType = asset.gatewayType else { return Observable.empty() }
            
                 switch gatewayType {
+                case .exchange:
+                    
+                    return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
+                        .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
+                            return Observable.just(.success)
+                        })
                 case .coinomat:
                     return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
                         .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
@@ -130,8 +137,7 @@ final class SendInteractor: SendInteractorProtocol {
                             return Observable.just(.success)
                         })
                 }
-            }
-            else {
+            } else {
                 return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
                     .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
                         return Observable.just(.success)
@@ -168,6 +174,28 @@ private extension SendInteractor {
         guard let gateWayType = asset.gatewayType else { return Observable.empty() }
         
         switch gateWayType {
+        case .exchange:
+            
+            return self.weGatewayUseCase
+                .sendBinding(asset: asset, address: address)
+                .map({ (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
+                    
+                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                           assetShortName: asset.ticker ?? "",
+                                                           minAmount: startProcessInfo.amountMin,
+                                                           maxAmount: startProcessInfo.amountMax,
+                                                           fee: startProcessInfo.fee,
+                                                           address: startProcessInfo.addresses.first ?? "",
+                                                           attachment: "")
+                    return ResponseType(output: gatewayInfo, error: nil)
+                })
+                .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+                    if let networkError = error as? NetworkError {
+                        return Observable.just(ResponseType(output: nil, error: networkError))
+                    }
+                    
+                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+                })
         case .gateway:
             return gatewayRepository
                 .startWithdrawProcess(address: address, asset: asset)

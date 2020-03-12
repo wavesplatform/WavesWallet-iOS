@@ -477,6 +477,9 @@
 		7B8997F924191B4700823DB6 /* TooltipHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997F724191B4700823DB6 /* TooltipHeaderView.swift */; };
 		7B8997FA24191B4700823DB6 /* TooltipHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8997F824191B4700823DB6 /* TooltipHeaderView.xib */; };
 		7B899800241A610B00823DB6 /* ReceiveAddressCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997FF241A610B00823DB6 /* ReceiveAddressCoordinator.swift */; };
+		7B899802241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B899801241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift */; };
+		7B899804241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B899803241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift */; };
+		7B899806241A809900823DB6 /* WEGatewayUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B899805241A809900823DB6 /* WEGatewayUseCaseProtocol.swift */; };
 		7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; };
 		7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393C822DF5827006634A6 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624722DC973E0029DA37 /* WavesSDK.framework */; };
@@ -584,6 +587,11 @@
 		7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
+		7BCD0F5B241A89AF00967055 /* WEOAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */; };
+		7BCD0F5D241A89C800967055 /* WEGatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5C241A89C800967055 /* WEGatewayRepositoryProtocol.swift */; };
+		7BCD0F5F241A97C300967055 /* WEOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5E241A97C300967055 /* WEOAuthService.swift */; };
+		7BCD0F61241A97D900967055 /* WEGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F60241A97D900967055 /* WEGatewayService.swift */; };
+		7BCD0F63241AC32E00967055 /* WEGatewayUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BD3605F241170E1006F3A77 /* ReceiveAddressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */; };
@@ -1777,6 +1785,9 @@
 		7B8997F724191B4700823DB6 /* TooltipHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipHeaderView.swift; sourceTree = "<group>"; };
 		7B8997F824191B4700823DB6 /* TooltipHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TooltipHeaderView.xib; sourceTree = "<group>"; };
 		7B8997FF241A610B00823DB6 /* ReceiveAddressCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressCoordinator.swift; sourceTree = "<group>"; };
+		7B899801241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayRepositoryProtocol.swift; sourceTree = "<group>"; };
+		7B899803241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthRepositoryProtocol.swift; sourceTree = "<group>"; };
+		7B899805241A809900823DB6 /* WEGatewayUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B97B03822FC784F008BA3F4 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		7B97B03922FC784F008BA3F4 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		7B97B03A22FC784F008BA3F4 /* CGFloat+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
@@ -1855,6 +1866,11 @@
 		7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepository.swift; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
+		7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthRepository.swift; sourceTree = "<group>"; };
+		7BCD0F5C241A89C800967055 /* WEGatewayRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayRepositoryProtocol.swift; sourceTree = "<group>"; };
+		7BCD0F5E241A97C300967055 /* WEOAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthService.swift; sourceTree = "<group>"; };
+		7BCD0F60241A97D900967055 /* WEGatewayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayService.swift; sourceTree = "<group>"; };
+		7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayUseCase.swift; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressCardView.swift; sourceTree = "<group>"; };
@@ -3704,12 +3720,13 @@
 				7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */,
 				7B431A7C22BCFE8A00DE73B9 /* AssetsUseCaseProtocol.swift */,
 				7B5FAA5222BBE3EC00621A44 /* AuthorizationUseCaseProtocol.swift */,
+				7B899805241A809900823DB6 /* WEGatewayUseCaseProtocol.swift */,
 				7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */,
 				E97A74A422D3BAA200777C39 /* OrderBookUseCaseProtocol.swift */,
+				7B848A7B2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift */,
 				7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */,
 				7B848A7023018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift */,
 				7B848A6C2301784B0092AD18 /* WidgetSettingsUseCaseProtocol.swift */,
-				7B848A7B2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -3814,6 +3831,8 @@
 				7B5FAA0D22BBE3EB00621A44 /* WalletsRepositoryProtocol.swift */,
 				E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */,
 				7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */,
+				7B899801241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift */,
+				7B899803241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3916,6 +3935,7 @@
 				7B848A792301C0950092AD18 /* WidgetSettingsInizializationUseCase.swift */,
 				7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */,
 				7B431A8722BD037C00DE73B9 /* Protocol */,
+				7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -4471,18 +4491,22 @@
 		7BF50A2C22D8B95400582783 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
 				7BF50A3222D8B95400582783 /* AccountSettingsRepository.swift */,
 				7BF50A3522D8B95400582783 /* AddressRepositoryRemote.swift */,
 				7BF50A3122D8B95400582783 /* ApplicationVersionRepository.swift */,
 				7BF50A3422D8B95400582783 /* AuthenticationRepositoryRemote.swift */,
 				7BF50A2F22D8B95400582783 /* BlockRepositoryRemote.swift */,
 				7BF50A3322D8B95400582783 /* CoinomatRepository.swift */,
+				7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */,
 				7BF50A5022D8B95400582783 /* EnvironmentRepository.swift */,
 				7BF50A3022D8B95400582783 /* GatewayRepository.swift */,
+				7B3A9AB3231BE3900025CDCA /* MobileKeeperRepository.swift */,
 				7BF50A2E22D8B95400582783 /* NotificationNewsRepository.swift */,
 				7BF50A3922D8B95400582783 /* RepositoriesFactory.swift */,
 				7BF50A2D22D8B95400582783 /* SpamAssetsRepository.swift */,
+				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
+				7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */,
+				7BCD0F5C241A89C800967055 /* WEGatewayRepositoryProtocol.swift */,
 				7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */,
 				7BF50A3C22D8B95400582783 /* AccountBalance */,
 				7BF50A3A22D8B95400582783 /* AddressBook */,
@@ -4491,8 +4515,6 @@
 				7BF50A3F22D8B95400582783 /* Dex */,
 				7BF50A3622D8B95400582783 /* Transactions */,
 				7BF50A4622D8B95400582783 /* Wallets */,
-				7B3A9AB3231BE3900025CDCA /* MobileKeeperRepository.swift */,
-				7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -4572,6 +4594,8 @@
 				7BF50A5522D8B95400582783 /* ResourceAPI */,
 				7BF50A5822D8B95400582783 /* Coinomat */,
 				7BF50A5A22D8B95400582783 /* Gateway */,
+				7BCD0F5E241A97C300967055 /* WEOAuthService.swift */,
+				7BCD0F60241A97D900967055 /* WEGatewayService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -6936,6 +6960,7 @@
 				7B5FAAA322BBE3EC00621A44 /* ResponseType.swift in Sources */,
 				7B5FAA6A22BBE3EC00621A44 /* RepositoriesFactoryProtocol.swift in Sources */,
 				7B5FAAB422BBE3EC00621A44 /* TransactionsUseCase.swift in Sources */,
+				7B899802241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift in Sources */,
 				7BDC6D7422C3A1E000614E6B /* AnalyticManagerEvent+Widgets.swift in Sources */,
 				7BDC6D3E22C2522F00614E6B /* SpamAssetsRepositoryProtocol.swift in Sources */,
 				7B848A7123018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift in Sources */,
@@ -6965,6 +6990,7 @@
 				7BDC6D4422C3965900614E6B /* AnalyticManagerEvent+ImportAccount.swift in Sources */,
 				7B5FAACF22BCEA3500621A44 /* AliasesUseCaseProtocol.swift in Sources */,
 				7B5FAABD22BBE3EC00621A44 /* Address.swift in Sources */,
+				7B899804241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift in Sources */,
 				7B5FAA6F22BBE3EC00621A44 /* AccountSettingsRepositoryProtocol.swift in Sources */,
 				7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */,
 				E94AF03223D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift in Sources */,
@@ -6998,6 +7024,7 @@
 				7B5FAAB822BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift in Sources */,
 				7B5FAAB022BBE3EC00621A44 /* MigrationUseCase.swift in Sources */,
 				E9618D1622EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift in Sources */,
+				7B899806241A809900823DB6 /* WEGatewayUseCaseProtocol.swift in Sources */,
 				7B5FAA8B22BBE3EC00621A44 /* AliasDomainDTO.swift in Sources */,
 				7B5FAAA822BBE3EC00621A44 /* AnalyticAssetManager.swift in Sources */,
 				7B5FAA6B22BBE3EC00621A44 /* TransactionDomainDTO+Mapper.swift in Sources */,
@@ -7019,6 +7046,7 @@
 				7B5FAA7F22BBE3EC00621A44 /* AliasesRepositoryProtocol.swift in Sources */,
 				7B5FAADC22BCEA4200621A44 /* MigrationUseCaseProtocol.swift in Sources */,
 				7B5FAA7E22BBE3EC00621A44 /* BlockRepositoryProtocol.swift in Sources */,
+				7BCD0F63241AC32E00967055 /* WEGatewayUseCase.swift in Sources */,
 				7B5FAA7022BBE3EC00621A44 /* CoinomatRepositoryProtocol.swift in Sources */,
 				7B848A7C2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift in Sources */,
 				7B5FAA9322BBE3EC00621A44 /* MassTransferTransactionDomainDTO.swift in Sources */,
@@ -7128,6 +7156,7 @@
 				7BF50A7722D8B95400582783 /* TransferTransaction.swift in Sources */,
 				7BF50AB722D8B95400582783 /* AssetsRepositoryLocal.swift in Sources */,
 				7BF50ACB22D8B95400582783 /* String+NormalizeAssetId.swift in Sources */,
+				7BCD0F5B241A89AF00967055 /* WEOAuthRepository.swift in Sources */,
 				7BF50AA122D8B95400582783 /* ApplicationVersionRepository.swift in Sources */,
 				7BF50AB022D8B95400582783 /* CandlesRepositoryRemote.swift in Sources */,
 				7BF50AA722D8B95400582783 /* TransactionsRepositoryLocal.swift in Sources */,
@@ -7161,6 +7190,7 @@
 				7BFB474C22FC5A41002B19F8 /* WidgetSettingsRepositoryStorage.swift in Sources */,
 				7BF50A7A22D8B95400582783 /* ReissueTransaction.swift in Sources */,
 				7BF50AA322D8B95400582783 /* CoinomatRepository.swift in Sources */,
+				7BCD0F61241A97D900967055 /* WEGatewayService.swift in Sources */,
 				7BF50AB222D8B95400582783 /* WalletsRepositoryLocal.swift in Sources */,
 				7BF50AB622D8B95400582783 /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */,
 				7BF50A9C22D8B95400582783 /* Asset+Mapper.swift in Sources */,
@@ -7206,6 +7236,7 @@
 				7BF50AC522D8B95400582783 /* Results+Limit.swift in Sources */,
 				7BF50A7022D8B95400582783 /* AssetScriptTransaction.swift in Sources */,
 				7BF50A9922D8B95400582783 /* LeaseTransaction+Mapper.swift in Sources */,
+				7BCD0F5D241A89C800967055 /* WEGatewayRepositoryProtocol.swift in Sources */,
 				7BF50A8722D8B95400582783 /* WalletEncryption.swift in Sources */,
 				7BF50A6D22D8B95400582783 /* LeaseTransaction.swift in Sources */,
 				7BF50AC922D8B95400582783 /* SentryManager.swift in Sources */,
@@ -7216,6 +7247,7 @@
 				7BF50AAC22D8B95400582783 /* MatcherRepositoryRemote.swift in Sources */,
 				7BF50AB822D8B95400582783 /* AssetsRepositoryRemote.swift in Sources */,
 				7BF50ABA22D8B95400582783 /* SpamService.swift in Sources */,
+				7BCD0F5F241A97C300967055 /* WEOAuthService.swift in Sources */,
 				7BF50A8822D8B95400582783 /* DexAssetPairDomainDTO+Mapper.swift in Sources */,
 				7BF50ABE22D8B95400582783 /* CoinomatService.swift in Sources */,
 			);

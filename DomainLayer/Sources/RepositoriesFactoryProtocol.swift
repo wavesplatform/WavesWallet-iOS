@@ -71,4 +71,8 @@ public protocol RepositoriesFactoryProtocol {
     var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol { get }
     
     var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol { get }
+    
+    var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol { get }
+    
+    var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol { get }
 }

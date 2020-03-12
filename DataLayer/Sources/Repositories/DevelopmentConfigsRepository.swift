@@ -15,6 +15,7 @@ private struct DevelopmentConfigs: Decodable {
     let service_available: Bool
     let matcher_swap_timestamp: Date
     let matcher_swap_address: String
+    let exchange_client_secret: String
 }
 
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
@@ -27,8 +28,6 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                 return Observable.just(config.serviceAvailable == false)
             })
             .catchError({ error -> Observable<Bool> in
-                
-                print(error)
                 return Observable.just(false)
             })            
     }
@@ -47,7 +46,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
             .map { (config) -> DomainLayer.DTO.DevelopmentConfigs in
                 return DomainLayer.DTO.DevelopmentConfigs.init(serviceAvailable: config.service_available,
                                                                matcherSwapTimestamp: config.matcher_swap_timestamp,
-                                                               matcherSwapAddress: config.matcher_swap_address)
+                                                               matcherSwapAddress: config.matcher_swap_address,
+                                                               exchangeClientSecret: config.exchange_client_secret)
             }
             
     }

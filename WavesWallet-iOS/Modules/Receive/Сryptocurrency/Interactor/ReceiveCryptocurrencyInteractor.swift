@@ -17,6 +17,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
     private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
+    private let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
@@ -53,7 +54,19 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                                 asset: asset,
                                                                                 minAmount: tunnel.min)
                         return Observable.just(ResponseType(output: displayInfo, error: nil))
-                    })
+                    })                        
+            case .exchange:
+                
+                return self.weGatewayUseCase
+                    .receiveBinding(asset: asset)
+                    .map { model -> ReceiveCryptocurrency.DTO.DisplayInfo in
+                        return ReceiveCryptocurrency.DTO.DisplayInfo(addresses: model.addresses.map { $0.displayInfoAddress() },
+                                                                     asset: asset,
+                                                                     minAmount: model.amountMin)
+                    }
+                    .map { ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: $0, error: nil) }
+                .catchError { Observable.just(ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: nil,
+                                                                                                  error: NetworkError.error(by: $0))) }
             }
         })
         .catchError({ (error) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
@@ -72,7 +85,7 @@ private extension String {
         let new = NSPredicate(format: "SELF MATCHES %@", "((bc|tb)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87}))")
         let old = NSPredicate(format: "SELF MATCHES %@", "([13]|[mn2])[a-km-zA-HJ-NP-Z1-9]{25,39}")
         
-        var name: String = ""
+        var name: String = "Address"
         if new.evaluate(with: self) {
             name = "SegWit Address"
         } else if old.evaluate(with: self) {

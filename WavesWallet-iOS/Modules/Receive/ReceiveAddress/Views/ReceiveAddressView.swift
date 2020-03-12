@@ -142,18 +142,14 @@ private extension ReceiveAddressView {
 extension ReceiveAddressView: ViewConfiguration {
     
     func update(with model: [ReceiveAddress.ViewModel.Address]) {
-        
-        var modelAll = model
-        modelAll.append(contentsOf: model)
-        modelAll.append(contentsOf: model)
-        
+                        
         segmentedControl.isHidden = model.count < 1
         
-        segmentedControl.update(with: modelAll.map { NewSegmentedControl.SegmentedItem.title($0.addressTypeName) })
+        segmentedControl.update(with: model.map { NewSegmentedControl.SegmentedItem.title($0.addressTypeName) })
         
         removeAllReceiveAddressCardViews()
                         
-        modelAll.forEach {
+        model.forEach {
             let addressView = self.addressCardView(model: $0)
             addressView.shareTapped = { [weak self] model in
                 self?.delegate?.sharedTapped(model)
