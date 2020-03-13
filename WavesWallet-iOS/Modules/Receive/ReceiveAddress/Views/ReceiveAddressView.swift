@@ -143,7 +143,7 @@ extension ReceiveAddressView: ViewConfiguration {
     
     func update(with model: [ReceiveAddress.ViewModel.Address]) {
                         
-        segmentedControl.isHidden = model.count < 1
+        segmentedControl.isHidden = model.count == 1
         
         segmentedControl.update(with: model.map { NewSegmentedControl.SegmentedItem.title($0.addressTypeName) })
         

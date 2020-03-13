@@ -82,7 +82,9 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
-        return gateWayInfo(asset: asset.asset, address: address)
+        return gateWayInfo(asset: asset.asset, address: address,
+                           amount: Money(asset.availableBalance,
+                                         asset.asset.precision))
     }
     
     func validateAlis(alias: String) -> Observable<Bool> {
@@ -169,7 +171,7 @@ final class SendInteractor: SendInteractorProtocol {
 
 private extension SendInteractor {
     
-    func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String, amount: Money) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         
         guard let gateWayType = asset.gatewayType else { return Observable.empty() }
         
@@ -177,7 +179,7 @@ private extension SendInteractor {
         case .exchange:
             
             return self.weGatewayUseCase
-                .sendBinding(asset: asset, address: address)
+                .sendBinding(asset: asset, address: address, amount: amount)
                 .map({ (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
                     
                     let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,

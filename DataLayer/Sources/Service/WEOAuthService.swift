@@ -31,7 +31,7 @@ extension WEOAuth.Query {
             case token
             case username
             case password
-            case grantType = "grant_types"
+            case grantType = "grant_type"
             case scope
         }
     }
@@ -59,7 +59,7 @@ extension WEOAuth.Service: TargetType {
     }
     
     var headers: [String: String]? {
-        var headers = ContentType.applicationJson.headers
+        var headers: [String: String] = .init()
         
         switch self {
         case .token(_, let token):
@@ -76,7 +76,7 @@ extension WEOAuth.Service: TargetType {
     var task: Task {
         switch self {
         case .token(_, let token):
-            return .requestJSONEncodable(token)
+            return .requestParameters(parameters: token.dictionary, encoding: URLEncoding.default)
         }
     }
 }

@@ -588,10 +588,11 @@
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BCD0F5B241A89AF00967055 /* WEOAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */; };
-		7BCD0F5D241A89C800967055 /* WEGatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5C241A89C800967055 /* WEGatewayRepositoryProtocol.swift */; };
+		7BCD0F5D241A89C800967055 /* WEGatewayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5C241A89C800967055 /* WEGatewayRepository.swift */; };
 		7BCD0F5F241A97C300967055 /* WEOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5E241A97C300967055 /* WEOAuthService.swift */; };
 		7BCD0F61241A97D900967055 /* WEGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F60241A97D900967055 /* WEGatewayService.swift */; };
 		7BCD0F63241AC32E00967055 /* WEGatewayUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */; };
+		7BCD0F65241BB0B800967055 /* String+Int64BinaryBase64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F64241BB0B800967055 /* String+Int64BinaryBase64.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BD3605F241170E1006F3A77 /* ReceiveAddressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */; };
@@ -1867,10 +1868,11 @@
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthRepository.swift; sourceTree = "<group>"; };
-		7BCD0F5C241A89C800967055 /* WEGatewayRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayRepositoryProtocol.swift; sourceTree = "<group>"; };
+		7BCD0F5C241A89C800967055 /* WEGatewayRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayRepository.swift; sourceTree = "<group>"; };
 		7BCD0F5E241A97C300967055 /* WEOAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthService.swift; sourceTree = "<group>"; };
 		7BCD0F60241A97D900967055 /* WEGatewayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayService.swift; sourceTree = "<group>"; };
 		7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayUseCase.swift; sourceTree = "<group>"; };
+		7BCD0F64241BB0B800967055 /* String+Int64BinaryBase64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Int64BinaryBase64.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressCardView.swift; sourceTree = "<group>"; };
@@ -4506,7 +4508,7 @@
 				7BF50A2D22D8B95400582783 /* SpamAssetsRepository.swift */,
 				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
 				7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */,
-				7BCD0F5C241A89C800967055 /* WEGatewayRepositoryProtocol.swift */,
+				7BCD0F5C241A89C800967055 /* WEGatewayRepository.swift */,
 				7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */,
 				7BF50A3C22D8B95400582783 /* AccountBalance */,
 				7BF50A3A22D8B95400582783 /* AddressBook */,
@@ -4649,6 +4651,7 @@
 				7BF50A6A22D8B95400582783 /* SweetLoggerSentry.swift */,
 				7BF50A5F22D8B95400582783 /* TransactionSenderAssistant.swift */,
 				7BF50A6022D8B95400582783 /* Types */,
+				7BCD0F64241BB0B800967055 /* String+Int64BinaryBase64.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -7223,6 +7226,7 @@
 				7BF50A7422D8B95400582783 /* InvokeScriptTransaction.swift in Sources */,
 				7BF50A9822D8B95400582783 /* ExchangeTransaction+Mapper.swift in Sources */,
 				7BF50A8222D8B95400582783 /* DexAssetPair.swift in Sources */,
+				7BCD0F65241BB0B800967055 /* String+Int64BinaryBase64.swift in Sources */,
 				7BF50AC622D8B95400582783 /* NodePlugin.swift in Sources */,
 				7BF50AC722D8B95400582783 /* MoyaProvider+Helper.swift in Sources */,
 				7BF50AC822D8B95400582783 /* SentryNetworkLoggerPlugin.swift in Sources */,
@@ -7236,7 +7240,7 @@
 				7BF50AC522D8B95400582783 /* Results+Limit.swift in Sources */,
 				7BF50A7022D8B95400582783 /* AssetScriptTransaction.swift in Sources */,
 				7BF50A9922D8B95400582783 /* LeaseTransaction+Mapper.swift in Sources */,
-				7BCD0F5D241A89C800967055 /* WEGatewayRepositoryProtocol.swift in Sources */,
+				7BCD0F5D241A89C800967055 /* WEGatewayRepository.swift in Sources */,
 				7BF50A8722D8B95400582783 /* WalletEncryption.swift in Sources */,
 				7BF50A6D22D8B95400582783 /* LeaseTransaction.swift in Sources */,
 				7BF50AC922D8B95400582783 /* SentryManager.swift in Sources */,

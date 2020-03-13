@@ -39,16 +39,16 @@ extension DomainLayer.DTO.WEGateway {
     
     public struct TransferBinding {
         public var addresses: [String]
-        public var amountMin: Decimal
-        public var amountMax: Decimal
-        public var taxRate: Decimal
-        public var taxFlat: Decimal
+        public var amountMin: Int64
+        public var amountMax: Int64
+        public var taxRate: Double
+        public var taxFlat: Int64
 
         public init(addresses: [String],
-                    amountMin: Decimal,
-                    amountMax: Decimal,
-                    taxRate: Decimal,
-                    taxFlat: Decimal) {
+                    amountMin: Int64,
+                    amountMax: Int64,
+                    taxRate: Double,
+                    taxFlat: Int64) {
             
             self.addresses = addresses
             self.amountMin = amountMin
@@ -58,7 +58,21 @@ extension DomainLayer.DTO.WEGateway {
         }
     }
     
-    public struct SmartTransferBinding {
+    public struct ReceiveBinding {
+        public var addresses: [String]
+        public var amountMin: Money
+        public var amountMax: Money
+
+        public init(addresses: [String],
+                    amountMin: Money,
+                    amountMax: Money) {
+            self.addresses = addresses
+            self.amountMin = amountMin
+            self.amountMax = amountMax            
+        }
+    }
+    
+    public struct SendBinding {
         public var addresses: [String]
         public var amountMin: Money
         public var amountMax: Money

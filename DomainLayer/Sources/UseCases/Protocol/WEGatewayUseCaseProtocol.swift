@@ -12,6 +12,6 @@ import Extensions
 
 public protocol WEGatewayUseCaseProtocol {
     
-    func receiveBinding(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.WEGateway.SmartTransferBinding>
-    func sendBinding(asset: DomainLayer.DTO.Asset, address: String) -> Observable<DomainLayer.DTO.WEGateway.SmartTransferBinding>
+    func receiveBinding(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding>
+    func sendBinding(asset: DomainLayer.DTO.Asset, address: String, amount: Money) -> Observable<DomainLayer.DTO.WEGateway.SendBinding>
 }

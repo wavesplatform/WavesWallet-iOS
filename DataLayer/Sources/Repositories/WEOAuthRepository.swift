@@ -13,9 +13,14 @@ import WavesSDKCrypto
 import WavesSDKExtensions
 import DomainLayer
 
-
 private enum Constants {
     static let sessionLifeTime: Int64 = 1200000
+    static let grantType: String = "password"
+    static let scope: String = "client"
+}
+
+private struct Token: Codable {
+    let access_token: String
 }
 
 final class WEOAuthRepository: WEOAuthRepositoryProtocol {
@@ -43,7 +48,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                 
                 let token: WEOAuth.Query.Token = self.createOAuthToken(signedWallet: signedWallet,
                                                                        exchangeClientSecret: exchangeClientSecret)
-                                
+                
                 return self
                     .weOAuth
                     .rx
@@ -51,15 +56,10 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                                     token: token),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
-                    .map([String: String].self)
+                    .map(Token.self)
+                    .map { DomainLayer.DTO.WEOAuth.Token(accessToken: $0.access_token) }
                     .asObservable()
-                    .map { (_) -> DomainLayer.DTO.WEOAuth.Token in
-                        return DomainLayer.DTO.WEOAuth.Token.init(accessToken: "a")
-                    }
-                
             })
-                         
-        return Observable.never()
     }
     
     private func createOAuthToken(signedWallet: DomainLayer.DTO.SignedWallet,
@@ -73,56 +73,13 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
         let signatureBytes = (try? signedWallet.sign(input: bytes, kind: [.none])) ?? []
         let signature = WavesCrypto.shared.base58encode(input: signatureBytes) ?? ""
         
-        let passsword = "$time:" + signature
+        let passsword = "\(time):" + signature
         
         return .init(token: exchangeClientSecret,
                      username: signedWallet.publicKey.getPublicKeyStr(),
                      password: passsword,
-                     grantType: "password",
-                     scope: "client")
-        
-        //        SESSION_LIFE_TIME
-        //        val time = currentTimeMillis + SESSION_LIFE_TIME // время жизни токена
-
-        //        val bytes = Bytes.concat(
-        //                        WavesCrypto.base58decode(getPublicKeyStr()),
-        //                        Longs.toByteArray(time))
-        //        val privateKeyBytes = WavesCrypto.base58encode(
-        //                        App.accessManager.getWallet()?.privateKey
-        //                                ?: byteArrayOf())
-        //        val password = "$time:" +
-        //                        WavesCrypto.base58encode(
-        //                                WavesCrypto.signBytesWithPrivateKey(bytes, privateKeyBytes))
+                     grantType: Constants.grantType,
+                     scope: Constants.scope)
                 
     }
 }
-
-//@FormUrlEncoded
-//@POST("oauth/token")
-//fun oauthToken(@Header("Authorization") token: String, // как сделать смотри выше
-//                   @Field("username") username: String = WavesWallet.getPublicKeyStr(), // ключ пользователя
-//                   @Field("password") password: String, // как сделать смотри выше
-//                   @Field("grant_type") grantType: String = "password", // константа
-//                   @Field("scope") scope: String = "client") // константа
-//                   : Observable<AuthDataResponse>
-
-//data class AuthDataResponse(
-//    @SerializedName("access_token")
-//    var accessToken: String = "", // нужен только токен
-//    @SerializedName("token_type")
-//    var tokenType: String  = "bearer",
-//    @SerializedName("expires_in")
-//    var expiresIn: Long = 0L,
-//    @SerializedName("scope")
-//    var scope: String  = "client",
-//    @SerializedName("cred_message")
-//    var credMessage: String  = "",
-//    @SerializedName("pub_key")
-//    var pubKey: String  = "",
-//    @SerializedName("requested_expiration")
-//    var requestedExpiration: Long = 0L,
-//    @SerializedName("signature")
-//    var signature: String  = "",
-//    @SerializedName("jti")
-//    var jti: String  = ""
-//)

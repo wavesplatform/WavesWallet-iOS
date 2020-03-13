@@ -108,7 +108,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol = TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
     
     public private(set) lazy var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol =
-        WEGatewayRepository(environmentRepository: environmentRepositoryInternal)
+        WEGatewayRepository(environmentRepository: environmentRepositoryInternal,
+                            developmentConfigsRepository: developmentConfigsRepository)
     
     
     public private(set) lazy var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol =
