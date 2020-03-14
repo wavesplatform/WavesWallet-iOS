@@ -684,8 +684,8 @@ private extension SendViewController {
     func showLoadingGatewayInfo(isHidden: Bool = true) {
         hideCoinomatError(animation: false)
         viewWarning.isHidden = isHidden
-        activityIndicatorView.isHidden = false
-        activityIndicatorView.startAnimating()
+        activityIndicatorButton.isHidden = false
+        activityIndicatorButton.startAnimating()
     }
     
     func showCoinomatError() {
@@ -695,7 +695,7 @@ private extension SendViewController {
 
         coinomatErrorView.isHidden = false
         coinomatErrorView.alpha = 0
-        activityIndicatorView.stopAnimating()
+        activityIndicatorButton.stopAnimating()
         
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.coinomatErrorView.alpha = 1
@@ -727,7 +727,7 @@ private extension SendViewController {
     
     func hideGatewayInfo(animation: Bool) {
         updateAmountError(animation: animation)
-        activityIndicatorView.stopAnimating()
+        activityIndicatorButton.stopAnimating()
 
         if viewWarning.isHidden {
             return
@@ -759,7 +759,7 @@ private extension SendViewController {
         labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
                 
         
-        activityIndicatorView.stopAnimating()
+        activityIndicatorButton.stopAnimating()
         
         if viewWarning.isHidden == true {
             viewWarning.isHidden = false

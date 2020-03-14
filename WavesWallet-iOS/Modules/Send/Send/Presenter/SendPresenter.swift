@@ -100,7 +100,7 @@ final class SendPresenter: SendPresenterProtocol {
             
             guard let asset = state.selectedAsset else { return Signal.empty() }
     
-            if state.isNeedLoadGateWayInfo {
+            if state.isNeedLoadGateWayInfo && state.recipient.count > 0 {
                 return self.interactor.gateWayInfo(asset: asset,
                                                    address: state.recipient,
                                                    amount: state.amount ?? Money(value: 0, asset.asset.precision))
