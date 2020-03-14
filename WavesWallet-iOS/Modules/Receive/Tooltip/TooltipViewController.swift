@@ -11,6 +11,8 @@ import Extensions
 private enum Constants {
     static let headerHeight: CGFloat = 70
     static let contentHeight: CGFloat = 440
+    static let buttonHeight: CGFloat = 108
+    static let sepatorHeight: CGFloat = 13
 }
 
 protocol TooltipViewControllerModulInput {
@@ -43,10 +45,25 @@ final class TooltipViewController: ModalScrollViewController {
         self.rootView.delegate = self
         tableView.reloadData()
     }
-    
-    // TODO: Нужно сделать динамическую высоту
+        
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return Constants.contentHeight
+        
+        var height: CGFloat = 0
+        rows.forEach { (row) in
+            
+            switch row {
+            case .element(let model):
+                height += TooltipInfoCell.viewHeight(model: model, width: tableView.frame.size.width)
+                
+            case .button:
+                height += Constants.buttonHeight
+                            
+            case .separator:
+                height += Constants.sepatorHeight
+            }
+        }
+        
+        return min(height + Constants.headerHeight, size.height)
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {

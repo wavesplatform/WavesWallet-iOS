@@ -38,7 +38,7 @@ public extension String {
 
 public extension NSAttributedString {
     
-    public func boundingRect(with size: CGSize) -> CGRect {
+    func boundingRect(with size: CGSize) -> CGRect {
         return boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
     }
 }
