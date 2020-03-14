@@ -33,13 +33,13 @@ private enum Constants {
     static let moneroNewsLink = "https://coinswitch.co/news/monero-hard-fork-2019-coming-up-on-november-30th-everything-you-need-to-know"
 }
 
+// TODO: Refactor all module
 final class SendViewController: UIViewController {
 
     @IBOutlet private weak var assetView: AssetSelectView!
     @IBOutlet private weak var viewWarning: UIView!
     @IBOutlet private weak var labelWarningTitle: UILabel!
     @IBOutlet private weak var labelWarningSubtitle: UILabel!
-    @IBOutlet private weak var labelWarningDescription: UILabel!
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
@@ -71,6 +71,7 @@ final class SendViewController: UIViewController {
     var inputModel: Send.DTO.InputModel!
     
     private var isValidAlias: Bool = false
+    private var hasNeedReloadGateWayInfo: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
     private var isLoadingAssetBalanceAfterScan = false
     private var errorSnackKey: String?
@@ -425,6 +426,12 @@ extension SendViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
         amount = value
+        
+        //TODO: Test
+        self.gateWayInfo = nil
+        hasNeedReloadGateWayInfo = true
+        validateAddress()
+        
         updateAmountError(animation: true)
         setupButtonState()
     }
@@ -646,17 +653,10 @@ private extension SendViewController {
     }
     
     func showLoadingButtonState() {
-        view.isUserInteractionEnabled = false
-        buttonContinue.backgroundColor = .submit200
-        buttonContinue.setTitle("", for: .normal)
-        activityIndicatorButton.isHidden = false
         activityIndicatorButton.startAnimating()
     }
     
     func hideButtonLoadingButtonsState() {
-        view.isUserInteractionEnabled = true
-        setupButtonState()
-        setupLocalization()
         activityIndicatorButton.stopAnimating()
     }
     
@@ -681,9 +681,9 @@ private extension SendViewController {
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
     
-    func showLoadingGatewayInfo() {
+    func showLoadingGatewayInfo(isHidden: Bool = true) {
         hideCoinomatError(animation: false)
-        viewWarning.isHidden = true
+        viewWarning.isHidden = isHidden
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
     }
@@ -756,17 +756,21 @@ private extension SendViewController {
         let min = info.minAmount.displayText + " " + info.assetShortName
         let max = info.maxAmount.displayText + " " + info.assetShortName
 
-        labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)        
-        labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetName)
+        labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
+                
         
-        viewWarning.isHidden = false
-        viewWarning.alpha = 0
         activityIndicatorView.stopAnimating()
         
-        UIView.animate(withDuration: Constants.animationDuration, animations: {
-            self.viewWarning.alpha = 1
-            self.view.layoutIfNeeded()
-        })
+        if viewWarning.isHidden == true {
+            viewWarning.isHidden = false
+            viewWarning.alpha = 0
+            UIView.animate(withDuration: Constants.animationDuration, animations: {
+                   self.viewWarning.alpha = 1
+                   self.view.layoutIfNeeded()
+            })
+         }
+        
+   
         setupButtonState()
         updateAmountError(animation: true)
         updateMoneraAddressErrorView(animation: true)
@@ -1085,8 +1089,9 @@ private extension SendViewController {
             if !isValidLocalAddress {
                 if isValidCryptocyrrencyAddress {
                     if gateWayInfo == nil {
-                        sendEvent.accept(.getGatewayInfo)
-                        showLoadingGatewayInfo()
+                        sendEvent.accept(.getGatewayInfo(self.amount ?? Money(0, 0)))
+                        showLoadingGatewayInfo(isHidden: !hasNeedReloadGateWayInfo)
+                        hasNeedReloadGateWayInfo = false
                     }
                     recipientAddressView.checkIfValidAddress()
                 }

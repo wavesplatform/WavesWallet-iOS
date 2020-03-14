@@ -23,7 +23,7 @@ enum Send {
     enum Event {
         case didChangeRecipient(String)
         case didSelectAsset(DomainLayer.DTO.SmartAssetBalance, loadGatewayInfo: Bool)
-        case getGatewayInfo
+        case getGatewayInfo(Money)
         case didGetGatewayInfo(ResponseType<DTO.GatewayInfo>)
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
@@ -61,6 +61,7 @@ enum Send {
         var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
         var scanningAssetID: String?
         var deepLinkAssetId: String?
+        var amount: Money?
     }
 }
 

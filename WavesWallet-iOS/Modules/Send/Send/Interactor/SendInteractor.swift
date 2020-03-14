@@ -81,10 +81,11 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance,
+                     address: String,
+                     amount: Money) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         return gateWayInfo(asset: asset.asset, address: address,
-                           amount: Money(asset.availableBalance,
-                                         asset.asset.precision))
+                           amount: amount)
     }
     
     func validateAlis(alias: String) -> Observable<Bool> {
@@ -104,7 +105,13 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func send(fee: Money, recipient: String, asset: DomainLayer.DTO.Asset, amount: Money, attachment: String, feeAssetID: String, isGatewayTransaction: Bool) -> Observable<Send.TransactionStatus> {
+    func send(fee: Money,
+              recipient: String,
+              asset: DomainLayer.DTO.Asset,
+              amount: Money,
+              attachment: String,
+              feeAssetID: String,
+              isGatewayTransaction: Bool) -> Observable<Send.TransactionStatus> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
             guard let self = self else { return Observable.empty() }

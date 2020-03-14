@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
+import Extensions
 import DomainLayer
 
 final class SendPresenter: SendPresenterProtocol {
@@ -100,7 +101,9 @@ final class SendPresenter: SendPresenterProtocol {
             guard let asset = state.selectedAsset else { return Signal.empty() }
     
             if state.isNeedLoadGateWayInfo {
-                return self.interactor.gateWayInfo(asset: asset, address: state.recipient)
+                return self.interactor.gateWayInfo(asset: asset,
+                                                   address: state.recipient,
+                                                   amount: state.amount ?? Money(value: 0, asset.asset.precision))
                     .map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
            
@@ -110,8 +113,9 @@ final class SendPresenter: SendPresenterProtocol {
     
     private func reduce(state: Send.State, event: Send.Event) -> Send.State {
 
+   
         switch event {
-        
+   
         case .refreshFee:
             return state.mutate {
                 $0.isNeedLoadWavesFee = true
@@ -141,8 +145,9 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.action = .didGetWavesAsset(asset)
             }
             
-        case .getGatewayInfo:
+        case .getGatewayInfo(let amount):
             return state.mutate {
+                $0.amount = amount
                 $0.action = .none
                 $0.isNeedLoadGateWayInfo = true
                 $0.isNeedValidateAliase = false

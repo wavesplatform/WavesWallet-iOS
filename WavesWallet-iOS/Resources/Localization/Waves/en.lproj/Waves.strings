@@ -390,7 +390,7 @@
 "profile.navigation.title" = "Profile";
 "receive.button.card" = "Card";
 "receive.button.continue" = "Continue";
-"receive.button.cryptocurrency" = "Сryptocurrency";
+"receive.button.cryptocurrency" = "External Source";
 "receive.button.invoice" = "Invoice";
 "receive.button.useTotalBalance" = "Use total balance";
 "receive.error.serviceUnavailable" = "Service is temporarily unavailable";
@@ -735,6 +735,8 @@
 "asset.cell.balance.button.trade" = "Trade";
 "dexmarket.navigationBar.titleAsset" = "Search pairs to";
 "trade.title" = "Trade";
+
+"receiveCryptocurrency.address.default.name" = "Address %@";
 
 "receiveAddress.tootltip.title" = "Help";
 

@@ -12,6 +12,11 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
+private enum Constants {
+    static let btcSegWitAddress = NSPredicate(format: "SELF MATCHES %@", "((bc|tb)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87}))")
+    static let btcLegacyAddress = NSPredicate(format: "SELF MATCHES %@", "([13]|[mn2])[a-km-zA-HJ-NP-Z1-9]{25,39}")
+}
+
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
@@ -30,7 +35,9 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 return self.gatewayRepository.startDepositProcess(address: wallet.address, asset: asset)
                     .map({ (startDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
                         
-                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [startDeposit.address.displayInfoAddress()],
+                        let addresses = [startDeposit.address.displayInfoAddress()]
+                        
+                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: addresses,
                                                                                 asset: asset,
                                                                                 minAmount: startDeposit.minAmount)
                         
@@ -60,7 +67,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 return self.weGatewayUseCase
                     .receiveBinding(asset: asset)
                     .map { model -> ReceiveCryptocurrency.DTO.DisplayInfo in
-                        return ReceiveCryptocurrency.DTO.DisplayInfo(addresses: model.addresses.map { $0.displayInfoAddress() },
+                        return ReceiveCryptocurrency.DTO.DisplayInfo(addresses: model.addresses.displayInfoAddresses(),
                                                                      asset: asset,
                                                                      minAmount: model.amountMin)
                     }
@@ -79,17 +86,37 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     }
 }
 
+private extension Array where Element == ReceiveCryptocurrency.DTO.DisplayInfo.Address {
+    
+    func addressesSort(asset: DomainLayer.DTO.Asset) -> Array<Element> {
+        return self
+    }
+}
+
+private extension Array where Element == String {
+    
+    func displayInfoAddresses() -> [ReceiveCryptocurrency.DTO.DisplayInfo.Address] {
+        
+        return self
+            .enumerated()
+            .map { index, element -> ReceiveCryptocurrency.DTO.DisplayInfo.Address in
+                return element.displayInfoAddress(deffaultName: Localizable.Waves.Receivecryptocurrency.Address.Default.name("\(index + 1)"))
+            }
+    }
+}
+    
 private extension String {
-    func displayInfoAddress() -> ReceiveCryptocurrency.DTO.DisplayInfo.Address {
+    
+    func displayInfoAddress(deffaultName: String = "Address") -> ReceiveCryptocurrency.DTO.DisplayInfo.Address {
         
-        let new = NSPredicate(format: "SELF MATCHES %@", "((bc|tb)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87}))")
-        let old = NSPredicate(format: "SELF MATCHES %@", "([13]|[mn2])[a-km-zA-HJ-NP-Z1-9]{25,39}")
+        let new = Constants.btcSegWitAddress
+        let old = Constants.btcLegacyAddress
         
-        var name: String = "Address"
+        var name: String = deffaultName
         if new.evaluate(with: self) {
             name = "SegWit Address"
         } else if old.evaluate(with: self) {
-            name = "Legasy Address"
+            name = "Legacy Address"
         }
                 
         return ReceiveCryptocurrency.DTO.DisplayInfo.Address.init(name: name,

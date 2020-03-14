@@ -2458,7 +2458,7 @@ internal enum Localizable {
         /// Continue
         internal static var `continue`: String { return Localizable.tr("Waves", "receive.button.continue") }
         internal static var continueKey: String { return "receive.button.continue" }
-        /// Сryptocurrency
+        /// External Source
         internal static var cryptocurrency: String { return Localizable.tr("Waves", "receive.button.cryptocurrency") }
         internal static var cryptocurrencyKey: String { return "receive.button.cryptocurrency" }
         /// Invoice
@@ -2595,6 +2595,16 @@ internal enum Localizable {
     }
 
     internal enum Receivecryptocurrency {
+
+      internal enum Address {
+
+        internal enum Default {
+          /// Address %@
+          internal static func name(_ p1: String) -> String {
+            return Localizable.tr("Waves", "receiveCryptocurrency.address.default.name", p1)
+          }
+        }
+      }
 
       internal enum Label {
         /// The minimum amount of deposit is %@
