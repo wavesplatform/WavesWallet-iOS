@@ -7,10 +7,13 @@
 //
 
 import Extensions
+import RxSwift
 import UIKit
 
 final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, ResetableView {
     @IBOutlet private weak var payoutsTransactionView: PayoutsTransactionView!
+    
+    private let disposeBag = DisposeBag()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,6 +31,13 @@ final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, Rese
     }
     
     func configure(_ viewModel: PayoutsHistoryState.UI.PayoutTransactionVM) {
+        if let icon = viewModel.iconAsset {
+            AssetLogo
+                .logo(icon: icon, style: .tiny)
+                .subscribe(onNext: { [weak self] in self?.payoutsTransactionView.setAssetImage($0) })
+                .disposed(by: disposeBag)
+        }
+        
         payoutsTransactionView.setTitle(viewModel.title,
                                         transactionValue: viewModel.transactionValue,
                                         date: viewModel.dateText)
@@ -75,13 +85,14 @@ final class PayoutsTransactionView: UIView, NibOwnerLoadable, ResetableView {
         
         do {
             assetImageView.contentMode = .scaleAspectFit
-            assetImageView.image = Images.assets.image
         }
         
         do {
+            titleTransactionLabel.numberOfLines = 0
             titleTransactionLabel.font = .systemFont(ofSize: 13)
             titleTransactionLabel.textColor = .basic500
             
+            dateTransactionLabel.numberOfLines = 0
             dateTransactionLabel.font = .systemFont(ofSize: 11)
             dateTransactionLabel.textColor = .basic500
         }
@@ -91,6 +102,10 @@ final class PayoutsTransactionView: UIView, NibOwnerLoadable, ResetableView {
         titleTransactionLabel.text = text
         dateTransactionLabel.text = date
         transactionCurrencyContainerView.update(with: transactionValue)
+    }
+    
+    public func setAssetImage(_ image: UIImage) {
+        assetImageView.image = image
     }
     
     func resetToEmptyState() {

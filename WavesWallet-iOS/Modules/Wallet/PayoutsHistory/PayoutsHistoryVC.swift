@@ -17,6 +17,7 @@ class PayoutsHistoryVC: UIViewController {
     var system: System<PayoutsHistoryState, PayoutsHistoryEvents>?
     
     @IBOutlet private weak var tableView: UITableView!
+    private let refreshControl = UIRefreshControl()
     
     private var payoutsHistoryVMs: [PayoutsHistoryState.UI.PayoutTransactionVM] = []
     
@@ -41,6 +42,13 @@ class PayoutsHistoryVC: UIViewController {
         navigationItem.barTintColor = .white
         
         do {
+            refreshControl
+                .rx
+                .controlEvent(.valueChanged)
+                .subscribe(onNext: { [weak self] in self?.system?.send(.pullToRefresh) })
+                .disposed(by: disposeBag)
+            
+            tableView.refreshControl = refreshControl
             tableView.registerCell(type: PayoutsTransactionCell.self)
             
             tableView.contentInset.bottom = Constants.tableViewBottomContentInset
@@ -51,16 +59,16 @@ class PayoutsHistoryVC: UIViewController {
     }
     
     private func bindUI(_ state: PayoutsHistoryState.UI) {
-        switch state {
-        case .dataLoadded(let viewModels):
-            self.payoutsHistoryVMs = viewModels
+        refreshControl.endRefreshing()
+        
+        switch state.state {
+        case .dataLoaded:
+            self.payoutsHistoryVMs = state.viewModels
             tableView.reloadData()
-        case .showLoadingIndicator:
-            break
-        case .hideLoadingIndicator:
-            break
-        case .loadingError(let message):
-            break
+            
+        case .isLoading: break
+        case .loadingError(let message): break
+        case .loadingMore: break
         }
     }
 }
@@ -77,20 +85,18 @@ extension PayoutsHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: PayoutsTransactionCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
-        
-        let currency = DomainLayer.DTO.Balance.Currency(title: "Bitcoin", ticker: "USDN")
-        let money = Money(8, 8)
-        let balance = DomainLayer.DTO.Balance(currency: currency, money: money)
-        let transactionValue = BalanceLabel.Model(balance: balance, sign: .plus, style: .small)
-        let viewModel = PayoutsHistoryState.UI.PayoutTransactionVM(title: "Profit",
-                                                                   details: "Details profit",
-                                                                   transactionValue: transactionValue,
-                                                                   dateText: "18 june")
+        let viewModel = payoutsHistoryVMs[indexPath.row]
         cell.configure(viewModel)
         return cell
     }
 }
 
 extension PayoutsHistoryVC: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        if indexPath.row == (payoutsHistoryVMs.count - 1), payoutsHistoryVMs.isNotEmpty {
+            system?.send(.loadMore)
+        }
+    }
 }
