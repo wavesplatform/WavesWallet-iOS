@@ -17,62 +17,207 @@ import WavesSDK
 final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEvents> {
     private let enviroment: DevelopmentConfigsRepositoryProtocol
     private let massTransferRepository: MassTransferRepositoryProtocol
+    private let authUseCase: AuthorizationUseCaseProtocol
+    private let assetUseCase: AssetsUseCaseProtocol
     
-    init(massTransferRepository: MassTransferRepositoryProtocol, enviroment: DevelopmentConfigsRepositoryProtocol) {
+    private let disposeBag = DisposeBag()
+    
+    init(massTransferRepository: MassTransferRepositoryProtocol,
+         enviroment: DevelopmentConfigsRepositoryProtocol,
+         authUseCase: AuthorizationUseCaseProtocol,
+         assetUseCase: AssetsUseCaseProtocol) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
+        self.authUseCase = authUseCase
+        self.assetUseCase = assetUseCase
     }
     
     override func internalFeedbacks() -> [(Driver<PayoutsHistoryState>) -> Signal<PayoutsHistoryEvents>] {
-        [performLoading]
+        [performLoading, loadMore]
     }
     
     override func initialState() -> PayoutsHistoryState! {
-        PayoutsHistoryState(ui: .showLoadingIndicator, core: .isLoading)
+        let coreState = PayoutsHistoryState.Core(state: .isLoading, massTransferTrait: nil)
+        let uiState = PayoutsHistoryState.UI(state: .isLoading, viewModels: [])
+        
+        return PayoutsHistoryState(ui: uiState, core: coreState)
     }
     
     override func reduce(event: PayoutsHistoryEvents, state: inout PayoutsHistoryState) {
         switch event {
-        case .performLoading:
+        case .performInitialLoading:
             break
-        case .pullToRefresh:
-            break
-        case .loadingError:
-            break
-        case .dataLoaded(let massTransfers):
-            state.core = .dataLoaded(massTransfers)
+        case .loadMore:
+            if case .dataLoaded = state.core.state, case .dataLoaded = state.ui.state {
+                let newCoreState = PayoutsHistoryState.Core(state: .loadingMore, massTransferTrait: state.core.massTransferTrait)
+                state.core = newCoreState
+                
+                let newUIState = PayoutsHistoryState.UI(state: .loadingMore, viewModels: state.ui.viewModels)
+                state.ui = newUIState
+            }
             
-            break
+        case .pullToRefresh:
+            if case .dataLoaded = state.core.state, case .dataLoaded = state.ui.state {
+                let newCoreState = PayoutsHistoryState.Core(state: .isLoading, massTransferTrait: nil)
+                state.core = newCoreState
+                
+                let newUIState = PayoutsHistoryState.UI(state: .isLoading, viewModels: state.ui.viewModels)
+                state.ui = newUIState // наверное нужно завести другое состояние
+            }
+            
+        case .loadingError(let error):
+            if case .isLoading = state.core.state, case .isLoading = state.ui.state {
+                let newCoreState = PayoutsHistoryState.Core(state: .loadingError(error), massTransferTrait: nil)
+                let newUIState = PayoutsHistoryState.UI(state: .loadingError(error.localizedDescription), viewModels: [])
+                
+                state.core = newCoreState
+                state.ui = newUIState
+            } else if case .loadingMore = state.core.state, case .loadingMore = state.core.state {
+                let newCoreState = PayoutsHistoryState.Core(state: .dataLoaded, massTransferTrait: state.core.massTransferTrait)
+                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded, viewModels: state.ui.viewModels)
+                
+                state.core = newCoreState
+                state.ui = newUIState
+            }
+            
+        case .dataLoaded(let massTransfersTrait):
+            if case .isLoading = state.core.state, case .isLoading = state.ui.state {
+                let newCoreState = PayoutsHistoryState.Core(state: .dataLoaded, massTransferTrait: massTransfersTrait)
+                state.core = newCoreState
+                
+                let viewModels = prepareTransactionViewModels(massTransfersTrait: massTransfersTrait)
+                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded, viewModels: viewModels)
+                state.ui = newUIState
+            }
+            
+        case .loadedMore(let massTransferTrait):
+            
+            if case .loadingMore = state.core.state, case .loadingMore = state.ui.state {
+                let newMassTransferTrait = state.core.massTransferTrait?.copy(massTransferTrait: massTransferTrait)
+                let newCoreState = PayoutsHistoryState.Core(state: .dataLoaded, massTransferTrait: newMassTransferTrait)
+                state.core = newCoreState
+                
+                let loadedMoreVMs = prepareTransactionViewModels(massTransfersTrait: massTransferTrait)
+                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded, viewModels: state.ui.viewModels + loadedMoreVMs)
+                state.ui = newUIState
+            }
         }
     }
     
+    private func prepareTransactionViewModels(massTransfersTrait: PayoutsHistoryState.MassTransferTrait)
+        -> [PayoutsHistoryState.UI.PayoutTransactionVM] {
+        massTransfersTrait
+            .massTransferTransactions
+            .transactions
+            .map { transaction -> PayoutsHistoryState.UI.PayoutTransactionVM in
+                let iconAsset = massTransfersTrait.assetLogo
+                let amount = transaction.transfers
+                    .filter { $0.recipient == massTransfersTrait.walletAddress }
+                    .reduce(0) { $0 + $1.amount }
+                
+                let money = Money(value: Decimal(amount), massTransfersTrait.precision ?? 0)
+                let currency = DomainLayer.DTO.Balance.Currency(title: "", ticker: massTransfersTrait.assetTicker)
+                
+                let balance = DomainLayer.DTO.Balance(currency: currency, money: money)
+                let transactionValue = BalanceLabel.Model(balance: balance, sign: .plus, style: .medium)
+                
+                let dateFormatter = DateFormatter.uiSharedFormatter(key: "PayoutsHistorySystem",
+                                                                    style: .pretty(transaction.timestamp))
+                
+                let dateText = dateFormatter.string(from: transaction.timestamp)
+                
+                return PayoutsHistoryState.UI.PayoutTransactionVM(title: "Profit",
+                                                                  iconAsset: iconAsset,
+                                                                  transactionValue: transactionValue,
+                                                                  dateText: dateText)
+            }
+    }
+}
+
+extension PayoutsHistorySystem {
+    private typealias MassTransferTuple = (DataService.Response<[DataService.DTO.MassTransferTransaction]>,
+                                           [DomainLayer.DTO.Asset],
+                                           DataService.Query.MassTransferDataQuery)
+    
     var performLoading: Feedback {
-        react(request: { state -> Bool? in
-            switch state.core {
+        react(request: { moduleState -> Bool? in
+            
+            switch moduleState.core.state {
             case .isLoading: return true
-            default: return false
+            default: return nil
             }
         }, effects: { [weak self] _ -> Signal<Event> in
             guard let self = self else { return Signal.never() }
-            
-            return self.enviroment
-                .developmentConfigs()
-                .map { _ -> DataService.Query.MassTransferDataQuery in
-                    .init(sender: "", // config.neutrinoAssetId,
-                          timeStart: nil,
-                          timeEnd: nil,
-                          recipient: "", // config.addressByPayoutsAnnualPercent,
-                          assetId: "", // config.addressByCalculateProfit,
-                          after: nil)
-                }
-                .flatMap { [weak self] query
-                    -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
-                    guard let self = self else { return Observable.never() }
-                    
-                    return self.massTransferRepository.obtainPayoutsHistory(query: query)
-                }
-                .map { payoutsHistoryResponse -> PayoutsHistoryEvents in .dataLoaded(payoutsHistoryResponse) }
-                .asSignal(onErrorJustReturn: .loadingError)
+            return self.obtainMassTransfer(lastCursor: nil)
+                .map { PayoutsHistoryEvents.dataLoaded($0) }
+                .asSignal(onErrorRecover: { error -> Signal<PayoutsHistoryEvents> in Signal.just(.loadingError(error)) })
         })
+    }
+    
+    var loadMore: Feedback {
+        react(request: { moduleState -> String? in
+            switch moduleState.core.state {
+            case .loadingMore: return moduleState.core.massTransferTrait?.massTransferTransactions.lastCursor
+            default: return nil
+            }
+        }, effects: { cursor -> Signal<Event> in
+            self.obtainMassTransfer(lastCursor: cursor)
+                .map { PayoutsHistoryEvents.loadedMore($0) }
+                .asSignal(onErrorRecover: { error -> Signal<PayoutsHistoryEvents> in Signal.just(.loadingError(error)) })
+        })
+    }
+    
+    private func obtainMassTransfer(lastCursor: String?) -> Observable<PayoutsHistoryState.MassTransferTrait> {
+        let authorizedWallet = authUseCase.authorizedWallet()
+        
+        return enviroment
+            .developmentConfigs()
+            .withLatestFrom(authorizedWallet, resultSelector: { ($0, $1) })
+            .map { config, signedWallet -> DataService.Query.MassTransferDataQuery in
+                if let staking = config.staking.first {
+                    let query = DataService.Query.MassTransferDataQuery(sender: staking.addressByPayoutsAnnualPercent,
+                                                                        timeStart: nil,
+                                                                        timeEnd: nil,
+                                                                        recipient: signedWallet.wallet.address,
+                                                                        assetId: staking.neutrinoAssetId,
+                                                                        after: lastCursor)
+                    
+                    return query
+                } else {
+                    let query = DataService.Query.MassTransferDataQuery(sender: "",
+                                                                        timeStart: nil,
+                                                                        timeEnd: nil,
+                                                                        recipient: "",
+                                                                        assetId: "",
+                                                                        after: lastCursor)
+                    return query
+                }
+            }
+            .flatMap { [weak self] query -> Observable<MassTransferTuple> in
+                guard let self = self else { return Observable.never() }
+                
+                let queryCache = Observable.just(query)
+                let massTransferTransactions = self.massTransferRepository.obtainPayoutsHistory(query: query)
+                
+                let id = query.assetId ?? ""
+                let accountAddress = query.recipient
+                let asset = self.assetUseCase.assets(by: [id], accountAddress: accountAddress)
+                
+                return Observable.zip(massTransferTransactions, asset, queryCache)
+            }
+            .map { transactions, assets, query -> PayoutsHistoryState.MassTransferTrait in
+                let isLastPage = transactions.isLastPage ?? true // дефолтное значение true чтоб не зацикливать загрузку если что
+                let lastCursor = transactions.lastCursor
+                let transactions = transactions.data
+                let massTransferTransactions = PayoutsHistoryState.Core.MassTransferTransactions(isLastPage: isLastPage,
+                                                                                                 lastCursor: lastCursor,
+                                                                                                 transactions: transactions)
+                
+                return PayoutsHistoryState.MassTransferTrait(massTransferTransactions: massTransferTransactions,
+                                                             walletAddress: query.recipient,
+                                                             assetLogo: assets.first?.iconLogo,
+                                                             precision: assets.first?.precision,
+                                                             assetTicker: assets.first?.ticker)
+            }
     }
 }
