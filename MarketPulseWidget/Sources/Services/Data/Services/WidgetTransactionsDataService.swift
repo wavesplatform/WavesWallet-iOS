@@ -35,7 +35,7 @@ final class WidgetTransactionsDataService: TransactionsDataServiceProtocol {
             .asObservable()
     }
     
-    func obtainPayoutsHistory(query: DataService.Query.MassTransferDataQuery) -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
+    func getMassTransferTransactions(query: DataService.Query.MassTransferDataQuery) -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
         Observable.never()
     }
 }

@@ -23,7 +23,7 @@ final class MassTransferRepositoryRemote: MassTransferRepositoryProtocol {
             environmentRepository
                 .servicesEnvironment()
                 .flatMap { app -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
-                    app.wavesServices.dataServices.transactionsDataService.obtainPayoutsHistory(query: query)
+                    app.wavesServices.dataServices.transactionsDataService.getMassTransferTransactions(query: query)
                 }
     }
 }
