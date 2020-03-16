@@ -11,7 +11,7 @@ import Extensions
 
 public extension DomainLayer.DTO {
     
-    struct Asset: Mutating, Equatable {
+    struct Asset: Mutating, Equatable, Hashable {
         
         public struct Icon: Equatable {
             public let assetId: String

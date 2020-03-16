@@ -103,7 +103,8 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
                         
         let amountDecimal = amount.decimalValue
         let taxFlatDecimal = Money(transferBinding.taxFlat, asset.precision).decimalValue
-        let amountTotal = amountDecimal / Decimal(transferBinding.taxRate) + taxFlatDecimal
+        
+        let amountTotal = (amountDecimal / Decimal(transferBinding.taxRate)).rounded(asset.precision, .up) + taxFlatDecimal
         let fee = amountTotal - amountDecimal
 
         return Money(value: fee, asset.precision)

@@ -81,13 +81,7 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance,
-                     address: String,
-                     amount: Money) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
-        return gateWayInfo(asset: asset.asset, address: address,
-                           amount: amount)
-    }
-    
+      
     func validateAlis(alias: String) -> Observable<Bool> {
 
         return auth
@@ -176,7 +170,7 @@ final class SendInteractor: SendInteractorProtocol {
     }
 }
 
-private extension SendInteractor {
+extension SendInteractor {
     
     func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String, amount: Money) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         

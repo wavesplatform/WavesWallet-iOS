@@ -1087,7 +1087,7 @@ private extension SendViewController {
         else if isCryptoCurrencyAsset(asset) {
             if !isValidLocalAddress {
                 if isValidCryptocyrrencyAddress {
-                    if gateWayInfo == nil {
+                    if gateWayInfo == nil {                        
                         sendEvent.accept(.getGatewayInfo(self.amount ?? Money(0, 0)))
                         showLoadingGatewayInfo(isHidden: !hasNeedReloadGateWayInfo)
                         hasNeedReloadGateWayInfo = false
