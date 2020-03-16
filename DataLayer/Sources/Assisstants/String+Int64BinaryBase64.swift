@@ -11,6 +11,7 @@ import WavesSDKCrypto
 
 extension String {
     
+    // String decode from base64 to Int64
     func decodeInt64FromBase64() -> Int64 {
         
         guard self.count > 0 else { return 0 }

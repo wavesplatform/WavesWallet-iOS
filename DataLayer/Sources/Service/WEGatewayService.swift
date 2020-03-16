@@ -10,10 +10,6 @@ import Foundation
 import Moya
 import WavesSDK
 
-//@POST("gateways/api.DispatcherManagingPublic/GetOrCreateTransferBinding")
-//fun transferBinding(@Header("Authorization") token: String,
-//                    @Body request: TransferBindingRequest): Observable<TransferBindingResponse>
-
 enum WEGateway {
     enum Service {
         case transferBinding(baseURL: URL, query: WEGateway.Query.TransferBinding)
@@ -42,7 +38,7 @@ extension WEGateway.Query {
 extension WEGateway.Service: TargetType {
     
     var sampleData: Data {
-        return Data()
+        Data()
     }
     
     var baseURL: URL {
