@@ -181,7 +181,6 @@ PODS:
     - Sentry/Core (= 4.4.0)
   - Sentry/Core (4.4.0)
   - Skeleton (0.3.1)
-  - SwiftDate (6.0.3)
   - SwiftGen (5.3.0)
   - SwiftLint (0.39.1)
   - SwiftMonkey (2.1.1)
@@ -232,7 +231,6 @@ DEPENDENCIES:
   - RxSwiftExt
   - Sentry
   - Skeleton
-  - SwiftDate
   - SwiftGen (~> 5.3.0)
   - SwiftLint
   - SwiftMonkey
@@ -299,7 +297,6 @@ SPEC REPOS:
     - RxSwiftExt
     - Sentry
     - Skeleton
-    - SwiftDate
     - SwiftGen
     - SwiftLint
     - SwiftMonkey
@@ -388,7 +385,6 @@ SPEC CHECKSUMS:
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
   Sentry: 26650184fe71eb7476dfd2737acb5ea6cc64b4b1
   Skeleton: 4b11a4aa6fb289626aa7e486f0b16b9b394d0ba4
-  SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   SwiftMonkey: aea6f2707a4b7ab5277b4d2fd2f0723a083997b1
@@ -399,6 +395,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 2814d1ade43f7e959ca87fab1d6b42c495ea0d4c
+PODFILE CHECKSUM: 321bfc51ace0251d42a5e32c3ee3c756bbe84789
 
 COCOAPODS: 1.9.0
