@@ -2461,7 +2461,7 @@ internal enum Localizable {
         /// External Source
         internal static var cryptocurrency: String { return Localizable.tr("Waves", "receive.button.cryptocurrency") }
         internal static var cryptocurrencyKey: String { return "receive.button.cryptocurrency" }
-        /// Invoice
+        /// Waves Account
         internal static var invoice: String { return Localizable.tr("Waves", "receive.button.invoice") }
         internal static var invoiceKey: String { return "receive.button.invoice" }
         /// Use total balance
@@ -2491,6 +2491,33 @@ internal enum Localizable {
         /// Select your token
         internal static var selectYourAsset: String { return Localizable.tr("Waves", "receive.label.selectYourAsset") }
         internal static var selectYourAssetKey: String { return "receive.label.selectYourAsset" }
+      }
+
+      internal enum Tootltip {
+
+        internal enum Addressoptions {
+          /// Address Options
+          internal static var title: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.title") }
+          internal static var titleKey: String { return "receive.tootltip.addressOptions.title" }
+
+          internal enum Externalsource {
+            /// Use this option for receiving funds from other exchanges and crypto-wallets.
+            internal static var subtitle: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.externalsource.subtitle") }
+            internal static var subtitleKey: String { return "receive.tootltip.addressOptions.externalsource.subtitle" }
+            /// External Source
+            internal static var title: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.externalsource.title") }
+            internal static var titleKey: String { return "receive.tootltip.addressOptions.externalsource.title" }
+          }
+
+          internal enum Wavesaccount {
+            /// Use this option to receive WAVES and Waves-based assets from another account in the Waves blockchain.
+            internal static var subtitle: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.wavesaccount.subtitle") }
+            internal static var subtitleKey: String { return "receive.tootltip.addressOptions.wavesaccount.subtitle" }
+            /// Waves Account
+            internal static var title: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.wavesaccount.title") }
+            internal static var titleKey: String { return "receive.tootltip.addressOptions.wavesaccount.title" }
+          }
+        }
       }
     }
 

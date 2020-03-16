@@ -427,7 +427,6 @@ extension SendViewController: AmountInputViewDelegate {
     func amountInputView(didChangeValue value: Money) {
         amount = value
         
-        //TODO: Test
         self.gateWayInfo = nil
         hasNeedReloadGateWayInfo = true
         validateAddress()

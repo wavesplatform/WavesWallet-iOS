@@ -100,13 +100,11 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
     private func calculateFee(asset: DomainLayer.DTO.Asset,
                               amount: Money,
                               transferBinding: DomainLayer.DTO.WEGateway.TransferBinding) -> Money {
-        
-        
-        
+                        
         let amountDecimal = amount.decimalValue
         let taxFlatDecimal = Money(transferBinding.taxFlat, asset.precision).decimalValue
-        
-        let fee = amountDecimal - ((amountDecimal - taxFlatDecimal) * Decimal(transferBinding.taxRate))
+        let amountTotal = amountDecimal / Decimal(transferBinding.taxRate) + taxFlatDecimal
+        let fee = amountTotal - amountDecimal
 
         return Money(value: fee, asset.precision)
     }

@@ -390,8 +390,8 @@
 "profile.navigation.title" = "Профиль";
 "receive.button.card" = "Карта";
 "receive.button.continue" = "Продолжить";
-"receive.button.cryptocurrency" = "Криптовалюта";
-"receive.button.invoice" = "Внутри сети";
+"receive.button.cryptocurrency" = "Внешний источник";
+"receive.button.invoice" = "Аккаунт Waves";
 "receive.button.useTotalBalance" = "Весь баланс";
 "receive.error.serviceUnavailable" = "Сервис временно недоступен";
 "receive.label.amount" = "Количество";
@@ -735,3 +735,15 @@
 "asset.cell.balance.button.trade" = "Торговать";
 "dexmarket.navigationBar.titleAsset" = "Поиск пары к";
 "trade.title" = "Торговля";
+"receiveCryptocurrency.address.default.name" = "Адрес %@";
+"receiveAddress.tootltip.title" = "Помощь";
+"receiveAddress.tootltip.btc.title" = "Форматы биткоин-адресов";
+"receiveAddress.tootltip.btc.subtitle" = "SegWit адреса начинаются с \"bc1\" и имеют меньшую комиссию за транзакции, однако, поддерживаются не везде. Legacy адреса начинаются с «1» и работают везде. Оба адреса безопасны для использования.";
+"receiveAddress.tootltip.general.title" = "Введите этот адрес в %@ клиент или кошелек";
+"receiveAddress.tootltip.general.subtitle" = "Как только транзакция будет подтверждена, шлюз отправит %@ токен на ваш аккаунт Waves.\
+Обратите внимание, что шлюз не взимает комиссию за эту операцию.";
+"receive.tootltip.addressOptions.title" = "Варианты источника";
+"receive.tootltip.addressOptions.externalsource.title" = "Внешний источник";
+"receive.tootltip.addressOptions.externalsource.subtitle" = "Используйте эту опцию для перевода средств с других бирж, крипто-кошельков и обменников.";
+"receive.tootltip.addressOptions.wavesaccount.title" = "Аккаунт Waves";
+"receive.tootltip.addressOptions.wavesaccount.subtitle" = "Используйте эту опцию для получения WAVES, а также токенов, выпущенных на блокчейне Waves, с других аккаунтов сети Waves.";
