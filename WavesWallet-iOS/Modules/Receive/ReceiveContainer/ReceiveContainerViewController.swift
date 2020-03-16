@@ -64,8 +64,8 @@ final class ReceiveContainerViewController: UIViewController {
     }
     
     private func createInfoButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarInfowhite.image, style: .plain, target: self, action: #selector(receiveAddressDidShowInfo))
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarInfowhite.image.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(receiveAddressDidShowInfo))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.black
     }
     
     
