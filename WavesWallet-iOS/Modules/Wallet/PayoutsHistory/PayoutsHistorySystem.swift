@@ -38,7 +38,7 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
     
     override func initialState() -> PayoutsHistoryState! {
         let coreState = PayoutsHistoryState.Core(state: .isLoading, massTransferTrait: nil)
-        let uiState = PayoutsHistoryState.UI(state: .isLoading, viewModels: [])
+        let uiState = PayoutsHistoryState.UI(state: .isLoading, viewModels: [], canLoadMore: false)
         
         return PayoutsHistoryState(ui: uiState, core: coreState)
     }
@@ -48,11 +48,13 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
         case .performInitialLoading:
             break
         case .loadMore:
-            if case .dataLoaded = state.core.state, case .dataLoaded = state.ui.state {
+            if case .dataLoaded = state.core.state,
+                case .dataLoaded = state.ui.state,
+                state.core.massTransferTrait?.massTransferTransactions.lastCursor != nil {
                 let newCoreState = PayoutsHistoryState.Core(state: .loadingMore, massTransferTrait: state.core.massTransferTrait)
                 state.core = newCoreState
                 
-                let newUIState = PayoutsHistoryState.UI(state: .loadingMore, viewModels: state.ui.viewModels)
+                let newUIState = PayoutsHistoryState.UI(state: .loadingMore, viewModels: state.ui.viewModels, canLoadMore: false)
                 state.ui = newUIState
             }
             
@@ -61,20 +63,26 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
                 let newCoreState = PayoutsHistoryState.Core(state: .isLoading, massTransferTrait: nil)
                 state.core = newCoreState
                 
-                let newUIState = PayoutsHistoryState.UI(state: .isLoading, viewModels: state.ui.viewModels)
+                let newUIState = PayoutsHistoryState.UI(state: .isLoading, viewModels: [], canLoadMore: false)
                 state.ui = newUIState // наверное нужно завести другое состояние
             }
             
         case .loadingError(let error):
             if case .isLoading = state.core.state, case .isLoading = state.ui.state {
                 let newCoreState = PayoutsHistoryState.Core(state: .loadingError(error), massTransferTrait: nil)
-                let newUIState = PayoutsHistoryState.UI(state: .loadingError(error.localizedDescription), viewModels: [])
+                let newUIState = PayoutsHistoryState.UI(state: .loadingError(error.localizedDescription),
+                                                        viewModels: [],
+                                                        canLoadMore: false)
                 
                 state.core = newCoreState
                 state.ui = newUIState
             } else if case .loadingMore = state.core.state, case .loadingMore = state.core.state {
                 let newCoreState = PayoutsHistoryState.Core(state: .dataLoaded, massTransferTrait: state.core.massTransferTrait)
-                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded, viewModels: state.ui.viewModels)
+                
+                let canLoadMore = state.core.massTransferTrait?.massTransferTransactions.lastCursor != nil
+                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded,
+                                                        viewModels: state.ui.viewModels,
+                                                        canLoadMore: canLoadMore)
                 
                 state.core = newCoreState
                 state.ui = newUIState
@@ -86,7 +94,9 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
                 state.core = newCoreState
                 
                 let viewModels = prepareTransactionViewModels(massTransfersTrait: massTransfersTrait)
-                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded, viewModels: viewModels)
+                
+                let canLoadMore = massTransfersTrait.massTransferTransactions.lastCursor != nil
+                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded, viewModels: viewModels, canLoadMore: canLoadMore)
                 state.ui = newUIState
             }
             
@@ -98,7 +108,11 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
                 state.core = newCoreState
                 
                 let loadedMoreVMs = prepareTransactionViewModels(massTransfersTrait: massTransferTrait)
-                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded, viewModels: state.ui.viewModels + loadedMoreVMs)
+                let canLoadMore = massTransferTrait.massTransferTransactions.lastCursor != nil
+                
+                let newUIState = PayoutsHistoryState.UI(state: .dataLoaded,
+                                                        viewModels: state.ui.viewModels + loadedMoreVMs,
+                                                        canLoadMore: canLoadMore)
                 state.ui = newUIState
             }
         }
@@ -141,7 +155,6 @@ extension PayoutsHistorySystem {
     
     var performLoading: Feedback {
         react(request: { moduleState -> Bool? in
-            
             switch moduleState.core.state {
             case .isLoading: return true
             default: return nil

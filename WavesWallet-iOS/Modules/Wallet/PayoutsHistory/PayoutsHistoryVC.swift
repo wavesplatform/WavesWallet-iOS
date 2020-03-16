@@ -11,6 +11,7 @@ import Extensions
 import RxCocoa
 import RxSwift
 import UIKit
+import WavesSDK
 
 class PayoutsHistoryVC: UIViewController {
     
@@ -19,7 +20,8 @@ class PayoutsHistoryVC: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     
-    private var payoutsHistoryVMs: [PayoutsHistoryState.UI.PayoutTransactionVM] = []
+    private var canLoadMore = false
+    private var rowItems: [RowItem] = []
     
     private let disposeBag = DisposeBag()
     
@@ -50,6 +52,7 @@ class PayoutsHistoryVC: UIViewController {
             
             tableView.refreshControl = refreshControl
             tableView.registerCell(type: PayoutsTransactionCell.self)
+            tableView.registerCell(type: PayoutsTransactionsSkeletonCell.self)
             
             tableView.contentInset.bottom = Constants.tableViewBottomContentInset
             tableView.separatorStyle = .none
@@ -59,14 +62,21 @@ class PayoutsHistoryVC: UIViewController {
     }
     
     private func bindUI(_ state: PayoutsHistoryState.UI) {
+        canLoadMore = state.canLoadMore
+        
         refreshControl.endRefreshing()
         
         switch state.state {
         case .dataLoaded:
-            self.payoutsHistoryVMs = state.viewModels
-            tableView.reloadData()
+            let rowItems = state.viewModels.map { RowItem.payoutHistoryCell($0) }
+            self.rowItems = rowItems
             
-        case .isLoading: break
+            tableView.reloadData()
+        case .isLoading:
+            let rowItems = [RowItem](repeating: .payoutsHistorySkeleton, count: 10)
+            self.rowItems = rowItems
+            
+            tableView.reloadData()
         case .loadingError(let message): break
         case .loadingMore: break
         }
@@ -81,13 +91,26 @@ extension PayoutsHistoryVC {
 
 extension PayoutsHistoryVC: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { payoutsHistoryVMs.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { rowItems.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PayoutsTransactionCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
-        let viewModel = payoutsHistoryVMs[indexPath.row]
-        cell.configure(viewModel)
-        return cell
+        
+        if let rowItem = rowItems[safe: indexPath.row] {
+            switch rowItem {
+            case .payoutHistoryCell(let viewModel):
+                let cell: PayoutsTransactionCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+                cell.configure(viewModel)
+                return cell
+            case .payoutsHistorySkeleton:
+                let cell: PayoutsTransactionsSkeletonCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+                cell.startAnimation()
+                return cell
+            case .moreLoading:
+                return UITableViewCell()
+            }
+        } else {
+            return UITableViewCell()
+        }
     }
 }
 
@@ -95,8 +118,20 @@ extension PayoutsHistoryVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
-        if indexPath.row == (payoutsHistoryVMs.count - 1), payoutsHistoryVMs.isNotEmpty {
+        
+        if let cell = cell as? PayoutsTransactionsSkeletonCell {
+            cell.startAnimation()
+        }
+        if cell is PayoutsTransactionCell, rowItems.isNotEmpty, indexPath.row == rowItems.endIndex - 1, canLoadMore {
             system?.send(.loadMore)
         }
+    }
+}
+
+extension PayoutsHistoryVC {
+    enum RowItem {
+        case payoutHistoryCell(PayoutsHistoryState.UI.PayoutTransactionVM)
+        case payoutsHistorySkeleton
+        case moreLoading
     }
 }

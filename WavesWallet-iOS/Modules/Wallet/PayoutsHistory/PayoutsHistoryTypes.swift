@@ -16,6 +16,7 @@ struct PayoutsHistoryState {
     struct UI {
         let state: State
         let viewModels: [PayoutTransactionVM]
+        let canLoadMore: Bool
         
         enum State {
             case isLoading
