@@ -46,7 +46,14 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
     override func reduce(event: PayoutsHistoryEvents, state: inout PayoutsHistoryState) {
         switch event {
         case .performInitialLoading:
-            break
+            if case .loadingError = state.core.state, case .loadingError = state.ui.state {
+                let newCoreState = PayoutsHistoryState.Core(state: .isLoading, massTransferTrait: nil)
+                let newUIState = PayoutsHistoryState.UI(state: .isLoading, viewModels: [], canLoadMore: false)
+                
+                state.core = newCoreState
+                state.ui = newUIState
+            }
+            
         case .loadMore:
             if case .dataLoaded = state.core.state,
                 case .dataLoaded = state.ui.state,

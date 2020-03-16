@@ -61,7 +61,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     
     func settings() -> Observable<MarketPulse.DTO.Settings> {
         Observable.zip(WidgetSettings.rx.currency(), widgetSettingsRepository.settings())
-            .flatMap{ currency, marketPulseSettings -> Observable<MarketPulse.DTO.Settings> in
+            .flatMap { currency, marketPulseSettings -> Observable<MarketPulse.DTO.Settings> in
                 Observable.just(MarketPulse.DTO.Settings(currency: currency,
                                                          isDarkMode: marketPulseSettings.isDarkStyle,
                                                          inverval: marketPulseSettings.interval))

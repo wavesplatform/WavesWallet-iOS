@@ -77,7 +77,14 @@ class PayoutsHistoryVC: UIViewController {
             self.rowItems = rowItems
             
             tableView.reloadData()
-        case .loadingError(let message): break
+        case .loadingError(let message):
+            var keySnackBar: String = ""
+            let didTap: () -> Void = { [weak self] in
+                self?.system?.send(.performInitialLoading)
+                self?.hideSnack(key: keySnackBar)
+            }
+            
+            keySnackBar = showErrorSnack(title: message, didTap: didTap)
         case .loadingMore: break
         }
     }

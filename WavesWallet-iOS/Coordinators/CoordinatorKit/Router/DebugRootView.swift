@@ -90,13 +90,10 @@ final class DebugWindow: UIWindow {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hitView = super.hitTest(point, with: event)
         
-        if (hitView?.isKind(of: DebugView.self) ?? false) == true {
-            return nil
-        }
+        let isKindDebugView = hitView?.isKind(of: DebugView.self) ?? false
+        if isKindDebugView { return nil }
         
-        if hitView is DebugRootView {
-            return nil
-        }
+        if hitView is DebugRootView { return nil }
         
         return hitView
     }

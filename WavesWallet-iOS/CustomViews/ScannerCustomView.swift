@@ -85,7 +85,9 @@ final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
             toggleTorchButton?.setImage(UIImage(named: "topbarFlashOff"), for: .normal)
             toggleTorchButton?.addTarget(self, action: #selector(changeStateToogle), for: .touchUpInside)
             toggleTorchButton?.frame = CGRect(x: Platform.ScreenWidth - 50,
-                                              y: Platform.isIphoneXSeries ? 41 : 21, width: 40, height: 40)
+                                              y: Platform.isIphoneXSeries ? 41 : 21,
+                                              width: 40,
+                                              height: 40)
             addSubview(toggleTorchButton!)
         }
         

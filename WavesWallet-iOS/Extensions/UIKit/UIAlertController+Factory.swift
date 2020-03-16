@@ -16,7 +16,7 @@ extension UIAlertController {
                                                 preferredStyle: .alert)
 
         let settingsTitle = Localizable.Waves.Profile.Alert.Setupbiometric.Button.settings
-        let settingsAction = UIAlertAction(title: settingsTitle, style: .default) { (_) -> Void in
+        let settingsAction = UIAlertAction(title: settingsTitle, style: .default) { _ -> Void in
 
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return

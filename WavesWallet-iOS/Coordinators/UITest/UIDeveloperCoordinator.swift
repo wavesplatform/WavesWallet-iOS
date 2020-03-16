@@ -33,11 +33,7 @@ final class UIDeveloperCoordinator: Coordinator {
         
         let vc = builder.build(input: Void())
         self.navigationRouter.pushViewController(vc)
-        self.windowRouter.setRootViewController(self.navigationRouter.viewController,
-                                                animated: .none,
-                                                completion: {
-
-        })
+        self.windowRouter.setRootViewController(self.navigationRouter.viewController, animated: .none)
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
             self.coordinator.start()
