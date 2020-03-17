@@ -127,7 +127,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     }
 }
 
-//MARK: - FeedBack
+// MARK: - FeedBack
 
 extension MarketPulseWidgetViewController {
     
@@ -177,7 +177,7 @@ extension MarketPulseWidgetViewController {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension MarketPulseWidgetViewController {
     
     func hideError() {
@@ -255,7 +255,7 @@ private extension MarketPulseWidgetViewController {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension MarketPulseWidgetViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -267,7 +267,7 @@ extension MarketPulseWidgetViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension MarketPulseWidgetViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -283,7 +283,7 @@ extension MarketPulseWidgetViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - NCWidgetProviding
+// MARK: - NCWidgetProviding
 extension MarketPulseWidgetViewController: NCWidgetProviding {
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {

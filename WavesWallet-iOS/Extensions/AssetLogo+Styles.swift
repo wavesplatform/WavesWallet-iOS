@@ -10,7 +10,16 @@ import Foundation
 import Extensions
 
 extension AssetLogo.Style {
-        
+    
+    static var tiny: AssetLogo.Style = {
+        return AssetLogo.Style.init(size: CGSize(width: 18, height: 18),
+                                    font: UIFont.systemFont(ofSize: 12),
+                                    specs: .init(sponsoredImage: Images.sponsoritem18White.image,
+                                                 scriptImage: Images.scriptasset18White.image,
+                                                 size: CGSize(width: 10,
+                                                              height: 10)))
+    }()
+    
     static var litle: AssetLogo.Style = {
         return AssetLogo.Style.init(size: CGSize(width: 24, height: 24),
                                     font: UIFont.systemFont(ofSize: 15),

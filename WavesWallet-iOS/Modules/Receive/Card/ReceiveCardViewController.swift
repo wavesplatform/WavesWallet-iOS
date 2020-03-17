@@ -119,7 +119,7 @@ final class ReceiveCardViewController: UIViewController {
 }
 
 
-//MARK: - FeedBack
+// MARK: - FeedBack
 private extension ReceiveCardViewController {
     
     func setupFeedBack() {
@@ -175,7 +175,7 @@ private extension ReceiveCardViewController {
     }
 }
 
-//MARK: - MoneyTextFieldDelegate
+// MARK: - MoneyTextFieldDelegate
 extension ReceiveCardViewController: MoneyTextFieldDelegate {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         
@@ -189,7 +189,7 @@ extension ReceiveCardViewController: MoneyTextFieldDelegate {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension ReceiveCardViewController {
     
     func hideLoadingmountWaves(amount: Money?) {

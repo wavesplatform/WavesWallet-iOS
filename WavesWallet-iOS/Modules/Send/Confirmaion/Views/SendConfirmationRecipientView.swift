@@ -57,7 +57,7 @@ extension SendConfirmationRecipientView: ViewConfiguration {
 }
 
 
-//MARK: - Change frame
+// MARK: - Change frame
 
 private extension SendConfirmationRecipientView {
     

@@ -13,7 +13,7 @@ public extension DomainLayer.DTO {
     enum Dex {}
 }
 
-//MARK: Asset
+// MARK: Asset
 public extension DomainLayer.DTO.Dex {
     
     struct Asset: Equatable {
@@ -38,7 +38,7 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: LastTrade
+// MARK: LastTrade
 public extension DomainLayer.DTO.Dex {
     
     struct LastTrade {
@@ -58,7 +58,7 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: - FavoritePair
+// MARK: - FavoritePair
 public extension DomainLayer.DTO.Dex {
     
     struct FavoritePair: Equatable {
@@ -80,7 +80,7 @@ public extension DomainLayer.DTO.Dex {
 
 }
 
-//MARK: - SavePair
+// MARK: - SavePair
 public extension DomainLayer.DTO.Dex {
     
     struct SavePair {
@@ -97,7 +97,7 @@ public extension DomainLayer.DTO.Dex {
         }
     }
 }
-//MARK: - SmartPair
+// MARK: - SmartPair
 public extension DomainLayer.DTO.Dex {
     
     struct SmartPair: Mutating {
@@ -134,7 +134,7 @@ public extension DomainLayer.DTO.Dex {
 }
 
 
-//MARK: - Pair
+// MARK: - Pair
 public extension DomainLayer.DTO.Dex {
     
     struct Pair {
@@ -190,7 +190,7 @@ public extension DomainLayer.DTO.Dex {
     
 }
 
-//MARK: - PairPrice
+// MARK: - PairPrice
 public extension DomainLayer.DTO.Dex {
     struct PairPrice {
         public let id: String
@@ -213,7 +213,7 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: - PairRate
+// MARK: - PairRate
 public extension DomainLayer.DTO.Dex {
     
     struct PairRate {
@@ -229,7 +229,7 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: - MyOrder
+// MARK: - MyOrder
 
 public extension DomainLayer.DTO.Dex {
     
@@ -277,7 +277,7 @@ public extension DomainLayer.DTO.Dex {
     
 }
 
-//MARK: - OrderBook
+// MARK: - OrderBook
 public extension DomainLayer.DTO.Dex {
     
     struct OrderBook {
@@ -303,7 +303,7 @@ public extension DomainLayer.DTO.Dex {
 }
 
 
-//MARK: - SettingsOrderFee
+// MARK: - SettingsOrderFee
 
 public extension DomainLayer.DTO.Dex {
 
@@ -329,7 +329,7 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: - SmartSettingsOrderFee
+// MARK: - SmartSettingsOrderFee
 
 public extension DomainLayer.DTO.Dex {
     

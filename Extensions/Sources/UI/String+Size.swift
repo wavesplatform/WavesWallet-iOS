@@ -11,12 +11,12 @@ import UIKit
 
 public extension String {
 
-    public func maxHeight(font: UIFont, forWidth: CGFloat) -> CGFloat {
+    func maxHeight(font: UIFont, forWidth: CGFloat) -> CGFloat {
         let text = self as NSString
         return ceil(text.boundingRect(with: CGSize(width: forWidth, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.height)
     }
     
-    public func maxHeightMultiline(font: UIFont, forWidth: CGFloat) -> CGFloat {
+    func maxHeightMultiline(font: UIFont, forWidth: CGFloat) -> CGFloat {
         let style = NSMutableParagraphStyle()
         style.lineBreakMode = .byWordWrapping
         
@@ -30,7 +30,7 @@ public extension String {
         return ceil(rect.height)
     }
     
-    public func maxWidth(font: UIFont) -> CGFloat {
+    func maxWidth(font: UIFont) -> CGFloat {
         let text = self as NSString
         return ceil(text.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.width)
     }        

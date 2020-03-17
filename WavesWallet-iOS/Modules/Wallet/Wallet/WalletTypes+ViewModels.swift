@@ -14,6 +14,11 @@ import DomainLayer
 
 extension WalletTypes.ViewModel {
     enum Row {
+        enum HistoryCellType {
+            case leasing
+            case staking
+        }
+        
         case search
         case hidden
         case asset(DomainLayer.DTO.SmartAssetBalance)
@@ -22,8 +27,13 @@ extension WalletTypes.ViewModel {
         case historySkeleton
         case balance(WalletTypes.DTO.Leasing.Balance)
         case leasingTransaction(DomainLayer.DTO.SmartTransaction)
-        case allHistory
+        case historyCell(HistoryCellType)
         case quickNote
+        case stakingBalance(WalletTypes.DTO.Staking.Balance)
+        case stakingLastPayoutsTitle
+        case stakingLastPayouts([WalletTypes.DTO.Staking.Payout])
+        case emptyHistoryPayouts
+        case landing(WalletTypes.DTO.Staking.Landing)
     }
 
     struct Section {
@@ -37,6 +47,8 @@ extension WalletTypes.ViewModel {
             case general
             case spam(count: Int)
             case hidden(count: Int)
+            case staking(WalletTypes.DTO.Staking.Profit)
+            case landing
         }
 
         var kind: Kind
@@ -108,7 +120,7 @@ extension WalletTypes.ViewModel.Section {
         var sections: [WalletTypes.ViewModel.Section] = []
 
         let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
-        let historyRow = WalletTypes.ViewModel.Row.allHistory
+        let historyRow = WalletTypes.ViewModel.Row.historyCell(.leasing)
         let mainSection: WalletTypes.ViewModel.Section = .init(kind: .balance,
                                                                items: [balanceRow, historyRow],
                                                                isExpanded: true)
@@ -131,6 +143,28 @@ extension WalletTypes.ViewModel.Section {
                                                                isExpanded: false)
         sections.append(noteSection)
         return sections
+    }
+    
+    static func map(from staking: WalletTypes.DTO.Staking, hasSkingLanding: Bool) -> [WalletTypes.ViewModel.Section] {
+    
+        var rows: [WalletTypes.ViewModel.Row] = []
+        
+        if let landing = staking.landing, hasSkingLanding == false {
+            rows.append(.landing(landing))
+            return [.init(kind: .landing, items: rows, isExpanded: true)]
+        }
+        
+        rows.append(.stakingBalance(staking.balance))
+        rows.append(.stakingLastPayoutsTitle)
+                
+        if staking.lastPayouts.count > 0 {
+            rows.append(.stakingLastPayouts(staking.lastPayouts))
+            rows.append(.historyCell(.staking))
+        } else {
+            rows.append(.emptyHistoryPayouts)
+        }
+        
+        return [.init(kind: .staking(staking.profit), items: rows, isExpanded: true)]
     }
 }
 

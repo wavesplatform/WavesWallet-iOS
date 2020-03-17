@@ -86,7 +86,7 @@ fileprivate extension DexLastTradesViewController {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension DexLastTradesViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,7 +105,7 @@ extension DexLastTradesViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 
 private extension DexLastTradesViewController {
     
@@ -128,7 +128,7 @@ private extension DexLastTradesViewController {
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 
 private extension DexLastTradesViewController {
     
@@ -169,7 +169,7 @@ private extension DexLastTradesViewController {
 
 
 
-//MARK: - UI Settings
+// MARK: - UI Settings
 private extension DexLastTradesViewController {
     
     var sellTitle: String {

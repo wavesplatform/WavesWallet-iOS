@@ -110,9 +110,11 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
 }
 
 private extension AssetsBalanceSettingsUseCase {
-    
-    //TODO: Refactor method
-    func assetSettings(assets: [DomainLayer.DTO.Asset], ids: [String], accountAddress: String, environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
+        
+    func assetSettings(assets: [DomainLayer.DTO.Asset],
+                       ids: [String],
+                       accountAddress: String,
+                       environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
         
         let spamIds = assets.reduce(into: [String: Bool](), {$0[$1.id] = $1.isSpam })
 

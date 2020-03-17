@@ -26,7 +26,7 @@ final class ImportCoordinator: Coordinator {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private var currentPrivateKeyAccount: PrivateKeyAccount?
+    private var currentPrivateKeyAccount: DomainLayer.DTO.PrivateKey?
     
 
     init(navigationRouter: NavigationRouter, completed: @escaping ((ImportTypes.DTO.Account) -> Void)) {
@@ -54,7 +54,7 @@ final class ImportCoordinator: Coordinator {
             return
         }
 
-        let privateKeyAccount = PrivateKeyAccount(seedStr: seed)
+        let privateKeyAccount = DomainLayer.DTO.PrivateKey(seedStr: seed)
 
         auth
             .existWallet(by: privateKeyAccount.getPublicKeyStr())
@@ -80,7 +80,7 @@ final class ImportCoordinator: Coordinator {
         addChildCoordinatorAndStart(childCoordinator: qrcode)
     }
     
-    func showAccountPassword(_ keyAccount: PrivateKeyAccount) {
+    func showAccountPassword(_ keyAccount: DomainLayer.DTO.PrivateKey) {
 
         currentPrivateKeyAccount = keyAccount
         let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
@@ -101,7 +101,7 @@ extension ImportCoordinator: ImportAccountViewControllerDelegate {
 // MARK: ImportWelcomeBackViewControllerDelegate
 extension ImportCoordinator: ImportWelcomeBackViewControllerDelegate {
     
-    func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount) {
+    func userCompletedInputSeed(_ keyAccount: DomainLayer.DTO.PrivateKey) {
         currentPrivateKeyAccount = keyAccount
         showAccountPassword(keyAccount)
     }

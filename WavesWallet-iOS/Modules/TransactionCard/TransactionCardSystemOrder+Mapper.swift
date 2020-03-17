@@ -44,13 +44,13 @@ extension DomainLayer.DTO.Dex.MyOrder {
                                                      style: .small))))
         
         let rowOrderModel = TransactionCardOrderCell.Model(amount: .init(balance: amountBalance,
-                                                                         sign: .none,
+                                                                         sign: nil,
                                                                          style: .small),
                                                            price: .init(balance: priceBalance,
-                                                                        sign: .none,
+                                                                        sign: nil,
                                                                         style: .small),
                                                            total: .init(balance: totalBalance,
-                                                                        sign: .none,
+                                                                        sign: nil,
                                                                         style: .small))
 
         rows.append(contentsOf:[.order(rowOrderModel)])

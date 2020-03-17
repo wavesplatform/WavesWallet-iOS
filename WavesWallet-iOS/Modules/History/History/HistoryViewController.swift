@@ -121,7 +121,7 @@ final class HistoryViewController: UIViewController {
     }
 }
 
-//MARK: - MainTabBarControllerProtocol
+// MARK: - MainTabBarControllerProtocol
 extension HistoryViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }

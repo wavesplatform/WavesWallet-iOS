@@ -113,7 +113,7 @@ class TradeCoordinator: Coordinator {
     }
 }
 
-//MARK: - TradeModuleOutput
+// MARK: - TradeModuleOutput
 extension TradeCoordinator: TradeModuleOutput {
     
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
@@ -136,7 +136,7 @@ extension TradeCoordinator: TradeModuleOutput {
     }
 }
 
-//MARK: -  DexTraderContainerModuleOutput
+// MARK: -  DexTraderContainerModuleOutput
 extension TradeCoordinator: DexTraderContainerModuleOutput {
     
     func showInfo(pair: DexInfoPair.DTO.Pair) {
@@ -149,7 +149,7 @@ extension TradeCoordinator: DexTraderContainerModuleOutput {
 }
 
 
-//MARK: - DexLastTradesModuleOutput
+// MARK: - DexLastTradesModuleOutput
 extension TradeCoordinator: DexLastTradesModuleOutput {
     
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, scriptedAssets: [DomainLayer.DTO.Asset]) {
@@ -176,7 +176,7 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
     }
 }
 
-//MARK: - DexOrderBookModuleOutput
+// MARK: - DexOrderBookModuleOutput
 extension TradeCoordinator:  DexOrderBookModuleOutput {
     
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxSum: Bool, scriptedAssets: [DomainLayer.DTO.Asset]) {
@@ -206,7 +206,7 @@ extension TradeCoordinator:  DexOrderBookModuleOutput {
     }
 }
 
-//MARK: - CreateOrderController
+// MARK: - CreateOrderController
 private extension TradeCoordinator {
     
     func showCreateOrderController(amountAsset: DomainLayer.DTO.Dex.Asset,
@@ -270,7 +270,7 @@ private extension TradeCoordinator {
     }
 }
 
-//MARK: - DexCreateOrderModuleOutput
+// MARK: - DexCreateOrderModuleOutput
 extension TradeCoordinator: DexCreateOrderModuleOutput {
     func dexCreateOrderDidDismisAlert() {
         dexCreateOrderPopup.dismiss(animated: true, completion: nil)
@@ -317,7 +317,7 @@ extension TradeCoordinator: DexCreateOrderModuleOutput {
     }
 }
 
-//MARK: - DexMyOrdersModuleOutput
+// MARK: - DexMyOrdersModuleOutput
 extension TradeCoordinator: DexMyOrdersModuleOutput {
     func myOrderDidCancel() {
         for controller in containerControllers {
@@ -328,7 +328,7 @@ extension TradeCoordinator: DexMyOrdersModuleOutput {
     }
 }
 
-//MARK: - DexScriptAssetMessageModuleOutput
+// MARK: - DexScriptAssetMessageModuleOutput
 extension TradeCoordinator: DexScriptAssetMessageModuleOutput {
   
     func dexScriptAssetMessageModuleOutputDidTapCheckmark(amountAsset: String, priceAsset: String, doNotShow: Bool) {
@@ -344,7 +344,7 @@ extension TradeCoordinator: DexScriptAssetMessageModuleOutput {
     }
 }
 
-//MARK: - DexCreateOrderInfoModuleBuilderOutput
+// MARK: - DexCreateOrderInfoModuleBuilderOutput
 extension TradeCoordinator: DexCreateOrderInfoModuleBuilderOutput {
  
     func dexCreateOrderInfoDidTapClose() {

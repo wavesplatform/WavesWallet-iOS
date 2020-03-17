@@ -116,6 +116,46 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
+
+    func showPayoutsHistory() {
+        print("showPayoutsHistory")
+    }
+    
+    func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
+        print("payout tapped", payout)
+    }
+    
+    func openTw(sharedText: String) {
+        print(sharedText)
+    }
+    
+    func openVk(sharedText: String) {
+        print(sharedText)
+    }
+    
+    func openFb(sharedText: String) {
+        print(sharedText)
+    }
+    
+    func openTrade() {
+        print("openTrade")
+    }
+    
+    func openBuy() {
+        print("openBuy")
+    }
+    
+    func openDeposit() {
+        print("openDeposit")
+    }
+    
+    func openWithdraw() {
+        print("openWithdraw")
+    }
+    
+    func openStakingFaq() {
+        BrowserViewController.openURL(URL(string: UIGlobalConstants.URL.stakingFaq)!)
+    }
     
     func openAppStore() {
         
@@ -198,7 +238,7 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 }
 
-//MARK: - WalletSearchViewControllerDelegate
+// MARK: - WalletSearchViewControllerDelegate
 extension WalletCoordinator: WalletSearchViewControllerDelegate {
     
     func walletSearchViewControllerDidTapCancel(_ searchController: WalletSearchViewController) {
@@ -260,7 +300,7 @@ extension WalletCoordinator: AssetDetailModuleOutput {
     }
 }
 
-//MARK: - TransactionCardCoordinatorDelegate
+// MARK: - TransactionCardCoordinatorDelegate
 extension WalletCoordinator: TransactionCardCoordinatorDelegate {
     func transactionCardCoordinatorCanceledLeasing() {
         walletViewContoller.viewWillAppear(false)

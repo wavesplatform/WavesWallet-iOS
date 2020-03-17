@@ -62,7 +62,7 @@ final class DexCreateOrderSegmentedControl: UIView, NibOwnerLoadable {
     }
 }
 
-//MARK: - Setup
+// MARK: - Setup
 private extension DexCreateOrderSegmentedControl {
     
     func setupViewPositionOffset(animation: Bool) {
@@ -79,7 +79,7 @@ private extension DexCreateOrderSegmentedControl {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexCreateOrderSegmentedControl {    
     
     @IBAction func buyTapped(_ sender: UIButton) {

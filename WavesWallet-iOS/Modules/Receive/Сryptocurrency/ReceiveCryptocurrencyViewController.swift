@@ -132,7 +132,7 @@ private extension ReceiveCryptocurrencyViewController {
 
 
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 private extension ReceiveCryptocurrencyViewController {
     
    
@@ -177,7 +177,7 @@ private extension ReceiveCryptocurrencyViewController {
     }
 }
 
-//MARK: - ReceiveAssetViewDelegate
+// MARK: - ReceiveAssetViewDelegate
 extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
     
     func assetViewDidTapChangeAsset() {

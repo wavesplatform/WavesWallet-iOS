@@ -69,7 +69,7 @@ final class SearchBarView: UIView, NibOwnerLoadable {
     
 }
 
-//MARK: UITextFieldDelegate
+// MARK: UITextFieldDelegate
 extension SearchBarView: UITextFieldDelegate {
     
     
@@ -87,7 +87,7 @@ extension SearchBarView: UITextFieldDelegate {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 
 private extension SearchBarView {
     

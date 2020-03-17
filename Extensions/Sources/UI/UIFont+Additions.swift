@@ -14,51 +14,51 @@ public extension UIFont {
         return UIFont.systemFont(ofSize: 34.0, weight: .bold)
     }
 
-    public class var titleH2: UIFont {
+    class var titleH2: UIFont {
         return UIFont.systemFont(ofSize: 22.0, weight: .bold)
     }
 
-    public class var headlineRegular: UIFont {
+    class var headlineRegular: UIFont {
         return UIFont.systemFont(ofSize: 22.0, weight: .regular)
     }
 
-    public class var headlineSemibold: UIFont {
+    class var headlineSemibold: UIFont {
         return UIFont.systemFont(ofSize: 17.0, weight: .semibold)
     }
 
-    public class var bodyRegular: UIFont {
+    class var bodyRegular: UIFont {
         return UIFont.systemFont(ofSize: 17.0, weight: .regular)
     }
 
-    public class var bodySemibold: UIFont {
+    class var bodySemibold: UIFont {
         return UIFont.systemFont(ofSize: 17.0, weight: .semibold)
     }
 
-    public class var actionSheetRegular: UIFont {
+    class var actionSheetRegular: UIFont {
         return UIFont.systemFont(ofSize: 20.0, weight: .regular)
     }
 
-    public class var actionSheetSemibold: UIFont {
+    class var actionSheetSemibold: UIFont {
         return UIFont.systemFont(ofSize: 20.0, weight: .semibold)
     }
 
-    public class var passcodeRegular: UIFont {
+    class var passcodeRegular: UIFont {
         return UIFont.systemFont(ofSize: 36, weight: .regular)
     }
 
-    public class var captionRegular: UIFont {
+    class var captionRegular: UIFont {
         return UIFont.systemFont(ofSize: 13, weight: .regular)
     }
 
-    public class var captionSemibold: UIFont {
+    class var captionSemibold: UIFont {
         return UIFont.systemFont(ofSize: 13, weight: .regular)
     }
 
-    public class var tagRegular: UIFont {
+    class var tagRegular: UIFont {
         return UIFont.systemFont(ofSize: 10, weight: .regular)
     }
 
-    public class var tabBarRegular: UIFont {
+    class var tabBarRegular: UIFont {
         return UIFont.systemFont(ofSize: 10, weight: .regular)
     }
     

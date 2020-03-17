@@ -95,7 +95,7 @@ final class DexTraderContainerSegmentedControl: UIView, NibOwnerLoadable {
     
 }
 
-//MARK - Localization
+// MARK - Localization
 private extension DexTraderContainerSegmentedControl {
     func setupLocalization() {
         buttonOrderBook.setTitle(Localizable.Waves.Dextradercontainer.Button.orderbook, for: .normal)
@@ -105,7 +105,7 @@ private extension DexTraderContainerSegmentedControl {
     }
 }
 
-//MARK - Setup UI
+// MARK - Setup UI
 private extension DexTraderContainerSegmentedControl {
     
     func setupButtonsState() {
@@ -167,7 +167,7 @@ private extension DexTraderContainerSegmentedControl {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexTraderContainerSegmentedControl {
     
     @IBAction func actionTapped(_ sender: UIButton) {

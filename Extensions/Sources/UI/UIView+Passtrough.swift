@@ -17,13 +17,13 @@ public extension UIView {
         static var isEnabledPassthroughSubviews = "isEnabledPassthroughSubviews"
     }
 
-    public static func passtroughInit() {
+    static func passtroughInit() {
         Runtime.swizzle(for: self,
                         original: #selector(hitTest(_:with:)),
                         swizzled: #selector(swizzledHitTest(_:with:)))
     }
     
-    public var isEnabledPassthroughSubviews: Bool {
+    var isEnabledPassthroughSubviews: Bool {
 
         get {
             return associatedObject(for: &AssociatedKeys.isEnabledPassthroughSubviews) ?? false
@@ -40,7 +40,7 @@ public extension UIView {
         }
     }
 
-    public var passthroughFrame: CGRect? {
+    var passthroughFrame: CGRect? {
 
         get {
             if let value: NSValue = associatedObject(for: &AssociatedKeys.passthroughFrame) {
@@ -66,7 +66,7 @@ public extension UIView {
         }
     }
 
-    @IBInspectable public  var shouldPassthroughTouch: Bool {
+    @IBInspectable var shouldPassthroughTouch: Bool {
 
         get {
             return associatedObject(for: &AssociatedKeys.shouldPassthroughTouch) ?? false

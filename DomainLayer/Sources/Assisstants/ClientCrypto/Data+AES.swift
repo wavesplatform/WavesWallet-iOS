@@ -58,7 +58,7 @@ public extension Data {
             let dataBytes = dataBase58[AES.blockSize..<dataBase58.count]
             let decrypt = try aes.decrypt(dataBytes)
 
-            return Data(bytes: decrypt)
+            return Data(decrypt)
 
         } catch let error {
             print(error)

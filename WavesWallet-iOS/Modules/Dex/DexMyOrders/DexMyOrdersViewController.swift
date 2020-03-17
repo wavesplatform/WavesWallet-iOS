@@ -71,7 +71,7 @@ final class DexMyOrdersViewController: UIViewController {
     }
 }
 
-//MARK: - DexSegmentedControlDelegate
+// MARK: - DexSegmentedControlDelegate
 extension DexMyOrdersViewController: DexSegmentedControlDelegate {
     func dexSegmentedControlDidChangeIndex(_ index: Int) {
         guard let status = DexMyOrders.ViewModel.Status(rawValue: index) else { return }
@@ -79,7 +79,7 @@ extension DexMyOrdersViewController: DexSegmentedControlDelegate {
     }
 }
 
-//MARK: - DexCreateOrderProtocol
+// MARK: - DexCreateOrderProtocol
 extension DexMyOrdersViewController: DexCreateOrderProtocol {
     
     func updateCreatedOrders() {
@@ -140,7 +140,7 @@ fileprivate extension DexMyOrdersViewController {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexMyOrdersViewController {
     
     func deleteAt(indexPath: IndexPath) {
@@ -154,7 +154,7 @@ private extension DexMyOrdersViewController {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension DexMyOrdersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -168,7 +168,7 @@ extension DexMyOrdersViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -188,7 +188,7 @@ extension DexMyOrdersViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 
 private extension DexMyOrdersViewController {
     
@@ -218,7 +218,7 @@ private extension DexMyOrdersViewController {
     }
 }
 
-//MARK: - TransactionCardCoordinator
+// MARK: - TransactionCardCoordinator
 
 extension DexMyOrdersViewController: TransactionCardCoordinatorDelegate {
 

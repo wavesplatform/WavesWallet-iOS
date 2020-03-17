@@ -28,9 +28,6 @@ final class MobileKeeperCoordinator: Coordinator {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
-        guard let self = self else { return }
-    }
     private let request: DomainLayer.DTO.MobileKeeper.Request
     
     private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository

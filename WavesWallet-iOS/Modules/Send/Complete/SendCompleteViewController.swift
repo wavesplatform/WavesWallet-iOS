@@ -94,7 +94,7 @@ final class SendCompleteViewController: UIViewController {
     }
 }
 
-//MARK: - AddAddressBookModuleOutput
+// MARK: - AddAddressBookModuleOutput
 
 extension SendCompleteViewController: AddAddressBookModuleOutput {
     func addAddressBookDidCreate(contact: DomainLayer.DTO.Contact) {

@@ -68,7 +68,7 @@ final class ReceiveInvoiceViewController: UIViewController {
     }
 }
 
-//MARK: - AssetSelectView
+// MARK: - AssetSelectView
 extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
     
     // TODO: Coordinator
@@ -89,8 +89,16 @@ extension ReceiveInvoiceViewController: AssetListModuleOutput {
     }
 }
 
+// MARK: - MoneyTextFieldDelegate
+extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
 
-//MARK: - UI
+    func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
+        amount = value
+        updateDisplayInfo()
+    }
+}
+
+// MARK: - UI
 private extension ReceiveInvoiceViewController {
     
     

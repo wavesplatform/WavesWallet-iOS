@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: - TokenBurn
+// MARK: - TokenBurn
 public extension AnalyticManagerEvent {
     enum TokenBurn: String {
         

@@ -50,7 +50,7 @@ final class WalletSortViewController: UIViewController {
     }
 }
 
-//MARK: - WalletSortSegmentedControlDelegate
+// MARK: - WalletSortSegmentedControlDelegate
 extension WalletSortViewController: WalletSortSegmentedControlDelegate {
     
     func walletSortSegmentedControlDidChangeStatus(_ status: WalletSort.Status) {
@@ -73,7 +73,7 @@ extension WalletSortViewController: WalletSortSegmentedControlDelegate {
     }
 }
 
-//MARK: - RXFeedBack
+// MARK: - RXFeedBack
 private extension WalletSortViewController {
     
     func setupFeedBack() {
@@ -148,7 +148,7 @@ private extension WalletSortViewController {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension WalletSortViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -210,7 +210,7 @@ extension WalletSortViewController: UITableViewDelegate {
     
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension WalletSortViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -286,7 +286,7 @@ extension WalletSortViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension WalletSortViewController {
  
     func isEmptySection(at indexPath: IndexPath) -> Bool {

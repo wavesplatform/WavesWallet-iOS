@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: - Leasing
+// MARK: - Leasing
 public extension AnalyticManagerEvent {
     enum WalletLeasing: String {
         

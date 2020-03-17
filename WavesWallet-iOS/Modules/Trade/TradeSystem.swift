@@ -183,7 +183,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     }
 }
 
-//MARK: - Feedback Query
+// MARK: - Feedback Query
 private extension TradeSystem {
     
     func favoritePairsQuery() -> Feedback {

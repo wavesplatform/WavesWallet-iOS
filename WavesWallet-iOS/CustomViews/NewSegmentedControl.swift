@@ -16,7 +16,6 @@ private enum Constants {
     static let unselectedColor = UIColor.basic500
     static let titleEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
     static let imageEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
-
     static let lineWidth: CGFloat = 14
     static let lineHeight: CGFloat = 2
     static let lineCorner: CGFloat = 1.25
@@ -25,8 +24,15 @@ private enum Constants {
     
     static let animationDuration: TimeInterval = 0.3
     
-    
+    enum Ticker {
+        static let font = UIFont.boldSystemFont(ofSize: 9)
+        static let height: CGFloat = 17
+        static let offsetAfterTitle: CGFloat = 4
+        static let deltaWidth: CGFloat = 12
+        static let cornerRadius: CGFloat = 2
+    }
     enum Shadow {
+        
         static let height: CGFloat = 4
         static let opacity: Float = 0.1
         static let shadowRadius: Float = 3
@@ -45,7 +51,7 @@ final class NewSegmentedControl: UIScrollView {
     weak var segmentedDelegate: NewSegmentedControlDelegate?
     
     var isNeedShowBottomShadow: Bool =  true
-
+    
     enum SegmentedItem {
         
         struct Image {
@@ -53,8 +59,14 @@ final class NewSegmentedControl: UIScrollView {
             let selected: UIImage
         }
         
+        struct Ticker {
+            let title: String
+            let ticker: String
+        }
+        
         case title(String)
         case image(Image)
+        case ticker(Ticker)
     }
       
     var items: [SegmentedItem] = [] {
@@ -71,26 +83,10 @@ final class NewSegmentedControl: UIScrollView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        var offset: CGFloat = Constants.startOffset
         for button in titleButtons {
-            
-            var width: CGFloat = 0
-            
-            if let title = button.title(for: .normal) {
-                width = title.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
-            }
-            else if let image = button.image(for: .normal) {
-                width = image.size.width + Constants.deltaTitleWidth
-            }
-            
-            button.frame = .init(x: offset, y: 0, width: width, height: frame.size.height)
-            offset = button.frame.origin.x + button.frame.size.width
+           button.frame.size.height = frame.size.height
         }
-        
-        if let subView = titleButtons.last {
-            contentSize.width = subView.frame.origin.x + subView.frame.size.width
-        }
-        
+
         setupLinePosition(animation: false)
     }
     
@@ -105,7 +101,7 @@ final class NewSegmentedControl: UIScrollView {
 
 }
 
-//MARK: - Methods
+// MARK: - Methods
 extension NewSegmentedControl {
     
     func setSelectedIndex(_ index: Int, animation: Bool) {
@@ -157,7 +153,7 @@ private extension NewSegmentedControl {
         for view in subviews {
             view.removeFromSuperview()
         }
-
+        
         var offset: CGFloat = Constants.startOffset
         for (index, item) in items.enumerated() {
 
@@ -177,6 +173,33 @@ private extension NewSegmentedControl {
                 width = image.unselected.size.width + Constants.deltaTitleWidth
                 button.setImage(image.unselected, for: .normal)
                 button.imageEdgeInsets = Constants.imageEdgeInsets
+                
+            case .ticker(let ticker):
+                let tickerWidth = ticker.ticker.maxWidth(font: Constants.Ticker.font) + Constants.Ticker.deltaWidth
+
+                button = UIButton(type: .system)
+                width = ticker.title.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
+                    + Constants.Ticker.offsetAfterTitle + tickerWidth
+                button.setTitle(ticker.title, for: .normal)
+                button.titleLabel?.font = Constants.font
+                button.contentHorizontalAlignment = .left
+                button.titleEdgeInsets = UIEdgeInsets(top: Constants.titleEdgeInsets.top,
+                                                      left: Constants.deltaTitleWidth / 2,
+                                                      bottom: 0,
+                                                      right: 0)
+                
+                let label = UILabel(frame: .init(x: width - tickerWidth - Constants.deltaTitleWidth / 2,
+                                                 y: Constants.titleEdgeInsets.top,
+                                                 width: tickerWidth,
+                                                 height: Constants.Ticker.height))
+                label.backgroundColor = .submit300
+                label.layer.cornerRadius = Constants.Ticker.cornerRadius
+                label.clipsToBounds = true
+                label.textColor = .white
+                label.font = Constants.Ticker.font
+                label.text = ticker.ticker
+                label.textAlignment = .center
+                button.addSubview(label)
             }
             
             button.contentVerticalAlignment = .top
@@ -189,7 +212,7 @@ private extension NewSegmentedControl {
 
         setupTitleColors()
 
-        if let subView = subviews.last {
+        if let subView = titleButtons.last {
             contentSize.width = subView.frame.origin.x + subView.frame.size.width
         }
         addSubview(lineView)

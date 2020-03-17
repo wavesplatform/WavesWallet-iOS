@@ -10,7 +10,7 @@ import UIKit
 
 public extension UINavigationController {
     
-    public func pushViewControllerAndSetLast(_ viewController: UIViewController) {
+    func pushViewControllerAndSetLast(_ viewController: UIViewController) {
         
         CATransaction.begin()
         CATransaction.setCompletionBlock {
@@ -24,7 +24,7 @@ public extension UINavigationController {
 
 public extension UIImage {
     
-    public static func shadowImage(color: UIColor) -> UIImage? {
+    static func shadowImage(color: UIColor) -> UIImage? {
         UIGraphicsBeginImageContext(CGSize(width: 0.5, height: 0.5))
         guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
         color.setFill()

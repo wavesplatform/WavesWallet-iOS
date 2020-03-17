@@ -28,12 +28,13 @@ final class InputScrollButtonsView: UIScrollView {
    
     private var input: [String] = []
     
-    var startOffset: CGFloat = Constants.startOffset
+    private var startOffset: CGFloat = Constants.startOffset
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
     }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
@@ -43,7 +44,19 @@ final class InputScrollButtonsView: UIScrollView {
         clipsToBounds = true
         showsHorizontalScrollIndicator = false
     }
+    
+    override var intrinsicContentSize: CGSize {
+        let size = super.intrinsicContentSize
+        return CGSize.init(width: size.width,
+                           height: Constants.buttonHeight)
+    }
+    
+    func value(for index: Int) -> String? {
+        return input[index]
+    }
 }
+
+// MARK: ViewConfiguration
 
 extension InputScrollButtonsView: ViewConfiguration {
     
@@ -51,8 +64,12 @@ extension InputScrollButtonsView: ViewConfiguration {
         
         self.input = input
         setupView()
+        
+        setNeedsUpdateConstraints()
     }
 }
+
+// MARK: Private
 
 private extension InputScrollButtonsView {
 

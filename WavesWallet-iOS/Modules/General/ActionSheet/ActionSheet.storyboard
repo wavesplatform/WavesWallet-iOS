@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Action Sheet View Controller-->
+        <scene sceneID="2FI-Jt-3lK">
+            <objects>
+                <viewController storyboardIdentifier="ActionSheetViewController" id="9ps-TH-h3n" customClass="ActionSheetViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="foW-1b-0gJ" customClass="ModalRootView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4e3-pN-wPO" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="lnl-2P-YGV"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActionSheetElementCell" rowHeight="237" id="oZg-VR-AKC" customClass="ActionSheetElementCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="237"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oZg-VR-AKC" id="vhE-BE-5n0">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="237"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Maks " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBF-yx-Fm1">
+                                                    <rect key="frame" x="16" y="18" width="342" height="193"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="on" translatesAutoresizingMaskIntoConstraints="NO" id="AWE-9e-br2">
+                                                    <rect key="frame" x="374" y="102.5" width="24" height="24"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="AWE-9e-br2" firstAttribute="leading" secondItem="GBF-yx-Fm1" secondAttribute="trailing" constant="16" id="4YK-c6-jyE"/>
+                                                <constraint firstItem="GBF-yx-Fm1" firstAttribute="top" secondItem="vhE-BE-5n0" secondAttribute="top" constant="18" id="Hac-VN-Ghi"/>
+                                                <constraint firstAttribute="trailing" secondItem="AWE-9e-br2" secondAttribute="trailing" constant="16" id="Qb4-hK-dT5"/>
+                                                <constraint firstItem="AWE-9e-br2" firstAttribute="centerY" secondItem="GBF-yx-Fm1" secondAttribute="centerY" id="XoQ-Sp-hdP"/>
+                                                <constraint firstItem="GBF-yx-Fm1" firstAttribute="leading" secondItem="vhE-BE-5n0" secondAttribute="leading" constant="16" id="adm-A0-Lyc"/>
+                                                <constraint firstAttribute="bottom" secondItem="GBF-yx-Fm1" secondAttribute="bottom" constant="26" id="gsq-o5-IG5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="iconImageView" destination="AWE-9e-br2" id="rWQ-nh-2f9"/>
+                                            <outlet property="titleLabel" destination="GBF-yx-Fm1" id="R9i-sd-rBm"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9ps-TH-h3n" id="Bcm-CM-Sht"/>
+                                    <outlet property="delegate" destination="9ps-TH-h3n" id="Lte-jo-lNF"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHf-7I-A7E">
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DUq-5f-bKW" firstAttribute="bottom" secondItem="4e3-pN-wPO" secondAttribute="bottom" id="CNe-xw-lKy"/>
+                            <constraint firstItem="EHf-7I-A7E" firstAttribute="top" secondItem="DUq-5f-bKW" secondAttribute="bottom" id="Fhd-Oy-S8N"/>
+                            <constraint firstItem="DUq-5f-bKW" firstAttribute="trailing" secondItem="4e3-pN-wPO" secondAttribute="trailing" id="HxD-62-hUP"/>
+                            <constraint firstAttribute="bottom" secondItem="EHf-7I-A7E" secondAttribute="bottom" id="XZZ-Dw-Mya"/>
+                            <constraint firstItem="EHf-7I-A7E" firstAttribute="leading" secondItem="DUq-5f-bKW" secondAttribute="leading" id="gAM-DS-REJ"/>
+                            <constraint firstItem="DUq-5f-bKW" firstAttribute="trailing" secondItem="EHf-7I-A7E" secondAttribute="trailing" id="hkd-nO-Hgh"/>
+                            <constraint firstItem="4e3-pN-wPO" firstAttribute="leading" secondItem="DUq-5f-bKW" secondAttribute="leading" id="lD9-9k-p7n"/>
+                            <constraint firstItem="4e3-pN-wPO" firstAttribute="top" secondItem="DUq-5f-bKW" secondAttribute="top" id="rcK-NY-Ccy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DUq-5f-bKW"/>
+                        <connections>
+                            <outlet property="tableView" destination="4e3-pN-wPO" id="Zjc-8I-mtp"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="4e3-pN-wPO" id="074-3W-AAd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="muY-De-qpf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1017.3913043478261" y="-203.57142857142856"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="on" width="24" height="24"/>
+    </resources>
+</document>

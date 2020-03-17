@@ -544,8 +544,7 @@ fileprivate extension TransactionsUseCase {
 
         let accounts = self.addressInteractors.addressSync(by: listAccountsIds,
                                                              myAddress: accountAddress)
-
-        //TODO: Caching
+        
         let blockHeight = blockRepositoryRemote
             .height(accountAddress: accountAddress)
             .catchError { (_) -> Observable<Int64> in

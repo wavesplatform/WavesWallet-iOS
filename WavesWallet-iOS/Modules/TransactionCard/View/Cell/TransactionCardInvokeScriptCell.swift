@@ -51,7 +51,7 @@ extension TransactionCardInvokeScriptCell: ViewConfiguration {
         let assetName = model.payment?.asset?.displayName ?? ""
         let ticker = model.payment?.asset == nil ? WavesSDKConstants.wavesAssetId : nil
         
-        let balance = Balance(currency: Balance.Currency(title: assetName, ticker: ticker), money: payment.amount)
+        let balance = DomainLayer.DTO.Balance(currency: DomainLayer.DTO.Balance.Currency(title: assetName, ticker: ticker), money: payment.amount)
         let style = BalanceLabel.Model(balance: balance,
                                        sign: nil,
                                        style: .small)

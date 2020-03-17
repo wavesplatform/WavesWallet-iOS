@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: - Alias
+// MARK: - Alias
 public extension AnalyticManagerEvent {
     enum Alias: String {
         

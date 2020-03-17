@@ -21,7 +21,7 @@ public extension DomainLayer.Query {
         
         public struct CreateOrder {
             public let wallet: DomainLayer.DTO.SignedWallet
-            public let matcherPublicKey: PublicKeyAccount
+            public let matcherPublicKey: DomainLayer.DTO.PublicKey
             public let amountAsset: String
             public let priceAsset: String
             public let amount: Int64
@@ -32,7 +32,7 @@ public extension DomainLayer.Query {
             public let expiration: Int64
             public let matcherFeeAsset: String
             
-            public init(wallet: DomainLayer.DTO.SignedWallet, matcherPublicKey: PublicKeyAccount, amountAsset: String, priceAsset: String, amount: Int64, price: Int64, orderType: DomainLayer.DTO.Dex.OrderType, matcherFee: Int64, timestamp: Int64, expiration: Int64, matcherFeeAsset: String) {
+            public init(wallet: DomainLayer.DTO.SignedWallet, matcherPublicKey: DomainLayer.DTO.PublicKey, amountAsset: String, priceAsset: String, amount: Int64, price: Int64, orderType: DomainLayer.DTO.Dex.OrderType, matcherFee: Int64, timestamp: Int64, expiration: Int64, matcherFeeAsset: String) {
                 self.wallet = wallet
                 self.matcherPublicKey = matcherPublicKey
                 self.amountAsset = amountAsset

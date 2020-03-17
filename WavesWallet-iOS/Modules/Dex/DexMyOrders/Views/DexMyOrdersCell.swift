@@ -115,7 +115,7 @@ extension DexMyOrdersCell: ViewConfiguration {
     }
 }
 
-//MARK: - DomainLayer.DTO.Dex.MyOrder
+// MARK: - DomainLayer.DTO.Dex.MyOrder
 fileprivate extension DomainLayer.DTO.Dex.MyOrder {
     
     var statusText: String {

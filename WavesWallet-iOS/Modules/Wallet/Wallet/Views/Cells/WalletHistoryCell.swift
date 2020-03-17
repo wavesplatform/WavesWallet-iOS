@@ -15,15 +15,12 @@ private enum Constants {
 
 final class WalletHistoryCell: UITableViewCell, NibReusable {
 
-    typealias Model = Void
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
-        setupLocalization()
     }
 
     class func cellHeight() -> CGFloat {
@@ -33,14 +30,15 @@ final class WalletHistoryCell: UITableViewCell, NibReusable {
 
 // MARK: ViewConfiguration
 extension WalletHistoryCell: ViewConfiguration {
-    func update(with model: Void) {
-        titleLabel.text = Localizable.Waves.Wallet.Label.viewHistory
-    }
-}
+ 
+    func update(with model: WalletTypes.ViewModel.Row.HistoryCellType) {
+        
+        switch model {
+        case .leasing:
+            titleLabel.text = Localizable.Waves.Wallet.Label.viewHistory
 
-// MARK: Localization
-extension WalletHistoryCell: Localization {
-    func setupLocalization() {
-        titleLabel.text = Localizable.Waves.Wallet.Label.viewHistory
+        case .staking:
+            titleLabel.text = Localizable.Waves.Wallet.Stakingpayouts.payoutsHistory
+        }
     }
 }

@@ -11,12 +11,12 @@ import Extensions
 
 extension DomainLayer.DTO.Asset {
 
-    func balance(_ amount: Int64) -> Balance {
+    func balance(_ amount: Int64) -> DomainLayer.DTO.Balance {
         return balance(amount, precision: precision)
     }
 
-    func balance(_ amount: Int64, precision: Int) -> Balance {
-        return Balance(currency: .init(title: displayName, ticker: ticker), money: money(amount, precision: precision))
+    func balance(_ amount: Int64, precision: Int) -> DomainLayer.DTO.Balance {
+        return DomainLayer.DTO.Balance(currency: .init(title: displayName, ticker: ticker), money: money(amount, precision: precision))
     }
 
     func money(_ amount: Int64, precision: Int) -> Money {
@@ -34,15 +34,15 @@ extension DomainLayer.DTO.AssetPair {
         return (priceAsset.precision - amountAsset.precision) + 8
     }
 
-    func priceBalance(_ amount: Int64) -> Balance {
+    func priceBalance(_ amount: Int64) -> DomainLayer.DTO.Balance {
         return priceAsset.balance(amount, precision: precisionDifference)
     }
 
-    func amountBalance(_ amount: Int64) -> Balance {
+    func amountBalance(_ amount: Int64) -> DomainLayer.DTO.Balance {
         return amountAsset.balance(amount)
     }
 
-    func totalBalance(priceAmount: Int64, assetAmount: Int64) -> Balance {
+    func totalBalance(priceAmount: Int64, assetAmount: Int64) -> DomainLayer.DTO.Balance {
 
         let price = Decimal(priceAmount) / pow(10, precisionDifference)
         let asset = Decimal(assetAmount) / pow(10, amountAsset.precision)

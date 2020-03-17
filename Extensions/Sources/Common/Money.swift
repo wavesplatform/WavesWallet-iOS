@@ -92,7 +92,7 @@ public extension Money {
     }
 }
 
-//MARK: - Calculation
+// MARK: - Calculation
 public extension Money {
     
     static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {
@@ -101,5 +101,32 @@ public extension Money {
         let decimalValue = Decimal(amount) / pow(10, precisionDiff)
         
         return Money((decimalValue * pow(10, priceDecimals)).int64Value, priceDecimals)
+    }
+}
+
+public extension Money {
+    
+    static func > (left: Money, right: Money) -> Bool {
+        return left.decimalValue > right.decimalValue
+    }
+    
+    static func < (left: Money, right: Money) -> Bool {
+        return left.decimalValue < right.decimalValue
+    }
+    
+    static func >= (left: Money, right: Money) -> Bool {
+        return left.decimalValue >= right.decimalValue
+    }
+    
+    static func <= (left: Money, right: Money) -> Bool {
+        return left.decimalValue <= right.decimalValue
+    }
+    
+    static func != (left: Money, right: Money) -> Bool {
+        return left.decimalValue != right.decimalValue
+    }
+    
+    static func == (left: Money, right: Money) -> Bool {
+        return left.decimalValue == right.decimalValue
     }
 }

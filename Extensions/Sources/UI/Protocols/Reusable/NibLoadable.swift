@@ -32,10 +32,29 @@ public extension NibLoadable {
     }
 }
 
+public extension NibLoadable where Self: UIView {
+    
+    static func loadFromNib() -> Self {
+        guard let view = nib.instantiate(withOwner: nil, options: nil).first as? Self else {
+            fatalError("The nib \(nib) expected its root view to be of type \(self)")
+        }
+        return view
+    }
+}
+
+public extension NibLoadable where Self: UIViewController {
+    
+    static func loadFromNib() -> Self {        
+        return Self.init(nibName: nibName, bundle: Bundle(for: self))
+    }
+}
+
 public extension NibLoadable where Self: Reusable {
-    public static var nibName: String {
+    static var nibName: String {
         return reuseIdentifier
     }
 }
 
 public typealias NibReusable = Reusable & NibLoadable
+
+

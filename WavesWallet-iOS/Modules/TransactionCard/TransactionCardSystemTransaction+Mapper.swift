@@ -180,7 +180,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         rows.append(.assetDetail(rowAssetModel))
 
-        let balance = Balance(currency: .init(title: asset.displayName,
+        let balance = DomainLayer.DTO.Balance(currency: .init(title: asset.displayName,
                                               ticker: asset.ticker),
                               money: Money(asset.minSponsoredFee,
                                            asset.precision))
@@ -188,7 +188,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         if isEnabled {
             let rowSponsorshipModel = TransactionCardSponsorshipDetailCell
                 .Model(balance: .init(balance: balance,
-                                      sign: Balance.Sign.none,
+                                      sign: DomainLayer.DTO.Balance.Sign.none,
                                       style: .small))
 
             rows.append(.sponsorshipDetail(rowSponsorshipModel))
@@ -298,7 +298,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    //MARK - invokescript
+    // MARK - invokescript
     func invokeScriptSection(tx: DomainLayer.DTO.SmartTransaction.InvokeScript, title: String, subTitle: String) -> [Types.Section] {
         var rows: [Types.Row] = .init()
         
@@ -363,7 +363,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     // MARK: - Issue Sections
     func issueSection(transfer: DomainLayer.DTO.SmartTransaction.Issue,
                       title: String,
-                      balanceSign: Balance.Sign) ->  [Types.Section] {
+                      balanceSign: DomainLayer.DTO.Balance.Sign) ->  [Types.Section] {
 
         var rows: [Types.Row] = .init()
 
@@ -416,7 +416,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         var rows: [Types.Row] = .init()
 
         let myOrder = transfer.myOrder
-        var sign: Balance.Sign = .none
+        var sign: DomainLayer.DTO.Balance.Sign = .none
         var title = ""
         var viewModelEchange: TransactionCardExchangeCell.Model.Kind!
 
@@ -426,10 +426,10 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         if myOrder.kind == .sell {
             sign = .minus
             title = Localizable.Waves.Transactioncard.Title.Exchange.sellPair(amountDisplayName, priceDisplayName)
-            viewModelEchange = .buy(.init(balance: transfer.total, sign: .none, style: .small))
+            viewModelEchange = .buy(.init(balance: transfer.total, sign: nil, style: .small))
         } else {
             sign = .plus
-            viewModelEchange = .sell(.init(balance: transfer.total, sign: .none, style: .small))
+            viewModelEchange = .sell(.init(balance: transfer.total, sign: nil, style: .small))
             title = Localizable.Waves.Transactioncard.Title.Exchange.buyPair(amountDisplayName, priceDisplayName)
         }
 
@@ -443,7 +443,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowExchangeModel = TransactionCardExchangeCell.Model.init(amount: viewModelEchange,
                                                                       price: .init(balance: transfer.price,
-                                                                                   sign: .none,
+                                                                                   sign: nil,
                                                                                    style: .small))
 
         rows.append(contentsOf:[.exchange(rowExchangeModel)])
@@ -502,7 +502,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
                                                                info: .balance(.init(balance: transfer.balance,
-                                                                                    sign: .none,
+                                                                                    sign: nil,
                                                                                     style: .large)))
 
         rows.append(contentsOf:[.general(rowGeneralModel)])
@@ -681,7 +681,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     func transferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
                          generalTitle: String,
                          addressTitle: String,
-                         balanceSign: Balance.Sign,
+                         balanceSign: DomainLayer.DTO.Balance.Sign,
                          core: TransactionCard.State.Core,
                          needSendAgain: Bool = false) ->  [Types.Section] {
 
@@ -841,7 +841,7 @@ extension DomainLayer.DTO.SmartTransaction.MassReceive.Transfer {
 
 extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
 
-    func createTransactionCardMassSentRecipientModel(currency: Balance.Currency,
+    func createTransactionCardMassSentRecipientModel(currency: DomainLayer.DTO.Balance.Currency,
                                                      number: Int,
                                                      core: TransactionCard.State.Core) -> TransactionCardMassSentRecipientCell.Model {
 
@@ -853,7 +853,7 @@ extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
         let name = contact?.name
         let isEditName = name != nil
 
-        let balance = Balance(currency: currency,
+        let balance = DomainLayer.DTO.Balance(currency: currency,
                               money: amount)
 
         let addressTitle = Localizable.Waves.Transactioncard.Title.recipient("\(number)")
@@ -864,7 +864,7 @@ extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
                                        address: address,
                                        name: name),
                   balance: .init(balance: balance,
-                                 sign: .none,
+                                 sign: nil,
                                  style: .small),
                   isEditName: isEditName)
 

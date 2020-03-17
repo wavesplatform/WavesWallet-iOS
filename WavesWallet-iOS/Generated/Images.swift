@@ -72,6 +72,8 @@ internal enum Images {
   internal static let blockchain80 = ImageAsset(name: "blockchain80")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
+  internal static let buyWithCard = ImageAsset(name: "buyWithCard")
+  internal static let buyWithCardComingSoon = ImageAsset(name: "buyWithCardComingSoon")
   internal static let changearrows14Basic500 = ImageAsset(name: "changearrows14Basic500")
   internal static let chartArrowGreen = ImageAsset(name: "chart_arrow_green")
   internal static let chartArrowRed = ImageAsset(name: "chart_arrow_red")
@@ -98,6 +100,7 @@ internal enum Images {
   internal static let deleteAllCopy = ImageAsset(name: "deleteAllCopy")
   internal static let dex = ImageAsset(name: "dex")
   internal static let dex80 = ImageAsset(name: "dex80")
+  internal static let disableBg = ImageAsset(name: "disableBg")
   internal static let disclosure = ImageAsset(name: "disclosure")
   internal static let doneBtn = ImageAsset(name: "done_btn")
   internal static let downChevron = ImageAsset(name: "down-chevron")
@@ -115,6 +118,7 @@ internal enum Images {
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
+  internal static let fb20White = ImageAsset(name: "fb20White")
   internal static let flag18Brazil = ImageAsset(name: "flag18Brazil")
   internal static let flag18Britain = ImageAsset(name: "flag18Britain")
   internal static let flag18China = ImageAsset(name: "flag18China")
@@ -134,6 +138,8 @@ internal enum Images {
   internal static let flag18Spain = ImageAsset(name: "flag18Spain")
   internal static let flag18Turkey = ImageAsset(name: "flag18Turkey")
   internal static let forwardChevron = ImageAsset(name: "forward-chevron")
+  internal static let gorshok = ImageAsset(name: "gorshok")
+  internal static let group327 = ImageAsset(name: "group327")
   internal static let hide = ImageAsset(name: "hide")
   internal static let hidekeyboard24Multy = ImageAsset(name: "hidekeyboard24Multy")
   internal static let history = ImageAsset(name: "history")
@@ -150,6 +156,7 @@ internal enum Images {
   internal static let iconDraglock22Disabled400 = ImageAsset(name: "iconDraglock22Disabled400")
   internal static let iconInfo18Basic300 = ImageAsset(name: "iconInfo18Basic300")
   internal static let iconNews404 = ImageAsset(name: "iconNews404")
+  internal static let iconTokenNeutrino = ImageAsset(name: "iconTokenNeutrino")
   internal static let iconAction = ImageAsset(name: "icon_action")
   internal static let iconCert = ImageAsset(name: "icon_cert")
   internal static let iconExchange = ImageAsset(name: "icon_exchange")
@@ -224,6 +231,11 @@ internal enum Images {
   internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
   internal static let shareAddress = ImageAsset(name: "share_address")
   internal static let sizefull14Basic500 = ImageAsset(name: "sizefull14Basic500")
+  internal static let slide1 = ImageAsset(name: "slide1")
+  internal static let slide2 = ImageAsset(name: "slide2")
+  internal static let slide3 = ImageAsset(name: "slide3")
+  internal static let slidePointDot = ImageAsset(name: "slide_point_dot")
+  internal static let slidePointLine = ImageAsset(name: "slide_point_line")
   internal static let sponsoritem18White = ImageAsset(name: "sponsoritem18White")
   internal static let star = ImageAsset(name: "star")
   internal static let starSearchSmall = ImageAsset(name: "starSearchSmall")
@@ -299,6 +311,8 @@ internal enum Images {
   internal static let topbarSort = ImageAsset(name: "topbarSort")
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
   internal static let trade48 = ImageAsset(name: "trade48")
+  internal static let trading = ImageAsset(name: "trading")
+  internal static let twitter20White = ImageAsset(name: "twitter20White")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
   internal static let userimgUpdate = ImageAsset(name: "userimg-Update")
@@ -324,6 +338,7 @@ internal enum Images {
   internal static let viewexplorer18Black = ImageAsset(name: "viewexplorer18Black")
   internal static let visibility18Basic500 = ImageAsset(name: "visibility18Basic500")
   internal static let visibility18Black = ImageAsset(name: "visibility18Black")
+  internal static let vk20White = ImageAsset(name: "vk20White")
   internal static let wallet80 = ImageAsset(name: "wallet80")
   internal static let walletArrowGreen = ImageAsset(name: "wallet_arrow_green")
   internal static let walletArrowHeader = ImageAsset(name: "wallet_arrow_header")
@@ -375,6 +390,8 @@ internal enum Images {
     blockchain80,
     btnBack,
     btnBars,
+    buyWithCard,
+    buyWithCardComingSoon,
     changearrows14Basic500,
     chartArrowGreen,
     chartArrowRed,
@@ -401,6 +418,7 @@ internal enum Images {
     deleteAllCopy,
     dex,
     dex80,
+    disableBg,
     disclosure,
     doneBtn,
     downChevron,
@@ -418,6 +436,7 @@ internal enum Images {
     faceid48Submit300,
     favorite14Submit300,
     favoriteMini14Submit300,
+    fb20White,
     flag18Brazil,
     flag18Britain,
     flag18China,
@@ -437,6 +456,8 @@ internal enum Images {
     flag18Spain,
     flag18Turkey,
     forwardChevron,
+    gorshok,
+    group327,
     hide,
     hidekeyboard24Multy,
     history,
@@ -453,6 +474,7 @@ internal enum Images {
     iconDraglock22Disabled400,
     iconInfo18Basic300,
     iconNews404,
+    iconTokenNeutrino,
     iconAction,
     iconCert,
     iconExchange,
@@ -527,6 +549,11 @@ internal enum Images {
     share18Submit400,
     shareAddress,
     sizefull14Basic500,
+    slide1,
+    slide2,
+    slide3,
+    slidePointDot,
+    slidePointLine,
     sponsoritem18White,
     star,
     starSearchSmall,
@@ -602,6 +629,8 @@ internal enum Images {
     topbarSort,
     touchid48Submit300,
     trade48,
+    trading,
+    twitter20White,
     unhide,
     upChevron,
     userimgUpdate,
@@ -627,6 +656,7 @@ internal enum Images {
     viewexplorer18Black,
     visibility18Basic500,
     visibility18Black,
+    vk20White,
     wallet80,
     walletArrowGreen,
     walletArrowHeader,

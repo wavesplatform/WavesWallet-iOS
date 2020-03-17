@@ -60,7 +60,7 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-//MARK: - MainTabBarControllerProtocol
+// MARK: - MainTabBarControllerProtocol
 extension ProfileViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }

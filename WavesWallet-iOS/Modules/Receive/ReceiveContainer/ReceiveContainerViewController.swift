@@ -110,7 +110,7 @@ extension ReceiveContainerViewController: TooltipViewControllerModulOutput {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension ReceiveContainerViewController {
     
     func scrollToPage(_ page: Int) {
@@ -150,7 +150,7 @@ private extension ReceiveContainerViewController {
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 private extension ReceiveContainerViewController {
 
     func setupControllers() {
@@ -205,7 +205,7 @@ private extension ReceiveContainerViewController {
     }
 }
 
-//MARK: UIScrollViewDelegate
+// MARK: UIScrollViewDelegate
 extension ReceiveContainerViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -213,7 +213,7 @@ extension ReceiveContainerViewController: UIScrollViewDelegate {
     }
 }
 
-//MARK: - Methods
+// MARK: - Methods
 extension ReceiveContainerViewController {
     
     func add(_ viewController: UIViewController, state: Receive.ViewModel.State) {

@@ -39,7 +39,7 @@ public protocol AnalyticManagerProtocol {
     func trackEvent(_ event: AnalyticManagerEvent)
 }
 
-//MARK - Event params
+// MARK - Event params
 extension AnalyticManagerEvent: AnalyticManagerEventInfo {
     
     public var name: String {

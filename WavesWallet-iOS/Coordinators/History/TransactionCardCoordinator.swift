@@ -34,13 +34,13 @@ final class TransactionCardCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private var navigationRouter: NavigationRouter!
-    private var cardNavigationRouter: NavigationRouter!
-    private let disposeBag: DisposeBag = DisposeBag()
-
-    private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
+    
+    private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
         guard let self = self else { return }
         self.removeFromParentCoordinator()
     }
+    
+    private let disposeBag: DisposeBag = DisposeBag()
 
     private let kind: TransactionCard.Kind
 
@@ -48,20 +48,15 @@ final class TransactionCardCoordinator: Coordinator {
 
     weak var delegate: TransactionCardCoordinatorDelegate?
 
-    init(transaction: DomainLayer.DTO.SmartTransaction, router: NavigationRouter) {
-        self.kind = .transaction(transaction)
-        self.navigationRouter = router
-
-        let nv = CustomNavigationController()
-        cardNavigationRouter = NavigationRouter(navigationController: nv)
+    convenience init(transaction: DomainLayer.DTO.SmartTransaction,
+                     router: NavigationRouter) {
+        self.init(kind: .transaction(transaction),
+                  router: router)
     }
 
     init(kind: TransactionCard.Kind, router: NavigationRouter) {
         self.kind = kind
         self.navigationRouter = router
-
-        let nv = CustomNavigationController()
-        cardNavigationRouter = NavigationRouter(navigationController: nv)
     }
 
     func start() {
@@ -74,12 +69,9 @@ final class TransactionCardCoordinator: Coordinator {
         let vc = TransactionCardBuilder(output: self)
             .build(input: .init(kind: self.kind,
                                 callbackInput: callbackInput))
-
-        cardNavigationRouter.viewController.modalPresentationStyle = .custom
-        cardNavigationRouter.viewController.transitioningDelegate = popoverViewControllerTransitioning
-        cardNavigationRouter.pushViewController(vc)
-
-        navigationRouter.present(cardNavigationRouter.viewController, animated: true, completion: nil)
+        
+        modalRouter.pushViewController(vc)
+        navigationRouter.present(modalRouter, animated: true, completion: nil)
     }
 }
 
@@ -117,7 +109,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         
         let vc = AddAddressBookModuleBuilder(output: self)
             .build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
-            self.cardNavigationRouter.pushViewController(vc)
+        self.modalRouter.pushViewController(vc)
     }
 
     func transactionCardEditContact(contact: DomainLayer.DTO.Contact) {
@@ -130,7 +122,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         let vc = AddAddressBookModuleBuilder(output: self)
             .build(input: AddAddressBook.DTO.Input(kind:.edit(contact: contact,
                                                               isMutable: false)))
-        self.cardNavigationRouter.pushViewController(vc)
+        self.modalRouter.pushViewController(vc)
     }
 
     func transactionCardCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {
@@ -145,7 +137,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
                                                             fee: Money(0, 0))
 
         let vc = StartLeasingConfirmModuleBuilder(output: self, errorDelegate: nil).build(input: .cancel(cancelOrder))
-        cardNavigationRouter.pushViewController(vc)
+        self.modalRouter.pushViewController(vc)
     }
 
     func transactionCardResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
@@ -156,7 +148,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
                                                           asset: tx.asset,
                                                           amount: tx.balance.money)
         let send = SendModuleBuilder().build(input: .resendTransaction(model))
-        cardNavigationRouter.pushViewController(send)
+        self.modalRouter.pushViewController(send)
     }
 
     func transactionCardViewOnExplorer(_ transaction: DomainLayer.DTO.SmartTransaction) {
@@ -172,7 +164,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
 
             let vc = BrowserViewController(url: url)
             let nv = UINavigationController(rootViewController: vc)
-            cardNavigationRouter.present(nv, animated: true, completion: nil)
+            modalRouter.present(nv, animated: true, completion: nil)
         }
 
     }

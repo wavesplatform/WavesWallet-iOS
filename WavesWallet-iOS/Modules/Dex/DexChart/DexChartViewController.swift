@@ -116,7 +116,7 @@ fileprivate extension DexChartViewController {
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 
 private extension DexChartViewController {
     
@@ -155,7 +155,7 @@ private extension DexChartViewController {
     }
 }
 
-//MARK: - DexChartHeaderViewDelegate
+// MARK: - DexChartHeaderViewDelegate
 extension DexChartViewController: DexChartHeaderViewDelegate {
     
     func dexChartDidTapRefresh() {
@@ -242,7 +242,7 @@ extension DexChartViewController: ChartViewDelegate {
 }
 
 
-//MARK: - Setup Charts
+// MARK: - Setup Charts
 private extension DexChartViewController {
 
     func setupLastVisibleCandle() {

@@ -21,19 +21,21 @@ private extension WalletTypes.DisplayState.Kind {
             return Localizable.Waves.Wallet.Segmentedcontrol.assets
         case .leasing:
             return Localizable.Waves.Wallet.Segmentedcontrol.leasing
+        case .staking:
+            return Localizable.Waves.Wallet.Segmentedcontrol.staking
         }
     }
 }
 
 final class WalletViewController: UIViewController {
 
-    @IBOutlet weak var scrolledTablesComponent: ScrolledContainerView!
+    @IBOutlet private weak var scrolledTablesComponent: ScrolledContainerView!
     @IBOutlet var globalErrorView: GlobalErrorView!
 
     private var displayData: WalletDisplayData!
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing]
+    private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing, .staking]
 
     private var isRefreshing: Bool = false
     private var snackError: String? = nil
@@ -59,12 +61,14 @@ final class WalletViewController: UIViewController {
         
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
-        scrolledTablesComponent.setup(segmentedItems: displays.map{ .title($0.name) }, tableDataSource: displayData, tableDelegate: displayData)
+        
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.segmentedItem },
+                                      tableDataSource: displayData,
+                                      tableDelegate: displayData)
 
         setupLanguages()
         setupBigNavigationBar()
         createMenuButton()
-        setupSegmetedControl()
         setupTableView()
         setupSystem()
         
@@ -105,9 +109,22 @@ final class WalletViewController: UIViewController {
         }
         scrolledTablesComponent.reloadData()
     }
+    
+    var isAssetDisplay: Bool {
+        return scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue
+    }
+    
+    //TODO: Refactor method. I dont know how its work
+    var isNeedSetupSearchBarPosition: Bool {
+        
+        return displayData.isAssetsSectionsHaveSearch && isAssetDisplay &&
+            scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
+    }
 }
 
-//MARK: - MainTabBarControllerProtocol
+// MARK: - MainTabBarControllerProtocol
 extension WalletViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
@@ -115,7 +132,7 @@ extension WalletViewController: MainTabBarControllerProtocol {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension WalletViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -131,7 +148,7 @@ extension WalletViewController: UIScrollViewDelegate {
     }
 }
 
-//MARK: - ScrolledContainerViewDelegate
+// MARK: - ScrolledContainerViewDelegate
 extension WalletViewController: ScrolledContainerViewDelegate {
     
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
@@ -250,7 +267,10 @@ extension WalletViewController {
         return [subscriptionSections]
     }
 
-    func addTopViewBanners(hasData: Bool, isShowCleanWalletBanner: Bool, isHasAppUpdate: Bool) {
+    func addTopViewBanners(hasData: Bool,
+                           isShowCleanWalletBanner: Bool,
+                           isHasAppUpdate: Bool) {
+        
         if hasData && !hasAddingViewBanners {
             hasAddingViewBanners = true
             if isHasAppUpdate {
@@ -276,7 +296,10 @@ extension WalletViewController {
     
     func updateView(with state: WalletTypes.DisplayState) {
 
-        displayData.apply(assetsSections: state.assets.visibleSections, leasingSections: state.leasing.visibleSections, animateType: state.animateType) { [weak self] in
+        displayData.apply(assetsSections: state.assets.visibleSections,
+                          leasingSections: state.leasing.visibleSections,
+                          stakingSections: state.staking.visibleSections,
+                          animateType: state.animateType) { [weak self] in
                             
             if state.isRefreshing == false {
                 self?.scrolledTablesComponent.endRefreshing()
@@ -290,7 +313,8 @@ extension WalletViewController {
         default:
             break
         }
-        scrolledTablesComponent.segmentedControl.setSelectedIndex(displays.firstIndex(of: state.kind) ?? 0, animation: false)
+        scrolledTablesComponent.setSelectedIndex(displays.firstIndex(of: state.kind) ?? 0,
+                                                 animation: false)
         setupRightButons(kind: state.kind)
     }
 
@@ -358,15 +382,14 @@ private extension WalletViewController {
 
     func setupSearchBarOffset() {
         
-        if isSmallNavigationBar && displayData.isNeedSetupSearchBarPosition {
+        if isSmallNavigationBar && isNeedSetupSearchBarPosition {
             
             let diff = (scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight()) - (scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset)
             
             var offset: CGFloat = 0
             if diff > WalletSearchTableViewCell.viewHeight() / 2 {
                 offset = -scrolledTablesComponent.smallTopOffset
-            }
-            else {
+            } else {
                 offset = -scrolledTablesComponent.smallTopOffset + WalletSearchTableViewCell.viewHeight()
             }
             offset += scrolledTablesComponent.topOffset
@@ -375,7 +398,6 @@ private extension WalletViewController {
             scrolledTablesComponent.setContentOffset(.init(x: 0, y: offset), animated: true)
         }
     }
-
     
     func setupLanguages() {
         navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
@@ -387,7 +409,7 @@ private extension WalletViewController {
         case .assets:
             navigationItem.rightBarButtonItems = [buttonAddress, buttonSort]
 
-        case .leasing:
+        case .leasing, .staking:
             navigationItem.rightBarButtonItems = [buttonAddress]
         }
     }
@@ -398,11 +420,12 @@ private extension WalletViewController {
     }
 
     func setupSegmetedControl() {
-        scrolledTablesComponent.segmentedControl.items = displays.map{ .title($0.name) }
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.segmentedItem },
+                                      tableDataSource: displayData, tableDelegate: displayData)
     }
 }
 
-//MARK: - WalletLeasingBalanceCellDelegate
+// MARK: - WalletLeasingBalanceCellDelegate
 extension WalletViewController: WalletLeasingBalanceCellDelegate {
     
     func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money) {
@@ -414,7 +437,46 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 // MARK: WalletDisplayDataDelegate
 
 extension WalletViewController: WalletDisplayDataDelegate {
-
+    
+    func startStakingTapped() {
+        sendEvent.accept(.startStaking)
+    }
+    
+    func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
+        sendEvent.accept(.showPayout(payout))
+    }
+    
+    func openTw(_ sharedText: String) {
+        sendEvent.accept(.openTw(sharedText))
+    }
+    
+    func openFb(_ sharedText: String) {
+        sendEvent.accept(.openFb(sharedText))
+    }
+    
+    func openVk(_ sharedText: String) {
+        sendEvent.accept(.openVk(sharedText))
+    }
+    
+    func openStakingFaq() {
+        sendEvent.accept(.openStakingFaq)
+    }
+   
+    func withdrawTapped() {
+        sendEvent.accept(.openWithdraw)
+    }
+    
+    func depositTapped() {
+        sendEvent.accept(.openDeposit)
+    }
+    
+    func tradeTapped() {
+        sendEvent.accept(.openTrade)
+    }
+    
+    func buyTapped() {
+        sendEvent.accept(.openBuy)
+    }
     
     func showSearchVC(fromStartPosition: CGFloat) {
                 
@@ -423,5 +485,20 @@ extension WalletViewController: WalletDisplayDataDelegate {
     
     func tableViewDidSelect(indexPath: IndexPath) {
         sendEvent.accept(.tapRow(indexPath))
+    }
+}
+
+// MARK: - WalletTypes.DisplayState.Kind
+private extension WalletTypes.DisplayState.Kind {
+    
+    var segmentedItem: NewSegmentedControl.SegmentedItem {
+        
+        switch self {
+        case .assets, .leasing:
+            return .title(name)
+        
+        case .staking:
+            return .ticker(.init(title: name, ticker: Localizable.Waves.Wallet.Segmentedcontrol.new.uppercased()))
+        }
     }
 }

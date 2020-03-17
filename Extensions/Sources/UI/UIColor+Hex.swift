@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIColor {
     
-    public convenience init(red: Int, green: Int, blue: Int) {
+    convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component")
         assert(green >= 0 && green <= 255, "Invalid green component")
         assert(blue >= 0 && blue <= 255, "Invalid blue component")
@@ -18,15 +18,15 @@ public extension UIColor {
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
     }
     
-    public convenience init(_ red: Int, _ green: Int, _ blue: Int) {
+    convenience init(_ red: Int, _ green: Int, _ blue: Int) {
         self.init(red:red, green:green, blue:blue)
     }
     
-    public convenience init(netHex: Int) {
+    convenience init(netHex: Int) {
         self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
     }
     
-    public convenience init(hex: String) {
+    convenience init(hex: String) {
         
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
@@ -47,7 +47,7 @@ public extension UIColor {
                   alpha: 1.0)
     }
     
-    public func toHexString() -> String {
+    func toHexString() -> String {
         var r:CGFloat = 0
         var g:CGFloat = 0
         var b:CGFloat = 0

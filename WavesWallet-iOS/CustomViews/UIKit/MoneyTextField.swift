@@ -16,13 +16,14 @@ private enum Constants {
 }
 
 protocol MoneyTextFieldDelegate: AnyObject {
-
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money)
 }
 
 final class MoneyTextField: UITextField {
 
     private var externalDelegate: UITextFieldDelegate?
+    
+    //TODO: textString, text, textNSString WTF?
     private var textString: String {
         return text ?? ""
     }
@@ -38,15 +39,39 @@ final class MoneyTextField: UITextField {
     }
 
     weak var moneyDelegate: MoneyTextFieldDelegate?
-    var isShakeView: Bool = true
-    private(set) var decimals: Int = 0
+    
+    private var isShakeView: Bool = true
+        
     private var hasSetDecimals = false
+   
+    private(set) var decimals: Int = 0
     
     var value: Money {
-        if let decimal = Decimal(string: textString, locale: Constants.locale) {
-            return Money(value: decimal, decimals)
-        } else {
-            return Money(0, decimals)
+        
+        set {
+            if self.value != newValue {
+                setDecimals(newValue.decimals, forceUpdateMoney: false)
+                setValue(value: newValue)
+            }
+        }
+        
+        get {
+            if let decimal = Decimal(string: textString,
+                                     locale: Constants.locale) {
+                return Money(value: decimal, decimals)
+            } else {
+                return Money(0, decimals)
+            }
+        }
+    }
+    
+    var hasInput: Bool {
+        return text?.count ?? 0 > 0
+    }
+    
+    override var text: String? {
+        didSet {
+            setNeedUpdateTextField(isNeedNotify: false)
         }
     }
     
@@ -63,19 +88,27 @@ final class MoneyTextField: UITextField {
     }
 }
 
-//MARK: - Methods
+// MARK: - Methods
 extension MoneyTextField {
-    
+        
     // forceUpdateMoney need if we want call -> MoneyTextFieldDelegate: moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money)
-    func setDecimals(_ decimals: Int, forceUpdateMoney: Bool) {
+    //TODO: Need remove forceUpdateMoney then it stupid logic    
+    func setDecimals(_ decimals: Int,
+                     forceUpdateMoney: Bool) {
         self.decimals = decimals
         hasSetDecimals = true
         
-        if forceUpdateMoney {
-            textDidChange()
-        }
+        setNeedUpdateTextField(isNeedNotify: forceUpdateMoney)
+        setupAttributedText(text: formattedStringFrom(value))
     }
     
+    //TODO: Need remove forceUpdateMoney then it stupid logic
+    func setDecimals(_ decimals: Int) {
+        setDecimals(decimals,
+                    forceUpdateMoney: false)
+    }
+
+    //TODO: Need remove forceUpdateMoney then it stupid logic
     func setValue(value: Money) {
         setupAttributedText(text: formattedStringFrom(value))
     }
@@ -88,16 +121,20 @@ extension MoneyTextField {
         setValue(value: value.minus(deltaValue))
     }
     
+    func clearInput() {
+        text = nil
+        setNeedUpdateTextField(isNeedNotify: false)
+    }
+    
     func clear() {
         decimals = 0
         hasSetDecimals = false
-        text = nil
-        textDidChange()
+        clearInput()
     }
 }
 
 
-//MARK: - Override
+// MARK: - Override
 extension MoneyTextField {
     
     override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
@@ -105,7 +142,7 @@ extension MoneyTextField {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension MoneyTextField {
     
     func setupAttributedText(text: String) {
@@ -119,9 +156,22 @@ private extension MoneyTextField {
             superview?.shakeView()
         }
     }
+    
+    private func setNeedUpdateTextField(isNeedNotify: Bool = true) {
+        if textString.count > 0 {
+            setupAttributedText(text: textNSString.replacingOccurrences(of: ",", with: "."))
+            checkCorrectInputAfterRemoveText()
+        } else {
+            attributedText = nil
+        }
+        
+        if isNeedNotify {
+            moneyDelegate?.moneyTextField(self, didChangeValue: value)
+        }
+    }
 }
 
-//MARK: - Check after input
+// MARK: - Check after input
 
 private extension MoneyTextField {
     
@@ -142,8 +192,7 @@ private extension MoneyTextField {
                     }
                 }
             }
-        }
-        else if isEmptyDotAfterZero() {
+        } else if isEmptyDotAfterZero() {
             var string = textString
             string.remove(at: String.Index(encodedOffset: 0))
             setupAttributedText(text: string)
@@ -164,20 +213,11 @@ private extension MoneyTextField {
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension MoneyTextField: UITextFieldDelegate {
     
     @objc func textDidChange() {
-        
-        if textString.count > 0 {
-            setupAttributedText(text: textNSString.replacingOccurrences(of: ",", with: "."))
-            checkCorrectInputAfterRemoveText()
-        }
-        else {
-            attributedText = nil
-        }
-    
-        moneyDelegate?.moneyTextField(self, didChangeValue: value)
+        setNeedUpdateTextField()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -194,7 +234,14 @@ extension MoneyTextField: UITextFieldDelegate {
             return true
         }
         
-        return isValidInput(input: string, inputRange: range)
+        if isValidInput(input: string, inputRange: range) {
+            return true
+        } else {
+            //TODO: Remove shake :)
+            //TODO: Send delegate incorrect input
+            shakeTextFieldIfNeed()
+            return false
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool  {
@@ -230,7 +277,7 @@ extension MoneyTextField: UITextFieldDelegate {
     }
 }
 
-//MARK: - Calculation
+// MARK: - Calculation
 private extension MoneyTextField {
     
     var dotRange: NSRange {
@@ -254,7 +301,7 @@ private extension MoneyTextField {
     }
     
     var deltaValue: Double {
-        
+                
         var deltaValue : Double = 1
         for _ in 0..<countInputDecimals {
             deltaValue *= 0.1
@@ -264,44 +311,36 @@ private extension MoneyTextField {
     }
 }
 
-//MARK: - InputValidation
+// MARK: - InputValidation
 private extension MoneyTextField {
     
     func isValidInput(input: String, inputRange: NSRange) -> Bool {
         
         if dotRange.location == NSNotFound {
             if textString.last == "0" && input == "0" && textString.count == 1 {
-                shakeTextFieldIfNeed()
                 return false
-            }
-            else if textString.last == "0" && input != "." && input != "," && textString.count == 1 {
+            } else if textString.last == "0" && input != "." && input != "," && textString.count == 1 {
                 
                 if inputRange.location == 0 && (input as NSString).integerValue > 0 {
-                    
                     return true
                 }
-                shakeTextFieldIfNeed()
                 return false
             }
         }
 
         if (input == "," || input == ".") && isExistDot {
-            shakeTextFieldIfNeed()
             return false
         }
         
         if !isValidInputAfterDot(input: input, inputRange: inputRange) {
-            shakeTextFieldIfNeed()
             return false
         }
         
         if !isValidInputBeforeDot(input: input, inputRange: inputRange) {
-            shakeTextFieldIfNeed()
             return false
         }
         
         if !isValidBigNumber(input: input, inputRange: inputRange) {
-            shakeTextFieldIfNeed()
             return false
         }
         
@@ -314,8 +353,7 @@ private extension MoneyTextField {
         if hasSetDecimals {
             isMaximumInputDecimals = countInputDecimals >= decimals && input.count > 0
 
-        }
-        else {
+        } else {
             isMaximumInputDecimals = countInputDecimals >= decimals && decimals > 0 && input.count > 0
         }
 
@@ -339,28 +377,25 @@ private extension MoneyTextField {
                 let s = textNSString.substring(to: dotRange.location)
                 return s.count + input.count <= Constants.maximumInputDigits
             }
-        }
-        else {
+        } else {
             return textString.count + input.count <= Constants.maximumInputDigits
         }
         return true
     }
-    
-    func isValidInputBeforeDot(input: String, inputRange: NSRange) -> Bool {
         
+    //TODO: If we paste string with two and more zero (for example "000"), then code is dont work :)
+    func isValidInputBeforeDot(input: String, inputRange: NSRange) -> Bool {
+                
         if isExistDot && textString.count > 1 {
-
-            if input == "0" && inputRange.location == 0 {
-                shakeTextFieldIfNeed()
-                return false
-            }
+            
+            let isZeroBeforeFirstNumber = input == "0" && inputRange.location == 0 && inputRange.length == 0
 
             let substring = textNSString.substring(to: dotRange.location + dotRange.length)
             
-            if (substring == "0." && inputRange.location == 1) ||
-                (substring == "0." && input == "0" && inputRange.location == 0) {
-                
-                shakeTextFieldIfNeed()
+            let isSymbolAfterZero: Bool = substring == "0." && inputRange.location == 1
+            let isZeroBeforeZero: Bool = substring == "0." && input == "0" && inputRange.location == 0
+            
+            if isSymbolAfterZero || isZeroBeforeZero || isZeroBeforeFirstNumber {
                 return false
             }
         }
@@ -368,7 +403,7 @@ private extension MoneyTextField {
     }
 }
 
-//MARK: - NumberFormatter
+// MARK: - NumberFormatter
 
 private extension MoneyTextField {
     
@@ -383,7 +418,7 @@ private extension MoneyTextField {
     func formattedStringFrom(_ value: Money) -> String {
         let formatter = MoneyTextField.numberFormatter()
         formatter.maximumFractionDigits = decimals
-        formatter.minimumFractionDigits = countInputDecimals
+        formatter.minimumFractionDigits = min(countInputDecimals, decimals)
         return formatter.string(from: value.decimalValue as NSNumber) ?? ""
     }
 }

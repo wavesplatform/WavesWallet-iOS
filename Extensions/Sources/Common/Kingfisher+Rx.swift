@@ -50,7 +50,7 @@ public func downloadImage(path: String) -> Observable<UIImage?> {
 
 public extension Reactive where Base == ImageDownloader {
     
-    public func downloadImage(path: String) -> Observable<UIImage?> {
+    func downloadImage(path: String) -> Observable<UIImage?> {
         
         return Observable.create({ [base] (observer) -> Disposable in
             
@@ -98,7 +98,7 @@ extension ImageDownloader: ReactiveCompatible {
 
 public extension Reactive where Base == ImageCache {
     
-    public func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
+    func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
         
         return Observable.create({ [base] (observer) -> Disposable in
             
@@ -111,7 +111,7 @@ public extension Reactive where Base == ImageCache {
         })
     }
     
-    public func retrieveImage(key: String) -> Observable<UIImage?> {
+    func retrieveImage(key: String) -> Observable<UIImage?> {
         
       return Observable.create({ [base] (observer) -> Disposable in
 

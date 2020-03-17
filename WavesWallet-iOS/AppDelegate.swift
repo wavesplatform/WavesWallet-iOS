@@ -179,8 +179,11 @@ extension AppDelegate {
                                                       googleServiceInfoForWavesPlatform: googleServiceInfoPathWaves)
         let repositories = RepositoriesFactory(resources: resourses)
         
+        let storages = StoragesFactory()
+        
         UseCasesFactory.initialization(repositories: repositories,
-                                       authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+                                       authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp(),
+                                       storages: storages)
 
         UNUserNotificationCenter.current().delegate = self
         return true
@@ -189,8 +192,8 @@ extension AppDelegate {
     func setupServices() {
         #if DEBUG || TEST
         
-        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
-                                                           isShortLog: true))
+//        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
+//                                                           isShortLog: true))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
                         
         #else
@@ -209,7 +212,7 @@ extension AppDelegate {
     }
 }
 
-//MARK: - UNUserNotificationCenterDelegate
+// MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,   withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

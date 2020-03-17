@@ -9,7 +9,6 @@
 import UIKit
 
 //TODO: Remove class. Need use GradientView
-@IBDesignable
 class CustomGradientView: UIView {
     
     @IBInspectable var startColor:   UIColor = .black { didSet { updateColors() }}

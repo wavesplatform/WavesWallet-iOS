@@ -13,6 +13,7 @@
             "v2": "https://testnet.waves.exchange/gateways"
         }
   },
+  "exchangeClientSecret":"Basic dGVzdC1jbGllbnQ6c2VjcmV0",
   "scheme": "T",
   "generalAssets": [
     {

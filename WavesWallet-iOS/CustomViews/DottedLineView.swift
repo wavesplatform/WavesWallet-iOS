@@ -6,8 +6,6 @@
 
 import UIKit
 
-@IBDesignable
-//TODO: May be merging DottedLineView with SeparatorLine
 public class DottedLineView: UIView {
     
     let lineColor: UIColor = UIColor.accent100
