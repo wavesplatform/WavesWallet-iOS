@@ -21,9 +21,8 @@ class PayoutsTransactionsSkeletonCell: UITableViewCell, NibReusable, SkeletonAni
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentView.heightAnchor.constraint(equalToConstant: 68).isActive = true
-        
         views.forEach {
+            $0.layer.masksToBounds = true
             $0.backgroundColor = .clear
         }
         

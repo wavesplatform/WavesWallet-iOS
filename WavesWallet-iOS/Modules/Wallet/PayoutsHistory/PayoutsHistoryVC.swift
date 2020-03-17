@@ -15,6 +15,12 @@ import WavesSDK
 
 class PayoutsHistoryVC: UIViewController {
     
+    private enum Constant {
+        static let tableViewBottomContentInset: CGFloat = 14
+        
+        static let payoutsTransactionsSkeletonCellHeight: CGFloat = 68
+    }
+    
     var system: System<PayoutsHistoryState, PayoutsHistoryEvents>?
     
     @IBOutlet private weak var tableView: UITableView!
@@ -43,22 +49,24 @@ class PayoutsHistoryVC: UIViewController {
         navigationItem.title = "Payouts History"
         navigationItem.barTintColor = .white
         
-        do {
-            refreshControl
-                .rx
-                .controlEvent(.valueChanged)
-                .subscribe(onNext: { [weak self] in self?.system?.send(.pullToRefresh) })
-                .disposed(by: disposeBag)
-            
-            tableView.refreshControl = refreshControl
-            tableView.registerCell(type: PayoutsTransactionCell.self)
-            tableView.registerCell(type: PayoutsTransactionsSkeletonCell.self)
-            
-            tableView.contentInset.bottom = Constants.tableViewBottomContentInset
-            tableView.separatorStyle = .none
-            tableView.dataSource = self
-            tableView.delegate = self
-        }
+        setupTableView()
+    }
+    
+    private func setupTableView() {
+        refreshControl
+            .rx
+            .controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] in self?.system?.send(.pullToRefresh) })
+            .disposed(by: disposeBag)
+        
+        tableView.refreshControl = refreshControl
+        tableView.registerCell(type: PayoutsTransactionCell.self)
+        tableView.registerCell(type: PayoutsTransactionsSkeletonCell.self)
+        
+        tableView.contentInset.bottom = Constant.tableViewBottomContentInset
+        tableView.separatorStyle = .none
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     private func bindUI(_ state: PayoutsHistoryState.UI) {
@@ -90,12 +98,6 @@ class PayoutsHistoryVC: UIViewController {
     }
 }
 
-extension PayoutsHistoryVC {
-    private enum Constants {
-        static let tableViewBottomContentInset: CGFloat = 14
-    }
-}
-
 extension PayoutsHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { rowItems.count }
@@ -106,14 +108,11 @@ extension PayoutsHistoryVC: UITableViewDataSource {
             switch rowItem {
             case .payoutHistoryCell(let viewModel):
                 let cell: PayoutsTransactionCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
-                cell.configure(viewModel)
+                cell.update(with: viewModel)
                 return cell
             case .payoutsHistorySkeleton:
                 let cell: PayoutsTransactionsSkeletonCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
-                cell.startAnimation()
                 return cell
-            case .moreLoading:
-                return UITableViewCell()
             }
         } else {
             return UITableViewCell()
@@ -122,6 +121,14 @@ extension PayoutsHistoryVC: UITableViewDataSource {
 }
 
 extension PayoutsHistoryVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView.cellForRow(at: indexPath) is PayoutsTransactionsSkeletonCell {
+            return Constant.payoutsTransactionsSkeletonCellHeight
+        } else {
+            return UITableView.automaticDimension
+        }
+    }
+    
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
@@ -139,6 +146,5 @@ extension PayoutsHistoryVC {
     enum RowItem {
         case payoutHistoryCell(PayoutsHistoryState.UI.PayoutTransactionVM)
         case payoutsHistorySkeleton
-        case moreLoading
     }
 }

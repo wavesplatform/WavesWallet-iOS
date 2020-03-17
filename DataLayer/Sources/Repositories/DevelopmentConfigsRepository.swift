@@ -46,14 +46,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
     
     public func isEnabledMaintenance() -> Observable<Bool> {
         return developmentConfigs()
-            .flatMap { (config) -> Observable<Bool> in
-                Observable.just(config.serviceAvailable == false)
-            }
-            .catchError { error -> Observable<Bool> in
-                
-                print(error)
-                return Observable.just(false)
-            }
+            .flatMap { Observable.just($0.serviceAvailable == false) }
+            .catchError { _ in Observable.just(false) }
     }
     
     public func developmentConfigs() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {

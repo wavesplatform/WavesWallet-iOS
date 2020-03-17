@@ -10,7 +10,7 @@ import Extensions
 import RxSwift
 import UIKit
 
-final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, ResetableView {
+final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, ResetableView, ViewConfiguration {
     @IBOutlet private weak var payoutsTransactionView: PayoutsTransactionView!
     
     private let disposeBag = DisposeBag()
@@ -30,17 +30,17 @@ final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, Rese
         resetToEmptyState()
     }
     
-    func configure(_ viewModel: PayoutsHistoryState.UI.PayoutTransactionVM) {
-        if let icon = viewModel.iconAsset {
+    func update(with model: PayoutsHistoryState.UI.PayoutTransactionVM) {
+        if let icon = model.iconAsset {
             AssetLogo
-                .logo(icon: icon, style: .tiny)
+                .logo(icon: icon, style: .large)
                 .subscribe(onNext: { [weak self] in self?.payoutsTransactionView.setAssetImage($0) })
                 .disposed(by: disposeBag)
         }
         
-        payoutsTransactionView.setTitle(viewModel.title,
-                                        transactionValue: viewModel.transactionValue,
-                                        date: viewModel.dateText)
+        payoutsTransactionView.setTitle(model.title,
+                                        transactionValue: model.transactionValue,
+                                        date: model.dateText)
     }
     
     private func initialSetup() {
@@ -73,15 +73,7 @@ final class PayoutsTransactionView: UIView, NibOwnerLoadable, ResetableView {
     }
     
     private func initialSetup() {
-        do {
-            let shadowColor = UIColor.black.withAlphaComponent(0.08)
-            let shadowOptions = ShadowOptions(offset: CGSize(width: 0, height: 0),
-                                              color: shadowColor,
-                                              opacity: 1,
-                                              shadowRadius: 4,
-                                              shouldRasterize: true)
-            setupShadow(options: shadowOptions)
-        }
+        setupDefaultShadows()
         
         do {
             assetImageView.contentMode = .scaleAspectFit
@@ -92,6 +84,7 @@ final class PayoutsTransactionView: UIView, NibOwnerLoadable, ResetableView {
             titleTransactionLabel.font = .systemFont(ofSize: 13)
             titleTransactionLabel.textColor = .basic500
             
+            dateTransactionLabel.textAlignment = .right
             dateTransactionLabel.numberOfLines = 0
             dateTransactionLabel.font = .systemFont(ofSize: 11)
             dateTransactionLabel.textColor = .basic500
