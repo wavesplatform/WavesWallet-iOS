@@ -46,7 +46,7 @@ class PayoutsHistoryVC: UIViewController {
         createBackButton()
         setupBigNavigationBar()
         
-        navigationItem.title = "Payouts History"
+        navigationItem.title = Localizable.Waves.Payoutshistory.title
         navigationItem.barTintColor = .white
         
         setupTableView()

@@ -12,8 +12,8 @@ import UIKit
 
 final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, ResetableView, ViewConfiguration {
     @IBOutlet private weak var payoutsTransactionView: PayoutsTransactionView!
-    
-    private let disposeBag = DisposeBag()
+
+    private var disposeBag = DisposeBag()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,6 +52,8 @@ final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, Rese
     
     func resetToEmptyState() {
         payoutsTransactionView.resetToEmptyState()
+
+        disposeBag = DisposeBag()
     }
 }
 

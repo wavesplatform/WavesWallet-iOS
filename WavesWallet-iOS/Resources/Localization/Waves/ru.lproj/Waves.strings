@@ -761,3 +761,4 @@
 "asset.cell.balance.button.trade" = "Торговать";
 "dexmarket.navigationBar.titleAsset" = "Поиск пары к";
 "trade.title" = "Торговля";
+"payoutsHistory.title" = "История выплат";

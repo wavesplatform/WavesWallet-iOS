@@ -2236,6 +2236,12 @@ internal enum Localizable {
       }
     }
 
+    internal enum Payoutshistory {
+      /// Payouts History
+      internal static var title: String { return Localizable.tr("Waves", "payoutsHistory.title") }
+      internal static var titleKey: String { return "payoutsHistory.title" }
+    }
+
     internal enum Profile {
 
       internal enum Alert {

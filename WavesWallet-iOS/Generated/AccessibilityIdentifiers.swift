@@ -53,8 +53,8 @@ extension AccessibilityIdentifiers: LocalizableProtocol {
 
     private static let english: Localizable.Current = Localizable.Current(locale: Locale(identifier: "en"), bundle: Bundle(for: BundleToken.self))
 
-    static var locale = Locale.current
-    static var bundle = Bundle(for: BundleToken.self)
+    static var locale: Locale = Locale.current
+    static var bundle: Bundle = Bundle(for: BundleToken.self)
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: bundle, comment: "")
