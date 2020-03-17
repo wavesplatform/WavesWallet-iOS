@@ -7,7 +7,7 @@
 
 import Foundation
 import WavesSDKCrypto
-
+    
 public class PublicKeyAccount: Hashable {
     
     public let publicKey: [UInt8]

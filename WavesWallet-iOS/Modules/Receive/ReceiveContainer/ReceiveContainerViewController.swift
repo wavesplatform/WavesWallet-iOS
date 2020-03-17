@@ -23,6 +23,10 @@ final class ReceiveContainerViewController: UIViewController {
     @IBOutlet private weak var scrollViewContainer: UIScrollView!
     @IBOutlet private weak var scrollView: UIScrollView!
     
+    private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
+        guard let self = self else { return }
+    }
+    
     var asset: DomainLayer.DTO.SmartAssetBalance?
     
     override func viewDidLoad() {
@@ -33,6 +37,7 @@ final class ReceiveContainerViewController: UIViewController {
         setupControllers()
         setupSegmentedControl()
         setupSwipeGestures()
+        createInfoButton()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
   
@@ -58,6 +63,51 @@ final class ReceiveContainerViewController: UIViewController {
         }
     }
     
+    private func createInfoButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarInfowhite.image.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(receiveAddressDidShowInfo))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.black
+    }
+    
+    
+    @objc func receiveAddressDidShowInfo() {
+          
+        var elements: [TooltipTypes.DTO.Element] = .init()
+        
+        let titleGeneralTooltip = Localizable.Waves.Receive.Tootltip.Addressoptions.Externalsource.title
+        let descriptionGeneralTooltip = Localizable.Waves.Receive.Tootltip.Addressoptions.Externalsource.subtitle
+        
+        
+        let titleSecondTooltip = Localizable.Waves.Receive.Tootltip.Addressoptions.Wavesaccount.title
+        let descriptionSecondTooltip = Localizable.Waves.Receive.Tootltip.Addressoptions.Wavesaccount.subtitle
+        
+        elements.append(.init(title: titleGeneralTooltip,
+                              description: descriptionGeneralTooltip))
+        
+        elements.append(.init(title: titleSecondTooltip,
+                              description: descriptionSecondTooltip))
+        
+        let title = Localizable.Waves.Receive.Tootltip.Addressoptions.title
+        let data = TooltipTypes.DTO.Data.init(title: title,
+                                              elements: elements)
+        
+        let vc = TooltipModuleBuilder(output: self)
+            .build(input: .init(data: data))
+        
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = popoverViewControllerTransitioning
+        
+        self.present(vc, animated: true, completion: nil)
+      }
+    
+}
+
+
+// MARK: TooltipViewControllerModulOutput
+extension ReceiveContainerViewController: TooltipViewControllerModulOutput {
+    
+    func tooltipDidTapClose() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 //MARK: - Actions

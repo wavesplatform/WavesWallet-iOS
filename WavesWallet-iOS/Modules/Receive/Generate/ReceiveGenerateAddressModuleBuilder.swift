@@ -11,7 +11,7 @@ import Extensions
 
 struct ReceiveGenerateAddressModuleBuilder: ModuleBuilder {
 
-    func build(input: ReceiveGenerate.DTO.GenerateType) -> UIViewController {
+    func build(input: ReceiveGenerateAddress.DTO.GenerateType) -> UIViewController {
         
         let vc = StoryboardScene.Receive.receiveGenerateAddressViewController.instantiate()
         vc.input = input

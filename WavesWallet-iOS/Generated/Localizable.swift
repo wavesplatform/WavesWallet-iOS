@@ -2458,10 +2458,10 @@ internal enum Localizable {
         /// Continue
         internal static var `continue`: String { return Localizable.tr("Waves", "receive.button.continue") }
         internal static var continueKey: String { return "receive.button.continue" }
-        /// Сryptocurrency
+        /// External Source
         internal static var cryptocurrency: String { return Localizable.tr("Waves", "receive.button.cryptocurrency") }
         internal static var cryptocurrencyKey: String { return "receive.button.cryptocurrency" }
-        /// Invoice
+        /// Waves Account
         internal static var invoice: String { return Localizable.tr("Waves", "receive.button.invoice") }
         internal static var invoiceKey: String { return "receive.button.invoice" }
         /// Use total balance
@@ -2491,6 +2491,33 @@ internal enum Localizable {
         /// Select your token
         internal static var selectYourAsset: String { return Localizable.tr("Waves", "receive.label.selectYourAsset") }
         internal static var selectYourAssetKey: String { return "receive.label.selectYourAsset" }
+      }
+
+      internal enum Tootltip {
+
+        internal enum Addressoptions {
+          /// Address Options
+          internal static var title: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.title") }
+          internal static var titleKey: String { return "receive.tootltip.addressOptions.title" }
+
+          internal enum Externalsource {
+            /// Use this option for receiving funds from other exchanges and crypto-wallets.
+            internal static var subtitle: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.externalsource.subtitle") }
+            internal static var subtitleKey: String { return "receive.tootltip.addressOptions.externalsource.subtitle" }
+            /// External Source
+            internal static var title: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.externalsource.title") }
+            internal static var titleKey: String { return "receive.tootltip.addressOptions.externalsource.title" }
+          }
+
+          internal enum Wavesaccount {
+            /// Use this option to receive WAVES and Waves-based assets from another account in the Waves blockchain.
+            internal static var subtitle: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.wavesaccount.subtitle") }
+            internal static var subtitleKey: String { return "receive.tootltip.addressOptions.wavesaccount.subtitle" }
+            /// Waves Account
+            internal static var title: String { return Localizable.tr("Waves", "receive.tootltip.addressOptions.wavesaccount.title") }
+            internal static var titleKey: String { return "receive.tootltip.addressOptions.wavesaccount.title" }
+          }
+        }
       }
     }
 
@@ -2525,6 +2552,32 @@ internal enum Localizable {
         /// Your QR Code
         internal static var yourQRCode: String { return Localizable.tr("Waves", "receiveaddress.label.yourQRCode") }
         internal static var yourQRCodeKey: String { return "receiveaddress.label.yourQRCode" }
+      }
+
+      internal enum Tootltip {
+        /// Help
+        internal static var title: String { return Localizable.tr("Waves", "receiveAddress.tootltip.title") }
+        internal static var titleKey: String { return "receiveAddress.tootltip.title" }
+
+        internal enum Btc {
+          /// SegWit Addresses beginning with "bc1" reduce transaction fees, but may not work everywhere. Regular Addresses beginning with "1" work everywhere. Both are safe to use.
+          internal static var subtitle: String { return Localizable.tr("Waves", "receiveAddress.tootltip.btc.subtitle") }
+          internal static var subtitleKey: String { return "receiveAddress.tootltip.btc.subtitle" }
+          /// Bitcoin Address Options
+          internal static var title: String { return Localizable.tr("Waves", "receiveAddress.tootltip.btc.title") }
+          internal static var titleKey: String { return "receiveAddress.tootltip.btc.title" }
+        }
+
+        internal enum General {
+          /// Once the transaction is confirmed, the gateway will process the transfer of %@ token to your Waves account. Please note that the gateway doesn't apply any fees to this operation.
+          internal static func subtitle(_ p1: String) -> String {
+            return Localizable.tr("Waves", "receiveAddress.tootltip.general.subtitle", p1)
+          }
+          /// Enter this address into %@ client or wallet
+          internal static func title(_ p1: String) -> String {
+            return Localizable.tr("Waves", "receiveAddress.tootltip.general.title", p1)
+          }
+        }
       }
     }
 
@@ -2569,6 +2622,16 @@ internal enum Localizable {
     }
 
     internal enum Receivecryptocurrency {
+
+      internal enum Address {
+
+        internal enum Default {
+          /// Address %@
+          internal static func name(_ p1: String) -> String {
+            return Localizable.tr("Waves", "receiveCryptocurrency.address.default.name", p1)
+          }
+        }
+      }
 
       internal enum Label {
         /// The minimum amount of deposit is %@

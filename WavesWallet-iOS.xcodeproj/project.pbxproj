@@ -466,6 +466,20 @@
 		7B8818742305639700AB0549 /* ActionSheet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B88186D2305639600AB0549 /* ActionSheet.storyboard */; };
 		7B881876230590BB00AB0549 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B881875230590BB00AB0549 /* DeepLink.swift */; };
 		7B8818782305926E00AB0549 /* WidgetSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8818772305926E00AB0549 /* WidgetSettingsCoordinator.swift */; };
+		7B8997E62416487F00823DB6 /* ReceiveAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997E52416487F00823DB6 /* ReceiveAddressView.swift */; };
+		7B8997EA2418E48700823DB6 /* TooltipTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997E92418E48700823DB6 /* TooltipTypes.swift */; };
+		7B8997EC2418F6F300823DB6 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997EB2418F6F300823DB6 /* TooltipViewController.swift */; };
+		7B8997EE2418F87F00823DB6 /* Tooltip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B8997ED2418F87F00823DB6 /* Tooltip.storyboard */; };
+		7B8997F02418FAAA00823DB6 /* TooltipInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997EF2418FAAA00823DB6 /* TooltipInfoCell.swift */; };
+		7B8997F22418FC5000823DB6 /* TooltipButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997F12418FC5000823DB6 /* TooltipButtonCell.swift */; };
+		7B8997F42418FC5B00823DB6 /* TooltipSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997F32418FC5B00823DB6 /* TooltipSeparatorCell.swift */; };
+		7B8997F62419161200823DB6 /* TooltipModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997F52419161200823DB6 /* TooltipModuleBuilder.swift */; };
+		7B8997F924191B4700823DB6 /* TooltipHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997F724191B4700823DB6 /* TooltipHeaderView.swift */; };
+		7B8997FA24191B4700823DB6 /* TooltipHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B8997F824191B4700823DB6 /* TooltipHeaderView.xib */; };
+		7B899800241A610B00823DB6 /* ReceiveAddressCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8997FF241A610B00823DB6 /* ReceiveAddressCoordinator.swift */; };
+		7B899802241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B899801241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift */; };
+		7B899804241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B899803241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift */; };
+		7B899806241A809900823DB6 /* WEGatewayUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B899805241A809900823DB6 /* WEGatewayUseCaseProtocol.swift */; };
 		7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; };
 		7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393C822DF5827006634A6 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624722DC973E0029DA37 /* WavesSDK.framework */; };
@@ -573,8 +587,16 @@
 		7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
+		7BCD0F5B241A89AF00967055 /* WEOAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */; };
+		7BCD0F5D241A89C800967055 /* WEGatewayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5C241A89C800967055 /* WEGatewayRepository.swift */; };
+		7BCD0F5F241A97C300967055 /* WEOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F5E241A97C300967055 /* WEOAuthService.swift */; };
+		7BCD0F61241A97D900967055 /* WEGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F60241A97D900967055 /* WEGatewayService.swift */; };
+		7BCD0F63241AC32E00967055 /* WEGatewayUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */; };
+		7BCD0F65241BB0B800967055 /* String+Int64BinaryBase64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD0F64241BB0B800967055 /* String+Int64BinaryBase64.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
+		7BD3605F241170E1006F3A77 /* ReceiveAddressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */; };
+		7BD3606124117145006F3A77 /* ReceiveAddressCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD3606024117145006F3A77 /* ReceiveAddressCardView.xib */; };
 		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
 		7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */; };
 		7BD6E10222E50EB200BAAFC8 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */; };
@@ -1084,7 +1106,7 @@
 		E9D36DE22175C755001E6DF0 /* ReceiveAddressModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D9B2175C754001E6DF0 /* ReceiveAddressModuleBuilder.swift */; };
 		E9D36DE32175C755001E6DF0 /* ReceiveAddressTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D9E2175C754001E6DF0 /* ReceiveAddressTypes.swift */; };
 		E9D36DE52175C755001E6DF0 /* ReceiveGenerateAddressModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DA32175C754001E6DF0 /* ReceiveGenerateAddressModuleBuilder.swift */; };
-		E9D36DE62175C755001E6DF0 /* ReceiveGenerateTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DA52175C754001E6DF0 /* ReceiveGenerateTypes.swift */; };
+		E9D36DE62175C755001E6DF0 /* ReceiveGenerateAddressTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DA52175C754001E6DF0 /* ReceiveGenerateAddressTypes.swift */; };
 		E9D36DE72175C755001E6DF0 /* ReceiveGenerateAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DA72175C754001E6DF0 /* ReceiveGenerateAddressViewController.swift */; };
 		E9D36DE82175C755001E6DF0 /* AssetSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DA92175C754001E6DF0 /* AssetSelectView.swift */; };
 		E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D36DAA2175C754001E6DF0 /* AssetSelectView.xib */; };
@@ -1753,6 +1775,20 @@
 		7B88186D2305639600AB0549 /* ActionSheet.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActionSheet.storyboard; sourceTree = "<group>"; };
 		7B881875230590BB00AB0549 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
 		7B8818772305926E00AB0549 /* WidgetSettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSettingsCoordinator.swift; sourceTree = "<group>"; };
+		7B8997E52416487F00823DB6 /* ReceiveAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressView.swift; sourceTree = "<group>"; };
+		7B8997E92418E48700823DB6 /* TooltipTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipTypes.swift; sourceTree = "<group>"; };
+		7B8997EB2418F6F300823DB6 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
+		7B8997ED2418F87F00823DB6 /* Tooltip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tooltip.storyboard; sourceTree = "<group>"; };
+		7B8997EF2418FAAA00823DB6 /* TooltipInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipInfoCell.swift; sourceTree = "<group>"; };
+		7B8997F12418FC5000823DB6 /* TooltipButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipButtonCell.swift; sourceTree = "<group>"; };
+		7B8997F32418FC5B00823DB6 /* TooltipSeparatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSeparatorCell.swift; sourceTree = "<group>"; };
+		7B8997F52419161200823DB6 /* TooltipModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipModuleBuilder.swift; sourceTree = "<group>"; };
+		7B8997F724191B4700823DB6 /* TooltipHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipHeaderView.swift; sourceTree = "<group>"; };
+		7B8997F824191B4700823DB6 /* TooltipHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TooltipHeaderView.xib; sourceTree = "<group>"; };
+		7B8997FF241A610B00823DB6 /* ReceiveAddressCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressCoordinator.swift; sourceTree = "<group>"; };
+		7B899801241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayRepositoryProtocol.swift; sourceTree = "<group>"; };
+		7B899803241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthRepositoryProtocol.swift; sourceTree = "<group>"; };
+		7B899805241A809900823DB6 /* WEGatewayUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B97B03822FC784F008BA3F4 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		7B97B03922FC784F008BA3F4 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		7B97B03A22FC784F008BA3F4 /* CGFloat+Min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Min.swift"; sourceTree = "<group>"; };
@@ -1831,8 +1867,16 @@
 		7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepository.swift; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
+		7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthRepository.swift; sourceTree = "<group>"; };
+		7BCD0F5C241A89C800967055 /* WEGatewayRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayRepository.swift; sourceTree = "<group>"; };
+		7BCD0F5E241A97C300967055 /* WEOAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEOAuthService.swift; sourceTree = "<group>"; };
+		7BCD0F60241A97D900967055 /* WEGatewayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayService.swift; sourceTree = "<group>"; };
+		7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WEGatewayUseCase.swift; sourceTree = "<group>"; };
+		7BCD0F64241BB0B800967055 /* String+Int64BinaryBase64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Int64BinaryBase64.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
+		7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddressCardView.swift; sourceTree = "<group>"; };
+		7BD3606024117145006F3A77 /* ReceiveAddressCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiveAddressCardView.xib; sourceTree = "<group>"; };
 		7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
 		7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -2380,7 +2424,7 @@
 		E9D36D9B2175C754001E6DF0 /* ReceiveAddressModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveAddressModuleBuilder.swift; sourceTree = "<group>"; };
 		E9D36D9E2175C754001E6DF0 /* ReceiveAddressTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveAddressTypes.swift; sourceTree = "<group>"; };
 		E9D36DA32175C754001E6DF0 /* ReceiveGenerateAddressModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateAddressModuleBuilder.swift; sourceTree = "<group>"; };
-		E9D36DA52175C754001E6DF0 /* ReceiveGenerateTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateTypes.swift; sourceTree = "<group>"; };
+		E9D36DA52175C754001E6DF0 /* ReceiveGenerateAddressTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateAddressTypes.swift; sourceTree = "<group>"; };
 		E9D36DA72175C754001E6DF0 /* ReceiveGenerateAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateAddressViewController.swift; sourceTree = "<group>"; };
 		E9D36DA92175C754001E6DF0 /* AssetSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetSelectView.swift; sourceTree = "<group>"; };
 		E9D36DAA2175C754001E6DF0 /* AssetSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetSelectView.xib; sourceTree = "<group>"; };
@@ -3081,6 +3125,7 @@
 		0ADD7FF721F22FFA0075FC59 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				7B8997FE241A610300823DB6 /* Receive */,
 				E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */,
 				7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */,
 				0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */,
@@ -3677,12 +3722,13 @@
 				7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */,
 				7B431A7C22BCFE8A00DE73B9 /* AssetsUseCaseProtocol.swift */,
 				7B5FAA5222BBE3EC00621A44 /* AuthorizationUseCaseProtocol.swift */,
+				7B899805241A809900823DB6 /* WEGatewayUseCaseProtocol.swift */,
 				7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */,
 				E97A74A422D3BAA200777C39 /* OrderBookUseCaseProtocol.swift */,
+				7B848A7B2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift */,
 				7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */,
 				7B848A7023018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift */,
 				7B848A6C2301784B0092AD18 /* WidgetSettingsUseCaseProtocol.swift */,
-				7B848A7B2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -3787,6 +3833,8 @@
 				7B5FAA0D22BBE3EB00621A44 /* WalletsRepositoryProtocol.swift */,
 				E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */,
 				7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */,
+				7B899801241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift */,
+				7B899803241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3889,6 +3937,7 @@
 				7B848A792301C0950092AD18 /* WidgetSettingsInizializationUseCase.swift */,
 				7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */,
 				7B431A8722BD037C00DE73B9 /* Protocol */,
+				7BCD0F62241AC32E00967055 /* WEGatewayUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -4057,6 +4106,57 @@
 				7B88186B2305639600AB0549 /* ActionSheetHeaderView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7B8997E82418E41300823DB6 /* Tooltip */ = {
+			isa = PBXGroup;
+			children = (
+				7B8997FC241A4CC000823DB6 /* Views */,
+				7B8997E92418E48700823DB6 /* TooltipTypes.swift */,
+				7B8997EB2418F6F300823DB6 /* TooltipViewController.swift */,
+				7B8997ED2418F87F00823DB6 /* Tooltip.storyboard */,
+				7B8997F52419161200823DB6 /* TooltipModuleBuilder.swift */,
+			);
+			path = Tooltip;
+			sourceTree = "<group>";
+		};
+		7B8997FB241A4CAC00823DB6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7BD3605E241170E1006F3A77 /* ReceiveAddressCardView.swift */,
+				7BD3606024117145006F3A77 /* ReceiveAddressCardView.xib */,
+				7B8997E52416487F00823DB6 /* ReceiveAddressView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7B8997FC241A4CC000823DB6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7B8997F724191B4700823DB6 /* TooltipHeaderView.swift */,
+				7B8997F824191B4700823DB6 /* TooltipHeaderView.xib */,
+				7B8997EF2418FAAA00823DB6 /* TooltipInfoCell.swift */,
+				7B8997F32418FC5B00823DB6 /* TooltipSeparatorCell.swift */,
+				7B8997F12418FC5000823DB6 /* TooltipButtonCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7B8997FD241A588200823DB6 /* ReceiveContainer */ = {
+			isa = PBXGroup;
+			children = (
+				E9D36D952175C754001E6DF0 /* ReceiveContainerModuleBuilder.swift */,
+				E9D36D942175C754001E6DF0 /* ReceiveContainerViewController.swift */,
+			);
+			path = ReceiveContainer;
+			sourceTree = "<group>";
+		};
+		7B8997FE241A610300823DB6 /* Receive */ = {
+			isa = PBXGroup;
+			children = (
+				7B8997FF241A610B00823DB6 /* ReceiveAddressCoordinator.swift */,
+			);
+			path = Receive;
 			sourceTree = "<group>";
 		};
 		7B97B03722FC784F008BA3F4 /* UI */ = {
@@ -4393,18 +4493,22 @@
 		7BF50A2C22D8B95400582783 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
 				7BF50A3222D8B95400582783 /* AccountSettingsRepository.swift */,
 				7BF50A3522D8B95400582783 /* AddressRepositoryRemote.swift */,
 				7BF50A3122D8B95400582783 /* ApplicationVersionRepository.swift */,
 				7BF50A3422D8B95400582783 /* AuthenticationRepositoryRemote.swift */,
 				7BF50A2F22D8B95400582783 /* BlockRepositoryRemote.swift */,
 				7BF50A3322D8B95400582783 /* CoinomatRepository.swift */,
+				7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */,
 				7BF50A5022D8B95400582783 /* EnvironmentRepository.swift */,
 				7BF50A3022D8B95400582783 /* GatewayRepository.swift */,
+				7B3A9AB3231BE3900025CDCA /* MobileKeeperRepository.swift */,
 				7BF50A2E22D8B95400582783 /* NotificationNewsRepository.swift */,
 				7BF50A3922D8B95400582783 /* RepositoriesFactory.swift */,
 				7BF50A2D22D8B95400582783 /* SpamAssetsRepository.swift */,
+				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
+				7BCD0F5A241A89AF00967055 /* WEOAuthRepository.swift */,
+				7BCD0F5C241A89C800967055 /* WEGatewayRepository.swift */,
 				7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */,
 				7BF50A3C22D8B95400582783 /* AccountBalance */,
 				7BF50A3A22D8B95400582783 /* AddressBook */,
@@ -4413,8 +4517,6 @@
 				7BF50A3F22D8B95400582783 /* Dex */,
 				7BF50A3622D8B95400582783 /* Transactions */,
 				7BF50A4622D8B95400582783 /* Wallets */,
-				7B3A9AB3231BE3900025CDCA /* MobileKeeperRepository.swift */,
-				7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -4494,6 +4596,8 @@
 				7BF50A5522D8B95400582783 /* ResourceAPI */,
 				7BF50A5822D8B95400582783 /* Coinomat */,
 				7BF50A5A22D8B95400582783 /* Gateway */,
+				7BCD0F5E241A97C300967055 /* WEOAuthService.swift */,
+				7BCD0F60241A97D900967055 /* WEGatewayService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -4547,6 +4651,7 @@
 				7BF50A6A22D8B95400582783 /* SweetLoggerSentry.swift */,
 				7BF50A5F22D8B95400582783 /* TransactionSenderAssistant.swift */,
 				7BF50A6022D8B95400582783 /* Types */,
+				7BCD0F64241BB0B800967055 /* String+Int64BinaryBase64.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -5642,17 +5747,17 @@
 		E9D36D6B2175C754001E6DF0 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
+				E9D36D932175C754001E6DF0 /* Receive.storyboard */,
+				E9D36D8C2175C754001E6DF0 /* ReceiveTypes.swift */,
 				E9D36D6C2175C754001E6DF0 /* Сryptocurrency */,
 				E9D36D7D2175C754001E6DF0 /* Card */,
-				E9D36D8C2175C754001E6DF0 /* ReceiveTypes.swift */,
 				E9D36D8D2175C754001E6DF0 /* CardComplete */,
-				E9D36D932175C754001E6DF0 /* Receive.storyboard */,
-				E9D36D942175C754001E6DF0 /* ReceiveContainerViewController.swift */,
-				E9D36D952175C754001E6DF0 /* ReceiveContainerModuleBuilder.swift */,
-				E9D36D972175C754001E6DF0 /* Address */,
 				E9D36DA02175C754001E6DF0 /* Generate */,
-				E9D36DA82175C754001E6DF0 /* Views */,
 				E9D36DAB2175C754001E6DF0 /* Invoice */,
+				E9D36D972175C754001E6DF0 /* ReceiveAddress */,
+				7B8997FD241A588200823DB6 /* ReceiveContainer */,
+				7B8997E82418E41300823DB6 /* Tooltip */,
+				E9D36DA82175C754001E6DF0 /* Views */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -5725,21 +5830,22 @@
 			path = CardComplete;
 			sourceTree = "<group>";
 		};
-		E9D36D972175C754001E6DF0 /* Address */ = {
+		E9D36D972175C754001E6DF0 /* ReceiveAddress */ = {
 			isa = PBXGroup;
 			children = (
 				E9D36D982175C754001E6DF0 /* ReceiveAddressViewController.swift */,
 				E9D36D9B2175C754001E6DF0 /* ReceiveAddressModuleBuilder.swift */,
 				E9D36D9E2175C754001E6DF0 /* ReceiveAddressTypes.swift */,
+				7B8997FB241A4CAC00823DB6 /* Views */,
 			);
-			path = Address;
+			path = ReceiveAddress;
 			sourceTree = "<group>";
 		};
 		E9D36DA02175C754001E6DF0 /* Generate */ = {
 			isa = PBXGroup;
 			children = (
 				E9D36DA32175C754001E6DF0 /* ReceiveGenerateAddressModuleBuilder.swift */,
-				E9D36DA52175C754001E6DF0 /* ReceiveGenerateTypes.swift */,
+				E9D36DA52175C754001E6DF0 /* ReceiveGenerateAddressTypes.swift */,
 				E9D36DA72175C754001E6DF0 /* ReceiveGenerateAddressViewController.swift */,
 			);
 			path = Generate;
@@ -6418,6 +6524,7 @@
 				0AA8CAD421527672000D09E6 /* PasscodeView.xib in Resources */,
 				7B9DC3202382C04700DCCA75 /* environment_stagenet_test.json in Resources */,
 				E95B47CE21638A9F004D4E39 /* ShortInfoPageView.xib in Resources */,
+				7B8997EE2418F87F00823DB6 /* Tooltip.storyboard in Resources */,
 				7B9DC3242382C04700DCCA75 /* environment_testnet_test.json in Resources */,
 				0AF922F7212E1234003BA067 /* SegmentedControl.xib in Resources */,
 				04A2CFA5211213BE00784FEC /* History.storyboard in Resources */,
@@ -6438,6 +6545,7 @@
 				7B4F964623E1BF3E00950D39 /* GoogleService-Info-Waves.plist in Resources */,
 				E9F69B9D22A5333500CDBD00 /* WalletSearchHeaderCell.xib in Resources */,
 				0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */,
+				7B8997FA24191B4700823DB6 /* TooltipHeaderView.xib in Resources */,
 				E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */,
 				0ADD6C822167948500B06917 /* ProfileHeaderView.xib in Resources */,
 				0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */,
@@ -6511,6 +6619,7 @@
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
+				7BD3606124117145006F3A77 /* ReceiveAddressCardView.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
@@ -6873,6 +6982,7 @@
 				7B5FAAA322BBE3EC00621A44 /* ResponseType.swift in Sources */,
 				7B5FAA6A22BBE3EC00621A44 /* RepositoriesFactoryProtocol.swift in Sources */,
 				7B5FAAB422BBE3EC00621A44 /* TransactionsUseCase.swift in Sources */,
+				7B899802241A7E9A00823DB6 /* WEGatewayRepositoryProtocol.swift in Sources */,
 				7BDC6D7422C3A1E000614E6B /* AnalyticManagerEvent+Widgets.swift in Sources */,
 				7BDC6D3E22C2522F00614E6B /* SpamAssetsRepositoryProtocol.swift in Sources */,
 				7B848A7123018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift in Sources */,
@@ -6902,6 +7012,7 @@
 				7BDC6D4422C3965900614E6B /* AnalyticManagerEvent+ImportAccount.swift in Sources */,
 				7B5FAACF22BCEA3500621A44 /* AliasesUseCaseProtocol.swift in Sources */,
 				7B5FAABD22BBE3EC00621A44 /* Address.swift in Sources */,
+				7B899804241A7F1C00823DB6 /* WEOAuthRepositoryProtocol.swift in Sources */,
 				7B5FAA6F22BBE3EC00621A44 /* AccountSettingsRepositoryProtocol.swift in Sources */,
 				7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */,
 				E94AF03223D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift in Sources */,
@@ -6935,6 +7046,7 @@
 				7B5FAAB822BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift in Sources */,
 				7B5FAAB022BBE3EC00621A44 /* MigrationUseCase.swift in Sources */,
 				E9618D1622EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift in Sources */,
+				7B899806241A809900823DB6 /* WEGatewayUseCaseProtocol.swift in Sources */,
 				7B5FAA8B22BBE3EC00621A44 /* AliasDomainDTO.swift in Sources */,
 				7B5FAAA822BBE3EC00621A44 /* AnalyticAssetManager.swift in Sources */,
 				7B5FAA6B22BBE3EC00621A44 /* TransactionDomainDTO+Mapper.swift in Sources */,
@@ -6956,6 +7068,7 @@
 				7B5FAA7F22BBE3EC00621A44 /* AliasesRepositoryProtocol.swift in Sources */,
 				7B5FAADC22BCEA4200621A44 /* MigrationUseCaseProtocol.swift in Sources */,
 				7B5FAA7E22BBE3EC00621A44 /* BlockRepositoryProtocol.swift in Sources */,
+				7BCD0F63241AC32E00967055 /* WEGatewayUseCase.swift in Sources */,
 				7B5FAA7022BBE3EC00621A44 /* CoinomatRepositoryProtocol.swift in Sources */,
 				7B848A7C2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift in Sources */,
 				7B5FAA9322BBE3EC00621A44 /* MassTransferTransactionDomainDTO.swift in Sources */,
@@ -7065,6 +7178,7 @@
 				7BF50A7722D8B95400582783 /* TransferTransaction.swift in Sources */,
 				7BF50AB722D8B95400582783 /* AssetsRepositoryLocal.swift in Sources */,
 				7BF50ACB22D8B95400582783 /* String+NormalizeAssetId.swift in Sources */,
+				7BCD0F5B241A89AF00967055 /* WEOAuthRepository.swift in Sources */,
 				7BF50AA122D8B95400582783 /* ApplicationVersionRepository.swift in Sources */,
 				7BF50AB022D8B95400582783 /* CandlesRepositoryRemote.swift in Sources */,
 				7BF50AA722D8B95400582783 /* TransactionsRepositoryLocal.swift in Sources */,
@@ -7098,6 +7212,7 @@
 				7BFB474C22FC5A41002B19F8 /* WidgetSettingsRepositoryStorage.swift in Sources */,
 				7BF50A7A22D8B95400582783 /* ReissueTransaction.swift in Sources */,
 				7BF50AA322D8B95400582783 /* CoinomatRepository.swift in Sources */,
+				7BCD0F61241A97D900967055 /* WEGatewayService.swift in Sources */,
 				7BF50AB222D8B95400582783 /* WalletsRepositoryLocal.swift in Sources */,
 				7BF50AB622D8B95400582783 /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */,
 				7BF50A9C22D8B95400582783 /* Asset+Mapper.swift in Sources */,
@@ -7130,6 +7245,7 @@
 				7BF50A7422D8B95400582783 /* InvokeScriptTransaction.swift in Sources */,
 				7BF50A9822D8B95400582783 /* ExchangeTransaction+Mapper.swift in Sources */,
 				7BF50A8222D8B95400582783 /* DexAssetPair.swift in Sources */,
+				7BCD0F65241BB0B800967055 /* String+Int64BinaryBase64.swift in Sources */,
 				7BF50AC622D8B95400582783 /* NodePlugin.swift in Sources */,
 				7BF50AC722D8B95400582783 /* MoyaProvider+Helper.swift in Sources */,
 				7BF50AC822D8B95400582783 /* SentryNetworkLoggerPlugin.swift in Sources */,
@@ -7143,6 +7259,7 @@
 				7BF50AC522D8B95400582783 /* Results+Limit.swift in Sources */,
 				7BF50A7022D8B95400582783 /* AssetScriptTransaction.swift in Sources */,
 				7BF50A9922D8B95400582783 /* LeaseTransaction+Mapper.swift in Sources */,
+				7BCD0F5D241A89C800967055 /* WEGatewayRepository.swift in Sources */,
 				7BF50A8722D8B95400582783 /* WalletEncryption.swift in Sources */,
 				7BF50A6D22D8B95400582783 /* LeaseTransaction.swift in Sources */,
 				7BF50AC922D8B95400582783 /* SentryManager.swift in Sources */,
@@ -7153,6 +7270,7 @@
 				7BF50AAC22D8B95400582783 /* MatcherRepositoryRemote.swift in Sources */,
 				7BF50AB822D8B95400582783 /* AssetsRepositoryRemote.swift in Sources */,
 				7BF50ABA22D8B95400582783 /* SpamService.swift in Sources */,
+				7BCD0F5F241A97C300967055 /* WEOAuthService.swift in Sources */,
 				7BF50A8822D8B95400582783 /* DexAssetPairDomainDTO+Mapper.swift in Sources */,
 				7BF50ABE22D8B95400582783 /* CoinomatService.swift in Sources */,
 			);
@@ -7246,6 +7364,7 @@
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,
 				0A14E3E821871B7700EA7E91 /* AliasesHeadCell.swift in Sources */,
+				7B8997F22418FC5000823DB6 /* TooltipButtonCell.swift in Sources */,
 				0A9D6B62216E059F006822C5 /* WalletTypes+DisplayState.swift in Sources */,
 				E9B12DB5219DD6E000128EFE /* AssetBalanceSpamCell.swift in Sources */,
 				0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */,
@@ -7277,6 +7396,7 @@
 				0ADD802421F22FFA0075FC59 /* TabBarRouter.swift in Sources */,
 				7B3902A32237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift in Sources */,
 				E9B087E62163886800937644 /* DexCreateOrderAmountButton.swift in Sources */,
+				7B899800241A610B00823DB6 /* ReceiveAddressCoordinator.swift in Sources */,
 				E9F78A3D229E98B40065324B /* NewSegmentedControl.swift in Sources */,
 				7BDA6ADB222D8D16001DE71C /* TransactionCardType.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
@@ -7361,6 +7481,7 @@
 				0A96F1D82152CC09005E148F /* NewAccountTypes.swift in Sources */,
 				E9C1B910236C6DA900F8E988 /* ForceUpdateAppViewController.swift in Sources */,
 				0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */,
+				7B8997F62419161200823DB6 /* TooltipModuleBuilder.swift in Sources */,
 				0AF922EB212E1234003BA067 /* DottedLineView.swift in Sources */,
 				E9B087A82163886800937644 /* DexOrderBookViewController.swift in Sources */,
 				E9B088002163886800937644 /* DexMyOrdersInteractorProtocol.swift in Sources */,
@@ -7377,7 +7498,7 @@
 				E9B087DC2163886800937644 /* DexCreateOrderModuleOutput.swift in Sources */,
 				E98F0589236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift in Sources */,
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
-				E9D36DE62175C755001E6DF0 /* ReceiveGenerateTypes.swift in Sources */,
+				E9D36DE62175C755001E6DF0 /* ReceiveGenerateAddressTypes.swift in Sources */,
 				7BFB481722FC742F002B19F8 /* NSAttributedString+Styles.swift in Sources */,
 				E9B088062163886800937644 /* DexCompleteOrderViewController.swift in Sources */,
 				048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */,
@@ -7394,6 +7515,7 @@
 				0AF922FE212E1234003BA067 /* GradientView.swift in Sources */,
 				0AF922F3212E1234003BA067 /* SeparatorView.swift in Sources */,
 				7BDA6AE822313E59001DE71C /* TransactionImageView.swift in Sources */,
+				7B8997F02418FAAA00823DB6 /* TooltipInfoCell.swift in Sources */,
 				0A7CCDB3218A138D005D372B /* MyAddressQRCodeCell.swift in Sources */,
 				7B36819D23142639000D5592 /* ConfirmRequestSystem.swift in Sources */,
 				7B8818602304474E00AB0549 /* AuthorizationInteractorLocalizableImp.swift in Sources */,
@@ -7474,6 +7596,7 @@
 				7B26A88322ED14DA00E7B024 /* WidgetSettingsSystem.swift in Sources */,
 				048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */,
 				E905FCD423B0E90300A330AA /* MyOrdersSystem.swift in Sources */,
+				7B8997EC2418F6F300823DB6 /* TooltipViewController.swift in Sources */,
 				7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */,
 				0AF922E5212E1234003BA067 /* HalfModalTransitionAnimator.swift in Sources */,
 				E9B087A92163886800937644 /* DexOrderBookPresenterProtocol.swift in Sources */,
@@ -7567,6 +7690,7 @@
 				7BFB480822FC742F002B19F8 /* SkeletonAnimatable.swift in Sources */,
 				0A59330C218343B00059A77A /* AddressesKeysAliacesCell.swift in Sources */,
 				0AFF5C7B215BCFEA00B82940 /* AccountPasswordModuleBuilder.swift in Sources */,
+				7BD3605F241170E1006F3A77 /* ReceiveAddressCardView.swift in Sources */,
 				7B3681A923155499000D5592 /* ConfirmRequestFromToCell.swift in Sources */,
 				0AF921EC212E07B3003BA067 /* AssetDetailInteractorProtocol.swift in Sources */,
 				0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */,
@@ -7621,6 +7745,7 @@
 				0AF921FD212E07B3003BA067 /* AssetHistorySkeletonCell.swift in Sources */,
 				E9D36DF52175C755001E6DF0 /* AssetListTypes.swift in Sources */,
 				E9D36DDF2175C755001E6DF0 /* ReceiveContainerModuleBuilder.swift in Sources */,
+				7B8997F42418FC5B00823DB6 /* TooltipSeparatorCell.swift in Sources */,
 				E9AFDBE421F32E88003130A8 /* TransactionFeeView.swift in Sources */,
 				7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */,
 				7BFB480C22FC742F002B19F8 /* GlobalConstants.swift in Sources */,
@@ -7632,6 +7757,7 @@
 				E9B087E82163886800937644 /* DexCreateOrderInteractorProtocol.swift in Sources */,
 				7B49911E22F875A1005B7123 /* AssetsSearchViewBuilder.swift in Sources */,
 				04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */,
+				7B8997EA2418E48700823DB6 /* TooltipTypes.swift in Sources */,
 				7B3681A72315534E000D5592 /* ConfirmRequestTransactionKindCell.swift in Sources */,
 				0AA8CAD22152763A000D09E6 /* PasscodeView.swift in Sources */,
 				E9B086B62163883000937644 /* AddressBookPresenter.swift in Sources */,
@@ -7750,9 +7876,11 @@
 				E96DAB73228EEC87005ED12B /* WalletSortSegmentedControl.swift in Sources */,
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */,
+				7B8997E62416487F00823DB6 /* ReceiveAddressView.swift in Sources */,
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
 				7B3902A72237A74900AAFDB8 /* ActionsControl.swift in Sources */,
 				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,
+				7B8997F924191B4700823DB6 /* TooltipHeaderView.swift in Sources */,
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
 				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
 				7B60E2BC2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift in Sources */,
@@ -7999,7 +8127,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8008,7 +8136,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.9.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
@@ -8092,7 +8220,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8101,7 +8229,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.9.2;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
@@ -8349,11 +8477,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8388,11 +8516,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -8422,11 +8550,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -8456,11 +8584,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -8490,11 +8618,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8532,11 +8660,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8569,11 +8697,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8606,11 +8734,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8643,11 +8771,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8682,11 +8810,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -8716,11 +8844,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -8750,11 +8878,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -9231,7 +9359,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -9241,7 +9369,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.9.2;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
@@ -9296,11 +9424,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9335,11 +9463,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9377,11 +9505,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9534,7 +9662,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -9543,7 +9671,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.9.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
@@ -9592,11 +9720,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -9626,11 +9754,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9663,11 +9791,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 3993;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -10011,7 +10139,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -10368,7 +10496,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -10378,7 +10506,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.9.2;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
@@ -10406,7 +10534,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 3993;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -10415,7 +10543,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.9.2;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;

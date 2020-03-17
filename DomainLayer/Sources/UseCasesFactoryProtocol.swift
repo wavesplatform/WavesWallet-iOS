@@ -27,4 +27,6 @@ public protocol UseCasesFactoryProtocol {
     var widgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol { get }
     
     var correctionPairsUseCase: CorrectionPairsUseCaseProtocol { get }
+    
+    var weGatewayUseCase: WEGatewayUseCaseProtocol { get }
 }

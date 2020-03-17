@@ -390,8 +390,8 @@
 "profile.navigation.title" = "Profile";
 "receive.button.card" = "Card";
 "receive.button.continue" = "Continue";
-"receive.button.cryptocurrency" = "Сryptocurrency";
-"receive.button.invoice" = "Invoice";
+"receive.button.cryptocurrency" = "External Source";
+"receive.button.invoice" = "Waves Account";
 "receive.button.useTotalBalance" = "Use total balance";
 "receive.error.serviceUnavailable" = "Service is temporarily unavailable";
 "receive.label.amount" = "Amount";
@@ -735,3 +735,14 @@
 "asset.cell.balance.button.trade" = "Trade";
 "dexmarket.navigationBar.titleAsset" = "Search pairs to";
 "trade.title" = "Trade";
+"receiveCryptocurrency.address.default.name" = "Address %@";
+"receiveAddress.tootltip.title" = "Help";
+"receiveAddress.tootltip.btc.title" = "Bitcoin Address Options";
+"receiveAddress.tootltip.btc.subtitle" = "SegWit Addresses beginning with \"bc1\" reduce transaction fees, but may not work everywhere. Regular Addresses beginning with \"1\" work everywhere. Both are safe to use.";
+"receiveAddress.tootltip.general.title" = "Enter this address into %@ client or wallet";
+"receiveAddress.tootltip.general.subtitle" = "Once the transaction is confirmed, the gateway will process the transfer of %@ token to your Waves account. Please note that the gateway doesn't apply any fees to this operation.";
+"receive.tootltip.addressOptions.title" = "Address Options";
+"receive.tootltip.addressOptions.externalsource.title" = "External Source";
+"receive.tootltip.addressOptions.externalsource.subtitle" = "Use this option for receiving funds from other exchanges and crypto-wallets.";
+"receive.tootltip.addressOptions.wavesaccount.title" = "Waves Account";
+"receive.tootltip.addressOptions.wavesaccount.subtitle" = "Use this option to receive WAVES and Waves-based assets from another account in the Waves blockchain.";

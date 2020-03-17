@@ -12,9 +12,6 @@ import DomainLayer
 
 final class ReceiveInvoiceViewController: UIViewController {
 
-    @IBOutlet private weak var labelAmount: UILabel!
-    @IBOutlet private weak var viewAmountContainer: UIView!
-    @IBOutlet private weak var textFieldMoney: MoneyTextField!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
     @IBOutlet private weak var viewAsset: AssetSelectView!
     
@@ -28,10 +25,8 @@ final class ReceiveInvoiceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewAmountContainer.addTableCellShadowStyle()
+        
         setupLocalication()
-        textFieldMoney.moneyDelegate = self
         viewAsset.delegate = self
         setupButtonState()
         
@@ -39,6 +34,8 @@ final class ReceiveInvoiceViewController: UIViewController {
             viewAsset.isSelectedAssetMode = false
             setupInfo(asset: asset)
         }
+        
+        updateDisplayInfo()
     }
     
     @IBAction private func continueTapped(_ sender: Any) {
@@ -53,7 +50,6 @@ final class ReceiveInvoiceViewController: UIViewController {
     private func setupInfo(asset: DomainLayer.DTO.SmartAssetBalance) {
         selectedAsset = asset
         viewAsset.update(with: .init(assetBalance: asset, isOnlyBlockMode: input.selectedAsset != nil))
-        textFieldMoney.setDecimals(asset.asset.precision, forceUpdateMoney: true)
     }
     
     private func updateDisplayInfo() {
@@ -61,9 +57,8 @@ final class ReceiveInvoiceViewController: UIViewController {
         displayInfo = nil
         setupButtonState()
         guard let asset = selectedAsset?.asset else { return }
-        guard let money = amount else { return }
 
-        interator.displayInfo(asset: asset, amount: money).subscribe(onNext: { [weak self] displayInfo in
+        interator.displayInfo(asset: asset, amount: Money(value: 0, 0)).subscribe(onNext: { [weak self] displayInfo in
             
             guard let self = self else { return }
             self.displayInfo = displayInfo
@@ -76,6 +71,7 @@ final class ReceiveInvoiceViewController: UIViewController {
 //MARK: - AssetSelectView
 extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
     
+    // TODO: Coordinator
     func assetViewDidTapChangeAsset() {
         let assetInput = AssetList.DTO.Input(filters: input.filters,
                                              selectedAsset: selectedAsset,
@@ -93,14 +89,6 @@ extension ReceiveInvoiceViewController: AssetListModuleOutput {
     }
 }
 
-//MARK: - MoneyTextFieldDelegate
-extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
-
-    func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
-        amount = value
-        updateDisplayInfo()
-    }
-}
 
 //MARK: - UI
 private extension ReceiveInvoiceViewController {
@@ -113,8 +101,7 @@ private extension ReceiveInvoiceViewController {
     }
     
     
-    func setupLocalication() {
-        labelAmount.text = Localizable.Waves.Receive.Label.amount
+    func setupLocalication() {        
         buttonContinue.setTitle(Localizable.Waves.Receive.Button.continue, for: .normal)
     }
 }

@@ -16,20 +16,18 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
         
         let vc = StoryboardScene.Receive.receiveContainerViewController.instantiate()
         let showAllList = true
-
+        
         if let asset = input {
             
             if input?.asset.isWaves == true {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
-            }
-            else if input?.asset.isFiat == true {
+            } else if input?.asset.isFiat == true {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
-            }
-            else {
+            } else {
                 
                 if input?.asset.isGeneral == true {
                     vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [],
@@ -41,8 +39,7 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
             }
-        }
-        else {
+        } else {
             vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency],
                                                                            selectedAsset: nil,
                                                                            showAllList: showAllList)), state: .cryptoCurrency)
@@ -54,6 +51,5 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
         
         
         return vc
-        
     }
 }

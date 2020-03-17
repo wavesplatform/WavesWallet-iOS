@@ -25,6 +25,7 @@ protocol AssetSelectViewDelegate: AnyObject {
     func assetViewDidTapChangeAsset()
 }
 
+// TODO: Move files to CustomViews
 final class AssetSelectView: UIView, NibOwnerLoadable {
     
     

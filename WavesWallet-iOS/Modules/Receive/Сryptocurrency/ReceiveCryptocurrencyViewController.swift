@@ -55,8 +55,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryptoCurrency(info))
         navigationController?.pushViewController(vc, animated: true)
         
-        UseCasesFactory.instance.analyticManager.trackEvent(.receive(.receiveTap(assetName: info.assetName)))
-
+        UseCasesFactory.instance.analyticManager.trackEvent(.receive(.receiveTap(assetName: info.asset.displayName)))
     }
     
     private func setupAssetInfo(_ asset: DomainLayer.DTO.SmartAssetBalance) {
@@ -72,8 +71,8 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     }
 }
 
-
 //MARK: - FeedBack
+
 private extension ReceiveCryptocurrencyViewController {
     
     func setupFeedBack() {
@@ -93,6 +92,8 @@ private extension ReceiveCryptocurrencyViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
+                self?.displayInfo = state.displayInfo
+                
                 guard let self = self else { return }
                 switch state.action {
                 case .none:
@@ -100,8 +101,6 @@ private extension ReceiveCryptocurrencyViewController {
                 default:
                     break
                 }
-                
-                self.displayInfo = state.displayInfo
 
                 switch state.action {
                 case .addressDidGenerate:
@@ -160,16 +159,15 @@ private extension ReceiveCryptocurrencyViewController {
         viewWarning.isHidden = false
         coinomatErrorView.isHidden = true
 
-        let displayMin = info.minAmount.displayText + " " + info.assetShort
+        let displayMin = info.minAmount.displayText + " " + info.asset.displayName
         labelTitleMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayMin)
         labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
         
         if selectedAsset?.asset.isEthereum == true {
-            labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts.title(info.assetShort, info.assetName)
-            labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts.subtitle(info.assetShort)
-        }
-        else {
-            labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
+            labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts.title(info.asset.displayName, info.asset.displayName)
+            labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts.subtitle(info.asset.displayName)
+        } else {
+            labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.sendOnlyOnThisDeposit(info.asset.displayName)
             labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.warningSendOnlyOnThisDeposit
         }
     }

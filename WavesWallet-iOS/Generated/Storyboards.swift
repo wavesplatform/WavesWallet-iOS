@@ -296,6 +296,11 @@ internal enum StoryboardScene {
 
     internal static let testViewController = SceneType<WavesWallet_iOS.TestViewController>(storyboard: Support.self, identifier: "TestViewController")
   }
+  internal enum Tooltip: StoryboardType {
+    internal static let storyboardName = "Tooltip"
+
+    internal static let tooltipViewController = SceneType<WavesWallet_iOS.TooltipViewController>(storyboard: Tooltip.self, identifier: "TooltipViewController")
+  }
   internal enum Trade: StoryboardType {
     internal static let storyboardName = "Trade"
 
