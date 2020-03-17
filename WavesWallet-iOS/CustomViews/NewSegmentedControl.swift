@@ -44,7 +44,7 @@ protocol NewSegmentedControlDelegate: AnyObject {
 }
 
 final class NewSegmentedControl: UIScrollView {
-    
+            
     private let lineView = UIView()
     
     private(set) var selectedIndex: Int = 0
@@ -75,6 +75,10 @@ final class NewSegmentedControl: UIScrollView {
             setup()
         }
     }
+    
+    var unselectedColor: UIColor = Constants.unselectedColor
+    var selectedColor: UIColor = .black
+    var lineColor: UIColor = UIColor.submit400
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -128,6 +132,7 @@ extension NewSegmentedControl {
 }
 
 // MARK: - UI Settings
+
 private extension NewSegmentedControl {
     
     var titleButtons: [UIButton] {
@@ -143,7 +148,7 @@ private extension NewSegmentedControl {
         clipsToBounds = false
         lineView.frame = CGRect(x: 0, y: 0, width: Constants.lineWidth, height: Constants.lineHeight)
         lineView.layer.cornerRadius = Constants.lineCorner
-        lineView.backgroundColor = Constants.lineColor
+        lineView.backgroundColor = self.lineColor
         
         for view in subviews {
             view.removeFromSuperview()
@@ -235,10 +240,9 @@ private extension NewSegmentedControl {
         
         for (index, button) in titleButtons.enumerated() {
             if index == selectedIndex {
-                button.setTitleColor(.black, for: .normal)
-            }
-            else {
-                button.setTitleColor(Constants.unselectedColor, for: .normal)
+                button.setTitleColor(self.selectedColor, for: .normal)
+            } else {
+                button.setTitleColor(self.unselectedColor, for: .normal)
             }
             
             let item = items[index]
@@ -268,5 +272,13 @@ private extension NewSegmentedControl {
             setContentOffset(.init(x: activeButtonPosition + activeButtonWidth - frame.size.width, y: 0), animated: true)
         }
     }
+}
 
+// MARK: ViewConfiguration
+
+extension NewSegmentedControl: ViewConfiguration {
+    
+    func update(with model: [SegmentedItem]) {
+        self.items = model
+    }
 }

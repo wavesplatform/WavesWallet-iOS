@@ -9,6 +9,7 @@ import Foundation
 import WavesSDK
 import WavesSDKCrypto
 
+// TODO: The class need move to use case
 public class AddressValidator {
     static let AddressVersion: UInt8 = 1
     static let ChecksumLength = 4

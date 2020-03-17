@@ -20,8 +20,6 @@ final class UIDeveloperCoordinator: Coordinator {
     
     weak var delegate: HelloCoordinatorDelegate?
     
-    lazy var coordinator = StakingTransferCoordinator.init(router: self.navigationRouter)
-    
     init(windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
         self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
@@ -29,23 +27,22 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
-        let view = UIViewController()
-        view.view = UIView()
-        view.view.frame = UIScreen.main.bounds
-        view.navigationItem.title = "UIDeveloper"
-        self.navigationRouter.pushViewController(view)
-        self.windowRouter.setRootViewController(self.navigationRouter.viewController,
-                                                animated: .none,
-                                                completion: { 
-                                                                
-        })
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-            self.coordinator.start()
-        }
+//        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
+//        
+//        addChildCoordinatorAndStart(childCoordinator: coordinator)
+//                
+//        let vc = TradeModuleBuilder(output: self).bui
+//        navigationRouter.pushViewController(vc)
+//        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }
 }
 
+extension UIDeveloperCoordinator: TooltipViewControllerModulOutput {
+    func tooltipDidTapClose() {
+        
+    }
+}
+    
 extension UIDeveloperCoordinator {
     func applicationDidEnterBackground() {}
 

@@ -9,7 +9,7 @@
 import UIKit
 import Extensions
 
-final class BlueBgView: UIView {
+class BlueBgView: UIView {
 
     override func draw(_ rect: CGRect) {
         

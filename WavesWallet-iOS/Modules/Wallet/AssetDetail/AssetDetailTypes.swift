@@ -107,7 +107,7 @@ extension AssetDetailTypes.ViewModel {
         case transactionSkeleton
         case assetInfo(AssetDetailTypes.DTO.Asset.Info)
         case tokenBurn(AssetDetailTypes.DTO.Asset.Info)
-    }
+    }   
 }
 
 extension AssetDetailTypes.DTO {

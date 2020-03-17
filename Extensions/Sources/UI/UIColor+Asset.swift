@@ -1,4 +1,4 @@
-//
+    //
 //  UIColor.swift
 //  WavesWallet-iOS
 //

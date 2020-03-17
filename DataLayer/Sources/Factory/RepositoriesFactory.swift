@@ -113,6 +113,16 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         
 
     public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol = TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
+    
+    public private(set) lazy var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol =
+        WEGatewayRepository(environmentRepository: environmentRepositoryInternal,
+                            developmentConfigsRepository: developmentConfigsRepository)
+    
+    
+    public private(set) lazy var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol =
+        WEOAuthRepository(environmentRepository: environmentRepositoryInternal,
+                          developmentConfigsRepository: developmentConfigsRepository)
+    
     public struct Resources {
         
         public typealias PathForFile = String

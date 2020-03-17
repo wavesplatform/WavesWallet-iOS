@@ -18,7 +18,6 @@ private enum Constants {
 }
 
 final class StartLeasingCancelConfirmationViewController: UIViewController {
-
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var buttonCancel: HighlightedButton!
     @IBOutlet private weak var labelAmount: UILabel!
@@ -63,8 +62,8 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
         removeTopBarLine()
         setupBigNavigationBar()
         navigationItem.backgroundImage = UIImage()
-        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
-        navigationItem.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationItem.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     private func setupButtonCancel() {
@@ -86,7 +85,7 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
         labelFeeTitle.text = Localizable.Waves.Startleasingconfirmation.Label.fee
         buttonCancel.setTitle(Localizable.Waves.Startleasingconfirmation.Button.cancelLeasing, for: .normal)
     }
-    
+
     @IBAction private func cancelLeasing(_ sender: Any) {
     
         if cancelOrder.fee.isZero {
@@ -102,7 +101,6 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
 // MARK: - StartLeasingErrorDelegate
 extension StartLeasingCancelConfirmationViewController: StartLeasingErrorDelegate {
     func startLeasingDidFail(error: NetworkError) {
-        
         switch error {
         case .scriptError:
             _ = TransactionScriptErrorView.show()
@@ -119,26 +117,24 @@ private extension StartLeasingCancelConfirmationViewController {
         
         auth
             .authorizedWallet()
-            .flatMap {  [weak self] (wallet) -> Observable<Money> in
+            .flatMap { [weak self] wallet -> Observable<Money> in
                 guard let self = self else { return Observable.empty() }
                 return self.transactionInteractor.calculateFee(by: .cancelLease, accountAddress: wallet.address)
             }
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (fee) in
+            .subscribe(onNext: { [weak self] fee in
                 guard let self = self else { return }
                 self.updateFee(fee)
-            }, onError: { [weak self] (error) in
-
+            }, onError: { [weak self] error in
                 if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                     self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     self?.showFeeError(DisplayError(error: error))
                 }
-
             })
             .disposed(by: disposeBag)
     }
-    
+
     func showFeeError(_ error: DisplayError) {
         switch error {
         case .globalError(let isInternetNotWorking):
@@ -161,14 +157,14 @@ private extension StartLeasingCancelConfirmationViewController {
             errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
                 self?.loadFee()
             })
-            
+
         case .none, .scriptError:
             errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                 self?.loadFee()
             })
         }
     }
-    
+
     func updateFee(_ fee: Money) {
         
         if let errorSnackKey = errorSnackKey {
