@@ -29,7 +29,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maJ-8b-DWI">
-                    <rect key="frame" x="70" y="10" width="42" height="21"/>
+                    <rect key="frame" x="70" y="14" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="120" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="36G-p0-TTR" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                    <rect key="frame" x="70" y="37" width="120" height="70"/>
+                    <rect key="frame" x="70" y="41" width="120" height="62"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
             </subviews>
@@ -51,9 +51,9 @@
                 <constraint firstItem="q76-IW-m1h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="2Rm-E2-exi"/>
                 <constraint firstItem="0Ng-xf-rVy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="2qy-Np-4Hz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="q76-IW-m1h" secondAttribute="bottom" constant="10" id="5Ga-Cg-Loa"/>
-                <constraint firstItem="maJ-8b-DWI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="771-oQ-I2R"/>
+                <constraint firstItem="maJ-8b-DWI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="771-oQ-I2R"/>
                 <constraint firstItem="0Ng-xf-rVy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="Blt-t6-6LR"/>
-                <constraint firstAttribute="bottom" secondItem="36G-p0-TTR" secondAttribute="bottom" constant="10" id="ICo-1y-m5J"/>
+                <constraint firstAttribute="bottom" secondItem="36G-p0-TTR" secondAttribute="bottom" constant="14" id="ICo-1y-m5J"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="q76-IW-m1h" secondAttribute="trailing" constant="14" id="Oeg-uW-cCX"/>
                 <constraint firstItem="q76-IW-m1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="36G-p0-TTR" secondAttribute="trailing" constant="12" id="TFb-Fu-sbM"/>
                 <constraint firstItem="0Ng-xf-rVy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" constant="10" id="aQr-6C-l38"/>

@@ -42,6 +42,7 @@ class PayoutsHistoryVC: UIViewController {
     }
     
     private func initialSetup() {
+        view.backgroundColor = .basic50
         
         createBackButton()
         setupBigNavigationBar()

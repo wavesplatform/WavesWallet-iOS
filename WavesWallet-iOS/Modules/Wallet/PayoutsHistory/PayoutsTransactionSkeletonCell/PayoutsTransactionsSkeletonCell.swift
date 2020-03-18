@@ -21,6 +21,9 @@ class PayoutsTransactionsSkeletonCell: UITableViewCell, NibReusable, SkeletonAni
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        backgroundColor = .basic50
+        contentView.backgroundColor = .basic50
+        
         views.forEach {
             $0.layer.masksToBounds = true
             $0.backgroundColor = .clear
@@ -35,14 +38,6 @@ class PayoutsTransactionsSkeletonCell: UITableViewCell, NibReusable, SkeletonAni
                                     baseColor.cgColor]
         }
         
-        do {
-            let shadowColor = UIColor.black.withAlphaComponent(0.08)
-            let shadowOptions = ShadowOptions(offset: CGSize(width: 0, height: 0),
-                                              color: shadowColor,
-                                              opacity: 1,
-                                              shadowRadius: 4,
-                                              shouldRasterize: true)
-            shadowContainerView.setupShadow(options: shadowOptions)
-        }
+        shadowContainerView.setupDefaultShadows()
     }
 }

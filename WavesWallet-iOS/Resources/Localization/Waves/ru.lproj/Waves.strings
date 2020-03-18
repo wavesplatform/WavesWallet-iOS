@@ -762,3 +762,5 @@
 "dexmarket.navigationBar.titleAsset" = "Поиск пары к";
 "trade.title" = "Торговля";
 "payoutsHistory.title" = "История выплат";
+
+"payoutsHistory.profit" = "Прибыль";

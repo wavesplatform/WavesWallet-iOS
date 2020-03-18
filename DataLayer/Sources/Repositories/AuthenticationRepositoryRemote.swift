@@ -46,6 +46,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
 
     func auth(with id: String, passcode: String) -> Observable<String> {
 
+        // TODO: - .bind(to: observer) странное поведение
         return Observable.create { observer -> Disposable in
 
             guard let wavesPlatformDatabase = self.wavesPlatformDatabase else {
@@ -149,7 +150,7 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
     private func auth(with id: String,
                       passcode: String,
                       database: Database) -> Observable<String> {
-
+           // TODO: - .bind(to: observer) странное поведение
            return Observable.create { observer -> Disposable in
 
                let database: DatabaseReference = database

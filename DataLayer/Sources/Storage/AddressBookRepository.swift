@@ -40,7 +40,6 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
 
     func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Contact]> {
         return Observable.create({ observer -> Disposable in
-            
             // TODO: - .bind(to: observer) странное поведение
             do {
                 let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)

@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 public extension UITableView {
-    func registerHeaderFooter<HeaderFooter>(type: HeaderFooter.Type)
-        where HeaderFooter: UITableViewHeaderFooterView & NibReusable {
+    func registerHeaderFooter<HeaderFooter>(type: HeaderFooter.Type) where HeaderFooter: UITableViewHeaderFooterView & NibReusable {
         register(HeaderFooter.nib, forHeaderFooterViewReuseIdentifier: HeaderFooter.reuseIdentifier)
     }
 
@@ -49,8 +48,7 @@ public extension UITableView {
 // MARK: - Register and dequeue cell
 
 public extension UITableView {
-    func registerCell<Cell>(type: Cell.Type)
-        where Cell: UITableViewCell & NibReusable {
+    func registerCell<Cell>(type: Cell.Type) where Cell: UITableViewCell & NibReusable {
         register(Cell.nib, forCellReuseIdentifier: Cell.reuseIdentifier)
     }
 
@@ -59,18 +57,15 @@ public extension UITableView {
         register(type, forCellReuseIdentifier: Cell.reuseIdentifier)
     }
 
-    func dequeueCell<Cell>() -> Cell
-        where Cell: UITableViewCell & Reusable {
+    func dequeueCell<Cell>() -> Cell where Cell: UITableViewCell & Reusable {
         return dequeueReusableCell(withIdentifier: Cell.reuseIdentifier) as! Cell
     }
 
-    func dequeueCellForIndexPath<Cell>(indexPath: IndexPath) -> Cell
-        where Cell: UITableViewCell & Reusable {
+    func dequeueCellForIndexPath<Cell>(indexPath: IndexPath) -> Cell where Cell: UITableViewCell & Reusable {
         return dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
     }
 
-    func dequeueAndRegisterCell<Cell>() -> Cell
-        where Cell: UITableViewCell & NibReusable {
+    func dequeueAndRegisterCell<Cell>() -> Cell where Cell: UITableViewCell & NibReusable {
         if let cell = dequeueReusableCell(withIdentifier: Cell.reuseIdentifier) as? Cell {
             return cell
         } else {
@@ -79,8 +74,7 @@ public extension UITableView {
         }
     }
 
-    func dequeueAndRegisterCell<Cell>() -> Cell
-        where Cell: UITableViewCell & Reusable {
+    func dequeueAndRegisterCell<Cell>() -> Cell where Cell: UITableViewCell & Reusable {
         if let cell = dequeueReusableCell(withIdentifier: Cell.reuseIdentifier) as? Cell {
             return cell
         } else {
@@ -89,14 +83,12 @@ public extension UITableView {
         }
     }
 
-    func dequeueAndRegisterCell<Cell>(indexPath: IndexPath) -> Cell
-        where Cell: UITableViewCell & NibReusable {
+    func dequeueAndRegisterCell<Cell>(indexPath: IndexPath) -> Cell where Cell: UITableViewCell & NibReusable {
         register(Cell.nib, forCellReuseIdentifier: Cell.reuseIdentifier)
         return dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
     }
 
-    func dequeueAndRegisterCell<Cell>(indexPath: IndexPath) -> Cell
-        where Cell: UITableViewCell & Reusable {
+    func dequeueAndRegisterCell<Cell>(indexPath: IndexPath) -> Cell where Cell: UITableViewCell & Reusable {
         register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
         return dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
     }

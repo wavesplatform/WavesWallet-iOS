@@ -44,6 +44,9 @@ final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, Rese
     }
     
     private func initialSetup() {
+        backgroundColor = .basic50
+        contentView.backgroundColor = .basic50
+        
         selectionStyle = .none
         
         clipsToBounds = false

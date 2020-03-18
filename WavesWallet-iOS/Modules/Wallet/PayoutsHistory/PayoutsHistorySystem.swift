@@ -147,7 +147,7 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
                 
                 let dateText = dateFormatter.string(from: transaction.timestamp)
                 
-                return PayoutsHistoryState.UI.PayoutTransactionVM(title: "Profit",
+                return PayoutsHistoryState.UI.PayoutTransactionVM(title: Localizable.Waves.Payoutshistory.profit,
                                                                   iconAsset: iconAsset,
                                                                   transactionValue: transactionValue,
                                                                   dateText: dateText)

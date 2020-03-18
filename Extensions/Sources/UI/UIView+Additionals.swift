@@ -12,9 +12,9 @@ import UIKit
 public extension UIView {
     private enum Constant {
         static let defaultShadowColor = UIColor.black.withAlphaComponent(0.08)
-        static let defaultShadowOffset = CGSize(width: 0, height: 0)
-        static let defaultShadowOpacity: Float = 1
-        static let defaultShadowRadius: Float = 4
+        static let defaultShadowOffset = CGSize(width: 0, height: 3)
+        static let defaultShadowOpacity: Float = 0.7
+        static let defaultShadowRadius: Float = 3.5
         static let defaultShadowRasterize = true
     }
     

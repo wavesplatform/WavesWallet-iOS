@@ -28,31 +28,21 @@ final class UIDeveloperCoordinator: Coordinator {
     }
     
     func start() {
+        let payoutsBuilder = PayoutsHistoryBuilder()
+        let vc = payoutsBuilder.build()
         
-        let builder = PayoutsHistoryBuilder()
+        let navController = CustomNavigationController(rootViewController: vc)
         
-        let vc = builder.build(input: Void())
-        self.navigationRouter.pushViewController(vc)
-        self.windowRouter.setRootViewController(self.navigationRouter.viewController, animated: .none)
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-            self.coordinator.start()
-        }
+        windowRouter.window.rootViewController = navController
+        windowRouter.window.makeKeyAndVisible()
         
-//        let view = UIViewController()
-//        view.view = UIView()
-//        view.view.frame = UIScreen.main.bounds
-//        view.navigationItem.title = "UIDeveloper"
-//        self.navigationRouter.pushViewController(view)
-//        self.windowRouter.setRootViewController(self.navigationRouter.viewController,
-//                                                animated: .none,
-//                                                completion: {
-//
-//        })
-//
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-//            self.coordinator.start()
-//        }
+//        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
+//        
+//        addChildCoordinatorAndStart(childCoordinator: coordinator)
+//                
+//        let vc = TradeModuleBuilder(output: self).bui
+//        navigationRouter.pushViewController(vc)
+//        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }
 }
 
