@@ -6,12 +6,11 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
 import Extensions
+import Foundation
 import WavesSDKExtensions
 
 private struct PushNotificationsAlertSettings: TSUD, Codable, Mutating {
-    
     var hasShowAlert: Bool
 
     private enum Constants {
@@ -25,7 +24,7 @@ private struct PushNotificationsAlertSettings: TSUD, Codable, Mutating {
     init() {
         hasShowAlert = false
     }
-    
+
     static var defaultValue: PushNotificationsAlertSettings {
         return PushNotificationsAlertSettings(hasShowAlert: false)
     }
@@ -35,16 +34,13 @@ private struct PushNotificationsAlertSettings: TSUD, Codable, Mutating {
     }
 }
 
-final class PushNotificationsCoordinator: NSObject, Coordinator  {
-   
+final class PushNotificationsCoordinator: NSObject, Coordinator {
     var childCoordinators: [Coordinator] = []
-    
+
     var parent: Coordinator?
-    
+
     func start() {
-        
         if PushNotificationsAlertSettings.get().hasShowAlert == false {
-            
             let pushAlert = PushNotificationsAlertView.show()
             pushAlert.activateAction = { [weak self] in
                 guard let self = self else { return }
@@ -65,7 +61,7 @@ final class PushNotificationsCoordinator: NSObject, Coordinator  {
         PushNotificationsAlertSettings.set(.init(hasShowAlert: true))
         removeFromParentCoordinator()
     }
-    
+
     private func laterAction() {
         PushNotificationsAlertSettings.set(.init(hasShowAlert: true))
         removeFromParentCoordinator()

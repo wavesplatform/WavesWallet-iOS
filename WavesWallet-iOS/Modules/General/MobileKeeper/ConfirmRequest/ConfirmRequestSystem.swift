@@ -30,13 +30,10 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
     }
     
     override func initialState() -> State! {
-        return ConfirmRequest.State(ui: uiState(),
-                                    core: coreState(input: self.input))
+        ConfirmRequest.State(ui: uiState(), core: coreState(input: self.input))
     }
     
-    override func internalFeedbacks() -> [Feedback] {
-        return [prepareRequest]
-    }
+    override func internalFeedbacks() -> [Feedback] { [prepareRequest] }
     
     struct PrepareRequest: Equatable {
         let assetsIds: [String]
@@ -44,14 +41,13 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
         let signedWallet: DomainLayer.DTO.SignedWallet
         let timestamp: Date
         
-        static func ==(lhs: PrepareRequest, rhs: PrepareRequest) -> Bool {
-            return lhs.timestamp == rhs.timestamp
+        static func == (lhs: PrepareRequest, rhs: PrepareRequest) -> Bool {
+            lhs.timestamp == rhs.timestamp
         }
     }
     
     private lazy var prepareRequest: Feedback = {
-
-        return react(request: { (state) -> PrepareRequest? in
+        react(request: { state -> PrepareRequest? in
 
             if case .prepareRequest = state.core.action {
                 var assetsIds: [String] = []
@@ -76,32 +72,29 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                                       signedWallet: state.core.signedWallet,
                                       timestamp: state.core.timestamp)
             }
-
-            return nil
-
-        }, effects: { [weak self] (request) -> Signal<Event> in
-
-            guard let self = self else { return Signal.never() }
-
-            let prepareRequest = self
-                .mobileKeeperRepository
-                .prepareRequest(request.request,
-                                signedWallet: request.signedWallet,
-                                timestamp: request.timestamp)
             
-            let assets = self
-                .assetsUseCase
-                .assets(by: request.assetsIds, accountAddress: "")
+            return nil
+        },
+              effects: { [weak self] request -> Signal<Event> in
                 
-            return Observable.zip(prepareRequest, assets)
-                .map { Types.Event.prepareRequest($1, $0) }
-                .asSignal(onErrorRecover: { error in
-                    return Signal.just(.handlerError)
-                })
+                guard let self = self else { return Signal.never() }
+                
+                let prepareRequest = self
+                    .mobileKeeperRepository
+                    .prepareRequest(request.request,
+                                    signedWallet: request.signedWallet,
+                                    timestamp: request.timestamp)
+                
+                let assets = self
+                    .assetsUseCase
+                    .assets(by: request.assetsIds, accountAddress: "")
+                
+                return Observable.zip(prepareRequest, assets)
+                    .map { Types.Event.prepareRequest($1, $0) }
+                    .asSignal(onErrorRecover: { error in Signal.just(.handlerError) })
         })
     }()
-    
-    
+
     override func reduce(event: Event, state: inout State) {
         
         switch event {
@@ -112,25 +105,21 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
         case .none:
             break
             
-        case .prepareRequest(let assets, let prepareRequest):
-            let map = assets.reduce(into: [String: DomainLayer.DTO.Asset].init()) { (result, asset) in
+        case let .prepareRequest(assets, prepareRequest):
+            let map = assets.reduce(into: [String: DomainLayer.DTO.Asset]()) { result, asset in
                 result[asset.id] = asset
             }
             
-            guard let txRequest = state
-                .core
-                .request
-                .transaction
-                .transactionDTO(assetsMap: map,
-                                signedWallet: state.core.signedWallet)
-                else {
-                    //TODO: Error?
-                    //Transaction not support
-                    state.ui.action = .closeRequest
-                    state.core.action = .none
-                    state.core.prepareRequest = prepareRequest
-                    return
-                }
+            let maybyTxRequest = state.core.request.transaction.transactionDTO(assetsMap: map,
+                                                                               signedWallet: state.core.signedWallet)
+            guard let txRequest = maybyTxRequest else {
+                // TODO: Error?
+                //Transaction not support
+                state.ui.action = .closeRequest
+                state.core.action = .none
+                state.core.prepareRequest = prepareRequest
+                return
+            }
             
             let complitingRequest = ConfirmRequest
                 .DTO
@@ -156,22 +145,19 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
     }
     
     private func uiState() -> State.UI! {
-        return ConfirmRequest.State.UI(sections: [],
-                                       action: .none)
+        ConfirmRequest.State.UI(sections: [], action: .none)
     }
     
     private func coreState(input: ConfirmRequest.DTO.Input) -> State.Core! {
-        return State.Core(action: .none,
-                          request: input.request,
-                          signedWallet: input.signedWallet,
-                          prepareRequest: nil,
-                          complitingRequest: nil,
-                          timestamp: Date())
+        State.Core(action: .none,
+                   request: input.request,
+                   signedWallet: input.signedWallet,
+                   prepareRequest: nil,
+                   complitingRequest: nil,
+                   timestamp: Date())
     }
     
     private func sections(complitingRequest: ConfirmRequest.DTO.ComplitingRequest) -> [Types.Section] {
-        
-
         var rows: [Types.Row] = [.transactionKind(complitingRequest.transaction.transactionKindViewModel),
                                  .fromTo(complitingRequest.fromToViewModel)]
                                  
@@ -191,17 +177,16 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
             
             for payment in tx.payment {
                 
-                let paymentBalance: BalanceLabel.Model = .init(balance: DomainLayer.DTO.Balance.init(currency: .init(title: payment.asset.displayName,
-                                                                                                 ticker: payment.asset.ticker),
-                                                                                     money: .init(payment.amount.amount,
-                                                                                                  payment.asset.precision)),
-                                                               sign: .minus,
-                                                               style: .small)
-                                
-                let balance = ConfirmRequestBalanceCell.Model.init(title: Localizable.Waves.Transactioncard.Title.payment,
-                                                                   feeBalance: paymentBalance)
+                let currency = DomainLayer.DTO.Balance.Currency(title: payment.asset.displayName, ticker: payment.asset.ticker)
+                let money = Money(payment.amount.amount, payment.asset.precision)
+                let balance = DomainLayer.DTO.Balance(currency: currency, money: money)
                 
-                rows.append(.balance(balance))
+                let paymentBalance = BalanceLabel.Model(balance: balance, sign: .minus, style: .small)
+                
+                let balanceModel = ConfirmRequestBalanceCell.Model(title: Localizable.Waves.Transactioncard.Title.payment,
+                                                                  feeBalance: paymentBalance)
+                
+                rows.append(.balance(balanceModel))
             }
             
         default:
@@ -224,68 +209,61 @@ fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
         let feeAsset = self.transaction.feeAsset
         let fee = self.transaction.fee
         
-        let feeBalance: BalanceLabel.Model = .init(balance: DomainLayer.DTO.Balance.init(currency: .init(title: feeAsset.displayName,
-                                                                                         ticker: feeAsset.ticker),
-                                                                         money: .init(fee.amount,
-                                                                                      feeAsset.precision)),
-                                                   sign: DomainLayer.DTO.Balance.Sign.none,
-                                                   style: .small)
+        let currency = DomainLayer.DTO.Balance.Currency(title: feeAsset.displayName, ticker: feeAsset.ticker)
+        let money = Money(fee.amount, feeAsset.precision)
         
-        return ConfirmRequestFeeAndTimestampCell.Model(date: timestamp,
-                                                       feeBalance: feeBalance)
+        let balance = DomainLayer.DTO.Balance(currency: currency, money: money)
+        
+        let feeBalance = BalanceLabel.Model(balance: balance,
+                                            sign: DomainLayer.DTO.Balance.Sign.none,
+                                            style: .small)
+        
+        return ConfirmRequestFeeAndTimestampCell.Model(date: timestamp, feeBalance: feeBalance)
     }
     
     var fromToViewModel: ConfirmRequestFromToCell.Model {
-        return ConfirmRequestFromToCell.Model.init(accountName: signedWallet.wallet.name,
-                                                   address: signedWallet.address,
-                                                   dAppIcon: prepareRequest.request.dApp.iconUrl,
-                                                   dAppName: prepareRequest.request.dApp.name)
+        ConfirmRequestFromToCell.Model.init(accountName: signedWallet.wallet.name,
+                                            address: signedWallet.address,
+                                            dAppIcon: prepareRequest.request.dApp.iconUrl,
+                                            dAppName: prepareRequest.request.dApp.name)
     }
     
-    
     var txIdkeyValueViewModel: ConfirmRequestKeyValueCell.Model {        
-        return ConfirmRequestKeyValueCell.Model(title: Localizable.Waves.Startleasingconfirmation.Label.txid,
-                                                value: txId)
+        ConfirmRequestKeyValueCell.Model(title: Localizable.Waves.Startleasingconfirmation.Label.txid, value: txId)
     }
 }
 
-fileprivate extension InvokeScriptTransactionSender.Arg  {
+fileprivate extension InvokeScriptTransactionSender.Arg {
     
     var argDTO: ConfirmRequest.DTO.InvokeScript.Arg {
-        
         switch self.value {
         case .binary(let binary):
-            return ConfirmRequest.DTO.InvokeScript.Arg.init(value: .binary(binary))
+            return ConfirmRequest.DTO.InvokeScript.Arg(value: .binary(binary))
             
         case .bool(let bool):
-            return ConfirmRequest.DTO.InvokeScript.Arg.init(value: .bool(bool))
+            return ConfirmRequest.DTO.InvokeScript.Arg(value: .bool(bool))
             
         case .integer(let int):
-            return ConfirmRequest.DTO.InvokeScript.Arg.init(value: .integer(int))
+            return ConfirmRequest.DTO.InvokeScript.Arg(value: .integer(int))
             
         case .string(let string):
-            return ConfirmRequest.DTO.InvokeScript.Arg.init(value: .string(string))
+            return ConfirmRequest.DTO.InvokeScript.Arg(value: .string(string))
         }
     }
 }
 
-fileprivate extension InvokeScriptTransactionSender.Call  {
-    
-    
+fileprivate extension InvokeScriptTransactionSender.Call {
     func invokeScriptCallArgs(assetsMap: [String: DomainLayer.DTO.Asset],
-                          signedWallet: DomainLayer.DTO.SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Arg]? {
-        
-        return self.args.map { $0.argDTO }
+                              signedWallet: DomainLayer.DTO.SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Arg]? {
+        args.map { $0.argDTO }
     }
     
     func invokeScriptCall(assetsMap: [String: DomainLayer.DTO.Asset],
                           signedWallet: DomainLayer.DTO.SignedWallet) -> ConfirmRequest.DTO.InvokeScript.Call? {
         
-        guard let args = invokeScriptCallArgs(assetsMap: assetsMap,
-                                              signedWallet: signedWallet) else { return nil }
+        guard let args = invokeScriptCallArgs(assetsMap: assetsMap, signedWallet: signedWallet) else { return nil }
         
-        return ConfirmRequest.DTO.InvokeScript.Call(function: self.function,
-                                                    args: args)
+        return ConfirmRequest.DTO.InvokeScript.Call(function: self.function, args: args)
     }
 }
 
@@ -293,14 +271,12 @@ fileprivate extension InvokeScriptTransactionSender {
     
     func paymentDTO(assetsMap: [String: DomainLayer.DTO.Asset],
                     signedWallet: DomainLayer.DTO.SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Payment] {
-        
-        return self.payment.map { (payment) -> ConfirmRequest.DTO.InvokeScript.Payment? in
+        payment.compactMap { payment -> ConfirmRequest.DTO.InvokeScript.Payment? in
             guard let asset = assetsMap[payment.assetId] else { return nil }
         
             let amount = Money(payment.amount, asset.precision)
             return .init(amount: amount, asset: asset)
         }
-        .compactMap { $0 }
     }
 }
 
@@ -326,18 +302,13 @@ fileprivate extension DataTransactionSender.Value {
 fileprivate extension DataTransactionSender {
     
     func dataDTO() -> [ConfirmRequest.DTO.Data.Value] {
-        
-        return self.data.map { (data) -> ConfirmRequest.DTO.Data.Value in
-            
-            return ConfirmRequest.DTO.Data.Value(key: data.key,
-                                                 value: data.valueDTO())
-            
+        data.map { data -> ConfirmRequest.DTO.Data.Value in
+            ConfirmRequest.DTO.Data.Value(key: data.key, value: data.valueDTO())
         }
     }
 }
 
-fileprivate extension TransactionSenderSpecifications  {
-    
+fileprivate extension TransactionSenderSpecifications {
     func transactionDTO(assetsMap: [String: DomainLayer.DTO.Asset],
                         signedWallet: DomainLayer.DTO.SignedWallet) -> ConfirmRequest.DTO.Transaction? {
         
@@ -376,8 +347,8 @@ fileprivate extension TransactionSenderSpecifications  {
             
         case .send(let tx):
     
-            guard let asset = assetsMap[tx.assetId] else { return nil}
-            guard let feeAsset = assetsMap[tx.feeAssetID] else { return nil}
+            guard let asset = assetsMap[tx.assetId] else { return nil }
+            guard let feeAsset = assetsMap[tx.feeAssetID] else { return nil }
             
             let money = Money(tx.amount, asset.precision)
             let fee = Money(tx.fee, feeAsset.precision)

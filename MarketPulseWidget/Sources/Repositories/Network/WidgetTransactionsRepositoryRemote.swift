@@ -39,6 +39,5 @@ final class WidgetTransactionsRepositoryRemote: WidgetTransactionsRepositoryProt
                 
                 return self.transactionsDataService.transactionsExchange(query: query)
             })
-       
     }
 }

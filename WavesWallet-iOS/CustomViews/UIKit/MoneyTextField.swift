@@ -23,13 +23,9 @@ final class MoneyTextField: UITextField {
 
     private var externalDelegate: UITextFieldDelegate?
     
-    //TODO: textString, text, textNSString WTF?
-    private var textString: String {
-        return text ?? ""
-    }
-    private var textNSString: NSString {
-        return textString as NSString
-    }
+    // TODO: textString, text, textNSString WTF?
+    private var textString: String { text ?? "" }
+    private var textNSString: NSString { textString as NSString }
 
     override var delegate: UITextFieldDelegate? {
         didSet {
@@ -47,7 +43,6 @@ final class MoneyTextField: UITextField {
     private(set) var decimals: Int = 0
     
     var value: Money {
-        
         set {
             if self.value != newValue {
                 setDecimals(newValue.decimals, forceUpdateMoney: false)
@@ -65,9 +60,7 @@ final class MoneyTextField: UITextField {
         }
     }
     
-    var hasInput: Bool {
-        return text?.count ?? 0 > 0
-    }
+    var hasInput: Bool { text?.count ?? 0 > 0 }
     
     override var text: String? {
         didSet {
@@ -92,7 +85,7 @@ final class MoneyTextField: UITextField {
 extension MoneyTextField {
         
     // forceUpdateMoney need if we want call -> MoneyTextFieldDelegate: moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money)
-    //TODO: Need remove forceUpdateMoney then it stupid logic    
+    // TODO: Need remove forceUpdateMoney then it stupid logic
     func setDecimals(_ decimals: Int,
                      forceUpdateMoney: Bool) {
         self.decimals = decimals
@@ -102,13 +95,13 @@ extension MoneyTextField {
         setupAttributedText(text: formattedStringFrom(value))
     }
     
-    //TODO: Need remove forceUpdateMoney then it stupid logic
+    // TODO: Need remove forceUpdateMoney then it stupid logic
     func setDecimals(_ decimals: Int) {
         setDecimals(decimals,
                     forceUpdateMoney: false)
     }
 
-    //TODO: Need remove forceUpdateMoney then it stupid logic
+    // TODO: Need remove forceUpdateMoney then it stupid logic
     func setValue(value: Money) {
         setupAttributedText(text: formattedStringFrom(value))
     }
@@ -133,13 +126,11 @@ extension MoneyTextField {
     }
 }
 
-
 // MARK: - Override
+
 extension MoneyTextField {
     
-    override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
-        return nil
-    }
+    override func target(forAction action: Selector, withSender sender: Any?) -> Any? { nil }
 }
 
 // MARK: - UI
@@ -158,7 +149,7 @@ private extension MoneyTextField {
     }
     
     private func setNeedUpdateTextField(isNeedNotify: Bool = true) {
-        if textString.count > 0 {
+        if textString.isNotEmpty {
             setupAttributedText(text: textNSString.replacingOccurrences(of: ",", with: "."))
             checkCorrectInputAfterRemoveText()
         } else {
@@ -178,8 +169,7 @@ private extension MoneyTextField {
     func checkCorrectInputAfterRemoveText() {
         
         if isExistDot {
-            
-            let isEmptyFieldBeforeDot = textNSString.substring(to: dotRange.location).count == 0
+            let isEmptyFieldBeforeDot = textNSString.substring(to: dotRange.location).isEmpty
             
             if isEmptyFieldBeforeDot {
                 var string = textString
@@ -229,23 +219,21 @@ extension MoneyTextField: UITextFieldDelegate {
     }
         
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-     
-        if string == "" {
+        if string.isEmpty {
             return true
         }
         
         if isValidInput(input: string, inputRange: range) {
             return true
         } else {
-            //TODO: Remove shake :)
-            //TODO: Send delegate incorrect input
+            // TODO: Remove shake :)
+            // TODO: Send delegate incorrect input
             shakeTextFieldIfNeed()
             return false
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool  {
-       
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let externalDelegate = externalDelegate {
             if externalDelegate.responds(to: #selector(textFieldShouldReturn(_:))) {
                 return externalDelegate.textFieldShouldReturn!(textField)
@@ -255,7 +243,6 @@ extension MoneyTextField: UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
         if let externalDelegate = externalDelegate {
             if externalDelegate.responds(to: #selector(textFieldShouldBeginEditing(_:))) {
                 return externalDelegate.textFieldShouldBeginEditing!(textField)
@@ -280,13 +267,9 @@ extension MoneyTextField: UITextFieldDelegate {
 // MARK: - Calculation
 private extension MoneyTextField {
     
-    var dotRange: NSRange {
-        return textNSString.range(of: ".")
-    }
+    var dotRange: NSRange { textNSString.range(of: ".") }
     
-    var isExistDot: Bool {
-        return dotRange.location != NSNotFound
-    }
+    var isExistDot: Bool { dotRange.location != NSNotFound }
     
     var countInputDecimals: Int {
         
@@ -294,7 +277,7 @@ private extension MoneyTextField {
         
         if isExistDot {
             let substring = textNSString.substring(from: dotRange.location + 1)
-            decimals = substring.count > 0 ? substring.count : 1
+            decimals = substring.isNotEmpty ? substring.count : 1
         }
         
         return decimals
@@ -302,7 +285,7 @@ private extension MoneyTextField {
     
     var deltaValue: Double {
                 
-        var deltaValue : Double = 1
+        var deltaValue: Double = 1
         for _ in 0..<countInputDecimals {
             deltaValue *= 0.1
         }
@@ -351,10 +334,9 @@ private extension MoneyTextField {
 
         var isMaximumInputDecimals = false
         if hasSetDecimals {
-            isMaximumInputDecimals = countInputDecimals >= decimals && input.count > 0
-
+            isMaximumInputDecimals = countInputDecimals >= decimals && input.isNotEmpty
         } else {
-            isMaximumInputDecimals = countInputDecimals >= decimals && decimals > 0 && input.count > 0
+            isMaximumInputDecimals = countInputDecimals >= decimals && decimals > 0 && input.isNotEmpty
         }
 
         if isMaximumInputDecimals {
@@ -382,10 +364,9 @@ private extension MoneyTextField {
         }
         return true
     }
-        
-    //TODO: If we paste string with two and more zero (for example "000"), then code is dont work :)
+    
+    // TODO: If we paste string with two and more zero (for example "000"), then code is dont work :)
     func isValidInputBeforeDot(input: String, inputRange: NSRange) -> Bool {
-                
         if isExistDot && textString.count > 1 {
             
             let isZeroBeforeFirstNumber = input == "0" && inputRange.location == 0 && inputRange.length == 0

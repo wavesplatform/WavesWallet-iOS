@@ -50,7 +50,8 @@ final class ImportCoordinator: Coordinator {
     
     func scannedSeed(_ seed: String) {
         guard seed.utf8.count >= UIGlobalConstants.minimumSeedLength else {
-            navigationRouter.navigationController.topViewController?.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
+            let titleMessage = Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed
+            navigationRouter.navigationController.topViewController?.showMessageSnack(title: titleMessage)
             return
         }
 
@@ -60,7 +61,10 @@ final class ImportCoordinator: Coordinator {
             .existWallet(by: privateKeyAccount.getPublicKeyStr())
             .subscribe(onNext: { [weak self] wallet in
                 guard let self = self else { return }
-                self.navigationRouter.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
+                let title = Localizable.Waves.Import.General.Error.alreadyinuse
+                self.navigationRouter.navigationController
+                    .topViewController?
+                    .showErrorSnackWithoutAction(tille: title, duration: Constants.duration)
             }, onError: { [weak self] _ in
                 guard let self = self else { return }
                 self.showAccountPassword(privateKeyAccount)

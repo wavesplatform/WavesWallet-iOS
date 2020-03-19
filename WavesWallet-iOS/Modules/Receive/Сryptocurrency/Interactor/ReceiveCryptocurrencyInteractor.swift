@@ -25,15 +25,15 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
-        
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+        auth.authorizedWallet()
+            .flatMap{ [weak self] wallet -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
           
             guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
             
             switch gatewayType {
             case .gateway:
                 return self.gatewayRepository.startDepositProcess(address: wallet.address, asset: asset)
-                    .map({ (startDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
+                    .map { startDeposit -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
                         
                         let addresses = [startDeposit.address.displayInfoAddress()]
                         
@@ -42,7 +42,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                                 minAmount: startDeposit.minAmount)
                         
                         return ResponseType(output: displayInfo, error: nil)
-                    })
+                    }
                 
             case .coinomat:
                 guard let currencyFrom = asset.gatewayId,
@@ -55,15 +55,14 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 
                 let rate = self.coinomatRepository.getRate(asset: asset)
                 return Observable.zip(tunnel, rate)
-                    .flatMap({ (tunnel, rate) ->  Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+                    .flatMap { tunnel, rate -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
                         
                         let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: [tunnel.address.displayInfoAddress()],
                                                                                 asset: asset,
                                                                                 minAmount: tunnel.min)
                         return Observable.just(ResponseType(output: displayInfo, error: nil))
-                    })                        
+                    }
             case .exchange:
-                
                 return self.weGatewayUseCase
                     .receiveBinding(asset: asset)
                     .map { model -> ReceiveCryptocurrency.DTO.DisplayInfo in
@@ -72,17 +71,19 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                      minAmount: model.amountMin)
                     }
                     .map { ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: $0, error: nil) }
-                .catchError { Observable.just(ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: nil,
-                                                                                                  error: NetworkError.error(by: $0))) }
+                    .catchError {
+                        Observable.just(ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: nil,
+                                                                                            error: NetworkError.error(by: $0)))
+                    }
             }
-        })
-        .catchError({ (error) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+        }
+        .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
             if let networkError = error as? NetworkError {
                 return Observable.just(ResponseType(output: nil, error: networkError))
             }
             
             return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-        })
+        }
     }
 }
 

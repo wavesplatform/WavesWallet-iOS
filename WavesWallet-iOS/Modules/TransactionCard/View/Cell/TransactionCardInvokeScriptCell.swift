@@ -6,18 +6,17 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import WavesSDKExtensions
-import WavesSDK
-import Extensions
 import DomainLayer
+import Extensions
+import UIKit
+import WavesSDK
+import WavesSDKExtensions
 
 private enum Constants {
     static let paymentBottomOffset: CGFloat = 14
 }
 
 final class TransactionCardInvokeScriptCell: UITableViewCell, Reusable {
-
     @IBOutlet private weak var labelScriptAddressLocalizable: UILabel!
     @IBOutlet private weak var labelScriptAddress: UILabel!
     @IBOutlet private weak var buttonCopy: PasteboardButton!
@@ -25,7 +24,7 @@ final class TransactionCardInvokeScriptCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelPaymentLocalization: UILabel!
     @IBOutlet private weak var paymentBottomOffset: NSLayoutConstraint!
     @IBOutlet private weak var labelPayment: BalanceLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         buttonCopy.isBlack = true
@@ -39,19 +38,18 @@ final class TransactionCardInvokeScriptCell: UITableViewCell, Reusable {
 }
 
 extension TransactionCardInvokeScriptCell: ViewConfiguration {
-    
     func update(with model: DomainLayer.DTO.SmartTransaction.InvokeScript) {
-        
         labelScriptAddress.text = model.scriptAddress
         viewPayment.isHidden = model.payment == nil
         paymentBottomOffset.constant = model.payment == nil ? 0 : Constants.paymentBottomOffset
-        
+
         guard let payment = model.payment else { return }
-        
+
         let assetName = model.payment?.asset?.displayName ?? ""
         let ticker = model.payment?.asset == nil ? WavesSDKConstants.wavesAssetId : nil
-        
-        let balance = DomainLayer.DTO.Balance(currency: DomainLayer.DTO.Balance.Currency(title: assetName, ticker: ticker), money: payment.amount)
+
+        let balance = DomainLayer.DTO.Balance(currency: DomainLayer.DTO.Balance.Currency(title: assetName, ticker: ticker),
+                                              money: payment.amount)
         let style = BalanceLabel.Model(balance: balance,
                                        sign: nil,
                                        style: .small)

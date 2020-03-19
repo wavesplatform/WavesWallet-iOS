@@ -49,8 +49,7 @@ final class EnterStartBlockCell: UICollectionViewCell, NibReusable {
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var textLabel: UILabel!
     
-    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
-    
+    @IBOutlet private weak var titleLabelTopConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,25 +61,24 @@ final class EnterStartBlockCell: UICollectionViewCell, NibReusable {
         }
     }
     
-    class func cellHeight(model: EnterStartTypes.Block, width: CGFloat)-> CGFloat {
+    class func cellHeight(model: EnterStartTypes.Block, width: CGFloat) -> CGFloat {
         let insets = Constants.contentInset
         let imageSize = Constants.imageSize
         let imageToTitle = Constants.imageToTitle
         let titleToText = Constants.titleToText
-        let titleHeight = NSAttributedString(string: model.title, attributes: Constants.titleAttributes).boundingRect(with: .init(width: width - insets.left - insets.right, height: CGFloat.greatestFiniteMagnitude)).height
-        let textHeight = NSAttributedString(string: model.text, attributes: Constants.textAttributes).boundingRect(with: .init(width: width - insets.left - insets.right, height: CGFloat.greatestFiniteMagnitude)).height
+        let titleHeight = NSAttributedString(string: model.title, attributes: Constants.titleAttributes)
+            .boundingRect(with: .init(width: width - insets.left - insets.right, height: CGFloat.greatestFiniteMagnitude)).height
+        let textHeight = NSAttributedString(string: model.text, attributes: Constants.textAttributes)
+            .boundingRect(with: .init(width: width - insets.left - insets.right, height: CGFloat.greatestFiniteMagnitude)).height
         
         return imageSize.height + imageToTitle + titleToText + titleHeight + textHeight
     }
-    
 }
 
 extension EnterStartBlockCell: ViewConfiguration {
-    
     func update(with model: EnterStartTypes.Block) {
         imageView.image = model.image
         titleLabel.text = model.title
         textLabel.text = model.text
     }
-    
 }

@@ -6,8 +6,8 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
 private enum Constants {
     static let delayRemovedNumberSmall: TimeInterval = 0.15
@@ -20,7 +20,6 @@ protocol PasscodeViewDelegate: AnyObject {
 }
 
 final class PasscodeView: UIView, NibOwnerLoadable {
-
     struct Model {
         let numbers: [Int]
         let text: String
@@ -32,13 +31,13 @@ final class PasscodeView: UIView, NibOwnerLoadable {
 
     weak var delegate: PasscodeViewDelegate?
 
-    private var numbers: [Int?] = .init(repeating: nil, count: 4)    
+    private var numbers: [Int?] = .init(repeating: nil, count: 4)
     private var isLockedRemoveNumber: Bool = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
         loadNibContent()
-        
+
         let buttonDidTap: ((PasscodeNumberButton.Kind) -> Void) = { [weak self] kind in
 
             guard let self = self else { return }
@@ -46,7 +45,9 @@ final class PasscodeView: UIView, NibOwnerLoadable {
             if kind != .minus {
                 self.updateState(by: kind)
             } else {
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.removedNumerWithDelay), object: nil)
+                NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                                       selector: #selector(self.removedNumerWithDelay),
+                                                       object: nil)
                 if self.isLockedRemoveNumber == false {
                     self.updateState(by: kind)
                 }
@@ -65,16 +66,13 @@ final class PasscodeView: UIView, NibOwnerLoadable {
         perform(#selector(removedNumerWithDelay), with: nil, afterDelay: Constants.delayRemovedNumberMedium)
     }
 
-
     @objc func removedNumerWithDelay() {
-
         isLockedRemoveNumber = true
         updateState(by: .minus)
         perform(#selector(removedNumerWithDelay), with: nil, afterDelay: Constants.delayRemovedNumberSmall)
     }
 
     private func updateState(by kind: PasscodeNumberButton.Kind) {
-
         switch kind {
         case .minus:
 
@@ -104,19 +102,17 @@ final class PasscodeView: UIView, NibOwnerLoadable {
     }
 
     private func removeNumber() {
-        let element = numbers.enumerated().filter( { $0.element != nil }).last
+        let element = numbers.enumerated().filter { $0.element != nil }.last
         guard let index = element?.offset else {
             return
         }
         numbers[index] = nil
     }
 
-    private var isCompletedInput: Bool {
-        return numbers.compactMap { $0 }.count == 4
-    }
+    private var isCompletedInput: Bool { numbers.compactMap { $0 }.count == 4 }
 
     func hiddenButton(by kind: PasscodeNumberButton.Kind, isHidden: Bool) {
-        let button = buttons.first(where: { $0.kind == kind.rawValue })
+        let button = buttons.first { $0.kind == kind.rawValue }
         button?.isHidden = isHidden
         button?.update()
     }
@@ -135,20 +131,18 @@ final class PasscodeView: UIView, NibOwnerLoadable {
 }
 
 // MARK: ViewConfiguration
+
 extension PasscodeView: ViewConfiguration {
-
     func update(with model: PasscodeView.Model) {
-
-        self.topBarView.changeText(model.text)
-        self.topBarView.changeDetail(model.detail)
-        self.numbers = self.numbers.enumerated().map {
+        topBarView.changeText(model.text)
+        topBarView.changeDetail(model.detail)
+        numbers = numbers.enumerated().map {
             if $0.offset < model.numbers.count {
                 return model.numbers[$0.offset]
             } else {
                 return nil
             }
         }
-        self.topBarView.fillDots(count: self.numbers.compactMap { $0 }.count)
-
+        topBarView.fillDots(count: numbers.compactMap { $0 }.count)
     }
 }

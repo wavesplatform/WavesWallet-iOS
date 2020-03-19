@@ -6,33 +6,31 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxSwift
-import DomainLayer
 
 final class AssetListInteractor: AssetListInteractorProtocol {
-    
     private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-
+    
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     private var filteredAssets: [DomainLayer.DTO.SmartAssetBalance] = []
     private var cachedAssets: [DomainLayer.DTO.SmartAssetBalance] = []
     private var isMyList = false
     
     func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
-        
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+        return auth.authorizedWallet().flatMap { [weak self] (_) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
             guard let self = self else { return Observable.empty() }
             
             self.isMyList = isMyList
             
             let assets = self.getCachedAssets()
-                .map({ [weak self] (assets) -> [DomainLayer.DTO.SmartAssetBalance] in
+                .map { [weak self] (assets) -> [DomainLayer.DTO.SmartAssetBalance] in
                     
                     guard let self = self else { return [] }
                     
-                    let filteredSpamAssets = assets.filter{ $0.asset.isSpam == false }
+                    let filteredSpamAssets = assets.filter { $0.asset.isSpam == false }
                     
                     if filters.contains(.all) {
                         self.filteredAssets = filteredSpamAssets
@@ -42,15 +40,15 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                     }
                     
                     return self.filterIsMyAsset(self.filteredAssets)
-                })
-
+                }
+            
             let search = self.searchString
                 .asObserver().skip(1)
-                .map { [weak self] searchString -> [DomainLayer.DTO.SmartAssetBalance] in
+                .map { [weak self] _ -> [DomainLayer.DTO.SmartAssetBalance] in
                     
                     guard let self = self else { return [] }
                     return self.filterIsMyAsset(self.filteredAssets)
-            }
+                }
             
             return Observable
                 .merge([assets, search])
@@ -66,11 +64,11 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                     }
                     
                     return self.filterIsMyAsset(newAssets)
-            }
-        })
-        .catchError({ (error) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-            return Observable.just([])
-        })
+                }
+        }
+        .catchError { (_) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+            Observable.just([])
+        }
     }
     
     func searchAssets(searchText: String) {
@@ -78,72 +76,74 @@ final class AssetListInteractor: AssetListInteractorProtocol {
     }
 }
 
-
 private extension AssetListInteractor {
-    
     func getCachedAssets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
-        if cachedAssets.count > 0 {
+        if cachedAssets.isNotEmpty {
             return Observable.just(cachedAssets)
         }
-        return accountBalanceInteractor.balances()
-            .flatMap( { [weak self] (assets) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+        return accountBalanceInteractor
+            .balances()
+            .flatMap { [weak self] assets -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let self = self else { return Observable.empty() }
                 self.cachedAssets = assets
                 return Observable.just(assets)
-        })
+            }
     }
     
     func filterIsMyAsset(_ assets: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
-        return isMyList ? assets.filter({$0.availableBalance > 0 }) : assets
+        return isMyList ? assets.filter { $0.availableBalance > 0 } : assets
     }
     
     func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.SmartAssetBalance]) {
-        
         var filterAssets: [DomainLayer.DTO.SmartAssetBalance] = []
-                
+        
         if filters.contains(.waves) {
-            
-            filterAssets.append(contentsOf: assets.filter({
+            let filteredAssets = assets.filter {
                 let asset = $0.asset
                 
                 return asset.isFiat == false &&
                     asset.isWavesToken == false &&
                     asset.isGateway == false &&
-                    asset.isWaves == true}))
+                    asset.isWaves == true
+            }
+            filterAssets.append(contentsOf: filteredAssets)
         }
         
         if filters.contains(.cryptoCurrency) {
-            
-                filterAssets.append(contentsOf: assets.filter({
-                    let asset = $0.asset
-                    
-                    return asset.isFiat == false &&
-                        asset.isWavesToken == false &&
-                        asset.isGateway == true &&
-                        asset.isWaves == false}))
+            let filteredAssets = assets.filter {
+                let asset = $0.asset
+                
+                return asset.isFiat == false &&
+                    asset.isWavesToken == false &&
+                    asset.isGateway == true &&
+                    asset.isWaves == false
+            }
+            filterAssets.append(contentsOf: filteredAssets)
         }
         
         if filters.contains(.fiat) {
-            
-                filterAssets.append(contentsOf: assets.filter({
-                    let asset = $0.asset
-                    
-                    return asset.isFiat == true &&
-                        asset.isWavesToken == false &&
-                        asset.isGateway == true &&
-                        asset.isWaves == false}))
+            let filteredAssets = assets.filter {
+                let asset = $0.asset
+                
+                return asset.isFiat == true &&
+                    asset.isWavesToken == false &&
+                    asset.isGateway == true &&
+                    asset.isWaves == false
+            }
+            filterAssets.append(contentsOf: filteredAssets)
         }
         
         if filters.contains(.wavesToken) {
-            
-                filterAssets.append(contentsOf: assets.filter({
-                    let asset = $0.asset
-                    
-                    return asset.isFiat == false &&
-                        asset.isWavesToken == true &&
-                        asset.isGateway == false &&
-                        asset.isWaves == false &&
-                        asset.isSpam == false }))
+            let filteredAssets = assets.filter {
+                let asset = $0.asset
+                
+                return asset.isFiat == false &&
+                    asset.isWavesToken == true &&
+                    asset.isGateway == false &&
+                    asset.isWaves == false &&
+                    asset.isSpam == false
+            }
+            filterAssets.append(contentsOf: filteredAssets)
         }
         
         filteredAssets.removeAll()
@@ -151,14 +151,12 @@ private extension AssetListInteractor {
     }
     
     func isValidSearch(name: String, searchText: String) -> Bool {
-        
-        let searchWords = searchText.components(separatedBy: " ").filter {$0.count > 0}
+        let searchWords = searchText.components(separatedBy: " ").filter { $0.isNotEmpty }
         
         var validations: [Bool] = []
         for word in searchWords {
             validations.append((name.lowercased() as NSString).range(of: word.lowercased()).location != NSNotFound)
-            
         }
-        return validations.filter({$0 == true}).count == searchWords.count
+        return validations.filter { $0 == true }.count == searchWords.count
     }
 }

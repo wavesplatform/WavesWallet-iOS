@@ -157,7 +157,8 @@ extension ProfileCoordinator: ProfileModuleOutput {
             return
         }
         #endif
-        let coordinator = MailComposeCoordinator(viewController: navigationRouter.navigationController, email: UIGlobalConstants.supportEmail)
+        let coordinator = MailComposeCoordinator(viewController: navigationRouter.navigationController,
+                                                 email: UIGlobalConstants.supportEmail)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }

@@ -30,13 +30,9 @@ private struct ApplicationNewsSettings: TSUD, Codable, Mutating {
         showIdSet = .init()
     }
 
-    static var defaultValue: ApplicationNewsSettings {
-        return ApplicationNewsSettings(showIdSet: .init())
-    }
+    static var defaultValue: ApplicationNewsSettings { ApplicationNewsSettings(showIdSet: .init()) }
 
-    static var stringKey: String {
-        return Constants.key
-    }
+    static var stringKey: String { Constants.key }
 }
 
 final class AppNewsCoordinator: Coordinator {
@@ -44,7 +40,8 @@ final class AppNewsCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let notificationNewsRepository: NotificationNewsRepositoryProtocol = UseCasesFactory.instance.repositories.notificationNewsRepository
+    private let notificationNewsRepository: NotificationNewsRepositoryProtocol =
+        UseCasesFactory.instance.repositories.notificationNewsRepository
 
     private let disposeBag: DisposeBag = DisposeBag()
 

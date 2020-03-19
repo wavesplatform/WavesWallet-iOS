@@ -28,9 +28,7 @@ final class ReceiveCardCompleteViewController: UIViewController {
         navigationItem.hidesBackButton = true
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
     
     private func setupLocalization() {
         labelTitle.text = Localizable.Waves.Receivecardcomplete.Label.redirectToIndacoin
@@ -39,10 +37,13 @@ final class ReceiveCardCompleteViewController: UIViewController {
     }
     
     @IBAction private func okeyTapped(_ sender: Any) {
-        if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetDetailViewController.classForCoder()}) {
-            navigationController?.popToViewController(assetVc, animated: true)
+        let assetDetailsViewController = navigationController?.viewControllers.first {
+            $0.classForCoder == AssetDetailViewController.classForCoder()
         }
-        else {
+        
+        if let assetVc = assetDetailsViewController {
+            navigationController?.popToViewController(assetVc, animated: true)
+        } else {
             navigationController?.popToRootViewController(animated: true)
         }
     }

@@ -12,7 +12,6 @@ import DomainLayer
 import WavesSDK
 
 protocol MobileKeeperCoordinatorDelegate: AnyObject {
-    
     func mobileKeeperCoordinatorError(_ error: MobileKeeperUseCaseError)
 }
 
@@ -26,13 +25,14 @@ final class MobileKeeperCoordinator: Coordinator {
     
     private var windowRouter: WindowRouter
     
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     private let request: DomainLayer.DTO.MobileKeeper.Request
     
-    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
+    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol =
+        UseCasesFactory.instance.repositories.mobileKeeperRepository
     
-    private var snackError: String? = nil
+    private var snackError: String?
     
     weak var delegate: MobileKeeperCoordinatorDelegate?
     
@@ -280,6 +280,6 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
     }
     
     private func showErrorSnack(_ message: (String)) -> String? {
-        return UIApplication.shared.windows.last?.rootViewController?.showErrorSnackWithoutAction(title: message)
+        UIApplication.shared.windows.last?.rootViewController?.showErrorSnackWithoutAction(title: message)
     }
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 extension UINavigationController {
-
     func popViewController(animated: Bool, completed: @escaping (() -> Void)) -> UIViewController? {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completed)
@@ -18,8 +17,7 @@ extension UINavigationController {
         return result
     }
 
-    func popToRootViewController(animated: Bool, completed: @escaping (() -> Void)) -> [UIViewController]? {
-
+    func popToRootViewController(animated: Bool, completed: @escaping () -> Void) -> [UIViewController]? {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completed)
         let result = popToRootViewController(animated: animated)
@@ -27,8 +25,9 @@ extension UINavigationController {
         return result
     }
 
-    func popToViewController(_ viewController: UIViewController, animated: Bool, completed: @escaping (() -> Void)) -> [UIViewController]? {
-
+    func popToViewController(_ viewController: UIViewController,
+                             animated: Bool,
+                             completed: @escaping () -> Void) -> [UIViewController]? {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completed)
         let result = popToViewController(viewController, animated: animated)
@@ -45,7 +44,6 @@ extension UINavigationController {
 }
 
 extension UINavigationItem {
-
     private enum AssociatedKeys {
         static var prefersLargeTitles = "prefersLargeTitles"
         static var backgroundImage = "backgroundImage"
@@ -61,9 +59,9 @@ extension UINavigationItem {
         static var largeTitleTextAttributes = "largeTitleTextAttributes"
     }
 
-    @objc var largeTitleTextAttributes: [NSAttributedString.Key : Any]? {
+    @objc var largeTitleTextAttributes: [NSAttributedString.Key: Any]? {
         get {
-            return associatedObject(for: &AssociatedKeys.largeTitleTextAttributes)
+            associatedObject(for: &AssociatedKeys.largeTitleTextAttributes)
         }
 
         set {
@@ -73,17 +71,17 @@ extension UINavigationItem {
 
     @objc var backIndicatorImage: UIImage? {
         get {
-            return associatedObject(for: &AssociatedKeys.backIndicatorImage)
+            associatedObject(for: &AssociatedKeys.backIndicatorImage)
         }
 
         set {
             setAssociatedObject(newValue, for: &AssociatedKeys.backIndicatorImage)
         }
     }
-    
+
     @objc var backIndicatorTransitionMaskImage: UIImage? {
         get {
-            return associatedObject(for: &AssociatedKeys.backIndicatorTransitionMaskImage)
+            associatedObject(for: &AssociatedKeys.backIndicatorTransitionMaskImage)
         }
 
         set {
@@ -91,9 +89,9 @@ extension UINavigationItem {
         }
     }
 
-    @objc var titleTextAttributes: [NSAttributedString.Key : Any]? {
+    @objc var titleTextAttributes: [NSAttributedString.Key: Any]? {
         get {
-            return associatedObject(for: &AssociatedKeys.titleTextAttributes) ?? nil
+            associatedObject(for: &AssociatedKeys.titleTextAttributes) ?? nil
         }
 
         set {
@@ -103,7 +101,7 @@ extension UINavigationItem {
 
     @objc var isNavigationBarHidden: Bool {
         get {
-            return associatedObject(for: &AssociatedKeys.isNavigationBarHidden) ?? false
+            associatedObject(for: &AssociatedKeys.isNavigationBarHidden) ?? false
         }
 
         set {
@@ -113,7 +111,7 @@ extension UINavigationItem {
 
     @objc var barTintColor: UIColor? {
         get {
-            return associatedObject(for: &AssociatedKeys.barTintColor) ?? nil
+            associatedObject(for: &AssociatedKeys.barTintColor) ?? nil
         }
 
         set {
@@ -123,7 +121,7 @@ extension UINavigationItem {
 
     @objc var tintColor: UIColor? {
         get {
-            return associatedObject(for: &AssociatedKeys.tintColor) ?? nil
+            associatedObject(for: &AssociatedKeys.tintColor) ?? nil
         }
 
         set {
@@ -133,7 +131,7 @@ extension UINavigationItem {
 
     @objc var prefersLargeTitles: Bool {
         get {
-            return associatedObject(for: &AssociatedKeys.prefersLargeTitles) ?? false
+            associatedObject(for: &AssociatedKeys.prefersLargeTitles) ?? false
         }
 
         set {
@@ -143,7 +141,7 @@ extension UINavigationItem {
 
     @objc var isTranslucent: Bool {
         get {
-            return associatedObject(for: &AssociatedKeys.isTranslucent) ?? true
+            associatedObject(for: &AssociatedKeys.isTranslucent) ?? true
         }
 
         set {
@@ -153,7 +151,7 @@ extension UINavigationItem {
 
     @objc var backgroundImage: UIImage? {
         get {
-            return associatedObject(for: &AssociatedKeys.backgroundImage)
+            associatedObject(for: &AssociatedKeys.backgroundImage)
         }
 
         set {
@@ -163,7 +161,7 @@ extension UINavigationItem {
 
     @objc var shadowImage: UIImage? {
         get {
-            return associatedObject(for: &AssociatedKeys.shadowImage)
+            associatedObject(for: &AssociatedKeys.shadowImage)
         }
 
         set {
@@ -173,7 +171,7 @@ extension UINavigationItem {
 
     @objc var isDisabledGestureBack: Bool {
         get {
-            return associatedObject(for: &AssociatedKeys.isDisabledGestureBack) ?? false
+            associatedObject(for: &AssociatedKeys.isDisabledGestureBack) ?? false
         }
 
         set {
@@ -182,7 +180,7 @@ extension UINavigationItem {
     }
 }
 
-fileprivate enum Constants {
+private enum Constants {
     static var prefersLargeTitles = "prefersLargeTitles"
     static var backgroundImage = "backgroundImage"
     static var shadowImage = "shadowImage"
@@ -197,14 +195,13 @@ fileprivate enum Constants {
 }
 
 final class CustomNavigationController: UINavigationController {
-
-    private let proxyDelegate: ProxyNavigationControllerDelegate = ProxyNavigationControllerDelegate()
+    private let proxyDelegate = ProxyNavigationControllerDelegate()
 
     private weak var prevViewContoller: UIViewController?
-  
+
     override var delegate: UINavigationControllerDelegate? {
         get {
-            return super.delegate
+            super.delegate
         }
         set {
             super.delegate = proxyDelegate
@@ -224,38 +221,34 @@ final class CustomNavigationController: UINavigationController {
                                of object: Any?,
                                change: [NSKeyValueChangeKey: Any]?,
                                context: UnsafeMutableRawPointer?) {
-
         if let prevViewContoller = prevViewContoller {
             apperanceNavigationItemProperties(prevViewContoller)
         }
     }
 
     override func popViewController(animated: Bool) -> UIViewController? {
-
         if viewControllers.count == 2 {
-            self.viewControllers.first?.hidesBottomBarWhenPushed = false
+            viewControllers.first?.hidesBottomBarWhenPushed = false
         }
-        
+
         return super.popViewController(animated: animated)
     }
 
     override func popToRootViewController(animated: Bool) -> [UIViewController]? {
-
-        self.viewControllers.first?.hidesBottomBarWhenPushed = false
+        viewControllers.first?.hidesBottomBarWhenPushed = false
         return super.popToRootViewController(animated: animated)
     }
 
     override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        return super.popToViewController(viewController, animated: animated)
+        super.popToViewController(viewController, animated: animated)
     }
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        self.viewControllers.first?.hidesBottomBarWhenPushed = true
+        viewControllers.first?.hidesBottomBarWhenPushed = true
         super.pushViewController(viewController, animated: animated)
     }
-    
-    private func apperanceNavigationItemProperties(_ viewController: UIViewController, animated: Bool = false) {
 
+    private func apperanceNavigationItemProperties(_ viewController: UIViewController, animated: Bool = false) {
         if viewController != topViewController {
             return
         }
@@ -267,7 +260,7 @@ final class CustomNavigationController: UINavigationController {
         navigationBar.barTintColor = viewController.navigationItem.barTintColor
         navigationBar.tintColor = viewController.navigationItem.tintColor
         navigationBar.titleTextAttributes = viewController.navigationItem.titleTextAttributes
-        
+
         if #available(iOS 11.0, *) {
             navigationBar.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes
             navigationBar.prefersLargeTitles = true
@@ -285,20 +278,20 @@ final class CustomNavigationController: UINavigationController {
             navigationBar.standardAppearance = appereance
             navigationBar.scrollEdgeAppearance = appereance
         }
-        
+
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
     }
 
     override var childForStatusBarStyle: UIViewController? {
-        return self.topViewController
+        self.topViewController
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.topViewController?.preferredStatusBarStyle ?? .default
+        self.topViewController?.preferredStatusBarStyle ?? .default
     }
 
     override var prefersStatusBarHidden: Bool {
-        return self.topViewController?.prefersStatusBarHidden ?? false
+        topViewController?.prefersStatusBarHidden ?? false
     }
 
     deinit {
@@ -324,11 +317,8 @@ final class CustomNavigationController: UINavigationController {
 // MARK: UIGestureRecognizerDelegate
 
 extension CustomNavigationController: UIGestureRecognizerDelegate {
-
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-
         if viewControllers.count > 1 {
-
             if let top = viewControllers.last, top.navigationItem.isDisabledGestureBack == true {
                 return false
             }
@@ -342,9 +332,9 @@ extension CustomNavigationController: UIGestureRecognizerDelegate {
 // MARK: UINavigationControllerDelegate
 
 extension CustomNavigationController: UINavigationControllerDelegate {
-
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-            
+    func navigationController(_ navigationController: UINavigationController,
+                              willShow viewController: UIViewController,
+                              animated: Bool) {
         if let prevViewContoller = prevViewContoller {
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.shadowImage)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backgroundImage)
@@ -366,45 +356,63 @@ extension CustomNavigationController: UINavigationControllerDelegate {
 
         apperanceNavigationItemProperties(viewController, animated: animated)
 
-        viewController.navigationItem.addObserver(self, forKeyPath: Constants.backgroundImage, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self,
+                                                  forKeyPath: Constants.backgroundImage,
+                                                  options: [.new, .old],
+                                                  context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.shadowImage, options: [.new, .old], context: nil)
 
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.barTintColor, options: [.new, .old], context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.tintColor, options: [.new, .old], context: nil)
-        viewController.navigationItem.addObserver(self, forKeyPath: Constants.isNavigationBarHidden, options: [.new, .old], context: nil)
-        viewController.navigationItem.addObserver(self, forKeyPath: Constants.titleTextAttributes, options: [.new, .old], context: nil)
+        viewController.navigationItem.addObserver(self,
+                                                  forKeyPath: Constants.isNavigationBarHidden,
+                                                  options: [.new, .old],
+                                                  context: nil)
+        viewController.navigationItem.addObserver(self,
+                                                  forKeyPath: Constants.titleTextAttributes,
+                                                  options: [.new, .old],
+                                                  context: nil)
         viewController.navigationItem.addObserver(self, forKeyPath: Constants.isTranslucent, options: [.new, .old], context: nil)
-        viewController.navigationItem.addObserver(self, forKeyPath: Constants.backIndicatorImage, options: [.new, .old], context: nil)
-        viewController.navigationItem.addObserver(self, forKeyPath: Constants.backIndicatorTransitionMaskImage, options: [.new, .old], context: nil)
-
+        viewController.navigationItem.addObserver(self,
+                                                  forKeyPath: Constants.backIndicatorImage,
+                                                  options: [.new, .old],
+                                                  context: nil)
+        viewController.navigationItem.addObserver(self,
+                                                  forKeyPath: Constants.backIndicatorTransitionMaskImage,
+                                                  options: [.new, .old],
+                                                  context: nil)
 
         if #available(iOS 11.0, *) {
-            viewController.navigationItem.addObserver(self, forKeyPath: Constants.prefersLargeTitles, options: [.new, .old], context: nil)
-            viewController.navigationItem.addObserver(self, forKeyPath: Constants.largeTitleTextAttributes, options: [.new, .old], context: nil)
+            viewController.navigationItem.addObserver(self,
+                                                      forKeyPath: Constants.prefersLargeTitles,
+                                                      options: [.new, .old],
+                                                      context: nil)
+            viewController.navigationItem.addObserver(self,
+                                                      forKeyPath: Constants.largeTitleTextAttributes,
+                                                      options: [.new, .old],
+                                                      context: nil)
         }
-        
-        self.transitionCoordinator?.notifyWhenInteractionChanges({ [weak self] context in
+
+        transitionCoordinator?.notifyWhenInteractionChanges { [weak self] context in
             guard let self = self else { return }
             guard context.isCancelled else { return }
             guard let fromViewController = context.viewController(forKey: .from) else { return }
             self.navigationController(navigationController, willShow: fromViewController, animated: animated)
 
             let animationCompletion = context.transitionDuration * Double(context.percentComplete)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationCompletion, execute: { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationCompletion) { [weak self] in
                 guard let self = self else { return }
                 self.navigationController(navigationController, didShow: fromViewController, animated: animated)
-            })
-        })
+            }
+        }
     }
 
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        
-        
-    }
+    func navigationController(_ navigationController: UINavigationController,
+                              didShow viewController: UIViewController,
+                              animated: Bool) {}
 }
 
 private final class Weak<T> where T: AnyObject {
-
     private(set) weak var value: T?
 
     init(value: T?) {
@@ -413,19 +421,21 @@ private final class Weak<T> where T: AnyObject {
 }
 
 private class ProxyNavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
+    var delegates: [Weak<UINavigationControllerDelegate>] = []
 
-    var delegates: [Weak<UINavigationControllerDelegate>] = .init()
-
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        delegates.forEach { (weak) in
+    func navigationController(_ navigationController: UINavigationController,
+                              willShow viewController: UIViewController,
+                              animated: Bool) {
+        delegates.forEach { weak in
             weak.value?.navigationController?(navigationController, willShow: viewController, animated: animated)
         }
     }
 
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        delegates.forEach { (weak) in
+    func navigationController(_ navigationController: UINavigationController,
+                              didShow viewController: UIViewController,
+                              animated: Bool) {
+        delegates.forEach { weak in
             weak.value?.navigationController?(navigationController, didShow: viewController, animated: animated)
         }
     }
 }
-

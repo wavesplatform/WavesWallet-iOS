@@ -15,7 +15,7 @@ class NavigationRouter: NSObject {
 
     public var navigationController: UINavigationController
 
-    public init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         super.init()
         self.navigationController.delegate = self
@@ -30,7 +30,9 @@ class NavigationRouter: NSObject {
         navigationController.pushViewController(viewController, animated: animated)
     }
 
-    func popAllAndSetRootViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func popAllAndSetRootViewController(_ viewController: UIViewController,
+                                        animated: Bool = true,
+                                        completion: (() -> Void)? = nil) {
 
         if let completion = completion {
             completions[viewController] = completion
@@ -39,20 +41,20 @@ class NavigationRouter: NSObject {
         navigationController.setViewControllers([viewController], animated: animated)
     }
 
-    func popViewController(animated: Bool = true)  {
+    func popViewController(animated: Bool = true) {
         if let controller = navigationController.popViewController(animated: animated) {
             runCompletion(for: controller)
         }
     }
 
-    func popViewController(animated: Bool = true, completed: (() -> Void)? = nil)  {
+    func popViewController(animated: Bool = true, completed: (() -> Void)? = nil) {
         if let controller = navigationController.popViewController(animated: animated) {
             runCompletion(for: controller)
             completed?()
         }
     }
 
-    public func popToRootViewController(animated: Bool = true) {
+    func popToRootViewController(animated: Bool = true) {
         if let controllers = navigationController.popToRootViewController(animated: animated) {
             controllers.forEach { runCompletion(for: $0) }
         }
@@ -72,7 +74,8 @@ class NavigationRouter: NSObject {
 // MARK: UINavigationControllerDelegate
 extension NavigationRouter: UINavigationControllerDelegate {
 
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController,
+                              didShow viewController: UIViewController, animated: Bool) {
 
         guard let poppedViewController = navigationController.transitionCoordinator?.viewController(forKey: .from),
             !navigationController.viewControllers.contains(poppedViewController) else {
@@ -85,9 +88,7 @@ extension NavigationRouter: UINavigationControllerDelegate {
 
 extension NavigationRouter: Router {
 
-    var viewController: UIViewController {
-        return navigationController
-    }
+    var viewController: UIViewController { navigationController }
 
     func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
         

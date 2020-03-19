@@ -9,7 +9,7 @@
 import UIKit
 import Extensions
 
-protocol MultilineTextFieldDelegate: class {
+protocol MultilineTextFieldDelegate: AnyObject {
     func multilineTextField(textField: MultilineTextField, errorTextForValue value: String) -> String?
     func multilineTextFieldDidChange(textField: MultilineTextField)
     func multilineTextFieldShouldReturn(textField: MultilineTextField)
@@ -22,11 +22,12 @@ final class MultilineTextField: UIView {
         let placeholder: String?
     }
     
-    fileprivate(set) var textView: UITextView!
-    fileprivate var titleLabel: UILabel!
-    fileprivate var placeholderLabel: UILabel!
-    fileprivate var errorLabel: UILabel!
-    fileprivate var separator: UIView!
+    // конфиогурацию вьюх лучше инкапсулировать (посомтреть в ImportAccountManuallyViewController)
+    fileprivate(set) var textView = UITextView(frame: .zero)
+    fileprivate let titleLabel = UILabel(frame: .zero)
+    fileprivate let placeholderLabel = UILabel(frame: .zero)
+    fileprivate let errorLabel = UILabel(frame: .zero)
+    fileprivate let separator = UIView()
 
     var error: String? {
         didSet {
@@ -66,13 +67,11 @@ final class MultilineTextField: UIView {
     // MARK: - Setups
     
     private func setupSeparator() {
-        separator = UIView()
         separator.backgroundColor = .accent100
         addSubview(separator)
     }
     
     private func setupTextView() {
-        textView = UITextView(frame: .zero)
         textView.delegate = self
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = Constants.containerInset
@@ -86,7 +85,6 @@ final class MultilineTextField: UIView {
     }
     
     private func setupTitleLabel() {
-        titleLabel = UILabel(frame: .zero)
         titleLabel.text = ""
         titleLabel.font = Constants.titleFont
         titleLabel.textColor = .basic500
@@ -94,7 +92,6 @@ final class MultilineTextField: UIView {
     }
     
     private func setupPlaceholderLabel() {
-        placeholderLabel = UILabel(frame: .zero)
         placeholderLabel.text = nil
         placeholderLabel.font = Constants.font
         placeholderLabel.numberOfLines = 0
@@ -103,7 +100,6 @@ final class MultilineTextField: UIView {
     }
     
     private func setupErrorLabel() {
-        errorLabel = UILabel(frame: .zero)
         errorLabel.text = nil
         errorLabel.font = Constants.titleFont
         errorLabel.textColor = .error500
@@ -121,9 +117,15 @@ final class MultilineTextField: UIView {
         errorLabel.frame = titleLabel.frame
         
         let textViewY = titleLabel.frame.maxY + Constants.titleToTextView
-        textView.frame = CGRect(x: 0, y: textViewY, width: bounds.width, height: bounds.height - textViewY - Constants.textViewToSeparator - Constants.separatorHeight)
+        textView.frame = CGRect(x: 0,
+                                y: textViewY,
+                                width: bounds.width,
+                                height: bounds.height - textViewY - Constants.textViewToSeparator - Constants.separatorHeight)
         placeholderLabel.frame = textView.frame
-        separator.frame = CGRect(x: 0, y: bounds.height - Constants.separatorHeight, width: bounds.width, height: Constants.separatorHeight)
+        separator.frame = CGRect(x: 0,
+                                 y: bounds.height - Constants.separatorHeight,
+                                 width: bounds.width,
+                                 height: Constants.separatorHeight)
         
         if bounds.height <= maximumHeight {
             textView.setContentOffset(.zero, animated: false)
@@ -137,10 +139,17 @@ final class MultilineTextField: UIView {
         let titleHeight = titleLabel.text!.maxHeightMultiline(font: titleLabel.font, forWidth: bounds.width)
         
         let insets = textView.textContainerInset
-        let placeholderHeight = (placeholderLabel.text ?? "").maxHeightMultiline(font: placeholderLabel.font, forWidth: bounds.width - insets.left - insets.right)
-        let textViewHeight = textView.text.maxHeightMultiline(font: textView.font!, forWidth: bounds.width - insets.left - insets.right)
         
-        let height = titleHeight + Constants.titleToTextView + max(placeholderHeight, textViewHeight) + Constants.textViewToSeparator + Constants.separatorHeight
+        let placeholderWidth = bounds.width - insets.left - insets.right
+        let placeholderHeight = (placeholderLabel.text ?? "").maxHeightMultiline(font: placeholderLabel.font,
+                                                                                 forWidth: placeholderWidth)
+        let textViewHeight = textView.text.maxHeightMultiline(font: textView.font!,
+                                                              forWidth: bounds.width - insets.left - insets.right)
+        
+        let height = titleHeight +
+            Constants.titleToTextView +
+            max(placeholderHeight, textViewHeight) +
+            Constants.textViewToSeparator + Constants.separatorHeight
         return min(maximumHeight, max(minimumHeight, height))
     }
     
@@ -148,13 +157,9 @@ final class MultilineTextField: UIView {
     
     private(set) var isValidValue: Bool = false
     
-    var value: String {
-        return textView.text
-    }
+    var value: String { textView.text }
     
-    var count: Int {
-        return value.count
-    }
+    var count: Int { value.count }
     
     func updateText(newText: String) {
         textView.text = newText
@@ -189,12 +194,12 @@ final class MultilineTextField: UIView {
         var errorString: String? = ""
         var isValidValue: Bool = false
         
-        if let text = text, text.count > 0 {
+        if let text = text, text.isNotEmpty {
             errorString = delegate?.multilineTextField(textField: self, errorTextForValue: text)
             isValidValue = errorString == nil
         }
 
-        if let error = self.error, error.count > 0 {
+        if let error = self.error, error.isNotEmpty {
             errorString = error
             isValidValue = errorString == nil
         }
@@ -206,28 +211,19 @@ final class MultilineTextField: UIView {
     
     // MARK: - Helper
     
-    @discardableResult override func becomeFirstResponder() -> Bool {
-        return textView.becomeFirstResponder()
-    }
+    @discardableResult override func becomeFirstResponder() -> Bool { textView.becomeFirstResponder() }
     
-    @discardableResult override func resignFirstResponder() -> Bool {
-        return textView.resignFirstResponder()
-    }
-    
+    @discardableResult override func resignFirstResponder() -> Bool { textView.resignFirstResponder() }
 }
 
 extension MultilineTextField: ViewConfiguration {
-    
     func update(with model: MultilineTextField.Model) {
         titleLabel.text = model.title
         placeholderLabel.text = model.placeholder
     }
-    
 }
 
 extension MultilineTextField: UITextViewDelegate {
-    
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         let newText = (textView.text! as NSString).replacingCharacters(in: range, with: text).trimmingLeadingWhitespace()
@@ -240,11 +236,10 @@ extension MultilineTextField: UITextViewDelegate {
             return false
         }
        
-        var newRange: NSRange!
-        if text.count > 0 {
+        let newRange: NSRange
+        if text.isNotEmpty {
             newRange = NSRange(location: textView.selectedRange.location + text.count, length: 0)
-        }
-        else {
+        } else {
             let location = textView.selectedRange.location - range.length
             newRange = NSRange(location: location > 0 ? location : 0, length: 0)
         }
@@ -265,16 +260,15 @@ extension MultilineTextField: UITextViewDelegate {
         checkPlaceholder()
         checkSeparator()
     }
-    
 }
 
 private enum Constants {
     static let minimumHeight: CGFloat = 65
     static let maximumHeight: CGFloat = 155
-    static let titleFont: UIFont = UIFont.systemFont(ofSize: 13)
+    static let titleFont = UIFont.systemFont(ofSize: 13)
     static let separatorHeight: CGFloat = 0.5
     static let titleToTextView: CGFloat = 14
     static let textViewToSeparator: CGFloat = 14
-    static let font: UIFont = UIFont.systemFont(ofSize: 17)
+    static let font = UIFont.systemFont(ofSize: 17)
     static let containerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 }

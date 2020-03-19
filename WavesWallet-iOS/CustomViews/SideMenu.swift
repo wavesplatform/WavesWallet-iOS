@@ -15,20 +15,20 @@ protocol SlideMenuProtocol {
 
 final class SlideMenu: RESideMenu, SlideMenuProtocol {
 
-    var mainViewController: UIViewController {
-        return contentViewController
-    }
+    var mainViewController: UIViewController { contentViewController }
 
-    override var childForStatusBarStyle: UIViewController? {
-        return self.contentViewController
-    }
+    override var childForStatusBarStyle: UIViewController? { self.contentViewController }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    override init!(contentViewController: UIViewController!, leftMenuViewController: UIViewController!, rightMenuViewController: UIViewController!) {
-        super.init(contentViewController: contentViewController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+    override init!(contentViewController: UIViewController!,
+                   leftMenuViewController: UIViewController!,
+                   rightMenuViewController: UIViewController!) {
+        super.init(contentViewController: contentViewController,
+                   leftMenuViewController: leftMenuViewController,
+                   rightMenuViewController: rightMenuViewController)
         setup()
     }
     

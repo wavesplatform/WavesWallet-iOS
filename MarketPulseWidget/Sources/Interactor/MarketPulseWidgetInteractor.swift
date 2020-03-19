@@ -34,7 +34,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
         _ = setupLayers()
     }
     
-    static var shared: MarketPulseWidgetInteractor = MarketPulseWidgetInteractor()
+    static var shared = MarketPulseWidgetInteractor()
     
     private func setupLayers() -> Bool {
     
@@ -60,29 +60,22 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     }
     
     func settings() -> Observable<MarketPulse.DTO.Settings> {
-        
-        return Observable.zip(WidgetSettings.rx.currency(),
-                              widgetSettingsRepository.settings())
-            .flatMap({ (currency, marketPulseSettings) -> Observable<MarketPulse.DTO.Settings> in
-                return Observable.just(MarketPulse.DTO.Settings(currency: currency,
-                                                                isDarkMode: marketPulseSettings.isDarkStyle,
-                                                                inverval: marketPulseSettings.interval))
-            })
+        Observable.zip(WidgetSettings.rx.currency(), widgetSettingsRepository.settings())
+            .flatMap { currency, marketPulseSettings -> Observable<MarketPulse.DTO.Settings> in
+                Observable.just(MarketPulse.DTO.Settings(currency: currency,
+                                                         isDarkMode: marketPulseSettings.isDarkStyle,
+                                                         inverval: marketPulseSettings.interval))
+        }
     }
     
-    func chachedAssets() -> Observable<[MarketPulse.DTO.Asset]> {
-        return dbRepository.chachedAssets()
-    }
+    func chachedAssets() -> Observable<[MarketPulse.DTO.Asset]> { dbRepository.chachedAssets() }
     
     func assets() -> Observable<[MarketPulse.DTO.Asset]> {
-        
-        return widgetSettingsRepository.settings()
-            .flatMap({ [weak self] (settings) -> Observable<[MarketPulse.DTO.Asset]> in
-                
+        widgetSettingsRepository.settings()
+            .flatMap { [weak self] settings -> Observable<[MarketPulse.DTO.Asset]> in
                 guard let self = self else { return Observable.empty() }
-                            
                 return self.loadAssets(assets: settings.assets)
-            })
+            }
     }
     
     private func loadAssets(assets: [DomainLayer.DTO.MarketPulseSettings.Asset]) -> Observable<[MarketPulse.DTO.Asset]> {
@@ -93,35 +86,39 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
         
         let roundEarlyDate = Date(timeIntervalSince1970: ceil(earlyDate.timeIntervalSince1970 / 60.0) * 60.0)
         
-                    
-        let ratesQuery = MarketPulse.Query.Rates.init(pair: assets.flatMap { [.init(amountAssetId: $0.id, priceAssetId: MarketPulse.usdAssetId),
-                                                                              .init(amountAssetId: $0.id, priceAssetId: MarketPulse.eurAssetId)] },
-                                                      timestamp: nil)
+        let ratesQueryPairs: [MarketPulse.Query.Rates.Pair] = assets.flatMap {
+            [.init(amountAssetId: $0.id, priceAssetId: MarketPulse.usdAssetId),
+             .init(amountAssetId: $0.id, priceAssetId: MarketPulse.eurAssetId)]
+        }
+        let ratesQuery = MarketPulse.Query.Rates(pair: ratesQueryPairs, timestamp: nil)
 
-        let ratesQueryYesterday = MarketPulse.Query.Rates.init(pair: assets.flatMap { [.init(amountAssetId: $0.id, priceAssetId: MarketPulse.usdAssetId),
-                                                                              .init(amountAssetId: $0.id, priceAssetId: MarketPulse.eurAssetId)] },
-                                                      timestamp: roundEarlyDate)
+        let ratesQueryYesterdayPairs: [MarketPulse.Query.Rates.Pair] = assets.flatMap {
+            [.init(amountAssetId: $0.id, priceAssetId: MarketPulse.usdAssetId),
+             .init(amountAssetId: $0.id, priceAssetId: MarketPulse.eurAssetId)]
+        }
+        let ratesQueryYesterday = MarketPulse.Query.Rates(pair: ratesQueryYesterdayPairs, timestamp: roundEarlyDate)
         
-        let assetsQuery = assetsRepository.assets(by: assets.map { $0.id })
+        let assetsIdentifiers = assets.map { $0.id }
+        let assetsQuery = assetsRepository.assets(by: assetsIdentifiers)
         
         return Observable.zip(pairsPriceRepository.ratePairs(ratesQueryYesterday),
                               pairsPriceRepository.ratePairs(ratesQuery),
                               assetsQuery)
-            .flatMap { (yesterdayRates, nowRates, assetsRemote) -> Observable<[MarketPulse.DTO.Asset]> in
+            .flatMap { yesterdayRates, nowRates, assetsRemote -> Observable<[MarketPulse.DTO.Asset]> in
                        
-                let assetsRemoteMap = assetsRemote.reduce(into: [String: DomainLayer.DTO.Asset].init(), {
+                let assetsRemoteMap = assetsRemote.reduce(into: [String: DomainLayer.DTO.Asset](), {
                     $0[$1.id] = $1
                 })
                 
-                let yesterdayRatesMap = yesterdayRates.reduce(into: [String: [String: MarketPulse.DTO.Rate]].init(), {
-                    var map = $0[$1.priceAssetId] ?? [String: MarketPulse.DTO.Rate].init()
+                let yesterdayRatesMap = yesterdayRates.reduce(into: [String: [String: MarketPulse.DTO.Rate]](), {
+                    var map = $0[$1.priceAssetId] ?? [String: MarketPulse.DTO.Rate]()
 
                     map[$1.amountAssetId] = $1
                     $0[$1.priceAssetId] = map
                 })
                 
-                let nowRatesMap = nowRates.reduce(into: [String: [String: MarketPulse.DTO.Rate]].init(), {
-                    var map = $0[$1.priceAssetId] ?? [String: MarketPulse.DTO.Rate].init()
+                let nowRatesMap = nowRates.reduce(into: [String: [String: MarketPulse.DTO.Rate]](), {
+                    var map = $0[$1.priceAssetId] ?? [String: MarketPulse.DTO.Rate]()
 
                     map[$1.amountAssetId] = $1
                     $0[$1.priceAssetId] = map
@@ -129,11 +126,11 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                 
                 let newAssets = assets.map { asset -> MarketPulse.DTO.Asset in
                     
-                    var rates: [String: Double] = .init()
+                    var rates: [String: Double] = [:]
                     rates[MarketPulse.usdAssetId] = nowRatesMap[MarketPulse.usdAssetId]?[asset.id]?.rate ?? 0
                     rates[MarketPulse.eurAssetId] = nowRatesMap[MarketPulse.eurAssetId]?[asset.id]?.rate ?? 0
                     
-                    var firstPrice: [String: Double] = .init()
+                    var firstPrice: [String: Double] = [:]
                     firstPrice[MarketPulse.usdAssetId] = yesterdayRatesMap[MarketPulse.usdAssetId]?[asset.id]?.rate ?? 0
                     firstPrice[MarketPulse.eurAssetId] = yesterdayRatesMap[MarketPulse.eurAssetId]?[asset.id]?.rate ?? 0
                     
@@ -152,28 +149,18 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                 return self
                     .dbRepository
                     .saveAsssets(assets: newAssets)
-                    .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
-                        return Observable.just(newAssets)
-                    })
+                    .flatMap { _ -> Observable<[MarketPulse.DTO.Asset]> in Observable.just(newAssets) }
             }
     }
 }
 
 private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizableProtocol {
     
-    var fallbackTitle: String {
-        return ""
-    }
+    var fallbackTitle: String { "" }
     
-    var cancelTitle: String {
-        return ""
-    }
+    var cancelTitle: String { "" }
     
-    var readFromkeychain: String {
-        return ""
-    }
+    var readFromkeychain: String { "" }
     
-    var saveInkeychain: String {
-        return ""
-    }
+    var saveInkeychain: String { "" }
 }

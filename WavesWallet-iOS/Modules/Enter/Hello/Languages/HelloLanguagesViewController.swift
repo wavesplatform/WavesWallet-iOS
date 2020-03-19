@@ -24,21 +24,19 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var continueBtn: UIButton!
 
-    @IBOutlet weak var logoTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var logoHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var logoTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var logoHeightConstraint: NSLayoutConstraint!
 
-    @IBOutlet weak var gradientView: CustomGradientView!
-    @IBOutlet weak var whiteView: UIView!
+    @IBOutlet private weak var gradientView: CustomGradientView!
+    @IBOutlet private weak var whiteView: UIView!
     
-    @IBOutlet weak var continueButtonLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var continueButtonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var continueButtonRightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var continueButtonLeftConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var continueButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var continueButtonRightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var safeAreaViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var safeAreaViewHeightConstraint: NSLayoutConstraint!
     
-    private var languages: [Language] = {
-        return Language.list
-    }()
+    private var languages: [Language] = Language.list
 
     private var chosenIndexPath: IndexPath?
 
@@ -80,20 +78,24 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
             }
         }
         
-        tableView.contentInset = UIEdgeInsets(top: Constants.logoTop + logoHeightConstraint.constant + Constants.logoBottom, left: 0, bottom: continueButtonBottomConstraint.constant + continueBtn.bounds.height + continueButtonBottomConstraint.constant, right: 0)
+        let topInset = Constants.logoTop + logoHeightConstraint.constant + Constants.logoBottom
+        let bottomInset = continueButtonBottomConstraint.constant +
+            continueBtn.bounds.height +
+            continueButtonBottomConstraint.constant
         
+        tableView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: bottomInset, right: 0)
     }
     
     // MARK: - Actions
     
-    @IBAction func continueWasPressed(_ sender: Any) {
+    @IBAction private func continueWasPressed(_ sender: Any) {
         output?.userFinishedChangeLanguage()
     }
 
     // MARK: - UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return languages.count
+        languages.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,23 +122,17 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
             self.continueBtn.alpha = 1.0
             self.gradientView.alpha = 1.0
             self.whiteView.alpha = 1.0
-            
         }
 
         let item = languages[indexPath.row]
         output?.languageDidSelect(language: item)
         continueBtn.setTitle(Localizable.Waves.Hello.Button.continue, for: .normal)
     }
-    
 }
 
 extension HelloLanguagesViewController: UIScrollViewDelegate {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         let y = -scrollView.contentOffset.y - scrollView.contentInset.top
         logoTopConstraint.constant = y + Constants.logoTop
-        
     }
-    
 }
