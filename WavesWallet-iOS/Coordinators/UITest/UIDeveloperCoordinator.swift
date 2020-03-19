@@ -26,14 +26,14 @@ final class UIDeveloperCoordinator: Coordinator {
     }
     
     func start() {
+                
+        self.windowRouter.setRootViewController(emptyVC())
         
-//        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
-//        
-//        addChildCoordinatorAndStart(childCoordinator: coordinator)
-//                
-//        let vc = TradeModuleBuilder(output: self).bui
-//        navigationRouter.pushViewController(vc)
-//        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
+        let coordinator = StakingTransferCoordinator(router: self.windowRouter)
+        
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
+        
     }
 }
 
@@ -48,4 +48,15 @@ extension UIDeveloperCoordinator {
 
     func applicationDidBecomeActive() {}
     func openURL(link: DeepLink) {}
+}
+
+extension UIDeveloperCoordinator {
+    
+    func emptyVC() -> UIViewController {
+        let vc = UIViewController()
+        vc.view =  UIView()
+        vc.view.backgroundColor = .orangeYellowTwo
+        vc.view.frame = UIScreen.main.bounds
+        return vc
+    }
 }
