@@ -823,4 +823,6 @@
 
 "staking.transfer.error.minamount" = "Min amount is %@.";
 
+"payoutsHistory.title" = "Payouts History";
 
+"payoutsHistory.profit" = "Profit";

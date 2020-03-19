@@ -23,7 +23,7 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
         
         return widgetSettingsStorage
             .settings()
-            .flatMap({ [weak self] settings -> Observable<DomainLayer.DTO.MarketPulseSettings> in
+            .flatMap { [weak self] settings -> Observable<DomainLayer.DTO.MarketPulseSettings> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -32,38 +32,38 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
                 }
                 
                 return self.initial()
-            })
+            }
     }
     
     private func initial() -> Observable<DomainLayer.DTO.MarketPulseSettings> {
         
         let assets = WidgetSettings.environment.generalAssets.prefix(DomainLayer.DTO.Widget.defaultCountAssets)
 
-        return assetsRepository.assets(by: assets.map { $0.assetId })
-            .flatMap({ [weak self] (assets) -> Observable<DomainLayer.DTO.MarketPulseSettings> in
+        let assetsIdentifiers = assets.map { $0.assetId }
+        return assetsRepository.assets(by: assetsIdentifiers)
+            .flatMap { [weak self] assets -> Observable<DomainLayer.DTO.MarketPulseSettings> in
                 guard let self = self else { return Observable.never() }
                 
-                
+                // обратить внимание!!!!!!!!
+                let pairs = assets.map {
+                    DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.id, priceAsset: WavesSDKConstants.wavesAssetId)
+                }
                 return self
-                    .correction(pairs: assets.map { DomainLayer.DTO.CorrectionPairs.Pair.init(amountAsset: $0.id,
-                                                                                              priceAsset: WavesSDKConstants.wavesAssetId) })
-                    .flatMap({ (pairsAfterCorrection) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
-                        
-                        
+                    .correction(pairs: pairs)
+                    .flatMap { pairsAfterCorrection -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
                         //TODO: Remove
-                        return self.pairsPriceRepository
+                        self.pairsPriceRepository
                             .searchPairs(.init(kind: .pairs(pairsAfterCorrection.map { .init(amountAsset: $0.amountAsset,
                                                                                              priceAsset: $0.priceAsset) })))
-                            .map({ (pairs) -> [DomainLayer.DTO.CorrectionPairs.Pair] in
+                            .map { pairs -> [DomainLayer.DTO.CorrectionPairs.Pair] in
                                 
                                 return pairsAfterCorrection
-                            })
-                        
-                    })
-                    .map({ (pairs) -> DomainLayer.DTO.MarketPulseSettings in
+                            }
+                    }
+                    .map { pairs -> DomainLayer.DTO.MarketPulseSettings in
                         
                         let marketPulseAssets: [DomainLayer.DTO.MarketPulseSettings.Asset] = assets.enumerated()
-                            .map({ (element) -> DomainLayer.DTO.MarketPulseSettings.Asset in
+                            .map { element -> DomainLayer.DTO.MarketPulseSettings.Asset in
                                 
                                 let asset = element.element
                                 let pair = pairs[element.offset]
@@ -73,13 +73,12 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
                                              icon: asset.iconLogo,
                                              amountAsset: pair.amountAsset,
                                              priceAsset: pair.priceAsset)
-                                
-                            })
+                            }
                         return DomainLayer.DTO.MarketPulseSettings(isDarkStyle: false,
                                                                    interval: .m10,
                                                                    assets: marketPulseAssets)
-                    })
-            })
+                    }
+            }
     }
 }
 
@@ -87,14 +86,11 @@ private extension WidgetSettingsInizialization {
     func correction(pairs: [DomainLayer.DTO.CorrectionPairs.Pair]) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> {
         let pairs = matcherRepository
             .settingsIdsPairs()
-            .flatMap { (pricePairs) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
-                
+            .flatMap { pricePairs -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
                 let result = CorrectionPairsUseCaseLogic.mapCorrectPairs(settingsIdsPairs: pricePairs, pairs: pairs)
-                
                 return Observable.just(result)
-        }
+            }
         
         return pairs
-
     }
 }

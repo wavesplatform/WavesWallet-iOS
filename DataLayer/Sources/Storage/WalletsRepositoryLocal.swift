@@ -291,6 +291,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
     func listenerWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
 
+        // TODO: - .bind(to: observer) странное поведение
         return Observable.create({ [weak self] (observer) -> Disposable in
 
             guard let self = self else {
@@ -305,6 +306,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
             let result = realm.objects(WalletItem.self)
 
+            // TODO: - .bind(to: observer) странное поведение
             let collection = Observable.collection(from: result)
             let disposable = collection.flatMap({ items -> Observable<DomainLayer.DTO.Wallet> in
                 if let item = items.toArray().first(where: { $0.publicKey == publicKey }) {

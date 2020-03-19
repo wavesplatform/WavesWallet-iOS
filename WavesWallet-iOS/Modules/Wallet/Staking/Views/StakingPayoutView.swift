@@ -8,7 +8,6 @@
 
 import UIKit
 import Extensions
-import SwiftDate
 import DomainLayer
 
 private enum Constants {

@@ -7,27 +7,27 @@
 //
 
 import Foundation
-import SwiftDate
 
 extension Date {
-    
     var isThisYear: Bool {
-        return self.compare(.isThisYear)
-    }
-    
-    var isThisWeek: Bool {
-        return self.compare(.isThisWeek)
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: Date())
+        let year = calendar.component(.year, from: self)
+        return year == currentYear
     }
     
     var isThisMonth: Bool {
-        return self.compare(.isThisMonth)
+        let calendar = Calendar.current
+        let currentMonth = calendar.component(.month, from: Date())
+        let month = calendar.component(.month, from: self)
+        return month == currentMonth
     }
     
     var isToday: Bool {
-        return self.compare(.isToday)
+        Calendar.current.isDateInToday(self)
     }
     
     var isYesterday: Bool {
-       return self.compare(.isYesterday)
+        Calendar.current.isDateInYesterday(self)
     }
 }

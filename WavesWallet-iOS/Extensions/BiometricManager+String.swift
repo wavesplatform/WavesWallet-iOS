@@ -11,7 +11,7 @@ import DomainLayer
 
 extension BiometricManager {
     public static var touchIDTypeText: String {
-        return type == .faceID ? Localizable.Waves.General.Biometric.Faceid.title : Localizable.Waves.General.Biometric.Touchid.title
+        type == .faceID ? Localizable.Waves.General.Biometric.Faceid.title : Localizable.Waves.General.Biometric.Touchid.title
     }
 }
 

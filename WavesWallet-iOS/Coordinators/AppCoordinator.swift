@@ -6,41 +6,36 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
+import Extensions
 import Foundation
-import UIKit
-import RxSwift
 import RESideMenu
 import RxOptional
-import WavesSDKExtensions
+import RxSwift
+import UIKit
 import WavesSDK
-import Extensions
-import DomainLayer
+import WavesSDKExtensions
 
 private enum Contants {
-
     #if DEBUG
-    static let delay: TimeInterval = 1
+        static let delay: TimeInterval = 1
     #else
-    static let delay: TimeInterval = 10
+        static let delay: TimeInterval = 10
     #endif
 }
 
 struct Application: TSUD {
-
     struct Settings: Codable, Mutating {
-        var isAlreadyShowHelloDisplay: Bool  = false
-        var isAlreadyShowMigrationWavesExchangeDisplay: Bool?  = false
+        var isAlreadyShowHelloDisplay = false
+        var isAlreadyShowMigrationWavesExchangeDisplay = false
+        // был опциональный буль, вроде нигде не заниляется. обратить внимание!!!
     }
 
     private static let key: String = "com.waves.application.settings"
 
-    static var defaultValue: Settings {
-        return Settings(isAlreadyShowHelloDisplay: false, isAlreadyShowMigrationWavesExchangeDisplay: false)
-    }
-
-    static var stringKey: String {
-        return Application.key
-    }
+    static let defaultValue = Settings(isAlreadyShowHelloDisplay: false, isAlreadyShowMigrationWavesExchangeDisplay: false)
+    
+    static let stringKey = Application.key
 }
 
 protocol ApplicationCoordinatorProtocol: AnyObject {
@@ -48,7 +43,6 @@ protocol ApplicationCoordinatorProtocol: AnyObject {
 }
 
 final class AppCoordinator: Coordinator {
-
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
@@ -59,48 +53,47 @@ final class AppCoordinator: Coordinator {
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol = UseCasesFactory.instance.applicationVersionUseCase
 
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
-    
-    private let disposeBag: DisposeBag = DisposeBag()
-    private var deepLink: DeepLink? = nil
-    private var isActiveApp: Bool = false
-    private var snackError: String? = nil
-    
-    //TODO: It is very bad code
+
+    private let disposeBag = DisposeBag()
+    private var deepLink: DeepLink?
+    private var isActiveApp = false
+    private var snackError: String?
+
+    // TODO: It is very bad code
     private var isLockChangeDisplay: Bool = false
-    
-#if DEBUG || TEST
-    init(_ debugWindowRouter: DebugWindowRouter, deepLink: DeepLink?) {
-        self.windowRouter = debugWindowRouter
-        debugWindowRouter.delegate = self
-        self.deepLink = deepLink
-    }
-#else
-    init(_ windowRouter: WindowRouter, deepLink: DeepLink?) {
-        self.windowRouter = windowRouter
-        self.deepLink = deepLink
-    }
-#endif
+
+    #if DEBUG || TEST
+        init(_ debugWindowRouter: DebugWindowRouter, deepLink: DeepLink?) {
+            self.windowRouter = debugWindowRouter
+            debugWindowRouter.delegate = self
+            self.deepLink = deepLink
+        }
+
+    #else
+        init(_ windowRouter: WindowRouter, deepLink: DeepLink?) {
+            self.windowRouter = windowRouter
+            self.deepLink = deepLink
+        }
+    #endif
 
     func start() {
-        self.isActiveApp = true
+        isActiveApp = true
 
         launchApplication()
 
         if let deepLink = deepLink {
             openURL(link: deepLink)
         }
-        
+
         checkAndRunForceUpdate()
-        
+
         checkAndRunServerMaintenance()
     }
-        
-    
+
     private func launchApplication() {
-        
-        self.removeCoordinators()
-        self.isLockChangeDisplay = false
-        
+        removeCoordinators()
+        isLockChangeDisplay = false
+
         #if DEBUG || TEST
             if CommandLine.arguments.contains("UI-Develop") {
                 addChildCoordinatorAndStart(childCoordinator: UIDeveloperCoordinator(windowRouter: windowRouter))
@@ -112,14 +105,12 @@ final class AppCoordinator: Coordinator {
         #endif
     }
 
-    private var isMainTabDisplayed: Bool {
-        return childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil
-    }
+    private var isMainTabDisplayed: Bool { childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil }
 }
 
 // MARK: Methods for showing differnt displays
-extension AppCoordinator: PresentationCoordinator {
 
+extension AppCoordinator: PresentationCoordinator {
     enum Display {
         case hello(_ isNewUser: Bool)
         case slide(DomainLayer.DTO.Wallet)
@@ -131,7 +122,7 @@ extension AppCoordinator: PresentationCoordinator {
         case dex(DeepLink)
         case forceUpdate(DomainLayer.DTO.VersionUpdateData)
         case maintenanceServer
-        
+
         var isForceUpdateDisplay: Bool {
             switch self {
             case .forceUpdate:
@@ -143,14 +134,13 @@ extension AppCoordinator: PresentationCoordinator {
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
-
-        //TODO: Надо бы переделать это. так как это метод недолжен отвечать за логику
+        // TODO: Надо бы переделать это. так как это метод недолжен отвечать за логику
         if display.isForceUpdateDisplay {
             isLockChangeDisplay = false
         }
-                        
+
         guard isLockChangeDisplay == false else { return }
-        
+
         switch display {
         case .hello(let isNewUser):
 
@@ -168,21 +158,21 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .slide(let wallet):
-            
+
             guard isHasCoordinator(type: SlideCoordinator.self) != true else {
                 showDeepLinkVcIfNeed()
                 return
             }
-            
+
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
             slideCoordinator.menuViewControllerDelegate = self
-            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
             showDeepLinkVcIfNeed()
-            
+
         case .enter:
-            
-            let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
-                return coordinator is SlideCoordinator
+
+            let prevSlideCoordinator = childCoordinators.first { (coordinator) -> Bool in
+                coordinator is SlideCoordinator
             }
 
             guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
@@ -190,74 +180,69 @@ extension AppCoordinator: PresentationCoordinator {
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
             slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
-        
+
         case .widgetSettings:
-            
+
             guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
                 return
             }
-        
+
             let coordinator = WidgetSettingsCoordinator(windowRouter: windowRouter)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
-            
-        case .mobileKeeper(let request):            
+
+        case .mobileKeeper(let request):
             let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, request: request)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
- 
+
         case .send(let link):
-            
+
             deepLink = link
-            
-        case.dex(let link):
-            
+
+        case .dex(let link):
+
             deepLink = link
 
         case .forceUpdate(let data):
-            
+
             isLockChangeDisplay = true
 
-            //TODO: add coordinator
+            // TODO: add coordinator
             let vc = StoryboardScene.ForceUpdateApp.forceUpdateAppViewController.instantiate()
             vc.data = data
             windowRouter.window.rootViewController = vc
             windowRouter.window.makeKeyAndVisible()
-            
+
         case .maintenanceServer:
-            
+
             isLockChangeDisplay = true
-            //TODO: add coordinator            
+            // TODO: add coordinator
             let vc = StoryboardScene.ServerMaintenance.serverMaintenanceViewController.instantiate()
             vc.delegate = self
             let navigation = CustomNavigationController(rootViewController: vc)
-            
+
             windowRouter.window.rootViewController = navigation
             windowRouter.window.makeKeyAndVisible()
         }
     }
-    
+
     func openURL(link: DeepLink) {
-        
         guard isLockChangeDisplay == false else { return }
-        
+
         if link.url.absoluteString == DeepLink.widgetSettings {
-            self.showDisplay(.widgetSettings)
-        }
-        else if link.isClientSendLink {
-            self.showDisplay(.send(link))
-        }
-        else if link.isClientDexLink {
-            self.showDisplay(.dex(link))
-        }
-        else if link.isMobileKeeper {
-            
+            showDisplay(.widgetSettings)
+        } else if link.isClientSendLink {
+            showDisplay(.send(link))
+        } else if link.isClientDexLink {
+            showDisplay(.dex(link))
+        } else if link.isMobileKeeper {
             mobileKeeperRepository
                 .decodableRequest(link.url)
                 .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { (request) in
+                .subscribe(onNext: { request in
                     guard let request = request else { return }
                     self.showDisplay(.mobileKeeper(request))
-                }, onError: { [weak self] (error) in
-                    
+                }, onError: { [weak self] error in
+
                     if let error = error as? MobileKeeperUseCaseError {
                         self?.showErrorView(with: error)
                     }
@@ -265,46 +250,43 @@ extension AppCoordinator: PresentationCoordinator {
                 .disposed(by: disposeBag)
         }
     }
-    
-    //TODO: Localization
+
+    // TODO: Localization
     private func showErrorView(with error: MobileKeeperUseCaseError) {
-        
         if let snackError = snackError {
             UIApplication.shared.windows.last?.rootViewController?.hideSnack(key: snackError)
         }
-        
+
         switch error {
         case .dAppDontOpen:
             snackError = showErrorSnack("Application don't open")
-            
+
         case .dataIncorrect:
             snackError = showErrorSnack("Request incorect")
-            
+
         case .transactionDontSupport:
             snackError = showErrorSnack("Transaction don't support")
         default:
             snackError = UIApplication.shared.windows.last?.rootViewController?.showErrorNotFoundSnackWithoutAction()
         }
     }
-    
-    private func showErrorSnack(_ message: (String)) -> String? {
+
+    private func showErrorSnack(_ message: String) -> String? {
         return UIApplication.shared.windows.last?.rootViewController?.showErrorSnackWithoutAction(title: message)
     }
 }
 
 // MARK: Main Logic
-extension AppCoordinator  {
 
+extension AppCoordinator {
     private func showDeepLinkVcIfNeed() {
         if let link = deepLink, link.isClientSendLink {
-           
             guard isHasCoordinator(type: SendCoordinator.self) != true else {
                 return
             }
             let coordinator = SendCoordinator(windowRouter: windowRouter, deepLink: link)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
-        }
-        else if let link = deepLink, link.isClientDexLink {
+        } else if let link = deepLink, link.isClientDexLink {
             guard isHasCoordinator(type: DexDeepLinkCoordinator.self) != true else {
                 return
             }
@@ -312,19 +294,17 @@ extension AppCoordinator  {
             addChildCoordinatorAndStart(childCoordinator: coordinator)
         }
     }
-    
-    private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
 
+    private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
         let settings = Application.get()
-        
+
         if let wallet = wallet {
             if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
                 return display(by: wallet)
             } else {
                 return Observable.just(Display.hello(false))
-            }            
+            }
         } else {
-            
             if settings.isAlreadyShowHelloDisplay {
                 if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
                     return Observable.just(Display.enter)
@@ -354,7 +334,7 @@ extension AppCoordinator  {
             .lastWalletLoggedIn()
             .take(1)
             .catchError { _ -> Observable<DomainLayer.DTO.Wallet?> in
-                return Observable.just(nil)
+                Observable.just(nil)
             }
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
@@ -364,7 +344,6 @@ extension AppCoordinator  {
     }
 
     private func revokeAuthAndOpenPasscode() {
-
         Observable<TimeInterval>
             .just(1)
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
@@ -380,20 +359,20 @@ extension AppCoordinator  {
                     self
                         .authoAuthorizationInteractor
                         .revokeAuth()
-                        .flatMap({ [weak self] (_) -> Observable<DomainLayer.DTO.Wallet?> in
+                        .flatMap { [weak self] (_) -> Observable<DomainLayer.DTO.Wallet?> in
                             guard let self = self else { return Observable.never() }
 
                             return self.authoAuthorizationInteractor
                                 .lastWalletLoggedIn()
                                 .take(1)
-                        })
+                        }
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .flatMap({ [weak self] wallet -> Observable<Display> in
+            .flatMap { [weak self] wallet -> Observable<Display> in
                 guard let self = self else { return Observable.never() }
                 return self.display(by: wallet)
-            })
+            }
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] display in
                 guard let self = self else { return }
@@ -404,21 +383,20 @@ extension AppCoordinator  {
 }
 
 // MARK: HelloCoordinatorDelegate
-extension AppCoordinator: HelloCoordinatorDelegate  {
 
+extension AppCoordinator: HelloCoordinatorDelegate {
     func userFinishedGreet() {
-        
         var settings = Application.get()
-                        
+
         if settings.isAlreadyShowHelloDisplay {
             settings.isAlreadyShowMigrationWavesExchangeDisplay = true
         } else {
             settings.isAlreadyShowHelloDisplay = true
             settings.isAlreadyShowMigrationWavesExchangeDisplay = true
         }
-        
+
         Application.set(settings)
-        
+
         launchApplication()
     }
 
@@ -428,8 +406,8 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
 }
 
 // MARK: PasscodeLogInCoordinatorDelegate
-extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
 
+extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
     func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.slide(wallet))
     }
@@ -440,10 +418,9 @@ extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
     }
 }
 
-
 // MARK: Lifecycle application
-extension AppCoordinator {
 
+extension AppCoordinator {
     func applicationDidEnterBackground() {
         isActiveApp = false
         deepLink = nil
@@ -459,64 +436,57 @@ extension AppCoordinator {
 }
 
 // MARK: ServerMaintenanceViewControllerDelegate
-extension AppCoordinator: ServerMaintenanceViewControllerDelegate  {
-    
+
+extension AppCoordinator: ServerMaintenanceViewControllerDelegate {
     func serverMaintenanceDisabled() {
         launchApplication()
     }
 }
 
-
 // MARK: DebugWindowRouterDelegate
-extension AppCoordinator: DebugWindowRouterDelegate  {
-    
-    func relaunchApplication() {
 
-        self.authoAuthorizationInteractor
+extension AppCoordinator: DebugWindowRouterDelegate {
+    func relaunchApplication() {
+        authoAuthorizationInteractor
             .logout()
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
                 self.showDisplay(.enter)
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
 }
 
-
 // MARK: MenuViewControllerDelegate
+
 extension AppCoordinator: MenuViewControllerDelegate {
-    
     func menuViewControllerDidTapWavesLogo() {
-        
         let vc = StoryboardScene.Support.debugViewController.instantiate()
         vc.delegate = self
         let nv = CustomNavigationController()
         nv.viewControllers = [vc]
         nv.modalPresentationStyle = .fullScreen
-        self.windowRouter.window.rootViewController?.present(nv, animated: true, completion: nil)
+        windowRouter.window.rootViewController?.present(nv, animated: true, completion: nil)
     }
 }
 
 // MARK: DebugViewControllerDelegate
-extension AppCoordinator: DebugViewControllerDelegate {
 
+extension AppCoordinator: DebugViewControllerDelegate {
     func dissmissDebugVC(isNeedRelaunchApp: Bool) {
-        
         if isNeedRelaunchApp {
             relaunchApplication()
         }
-        
-        self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: nil)
+
+        windowRouter.window.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
 // MARK: - ServerMaintenance
 
 private extension AppCoordinator {
-    
     func checkAndRunServerMaintenance() {
-        
-        self.developmentConfigsRepository
+        developmentConfigsRepository
             .isEnabledMaintenance()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] isEnabledMaintenance in
@@ -527,7 +497,7 @@ private extension AppCoordinator {
                 }
             })
             .disposed(by: disposeBag)
-        
+
         NotificationCenter.default
             .rx.notification(UIApplication.willEnterForegroundNotification, object: nil)
             .flatMap { [weak self] (_) -> Observable<Bool> in
@@ -546,12 +516,10 @@ private extension AppCoordinator {
     }
 }
 
-
 // MARK: - ForceUpdate
 
 private extension AppCoordinator {
     func checkAndRunForceUpdate() {
-        
         applicationVersionUseCase
             .isNeedForceUpdate()
             .observeOn(MainScheduler.instance)
@@ -562,6 +530,5 @@ private extension AppCoordinator {
                     self.showDisplay(.forceUpdate(data))
                 }
             }).disposed(by: disposeBag)
-        
     }
 }

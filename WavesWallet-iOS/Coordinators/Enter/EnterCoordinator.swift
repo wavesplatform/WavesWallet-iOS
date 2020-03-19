@@ -94,7 +94,6 @@ extension EnterCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: languageCoordinator)
         }
     }
-
 }
 
 // MARK: EnterStartViewControllerDelegate
@@ -120,10 +119,12 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     }
 
     func showPasscode(with account: PasscodeTypes.DTO.Account) {
-
-        let passcodeCoordinator = PasscodeCoordinator(kind: .registration(account), behaviorPresentation: .push(navigationRouter, dissmissToRoot: false))
+        
+        let behaviorPresentation: PasscodeCoordinator.BehaviorPresentation = .push(navigationRouter,
+                                                                                   dissmissToRoot: false)
+        let passcodeCoordinator = PasscodeCoordinator(kind: .registration(account),
+                                                      behaviorPresentation: behaviorPresentation)
         passcodeCoordinator.delegate = self
-
         addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)        
     }
     

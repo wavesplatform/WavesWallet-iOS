@@ -59,7 +59,6 @@ target 'WavesWallet-iOS' do
     pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
     pod 'QRCode'
     pod 'QRCodeReader.swift', '~> 9.0.1'
-    pod 'SwiftDate'
     pod 'Kingfisher'
 
     # Code Gen

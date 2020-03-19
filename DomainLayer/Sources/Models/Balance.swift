@@ -10,10 +10,17 @@ import Foundation
 import Extensions
 
 public extension DomainLayer.DTO {
-
+    
+    /// Сущность Баланса ассета
     struct Balance: Hashable {
+        
+        /// Сущность криптовалюты
         public struct Currency: Hashable {
+            
+            /// Название валюты
             public let title: String
+            
+            /// Обозначение валюты в бирже
             public let ticker: String?
             
             public init(title: String, ticker: String?) {

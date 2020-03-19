@@ -6,13 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import Extensions
+import RxSwift
+import UIKit
 
 private enum Constants {
     static let height: CGFloat = 38
-
+    
     static let redTickerColor: UIColor = .error500
     static let greenTickerColor: UIColor = .successLime
     static let tickerRightOffsetDefault: CGFloat = 10
@@ -20,7 +20,6 @@ private enum Constants {
 }
 
 final class MarketPulseWidgetCell: UITableViewCell, Reusable {
-    
     @IBOutlet private weak var iconLogo: UIImageView!
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelPercent: UILabel!
@@ -28,8 +27,7 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var tickerRightOffset: NSLayoutConstraint!
     
-    private var disposeBag: DisposeBag = DisposeBag()
-
+    private var disposeBag = DisposeBag()
     
     private static let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
@@ -50,9 +48,7 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
 }
 
 extension MarketPulseWidgetCell: ViewConfiguration {
-    
     func update(with model: MarketPulse.DTO.UIAsset) {
-
         AssetLogo.logo(icon: model.icon,
                        style: .litle)
             .observeOn(MainScheduler.instance)
@@ -64,21 +60,20 @@ extension MarketPulseWidgetCell: ViewConfiguration {
         let numberFormatter = MarketPulseWidgetCell.numberFormatter
         let price = model.currency.ticker + (numberFormatter.string(from: NSNumber(value: model.price)) ?? "")
         
-        let attr = NSMutableAttributedString(string: price, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)])
-      
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
+        let attr = NSMutableAttributedString(string: price, attributes: attributes)
+        
         let separatorRange = (price as NSString).range(of: numberFormatter.decimalSeparator)
-        attr.addAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .semibold)],
-                           range: NSMakeRange(0, separatorRange.location))
-  
+        let additionalAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .semibold)]
+        attr.addAttributes(additionalAttributes, range: NSMakeRange(0, separatorRange.location))
+        
         labelPrice.attributedText = attr
         
         if model.percent == 0 {
             labelPercent.text = String(format: "%.0f", model.percent) + "%"
-        }
-        else if model.percent > 0 {
+        } else if model.percent > 0 {
             labelPercent.text = "+" + String(format: "%.02f", model.percent) + "%"
-        }
-        else {
+        } else {
             labelPercent.text = "-" + String(format: "%.02f", model.percent * -1) + "%"
         }
         
@@ -86,52 +81,41 @@ extension MarketPulseWidgetCell: ViewConfiguration {
         
         labelTitle.textColor = model.isDarkMode ? .white : .black
         labelPrice.textColor = model.isDarkMode ? .white : .black
-      
+        
         if model.isDarkMode {
             viewTicker.backgroundColor = .clear
             
             if model.percent == 0 {
                 labelPercent.textColor = .disabled700
-            }
-            else if model.percent > 0 {
+            } else if model.percent > 0 {
                 labelPercent.textColor = Constants.greenTickerColor
-            }
-            else {
+            } else {
                 labelPercent.textColor = Constants.redTickerColor
             }
-        }
-        else {
+        } else {
             labelPercent.textColor = .white
             
             if model.percent == 0 {
                 viewTicker.backgroundColor = .basic700
-            }
-            else if model.percent > 0 {
+            } else if model.percent > 0 {
                 viewTicker.backgroundColor = Constants.greenTickerColor
-            }
-            else {
+            } else {
                 viewTicker.backgroundColor = Constants.redTickerColor
             }
         }
     }
-   
 }
 
 extension MarketPulseWidgetCell: ViewHeight {
-    static func viewHeight() -> CGFloat {
-        return Constants.height
-    }
+    static func viewHeight() -> CGFloat { Constants.height }
 }
 
 extension AssetLogo.Style {
-        
     static var litle: AssetLogo.Style = {
-        return AssetLogo.Style.init(size: CGSize(width: 20, height: 20),
-                                    font: UIFont.systemFont(ofSize: 13),
-                                    specs: .init(sponsoredImage: Images.sponsoritem18White.image,
-                                                 scriptImage: Images.scriptasset18White.image,
-                                                 size: CGSize(width: 8,
-                                                              height: 8)))
+        AssetLogo.Style(size: CGSize(width: 20, height: 20),
+                        font: UIFont.systemFont(ofSize: 13),
+                        specs: .init(sponsoredImage: Images.sponsoritem18White.image,
+                                     scriptImage: Images.scriptasset18White.image,
+                                     size: CGSize(width: 8, height: 8)))
     }()
 }
-

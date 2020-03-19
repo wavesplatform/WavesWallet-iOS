@@ -24,7 +24,10 @@ final class DexDeepLinkCoordinator: TradeCoordinator {
         self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
         super.init(navigationRouter: navigationRouter)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(dismiss), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dismiss),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
     }
     
     override func start() {
@@ -34,7 +37,10 @@ final class DexDeepLinkCoordinator: TradeCoordinator {
         vc.didComplete = { [weak self] pair in
             guard let self = self else { return }
             
-            if let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self, myOrdersOutpout: self)
+            if let vc = DexTraderContainerModuleBuilder(output: self,
+                                                        orderBookOutput: self,
+                                                        lastTradesOutput: self,
+                                                        myOrdersOutpout: self)
                 .build(input: pair) as? DexTraderContainerViewController {
                 
                 vc.backAction = { [weak self] in

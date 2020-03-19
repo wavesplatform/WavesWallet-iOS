@@ -9,7 +9,7 @@
 import UIKit
 import Extensions
 
-protocol ConfirmBackupStackListViewDelegate: class {
+protocol ConfirmBackupStackListViewDelegate: AnyObject {
     
     func confirmBackupStackListViewDidTapWord(_ word: String)
 }
@@ -22,10 +22,13 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
     
     var buttons: [UIButton] = []
     
-    var leftStackListOffset : CGFloat = 16
+    var leftStackListOffset: CGFloat = 16
 
     private func isNotEmptyContainer(_ container: UIView) -> Bool {
-        return container.subviews.filter({$0.frame.size.height == self.buttonHeight && $0.isKind(of: UIButton.classForCoder())}).count > 0
+        container
+            .subviews
+            .filter({ $0.frame.size.height == self.buttonHeight && $0.isKind(of: UIButton.classForCoder()) })
+            .isNotEmpty
     }
     
     func updateContainerFrame() {
@@ -52,7 +55,7 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
         
         self.heightConstraint.constant = height
 
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.2) {
             var offsetY : CGFloat = 0
             for container in self.subviews {
 
@@ -65,18 +68,16 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
                 }
             }
             self.superview?.layoutIfNeeded()
-        })
+        }
     }
     
     @objc func wordTapped(_ sender: UIButton) {
         
         let word = words[sender.tag]
        
-        UIView.animate(withDuration: 0.2, animations: {
-            sender.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-        }) { (complete) in
-            self.updateContainerFrame()
-        }
+        UIView.animate(withDuration: 0.2,
+                       animations: { sender.transform = CGAffineTransform(scaleX: 0.01, y: 0.01) },
+                       completion: { _ in self.updateContainerFrame() })
 
         delegate?.confirmBackupStackListViewDidTapWord(word)
     }
@@ -86,20 +87,17 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
         let index = words.firstIndex(of: word)!
         let button = buttons[index]
         
-        UIView.animate(withDuration: 0.2, animations: {
-            button.transform = .identity
-
-        }) { (complete) in
-            self.updateContainerFrame()
-        }
+        UIView.animate(withDuration: 0.2,
+                       animations: { button.transform = .identity },
+                       completion: { _ in self.updateContainerFrame() })
     }
     
     func setupWords(_ words: [String]) {
         self.words = words
         
-        var offsetX : CGFloat = 0
-        var offsetY : CGFloat = 0
-        let deltaX  : CGFloat = 8
+        var offsetX: CGFloat = 0
+        var offsetY: CGFloat = 0
+        let deltaX: CGFloat = 8
         
         for view in subviews {
             view.removeFromSuperview()
@@ -140,7 +138,5 @@ class ConfirmBackupStackListView: ConfirmBackupStackBaseView {
         heightConstraint.constant = lastButtonContainer.frame.origin.y + lastButtonContainer.frame.size.height
     }
   
-    var mainViewWidth : CGFloat {
-        return  Platform.ScreenWidth - (leftStackListOffset * 2)
-    }
+    var mainViewWidth: CGFloat { Platform.ScreenWidth - (leftStackListOffset * 2) }
 }

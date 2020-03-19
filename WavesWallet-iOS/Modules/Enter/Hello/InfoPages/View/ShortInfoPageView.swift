@@ -5,17 +5,14 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
-protocol ShortInfoPageViewDelegate: class {
-    
+protocol ShortInfoPageViewDelegate: AnyObject {
     func shortInfoPageViewDidScrollToBottom(view: ShortInfoPageView)
-    
 }
 
 final class ShortInfoPageView: UIView {
-
     class Model {
         let title: String
         let detail: String
@@ -25,7 +22,12 @@ final class ShortInfoPageView: UIView {
         let fourthImage: UIImage?
         var scrolledToBottom: Bool = false
         
-        init(title: String, detail: String, firstImage: UIImage?, secondImage: UIImage?, thirdImage: UIImage?, fourthImage: UIImage?) {
+        init(title: String,
+             detail: String,
+             firstImage: UIImage?,
+             secondImage: UIImage?,
+             thirdImage: UIImage?,
+             fourthImage: UIImage?) {
             self.title = title
             self.detail = detail
             self.firstImage = firstImage
@@ -44,14 +46,14 @@ final class ShortInfoPageView: UIView {
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
-
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var firstImageView: UIImageView!
-    @IBOutlet weak var secondImageView: UIImageView!
-    @IBOutlet weak var thirdImageView: UIImageView!
-    @IBOutlet weak var fourthImageView: UIImageView!
     
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var firstImageView: UIImageView!
+    @IBOutlet private weak var secondImageView: UIImageView!
+    @IBOutlet private weak var thirdImageView: UIImageView!
+    @IBOutlet private weak var fourthImageView: UIImageView!
+    
+    @IBOutlet private weak var contentView: UIView!
     
     func setupConstraints() {
         if Platform.isIphone5 {
@@ -74,20 +76,18 @@ final class ShortInfoPageView: UIView {
         let height = scrollView.frame.height
         let contentOffsetY = scrollView.contentOffset.y
         
-        if contentHeight > 0 && contentHeight - height - contentOffsetY <= imageViewBottomConstraint.constant {
+        if contentHeight > 0, contentHeight - height - contentOffsetY <= imageViewBottomConstraint.constant {
             delegate?.shortInfoPageViewDidScrollToBottom(view: self)
         }
-        
     }
-    
 }
 
 extension ShortInfoPageView: ViewConfiguration {
-    
     func update(with model: ShortInfoPageView.Model) {
-        
-        titleLabel.attributedText = NSAttributedString(string: model.title, attributes: InfoPagesViewControllerConstants.titleAttributes)
-        detailLabel.attributedText = NSAttributedString(string: model.detail, attributes: InfoPagesViewControllerConstants.textAttributes)
+        titleLabel.attributedText = NSAttributedString(string: model.title,
+                                                       attributes: InfoPagesViewControllerConstants.titleAttributes)
+        detailLabel.attributedText = NSAttributedString(string: model.detail,
+                                                        attributes: InfoPagesViewControllerConstants.textAttributes)
         
         firstImageView.image = model.firstImage
         secondImageView.image = model.secondImage
@@ -101,13 +101,10 @@ extension ShortInfoPageView: ViewConfiguration {
         layoutIfNeeded()
         updateOnScroll()
     }
-    
 }
 
 extension ShortInfoPageView: UIScrollViewDelegate {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateOnScroll()
     }
-    
 }

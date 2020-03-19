@@ -761,6 +761,8 @@
 "asset.cell.balance.button.trade" = "Торговать";
 "dexmarket.navigationBar.titleAsset" = "Поиск пары к";
 "trade.title" = "Торговля";
+"payoutsHistory.title" = "История выплат";
+"payoutsHistory.profit" = "Прибыль";
 "receiveCryptocurrency.address.default.name" = "Адрес %@";
 "receiveAddress.tootltip.title" = "Помощь";
 "receiveAddress.tootltip.btc.title" = "Форматы биткоин-адресов";

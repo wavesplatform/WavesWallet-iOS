@@ -31,7 +31,7 @@ final class EditAccountNameViewController: UIViewController {
     private let disposeBag: DisposeBag = DisposeBag()
 
     var wallet: DomainLayer.DTO.Wallet!
-    private let identity: Identity = Identity(options: Identity.defaultOptions)
+    private let identity = Identity(options: Identity.defaultOptions)
     
     fileprivate var keyboardHeight: CGFloat = 0
     
@@ -91,15 +91,25 @@ final class EditAccountNameViewController: UIViewController {
         accountNameInput.valueValidator = { value in
             let trimmedValue = value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
             if trimmedValue.count < UIGlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.accountNameMinLimitSymbols)
+                return Localizable
+                    .Waves
+                    .Newaccount
+                    .Textfield
+                    .Error
+                    .atleastcharacters(UIGlobalConstants.accountNameMinLimitSymbols)
             } else if trimmedValue.count > UIGlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.charactersmaximum(UIGlobalConstants.accountNameMaxLimitSymbols)
+                return Localizable
+                    .Waves
+                    .Newaccount
+                    .Textfield
+                    .Error
+                    .charactersmaximum(UIGlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
         }
         
-        accountNameInput.changedValue = { (isValidValue, value) in
+        accountNameInput.changedValue = { isValidValue, value in
             if isValidValue {
                 self.saveButton.setupButtonActiveState()
             } else {
@@ -128,7 +138,7 @@ final class EditAccountNameViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func saveTapped(_ sender: Any) {
+    @IBAction private func saveTapped(_ sender: Any) {
 
         guard var wallet = self.wallet else { return }
         guard let accountNameInput = self.accountNameInput else { return }
@@ -142,19 +152,15 @@ final class EditAccountNameViewController: UIViewController {
     
     // MARK: - Content
     
-    
     private func save(_ wallet: DomainLayer.DTO.Wallet) {
         navigationController?.popViewController(animated: true)
     }
-    
 }
 
 extension EditAccountNameViewController: UIScrollViewDelegate {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
-    
 }
 
 extension EditAccountNameViewController {
@@ -178,5 +184,4 @@ extension EditAccountNameViewController {
             self.layoutSaveButton()
         }, completion: nil)
     }
-    
 }

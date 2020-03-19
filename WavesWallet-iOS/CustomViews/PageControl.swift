@@ -25,7 +25,7 @@ public class PageControl: UIStackView {
             layoutIndicators()
         }
     }
-    
+
     var currentPage = 0 {
         didSet {
             setCurrentPageIndicator()
@@ -45,18 +45,18 @@ public class PageControl: UIStackView {
 
     private func layoutIndicators() {
 
-        for i in 0..<numberOfPages {
+        for index in 0..<numberOfPages {
 
             let imageView: UIImageView
 
-            if i < arrangedSubviews.count {
-                imageView = arrangedSubviews[i] as! UIImageView // reuse subview if possible
+            if index < arrangedSubviews.count {
+                imageView = arrangedSubviews[index] as! UIImageView // reuse subview if possible
             } else {
                 imageView = UIImageView()
                 addArrangedSubview(imageView)
             }
 
-            if i == currentPage {
+            if index == currentPage {
                 imageView.image = currentPageImage
             } else {
                 imageView.image = pageImage
@@ -73,21 +73,21 @@ public class PageControl: UIStackView {
 
     private func setCurrentPageIndicator() {
 
-        for i in 0..<arrangedSubviews.count {
+        for index in 0..<arrangedSubviews.count {
 
-            let imageView = arrangedSubviews[i] as! UIImageView
+            let imageView = arrangedSubviews[index] as! UIImageView
 
             
             UIView.transition(with: imageView,
                               duration: Constants.durationAnimation,
                               options: .transitionCrossDissolve,
                               animations: {
-                                if i == self.currentPage {
+                                if index == self.currentPage {
                                     imageView.image = self.currentPageImage
                                 } else {
                                     imageView.image = self.pageImage
                                 }
-            },completion: nil)
+            })
               
         }
     }

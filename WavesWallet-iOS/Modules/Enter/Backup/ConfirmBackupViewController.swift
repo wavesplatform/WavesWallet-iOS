@@ -17,7 +17,9 @@ struct ConfirmBackupInput {
     let seed: [String]
 }
 
-final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackListViewDelegate, ConfirmBackupStackInputViewDelegate {
+final class ConfirmBackupViewController: UIViewController,
+    ConfirmBackupStackListViewDelegate,
+    ConfirmBackupStackInputViewDelegate {
 
     @IBOutlet private weak var stackListView: ConfirmBackupStackListView!
     @IBOutlet private weak var stackTopView: ConfirmBackupStackInputView!
@@ -26,9 +28,9 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
     @IBOutlet private weak var buttonConfirm: UIButton!
     @IBOutlet private weak var labelError: UILabel!
 
-    private var inputWords : [String] = []
+    private var inputWords: [String] = []
     private var words: [String] {
-         return input?.seed ?? []
+        input?.seed ?? []
     }
     var input: ConfirmBackupInput?
     weak var output: ConfirmBackupOutput?
@@ -59,7 +61,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         stackTopView.delegate = self
     }
     
-    @IBAction func confirmTapped(_ sender: Any) {
+    @IBAction private func confirmTapped(_ sender: Any) {
         output?.userConfirmBackup()
     }
     
@@ -95,7 +97,6 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
         }        
     }
     
-    
     // MARK: - ConfirmBackupStackInputViewDelegate
     
     func confirmBackupStackInputViewDidRemoveWord(_ word: String) {
@@ -106,7 +107,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
             stackTopView.setNeedsDisplay()
         }
 
-        if stackTopView.words.count == 0 {
+        if stackTopView.words.isEmpty {
             UIView.animate(withDuration: UIView.fastDurationAnimation) {
                 self.labelTapWord.alpha = 1
             }

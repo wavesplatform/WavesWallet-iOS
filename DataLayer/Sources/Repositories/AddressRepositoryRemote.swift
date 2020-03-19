@@ -26,7 +26,7 @@ final class AddressRepositoryRemote: AddressRepositoryProtocol {
         return environmentRepository
             .servicesEnvironment()
             .flatMapLatest({ (servicesEnvironment) -> Observable<Bool> in
-                
+                                
                 return servicesEnvironment
                     .wavesServices
                     .nodeServices

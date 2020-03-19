@@ -31,7 +31,7 @@ struct NewUserWithoutBackupStorageTrack {
     static func sendEvent() {
        
         var metaData = MetaData.get()
-        metaData.count = metaData.count + 1
+        metaData.count += 1
         MetaData.set(metaData)
         
         UseCasesFactory

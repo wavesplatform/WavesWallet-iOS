@@ -77,7 +77,6 @@ final class SweetSnackView: UIView, NibLoadable {
 
     func startAnimationIcon() {
         self.isStartedAnimation = true
-        
 
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.fromValue = 0
@@ -90,7 +89,10 @@ final class SweetSnackView: UIView, NibLoadable {
         self.iconImageView.layer.removeAllAnimations()
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(handlerDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handlerDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
         self.iconImageView.layer.add(animation, forKey: "rotate")
     }
 
