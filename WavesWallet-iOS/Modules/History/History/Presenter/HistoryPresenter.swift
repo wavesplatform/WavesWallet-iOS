@@ -110,7 +110,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             switch item {
             case .transaction(let transaction):
                 
-                index = filteredTransactions.index(where: { (loopTransaction) -> Bool in
+                index = filteredTransactions.firstIndex(where: { (loopTransaction) -> Bool in
                     return transaction.id == loopTransaction.id
                 }) ?? NSNotFound
                 
@@ -146,7 +146,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
                 let hasTransactions = (response.resultIngoreError?.count ?? 0) > 0
                 state.errorState = DisplayErrorState.displayErrorState(hasData: hasTransactions, error: error)
-                state.refreshData = .none
+                state.refreshData =  nil
             } else {
                 state.errorState = .none
             }

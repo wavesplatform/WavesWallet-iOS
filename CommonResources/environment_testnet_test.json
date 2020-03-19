@@ -5,8 +5,15 @@
     "dataUrl": "https://api.testnet.wavesplatform.com",
     "spamUrl": "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
     "matcherUrl": "https://matcher-testnet.wavesplatform.com",
-    "gatewayUrl": "https://gateways-dev.wvservices.com/api"
+    "gatewayUrl": "https://gateways-dev.wvservices.com/api",
+    "authUrl": "https://testnet.waves.exchange/oauth",
+        "gateways": {
+            "v0": "https://coinomat.com/api",
+            "v1": "https://gateways-dev.wvservices.com/api",
+            "v2": "https://testnet.waves.exchange/gateways"
+        }
   },
+  "exchangeClientSecret":"Basic dGVzdC1jbGllbnQ6c2VjcmV0",
   "scheme": "T",
   "generalAssets": [
     {
@@ -26,8 +33,8 @@
       "isGateway": true,
       "wavesId": "WBTC",
       "gatewayId": "BTC",
-      "gatewayType": "coinomat",
-      "addressRegEx": "^[13][a-km-zA-HJ-NP-Z1-9]{25,34}|(bc1)[a-z0-9]{25,90}"
+      "gatewayType": "exchange",
+      "addressRegEx": "((bc|tb)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|([13]|[mn2])[a-km-zA-HJ-NP-Z1-9]{25,39})"
     },
     {
       "assetId": "BrmjyAWT5jjr3Wpsiyivyvg5vDuzoX2s93WgiexXetB3",

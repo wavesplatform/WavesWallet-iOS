@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIButton {
-    public func setTitleWithoutAnimated(_ title: String?, for state: UIControl.State) {
+    func setTitleWithoutAnimated(_ title: String?, for state: UIControl.State) {
         UIView.performWithoutAnimation {
             setTitle(title, for: state)
         }

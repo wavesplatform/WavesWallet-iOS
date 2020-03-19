@@ -14,6 +14,7 @@ public extension DomainLayer.DTO {
     enum GatewayType: String {
         case coinomat
         case gateway
+        case exchange
     }
     
     enum Gateway {

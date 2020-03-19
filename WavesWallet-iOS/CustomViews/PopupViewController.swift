@@ -11,18 +11,18 @@ import DomainLayer
 
 fileprivate enum Constants {
     
-    //MARK: - UI Settings
+    // MARK: - UI Settings
     static let BgAlpha: CGFloat = 0.4
     static let DragImageFrame = CGRect(x: (UIScreen.main.bounds.size.width - 36) / 2.0, y: 6, width: 36, height: 4)
     static let CornerRadius: CGFloat = 12
     static let AnimationDuration: TimeInterval = 0.3
 
-    //MARK: Container Settings
+    // MARK: Container Settings
     static let DefaultTopContainerTopOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 150 : 64
     static let BottomContainerOffset: CGFloat = BiometricManager.type == BiometricType.faceID ? 30 : 0
     static let ContainerOffsetOfDragPoint: CGFloat = 20
     
-    //MARK: - Gesture Settings
+    // MARK: - Gesture Settings
     static let MinumOffsetToScrollTop: CGFloat = 150
 }
 
@@ -133,7 +133,7 @@ final class PopupViewController: UIViewController {
 }
 
 
-//MARK: - Gesture Actions
+// MARK: - Gesture Actions
 
 private extension PopupViewController {
     
@@ -195,7 +195,7 @@ private extension PopupViewController {
 }
 
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 
 private extension PopupViewController {
     
@@ -264,7 +264,7 @@ extension PopupViewController: UIGestureRecognizerDelegate {
     
 }
 
-//MARK: - Additional Methods
+// MARK: - Additional Methods
 private extension PopupViewController {
     
     func animateToTop() {

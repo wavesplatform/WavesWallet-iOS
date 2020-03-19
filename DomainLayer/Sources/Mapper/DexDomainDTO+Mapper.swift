@@ -19,12 +19,12 @@ private extension DomainLayer.DTO.Dex.Asset {
         }
     }
 
-    func balance(_ amount: Int64) -> Balance {
+    func balance(_ amount: Int64) -> DomainLayer.DTO.Balance {
         return balance(amount, precision: decimals)
     }
 
-    func balance(_ amount: Int64, precision: Int) -> Balance {
-        return Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
+    func balance(_ amount: Int64, precision: Int) -> DomainLayer.DTO.Balance {
+        return DomainLayer.DTO.Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
     }
 
     func money(_ amount: Int64, precision: Int) -> Money {
@@ -42,15 +42,15 @@ private extension DomainLayer.DTO.Dex.MyOrder {
         return (priceAsset.decimals - amountAsset.decimals) + 8
     }
 
-    func priceBalance(_ amount: Int64) -> Balance {
+    func priceBalance(_ amount: Int64) -> DomainLayer.DTO.Balance {
         return priceAsset.balance(amount, precision: precisionDifference)
     }
 
-    func amountBalance(_ amount: Int64) -> Balance {
+    func amountBalance(_ amount: Int64) -> DomainLayer.DTO.Balance {
         return amountAsset.balance(amount)
     }
 
-    func totalBalance(priceAmount: Int64, assetAmount: Int64) -> Balance {
+    func totalBalance(priceAmount: Int64, assetAmount: Int64) -> DomainLayer.DTO.Balance {
 
         let priceA = Decimal(priceAmount) / pow(10, priceAsset.decimals)
         let assetA = Decimal(assetAmount) / pow(10, amountAsset.decimals)
@@ -63,19 +63,19 @@ private extension DomainLayer.DTO.Dex.MyOrder {
 
 public extension DomainLayer.DTO.Dex.MyOrder {
 
-    var filledBalance: Balance {
+    var filledBalance: DomainLayer.DTO.Balance {
         return .init(currency: .init(title: amountAsset.name, ticker: amountAsset.ticker), money: self.filled)
     }
 
-    var priceBalance: Balance {
+    var priceBalance: DomainLayer.DTO.Balance {
         return .init(currency: .init(title: priceAsset.name, ticker: priceAsset.ticker), money: self.price)
     }
 
-    var amountBalance: Balance {
+    var amountBalance: DomainLayer.DTO.Balance {
         return .init(currency: .init(title: amountAsset.name, ticker: amountAsset.ticker), money: self.amount)
     }
 
-    var totalBalance: Balance {
+    var totalBalance: DomainLayer.DTO.Balance {
         return self.totalBalance(priceAmount: self.price.amount, assetAmount: self.amount.amount)
     }
 }

@@ -56,7 +56,7 @@ final class DexChartHeaderView: UIView, NibOwnerLoadable {
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 
 private extension DexChartHeaderView {
     

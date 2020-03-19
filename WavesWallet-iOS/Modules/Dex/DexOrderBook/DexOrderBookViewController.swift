@@ -45,7 +45,7 @@ final class DexOrderBookViewController: UIViewController {
     }
 }
 
-//MARK: - DexTraderContainerProcotol
+// MARK: - DexTraderContainerProcotol
 extension DexOrderBookViewController: DexTraderContainerProcotol {
     
     func controllerWillAppear() {
@@ -67,7 +67,7 @@ extension DexOrderBookViewController: DexTraderContainerProcotol {
     }
 }
 
-//MARK: - DexCreateOrderProtocol, DexCancelOrderProtocol
+// MARK: - DexCreateOrderProtocol, DexCancelOrderProtocol
 
 extension DexOrderBookViewController: DexCreateOrderProtocol, DexCancelOrderProtocol {
     
@@ -118,7 +118,7 @@ fileprivate extension DexOrderBookViewController {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexOrderBookViewController {
     
     @IBAction func sellTapped(_ sender: Any) {
@@ -140,7 +140,7 @@ private extension DexOrderBookViewController {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension DexOrderBookViewController: UITableViewDelegate {
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -154,7 +154,7 @@ extension DexOrderBookViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension DexOrderBookViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -185,7 +185,7 @@ extension DexOrderBookViewController: UITableViewDataSource {
 }
 
 
-//MARK: - Cells
+// MARK: - Cells
 private extension DexOrderBookViewController {
     
     func updateAskBidCell(_ askBid: DexOrderBook.DTO.BidAsk) -> DexOrderBookCell {
@@ -195,7 +195,7 @@ private extension DexOrderBookViewController {
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 private extension DexOrderBookViewController {
     
     func setupDefaultState(state: DexOrderBook.State) {
@@ -230,7 +230,7 @@ private extension DexOrderBookViewController {
     }
 }
 
-//MARK: - UI Settings
+// MARK: - UI Settings
 private extension DexOrderBookViewController {
     
     var bidTitle: String {

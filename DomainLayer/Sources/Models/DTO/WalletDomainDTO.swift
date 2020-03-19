@@ -22,7 +22,14 @@ public extension DomainLayer.DTO {
         public let id: String
         public var isNeedShowWalletCleanBanner: Bool
 
-        public init(name: String, address: String, publicKey: String, isLoggedIn: Bool, isBackedUp: Bool, hasBiometricEntrance: Bool, id: String, isNeedShowWalletCleanBanner: Bool) {
+        public init(name: String,
+                    address: String,
+                    publicKey: String,
+                    isLoggedIn: Bool,
+                    isBackedUp: Bool,
+                    hasBiometricEntrance: Bool,
+                    id: String,
+                    isNeedShowWalletCleanBanner: Bool) {
             self.name = name
             self.address = address
             self.publicKey = publicKey
@@ -76,12 +83,17 @@ public extension DomainLayer.DTO {
     struct WalletRegistation {
         public let name: String
         public let address: String
-        public let privateKey: PrivateKeyAccount
+        public let privateKey: DomainLayer.DTO.PrivateKey
         public let isBackedUp: Bool
         public let password: String
         public let passcode: String
 
-        public init(name: String, address: String, privateKey: PrivateKeyAccount, isBackedUp: Bool, password: String, passcode: String) {
+        public init(name: String,
+                    address: String,
+                    privateKey: DomainLayer.DTO.PrivateKey,
+                    isBackedUp: Bool,
+                    password: String,
+                    passcode: String) {
             self.name = name
             self.address = address
             self.privateKey = privateKey
@@ -94,11 +106,14 @@ public extension DomainLayer.DTO {
     final class SignedWallet {
 
         public let wallet: DomainLayer.DTO.Wallet
-        public let publicKey: PublicKeyAccount
-        public let privateKey: PrivateKeyAccount
+        public let publicKey: DomainLayer.DTO.PublicKey
+        public let privateKey: DomainLayer.DTO.PrivateKey
         public let seed: WalletSeed
 
-        public init(wallet: DomainLayer.DTO.Wallet, publicKey: PublicKeyAccount, privateKey: PrivateKeyAccount, seed: WalletSeed) {
+        public init(wallet: DomainLayer.DTO.Wallet,
+                    publicKey: DomainLayer.DTO.PublicKey,
+                    privateKey: DomainLayer.DTO.PrivateKey,
+                    seed: WalletSeed) {
             self.wallet = wallet
             self.publicKey = publicKey
             self.privateKey = privateKey
@@ -114,12 +129,12 @@ public extension DomainLayer.DTO {
             
             self.seed = seed
             self.wallet = wallet            
-            self.publicKey = PublicKeyAccount(publicKey: seed.publicKey)
-            self.privateKey = PrivateKeyAccount(seedStr: seed.seed)
+            self.publicKey = DomainLayer.DTO.PublicKey(publicKey: seed.publicKey)
+            self.privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
         }
 
         public func sign(input: [UInt8], kind: [SigningKind]) throws -> [UInt8] {
-            let privateKey = PrivateKeyAccount(seedStr: seed.seed)
+            let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
             return Hash.sign(input, privateKey.privateKey)
         }
         

@@ -27,13 +27,13 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
-        let payoutsBuilder = PayoutsHistoryBuilder()
-        let vc = payoutsBuilder.build()
-        
-        let navController = CustomNavigationController(rootViewController: vc)
-        
-        windowRouter.window.rootViewController = navController
-        windowRouter.window.makeKeyAndVisible()
+//        let payoutsBuilder = PayoutsHistoryBuilder()
+//        let vc = payoutsBuilder.build()
+//        
+//        let navController = CustomNavigationController(rootViewController: vc)
+//        
+//        windowRouter.window.rootViewController = navController
+//        windowRouter.window.makeKeyAndVisible()
         
 //        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
 //        
@@ -43,10 +43,14 @@ final class UIDeveloperCoordinator: Coordinator {
 //        navigationRouter.pushViewController(vc)
 //        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }
-    
-    
 }
 
+extension UIDeveloperCoordinator: TooltipViewControllerModulOutput {
+    func tooltipDidTapClose() {
+        
+    }
+}
+    
 extension UIDeveloperCoordinator {
     func applicationDidEnterBackground() {}
 

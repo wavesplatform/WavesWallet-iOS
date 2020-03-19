@@ -226,8 +226,6 @@ internal enum StoryboardScene {
   }
   internal enum PayoutsHistory: StoryboardType {
     internal static let storyboardName = "PayoutsHistory"
-
-    internal static let payoutsHistoryVC = SceneType<WavesWallet_iOS.PayoutsHistoryVC>(storyboard: PayoutsHistory.self, identifier: "PayoutsHistoryVC")
   }
   internal enum Profile: StoryboardType {
     internal static let storyboardName = "Profile"
@@ -281,6 +279,11 @@ internal enum StoryboardScene {
 
     internal static let serverMaintenanceViewController = SceneType<WavesWallet_iOS.ServerMaintenanceViewController>(storyboard: ServerMaintenance.self, identifier: "ServerMaintenanceViewController")
   }
+  internal enum StakingTransfer: StoryboardType {
+    internal static let storyboardName = "StakingTransfer"
+
+    internal static let stakingTransferViewController = SceneType<WavesWallet_iOS.StakingTransferViewController>(storyboard: StakingTransfer.self, identifier: "StakingTransferViewController")
+  }
   internal enum StartLeasing: StoryboardType {
     internal static let storyboardName = "StartLeasing"
 
@@ -300,6 +303,11 @@ internal enum StoryboardScene {
     internal static let debugViewController = SceneType<WavesWallet_iOS.DebugViewController>(storyboard: Support.self, identifier: "DebugViewController")
 
     internal static let testViewController = SceneType<WavesWallet_iOS.TestViewController>(storyboard: Support.self, identifier: "TestViewController")
+  }
+  internal enum Tooltip: StoryboardType {
+    internal static let storyboardName = "Tooltip"
+
+    internal static let tooltipViewController = SceneType<WavesWallet_iOS.TooltipViewController>(storyboard: Tooltip.self, identifier: "TooltipViewController")
   }
   internal enum Trade: StoryboardType {
     internal static let storyboardName = "Trade"

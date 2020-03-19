@@ -10,8 +10,16 @@ import UIKit
 
 public extension UIScrollView {
     
-    public var currentPage: Int {
+    var currentPage: Int {
         return Int(contentOffset.x / bounds.size.width)
+    }
+    
+    var maxPages: Int {
+        return Int(contentSize.width / bounds.size.width)
+    }
+    
+    func nextPage(animated: Bool = true) {
+        setContentOffset(CGPoint(x: contentOffset.x + frame.width, y: contentOffset.y), animated: animated)
     }
 }
 

@@ -132,7 +132,7 @@ private struct RegisterData {
 private final class SeedRepositoryMemory {
 
     private static var map: [String: DomainLayer.DTO.WalletSeed] = .init()
-    //TODO: Change to OSSpinLockLock
+    
     private let serialQueue = DispatchQueue(label: "authorization.mutex")
 
     func append(_ seed: DomainLayer.DTO.WalletSeed) {
@@ -190,8 +190,7 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
         self.localizable = localizable
         self.analyticManager = analyticManager
     }
-
-    //TODO: Mutex
+    
     private let seedRepositoryMemory: SeedRepositoryMemory = SeedRepositoryMemory()
 
     func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus> {
@@ -434,7 +433,7 @@ extension AuthorizationUseCase {
             .wallet(by: publicKey)
             .catchError({ (error) -> Observable<DomainLayer.DTO.Wallet> in
                 switch error {
-                case let walletError as WalletsRepositoryError:
+                case let walletError as RepositoryError:
                     switch walletError {
                     case .notFound:
                         return Observable.error(AuthorizationUseCaseError.walletNotFound)

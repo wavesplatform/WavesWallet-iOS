@@ -27,7 +27,7 @@ public extension UITableView {
         }
     }
 
-    public func bindHeaderView(_ view: UIView) {
+    func bindHeaderView(_ view: UIView) {
 
         self.containerHeaderView?.removeFromSuperview()
         self.containerHeaderView = UIView()

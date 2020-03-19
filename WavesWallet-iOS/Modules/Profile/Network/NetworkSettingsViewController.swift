@@ -77,7 +77,7 @@ extension NetworkSettingsViewController {
     private func setupTextField() {
 
         spamUrlTextField.keyboardType = .URL
-        spamUrlTextField.autocapitalizationType = .none
+        spamUrlTextField.autocapitalizationType = nil
         spamUrlTextField.clearButtonMode = .whileEditing
 
 

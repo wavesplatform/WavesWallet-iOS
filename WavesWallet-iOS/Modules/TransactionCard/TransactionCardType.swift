@@ -31,6 +31,7 @@ enum TransactionCard {
             }
 
             var sections: [Section]
+            var title: String
             var action: Action
         }
 
@@ -49,7 +50,7 @@ enum TransactionCard {
             var kind: Kind
             var contacts: [String: ContactMutation]
             var showingAllRecipients: Bool
-            var feeBalance: Balance?
+            var feeBalance: DomainLayer.DTO.Balance?
             var action: Action
         }
 
@@ -84,7 +85,7 @@ enum TransactionCard {
 
     enum Event {        
         case showAllRecipients
-        case updateFeeByOrder(fee: Balance)
+        case updateFeeByOrder(fee: DomainLayer.DTO.Balance)
         case addContact(contact: DomainLayer.DTO.Contact)
         case editContact(contact: DomainLayer.DTO.Contact)
         case deleteContact(contact: DomainLayer.DTO.Contact)

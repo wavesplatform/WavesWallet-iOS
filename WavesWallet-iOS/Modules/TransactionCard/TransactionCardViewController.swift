@@ -43,6 +43,7 @@ protocol TransactionCardModuleInput: AnyObject {
     func deleteContact(address: String, contact: DomainLayer.DTO.Contact)
 }
 
+
 final class TransactionCardScroll: ModalTableView {
 
     fileprivate var arrowButton: UIButton = {
@@ -150,13 +151,13 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     var sections: [TransactionCard.Section] = .init()
 
     weak var delegate: TransactionCardModuleOutput?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rootView.delegate = self
         arrowButton.addTarget(self, action: #selector(handlerTapOnArrowButton(sender:)), for: .touchUpInside)
 
-        navigationItem.isNavigationBarHidden = true
+        navigationItem.isNavigationBarHidden = false
         navigationItem.shadowImage = nil
 
         system
@@ -171,26 +172,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 
     // MARK: ModalScrollViewContext
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-
-        var inset: CGFloat = 0
-
-        let localInset = self.layoutInsets.top
-        
-        if let vc = presentingViewController as? SlideMenuProtocol {
-
-            if let tabBarVc = vc.mainViewController as? UITabBarController,
-                let selectedViewController = tabBarVc.selectedViewController as? UINavigationController,
-                let topVc = selectedViewController.topViewController {
-
-                inset = topVc.layoutInsets.top - localInset
-            } else {
-                inset = vc.mainViewController.layoutInsets.top - localInset
-            }
-        } else {
-            inset = (presentingViewController?.layoutInsets.top ?? 0) - localInset
-        }
-
-        return size.height - inset
+        return size.height - layoutInsetsTop()
     }
 
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
@@ -199,11 +181,30 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.tableView.controllerLayoutInsets = self.layoutInsets
+        self.tableView.controllerLayoutInsets = UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
     }
+    
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)        
+    private func layoutInsetsTop() -> CGFloat {
+        
+        let localInset = self.layoutInsets.top
+        var inset: CGFloat = 0
+        
+        if let vc = presentingViewController as? SlideMenuProtocol {
+            
+            if let tabBarVc = vc.mainViewController as? UITabBarController,
+                let selectedViewController = tabBarVc.selectedViewController as? UINavigationController,
+                let topVc = selectedViewController.topViewController {
+                
+                inset = topVc.layoutInsets.top - localInset
+            } else {
+                inset = vc.mainViewController.layoutInsets.top - localInset
+            }
+        } else {
+            inset = (presentingViewController?.layoutInsets.top ?? 0) - localInset
+        }
+
+        return inset
     }
 }
 
@@ -254,7 +255,6 @@ extension TransactionCardViewController {
         default:
             break
         }
-
     }
 
     private func updateContact(address: String, contact: DomainLayer.DTO.Contact?, isAdd: Bool) {

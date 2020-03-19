@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
+import Extensions
 import DomainLayer
 
 final class SendPresenter: SendPresenterProtocol {
@@ -19,7 +20,8 @@ final class SendPresenter: SendPresenterProtocol {
 
     func system(feedbacks: [SendPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
-        newFeedbacks.append(modelsQuery())
+        newFeedbacks.append(needValidateAliaseQuery())
+        newFeedbacks.append(loadGateWayInfoQuery())
         newFeedbacks.append(modelsWavesQuery())
         newFeedbacks.append(assetQuery())
         newFeedbacks.append(feeQuery())
@@ -84,34 +86,61 @@ final class SendPresenter: SendPresenterProtocol {
         })
     }
     
-    private func modelsQuery() -> Feedback {
+    private func needValidateAliaseQuery() -> Feedback {
         return react(request: { state -> Send.State? in
-            return  state.isNeedLoadGateWayInfo ||
-                    state.isNeedValidateAliase ? state : nil
+            return state.isNeedValidateAliase ? state : nil
             
         }, effects: { [weak self] state -> Signal<Send.Event> in
             
             guard let self = self else { return Signal.empty() }
-           
-            if state.isNeedValidateAliase {
-                return self.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())
-            }
-            
-            guard let asset = state.selectedAsset else { return Signal.empty() }
+            return self
+                .interactor
+                .validateAlis(alias: state.recipient)
+                .map {.validationAliasDidComplete($0)}
+                .asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
     
-            if state.isNeedLoadGateWayInfo {
-                return self.interactor.gateWayInfo(asset: asset, address: state.recipient)
-                    .map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+    private struct GateQuery: Hashable {
+        let asset: DomainLayer.DTO.Asset
+        let address: String
+        let amount: Money
+    }
+    
+    private func loadGateWayInfoQuery() -> Feedback {
+        return react(request: { state -> GateQuery? in
+            
+            if let asset = state.selectedAsset, state.isNeedLoadGateWayInfo && state.recipient.count > 0 {
+                
+                return GateQuery(asset: asset.asset,
+                                 address: state.recipient,
+                                 amount: state.amount ?? Money(value: 0, asset.asset.precision))
+            } else {
+                return nil
             }
-           
-            return Signal.empty()
+    
+        }, effects: { [weak self] query -> Signal<Send.Event> in
+            
+            guard let self = self else { return Signal.empty() }
+            
+            
+//            guard let asset = state.selectedAsset else { return Signal.empty() }
+            
+//            print("state.amount \(state.amount?.decimalValue)")
+            
+            return self.interactor.gateWayInfo(asset: query.asset,
+                                               address: query.address,
+                                               amount: query.amount)
+                .map {.didGetGatewayInfo($0)}
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
     private func reduce(state: Send.State, event: Send.Event) -> Send.State {
 
+   
         switch event {
-        
+   
         case .refreshFee:
             return state.mutate {
                 $0.isNeedLoadWavesFee = true
@@ -141,8 +170,9 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.action = .didGetWavesAsset(asset)
             }
             
-        case .getGatewayInfo:
+        case .getGatewayInfo(let amount):
             return state.mutate {
+                $0.amount = amount
                 $0.action = .none
                 $0.isNeedLoadGateWayInfo = true
                 $0.isNeedValidateAliase = false

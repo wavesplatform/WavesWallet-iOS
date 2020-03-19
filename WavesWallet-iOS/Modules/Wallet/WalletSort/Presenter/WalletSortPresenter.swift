@@ -157,7 +157,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 }
 
 
-//MARK: - SetFavorite
+// MARK: - SetFavorite
 private extension WalletSortPresenter {
     
     func setFavorite(at indexPath: IndexPath, state: inout WalletSort.State) {
@@ -236,7 +236,7 @@ private extension WalletSortPresenter {
     }
 }
 
-//MARK: - SetHidden
+// MARK: - SetHidden
 private extension WalletSortPresenter {
     func setHidden(at indexPath: IndexPath, state: inout WalletSort.State) {
         if var asset = state.asset(by: indexPath) {
@@ -310,7 +310,7 @@ private extension WalletSortPresenter {
     }
 }
 
-//MARK: - Move
+// MARK: - Move
 private extension WalletSortPresenter {
     
     func move(from: IndexPath, to: IndexPath, state: inout WalletSort.State) {

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class NavigationRouter: NSObject {
+class NavigationRouter: NSObject {
 
     private var completions: [UIViewController : () -> Void] = .init()
 

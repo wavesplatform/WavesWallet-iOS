@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakingTransferFeeInfoCell" id="48g-xP-5dN" customClass="StakingTransferFeeInfoCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="48g-xP-5dN" id="hNL-Of-a7Q">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46N-ON-5M7">
+                        <rect key="frame" x="16" y="10" width="100.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="277.5" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="0Vr-XY-aqa" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="120.5" y="0.0" width="277.5" height="36"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="46N-ON-5M7" secondAttribute="bottom" constant="62" id="MBh-7c-zLY"/>
+                    <constraint firstItem="0Vr-XY-aqa" firstAttribute="centerY" secondItem="46N-ON-5M7" secondAttribute="centerY" id="NeV-0y-jX7"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Vr-XY-aqa" secondAttribute="trailing" constant="16" id="Ye6-rl-a33"/>
+                    <constraint firstItem="0Vr-XY-aqa" firstAttribute="leading" secondItem="46N-ON-5M7" secondAttribute="trailing" constant="4" id="kqf-UH-9uw"/>
+                    <constraint firstItem="46N-ON-5M7" firstAttribute="top" secondItem="hNL-Of-a7Q" secondAttribute="top" constant="10" id="lQW-py-Bhh"/>
+                    <constraint firstItem="46N-ON-5M7" firstAttribute="leading" secondItem="hNL-Of-a7Q" secondAttribute="leading" constant="16" id="zIv-vN-r2Y"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="balanceLabel" destination="0Vr-XY-aqa" id="UG8-BS-w25"/>
+                <outlet property="titleLabel" destination="46N-ON-5M7" id="2Vo-76-6Ur"/>
+            </connections>
+            <point key="canvasLocation" x="836" y="152"/>
+        </tableViewCell>
+    </objects>
+</document>

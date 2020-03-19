@@ -95,7 +95,7 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
 
                 let newWallets = wallets.map({ wallet -> DomainLayer.DTO.Wallet in
                     let id = UUID().uuidString
-                    let address = PublicKeyAccount(publicKey: Base58Encoder.decode(wallet.publicKey)).address
+                    let address = DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(wallet.publicKey)).address
                     return DomainLayer.DTO.Wallet(name: wallet.name,
                                                   address: address,
                                                   publicKey: wallet.publicKey,

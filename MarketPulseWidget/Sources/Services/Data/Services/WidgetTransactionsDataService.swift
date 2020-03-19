@@ -13,6 +13,10 @@ import Moya
 import RxSwift
 
 final class WidgetTransactionsDataService: TransactionsDataServiceProtocol {
+    func getMassTransferTransactions(query: DataService.Query.MassTransferDataQuery) -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
+        Observable.never()
+    }
+    
     
     private let transactionsProvider: MoyaProvider<WidgetDataService.Target.Transactions> = InternalWidgetService.moyaProvider()
     

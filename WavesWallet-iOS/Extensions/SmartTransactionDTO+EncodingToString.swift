@@ -276,7 +276,7 @@ extension DomainLayer.DTO.SmartTransaction {
         }
     }
 
-    private var amountAny: Balance? {
+    private var amountAny: DomainLayer.DTO.Balance? {
 
         switch kind {
         case .receive(let tx):

@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 public extension NSAttributedString {
-    public class func styleForBalance(text: String, font: UIFont) -> NSAttributedString {
+    class func styleForBalance(text: String, font: UIFont, weight: UIFont.Weight = .semibold) -> NSAttributedString {
         let range = (text as NSString).range(of: ".")
-        let attrString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)])
+        let attrString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize, weight: weight)])
 
         if range.location != NSNotFound {
             let length = text.count - range.location
@@ -21,7 +21,7 @@ public extension NSAttributedString {
         return attrString
     }
     
-    public class func styleForMyAssetName(assetName: String, isMyAsset: Bool) -> NSAttributedString {
+    class func styleForMyAssetName(assetName: String, isMyAsset: Bool) -> NSAttributedString {
         
         var fullName = assetName
         let myAssetString = " / \(Localizable.Waves.Wallet.Label.myAssets)"

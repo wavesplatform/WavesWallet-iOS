@@ -82,7 +82,7 @@ struct CreateOrderSignature: SignatureProtocol {
     
     private(set) var timestamp: Int64
 
-    private(set) var matcherPublicKey: PublicKeyAccount
+    private(set) var matcherPublicKey: DomainLayer.DTO.PublicKey
     
     private(set) var assetPair: AssetPair
     

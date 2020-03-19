@@ -108,7 +108,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     }
 }
 
-//MARK: - Load data
+// MARK: - Load data
 private extension DexMarketInteractor {
     
     func searchPairs(firstSearchAssets: Observable<[DomainLayer.DTO.Asset]>, secondSearchAssets: Observable<[DomainLayer.DTO.Asset]>, address: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {

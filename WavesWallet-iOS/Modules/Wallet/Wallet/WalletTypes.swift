@@ -33,6 +33,7 @@ extension WalletTypes {
         enum Kind: Int {
             case assets
             case leasing
+            case staking
         }
 
         enum ContentAction  {
@@ -54,6 +55,7 @@ extension WalletTypes {
         var kind: Kind
         var assets: DisplayState.Display
         var leasing: DisplayState.Display
+        var staking: DisplayState.Display
         var isAppeared: Bool
         var listenerRefreshData: RefreshData
         var refreshData: RefreshData
@@ -69,16 +71,19 @@ extension WalletTypes {
         
         var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
+        var staking: DTO.Staking?
         var displayState: DisplayState
         var isShowCleanWalletBanner: Bool
         var isNeedCleanWalletBanner: Bool
         var isHasAppUpdate: Bool
         var action: Action
+        var hasSkipLanding: Bool
     }
 
     enum Event {
         case setAssets([DomainLayer.DTO.SmartAssetBalance])
         case setLeasing(DTO.Leasing)
+        case setStaking(DTO.Staking)
         case handlerError(Error)
         case refresh
         case viewWillAppear
@@ -95,6 +100,16 @@ extension WalletTypes {
         case isShowCleanWalletBanner(Bool)
         case completeCleanWalletBanner(Bool)
         case isHasAppUpdate(Bool)
+        case openStakingFaq
+        case openWithdraw
+        case openBuy
+        case openDeposit
+        case openTrade
+        case openFb(String)
+        case openVk(String)
+        case openTw(String)
+        case showPayout(WalletTypes.DTO.Staking.Payout)
+        case startStaking
     }
 }
 

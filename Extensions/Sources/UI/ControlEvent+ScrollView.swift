@@ -13,7 +13,7 @@ import RxSwift
 
 public extension Reactive where Base: UIScrollView {
 
-    public var didEndScroll: ControlEvent<Void> {
+    var didEndScroll: ControlEvent<Void> {
         let events = base.rx
             .didEndDragging
             .flatMap(weak: base) { owner, isDecelerate -> Observable<Void> in
@@ -26,7 +26,7 @@ public extension Reactive where Base: UIScrollView {
         return ControlEvent<Void>(events: events)
     }
 
-    public func didRefreshing(refreshControl: UIRefreshControl) -> ControlEvent<Void> {
+    func didRefreshing(refreshControl: UIRefreshControl) -> ControlEvent<Void> {
 
         let didEndScroll = base
             .rx

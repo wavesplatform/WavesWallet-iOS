@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakingTransferScrollButtonsCell" rowHeight="256" id="zx8-FW-qCr" customClass="StakingTransferScrollButtonsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="674" height="256"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zx8-FW-qCr" id="ImZ-Rv-RCC">
+                <rect key="frame" x="0.0" y="0.0" width="674" height="256"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="htd-4m-h3X" customClass="InputScrollButtonsView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="674" height="241"/>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="htd-4m-h3X" firstAttribute="top" secondItem="ImZ-Rv-RCC" secondAttribute="top" id="1IG-dz-H7l"/>
+                    <constraint firstAttribute="trailing" secondItem="htd-4m-h3X" secondAttribute="trailing" id="4QB-mz-xlK"/>
+                    <constraint firstAttribute="bottom" secondItem="htd-4m-h3X" secondAttribute="bottom" constant="15" id="Cb5-ek-bcc"/>
+                    <constraint firstItem="htd-4m-h3X" firstAttribute="leading" secondItem="ImZ-Rv-RCC" secondAttribute="leading" id="HpV-01-XkH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="inputScrollButtonsView" destination="htd-4m-h3X" id="l7i-Va-FZz"/>
+            </connections>
+            <point key="canvasLocation" x="-391.304347826087" y="441.29464285714283"/>
+        </tableViewCell>
+    </objects>
+</document>

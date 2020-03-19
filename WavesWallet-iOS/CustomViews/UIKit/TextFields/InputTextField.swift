@@ -55,9 +55,9 @@ final class InputTextField: UIView, NibOwnerLoadable {
   
     var isEnabled: Bool {
         set {
-            tapGesture.isEnabled = isEnabled
-            textFieldValue.isEnabled = isEnabled
-            textFieldValue.isUserInteractionEnabled = isEnabled
+            tapGesture.isEnabled = newValue
+            textFieldValue.isEnabled = newValue
+            textFieldValue.isUserInteractionEnabled = newValue
         }
 
         get {
@@ -297,7 +297,7 @@ extension InputTextField: UITextFieldDelegate {
 
         var newString = string
 
-        if self.autocapitalizationType == .none {
+        if self.autocapitalizationType == nil {
             newString = newString.lowercased()
         }
 

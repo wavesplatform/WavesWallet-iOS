@@ -17,7 +17,6 @@ private enum Constants {
     static let headerHeight: CGFloat = 74
 }
 
-
 final class SendFeeViewController: ModalScrollViewController {
     
     weak var delegate: SendFeeModuleOutput!
@@ -49,7 +48,7 @@ final class SendFeeViewController: ModalScrollViewController {
 }
 
 
-//MARK: - FeedBack
+// MARK: - FeedBack
 private extension SendFeeViewController {
     
     func setupFeedBack() {
@@ -88,7 +87,7 @@ private extension SendFeeViewController {
 }
 
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension SendFeeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -120,7 +119,7 @@ extension SendFeeViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension SendFeeViewController: UITableViewDataSource {
 
@@ -149,7 +148,7 @@ extension SendFeeViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension SendFeeViewController: ModalRootViewDelegate {
 

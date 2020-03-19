@@ -81,6 +81,73 @@ final class WalletInteractor: WalletInteractorProtocol {
     func leasing() -> Observable<WalletTypes.DTO.Leasing> {
         return Observable.merge(leasing(isNeedUpdate: true))
     }
+    
+    func staking() -> Observable<WalletTypes.DTO.Staking> {
+                
+        return Observable.create { (subscribe) -> Disposable in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            
+                let payouts: [WalletTypes.DTO.Staking.Payout] = [.init(profit: DomainLayer.DTO.Balance.randomBalance,
+                                                                       assetIconURL: .init(assetId: "asds",
+                                                                                           name: "test",
+                                                                                           url: nil),
+                                                                       date: Date()),
+                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
+                                                                       assetIconURL: .init(assetId: "asds",
+                                                                                           name: "test",
+                                                                                           url: nil),
+                                                                       date: Date().addingTimeInterval(60*60*24*14)),
+                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
+                                                                       assetIconURL: .init(assetId: "asds",
+                                                                                           name: "test",
+                                                                                           url: nil),
+                                                                       date: Date().addingTimeInterval(60*60*24*3*3*3)),
+                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
+                                                                       assetIconURL: .init(assetId: "asds",
+                                                                                           name: "test",
+                                                                                           url: nil),
+                                                                       date: Date().addingTimeInterval(60*60*24*13)),
+                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
+                                                                       assetIconURL: .init(assetId: "asds",
+                                                                                           name: "test",
+                                                                                           url: nil),
+                                                                       date: Date().addingTimeInterval(60*60*24*11)),
+                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
+                                                                       assetIconURL: .init(assetId: "asds",
+                                                                                           name: "test",
+                                                                                            url: nil),
+                                                                       date: Date().addingTimeInterval(60*60*24*3)),
+                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
+                                                                       assetIconURL: .init(assetId: "asds",
+                                                                                           name: "test",
+                                                                                           url: nil),
+                                                                       date: Date().addingTimeInterval(60*60*24*12*5))]
+                
+                subscribe.onNext(WalletTypes.DTO.Staking(profit: .init(percent: 20.565,
+                                                                       total: .init(currency: .init(title: "USDB",
+                                                                                                    ticker: "USDB"),
+                                                                                    money: Money(45254, 2))),
+                                                         balance: .init(total: .init(currency: .init(title: "USDB",
+                                                                                                     ticker: "USDB"),
+                                                                                     money: Money(45254, 2)),
+                                                                        available: .init(currency: .init(title: "USDB",
+                                                                                                         ticker: "USDB"),
+                                                                                         money: Money(45254, 2)),
+                                                                        inStaking: .init(currency: .init(title: "USDB",
+                                                                                                         ticker: "USDB"),
+                                                                                         money: Money(45254, 2))),
+                                                         lastPayouts: payouts,
+                                                         landing: nil))
+//                        .init(currency: .init(title: "USDB",
+//                                        ticker: "USDB"),
+//                        money: Money(45254, 2))
+//.init(percent: 12, minimumDeposit: Money(10000000000, 6)))
+                    subscribe.onCompleted()
+            }
+            return Disposables.create()
+        }
+    }
 }
 
 // MARK: Assistants

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 public extension CGFloat {
-    public static var minValue: CGFloat {
+    static var minValue: CGFloat {
         if #available(iOS 11.0, *) {
             return CGFloat.leastNonzeroMagnitude
         } else {

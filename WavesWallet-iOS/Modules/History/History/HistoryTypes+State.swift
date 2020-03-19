@@ -8,41 +8,7 @@
 
 import Foundation
 import DomainLayer
-// MARK: Set Methods
 
-extension HistoryTypes.State {
-    
-    func setIsAppeared(_ isAppeared: Bool) -> HistoryTypes.State {
-        var newState = self
-        newState.isAppeared = isAppeared
-        return newState
-    }
-    
-    func setIsRefreshing(_ isRefreshing: Bool) -> HistoryTypes.State {
-        var newState = self
-        newState.isRefreshing = isRefreshing
-        return newState
-    }
-    
-    func setSections(sections: [HistoryTypes.ViewModel.Section]) -> HistoryTypes.State {
-        var newState = self
-        newState.sections = sections
-        return newState
-    }
-    
-    func setTransactions(transactions: [DomainLayer.DTO.SmartTransaction]) -> HistoryTypes.State {
-        var newState = self
-        newState.transactions = transactions
-        return newState
-    }
-    
-    func setFilter(filter: HistoryTypes.Filter) -> HistoryTypes.State {
-        var newState = self
-        newState.currentFilter = filter
-        return newState
-    }
-
-}
 
 extension HistoryTypes.State {
     static func initialState(historyType: HistoryType) -> HistoryTypes.State {

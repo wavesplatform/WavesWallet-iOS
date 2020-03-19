@@ -219,7 +219,7 @@ private extension CreateAliasPresenter {
 
         case .input(let text):
             state.displayState.input = text
-            state.displayState.action = .none
+            state.displayState.action = nil
             state.query = nil
             state.displayState.errorState = .none
 
@@ -315,7 +315,7 @@ private extension CreateAliasPresenter {
                                   isEnabledSaveButton: false,
                                   isLoading: false,
                                   isAppeared: false,
-                                  action: .none,
+                                  action: nil,
                                   isValidEnoughtFee: true)
     }
 }

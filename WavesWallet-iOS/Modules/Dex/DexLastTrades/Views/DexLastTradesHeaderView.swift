@@ -32,7 +32,7 @@ final class DexLastTradesHeaderView: DexTraderContainerBaseHeaderView, NibOwnerL
     }
 }
 
-//MARK: - SetupUI
+// MARK: - SetupUI
 private extension DexLastTradesHeaderView {
     
     func setupTitles() {

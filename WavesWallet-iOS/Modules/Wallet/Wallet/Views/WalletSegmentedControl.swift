@@ -12,6 +12,10 @@ import RxSwift
 import UIKit
 import Extensions
 
+private enum Constants {
+    static let heightPadding: CGFloat = 36
+}
+
 final class WalletSegmentedControl: UIView {
     @IBOutlet var segmentedControl: SegmentedControl!
 
@@ -22,7 +26,8 @@ final class WalletSegmentedControl: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: segmentedControl.intrinsicContentSize.height + 18 * 2)
+        return CGSize(width: UIView.noIntrinsicMetric,
+                      height: segmentedControl.intrinsicContentSize.height + Constants.heightPadding)
     }
 
     func changedValue() -> Signal<Int> {

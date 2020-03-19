@@ -40,8 +40,11 @@ final class ReceiveCryptocurrencyPresenter: ReceiveCryptocurrencyPresenterProtoc
             guard let self = self else { return Signal.empty() }
             guard let asset = state.asset else { return Signal.empty() }
             
-            return self.interactor.generateAddress(asset: asset)
-                .map { .addressDidGenerate($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            return self
+                .interactor
+                .generateAddress(asset: asset)
+                .map { .addressDidGenerate($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -64,7 +67,7 @@ final class ReceiveCryptocurrencyPresenter: ReceiveCryptocurrencyPresenterProtoc
                 
                 switch response.result {
                     case .success(let info):
-                        $0.action = .addressDidGenerate(info)
+                        $0.action = .addressDidGenerate
                     
                     case .error(let error):
                         $0.action = .addressDidFailGenerate(error)

@@ -33,13 +33,13 @@ private enum Constants {
     static let moneroNewsLink = "https://coinswitch.co/news/monero-hard-fork-2019-coming-up-on-november-30th-everything-you-need-to-know"
 }
 
+// TODO: Refactor all module
 final class SendViewController: UIViewController {
 
     @IBOutlet private weak var assetView: AssetSelectView!
     @IBOutlet private weak var viewWarning: UIView!
     @IBOutlet private weak var labelWarningTitle: UILabel!
     @IBOutlet private weak var labelWarningSubtitle: UILabel!
-    @IBOutlet private weak var labelWarningDescription: UILabel!
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
@@ -71,6 +71,7 @@ final class SendViewController: UIViewController {
     var inputModel: Send.DTO.InputModel!
     
     private var isValidAlias: Bool = false
+    private var hasNeedReloadGateWayInfo: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
     private var isLoadingAssetBalanceAfterScan = false
     private var errorSnackKey: String?
@@ -265,7 +266,7 @@ final class SendViewController: UIViewController {
     }
 }
 
-//MARK: - TransactionFeeViewDelegate
+// MARK: - TransactionFeeViewDelegate
 extension SendViewController: TransactionFeeViewDelegate {
     func transactionFeeViewDidTap() {
         
@@ -282,7 +283,7 @@ extension SendViewController: TransactionFeeViewDelegate {
     }
 }
 
-//MARK: - SendFeeModuleOutput
+// MARK: - SendFeeModuleOutput
 extension SendViewController: SendFeeModuleOutput {
     
     func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.SmartAssetBalance, fee: Money) {
@@ -298,7 +299,7 @@ extension SendViewController: SendFeeModuleOutput {
     }
 }
 
-//MARK: - SendResultDelegate
+// MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {
     func sendResultDidTapFinish() {
         if let action = backTappedAction {
@@ -320,7 +321,7 @@ extension SendViewController: SendResultDelegate {
     }
 }
 
-//MARK: - FeedBack
+// MARK: - FeedBack
 private extension SendViewController {
     
     func setupFeedBack() {
@@ -420,17 +421,22 @@ private extension SendViewController {
     }
 }
 
-//MARK: - MoneyTextFieldDelegate
+// MARK: - MoneyTextFieldDelegate
 extension SendViewController: AmountInputViewDelegate {
     
     func amountInputView(didChangeValue value: Money) {
         amount = value
+        
+        self.gateWayInfo = nil
+        hasNeedReloadGateWayInfo = true
+        validateAddress()
+        
         updateAmountError(animation: true)
         setupButtonState()
     }
 }
 
-//MARK: - AssetListModuleOutput
+// MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         
@@ -440,7 +446,7 @@ extension SendViewController: AssetListModuleOutput {
     }
 }
 
-//MARK: - AssetSelectViewDelegate
+// MARK: - AssetSelectViewDelegate
 extension SendViewController: AssetSelectViewDelegate {
    
     func assetViewDidTapChangeAsset() {
@@ -453,7 +459,7 @@ extension SendViewController: AssetSelectViewDelegate {
     }
 }
 
-//MARK: - Data
+// MARK: - Data
 private extension SendViewController {
     var inputAmountValues: [Money] {
         
@@ -489,7 +495,7 @@ private extension SendViewController {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension SendViewController {
 
     
@@ -646,17 +652,10 @@ private extension SendViewController {
     }
     
     func showLoadingButtonState() {
-        view.isUserInteractionEnabled = false
-        buttonContinue.backgroundColor = .submit200
-        buttonContinue.setTitle("", for: .normal)
-        activityIndicatorButton.isHidden = false
         activityIndicatorButton.startAnimating()
     }
     
     func hideButtonLoadingButtonsState() {
-        view.isUserInteractionEnabled = true
-        setupButtonState()
-        setupLocalization()
         activityIndicatorButton.stopAnimating()
     }
     
@@ -681,11 +680,11 @@ private extension SendViewController {
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
     
-    func showLoadingGatewayInfo() {
+    func showLoadingGatewayInfo(isHidden: Bool = true) {
         hideCoinomatError(animation: false)
-        viewWarning.isHidden = true
-        activityIndicatorView.isHidden = false
-        activityIndicatorView.startAnimating()
+        viewWarning.isHidden = isHidden
+        activityIndicatorButton.isHidden = false
+        activityIndicatorButton.startAnimating()
     }
     
     func showCoinomatError() {
@@ -695,7 +694,7 @@ private extension SendViewController {
 
         coinomatErrorView.isHidden = false
         coinomatErrorView.alpha = 0
-        activityIndicatorView.stopAnimating()
+        activityIndicatorButton.stopAnimating()
         
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.coinomatErrorView.alpha = 1
@@ -727,7 +726,7 @@ private extension SendViewController {
     
     func hideGatewayInfo(animation: Bool) {
         updateAmountError(animation: animation)
-        activityIndicatorView.stopAnimating()
+        activityIndicatorButton.stopAnimating()
 
         if viewWarning.isHidden {
             return
@@ -756,17 +755,21 @@ private extension SendViewController {
         let min = info.minAmount.displayText + " " + info.assetShortName
         let max = info.maxAmount.displayText + " " + info.assetShortName
 
-        labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)        
-        labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetName)
+        labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
+                
         
-        viewWarning.isHidden = false
-        viewWarning.alpha = 0
-        activityIndicatorView.stopAnimating()
+        activityIndicatorButton.stopAnimating()
         
-        UIView.animate(withDuration: Constants.animationDuration, animations: {
-            self.viewWarning.alpha = 1
-            self.view.layoutIfNeeded()
-        })
+        if viewWarning.isHidden == true {
+            viewWarning.isHidden = false
+            viewWarning.alpha = 0
+            UIView.animate(withDuration: Constants.animationDuration, animations: {
+                   self.viewWarning.alpha = 1
+                   self.view.layoutIfNeeded()
+            })
+         }
+        
+   
         setupButtonState()
         updateAmountError(animation: true)
         updateMoneraAddressErrorView(animation: true)
@@ -813,7 +816,7 @@ private extension SendViewController {
     }
 }
 
-//MARK: - AddressInputViewDelegate
+// MARK: - AddressInputViewDelegate
 
 extension SendViewController: AddressInputViewDelegate {
   
@@ -941,7 +944,7 @@ extension SendViewController: AddressInputViewDelegate {
 }
 
 
-//MARK: - AddressBookModuleOutput
+// MARK: - AddressBookModuleOutput
 
 extension SendViewController: AddressBookModuleOutput {
    
@@ -953,14 +956,14 @@ extension SendViewController: AddressBookModuleOutput {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension SendViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
 }
 
-//MARK: - Validation
+// MARK: - Validation
 private extension SendViewController {
 
     var isCorrectMinCryptocyrrencyAmount: Bool {
@@ -1008,7 +1011,7 @@ private extension SendViewController {
     }
 
     var isValidLocalAddress: Bool {
-        return Address.isValidAddress(address: recipientAddressView.text)
+        return AddressValidator.isValidAddress(address: recipientAddressView.text)
     }
     
     var isValidCryptocyrrencyAddress: Bool {
@@ -1020,9 +1023,8 @@ private extension SendViewController {
                 selectedAsset?.asset.isGateway == true &&
                 selectedAsset?.asset.isFiat == false &&
                 isValidLocalAddress == false
-        }
-        else if selectedAsset?.asset.isVostok == true {
-            return Address.isValidVostokAddress(address: address)
+        } else if selectedAsset?.asset.isVostok == true {
+            return AddressValidator.isValidVostokAddress(address: address)
         }
         return false
     }
@@ -1085,9 +1087,10 @@ private extension SendViewController {
         else if isCryptoCurrencyAsset(asset) {
             if !isValidLocalAddress {
                 if isValidCryptocyrrencyAddress {
-                    if gateWayInfo == nil {
-                        sendEvent.accept(.getGatewayInfo)
-                        showLoadingGatewayInfo()
+                    if gateWayInfo == nil {                        
+                        sendEvent.accept(.getGatewayInfo(self.amount ?? Money(0, 0)))
+                        showLoadingGatewayInfo(isHidden: !hasNeedReloadGateWayInfo)
+                        hasNeedReloadGateWayInfo = false
                     }
                     recipientAddressView.checkIfValidAddress()
                 }
@@ -1125,7 +1128,7 @@ private extension DeepLink {
     }
 }
 
-//MARK: - TTTAttributedLabelDelegate
+// MARK: - TTTAttributedLabelDelegate
 extension SendViewController: TTTAttributedLabelDelegate {
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         UIApplication.shared.openURLAsync(url)

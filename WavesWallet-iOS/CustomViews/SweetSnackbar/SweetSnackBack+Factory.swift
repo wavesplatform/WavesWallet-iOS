@@ -16,7 +16,7 @@ private enum Constants {
     static let snackTimeDuration: TimeInterval = 3
 }
 
-//MARK: - NetworkError
+// MARK: - NetworkError
 
 extension UIViewController {
   

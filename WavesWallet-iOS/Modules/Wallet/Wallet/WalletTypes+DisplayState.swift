@@ -14,6 +14,7 @@ extension WalletTypes.DisplayState {
         return WalletTypes.DisplayState(kind: kind,
                                         assets: .initialState(kind: .assets),
                                         leasing: .initialState(kind: .leasing),
+                                        staking: .initialState(kind: .staking),
                                         isAppeared: false,
                                         listenerRefreshData: .none,
                                         refreshData: .refresh,
@@ -28,6 +29,9 @@ extension WalletTypes.DisplayState {
 
             case .leasing:
                 return leasing
+                
+            case .staking:
+                return staking
             }
         }
 
@@ -38,6 +42,9 @@ extension WalletTypes.DisplayState {
 
             case .leasing:
                 leasing = newValue
+                
+            case .staking:
+                staking = newValue
             }
         }
     }
@@ -49,6 +56,8 @@ extension WalletTypes.DisplayState {
             newState.assets = display
         case .leasing:
             newState.leasing = display
+        case .staking:
+            newState.staking = display
         }
         return newState
     }
@@ -81,33 +90,26 @@ extension WalletTypes.DisplayState {
         return updateCurrentDisplay(display)
     }
 
-    func setIsAppeared(_ isAppeared: Bool) -> WalletTypes.DisplayState {
-        var newState = self
-        newState.isAppeared = isAppeared
-        return newState
-    }
-
     func setIsRefreshing(isRefreshing: Bool) -> WalletTypes.DisplayState {
         var display = currentDisplay
         display.isRefreshing = isRefreshing
         return updateCurrentDisplay(display)
     }
 
-    func setAssets(assets: WalletTypes.DisplayState.Display) -> WalletTypes.DisplayState {
-        var newState = self
-        newState.assets = assets
-        return newState
-    }
-
-    func setLeasing(leasing: WalletTypes.DisplayState.Display) -> WalletTypes.DisplayState {
-        var newState = self
-        newState.leasing = leasing
-        return newState
-    }
-
     func updateDisplay(kind: WalletTypes.DisplayState.Kind, sections: [WalletTypes.ViewModel.Section]) -> WalletTypes.DisplayState {
 
-        let display = kind == .assets ? assets : leasing
+        let display: WalletTypes.DisplayState.Display
+        
+        switch kind {
+        case .assets:
+            display = assets
+            
+        case .leasing:
+            display = leasing
+            
+        case .staking:
+            display = staking
+        }
         
         var collapsedSections = display.collapsedSections
         sections.enumerated().forEach {
@@ -125,8 +127,12 @@ extension WalletTypes.DisplayState {
         return mutate {
             if kind == .assets {
                 $0.assets = newDisplay
-            } else {
+            }
+            else if kind == .leasing {
                 $0.leasing = newDisplay
+            }
+            else if kind == .staking {
+                $0.staking = newDisplay
             }
         }
     }
@@ -169,7 +175,14 @@ extension WalletTypes.DisplayState.Display {
                                                             .assetSkeleton,
                                                             .assetSkeleton],
                                                     isExpanded: true)
-        } else {
+        }
+        else if kind == .leasing {
+            section = WalletTypes.ViewModel.Section(kind: .skeleton,
+                                                    items: [.balanceSkeleton,
+                                                            .historySkeleton],
+                                                    isExpanded: true)
+        }
+        else if kind == .staking {
             section = WalletTypes.ViewModel.Section(kind: .skeleton,
                                                     items: [.balanceSkeleton,
                                                             .historySkeleton],

@@ -10,13 +10,13 @@ import UIKit
 
 class DottedRoundView: UIView {
 
-    var lineColor: UIColor = UIColor.accent100 {
+    @IBInspectable var lineColor: UIColor = UIColor.accent100 {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    var lineWidth: CGFloat = 0.5 {
+    @IBInspectable var lineWidth: CGFloat = 0.5 {
         didSet {
             setNeedsDisplay()
         }

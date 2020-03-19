@@ -158,7 +158,7 @@ final class DexCreateOrderViewController: UIViewController {
     }
 }
 
-//MARK: - UI State
+// MARK: - UI State
 private extension DexCreateOrderViewController {
  
     func showFee(fee: Money) {
@@ -187,7 +187,7 @@ private extension DexCreateOrderViewController {
     }
 }
 
-//MARK: - FeedBack
+// MARK: - FeedBack
 private extension DexCreateOrderViewController {
     
     func setupFeedBack() {
@@ -375,7 +375,7 @@ private extension DexCreateOrderViewController {
     }
 }
 
-//MARK: - Actions
+// MARK: - Actions
 private extension DexCreateOrderViewController {
 
     @IBAction func customFeeTapped(_ sender: Any) {
@@ -450,7 +450,7 @@ private extension DexCreateOrderViewController {
     }
 }
 
-//MARK: - DexCreateOrderSegmentedControlDelegate
+// MARK: - DexCreateOrderSegmentedControlDelegate
 extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
     
     func dexCreateOrderDidChangeType(_ type: DomainLayer.DTO.Dex.OrderType) {
@@ -463,7 +463,7 @@ extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
     }
 }
 
-//MARK: - DexCreateOrderInputViewDelegate
+// MARK: - DexCreateOrderInputViewDelegate
 extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 
     func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Money) {
@@ -505,7 +505,7 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
     }
 }
 
-//MARK: - Data
+// MARK: - Data
 private extension DexCreateOrderViewController {
     
     func updateInputDataFields() {
@@ -701,7 +701,7 @@ private extension DexCreateOrderViewController {
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension DexCreateOrderViewController {
    
     func setupCreateOrderType() {
@@ -836,7 +836,7 @@ private extension DexCreateOrderViewController {
     }
 }
 
-//MARK: - Setup UI for iPhone5
+// MARK: - Setup UI for iPhone5
 private extension DexCreateOrderViewController {
     
     func setupUIForIPhone5IfNeed() {

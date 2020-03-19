@@ -36,7 +36,7 @@ final class DexChartHelper {
 }
 
 
-//MARK: - Data
+// MARK: - Data
 extension DexChartHelper {
     
     func keyByPositionCandle(_ xPos: Double) -> PositionForCandle {
@@ -127,7 +127,7 @@ extension DexChartHelper {
     }
 }
 
-//MARK: - Setup UI
+// MARK: - Setup UI
 extension DexChartHelper {
 
     func setupChartStyle(candleChartView: CandleStickChartView,
@@ -194,7 +194,7 @@ extension DexChartHelper {
     }
 }
 
-//MARK: - Zoom
+// MARK: - Zoom
 extension DexChartHelper {
     
     func updateAfterTimeFrameChanged(candleChartView: CandleStickChartView,
@@ -261,7 +261,7 @@ extension DexChartHelper {
     }
 }
 
-//MARK: - Other
+// MARK: - Other
 extension DexChartHelper {
     
     func lastVisibleCandleInfo(candleChartView: CandleStickChartView) -> (positionY: CGFloat, color: UIColor, price: Double) {

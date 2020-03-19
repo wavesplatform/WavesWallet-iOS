@@ -14,7 +14,7 @@ import RxCocoa
 public extension Reactive where Base: UIImageView {
 
     /// Bindable sink for `image` property.
-    public var imageAnimationFadeIn: Binder<UIImage?> {
+    var imageAnimationFadeIn: Binder<UIImage?> {
         return Binder(base) { imageView, image in
 
             if imageView.image == nil {

@@ -118,16 +118,16 @@ final class SendConfirmationViewController: UIViewController {
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 
 extension SendConfirmationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        confirmTapped(buttonConfirm)
+        confirmTapped(buttonConfirm as Any)
         return true
     }
 }
 
-//MARK: - UI
+// MARK: - UI
 private extension SendConfirmationViewController {
     
     func showError(_ isShow: Bool) {
@@ -191,6 +191,10 @@ private extension SendConfirmationViewController {
         }
         labelFeeAmount.text = input.fee.displayText + " " + input.feeName
         labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayText, font: labelBalance.font)
-        labelGatewayFeeAmount.text = (input.gateWayFeeAmount?.displayText ?? "") + " " + (input.gateWayFeeName ?? "")
+        
+        let gateWayFeeAmount = input.gateWayFeeAmount?.displayText ?? ""
+        let gateWayFeeName = input.gateWayFeeName ?? ""
+        
+        labelGatewayFeeAmount.text = gateWayFeeAmount + " " + gateWayFeeName
     }
 }

@@ -25,4 +25,35 @@ extension WalletTypes.DTO {
         let balance: Balance
         let transactions: [DomainLayer.DTO.SmartTransaction]
     }
+    
+    
+    struct Staking {
+        
+        struct Profit {
+            let percent: Double 
+            let total: DomainLayer.DTO.Balance
+        }
+        
+        struct Payout {
+            let profit: DomainLayer.DTO.Balance
+            let assetIconURL: DomainLayer.DTO.Asset.Icon
+            let date: Date
+        }
+        
+        struct Landing {
+            let percent: Double
+            let minimumDeposit: DomainLayer.DTO.Balance
+        }
+        
+        struct Balance {
+            let total: DomainLayer.DTO.Balance
+            let available: DomainLayer.DTO.Balance
+            let inStaking: DomainLayer.DTO.Balance
+        }
+        
+        let profit: Profit
+        let balance: Balance
+        let lastPayouts: [Payout]
+        var landing: Landing?
+    }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetEmptyHistoryCell" rowHeight="141" id="1TN-Aa-Kch" customClass="AssetEmptyHistoryCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="141"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1TN-Aa-Kch" id="wAJ-84-JOH">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="141"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LqA-Mk-E2s" customClass="BorderButtView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="16" y="4" width="382" height="48"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View history" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2f-dz-NhO">
+                                <rect key="frame" x="14" y="14" width="94" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="LQv-VX-OcD">
+                                <rect key="frame" x="354" y="17" width="14" height="14"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="LQv-VX-OcD" secondAttribute="trailing" constant="14" id="2DX-dF-QSZ"/>
+                            <constraint firstItem="r2f-dz-NhO" firstAttribute="centerY" secondItem="LqA-Mk-E2s" secondAttribute="centerY" id="7zo-mb-0N2"/>
+                            <constraint firstItem="LQv-VX-OcD" firstAttribute="centerY" secondItem="LqA-Mk-E2s" secondAttribute="centerY" id="Kfw-rt-JFY"/>
+                            <constraint firstAttribute="height" constant="48" id="a5l-7f-Rbj"/>
+                            <constraint firstItem="r2f-dz-NhO" firstAttribute="leading" secondItem="LqA-Mk-E2s" secondAttribute="leading" constant="14" id="gcw-hu-rTe"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="LqA-Mk-E2s" secondAttribute="trailing" constant="16" id="2XM-XY-dOx"/>
+                    <constraint firstItem="LqA-Mk-E2s" firstAttribute="leading" secondItem="wAJ-84-JOH" secondAttribute="leading" constant="16" id="lWP-UI-2Hr"/>
+                    <constraint firstItem="LqA-Mk-E2s" firstAttribute="top" secondItem="wAJ-84-JOH" secondAttribute="top" constant="4" id="ykI-lG-oCw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="labelTitle" destination="r2f-dz-NhO" id="NTP-mB-LuT"/>
+                <outlet property="viewContainer" destination="LqA-Mk-E2s" id="fSk-k4-6ix"/>
+            </connections>
+            <point key="canvasLocation" x="163.768115942029" y="83.370535714285708"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="wallet_arrow_right" width="14" height="14"/>
+    </resources>
+</document>

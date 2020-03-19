@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIScrollView {
 
-    public var adjustedContentInsetAdapter: UIEdgeInsets {
+    var adjustedContentInsetAdapter: UIEdgeInsets {
         if #available(iOS 11.0, *) {
             return adjustedContentInset
         } else {

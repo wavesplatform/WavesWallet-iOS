@@ -68,7 +68,6 @@ public final class CorrectionPairsUseCaseLogic: CorrectionPairsUseCaseLogicProto
     }
 }
 
-//TODO: Testing!
 final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
     
     private let repositories: RepositoriesFactoryProtocol
