@@ -15,12 +15,18 @@ public extension DomainLayer.DTO {
         public let serviceAvailable: Bool
         public let matcherSwapTimestamp: Date
         public let matcherSwapAddress: String
+        public let exchangeClientSecret: String
         public let staking: [Staking]
 
-        public init(serviceAvailable: Bool, matcherSwapTimestamp: Date, matcherSwapAddress: String, staking: [Staking]) {
+        public init(serviceAvailable: Bool,
+                    matcherSwapTimestamp: Date,
+                    matcherSwapAddress: String,
+                    exchangeClientSecret: String,
+                    staking: [Staking]) {
             self.serviceAvailable = serviceAvailable
             self.matcherSwapAddress = matcherSwapAddress
             self.matcherSwapTimestamp = matcherSwapTimestamp
+            self.exchangeClientSecret = exchangeClientSecret
             self.staking = staking
         }
     }

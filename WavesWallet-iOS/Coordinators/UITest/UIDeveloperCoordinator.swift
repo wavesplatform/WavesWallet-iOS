@@ -20,8 +20,6 @@ final class UIDeveloperCoordinator: Coordinator {
     
     weak var delegate: HelloCoordinatorDelegate?
     
-    lazy var coordinator = StakingTransferCoordinator.init(router: self.navigationRouter)
-    
     init(windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
         self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
@@ -46,6 +44,12 @@ final class UIDeveloperCoordinator: Coordinator {
     }
 }
 
+extension UIDeveloperCoordinator: TooltipViewControllerModulOutput {
+    func tooltipDidTapClose() {
+        
+    }
+}
+    
 extension UIDeveloperCoordinator {
     func applicationDidEnterBackground() {}
 

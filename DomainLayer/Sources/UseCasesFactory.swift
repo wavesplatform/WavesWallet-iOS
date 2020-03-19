@@ -128,4 +128,12 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
         let useCase = CorrectionPairsUseCase(repositories: repositories, useCases: self)
         return useCase
     }()
+    
+    public private(set) lazy var weGatewayUseCase: WEGatewayUseCaseProtocol = {
+
+        let useCase = WEGatewayUseCase(gatewayRepository: repositories.weGatewayRepositoryProtocol,
+                                       oAuthRepository: repositories.weOAuthRepositoryProtocol,
+                                       authorizationUseCase: self.authorization)
+        return useCase
+    }()
 }

@@ -73,4 +73,8 @@ public protocol RepositoriesFactoryProtocol {
     var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol { get }
     
     var massTransferRepository: MassTransferRepositoryProtocol { get }
+    
+    var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol { get }
+    
+    var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol { get }
 }

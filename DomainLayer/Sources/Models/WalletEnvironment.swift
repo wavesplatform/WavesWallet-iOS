@@ -55,23 +55,36 @@ public struct WalletEnvironment: Decodable {
     }
     
     public struct Servers: Decodable {
+            
+        public struct Gateways: Decodable {
+            public let v0: URL
+            public let v1: URL
+            public let v2: URL
+        }
+        
         public let nodeUrl: URL
         public let dataUrl: URL
         public let spamUrl: URL
         public let matcherUrl: URL
         public let gatewayUrl: URL
+        public let authUrl: URL
+        public let gateways: Gateways
         
         public init(nodeUrl: URL,
                     dataUrl: URL,
                     spamUrl: URL,
                     matcherUrl: URL,
-                    gatewayUrl: URL) {
+                    gatewayUrl: URL,
+                    authUrl: URL,
+                    gateways: Gateways) {
             
             self.nodeUrl = nodeUrl
             self.dataUrl = dataUrl
             self.spamUrl = spamUrl
             self.matcherUrl = matcherUrl
             self.gatewayUrl = gatewayUrl
+            self.authUrl = authUrl
+            self.gateways = gateways
         }
     }
     

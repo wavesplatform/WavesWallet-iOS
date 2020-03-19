@@ -17,7 +17,7 @@ final class DexCreateOrderInvalidPriceView: PopupActionView<DexCreateOrderInvali
     }
     
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var subtitleTitleLabel: UILabel!
+    @IBOutlet private weak var subtitleTitleLabel:  UILabel!
     @IBOutlet private weak var placeOrderButton: HighlightedButton!
     @IBOutlet private weak var buttonCancel: HighlightedButton!
     

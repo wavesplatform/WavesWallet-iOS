@@ -6,7 +6,12 @@
     "spamUrl": "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
     "matcherUrl": "https://matcher-testnet.wavesplatform.com",
     "gatewayUrl": "https://gateways-dev.wvservices.com/api",
-    "exchangeUrl": "https://testnet.waves.exchange"
+    "authUrl": "https://testnet.waves.exchange/oauth",
+        "gateways": {
+            "v0": "https://coinomat.com/api",
+            "v1": "https://gateways-dev.wvservices.com/api",
+            "v2": "https://testnet.waves.exchange/gateways"
+        }
   },
   "exchangeClientSecret":"Basic dGVzdC1jbGllbnQ6c2VjcmV0",
   "scheme": "T",

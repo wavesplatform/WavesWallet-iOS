@@ -168,7 +168,7 @@ extension AppDelegate {
         UseCasesFactory.initialization(repositories: repositories,
                                        authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp(),
                                        storages: storages)
-        
+
         UNUserNotificationCenter.current().delegate = self
         return true
     }

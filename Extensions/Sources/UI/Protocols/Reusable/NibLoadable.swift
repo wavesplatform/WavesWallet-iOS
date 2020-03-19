@@ -20,9 +20,9 @@ public extension NibLoadable {
         return String(describing: self)
     }
 
-    static var nib: UINib {
-        return UINib(nibName: nibName, bundle: Bundle(for: self))
-    }
+        static var nib: UINib {
+            return UINib(nibName: nibName, bundle: Bundle(for: self))
+        }
 
     static func loadFromNib() -> Self {
         guard let view = nib.instantiate(withOwner: nil, options: nil).first as? Self else {

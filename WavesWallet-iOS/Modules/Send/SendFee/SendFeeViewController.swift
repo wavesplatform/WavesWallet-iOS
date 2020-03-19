@@ -17,7 +17,6 @@ private enum Constants {
     static let headerHeight: CGFloat = 74
 }
 
-
 final class SendFeeViewController: ModalScrollViewController {
     
     weak var delegate: SendFeeModuleOutput!

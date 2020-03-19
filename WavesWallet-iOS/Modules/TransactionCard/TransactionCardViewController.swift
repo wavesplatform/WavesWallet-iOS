@@ -151,7 +151,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     var sections: [TransactionCard.Section] = .init()
 
     weak var delegate: TransactionCardModuleOutput?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rootView.delegate = self

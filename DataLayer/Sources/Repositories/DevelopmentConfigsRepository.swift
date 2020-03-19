@@ -15,12 +15,14 @@ private struct DevelopmentConfigs: Decodable {
     let serviceAvailable: Bool
     let matcherSwapTimestamp: Date
     let matcherSwapAddress: String
+    let exchangeClientSecret: String
     let staking: [Staking]
     
     enum CodingKeys: String, CodingKey {
         case serviceAvailable = "service_available"
         case matcherSwapTimestamp = "matcher_swap_timestamp"
         case matcherSwapAddress = "matcher_swap_address"
+        case exchangeClientSecret = "exchange_client_secret"
         case staking
     }
 }
@@ -71,6 +73,7 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                 return DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
                                                           matcherSwapTimestamp: config.matcherSwapTimestamp,
                                                           matcherSwapAddress: config.matcherSwapAddress,
+                                                          exchangeClientSecret: config.exchangeClientSecret,
                                                           staking: staking)
             }
     }

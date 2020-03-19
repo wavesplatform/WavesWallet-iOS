@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="sCZ-co-kog" customClass="ReceiveAddressCardView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="352" height="546"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U54-CK-bdh">
+                    <rect key="frame" x="152" y="24" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="qhB-2t-YPD"/>
+                        <constraint firstAttribute="width" constant="48" id="tXj-Fo-rf0"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VoW-45-pDm">
+                    <rect key="frame" x="16" y="96" width="320" height="38"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q7-hx-h0f" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="14" y="11" width="301" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="ipJ-vp-Ksx"/>
+                        <constraint firstAttribute="trailing" secondItem="9q7-hx-h0f" secondAttribute="trailing" constant="5" id="ugS-tV-ts1"/>
+                        <constraint firstItem="9q7-hx-h0f" firstAttribute="centerY" secondItem="VoW-45-pDm" secondAttribute="centerY" id="x5y-tN-bOW"/>
+                        <constraint firstItem="9q7-hx-h0f" firstAttribute="leading" secondItem="VoW-45-pDm" secondAttribute="leading" constant="14" id="yuf-fQ-VCs"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="0.5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.7725490196" green="0.81568627449999997" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COB-UX-JTA">
+                    <rect key="frame" x="16" y="142" width="320" height="38"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLX-Ke-Fia">
+                            <rect key="frame" x="164.5" y="0.0" width="155.5" height="38"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="1un-48-aL9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="tintColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <inset key="titleEdgeInsets" minX="7" minY="2" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Share" image="share_address"/>
+                            <connections>
+                                <action selector="shareTapped:" destination="sCZ-co-kog" eventType="touchUpInside" id="zvJ-fl-nsQ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yv-sb-blk">
+                            <rect key="frame" x="0.0" y="0.0" width="155.5" height="38"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="tuF-Cy-ufQ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="tintColor" red="0.1215686275" green="0.35294117650000001" blue="0.96542111119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <inset key="titleEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Copy" image="copy_address"/>
+                            <connections>
+                                <action selector="copyTapped:" destination="sCZ-co-kog" eventType="touchUpInside" id="8db-bH-BBb"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="2Yv-sb-blk" firstAttribute="top" secondItem="COB-UX-JTA" secondAttribute="top" id="ExP-Ef-zDJ"/>
+                        <constraint firstAttribute="bottom" secondItem="2Yv-sb-blk" secondAttribute="bottom" id="FSh-1N-4GQ"/>
+                        <constraint firstItem="gLX-Ke-Fia" firstAttribute="top" secondItem="COB-UX-JTA" secondAttribute="top" id="Kbr-Fm-sKo"/>
+                        <constraint firstAttribute="trailing" secondItem="gLX-Ke-Fia" secondAttribute="trailing" id="RU3-fc-dNg"/>
+                        <constraint firstItem="2Yv-sb-blk" firstAttribute="width" secondItem="gLX-Ke-Fia" secondAttribute="width" id="bZO-YS-fQU"/>
+                        <constraint firstItem="2Yv-sb-blk" firstAttribute="leading" secondItem="COB-UX-JTA" secondAttribute="leading" id="eRR-Gr-1K1"/>
+                        <constraint firstItem="gLX-Ke-Fia" firstAttribute="top" secondItem="2Yv-sb-blk" secondAttribute="top" id="ftw-Eg-BIg"/>
+                        <constraint firstItem="gLX-Ke-Fia" firstAttribute="leading" secondItem="2Yv-sb-blk" secondAttribute="trailing" constant="9" id="jhw-6x-sNW"/>
+                        <constraint firstAttribute="bottom" secondItem="gLX-Ke-Fia" secondAttribute="bottom" id="xXi-xa-cml"/>
+                        <constraint firstAttribute="height" constant="38" id="yjm-AZ-akx"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="coi-2M-pdN" customClass="CopyableImageView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="86" y="204" width="180" height="180"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="QUo-FV-qgQ"/>
+                        <constraint firstAttribute="width" secondItem="coi-2M-pdN" secondAttribute="height" multiplier="1:1" id="yPk-N1-PY0"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9a-nH-XzQ">
+                    <rect key="frame" x="130.5" y="398" width="91" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="COB-UX-JTA" secondAttribute="trailing" constant="16" id="8FB-tf-1M8"/>
+                <constraint firstItem="C6V-JJ-OJb" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="e9a-nH-XzQ" secondAttribute="bottom" constant="8" id="Bwe-Su-4Cv"/>
+                <constraint firstItem="COB-UX-JTA" firstAttribute="leading" secondItem="sCZ-co-kog" secondAttribute="leading" constant="16" id="FsR-Jl-3Mr"/>
+                <constraint firstAttribute="trailing" secondItem="VoW-45-pDm" secondAttribute="trailing" constant="16" id="ScM-P1-Cfz"/>
+                <constraint firstItem="VoW-45-pDm" firstAttribute="top" secondItem="U54-CK-bdh" secondAttribute="bottom" constant="24" id="UAc-rz-nDF"/>
+                <constraint firstItem="coi-2M-pdN" firstAttribute="centerX" secondItem="sCZ-co-kog" secondAttribute="centerX" id="ajt-nD-486"/>
+                <constraint firstItem="VoW-45-pDm" firstAttribute="leading" secondItem="sCZ-co-kog" secondAttribute="leading" constant="16" id="cGe-Vh-6GD"/>
+                <constraint firstItem="coi-2M-pdN" firstAttribute="top" secondItem="COB-UX-JTA" secondAttribute="bottom" constant="24" id="e75-z9-nNn"/>
+                <constraint firstItem="e9a-nH-XzQ" firstAttribute="centerX" secondItem="sCZ-co-kog" secondAttribute="centerX" id="gTL-jC-VtR"/>
+                <constraint firstItem="U54-CK-bdh" firstAttribute="top" secondItem="sCZ-co-kog" secondAttribute="top" constant="24" id="h2a-ke-Ty2"/>
+                <constraint firstItem="COB-UX-JTA" firstAttribute="top" secondItem="VoW-45-pDm" secondAttribute="bottom" constant="8" id="h6Q-Uk-nWb"/>
+                <constraint firstItem="e9a-nH-XzQ" firstAttribute="top" secondItem="coi-2M-pdN" secondAttribute="bottom" constant="14" id="xzC-in-wxt"/>
+                <constraint firstItem="U54-CK-bdh" firstAttribute="centerX" secondItem="sCZ-co-kog" secondAttribute="centerX" id="yVV-u0-LOY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="C6V-JJ-OJb"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="bottomAssetIconLayoutConstraint" destination="UAc-rz-nDF" id="Nmm-Vl-o6G"/>
+                <outlet property="buttonCopy" destination="2Yv-sb-blk" id="qvg-ew-quZ"/>
+                <outlet property="buttonShare" destination="gLX-Ke-Fia" id="bcp-93-Ju7"/>
+                <outlet property="iconAsset" destination="U54-CK-bdh" id="Vsn-A5-gpU"/>
+                <outlet property="imageQR" destination="coi-2M-pdN" id="28y-ZR-AA3"/>
+                <outlet property="labelAddress" destination="9q7-hx-h0f" id="WMX-hW-IYa"/>
+                <outlet property="labelQRCode" destination="e9a-nH-XzQ" id="cNO-CQ-Cc4"/>
+                <outlet property="topAssetIconLayoutConstraint" destination="h2a-ke-Ty2" id="pMi-Dk-xmU"/>
+                <outlet property="topInfoQRCodeLayoutConstraint" destination="xzC-in-wxt" id="1XV-zg-oAb"/>
+                <outlet property="topQRCodeLayoutConstraint" destination="e75-z9-nNn" id="D6R-Uk-n4d"/>
+                <outlet property="widthIconLayoutConstraint" destination="QUo-FV-qgQ" id="4Sx-eZ-gUB"/>
+            </connections>
+            <point key="canvasLocation" x="793.125" y="-64.436619718309856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="copy_address" width="18" height="18"/>
+        <image name="share_address" width="18" height="18"/>
+    </resources>
+</document>

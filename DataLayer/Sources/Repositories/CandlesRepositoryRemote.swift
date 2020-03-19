@@ -232,6 +232,7 @@ private extension CandlesRepositoryRemote {
             let confing = DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: true,
                                                              matcherSwapTimestamp: Date(timeIntervalSince1970: Constants.matcherSwapTimestamp),
                                                              matcherSwapAddress: Constants.matcherSwapAddress,
+                                                             exchangeClientSecret: "",
                                                              staking: [])
             
             return Observable.just(confing)

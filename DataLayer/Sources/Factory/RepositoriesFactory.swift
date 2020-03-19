@@ -118,6 +118,14 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         MassTransferRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     }()
         
+    public private(set) lazy var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol =
+        WEGatewayRepository(environmentRepository: environmentRepositoryInternal,
+                            developmentConfigsRepository: developmentConfigsRepository)
+    
+    
+    public private(set) lazy var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol =
+        WEOAuthRepository(environmentRepository: environmentRepositoryInternal,
+                          developmentConfigsRepository: developmentConfigsRepository)
     
     public struct Resources {
         
