@@ -98,8 +98,7 @@ final class AssetsSearchViewController: ModalScrollViewController {
     }
     
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        let layoutInsets = (findNavigationController()?.layoutInsets.top ?? 0)
-        return size.height - layoutInsets
+        return size.height - Constants.headerHeight
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {

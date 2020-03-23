@@ -44,11 +44,19 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     override func layoutSubviews() {
         super.layoutSubviews()
             
-        let modalHeaderTopBoundY = self.layoutInsets.top
+//        print("View \(self.view.frame.size)")
+//        print("scrollView \(self.scrollView.frame.size)")
+//        print("self.layoutInsets \(self.layoutInsets)")
+//        print("adjustedContentInset \(self.tableView.adjustedContentInset)")
+//                print("contentInset \(self.tableView.contentInset)")
+//        print("visibleScrollViewHeight \(visibleScrollViewHeight(for: scrollView.frame.size))")
+             
+        
+        let modalHeaderTopBoundY: CGFloat = self.layoutInsets.top
         
         let headerTopY = max(modalHeaderTopBoundY,
                              -(self.tableView.contentOffset.y - modalHeaderTopBoundY))
-                        
+                                
         var frame = CGRect(x: 0,
                            y: headerTopY,
                            width: tableView.frame.size.width,

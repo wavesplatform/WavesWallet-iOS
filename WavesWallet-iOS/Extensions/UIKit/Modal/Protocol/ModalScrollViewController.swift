@@ -26,8 +26,7 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        print("frame \(view.frame)")
+        
         if needUpdateInsets {
             needUpdateInsets = false
             setNeedUpdateInset(animated: false)
@@ -82,9 +81,18 @@ extension ModalScrollViewController  {
     }
 
     private func setupInsets(animated: Bool) {
-
+//
+//        print("View \(self.view.frame.size)")
+//        print("scrollView \(self.scrollView.frame.size)")
+//        print("self.layoutInsets \(self.layoutInsets)")
+//        print("adjustedContentInset \(self.scrollView.adjustedContentInset)")
+//        print("visibleScrollViewHeight \(visibleScrollViewHeight(for: scrollView.frame.size))")
+         
         let bottom = bottomScrollInset(for: scrollView.frame.size)
         let top = scrollView.frame.height - visibleScrollViewHeight(for: scrollView.frame.size)
+                
+//        print("top \(top)")
+        
         let contentOffset = top
         scrollView.contentInset.bottom = bottom
         scrollView.contentInset.top = top
@@ -94,6 +102,9 @@ extension ModalScrollViewController  {
         content.y = -(contentOffset)
         scrollView.setContentOffset(content, animated: animated)
         scrollView.scrollIndicatorInsets.top = max(0, -(scrollView.contentOffset.y))
+        
+//        print("adjustedContentInset before \(self.scrollView.adjustedContentInset)")
+//        print("contentInset before \(self.scrollView.contentInset)")
     }
 
     private func setupScrollView() {
@@ -115,7 +126,7 @@ extension ModalScrollViewController: ModalPresentationAnimatorContext {
         return CGRect(x: 0,
                       y: 0,
                       width: size.width,
-                      height: scrollView.contentInset.top - (scrollView.contentOffset.y + scrollView.contentInset.top))
+                      height: self.layoutInsets.top + scrollView.contentInset.top - (scrollView.contentOffset.y + scrollView.contentInset.top))
     }
 
     func appearingContentHeight(for size:  CGSize) -> CGFloat {

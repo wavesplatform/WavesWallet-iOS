@@ -137,6 +137,9 @@ extension ModalPresentationController: UIGestureRecognizerDelegate {
         
         let rect = contextUnwrapper.hideBoundaries(for: vcUnwrapper.view.frame.size)
 
+        print("point \(location)")
+        print("rect \(rect)") 
+        
         return rect.contains(location)
     }
 

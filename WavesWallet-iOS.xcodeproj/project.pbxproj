@@ -492,8 +492,6 @@
 		7B85E61923FD2A6600365829 /* ModalScrollViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E61823FD2A6600365829 /* ModalScrollViewContext.swift */; };
 		7B85E61C23FD30B300365829 /* StakingTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */; };
 		7B85E62023FD311300365829 /* StakingTransfer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E61F23FD311300365829 /* StakingTransfer.storyboard */; };
-		7B85E62223FD328400365829 /* ModalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62123FD328400365829 /* ModalTableViewController.swift */; };
-		7B85E62423FD349100365829 /* ModalTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E62323FD349100365829 /* ModalTableViewController.xib */; };
 		7B85E62623FD3C4500365829 /* ModalTableControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */; };
 		7B85E62823FD56DD00365829 /* StakingTransferTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */; };
 		7B85E62A23FD578900365829 /* StakingTransferCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62923FD578900365829 /* StakingTransferCoordinator.swift */; };
@@ -1867,8 +1865,6 @@
 		7B85E61823FD2A6600365829 /* ModalScrollViewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalScrollViewContext.swift; sourceTree = "<group>"; };
 		7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferViewController.swift; sourceTree = "<group>"; };
 		7B85E61F23FD311300365829 /* StakingTransfer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StakingTransfer.storyboard; sourceTree = "<group>"; };
-		7B85E62123FD328400365829 /* ModalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTableViewController.swift; sourceTree = "<group>"; };
-		7B85E62323FD349100365829 /* ModalTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalTableViewController.xib; sourceTree = "<group>"; };
 		7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTableControllerDelegate.swift; sourceTree = "<group>"; };
 		7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferTypes.swift; sourceTree = "<group>"; };
 		7B85E62923FD578900365829 /* StakingTransferCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferCoordinator.swift; sourceTree = "<group>"; };
@@ -4284,8 +4280,6 @@
 				7BFB47F622FC742E002B19F8 /* ModalScrollViewController.swift */,
 				7B85E61623FD2A5600365829 /* ModalScrollViewRootView.swift */,
 				7B85E61823FD2A6600365829 /* ModalScrollViewContext.swift */,
-				7B85E62123FD328400365829 /* ModalTableViewController.swift */,
-				7B85E62323FD349100365829 /* ModalTableViewController.xib */,
 				7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */,
 			);
 			path = Protocol;
@@ -6964,7 +6958,6 @@
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
-				7B85E62423FD349100365829 /* ModalTableViewController.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				E988EDF523F26E5100B742C1 /* StakingPayoutView.xib in Resources */,
@@ -8268,7 +8261,6 @@
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */,
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
-				7B85E62223FD328400365829 /* ModalTableViewController.swift in Sources */,
 				7B3902A72237A74900AAFDB8 /* ActionsControl.swift in Sources */,
 				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
@@ -9749,7 +9741,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "WavesWallet-iOS/WavesWallet-iOS-Dev.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3993;
@@ -10906,7 +10898,7 @@
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = Exchange;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev 1583155185";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/Resources/ObjCBridgingHeader.h";

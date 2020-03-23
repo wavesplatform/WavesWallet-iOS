@@ -61,6 +61,33 @@ final class ChooseAccountCoordinator: Coordinator {
         let elements: [ActionSheet.DTO.Element] =  [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
                                                     .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
         
+//        let elements: [ActionSheet.DTO.Element] =  [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
+//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
+//        
+        
         let data = ActionSheet.DTO.Data.init(title: Localizable.Waves.Chooseaccount.Alert.pleaseSelect,
                                              elements: elements,
                                              selectedElement: nil)
