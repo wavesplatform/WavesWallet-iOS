@@ -28,6 +28,6 @@ protocol WalletModuleOutput: AnyObject {
     func openTw(sharedText: String)
     func openVk(sharedText: String)
     func openFb(sharedText: String)
-    func showPayout(payout: WalletTypes.DTO.Staking.Payout)
+    func showPayout(payout: PayoutTransactionVM)
     func showPayoutsHistory()
 }

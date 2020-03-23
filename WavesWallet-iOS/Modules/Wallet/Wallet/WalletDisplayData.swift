@@ -26,12 +26,11 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func openTw(_ sharedText: String)
     func openFb(_ sharedText: String)
     func openVk(_ sharedText: String)
-    func showPayout(payout: WalletTypes.DTO.Staking.Payout)
+    func showPayout(payout: PayoutTransactionVM)
     func startStakingTapped()
-
 }
 
-//Refactor method
+// Refactor method
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
     private var assetsSections: [Section] = []
@@ -56,7 +55,6 @@ final class WalletDisplayData: NSObject {
                stakingSections: [WalletTypes.ViewModel.Section],
                animateType: WalletTypes.DisplayState.ContentAction,
                completed: @escaping (() -> Void)) {
-        
         self.assetsSections = assetsSections
         self.leasingSections = leasingSections
         self.stakingSections = stakingSections
@@ -77,20 +75,19 @@ final class WalletDisplayData: NSObject {
                                   duration: Constants.animationDuration,
                                   options: [.transitionCrossDissolve],
                                   animations: {
-                    self.scrolledTablesComponent.reloadData()
+                                      self.scrolledTablesComponent.reloadData()
                 }, completion: nil)
             } else {
-                self.scrolledTablesComponent.reloadData()
+                scrolledTablesComponent.reloadData()
             }
             
         case .collapsed(let index):
             
-            self.scrolledTablesComponent.reloadSectionWithCloseAnimation(section: index)
-            
+            scrolledTablesComponent.reloadSectionWithCloseAnimation(section: index)
             
         case .expanded(let index):
             
-            self.scrolledTablesComponent.reloadSectionWithOpenAnimation(section: index)
+            scrolledTablesComponent.reloadSectionWithOpenAnimation(section: index)
             
         default:
             break
@@ -99,7 +96,6 @@ final class WalletDisplayData: NSObject {
     }
     
     var isAssetsSectionsHaveSearch: Bool {
-        
         return assetsSections.first(where: { (section) -> Bool in
             switch section.kind {
             case .search:
@@ -109,29 +105,24 @@ final class WalletDisplayData: NSObject {
             }
         }) != nil
     }
-    
 }
 
 // MARK: Private
+
 private extension WalletDisplayData {
-    
     private func sections(by tableView: UITableView) -> [Section] {
         if tableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue {
             return assetsSections
-        }
-        else if tableView.tag == WalletTypes.DisplayState.Kind.leasing.rawValue {
+        } else if tableView.tag == WalletTypes.DisplayState.Kind.leasing.rawValue {
             return leasingSections
-        }
-        else if tableView.tag == WalletTypes.DisplayState.Kind.staking.rawValue {
+        } else if tableView.tag == WalletTypes.DisplayState.Kind.staking.rawValue {
             return stakingSections
         }
         return []
     }
     
     private func searchTapped(_ cell: UITableViewCell) {
-        
         if let indexPath = scrolledTablesComponent.visibleTableView.indexPath(for: cell) {
-            
             let rectInTableView = scrolledTablesComponent.visibleTableView.rectForRow(at: indexPath)
             let rectInSuperview = scrolledTablesComponent.visibleTableView.convert(rectInTableView, to: AppDelegate.shared().window)
             
@@ -143,9 +134,7 @@ private extension WalletDisplayData {
 // MARK: UITableViewDelegate
 
 extension WalletDisplayData: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
         
         switch item {
@@ -211,7 +200,7 @@ extension WalletDisplayData: UITableViewDataSource {
                 self?.delegate?.buyTapped()
             }
             return cell
-
+            
         case .stakingLastPayoutsTitle:
             let cell = tableView.dequeueAndRegisterCell() as StakingLastPayoutsTitleCell
             cell.update(with: ())
@@ -253,9 +242,7 @@ extension WalletDisplayData: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension WalletDisplayData: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
         switch item {
         case .historySkeleton:
@@ -336,12 +323,10 @@ extension WalletDisplayData: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         let items = sections(by: tableView)[indexPath.section].items
         let row = items[indexPath.row]
         
         switch row {
-            
         case .search:
             return WalletSearchTableViewCell.viewHeight()
             
@@ -371,7 +356,7 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .quickNote:
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
-                
+            
         case .stakingBalance:
             return UITableView.automaticDimension
             
@@ -379,7 +364,8 @@ extension WalletDisplayData: UITableViewDelegate {
             return UITableView.automaticDimension
             
         case .stakingLastPayouts:
-            return StakingLastPayoutsCell.viewHeight()
+            // если тут хардкод зачем вообще таблица? (касается не моей ячейки а всего экрана в целом)
+            return 76
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()
@@ -398,8 +384,7 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 }
 
-fileprivate extension WalletTypes.ViewModel.Section {
-    
+private extension WalletTypes.ViewModel.Section {
     var stakingHeader: WalletTypes.DTO.Staking.Profit? {
         switch kind {
         case .staking(let profit):
@@ -410,7 +395,6 @@ fileprivate extension WalletTypes.ViewModel.Section {
     }
     
     var header: String? {
-        
         switch kind {
         case .info:
             return Localizable.Waves.Wallet.Section.quickNote

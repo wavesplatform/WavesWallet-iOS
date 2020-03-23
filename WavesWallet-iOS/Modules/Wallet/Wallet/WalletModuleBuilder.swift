@@ -6,18 +6,34 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import UIKit
 import Extensions
 
 struct WalletModuleBuilder: ModuleBuilderOutput {
-
     var output: WalletModuleOutput
 
     func build(input: Void) -> UIViewController {
-
         let vc = StoryboardScene.Wallet.walletViewController.instantiate()
         let presenter = WalletPresenter()
-        presenter.interactor = WalletInteractor()
+
+        let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
+        let authUseCase = UseCasesFactory.instance.authorization
+        let massTransferRepository = UseCasesFactory.instance.repositories.massTransferRepository
+        let assetsUseCase = UseCasesFactory.instance.assets
+        let accountSettingsRepository = UseCasesFactory.instance.repositories.accountSettingsRepository
+        
+        let interactor = WalletInteractor(enviroment: enviroment,
+                                          massTransferRepository: massTransferRepository,
+                                          assetUseCase: assetsUseCase,
+                                          authorizationInteractor: authUseCase,
+                                          accountBalanceInteractor: UseCasesFactory.instance.accountBalance,
+                                          accountSettingsRepository: accountSettingsRepository,
+                                          applicationVersionUseCase: UseCasesFactory.instance.applicationVersionUseCase,
+                                          leasingInteractor: UseCasesFactory.instance.transactions,
+                                          walletsRepository: UseCasesFactory.instance.repositories.walletsRepositoryLocal)
+
+        presenter.interactor = interactor
         presenter.moduleOutput = output
         vc.presenter = presenter
 

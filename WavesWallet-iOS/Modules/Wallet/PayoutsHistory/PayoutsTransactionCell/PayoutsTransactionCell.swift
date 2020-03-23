@@ -10,6 +10,38 @@ import Extensions
 import RxSwift
 import UIKit
 
+final class PayoutsTransactionCollectionViewCell: UICollectionViewContainerCell<PayoutsTransactionView>, ViewConfiguration {
+    
+    private var disposeBag = DisposeBag()
+    
+    // MARK: - Override
+    
+    override func initialSetup() {
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        view.resetToEmptyState()
+        disposeBag = DisposeBag()
+    }
+    
+    // MARK: - ViewConfiguration
+    
+    func update(with model: PayoutTransactionVM) {
+        if let icon = model.iconAsset {
+            AssetLogo
+                .logo(icon: icon, style: .large)
+                .subscribe(onNext: { [weak self] in self?.view.setAssetImage($0) })
+                .disposed(by: disposeBag)
+        }
+        
+        view.setTitle(model.title,
+                      transactionValue: model.transactionValue,
+                      date: model.dateText)
+    }
+}
+
 final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, ResetableView, ViewConfiguration {
     @IBOutlet private weak var payoutsTransactionView: PayoutsTransactionView!
 
@@ -30,7 +62,7 @@ final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, Rese
         resetToEmptyState()
     }
     
-    func update(with model: PayoutsHistoryState.UI.PayoutTransactionVM) {
+    func update(with model: PayoutTransactionVM) {
         if let icon = model.iconAsset {
             AssetLogo
                 .logo(icon: icon, style: .large)
@@ -60,11 +92,41 @@ final class PayoutsTransactionCell: UITableViewCell, Reusable, NibLoadable, Rese
     }
 }
 
+/// ViewModel предназначенная для использования вместе с PayoutsTransactionView
+struct PayoutTransactionVM {
+    /// Заголовок транзакции
+    let title: String
+    
+    /// Иконка транзакции
+    let iconAsset: AssetLogo.Icon?
+    
+    /// Значение транзакции (в данном случае всегда положительное)
+    let transactionValue: BalanceLabel.Model
+    
+    /// Дата транзакции
+    let dateText: String
+    
+    init(title: String, iconAsset: AssetLogo.Icon?, transactionValue: BalanceLabel.Model, dateText: String) {
+        self.title = title
+        self.iconAsset = iconAsset
+        self.transactionValue = transactionValue
+        self.dateText = dateText
+    }
+}
+
 final class PayoutsTransactionView: UIView, NibOwnerLoadable, ResetableView {
     @IBOutlet private weak var assetImageView: UIImageView!
     @IBOutlet private weak var titleTransactionLabel: UILabel!
     @IBOutlet private weak var transactionCurrencyContainerView: BalanceLabel!
     @IBOutlet private weak var dateTransactionLabel: UILabel!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        loadNibContent()
+        
+        resetToEmptyState()
+        initialSetup()
+    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

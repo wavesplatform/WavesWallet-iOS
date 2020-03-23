@@ -124,7 +124,7 @@ extension WalletCoordinator: WalletModuleOutput {
         navigationRouter.pushViewController(payoutsHistoryVC)
     }
     
-    func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
+    func showPayout(payout: PayoutTransactionVM) {
         print("payout tapped", payout)
     }
     

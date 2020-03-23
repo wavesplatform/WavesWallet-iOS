@@ -32,7 +32,6 @@ final class WalletPresenter: WalletPresenterProtocol {
     private var stakingListener: Signal<WalletTypes.Event>?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
         newFeedbacks.append(queryAssetsListener())
@@ -466,7 +465,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.action = .none
             
         case .startStaking:
-            
             if let staking = state.staking {
                 let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: true)
                 state.displayState = state.displayState.updateDisplay(kind: .staking, sections: sections)
@@ -474,7 +472,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             
             state.hasSkipLanding = true
             state.action = .update
-
         }
     }
 

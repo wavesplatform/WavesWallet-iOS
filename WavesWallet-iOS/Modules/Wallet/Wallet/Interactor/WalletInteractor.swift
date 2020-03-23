@@ -6,11 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import WavesSDKExtensions
 import DomainLayer
 import Extensions
+import Foundation
+import RxSwift
+import WavesSDK
+import WavesSDKExtensions
 
 private struct Leasing {
     let balance: DomainLayer.DTO.SmartAssetBalance
@@ -19,37 +20,59 @@ private struct Leasing {
 }
 
 final class WalletInteractor: WalletInteractorProtocol {
-  
-    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
-    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = UseCasesFactory.instance.repositories.accountSettingsRepository
-    private let applicationVersionUseCase: ApplicationVersionUseCase = UseCasesFactory.instance.applicationVersionUseCase
+    private let enviroment: DevelopmentConfigsRepositoryProtocol
+    private let massTransferRepository: MassTransferRepositoryProtocol
+    private let assetUseCase: AssetsUseCaseProtocol
     
-    private let leasingInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let authorizationInteractor: AuthorizationUseCaseProtocol
+    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol
+    private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol
     
-    private let disposeBag: DisposeBag = DisposeBag()
-    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
-
-    func isHasAppUpdate() -> Observable<Bool> {
-        return applicationVersionUseCase.isHasNewVersion()
+    private let leasingInteractor: TransactionsUseCaseProtocol
+    
+    private let walletsRepository: WalletsRepositoryProtocol
+    
+    private let disposeBag = DisposeBag()
+    
+    init(enviroment: DevelopmentConfigsRepositoryProtocol,
+         massTransferRepository: MassTransferRepositoryProtocol,
+         assetUseCase: AssetsUseCaseProtocol,
+         authorizationInteractor: AuthorizationUseCaseProtocol,
+         accountBalanceInteractor: AccountBalanceUseCaseProtocol,
+         accountSettingsRepository: AccountSettingsRepositoryProtocol,
+         applicationVersionUseCase: ApplicationVersionUseCaseProtocol,
+         leasingInteractor: TransactionsUseCaseProtocol,
+         walletsRepository: WalletsRepositoryProtocol) {
+        self.enviroment = enviroment
+        self.massTransferRepository = massTransferRepository
+        self.assetUseCase = assetUseCase
+        self.authorizationInteractor = authorizationInteractor
+        self.accountBalanceInteractor = accountBalanceInteractor
+        self.accountSettingsRepository = accountSettingsRepository
+        self.applicationVersionUseCase = applicationVersionUseCase
+        self.leasingInteractor = leasingInteractor
+        self.walletsRepository = walletsRepository
     }
+    
+    func isHasAppUpdate() -> Observable<Bool> { applicationVersionUseCase.isHasNewVersion() }
     
     func setCleanWalletBanner() -> Observable<Bool> {
         return authorizationInteractor.authorizedWallet()
-            .flatMap({ [weak self] (signedWallet) -> Observable<Bool> in
+            .flatMap { [weak self] (signedWallet) -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
                 return self.walletsRepository.wallet(by: signedWallet.wallet.publicKey)
-                    .flatMap{  [weak self] (wallet) -> Observable<Bool> in
+                    .flatMap { [weak self] (wallet) -> Observable<Bool> in
                         guard let self = self else { return Observable.empty() }
-
+                        
                         var newWallet = wallet
                         newWallet.isNeedShowWalletCleanBanner = false
                         return self.walletsRepository.saveWallet(newWallet)
-                            .flatMap({ (_) -> Observable<Bool> in
-                                return Observable.just(true)
-                            })
+                            .flatMap { (_) -> Observable<Bool> in
+                                Observable.just(true)
+                            }
                     }
-            })
+            }
     }
     
     func isShowCleanWalletBanner() -> Observable<Bool> {
@@ -60,111 +83,63 @@ final class WalletInteractor: WalletInteractorProtocol {
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let self = self else { return Observable.never() }
                 
                 let assets = self.accountBalanceInteractor.balances(by: wallet)
                 let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address)
-                    
+                
                 return Observable.zip(assets, settings)
-                    .map({ (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
+                    .map { (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
                         
                         if let settings = settings, settings.isEnabledSpam {
                             return assets.filter { $0.asset.isSpam == false }
                         }
-
+                        
                         return assets
-                    })
-            })
+                    }
+            }
     }
-
+    
     func leasing() -> Observable<WalletTypes.DTO.Leasing> {
         return Observable.merge(leasing(isNeedUpdate: true))
     }
     
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-                
-        return Observable.create { (subscribe) -> Disposable in
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                            
-                let payouts: [WalletTypes.DTO.Staking.Payout] = [.init(profit: DomainLayer.DTO.Balance.randomBalance,
-                                                                       assetIconURL: .init(assetId: "asds",
-                                                                                           name: "test",
-                                                                                           url: nil),
-                                                                       date: Date()),
-                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
-                                                                       assetIconURL: .init(assetId: "asds",
-                                                                                           name: "test",
-                                                                                           url: nil),
-                                                                       date: Date().addingTimeInterval(60*60*24*14)),
-                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
-                                                                       assetIconURL: .init(assetId: "asds",
-                                                                                           name: "test",
-                                                                                           url: nil),
-                                                                       date: Date().addingTimeInterval(60*60*24*3*3*3)),
-                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
-                                                                       assetIconURL: .init(assetId: "asds",
-                                                                                           name: "test",
-                                                                                           url: nil),
-                                                                       date: Date().addingTimeInterval(60*60*24*13)),
-                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
-                                                                       assetIconURL: .init(assetId: "asds",
-                                                                                           name: "test",
-                                                                                           url: nil),
-                                                                       date: Date().addingTimeInterval(60*60*24*11)),
-                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
-                                                                       assetIconURL: .init(assetId: "asds",
-                                                                                           name: "test",
-                                                                                            url: nil),
-                                                                       date: Date().addingTimeInterval(60*60*24*3)),
-                                                                 .init(profit: DomainLayer.DTO.Balance.randomBalance,
-                                                                       assetIconURL: .init(assetId: "asds",
-                                                                                           name: "test",
-                                                                                           url: nil),
-                                                                       date: Date().addingTimeInterval(60*60*24*12*5))]
-                
-                subscribe.onNext(WalletTypes.DTO.Staking(profit: .init(percent: 20.565,
-                                                                       total: .init(currency: .init(title: "USDB",
-                                                                                                    ticker: "USDB"),
-                                                                                    money: Money(45254, 2))),
-                                                         balance: .init(total: .init(currency: .init(title: "USDB",
-                                                                                                     ticker: "USDB"),
-                                                                                     money: Money(45254, 2)),
-                                                                        available: .init(currency: .init(title: "USDB",
-                                                                                                         ticker: "USDB"),
-                                                                                         money: Money(45254, 2)),
-                                                                        inStaking: .init(currency: .init(title: "USDB",
-                                                                                                         ticker: "USDB"),
-                                                                                         money: Money(45254, 2))),
-                                                         lastPayouts: payouts,
-                                                         landing: nil))
-//                        .init(currency: .init(title: "USDB",
-//                                        ticker: "USDB"),
-//                        money: Money(45254, 2))
-//.init(percent: 12, minimumDeposit: Money(10000000000, 6)))
-                    subscribe.onCompleted()
+        obtainMassTransfer(lastCursor: nil)
+            .map { massTransferTrait -> WalletTypes.DTO.Staking in
+                WalletTypes.DTO.Staking(profit: .init(percent: 20.565,
+                                                      total: .init(currency: .init(title: "USDB",
+                                                                                   ticker: "USDB"),
+                                                                   money: Money(45254, 2))),
+                                        balance: .init(total: .init(currency: .init(title: "USDB",
+                                                                                    ticker: "USDB"),
+                                                                    money: Money(45254, 2)),
+                                                       available: .init(currency: .init(title: "USDB",
+                                                                                        ticker: "USDB"),
+                                                                        money: Money(45254, 2)),
+                                                       inStaking: .init(currency: .init(title: "USDB",
+                                                                                        ticker: "USDB"),
+                                                                        money: Money(45254, 2))),
+                                        lastPayouts: massTransferTrait,
+                                        landing: nil)
             }
-            return Disposables.create()
-        }
     }
 }
 
 // MARK: Assistants
 
-fileprivate extension WalletInteractor {
-
+private extension WalletInteractor {
     func leasing(isNeedUpdate: Bool) -> Observable<WalletTypes.DTO.Leasing> {
-
         let collection = authorizationInteractor
             .authorizedWallet()
             .flatMap(weak: self) { owner, wallet -> Observable<Leasing> in
                 
                 let transactions = owner.leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
                     .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
-                        return Observable.just(txs.resultIngoreError ?? [])
+                        Observable.just(txs.resultIngoreError ?? [])
                     }
-
+                
                 let balance = owner.accountBalanceInteractor
                     .balances(by: wallet)
                     .map { $0.first { $0.asset.isWaves == true } }
@@ -179,13 +154,12 @@ fileprivate extension WalletInteractor {
                                 walletAddress: wallet.address)
                     }
             }
-
-
+        
         return collection
             .map { leasing -> WalletTypes.DTO.Leasing in
-
+                
                 let precision = leasing.balance.asset.precision
-
+                
                 let incomingLeasingTxs = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
                     if case .incomingLeasing(let leasing) = tx.kind {
                         return leasing
@@ -194,7 +168,7 @@ fileprivate extension WalletInteractor {
                     }
                 }
                 .compactMap { $0 }
-
+                
                 let startedLeasingTxsBase = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction? in
                     if case .startedLeasing = tx.kind {
                         return tx
@@ -203,7 +177,7 @@ fileprivate extension WalletInteractor {
                     }
                 }
                 .compactMap { $0 }
-
+                
                 let startedLeasingTxs = startedLeasingTxsBase.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
                     if case .startedLeasing(let leasing) = tx.kind {
                         return leasing
@@ -212,12 +186,12 @@ fileprivate extension WalletInteractor {
                     }
                 }
                 .compactMap { $0 }
-
+                
                 let leaseAmount: Int64 = startedLeasingTxs
                     .reduce(0) { $0 + $1.balance.money.amount }
                 let leaseInAmount: Int64 = incomingLeasingTxs
                     .reduce(0) { $0 + $1.balance.money.amount }
-
+                
                 let balance = leasing.balance
                 let totalMoney: Money = .init(balance.totalBalance,
                                               precision)
@@ -227,7 +201,7 @@ fileprivate extension WalletInteractor {
                                                precision)
                 let leasedInMoney: Money = .init(leaseInAmount,
                                                  precision)
-
+                
                 let leasingBalance: WalletTypes
                     .DTO
                     .Leasing
@@ -235,9 +209,67 @@ fileprivate extension WalletInteractor {
                                      avaliableMoney: avaliableMoney,
                                      leasedMoney: leasedMoney,
                                      leasedInMoney: leasedInMoney)
-
+                
                 return WalletTypes.DTO.Leasing(balance: leasingBalance,
                                                transactions: startedLeasingTxsBase)
+            }
+    }
+    
+    private typealias MassTransferTuple = (DataService.Response<[DataService.DTO.MassTransferTransaction]>,
+                                           [DomainLayer.DTO.Asset],
+                                           DataService.Query.MassTransferDataQuery)
+    
+    private func obtainMassTransfer(lastCursor: String?) -> Observable<PayoutsHistoryState.MassTransferTrait> {
+        let authorizedWallet = authorizationInteractor.authorizedWallet()
+        
+        return enviroment
+            .developmentConfigs()
+            .withLatestFrom(authorizedWallet, resultSelector: { ($0, $1) })
+            .map { config, signedWallet -> DataService.Query.MassTransferDataQuery in
+                if let staking = config.staking.first {
+                    let query = DataService.Query.MassTransferDataQuery(sender: staking.addressByPayoutsAnnualPercent,
+                                                                        timeStart: nil,
+                                                                        timeEnd: nil,
+                                                                        recipient: signedWallet.wallet.address,
+                                                                        assetId: staking.neutrinoAssetId,
+                                                                        after: lastCursor)
+                    
+                    return query
+                } else {
+                    let query = DataService.Query.MassTransferDataQuery(sender: "",
+                                                                        timeStart: nil,
+                                                                        timeEnd: nil,
+                                                                        recipient: "",
+                                                                        assetId: "",
+                                                                        after: lastCursor)
+                    return query
+                }
+            }
+            .flatMap { [weak self] query -> Observable<MassTransferTuple> in
+                guard let self = self else { return Observable.never() }
+                
+                let queryCache = Observable.just(query)
+                let massTransferTransactions = self.massTransferRepository.obtainPayoutsHistory(query: query)
+                
+                let id = query.assetId ?? ""
+                let accountAddress = query.recipient
+                let asset = self.assetUseCase.assets(by: [id], accountAddress: accountAddress)
+                
+                return Observable.zip(massTransferTransactions, asset, queryCache)
+            }
+            .map { transactions, assets, query -> PayoutsHistoryState.MassTransferTrait in
+                let isLastPage = transactions.isLastPage ?? true // дефолтное значение true чтоб не зацикливать загрузку если что
+                let lastCursor = transactions.lastCursor
+                let transactions = transactions.data
+                let massTransferTransactions = PayoutsHistoryState.Core.MassTransferTransactions(isLastPage: isLastPage,
+                                                                                                 lastCursor: lastCursor,
+                                                                                                 transactions: transactions)
+                
+                return PayoutsHistoryState.MassTransferTrait(massTransferTransactions: massTransferTransactions,
+                                                             walletAddress: query.recipient,
+                                                             assetLogo: assets.first?.iconLogo,
+                                                             precision: assets.first?.precision,
+                                                             assetTicker: assets.first?.ticker)
             }
     }
 }
