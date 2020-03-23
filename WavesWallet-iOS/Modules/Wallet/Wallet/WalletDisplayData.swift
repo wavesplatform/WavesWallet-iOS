@@ -365,7 +365,7 @@ extension WalletDisplayData: UITableViewDelegate {
             
         case .stakingLastPayouts:
             // если тут хардкод зачем вообще таблица? (касается не моей ячейки а всего экрана в целом)
-            return 76
+            return 84
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()

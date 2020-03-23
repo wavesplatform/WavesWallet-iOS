@@ -73,7 +73,7 @@ final class StakingLastPayoutsCell: UITableViewCell, NibReusable {
         collectionView.dataSource = self
         collectionView.delegate = self
 
-//        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = true
     }
 
     override func layoutSubviews() {
@@ -120,41 +120,19 @@ extension StakingLastPayoutsCell: UICollectionViewDataSource {
 }
 
 extension StakingLastPayoutsCell: UIScrollViewDelegate {
-    // TODO: Duplicate code from AssetTransactionsCell.swift
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        if abs(velocity.x) < abs(velocity.y) { return }
-//
-//        targetContentOffset.pointee = scrollView.contentOffset
-//        let pageWidth: CGFloat = bounds.width - 32
-//        let minSpace: CGFloat = Constants.collectionViewSpacing
-//        var cellToSwipe: Double = Double(CGFloat(scrollView.contentOffset.x) / CGFloat(pageWidth + minSpace))
-//
-//        // next
-//        if cellToSwipe > Double(currentIndex) {
-//            if cellToSwipe - Double(currentIndex) > 0, velocity.x >= 0 {
-//                cellToSwipe += 1
-//            }
-//
-//            // previous
-//        } else if cellToSwipe < Double(currentIndex) {
-//            if Double(currentIndex) - cellToSwipe > 0.1, velocity.x <= 0 {
-//                cellToSwipe -= 1
-//                cellToSwipe = ceil(cellToSwipe)
-//            } else {
-//                cellToSwipe = ceil(cellToSwipe)
-//            }
-//        }
-//
-//        if cellToSwipe < 0 {
-//            cellToSwipe = 0
-//        } else if cellToSwipe >= Double(collectionView.numberOfItems(inSection: 0)) {
-//            cellToSwipe = Double(collectionView.numberOfItems(inSection: 0)) - Double(1)
-//        }
-//
-//        currentIndex = Int(cellToSwipe)
-//        let indexPath: IndexPath = IndexPath(row: currentIndex, section: 0)
-//        collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
+        targetContentOffset.pointee = scrollView.contentOffset
+        
+        let factor: CGFloat = 0.5 // magic number
+        
+        let cellSize = collectionView.frame.width - (Constants.contentInset.left + Constants.contentInset.right)
+        
+        let nextItem = Int(scrollView.contentOffset.x / cellSize + factor)
+        
+        let indexPath = IndexPath(row: nextItem, section: 0)
+        
+        collectionView?.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }

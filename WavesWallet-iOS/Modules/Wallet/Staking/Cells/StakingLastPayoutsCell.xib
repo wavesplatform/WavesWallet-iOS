@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="XuF-fG-8VM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YEh-Ih-E8d" customClass="PayoutsFlowLayout" customModule="WavesWallet_iOS" customModuleProvider="target">
                             <size key="itemSize" width="50" height="50"/>
@@ -31,7 +31,7 @@
                 <constraints>
                     <constraint firstItem="XuF-fG-8VM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MUe-5K-LWn"/>
                     <constraint firstAttribute="trailing" secondItem="XuF-fG-8VM" secondAttribute="trailing" id="OcG-CC-LN6"/>
-                    <constraint firstAttribute="bottom" secondItem="XuF-fG-8VM" secondAttribute="bottom" id="RQz-bF-QNA"/>
+                    <constraint firstAttribute="bottom" secondItem="XuF-fG-8VM" secondAttribute="bottom" constant="8" id="RQz-bF-QNA"/>
                     <constraint firstItem="XuF-fG-8VM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="v6R-kB-Uyf"/>
                 </constraints>
             </tableViewCellContentView>

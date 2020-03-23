@@ -17,7 +17,12 @@ final class PayoutsTransactionCollectionViewCell: UICollectionViewContainerCell<
     // MARK: - Override
     
     override func initialSetup() {
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
         
+        clipsToBounds = false
+        layer.masksToBounds = true
+        layer.cornerRadius = 4
     }
     
     override func prepareForReuse() {
