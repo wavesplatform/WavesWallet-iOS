@@ -199,7 +199,8 @@ extension PayoutsHistorySystem {
                                                                         timeEnd: nil,
                                                                         recipient: signedWallet.wallet.address,
                                                                         assetId: staking.neutrinoAssetId,
-                                                                        after: lastCursor)
+                                                                        after: lastCursor,
+                                                                        limit: 15)
                     
                     return query
                 } else {
@@ -208,7 +209,8 @@ extension PayoutsHistorySystem {
                                                                         timeEnd: nil,
                                                                         recipient: "",
                                                                         assetId: "",
-                                                                        after: lastCursor)
+                                                                        after: lastCursor,
+                                                                        limit: 15)
                     return query
                 }
             }
