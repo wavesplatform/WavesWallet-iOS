@@ -17,6 +17,8 @@ private enum Constants {
 
 protocol MoneyTextFieldDelegate: AnyObject {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money)
+    
+    func moneyTextFieldShouldReturn() -> Bool
 }
 
 final class MoneyTextField: UITextField {
@@ -239,7 +241,8 @@ extension MoneyTextField: UITextFieldDelegate {
                 return externalDelegate.textFieldShouldReturn!(textField)
             }
         }
-        return true
+        
+        return self.moneyDelegate?.moneyTextFieldShouldReturn() ?? true
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

@@ -51,16 +51,16 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
     
     override func reduce(event: Event, state: inout State) {
         
-//        switch state.core.kind {
-//        case .card:
-//            return reduceForCard(event: event, state: &state)
-//            
-//        case .deposit:
-//            return reduceForTransfer(event: event, state: &state)
-//            
-//        case .withdraw:
-//            return reduceForTransfer(event: event, state: &state)
-//        }
+        switch state.core.kind {
+        case .card:
+            return reduceForCard(event: event, state: &state)
+            
+        case .deposit:
+            return reduceForTransfer(event: event, state: &state)
+            
+        case .withdraw:
+            return reduceForTransfer(event: event, state: &state)
+        }
     }
     
 }

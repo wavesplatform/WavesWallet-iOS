@@ -249,6 +249,10 @@ extension StakingTransferViewController: UITableViewDataSource {
                 self?.system.send(.input(money, indexPath))
             }
             
+            cell.didTapButtonDoneOnKeyboard = { [weak self] in
+                self?.system.send(.tapSendButton)
+            }
+            
             return cell
             
         case .button(let model):
@@ -259,7 +263,7 @@ extension StakingTransferViewController: UITableViewDataSource {
             cell.didTouchButton = { [weak self] in
                 self?.system.send(.tapSendButton)
             }
-            
+                        
             return cell
             
         case .scrollButtons(let model):

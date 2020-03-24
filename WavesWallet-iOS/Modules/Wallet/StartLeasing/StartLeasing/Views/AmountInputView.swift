@@ -159,6 +159,7 @@ extension AmountInputView: MoneyTextFieldDelegate {
         delegate?.amountInputView(didChangeValue: value)
         updateViewHeight(inputValue: value, animation: true)
     }
+    func moneyTextFieldShouldReturn() -> Bool { true }
 }
 
 // MARK: - ViewConfiguration

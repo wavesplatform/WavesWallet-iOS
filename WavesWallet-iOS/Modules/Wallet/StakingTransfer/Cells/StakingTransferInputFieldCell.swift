@@ -29,6 +29,12 @@ final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
         }
     }
     
+    var didTapButtonDoneOnKeyboard: (() -> Void)? {
+        didSet {
+            balanceInputField.didTapButtonDoneOnKeyboard = didTapButtonDoneOnKeyboard
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

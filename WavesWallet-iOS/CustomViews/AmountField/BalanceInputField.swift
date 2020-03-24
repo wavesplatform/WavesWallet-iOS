@@ -38,6 +38,8 @@ final class BalanceInputField: UIView, NibOwnerLoadable {
     }
     
     var didChangeInput: ((_ value: Money?) -> Void)?
+    
+    var didTapButtonDoneOnKeyboard: (() -> Void)?
             
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -101,5 +103,11 @@ extension BalanceInputField: MoneyTextFieldDelegate {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         
         didChangeInput?(textField.hasInput == true ? value : nil)
+    }
+    
+    func moneyTextFieldShouldReturn() -> Bool {
+        
+        self.didTapButtonDoneOnKeyboard?()
+        return true
     }
 }
