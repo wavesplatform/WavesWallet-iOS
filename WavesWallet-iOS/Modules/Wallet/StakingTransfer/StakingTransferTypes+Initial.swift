@@ -34,7 +34,7 @@ extension StakingTransfer.State.UI {
         
         return StakingTransfer.State.UI(sections: [balance],
                                         title: title,
-                                        action: .update)
+                                        action: .update(nil, error: nil))
     }
 
     static func initialStateDeposit() -> StakingTransfer.State.UI {
@@ -45,7 +45,7 @@ extension StakingTransfer.State.UI {
         
         return StakingTransfer.State.UI(sections: [balance],
                                         title: title,
-                                        action: .update)
+                                        action: .update(nil, error: nil))
     }
 
     static func initialStateWithdraw() -> StakingTransfer.State.UI {
@@ -56,7 +56,7 @@ extension StakingTransfer.State.UI {
         
         return StakingTransfer.State.UI(sections: [balance],
                                         title: title,
-                                        action: .update)
+                                        action: .update(nil, error: nil))
     }
 }
 

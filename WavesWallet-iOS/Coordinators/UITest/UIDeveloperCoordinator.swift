@@ -29,7 +29,7 @@ final class UIDeveloperCoordinator: Coordinator {
                 
         self.windowRouter.setRootViewController(emptyVC())
         
-        let coordinator = StakingTransferCoordinator(router: self.windowRouter)
+        let coordinator = StakingTransferCoordinator(router: self.windowRouter, kind: .card)
         
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()

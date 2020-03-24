@@ -12,7 +12,7 @@ import DomainLayer
 extension StakingTransfer.DTO.Data.Transfer {
     
     func inputFieldForWithdraw(input: StakingTransfer.DTO.InputData.Transfer?) -> StakingTransfer.ViewModel.Row {
-
+        
         let title = Localizable.Waves.Staking.Transfer.Withdraw.Cell.Input.title
         
         return StakingTransfer
@@ -22,11 +22,11 @@ extension StakingTransfer.DTO.Data.Transfer {
                         asset: asset,
                         amount: input?.amount)
     }
-
+    
     func errorForWithdraw(by error: StakingTransfer.DTO.InputData.Transfer.Error) -> StakingTransfer.ViewModel.Row {
-
+        
         let error: String = {
-
+            
             switch error {
                 
             case .insufficientFunds:
@@ -36,7 +36,7 @@ extension StakingTransfer.DTO.Data.Transfer {
                 return "insufficientFunds on tax 777"
             }
         }()
-
+        
         return StakingTransfer
             .ViewModel
             .error(title: error)
@@ -63,15 +63,21 @@ extension StakingTransfer.DTO.Data.Transfer {
         
         let inputField = self.inputFieldForWithdraw(input: input)
         rows.append(inputField)
-
+        
         if let error = input?.error {
             let error = self.errorForWithdraw(by: error)
             rows.append(error)
         }
-                                                             
+        
+        let assistanceButtons: [StakingTransfer.DTO.AssistanceButton] = [.percent100, .percent75, .percent50, .percent25]
+        
+        let buttons: StakingTransferScrollButtonsCell.Model =
+            .init(buttons: assistanceButtons.map { $0.rawValue })
+        rows.append(.scrollButtons(buttons))
+        
         let fee = StakingTransferFeeInfoCell.Model(balance: self.transactionFeeBalance)
         rows.append(.feeInfo(fee))
-                
+        
         let button = self.buttonForWithdraw(status: .disabled)
         rows.append(button)
         

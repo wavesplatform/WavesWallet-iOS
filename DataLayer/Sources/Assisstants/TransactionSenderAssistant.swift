@@ -310,7 +310,7 @@ extension TransactionSenderSpecifications {
                                                                   call: call,
                                                                   payment: payment))
                 .bytesStructure
-            
+                                
             return bytes
         }
     }

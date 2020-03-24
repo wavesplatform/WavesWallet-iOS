@@ -9,14 +9,26 @@
 import Foundation
 import UIKit
 
+private struct Constants {
+    static let cornerRadius: CGFloat = 12
+}
+
 class ModalTableView: UITableView {
 
     private(set) lazy var backgroundModalView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.isUserInteractionEnabled = false
+        view.layer.cornerRadius = Constants.cornerRadius
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
     }()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        layer.cornerRadius = Constants.cornerRadius
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()

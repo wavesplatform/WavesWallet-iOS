@@ -9,62 +9,291 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakingTransferSkeletonBalanceCell" id="Qux-VT-0JX" customClass="StakingTransferSkeletonBalanceCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StakingTransferSkeletonBalanceCell" rowHeight="368" id="Qux-VT-0JX" customClass="StakingTransferSkeletonBalanceCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="291" height="368"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qux-VT-0JX" id="NXW-II-IoL">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="291" height="368"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SY6-UA-PPC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="42"/>
+                        <rect key="frame" x="0.0" y="0.0" width="291" height="42"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xwA-4D-bDd" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="16" y="12" width="18" height="18"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="2wg-3p-hs9"/>
+                                    <constraint firstAttribute="height" constant="18" id="dkE-cn-RVX"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kck-De-Fbu" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="46" y="14" width="114" height="14"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="114" id="tZ6-uW-f9z"/>
+                                    <constraint firstAttribute="height" constant="14" id="zVH-Bc-bfC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81n-Xj-1xz" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="212" y="14" width="74" height="14"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="4wv-PM-9SX"/>
+                                    <constraint firstAttribute="width" constant="74" id="Hzx-3L-xnM"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xwA-4D-bDd" customClass="GradientContainerView" customModule="Skeleton">
-                        <rect key="frame" x="16" y="12" width="18" height="18"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="18" id="2wg-3p-hs9"/>
-                            <constraint firstAttribute="height" constant="18" id="dkE-cn-RVX"/>
+                            <constraint firstItem="81n-Xj-1xz" firstAttribute="leading" secondItem="kck-De-Fbu" secondAttribute="trailing" constant="12" id="8Qf-WA-3Ez"/>
+                            <constraint firstAttribute="bottom" secondItem="xwA-4D-bDd" secondAttribute="bottom" constant="12" id="D6g-ow-RPh"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="81n-Xj-1xz" secondAttribute="trailing" constant="16" id="Dld-I5-KBw"/>
+                            <constraint firstItem="81n-Xj-1xz" firstAttribute="centerY" secondItem="xwA-4D-bDd" secondAttribute="centerY" id="EOO-3H-x4d"/>
+                            <constraint firstItem="xwA-4D-bDd" firstAttribute="leading" secondItem="SY6-UA-PPC" secondAttribute="leading" constant="16" id="Hsl-Qm-pDP"/>
+                            <constraint firstItem="xwA-4D-bDd" firstAttribute="top" secondItem="SY6-UA-PPC" secondAttribute="top" constant="12" id="cYN-tO-yh8"/>
+                            <constraint firstItem="kck-De-Fbu" firstAttribute="leading" secondItem="xwA-4D-bDd" secondAttribute="trailing" constant="12" id="elS-Q1-CdI"/>
+                            <constraint firstItem="kck-De-Fbu" firstAttribute="centerY" secondItem="xwA-4D-bDd" secondAttribute="centerY" id="ryE-hg-8ic"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kck-De-Fbu" customClass="GradientContainerView" customModule="Skeleton">
-                        <rect key="frame" x="42" y="14" width="114" height="14"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JwL-zi-Jlq">
+                        <rect key="frame" x="20" y="50" width="251" height="113"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiP-IT-i4z" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="16" y="24" width="168" height="14"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="168" id="g42-fN-nqY"/>
+                                    <constraint firstAttribute="height" constant="14" id="vuC-yx-4bq"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AjS-f6-pPR" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="16" y="62" width="168" height="14"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="168" id="9rI-b5-FDc"/>
+                                    <constraint firstAttribute="height" constant="14" id="Oi7-Nm-0ds"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERJ-aZ-jcg">
+                                <rect key="frame" x="16" y="92" width="219" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="4Bi-xg-f9r"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bK-xf-CsX" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="191" y="62" width="44" height="14"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="Nkf-r7-7fP"/>
+                                    <constraint firstAttribute="height" constant="14" id="p80-2p-seX"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="114" id="tZ6-uW-f9z"/>
-                            <constraint firstAttribute="height" constant="14" id="zVH-Bc-bfC"/>
+                            <constraint firstItem="AjS-f6-pPR" firstAttribute="leading" secondItem="JwL-zi-Jlq" secondAttribute="leading" constant="16" id="ETo-Mc-7MN"/>
+                            <constraint firstItem="ERJ-aZ-jcg" firstAttribute="top" secondItem="AjS-f6-pPR" secondAttribute="bottom" constant="16" id="Etw-kb-sja"/>
+                            <constraint firstItem="AjS-f6-pPR" firstAttribute="top" secondItem="hiP-IT-i4z" secondAttribute="bottom" constant="24" id="GUB-bC-akL"/>
+                            <constraint firstItem="2bK-xf-CsX" firstAttribute="centerY" secondItem="AjS-f6-pPR" secondAttribute="centerY" id="K1j-Xp-1LJ"/>
+                            <constraint firstItem="ERJ-aZ-jcg" firstAttribute="leading" secondItem="JwL-zi-Jlq" secondAttribute="leading" constant="16" id="NuL-1J-U83"/>
+                            <constraint firstAttribute="bottom" secondItem="ERJ-aZ-jcg" secondAttribute="bottom" constant="20" symbolic="YES" id="fN5-57-g0i"/>
+                            <constraint firstAttribute="trailing" secondItem="2bK-xf-CsX" secondAttribute="trailing" constant="16" id="lb4-QL-El7"/>
+                            <constraint firstItem="hiP-IT-i4z" firstAttribute="top" secondItem="JwL-zi-Jlq" secondAttribute="top" constant="24" id="oMn-XZ-SoW"/>
+                            <constraint firstAttribute="trailing" secondItem="ERJ-aZ-jcg" secondAttribute="trailing" constant="16" id="osR-rY-U2z"/>
+                            <constraint firstItem="hiP-IT-i4z" firstAttribute="leading" secondItem="JwL-zi-Jlq" secondAttribute="leading" constant="16" id="rbE-Nw-z3C"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="81n-Xj-1xz" customClass="GradientContainerView" customModule="Skeleton">
-                        <rect key="frame" x="160" y="14" width="74" height="14"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKW-SM-6G2">
+                        <rect key="frame" x="16" y="171" width="259" height="60"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFa-Bp-Jom" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="16" y="10" width="54" height="30"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="BmV-Ag-kgW"/>
+                                    <constraint firstAttribute="height" constant="30" id="R8O-Gx-F6E"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHy-XO-kuh" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="78" y="10" width="54" height="30"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="aae-8a-REz"/>
+                                    <constraint firstAttribute="height" constant="30" id="hGT-kc-M2p"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7H-Qd-XVP" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="140" y="10" width="54" height="30"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="RcG-1R-qKa"/>
+                                    <constraint firstAttribute="width" constant="54" id="qvG-Xx-EXW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5P0-ee-O9S" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="202" y="10" width="54" height="30"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="RS6-hb-Ttv"/>
+                                    <constraint firstAttribute="height" constant="30" id="fMt-D1-HgN"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="14" id="4wv-PM-9SX"/>
-                            <constraint firstAttribute="width" constant="74" id="Hzx-3L-xnM"/>
+                            <constraint firstItem="C7H-Qd-XVP" firstAttribute="leading" secondItem="vHy-XO-kuh" secondAttribute="trailing" constant="8" id="2rd-Ay-j51"/>
+                            <constraint firstItem="vHy-XO-kuh" firstAttribute="centerY" secondItem="xFa-Bp-Jom" secondAttribute="centerY" id="85L-zC-oE7"/>
+                            <constraint firstItem="vHy-XO-kuh" firstAttribute="leading" secondItem="xFa-Bp-Jom" secondAttribute="trailing" constant="8" id="CTR-bp-QYe"/>
+                            <constraint firstItem="5P0-ee-O9S" firstAttribute="centerY" secondItem="C7H-Qd-XVP" secondAttribute="centerY" id="I98-Ih-rzO"/>
+                            <constraint firstItem="xFa-Bp-Jom" firstAttribute="top" secondItem="OKW-SM-6G2" secondAttribute="top" constant="10" id="KfA-YM-2Q5"/>
+                            <constraint firstItem="C7H-Qd-XVP" firstAttribute="centerY" secondItem="vHy-XO-kuh" secondAttribute="centerY" id="ON3-p5-qxy"/>
+                            <constraint firstItem="xFa-Bp-Jom" firstAttribute="leading" secondItem="OKW-SM-6G2" secondAttribute="leading" constant="16" id="hB7-Tv-nPU"/>
+                            <constraint firstAttribute="bottom" secondItem="xFa-Bp-Jom" secondAttribute="bottom" constant="20" symbolic="YES" id="rYP-7t-DU7"/>
+                            <constraint firstItem="5P0-ee-O9S" firstAttribute="leading" secondItem="C7H-Qd-XVP" secondAttribute="trailing" constant="8" id="zwb-LU-dsX"/>
                         </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ueP-dH-Pah">
+                        <rect key="frame" x="20" y="239" width="251" height="60"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zd8-By-oGC" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="16" y="26" width="100" height="14"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="TRk-C4-Rbw"/>
+                                    <constraint firstAttribute="width" constant="100" id="ux8-7r-IlC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sbI-IN-r3t" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="164" y="27" width="36" height="12"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="Z90-Xz-SSJ"/>
+                                    <constraint firstAttribute="width" constant="36" id="xyH-ze-2Sc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZsC-XR-W3W" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="120" y="26" width="36" height="14"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="lHC-6t-eov"/>
+                                    <constraint firstAttribute="height" constant="14" id="npF-MI-Z3H"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="sbI-IN-r3t" firstAttribute="leading" secondItem="ZsC-XR-W3W" secondAttribute="trailing" constant="8" id="BQn-Fc-U3C"/>
+                            <constraint firstItem="zd8-By-oGC" firstAttribute="leading" secondItem="ueP-dH-Pah" secondAttribute="leading" constant="16" id="DMV-De-BUA"/>
+                            <constraint firstAttribute="bottom" secondItem="zd8-By-oGC" secondAttribute="bottom" constant="20" symbolic="YES" id="HkE-tH-ewp"/>
+                            <constraint firstItem="ZsC-XR-W3W" firstAttribute="leading" secondItem="zd8-By-oGC" secondAttribute="trailing" constant="4" id="Iyx-QH-KqA"/>
+                            <constraint firstItem="ZsC-XR-W3W" firstAttribute="centerY" secondItem="zd8-By-oGC" secondAttribute="centerY" id="Jey-7Q-f83"/>
+                            <constraint firstItem="zd8-By-oGC" firstAttribute="top" secondItem="ueP-dH-Pah" secondAttribute="top" constant="26" id="KCR-Pm-04A"/>
+                            <constraint firstItem="sbI-IN-r3t" firstAttribute="centerY" secondItem="zd8-By-oGC" secondAttribute="centerY" id="wVk-HD-yCV"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SK3-59-nks" customClass="GradientContainerView" customModule="Skeleton">
+                        <rect key="frame" x="16" y="315" width="259" height="48"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="48" id="urf-lB-iGu"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="SK3-59-nks" secondAttribute="trailing" constant="16" id="06w-Kh-n60"/>
+                    <constraint firstItem="OKW-SM-6G2" firstAttribute="leading" secondItem="NXW-II-IoL" secondAttribute="leadingMargin" id="0vJ-bg-CgR"/>
                     <constraint firstItem="SY6-UA-PPC" firstAttribute="top" secondItem="NXW-II-IoL" secondAttribute="top" id="3jV-Nr-NhC"/>
-                    <constraint firstItem="xwA-4D-bDd" firstAttribute="top" secondItem="NXW-II-IoL" secondAttribute="top" constant="12" id="6i8-5v-ezh"/>
-                    <constraint firstAttribute="bottom" secondItem="xwA-4D-bDd" secondAttribute="bottom" constant="40" id="8N7-bx-uwD"/>
-                    <constraint firstItem="81n-Xj-1xz" firstAttribute="leading" secondItem="kck-De-Fbu" secondAttribute="trailing" constant="4" id="9bW-AS-8Ef"/>
-                    <constraint firstItem="kck-De-Fbu" firstAttribute="centerY" secondItem="xwA-4D-bDd" secondAttribute="centerY" id="KMC-Gi-tww"/>
-                    <constraint firstItem="kck-De-Fbu" firstAttribute="leading" secondItem="xwA-4D-bDd" secondAttribute="trailing" constant="8" id="Z2n-iU-3hd"/>
-                    <constraint firstItem="81n-Xj-1xz" firstAttribute="centerY" secondItem="kck-De-Fbu" secondAttribute="centerY" id="d7E-ag-viG"/>
+                    <constraint firstItem="ueP-dH-Pah" firstAttribute="leading" secondItem="NXW-II-IoL" secondAttribute="leading" constant="20" symbolic="YES" id="6FI-Eu-hsi"/>
+                    <constraint firstItem="SK3-59-nks" firstAttribute="leading" secondItem="NXW-II-IoL" secondAttribute="leading" constant="16" id="9fC-Sb-6Jq"/>
+                    <constraint firstItem="OKW-SM-6G2" firstAttribute="top" secondItem="JwL-zi-Jlq" secondAttribute="bottom" constant="8" symbolic="YES" id="GXT-Ci-fKT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="OKW-SM-6G2" secondAttribute="trailing" id="J5t-Ii-Csc"/>
+                    <constraint firstItem="JwL-zi-Jlq" firstAttribute="top" secondItem="SY6-UA-PPC" secondAttribute="bottom" constant="8" symbolic="YES" id="JrU-vo-QzG"/>
+                    <constraint firstAttribute="trailing" secondItem="JwL-zi-Jlq" secondAttribute="trailing" constant="20" symbolic="YES" id="cAh-iN-cuf"/>
+                    <constraint firstAttribute="trailing" secondItem="ueP-dH-Pah" secondAttribute="trailing" constant="20" symbolic="YES" id="fuI-zI-JKc"/>
+                    <constraint firstItem="ueP-dH-Pah" firstAttribute="top" secondItem="OKW-SM-6G2" secondAttribute="bottom" constant="8" symbolic="YES" id="meM-xK-QKz"/>
+                    <constraint firstItem="SK3-59-nks" firstAttribute="top" secondItem="ueP-dH-Pah" secondAttribute="bottom" constant="62" id="nnl-Yx-zy4"/>
+                    <constraint firstItem="JwL-zi-Jlq" firstAttribute="leading" secondItem="NXW-II-IoL" secondAttribute="leading" constant="20" symbolic="YES" id="oBa-7O-UPG"/>
                     <constraint firstAttribute="trailing" secondItem="SY6-UA-PPC" secondAttribute="trailing" id="qYQ-Du-rSv"/>
-                    <constraint firstItem="SY6-UA-PPC" firstAttribute="bottom" secondItem="xwA-4D-bDd" secondAttribute="bottom" constant="12" id="qoE-sA-BNh"/>
                     <constraint firstItem="SY6-UA-PPC" firstAttribute="leading" secondItem="NXW-II-IoL" secondAttribute="leading" id="sZQ-aB-tnh"/>
-                    <constraint firstItem="xwA-4D-bDd" firstAttribute="leading" secondItem="NXW-II-IoL" secondAttribute="leading" constant="16" id="tVG-bC-kEp"/>
+                    <constraint firstAttribute="bottom" secondItem="SK3-59-nks" secondAttribute="bottom" constant="24" id="voK-79-zGp"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outletCollection property="views" destination="xwA-4D-bDd" collectionClass="NSMutableArray" id="R8K-Bf-Gro"/>
-                <outletCollection property="views" destination="kck-De-Fbu" collectionClass="NSMutableArray" id="Vaq-Rh-QB5"/>
-                <outletCollection property="views" destination="81n-Xj-1xz" collectionClass="NSMutableArray" id="Gfz-LQ-Etz"/>
+                <outletCollection property="views" destination="xwA-4D-bDd" collectionClass="NSMutableArray" id="KPz-KX-d9h"/>
             </connections>
-            <point key="canvasLocation" x="115.94202898550725" y="16.741071428571427"/>
+            <point key="canvasLocation" x="50.000000000000007" y="191.51785714285714"/>
         </tableViewCell>
     </objects>
 </document>

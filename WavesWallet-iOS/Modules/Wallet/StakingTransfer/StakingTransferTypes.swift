@@ -17,7 +17,7 @@ enum StakingTransfer {
 }
 
 extension StakingTransfer.DTO {
- 
+    
     enum AssistanceButton: String, Equatable {
         case max = "Max"
         case percent100 = "100%"
@@ -38,6 +38,7 @@ extension StakingTransfer.DTO {
             let asset: DomainLayer.DTO.Asset
             let balance: DomainLayer.DTO.Balance
             let transactionFeeBalance: DomainLayer.DTO.Balance
+            let avaliableBalanceForFee: DomainLayer.DTO.Balance
         }
         
         struct Card {
@@ -46,10 +47,10 @@ extension StakingTransfer.DTO {
             let maxAmount: DomainLayer.DTO.Balance
         }
         
-         case deposit(Transfer)
-         case withdraw(Transfer)
-         case card(Card)
-     }
+        case deposit(Transfer)
+        case withdraw(Transfer)
+        case card(Card)
+    }
     
     
     enum InputData: Hashable {
@@ -59,7 +60,7 @@ extension StakingTransfer.DTO {
                 case maxAmount
                 case minAmount
             }
-
+            
             var amount: Money?
             var error: InputData.Card.Error?
         }
@@ -73,20 +74,21 @@ extension StakingTransfer.DTO {
             var amount: Money?
             var error: InputData.Transfer.Error?
         }
-                
+        
         case deposit(Transfer)
         case withdraw(Transfer)
         case card(Card)
     }
 }
-    
+
 extension StakingTransfer {
     enum Event {
         case viewDidAppear
         case showCard(StakingTransfer.DTO.Data.Card)
         case showDeposit(StakingTransfer.DTO.Data.Transfer)
         case showWithdraw(StakingTransfer.DTO.Data.Transfer)
-        case completedSendTransfer
+        case completedSendWithdraw(DomainLayer.DTO.SmartTransaction)
+        case completedSendDeposit(DomainLayer.DTO.SmartTransaction)
         case handlerError(NetworkError)
         case tapSendButton
         case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
@@ -99,7 +101,7 @@ protocol Test {
 }
 
 extension StakingTransfer {
-        
+    
     struct State: Test {
         
         struct Core {
@@ -111,7 +113,7 @@ extension StakingTransfer {
                 case sendCard
                 case sendDeposit
                 case sendWithdraw
-              }
+            }
             
             let kind: StakingTransfer.DTO.Kind
             var action: StakingTransfer.State.Core.Action
@@ -121,21 +123,49 @@ extension StakingTransfer {
         }
         
         struct UI: DataSourceProtocol, Test {
+            
+            struct UpdateRows {
+                let insertRows: [IndexPath]
+                let deleteRows: [IndexPath]
+                let reloadRows: [IndexPath]
+                let updateRows: [IndexPath]
+            }
+            
             enum Action {
                 case none
-                case update
-                case updateRows(_ insertRows: [IndexPath],
-                                _ deleteRows: [IndexPath],
-                                _ reloadRows: [IndexPath],
-                                _ updateRows: [IndexPath])
-                case error(DisplayError)
+                case update(_ updateRows: UpdateRows?, error: DisplayError?)
+                case completedDeposit(_ updateRows: UpdateRows?, DomainLayer.DTO.SmartTransaction)
+                case completedWithdraw(_ updateRows: UpdateRows?, DomainLayer.DTO.SmartTransaction)
+                
+                var updateRoes: UpdateRows? {
+                    switch self {
+                    case .update(let model, _):
+                        return model
+                    case .completedWithdraw(let model, _):
+                        return model
+                    case .completedDeposit(let model, _):
+                        return model
+                    default:
+                        return nil
+                    }
+                }
+                
+                var displayError: DisplayError? {
+                    
+                    switch self {
+                    case .update(_, let error):
+                        return error
+                    default:
+                        return nil
+                    }
+                }
             }
-
+            
             var sections: [ViewModel.Section]
             var title: String
             var action: Action
         }
-    
+        
         var ui: UI
         var core: Core
         var title: String = ""

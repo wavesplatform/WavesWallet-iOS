@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Extensions
+import DomainLayer
 
 final class StakingTransferCoordinator: Coordinator {
 
@@ -16,17 +18,48 @@ final class StakingTransferCoordinator: Coordinator {
 
     private var router: Router
     
+    private let kind: StakingTransfer.DTO.Kind
+    
+    private let assetId: String
+    
+    private var hasNeedRemoveCoordinatorAfterDissmiss: Bool = true
+    
     private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
-        self?.removeCoordinators()
+        
+        if self?.hasNeedRemoveCoordinatorAfterDissmiss == true {
+            self?.removeCoordinators()
+        }
     }
     
-    init(router: Router){
+    init(router: Router, kind: StakingTransfer.DTO.Kind, assetId: String = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p") {
         self.router = router
+        self.kind = kind
+        self.assetId = assetId
     }
 
     func start() {
-        let vc = StoryboardScene.StakingTransfer.stakingTransferViewController.instantiate()
+        let vc = StakingTransferModuleBuilder(output: self).build(input: .init(assetId: assetId,
+                                                                             kind: kind))
         modalRouter.pushViewController(vc)
         router.present(modalRouter, animated: true, completion: nil)
     }        
+}
+
+extension StakingTransferCoordinator: StakingTransferModuleOutput {
+    
+    func stakingTransferOpenURL(_ url: URL) {
+        
+    }
+    
+    func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction) {
+        self.hasNeedRemoveCoordinatorAfterDissmiss = false
+        router.dismiss(animated: true, completion: nil)
+        // TODO: Show display
+    }
+    
+    func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction) {
+        self.hasNeedRemoveCoordinatorAfterDissmiss = false
+         router.dismiss(animated: true, completion: nil)
+        // TODO: Show display
+    }
 }
