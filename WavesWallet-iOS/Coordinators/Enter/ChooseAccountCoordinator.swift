@@ -6,9 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import Extensions
 import DomainLayer
+import Extensions
+import UIKit
 
 protocol ChooseAccountCoordinatorDelegate: AnyObject {
     func userChooseCompleted(wallet: DomainLayer.DTO.Wallet)
@@ -16,7 +16,6 @@ protocol ChooseAccountCoordinatorDelegate: AnyObject {
 }
 
 final class ChooseAccountCoordinator: Coordinator {
-
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
@@ -27,15 +26,13 @@ final class ChooseAccountCoordinator: Coordinator {
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
         guard let self = self else { return }
     }
-    
+
     init(navigationRouter: NavigationRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.navigationRouter = navigationRouter
         self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
-        
-        
         let vc = ChooseAccountModuleBuilder(output: self)
             .build(input: .init())
         navigationRouter.pushViewController(vc, animated: true, completion: { [weak self] in
@@ -50,55 +47,27 @@ final class ChooseAccountCoordinator: Coordinator {
     }
 
     private func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
-
         let vc = AccountPasswordModuleBuilder(output: self)
             .build(input: .init(kind: kind))
         navigationRouter.pushViewController(vc)
     }
-    
+
     private func addOrImportAccountShow() {
-        
-        let elements: [ActionSheet.DTO.Element] =  [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
-                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
-        
-//        let elements: [ActionSheet.DTO.Element] =  [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title),
-//                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
-//        
-        
-        let data = ActionSheet.DTO.Data.init(title: Localizable.Waves.Chooseaccount.Alert.pleaseSelect,
-                                             elements: elements,
-                                             selectedElement: nil)
-        
-        let vc = ActionSheetViewBuilder { [weak self] (element) in
-            
+
+        let elements: [ActionSheet.DTO.Element] = [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
+                                                   .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
+
+        let data = ActionSheet.DTO.Data(title: Localizable.Waves.Chooseaccount.Alert.pleaseSelect,
+                                        elements: elements,
+                                        selectedElement: nil)
+
+        let vc = ActionSheetViewBuilder { [weak self] element in
+
             guard let self = self else { return }
-            
+
             self.navigationRouter.dismiss(animated: true, completion: { [weak self] in
                 guard let self = self else { return }
-                
+
                 if element.title == Localizable.Waves.Enter.Button.Createnewaccount.title {
                     self.showDisplay(.newAccount)
                 } else {
@@ -107,18 +76,19 @@ final class ChooseAccountCoordinator: Coordinator {
             })
         }
         .build(input: data)
-        
+
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = popoverViewControllerTransitioning
-        
-        self.navigationRouter.present(vc, animated: true) {}
+
+        navigationRouter.present(vc, animated: true) {}
     }
-    
+
     private func passcodeRegistration(with account: PasscodeTypes.DTO.Account) {
-        
-        let passcodeCoordinator = PasscodeCoordinator(kind: .registration(account), behaviorPresentation: .push(navigationRouter, dissmissToRoot: false))
+        let behaviorPresentation = PasscodeCoordinator.BehaviorPresentation.push(navigationRouter, dissmissToRoot: false)
+        let passcodeCoordinator = PasscodeCoordinator(kind: .registration(account),
+                                                      behaviorPresentation: behaviorPresentation)
         passcodeCoordinator.delegate = self
-        
+
         addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
     }
 }
@@ -126,7 +96,6 @@ final class ChooseAccountCoordinator: Coordinator {
 // MARK: PresentationCoordinator
 
 extension ChooseAccountCoordinator: PresentationCoordinator {
-
     enum Display {
         case passcodeLogIn(DomainLayer.DTO.Wallet)
         case passcodeChangePasscode(DomainLayer.DTO.Wallet, password: String)
@@ -139,7 +108,6 @@ extension ChooseAccountCoordinator: PresentationCoordinator {
 
     func showDisplay(_ display: Display) {
         switch display {
-
         case .passcodeLogIn(let wallet):
             guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
 
@@ -151,7 +119,8 @@ extension ChooseAccountCoordinator: PresentationCoordinator {
         case .passcodeChangePasscode(let wallet, let password):
             guard isHasCoordinator(type: PasscodeCoordinator.self) != true else { return }
 
-            let passcodeCoordinator = PasscodeCoordinator(kind: .changePasscodeByPassword(wallet, password: password), behaviorPresentation: .push(navigationRouter, dissmissToRoot: true))
+            let passcodeCoordinator = PasscodeCoordinator(kind: .changePasscodeByPassword(wallet, password: password),
+                                                          behaviorPresentation: .push(navigationRouter, dissmissToRoot: true))
             passcodeCoordinator.delegate = self
 
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
@@ -161,67 +130,65 @@ extension ChooseAccountCoordinator: PresentationCoordinator {
 
         case .accountPasswordLogIn(let wallet):
             showAccountPassword(kind: .logIn(wallet))
-            
+
         case .passcodeRegistration(let account):
             passcodeRegistration(with: account)
-            
+
         case .importAccount:
             let coordinator = ImportCoordinator(navigationRouter: navigationRouter) { [weak self] account in
-                
+
                 guard let self = self else { return }
                 self.passcodeRegistration(with: .init(privateKey: account.privateKey,
-                                              password: account.password,
-                                              name: account.name,
-                                              needBackup: false))
+                                                      password: account.password,
+                                                      name: account.name,
+                                                      needBackup: false))
             }
             addChildCoordinatorAndStart(childCoordinator: coordinator)
-            
+
         case .newAccount:
-            let coordinator = NewAccountCoordinator(navigationRouter: navigationRouter) { [weak self] account, needBackup  in
-                
+            let coordinator = NewAccountCoordinator(navigationRouter: navigationRouter) { [weak self] account, needBackup in
+
                 guard let self = self else { return }
-                
+
                 let account: PasscodeTypes.DTO.Account = .init(privateKey: account.privateKey,
                                                                password: account.password,
                                                                name: account.name,
                                                                needBackup: needBackup)
-                
+
                 self.showDisplay(.passcodeRegistration(account))
             }
             addChildCoordinatorAndStart(childCoordinator: coordinator)
-
         }
     }
-
 }
 
 // MARK: ChooseAccountModuleOutput
+
 extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
-    
-    func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) -> Void {
+    func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) {
         if passcodeNotCreated {
             showDisplay(.accountPasswordLogIn(wallet))
         } else {
             showDisplay(.passcodeLogIn(wallet))
         }
     }
-    
+
     func userEditAccount(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.editAccountName(wallet))
     }
-    
-    func chooseAccountDidTapBack() {    
-        self.delegate?.userDidTapBackButton()
+
+    func chooseAccountDidTapBack() {
+        delegate?.userDidTapBackButton()
     }
-    
+
     func chooseAccountDidTapAddAccount() {
         addOrImportAccountShow()
     }
 }
 
 // MARK: AccountPasswordModuleOutput
-extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
 
+extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
     func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
         showDisplay(.passcodeChangePasscode(wallet, password: password))
     }
@@ -230,63 +197,63 @@ extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
 }
 
 // MARK: PasscodeLogInCoordinatorDelegate
-extension ChooseAccountCoordinator: PasscodeLogInCoordinatorDelegate {
 
+extension ChooseAccountCoordinator: PasscodeLogInCoordinatorDelegate {
     func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
-        //TODO: Как бы сбросить состояние по другому?
-        let index = self.navigationRouter
+        // TODO: Как бы сбросить состояние по другому?
+        let index = navigationRouter
             .navigationController
             .viewControllers
             .enumerated()
             .first { $0.element is ChooseAccountViewController }
-        
+
         if let index = index {
-            let result = self.navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
-            self.navigationRouter.navigationController.viewControllers = Array(result)
+            let result = navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
+            navigationRouter.navigationController.viewControllers = Array(result)
         }
-        
+
         delegate?.userChooseCompleted(wallet: wallet)
         removeFromParentCoordinator()
     }
 }
 
 // MARK: PasscodeCoordinatorDelegate
-extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
+extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
-        //TODO: Как бы сбросить состояние по другому?
+        // TODO: Как бы сбросить состояние по другому?
 
-        let index = self.navigationRouter
+        let index = navigationRouter
             .navigationController
             .viewControllers
             .enumerated()
             .first { $0.element is ChooseAccountViewController }
-        
+
         if let index = index {
-            let result = self.navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
-            self.navigationRouter.navigationController.viewControllers = Array(result)
+            let result = navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
+            navigationRouter.navigationController.viewControllers = Array(result)
         }
-        
+
         delegate?.userChooseCompleted(wallet: wallet)
         removeFromParentCoordinator()
     }
 
     func passcodeCoordinatorWalletLogouted() {
-        //TODO: Как бы сбросить состояние по другому?
-        let index = self.navigationRouter
+        // TODO: Как бы сбросить состояние по другому?
+        let index = navigationRouter
             .navigationController
             .viewControllers
             .enumerated()
             .first { $0.element is ChooseAccountViewController }
-        
+
         if let index = index {
-            let result = self.navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
-            self.navigationRouter.navigationController.viewControllers = Array(result)
+            let result = navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
+            navigationRouter.navigationController.viewControllers = Array(result)
         }
-        
-        self.applicationCoordinator?.showEnterDisplay()
+
+        applicationCoordinator?.showEnterDisplay()
         removeFromParentCoordinator()
     }
 }

@@ -25,11 +25,13 @@ final class AddressesKeysCoordinator: Coordinator {
     private var rootViewController: UIViewController?
 
     private let authorization = UseCasesFactory.instance.authorization
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
     private var currentPopup: PopupViewController?
 
-    init(navigationRouter: NavigationRouter, wallet: DomainLayer.DTO.Wallet, applicationCoordinator: ApplicationCoordinatorProtocol) {
+    init(navigationRouter: NavigationRouter,
+         wallet: DomainLayer.DTO.Wallet,
+         applicationCoordinator: ApplicationCoordinatorProtocol) {
         self.navigationRouter = navigationRouter
         self.wallet = wallet
         self.applicationCoordinator = applicationCoordinator
@@ -51,7 +53,7 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
 
     func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
 
-        if aliases.count == 0 {
+        if aliases.isEmpty {
             let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
             controller.delegate = self
             let popup = PopupViewController()
@@ -66,7 +68,8 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
         }
     }
 
-    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet?) -> Void)) {
+    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet,
+                                     callback: @escaping (DomainLayer.DTO.SignedWallet?) -> Void) {
 
         authorization
             .authorizedWallet()

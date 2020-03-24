@@ -48,28 +48,22 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
 
         case .descriptionLabel(let text):
 
-            let attrString = NSMutableAttributedString(string: text,
-                                                       attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22,
-                                                                                                                   weight: .bold)])
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .bold)]
+            let attrString = NSMutableAttributedString(string: text, attributes: attributes)
 
             descriptionLabel.attributedText = attrString
             balanceLabel.isHidden = true
             descriptionLabel.isHidden = false
 
-        case .status(let percent, let status):
-
-            let attrString = NSMutableAttributedString(string: percent,
-                                                       attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22,
-                                                                                                                   weight: .bold)])
-
+        case let .status(percent, status):
+            
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .bold)]
+            let attrString = NSMutableAttributedString(string: percent, attributes: attributes)
 
             if let status = status {
-                attrString.append(NSMutableAttributedString(string: status,
-                                                            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22,
-                                                                                                                        weight: .regular)]))
-
+                let additionalAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .regular)]
+                attrString.append(NSMutableAttributedString(string: status, attributes: additionalAttributes))
             }
-
 
             descriptionLabel.attributedText = attrString
             balanceLabel.isHidden = true

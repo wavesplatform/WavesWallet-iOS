@@ -92,8 +92,8 @@ private final class LineView: UIView {
 
         switch style {
         case .horizontal:
-            let x = isDashed ? -dashPhase : 0
-            path.move(to: CGPoint(x: x, y: 0))
+            let xPosition = isDashed ? -dashPhase : 0
+            path.move(to: CGPoint(x: xPosition, y: 0))
             path.addLine(to: CGPoint(x: frame.width, y: 0))
         case .vertical:
             path.move(to: CGPoint(x: 0, y: 0))
@@ -102,7 +102,7 @@ private final class LineView: UIView {
 
         let layer: CAShapeLayer = self.layer as! CAShapeLayer
         layer.path = path
-        layer.lineJoin = CAShapeLayerLineJoin.miter;
+        layer.lineJoin = CAShapeLayerLineJoin.miter
         layer.strokeStart = 0
     }
 
@@ -116,9 +116,7 @@ final class SeparatorView: UIView {
 
     private lazy var lineView = LineView()
 
-    private var lineSize: CGFloat {
-        return 1.0 / UIScreen.main.scale
-    }
+    private var lineSize: CGFloat { 1.0 / UIScreen.main.scale }
 
     var style: SeparatorLineStyle = .horizontal {
         didSet {

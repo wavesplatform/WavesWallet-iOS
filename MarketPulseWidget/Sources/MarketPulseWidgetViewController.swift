@@ -6,25 +6,24 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import NotificationCenter
-import RxSwift
-import RxCocoa
-import RxFeedback
-import WavesSDK
 import DomainLayer
 import Extensions
+import NotificationCenter
+import RxCocoa
+import RxFeedback
+import RxSwift
+import UIKit
+import WavesSDK
 
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
     static let buttonUpdateOffset: CGFloat = 40
     
     static let animationKey = "rotation"
-    static let animationDuration: TimeInterval = 1        
+    static let animationDuration: TimeInterval = 1
 }
 
 final class MarketPulseWidgetViewController: UIViewController {
-    
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var buttonCurrency: UIButton!
     @IBOutlet private weak var buttonUpdate: UIButton!
@@ -54,7 +53,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         
         buttonUpdate.setTitle(Localizable.Marketpulsewidget.Button.Update.title, for: .normal)
         initPresenter()
-
+        
         buttonCurrency.isHidden = true
         
         setupFeedBack()
@@ -71,21 +70,19 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         setupUpdateTimer()
     }
     
     private func setupUpdateTimer() {
-        
         guard let inverval = updateInverval else { return }
         
         disposeBag = DisposeBag()
-
+        
         if inverval != .manually {
-            
             Observable<Int>
                 .interval(RxTimeInterval(inverval.rawValue), scheduler: MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] (value) in
+                .subscribe(onNext: { [weak self] _ in
                     guard let self = self else { return }
                     self.sendEvent.accept(.refresh)
                 })
@@ -99,7 +96,6 @@ final class MarketPulseWidgetViewController: UIViewController {
     }
     
     @IBAction private func settingsTapped(_ sender: Any) {
-        
         WidgetAnalyticManager.shared.trackEvent(.widgets(.marketPulseActive))
         if let url = URL(string: DeepLink.widgetSettings) {
             extensionContext?.open(url, completionHandler: nil)
@@ -107,9 +103,8 @@ final class MarketPulseWidgetViewController: UIViewController {
     }
     
     @IBAction private func updateTapped(_ sender: Any) {
-
         WidgetAnalyticManager.shared.trackEvent(.widgets(.marketPulseActive))
-
+        
         sendEvent.accept(.refresh)
         showUpdateAnimation()
     }
@@ -117,11 +112,10 @@ final class MarketPulseWidgetViewController: UIViewController {
     @IBAction private func changeCurrency(_ sender: Any) {
         if currency == .usd {
             currency = .eur
-        }
-        else {
+        } else {
             currency = .usd
         }
-
+        
         WidgetAnalyticManager.shared.trackEvent(.widgets(.marketPulseActive))
         sendEvent.accept(.changeCurrency(currency))
     }
@@ -130,18 +124,18 @@ final class MarketPulseWidgetViewController: UIViewController {
 // MARK: - FeedBack
 
 extension MarketPulseWidgetViewController {
-    
-    
     func setupFeedBack() {
-        
         let readyViewFeedback: MarketPulseWidgetPresenter.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
-            return self.rx.viewWillAppear.take(1).map { _ in MarketPulse.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            return self.rx
+                .viewWillAppear
+                .take(1)
+                .map { _ in MarketPulse.Event.readyView }
+                .asSignal(onErrorSignalWith: Signal.empty())
         }
         
         let feedback = bind(self) { owner, state -> Bindings<MarketPulse.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state),
-                            events: [owner.sendEvent.asSignal()])
+            Bindings(subscriptions: owner.subscriptions(state: state), events: [owner.sendEvent.asSignal()])
         }
         
         presenter.system(feedbacks: [feedback, readyViewFeedback])
@@ -154,7 +148,6 @@ extension MarketPulseWidgetViewController {
                 guard let self = self else { return }
                 
                 switch state.action {
-                    
                 case .update:
                     self.items = state.models
                     self.currency = state.currency
@@ -163,7 +156,7 @@ extension MarketPulseWidgetViewController {
                     self.updateUI()
                     self.setupUpdateTimer()
                     self.hideError()
-
+                    
                 case .didFailUpdate(let error):
                     self.hideUpdateAnimation()
                     self.showError(error)
@@ -178,8 +171,8 @@ extension MarketPulseWidgetViewController {
 }
 
 // MARK: - UI
+
 private extension MarketPulseWidgetViewController {
-    
     func hideError() {
         labelError.isHidden = true
         tableView.isHidden = false
@@ -193,7 +186,7 @@ private extension MarketPulseWidgetViewController {
         buttonUpdate.isHidden = true
         buttonSettings.isHidden = true
         
-        //TODO: - change error message
+        // TODO: - change error message
         labelError.text = error.localizedDescription
     }
     
@@ -210,7 +203,7 @@ private extension MarketPulseWidgetViewController {
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
             
             rotationAnimation.fromValue = 0.0
-            rotationAnimation.toValue =  Float.pi * 2.0
+            rotationAnimation.toValue = Float.pi * 2.0
             rotationAnimation.duration = Constants.animationDuration
             rotationAnimation.repeatCount = Float.infinity
             
@@ -222,9 +215,7 @@ private extension MarketPulseWidgetViewController {
         buttonUpdate.imageView?.layer.removeAnimation(forKey: Constants.animationKey)
     }
     
-    var titleTextColor: UIColor {
-        return isDarkMode ? .disabled700 : .basic700
-    }
+    var titleTextColor: UIColor { isDarkMode ? .disabled700 : .basic700 }
     
     func setupDarkMode() {
         buttonSettings.tintColor = titleTextColor
@@ -241,37 +232,34 @@ private extension MarketPulseWidgetViewController {
     }
     
     func setupCurrencyTitle() {
-        
         let selectedColor: UIColor = isDarkMode ? .disabled400 : .disabled900
         
         let text = MarketPulse.Currency.usd.title + " / " + MarketPulse.Currency.eur.title
-        let attr = NSMutableAttributedString.init(string: text,
-                                                  attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12),
-                                                               NSAttributedString.Key.foregroundColor : titleTextColor])
-        attr.addAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .medium),
-                            NSAttributedString.Key.foregroundColor : selectedColor],
-                           range: (text as NSString).range(of: currency.title))
+        let attrubutes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                          NSAttributedString.Key.foregroundColor: titleTextColor]
+        let attr = NSMutableAttributedString(string: text, attributes: attrubutes)
+        
+        let additionalAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .medium),
+                                    NSAttributedString.Key.foregroundColor: selectedColor]
+        attr.addAttributes(additionalAttributes, range: (text as NSString).range(of: currency.title))
         buttonCurrency.setAttributedTitle(attr, for: .normal)
     }
 }
 
 // MARK: - UITableViewDelegate
+
 extension MarketPulseWidgetViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return MarketPulseWidgetCell.viewHeight()
+        MarketPulseWidgetCell.viewHeight()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { items.count }
 }
 
 // MARK: - UITableViewDataSource
+
 extension MarketPulseWidgetViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let row = items[indexPath.row]
         
         switch row {
@@ -284,9 +272,9 @@ extension MarketPulseWidgetViewController: UITableViewDataSource {
 }
 
 // MARK: - NCWidgetProviding
+
 extension MarketPulseWidgetViewController: NCWidgetProviding {
-    
-    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         // Perform any setup necessary in order to update the view.
         
         // If an error is encountered, use NCUpdateResult.Failed
@@ -301,17 +289,15 @@ extension MarketPulseWidgetViewController: NCWidgetProviding {
     }
     
     func updatePrefferedSize() {
-        
         guard let extensionContext = self.extensionContext else { return }
         extensionContext.widgetLargestAvailableDisplayMode = items.count > MarketPulse.minimumCountAssets ? .expanded : .compact
-
+        
         let activeMode = extensionContext.widgetActiveDisplayMode
         let maxSize = extensionContext.widgetMaximumSize(for: activeMode)
         
         if activeMode == .compact {
             preferredContentSize = maxSize
-        }
-        else {
+        } else {
             let height = CGFloat(items.count) * MarketPulseWidgetCell.viewHeight() + Constants.bottomViewHeight
             preferredContentSize = .init(width: maxSize.width, height: height)
         }

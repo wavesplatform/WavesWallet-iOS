@@ -12,11 +12,13 @@ import UIKit
 extension NSAttributedString {
     class func styleForBalance(text: String, font: UIFont) -> NSAttributedString {
         let range = (text as NSString).range(of: ".")
-        let attrString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)])
+        let attibutes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)]
+        let attrString = NSMutableAttributedString(string: text, attributes: attibutes)
 
         if range.location != NSNotFound {
             let length = text.count - range.location
-            attrString.addAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize, weight: .regular)], range: NSRange(location: range.location, length: length))
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize, weight: .regular)]
+            attrString.addAttributes(attributes, range: NSRange(location: range.location, length: length))
         }
         return attrString
     }

@@ -13,23 +13,24 @@ import DomainLayer
 
 extension TradeTypes.DTO.Core {
     
-    func mapCategories(selectedFilters: [TradeTypes.DTO.SelectedFilter], selectedAsset: DomainLayer.DTO.Dex.Asset?) -> [TradeTypes.ViewModel.Category] {
+    func mapCategories(selectedFilters: [TradeTypes.DTO.SelectedFilter],
+                       selectedAsset: DomainLayer.DTO.Dex.Asset?) -> [TradeTypes.ViewModel.Category] {
         
-        let rates = pairsRate.reduce(into: [String: Money].init(), {
+        let rates = pairsRate.reduce(into: [String: Money](), {
             $0[$1.amountAssetId] = Money(value: Decimal($1.rate), WavesSDKConstants.FiatDecimals)
         })
 
-        let pairsPriceMap = pairsPrice.reduce(into: [String : DomainLayer.DTO.Dex.PairPrice].init(), {
+        let pairsPriceMap = pairsPrice.reduce(into: [String: DomainLayer.DTO.Dex.PairPrice](), {
             $0[$1.id] = $1
         })
             
-        let favoritePairsMap = favoritePairs.reduce(into: [String: Bool].init(), {
+        let favoritePairsMap = favoritePairs.reduce(into: [String: Bool]()) {
             $0[$1.id] = true
-        })
+        }
         
-        let selectedFiltersMap = selectedFilters.reduce(into: [Int: TradeTypes.DTO.SelectedFilter].init(), {
+        let selectedFiltersMap = selectedFilters.reduce(into: [Int: TradeTypes.DTO.SelectedFilter]()) {
             $0[$1.categoryIndex] = $1
-        })
+        }
         
         var uiCategories = [mapFavoriteCategory(selectedAsset: selectedAsset, rates: rates, pairsPriceMap: pairsPriceMap)]
         var favoritePairsPrice: [TradeTypes.DTO.Pair] = []
@@ -52,9 +53,9 @@ extension TradeTypes.DTO.Core {
                         }
                     }
                     
-                    if let selectedFilter = selectedFilter, selectedFilter.filters.count > 0 {
-                        if selectedFilter.filters.first(where: {$0.ids.contains(pairPrice.amountAsset.id)}) == nil &&
-                            selectedFilter.filters.first(where: {$0.ids.contains(pairPrice.priceAsset.id)}) == nil {
+                    if let selectedFilter = selectedFilter, selectedFilter.filters.isNotEmpty {
+                        if selectedFilter.filters.first(where: { $0.ids.contains(pairPrice.amountAsset.id) }) == nil &&
+                            selectedFilter.filters.first(where: { $0.ids.contains(pairPrice.priceAsset.id) }) == nil {
                             continue
                         }
                     }
@@ -77,7 +78,7 @@ extension TradeTypes.DTO.Core {
             
                 
             var header: TradeTypes.ViewModel.Header? {
-                if category.filters.count > 0 {
+                if category.filters.isNotEmpty {
                     return .filter(.init(categoryIndex: categoryIndex,
                                          selectedFilters: selectedFilter?.filters ?? [],
                                          filters: category.filters))
@@ -86,31 +87,31 @@ extension TradeTypes.DTO.Core {
                 return nil
             }
                 
-            if categoryPairs.count == 0 {
+            if categoryPairs.isEmpty {
                 uiCategories.append(.init(index: categoryIndex,
                                           isFavorite: false,
                                           name: category.name,
                                           header: header,
                                           rows: [.emptyData]))
-            }
-            else {
-                categoryPairs.sort(by: {$0.volumeWaves > $1.volumeWaves})
+            } else {
+                categoryPairs.sort(by: { $0.volumeWaves > $1.volumeWaves })
                 uiCategories.append(.init(index: categoryIndex,
                                           isFavorite: false,
                                           name: category.name,
                                           header: header,
-                                          rows: categoryPairs.map {.pair($0)}))
+                                          rows: categoryPairs.map { .pair($0) }))
             }
         }
             
         return uiCategories
     }
-    
 }
 
 private extension TradeTypes.DTO.Core {
     
-    func mapFavoriteCategory(selectedAsset: DomainLayer.DTO.Dex.Asset?, rates: [String: Money], pairsPriceMap: [String: DomainLayer.DTO.Dex.PairPrice]) -> TradeTypes.ViewModel.Category {
+    func mapFavoriteCategory(selectedAsset: DomainLayer.DTO.Dex.Asset?,
+                             rates: [String: Money],
+                             pairsPriceMap: [String: DomainLayer.DTO.Dex.PairPrice]) -> TradeTypes.ViewModel.Category {
         
         var favoritePairsPrice: [TradeTypes.DTO.Pair] = []
         
@@ -140,19 +141,10 @@ private extension TradeTypes.DTO.Core {
             }
         }
                
-        if favoritePairsPrice.count == 0 {
-            return .init(index: 0,
-                         isFavorite: true,
-                         name: "",
-                         header: nil,
-                         rows: [.emptyData])
-        }
-        else {
-            return .init(index: 0,
-                         isFavorite: true,
-                         name: "",
-                         header: nil,
-                         rows: favoritePairsPrice.map {.pair($0)})
+        if favoritePairsPrice.isEmpty {
+            return .init(index: 0, isFavorite: true, name: "", header: nil, rows: [.emptyData])
+        } else {
+            return .init(index: 0, isFavorite: true, name: "", header: nil, rows: favoritePairsPrice.map { .pair($0) })
         }
     }
 }

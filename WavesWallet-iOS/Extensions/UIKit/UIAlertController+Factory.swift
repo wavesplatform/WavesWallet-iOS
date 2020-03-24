@@ -9,15 +9,14 @@
 import Foundation
 import UIKit
 
-
 extension UIAlertController {
     static func showAlertForEnabledBiometric() -> UIAlertController {
+        let alertController = UIAlertController(title: Localizable.Waves.Profile.Alert.Setupbiometric.title,
+                                                message: Localizable.Waves.Profile.Alert.Setupbiometric.message,
+                                                preferredStyle: .alert)
 
-        let alertController = UIAlertController (title: Localizable.Waves.Profile.Alert.Setupbiometric.title,
-                                                 message: Localizable.Waves.Profile.Alert.Setupbiometric.message,
-                                                 preferredStyle: .alert)
-
-        let settingsAction = UIAlertAction(title: Localizable.Waves.Profile.Alert.Setupbiometric.Button.settings, style: .default) { (_) -> Void in
+        let settingsTitle = Localizable.Waves.Profile.Alert.Setupbiometric.Button.settings
+        let settingsAction = UIAlertAction(title: settingsTitle, style: .default) { _ -> Void in
 
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
@@ -25,15 +24,14 @@ extension UIAlertController {
 
             guard UIApplication.shared.canOpenURL(settingsUrl) else { return }
 
-            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+            UIApplication.shared.open(settingsUrl, completionHandler: { _ in })
         }
 
-        let cancelAction = UIAlertAction(title: Localizable.Waves.Profile.Alert.Setupbiometric.Button.cancel, style: .cancel, handler: nil)
+        let cancelTitle = Localizable.Waves.Profile.Alert.Setupbiometric.Button.cancel
+        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel, handler: nil)
 
         alertController.addAction(cancelAction)
         alertController.addAction(settingsAction)
-
-
 
         return alertController
     }

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="74" id="KGk-i7-Jjw" customClass="PayoutsTransactionsSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0t-Of-eyq">
+                        <rect key="frame" x="16" y="4" width="288" height="68"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZuH-So-Amt" userLabel="ImageGradient" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="14" y="10" width="48" height="48"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="ofX-3a-Yai"/>
+                                    <constraint firstAttribute="width" constant="48" id="qNe-Tf-3yc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nAx-Jt-rxU" userLabel="TopLabelGradient" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="70" y="14" width="33" height="14"/>
+                                <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="8G1-x2-sTy"/>
+                                    <constraint firstAttribute="width" constant="33" id="D4H-TJ-ydS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMs-Yb-czv" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="70" y="34" width="85" height="20"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="gJa-DJ-gnQ"/>
+                                    <constraint firstAttribute="width" constant="85" id="pHQ-qF-Y7G"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFr-hD-jgc" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="245" y="20" width="29" height="28"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="BSY-rX-onV"/>
+                                    <constraint firstAttribute="height" constant="28" id="TjL-GB-WEc"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wT4-34-nto" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="163" y="36" width="40" height="16"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="I2A-1j-3gk"/>
+                                    <constraint firstAttribute="height" constant="16" id="PgR-cy-IQj"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ZuH-So-Amt" firstAttribute="leading" secondItem="T0t-Of-eyq" secondAttribute="leading" constant="14" id="0X5-PP-0L2"/>
+                            <constraint firstItem="wT4-34-nto" firstAttribute="centerY" secondItem="UMs-Yb-czv" secondAttribute="centerY" id="1Tp-YN-Ckj"/>
+                            <constraint firstAttribute="trailing" secondItem="gFr-hD-jgc" secondAttribute="trailing" constant="14" id="29B-vG-CAV"/>
+                            <constraint firstItem="nAx-Jt-rxU" firstAttribute="top" secondItem="T0t-Of-eyq" secondAttribute="top" constant="14" id="Sfj-rJ-DmV"/>
+                            <constraint firstItem="ZuH-So-Amt" firstAttribute="top" secondItem="T0t-Of-eyq" secondAttribute="top" constant="10" id="WfY-FK-wLc"/>
+                            <constraint firstItem="nAx-Jt-rxU" firstAttribute="leading" secondItem="ZuH-So-Amt" secondAttribute="trailing" constant="8" id="XAf-VI-GMF"/>
+                            <constraint firstItem="gFr-hD-jgc" firstAttribute="centerY" secondItem="T0t-Of-eyq" secondAttribute="centerY" id="Z0R-3o-6Af"/>
+                            <constraint firstItem="UMs-Yb-czv" firstAttribute="leading" secondItem="ZuH-So-Amt" secondAttribute="trailing" constant="8" id="gOh-2X-VAJ"/>
+                            <constraint firstAttribute="bottom" secondItem="ZuH-So-Amt" secondAttribute="bottom" constant="10" id="gV9-Vw-R3o"/>
+                            <constraint firstItem="UMs-Yb-czv" firstAttribute="top" secondItem="nAx-Jt-rxU" secondAttribute="bottom" constant="6" id="mBh-Nf-YYW"/>
+                            <constraint firstItem="wT4-34-nto" firstAttribute="leading" secondItem="UMs-Yb-czv" secondAttribute="trailing" constant="8" id="zy4-Uu-XD1"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="T0t-Of-eyq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OcI-72-KDB"/>
+                    <constraint firstAttribute="bottom" secondItem="T0t-Of-eyq" secondAttribute="bottom" constant="4" id="PFW-by-Nnr"/>
+                    <constraint firstItem="T0t-Of-eyq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cBF-ql-acd"/>
+                    <constraint firstAttribute="trailing" secondItem="T0t-Of-eyq" secondAttribute="trailing" constant="16" id="pKk-dB-FIr"/>
+                    <constraint firstItem="T0t-Of-eyq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="tNr-C7-Fkp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="shadowContainerView" destination="T0t-Of-eyq" id="pBm-jE-GUm"/>
+                <outletCollection property="views" destination="ZuH-So-Amt" collectionClass="NSMutableArray" id="L4B-Yu-NdE"/>
+                <outletCollection property="views" destination="nAx-Jt-rxU" collectionClass="NSMutableArray" id="QHQ-Rj-Vuw"/>
+                <outletCollection property="views" destination="UMs-Yb-czv" collectionClass="NSMutableArray" id="MSN-vt-K7B"/>
+                <outletCollection property="views" destination="wT4-34-nto" collectionClass="NSMutableArray" id="Wkf-rN-scu"/>
+                <outletCollection property="views" destination="gFr-hD-jgc" collectionClass="NSMutableArray" id="S2Z-4O-Wbs"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="163.72767857142856"/>
+        </tableViewCell>
+    </objects>
+</document>

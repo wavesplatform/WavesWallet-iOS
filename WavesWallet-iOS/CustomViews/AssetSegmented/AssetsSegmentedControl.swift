@@ -100,14 +100,14 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     }
 
     func setCurrentAsset(id: String, animated: Bool = true) {
-        let element = assets.enumerated().first(where: { $0.element.id == id })
+        let element = assets.enumerated().first { $0.element.id == id }
         guard let page = element?.offset else { return }
         setCurrentPage(page, animated: animated)
     }
 
     func setCurrentPage(_ page: Int, animated: Bool = true) {
         let newPage = collectionView.correctedIncorectIndex(page)
-        collectionView.scrollToItem(at: IndexPath(item: newPage , section: 0), at: .centeredHorizontally, animated: animated)
+        collectionView.scrollToItem(at: IndexPath(item: newPage, section: 0), at: .centeredHorizontally, animated: animated)
         updateWithNewPage(page)
     }
 
@@ -196,8 +196,9 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 
 extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
-    func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
-
+    func infiniteCollectionView(_ collectionView: UICollectionView,
+                                didSelectItemAt usableIndexPath: IndexPath,
+                                dequeueForItemAt: IndexPath) {
         //TODO: need doing with animation and detect completed animation. 
         self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: false)
         self.sendActions(for: .valueChanged)

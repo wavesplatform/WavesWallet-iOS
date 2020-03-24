@@ -120,7 +120,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         let tradeCoordinator = TradeCoordinator(navigationRouter: navigationRouterDex)
         addChildCoordinatorAndStart(childCoordinator: tradeCoordinator)
 
-        let profileCoordinator = ProfileCoordinator(navigationRouter: navigationRouterProfile, applicationCoordinator: applicationCoordinator)
+        let profileCoordinator = ProfileCoordinator(navigationRouter: navigationRouterProfile,
+                                                    applicationCoordinator: applicationCoordinator)
         addChildCoordinatorAndStart(childCoordinator: profileCoordinator)
     }
 
@@ -142,7 +143,9 @@ private extension MainTabBarCoordinator {
 
         if #available(iOS 10.0, *) {
             navProfile.tabBarItem.badgeColor = UIColor.clear
-            navProfile.tabBarItem.setBadgeTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: UIColor.error400]), for: .normal)
+            let tabBarItemAttributes = [NSAttributedString.Key.foregroundColor.rawValue: UIColor.error400]
+            let tabBarItemAttributedStrings = convertToOptionalNSAttributedStringKeyDictionary(tabBarItemAttributes)
+            navProfile.tabBarItem.setBadgeTextAttributes(tabBarItemAttributedStrings, for: .normal)
             navProfile.tabBarItem.badgeValue = "●"
         } else {
             navProfile.tabBarItem.badgeValue = "●"

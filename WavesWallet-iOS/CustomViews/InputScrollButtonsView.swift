@@ -51,9 +51,7 @@ final class InputScrollButtonsView: UIScrollView {
                            height: Constants.buttonHeight)
     }
     
-    func value(for index: Int) -> String? {
-        return input[index]
-    }
+    func value(for index: Int) -> String? { input[index] }
 }
 
 // MARK: ViewConfiguration
@@ -74,7 +72,7 @@ extension InputScrollButtonsView: ViewConfiguration {
 private extension InputScrollButtonsView {
 
     func setupView() {
-        subviews.forEach( {$0.removeFromSuperview()})
+        subviews.forEach({ $0.removeFromSuperview() })
         
         var scrollWidth: CGFloat = startOffset
         
@@ -99,7 +97,10 @@ private extension InputScrollButtonsView {
                 
         let font = UIFont.systemFont(ofSize: Constants.fontSize)
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: 0, y: 0, width: title.maxWidth(font: font) + Constants.buttonAdditionalWidth, height: Constants.buttonHeight)
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: title.maxWidth(font: font) + Constants.buttonAdditionalWidth,
+                              height: Constants.buttonHeight)
         button.layer.cornerRadius = Constants.buttonCorner
         button.setTitle(title, for: .normal)
         button.setTitleColor(.basic500, for: .normal)

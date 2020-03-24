@@ -5,16 +5,14 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
-protocol LongInfoPageViewDelegate: class {
-    
-    func longInfoPageViewDidScrollToBottom(view: LongInfoPageView)    
+protocol LongInfoPageViewDelegate: AnyObject {
+    func longInfoPageViewDidScrollToBottom(view: LongInfoPageView)
 }
 
 final class LongInfoPageView: UIView {
-    
     class Model {
         let title: String
         let firstDetail: String
@@ -27,13 +25,15 @@ final class LongInfoPageView: UIView {
         let fourthImage: UIImage?
         var scrolledToBottom: Bool = false
         
-        init(title: String, firstDetail: String, secondDetail: String,
-         thirdDetail: String,
-         fourthDetail: String,
-         firstImage: UIImage?,
-         secondImage: UIImage?,
-         thirdImage: UIImage?,
-         fourthImage: UIImage?) {
+        init(title: String,
+             firstDetail: String,
+             secondDetail: String,
+             thirdDetail: String,
+             fourthDetail: String,
+             firstImage: UIImage?,
+             secondImage: UIImage?,
+             thirdImage: UIImage?,
+             fourthImage: UIImage?) {
             self.title = title
             self.firstDetail = firstDetail
             self.secondDetail = secondDetail
@@ -60,18 +60,16 @@ final class LongInfoPageView: UIView {
     @IBOutlet private weak var secondTextLabel: UILabel!
     @IBOutlet private weak var thirdTextLabel: UILabel!
     @IBOutlet private weak var fourthTextLabel: UILabel!
-
-    @IBOutlet weak var firstImageView: UIImageView!
-    @IBOutlet weak var secondImageView: UIImageView!
-    @IBOutlet weak var thirdImageView: UIImageView!
-    @IBOutlet weak var fourthImageView: UIImageView!
-
-
+    
+    @IBOutlet private weak var firstImageView: UIImageView!
+    @IBOutlet private weak var secondImageView: UIImageView!
+    @IBOutlet private weak var thirdImageView: UIImageView!
+    @IBOutlet private weak var fourthImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
-
+    
     func setupConstraints() {
         if Platform.isIphone5 {
             setupAllConstraints(titleTop: 58, titleLeading: 16, textTrailing: 16, secondTop: 24)
@@ -94,24 +92,24 @@ final class LongInfoPageView: UIView {
         let height = scrollView.frame.height
         let contentOffsetY = scrollView.contentOffset.y
         
-        if contentHeight > 0 && contentHeight - height - contentOffsetY <= 0 {
+        if contentHeight > 0, contentHeight - height - contentOffsetY <= 0 {
             delegate?.longInfoPageViewDidScrollToBottom(view: self)
         }
-        
     }
-
-    
 }
 
 extension LongInfoPageView: ViewConfiguration {
-    
     func update(with model: LongInfoPageView.Model) {
-        
-        titleLabel.attributedText = NSAttributedString(string: model.title, attributes: InfoPagesViewControllerConstants.subtitleAttributes)
-        firstTextLabel.attributedText = NSAttributedString(string: model.firstDetail, attributes: InfoPagesViewControllerConstants.textAttributes)
-        secondTextLabel.attributedText = NSAttributedString(string: model.secondDetail, attributes: InfoPagesViewControllerConstants.textAttributes)
-        thirdTextLabel.attributedText = NSAttributedString(string: model.thirdDetail, attributes: InfoPagesViewControllerConstants.textAttributes)
-        fourthTextLabel.attributedText = NSAttributedString(string: model.fourthDetail, attributes: InfoPagesViewControllerConstants.textAttributes)
+        titleLabel.attributedText = NSAttributedString(string: model.title,
+                                                       attributes: InfoPagesViewControllerConstants.subtitleAttributes)
+        firstTextLabel.attributedText = NSAttributedString(string: model.firstDetail,
+                                                           attributes: InfoPagesViewControllerConstants.textAttributes)
+        secondTextLabel.attributedText = NSAttributedString(string: model.secondDetail,
+                                                            attributes: InfoPagesViewControllerConstants.textAttributes)
+        thirdTextLabel.attributedText = NSAttributedString(string: model.thirdDetail,
+                                                           attributes: InfoPagesViewControllerConstants.textAttributes)
+        fourthTextLabel.attributedText = NSAttributedString(string: model.fourthDetail,
+                                                            attributes: InfoPagesViewControllerConstants.textAttributes)
         
         firstImageView.image = model.firstImage
         secondImageView.image = model.secondImage
@@ -120,15 +118,11 @@ extension LongInfoPageView: ViewConfiguration {
         
         setupConstraints()
         scrollView.delegate = self
-
     }
-    
 }
 
 extension LongInfoPageView: UIScrollViewDelegate {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateOnScroll()
     }
-    
 }

@@ -6,16 +6,15 @@
 //  Copyright © 2018 Waves. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
 private extension UIViewController {
-
     var _tabBarController: UITabBarController? {
         if let viewController = self as? UITabBarController {
             return viewController
         } else {
-            return self.tabBarController
+            return tabBarController
         }
     }
 
@@ -35,13 +34,12 @@ protocol SweetSnackAction {
 }
 
 struct SweetSnack {
-
     enum BehaviorDismiss {
         case popToLastWihDuration(TimeInterval)
         case popToLast
         case never
     }
-    
+
     let title: String
     let backgroundColor: UIColor
     let behaviorDismiss: BehaviorDismiss
@@ -52,7 +50,6 @@ struct SweetSnack {
 }
 
 final class SweetSnackbar: NSObject {
-
     private struct PackageSnack {
         let key: String
         let model: SweetSnack
@@ -73,9 +70,9 @@ final class SweetSnackbar: NSObject {
     }
 
     private var snackMap: [String: PackageSnack] = [:]
-    private var lastSnack: PackageSnack? = nil
-    private var neverSnack: PackageSnack? = nil
-    private var lastLocation: CGPoint? = nil
+    private var lastSnack: PackageSnack?
+    private var neverSnack: PackageSnack?
+    private var lastLocation: CGPoint?
 
     func hideSnack(key: String) {
         guard let snack = snackMap[key] else { return }
@@ -84,7 +81,6 @@ final class SweetSnackbar: NSObject {
 
     @discardableResult func showSnack(_ snack: SweetSnack,
                                       on viewController: UIViewController) -> String {
-
         let view = SweetSnackView.loadFromNib()
         let key = UUID().uuidString
         let package = PackageSnack(key: key,
@@ -97,7 +93,6 @@ final class SweetSnackbar: NSObject {
 
     @discardableResult private func showSnack(by package: PackageSnack,
                                               on viewController: UIViewController) -> String {
-
         let pan = UIPanGestureRecognizer(target: self, action: #selector(hanlerPanGesture(pan:)))
         pan.delegate = self
         let tap = UITapGestureRecognizer(target: self, action: #selector(hanlerTapGesture(tap:)))
@@ -114,7 +109,7 @@ final class SweetSnackbar: NSObject {
         view.bounds = bounds
 
         viewController.view.addSubview(view)
-        
+
         if let tabBarVC = viewController as? UITabBarController {
             tabBarVC.view.bringSubviewToFront(tabBarVC.tabBar)
         }
@@ -129,11 +124,14 @@ final class SweetSnackbar: NSObject {
         view.addGestureRecognizer(tap)
         view.addGestureRecognizer(swipe)
 
-        viewController.addObserver(self, forKeyPath: viewController.layoutInsetsKey, options: [NSKeyValueObservingOptions.new], context: nil)
+        viewController.addObserver(self,
+                                   forKeyPath: viewController.layoutInsetsKey,
+                                   options: [NSKeyValueObservingOptions.new],
+                                   context: nil)
 
         var bottom = viewController.layoutInsets.bottom
 
-        if ((viewController as? UITabBarController) != nil) {
+        if (viewController as? UITabBarController) != nil {
             bottom += viewController.tabBarHeight
         }
         view.bottomOffsetPadding = bottom
@@ -143,11 +141,11 @@ final class SweetSnackbar: NSObject {
         view.setNeedsLayout()
 
         let widthConstraint = NSLayoutConstraint(item: view,
-                                                  attribute: .width,
-                                                  relatedBy: .equal,
-                                                  toItem: nil,
-                                                  attribute: .notAnAttribute,
-                                                  multiplier: 1, constant: bounds.width)
+                                                 attribute: .width,
+                                                 relatedBy: .equal,
+                                                 toItem: nil,
+                                                 attribute: .notAnAttribute,
+                                                 multiplier: 1, constant: bounds.width)
 
         view.addConstraint(widthConstraint)
 
@@ -156,24 +154,29 @@ final class SweetSnackbar: NSObject {
 
         snackMap[key] = package
 
-        let prevLastSnack = self.lastSnack
-        self.lastSnack = package
+        let prevLastSnack = lastSnack
+        lastSnack = package
 
-        self.hideSnack(prevLastSnack, isNewSnack: true, completed: { isCancel in
+        hideSnack(prevLastSnack, isNewSnack: true, completed: { _ in
             // It code run next loop in runloop
 
-            UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-                view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
-            }) { animated in
+            UIView.animate(withDuration: Constants.durationAnimation,
+                           delay: 0,
+                           options: [.curveEaseInOut, .beginFromCurrentState],
+                           animations: {
+                            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+            }, completion: { _ in
                 self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
-            }
+            })
         })
 
         return key
     }
 
-    private func applyBehaviorDismiss(view: SweetSnackView, viewController: UIViewController, snack: PackageSnack, isNewSnack: Bool) {
-
+    private func applyBehaviorDismiss(view: SweetSnackView,
+                                      viewController: UIViewController,
+                                      snack: PackageSnack,
+                                      isNewSnack: Bool) {
         switch snack.model.behaviorDismiss {
         case .popToLast:
             break
@@ -182,12 +185,11 @@ final class SweetSnackbar: NSObject {
             autoHideSnack(snack: snack, duration: duration, isNewSnack: isNewSnack)
 
         case .never:
-            self.neverSnack = snack
+            neverSnack = snack
         }
     }
 
     private func applyActionDismiss(snack: PackageSnack, isNewSnack: Bool) {
-
         switch snack.model.behaviorDismiss {
         case .popToLast, .popToLastWihDuration:
             if let neverSnack = self.neverSnack, isNewSnack == false, self.lastSnack?.key != self.neverSnack?.key {
@@ -197,14 +199,13 @@ final class SweetSnackbar: NSObject {
 
         case .never:
             if let neverSnack = self.neverSnack,
-                neverSnack.key == snack.key && isNewSnack == false {
+                neverSnack.key == snack.key, isNewSnack == false {
                 self.neverSnack = nil
             }
         }
     }
 
     private func autoHideSnack(snack: PackageSnack, duration: TimeInterval, isNewSnack: Bool) {
-
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
             if self.lastSnack?.key == snack.key {
                 self.hideSnack(snack, isNewSnack: isNewSnack)
@@ -213,15 +214,13 @@ final class SweetSnackbar: NSObject {
     }
 
     private func hideLastSnack(isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
-
-        guard let snack = self.lastSnack else  { return }
+        guard let snack = lastSnack else { return }
         hideSnack(snack, isNewSnack: isNewSnack, completed: completed)
-        self.lastSnack = nil
+        lastSnack = nil
     }
 
     private func hideSnack(_ snack: PackageSnack?, isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
-
-        guard let snack = snack else  {
+        guard let snack = snack else {
             completed?(false)
             return
         }
@@ -230,10 +229,9 @@ final class SweetSnackbar: NSObject {
     }
 
     private func hideSnack(_ snack: PackageSnack, isNewSnack: Bool, completed: ((Bool) -> Void)? = nil) {
-
-        guard let viewController = snack.viewController else  { return }
+        guard let viewController = snack.viewController else { return }
         let view = snack.view
-        self.snackMap.removeValue(forKey: snack.key)
+        snackMap.removeValue(forKey: snack.key)
 
         if let lastSnack = self.lastSnack, lastSnack.key == snack.key {
             self.lastSnack = nil
@@ -252,10 +250,12 @@ final class SweetSnackbar: NSObject {
         }
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-
-        guard let snack = self.lastSnack else  { return }
-        guard let viewController = snack.viewController else  { return }
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey: Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        guard let snack = lastSnack else { return }
+        guard let viewController = snack.viewController else { return }
 
         if let anyVC = object as? UIViewController, anyVC != viewController {
             return
@@ -266,7 +266,7 @@ final class SweetSnackbar: NSObject {
         let bounds = viewController.view.bounds
         var bottom = viewController.layoutInsets.bottom
 
-        if ((viewController as? UITabBarController) != nil) {
+        if (viewController as? UITabBarController) != nil {
             bottom += viewController.tabBarHeight
         }
         view.bottomOffsetPadding = bottom
@@ -275,26 +275,22 @@ final class SweetSnackbar: NSObject {
         view.layoutIfNeeded()
         view.setNeedsLayout()
 
-
         let size = view.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
-        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
-        }) { animated in
-
-        }
+        UIView.animate(withDuration: Constants.durationAnimation,
+                       delay: 0,
+                       options: [.curveEaseInOut, .beginFromCurrentState],
+                       animations: {
+                           view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+        })
     }
 }
 
 extension SweetSnackbar: UIGestureRecognizerDelegate {
-
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool { true }
 
     @objc func hanlerPanGesture(pan: UIPanGestureRecognizer) {
-
-        guard let snack = self.lastSnack else  { return }
-        guard let viewController = snack.viewController else  { return }
+        guard let snack = lastSnack else { return }
+        guard let viewController = snack.viewController else { return }
         let view = snack.view
 
         let bounds = viewController.view.bounds
@@ -307,13 +303,15 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
         switch pan.state {
         case .began:
             lastLocation = location
+            
         case .changed:
             let offset = location.y - (lastLocation?.y ?? location.y)
-            var y = view.frame.origin.y + offset            
-            y = max(y, minY)
-            y = min(y, maxY)
+            var yPosition = view.frame.origin.y + offset
+            yPosition = max(yPosition, minY)
+            yPosition = min(yPosition, maxY)
 
-            view.frame = CGRect(x: 0, y: y, width: bounds.width, height: size.height)
+            view.frame = CGRect(x: 0, y: yPosition, width: bounds.width, height: size.height)
+            
         case .cancelled, .ended:
             var percent = (view.frame.origin.y - minY) / (maxY - minY)
             percent = max(percent, 0)
@@ -324,19 +322,19 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
             } else {
                 UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
                     view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
-                }) { _ in }
+                })
             }
-        case .possible:
-            break
-        case .failed:
-            break
+            
+        case .possible: break
+            
+        case .failed: break
+            
         @unknown default:
             break
         }
     }
 
     @objc func hanlerSwipeGesture(swipe: UISwipeGestureRecognizer) {
-
         guard let lastSnack = self.lastSnack else { return }
         lastSnack.model.action?.didSwipe(snack: lastSnack.model, view: lastSnack.view, bar: self)
 
@@ -347,7 +345,6 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
     }
 
     @objc func hanlerTapGesture(tap: UITapGestureRecognizer) {
-
         guard let lastSnack = self.lastSnack else { return }
         lastSnack.model.action?.didTap(snack: lastSnack.model, view: lastSnack.view, bar: self)
 

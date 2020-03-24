@@ -133,6 +133,10 @@ final class StakingTransferInteractor {
             
                 guard let self = self else { return Observable.never() }
                 
+                let stakings = configs.staking
+                
+                guard let staking = stakings.first
+                
                 let args: [InvokeScriptTransactionSender.Arg] = .init()
                 
                 let call = InvokeScriptTransactionSender.Call.init(function: "",
@@ -144,7 +148,7 @@ final class StakingTransferInteractor {
                                                                   feeAssetId: WavesSDKConstants.wavesAssetId,
                                                                   dApp: "",
                                                                   call: call,
-                                                                  payment: payment)
+                                                                  payment: payments)
                 
                 let specifications: TransactionSenderSpecifications = .invokeScript(sender)
                 return self.transactionUseCase

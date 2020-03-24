@@ -40,7 +40,8 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
     var selectedIndex: Int {
         get {
             return scrollView.selectedButtonIndex
-        } set (newValue) {
+        }
+        set (newValue) {
             scrollView.selectedWith(index: newValue, animated: false)
         }
     }

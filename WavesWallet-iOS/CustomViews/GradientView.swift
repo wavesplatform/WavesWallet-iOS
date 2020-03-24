@@ -74,9 +74,7 @@ final class GradientView: UIView {
     
     var colors: [UIColor] = []
 
-    override class var layerClass: AnyClass {
-        return CAGradientLayer.self
-    }
+    override class var layerClass: AnyClass { CAGradientLayer.self }
 
     private func updateColor() {
 
@@ -84,11 +82,9 @@ final class GradientView: UIView {
 
         layer.startPoint = direction.startPoint
         layer.endPoint = direction.endPoint
-        layer.locations = direction.locations?.map({ (value) -> NSNumber in
-            return NSNumber.init(value: value)
-        })
+        layer.locations = direction.locations?.map { value in NSNumber(value: value) }
         
-        let colors = self.colors.count > 0 ? self.colors : [startColor, endColor]
+        let colors = self.colors.isNotEmpty ? self.colors : [startColor, endColor]
         layer.colors = colors.map { $0.cgColor }        
     }
 }

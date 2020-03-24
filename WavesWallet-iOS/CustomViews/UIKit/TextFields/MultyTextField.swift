@@ -22,7 +22,7 @@ private extension UITextView {
             return
         }
 
-        let text = (self.text.count == 0 ? "" : self.text) ?? ""
+        let text = (self.text.isEmpty ? "" : self.text) ?? ""
         let height = text.maxHeightMultiline(font: font, forWidth: self.bounds.size.width)
         var topCorrect = (self.bounds.size.height - height) / 2
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
@@ -51,14 +51,12 @@ final class MultyTextField: UIView, NibOwnerLoadable {
     @IBOutlet private var textViewValue: MultyTextView!
     private var originalText: String?
 
-    var value: String? {
-        return originalText
-    }
+    var value: String? { originalText }
 
     private var isHiddenTitleLabel: Bool = true
 
     var valueValidator: ((String?) -> String?)?
-    var changedValue: ((Bool,String?) -> Void)?
+    var changedValue: ((Bool, String?) -> Void)?
     var textFieldShouldReturn: ((MultyTextField) -> Void)?
 
     var returnKey: UIReturnKeyType? {
@@ -80,17 +78,16 @@ final class MultyTextField: UIView, NibOwnerLoadable {
         textViewValue.textContainerInset = .zero
         textViewValue.textContainer.lineFragmentPadding = 0
         textViewValue.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
 
-    @discardableResult override func becomeFirstResponder() -> Bool {
-        return textViewValue.becomeFirstResponder()
-    }
+    @discardableResult override func becomeFirstResponder() -> Bool { textViewValue.becomeFirstResponder() }
 
-    @discardableResult override func resignFirstResponder() -> Bool {
-        return textViewValue.resignFirstResponder()
-    }
+    @discardableResult override func resignFirstResponder() -> Bool { textViewValue.resignFirstResponder() }
 
     @objc func keyboardWillHide() {
         checkValidValue()
@@ -131,10 +128,10 @@ final class MultyTextField: UIView, NibOwnerLoadable {
     }
 
     private func checkValidValue(_ value: String?) {
-        var error: String? = nil
+        var error: String?
         var isValidValue: Bool = false
 
-        if let value = value, value.count > 0 {
+        if let value = value, value.isNotEmpty {
             error = valueValidator?(value)
             isValidValue = error == nil
         }
@@ -164,8 +161,8 @@ extension MultyTextField: UITextViewDelegate {
     private func updateTextView(_ text: String?) {
         self.originalText = text
         checkValidValue(text)
-        let count = text?.count ?? 0
-        placeHolder.isHidden = count != 0
+        let isEmptyText = text?.isNotEmpty ?? false
+        placeHolder.isHidden = isEmptyText
         textViewValue.text = text
         textViewValue.alignTextVerticallyInContainer()
         textFieldChanged()

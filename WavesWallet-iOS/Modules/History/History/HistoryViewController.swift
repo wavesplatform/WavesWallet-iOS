@@ -10,7 +10,6 @@ import UIKit
 import RxCocoa
 import RxFeedback
 import RxSwift
-import SwiftDate
 import DomainLayer
 import Extensions
 

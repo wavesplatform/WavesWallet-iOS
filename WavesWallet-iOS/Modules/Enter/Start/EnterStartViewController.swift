@@ -10,7 +10,6 @@ import UIKit
 import Extensions
 
 private enum Constants {
-    
     enum CollectionTopOffset: CGFloat {
         case small = 0
         case medium = 24
@@ -26,8 +25,6 @@ private enum Constants {
         case small = 2
         case big = 24
     }
-    
-    
 }
 
 protocol EnterStartViewControllerDelegate: AnyObject {
@@ -40,17 +37,17 @@ protocol EnterStartViewControllerDelegate: AnyObject {
 final class EnterStartViewController: UIViewController, UICollectionViewDelegate {
     typealias Block = EnterStartTypes.Block
 
-    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet private weak var pageControl: UIPageControl!
     @IBOutlet private weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var collectionTopOffsetConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var createAccountButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var createAccountButtonTopConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var pageControlTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var pageControlTopConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var importAccountView: UIView!
-    @IBOutlet weak var signInView: UIView!
+    @IBOutlet private weak var importAccountView: UIView!
+    @IBOutlet private weak var signInView: UIView!
     
     @IBOutlet private weak var signInTitleLabel: UILabel!
     @IBOutlet private weak var signInDetailLabel: UILabel!
@@ -59,12 +56,10 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet private weak var createNewAccountButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var orLabel: UILabel!
+    @IBOutlet private weak var orLabel: UILabel!
 
-    private var currentPage: Int  = 0
-    private let blocks: [Block] = [.blockchain,
-                                   .wallet,
-                                   .dex]
+    private var currentPage = 0
+    private let blocks: [Block] = [.blockchain, .wallet, .dex]
 
     weak var delegate: EnterStartViewControllerDelegate?
 
@@ -142,9 +137,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             
             signInView.addTableCellShadowStyle()
             importAccountView.addTableCellShadowStyle()
-
         }
-        
     }
 
     private func setupTopOffsetConstraint() {
@@ -166,7 +159,9 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     // MARK: - Notification
 
     private func subscribeLanguageNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage(_:)), name: .changedLanguage, object: nil)
+        NotificationCenter
+            .default
+            .addObserver(self, selector: #selector(changedLanguage(_:)), name: .changedLanguage, object: nil)
     }
     
     private func unsubscribe() {
@@ -183,58 +178,49 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         delegate?.showLanguageCoordinator()
     }
     
-    @IBAction func signIn(_ sender: Any) {
+    @IBAction private func signIn(_ sender: Any) {
         delegate?.showSignInAccount()
     }
     
-    @IBAction func importAccount(_ sender: Any) {
+    @IBAction private func importAccount(_ sender: Any) {
         delegate?.showImportCoordinator()
     }
 
-    @IBAction func createNewAccountTapped(_ sender: Any) {
+    @IBAction private func createNewAccountTapped(_ sender: Any) {
         delegate?.showNewAccount()
     }
-    
 }
 
 extension EnterStartViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return blocks.count
-        
+        blocks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell: EnterStartBlockCell = collectionView.dequeueReusableCell(withReuseIdentifier: EnterStartBlockCell.reuseIdentifier, for: indexPath) as! EnterStartBlockCell
+        let cell: EnterStartBlockCell = collectionView
+            .dequeueReusableCell(withReuseIdentifier: EnterStartBlockCell.reuseIdentifier, for: indexPath) as! EnterStartBlockCell
         
         let block = blocks[indexPath.row] as Block
         cell.update(with: block)
         
         return cell
-        
     }
-    
 }
 
 extension EnterStartViewController: UIScrollViewDelegate {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.width
         let fractionalPage = scrollView.contentOffset.x / pageWidth
         let page = lround(Double(fractionalPage))
         pageControl.currentPage = page
     }
-    
 }
 
 extension EnterStartViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: collectionView.bounds.width, height: collectionView.bounds.height)
-        
     }
-    
 }

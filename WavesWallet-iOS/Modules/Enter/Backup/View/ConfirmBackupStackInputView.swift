@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol ConfirmBackupStackInputViewDelegate: class {
+protocol ConfirmBackupStackInputViewDelegate: AnyObject {
     
     func confirmBackupStackInputViewDidRemoveWord(_ word: String)
 }
 
-class ConfirmBackupStackInputView : ConfirmBackupStackBaseView {
+class ConfirmBackupStackInputView: ConfirmBackupStackBaseView {
  
     var delegate: ConfirmBackupStackInputViewDelegate?
     
@@ -21,10 +21,10 @@ class ConfirmBackupStackInputView : ConfirmBackupStackBaseView {
     
     var words: [String] = []
 
-    
     override func draw(_ rect: CGRect) {
         
-        let path = UIBezierPath(roundedRect: CGRect(x: 0.5, y: 0.5, width: frame.size.width - 1, height: frame.size.height - 1), cornerRadius: 3)
+        let roundedRect = CGRect(x: 0.5, y: 0.5, width: frame.size.width - 1, height: frame.size.height - 1)
+        let path = UIBezierPath(roundedRect: roundedRect, cornerRadius: 3)
         path.lineWidth = 0.5
         let dashes: [CGFloat] = [6, 4]
         path.setLineDash(dashes, count: dashes.count, phase: 0)
@@ -32,13 +32,11 @@ class ConfirmBackupStackInputView : ConfirmBackupStackBaseView {
         
         if errorMode {
             UIColor.error500.setStroke()
-        }
-        else {
+        } else {
             UIColor.basic300.setStroke()
         }
         path.stroke()
     }
-    
     
     func addWord(_ word: String) {
         words.append(word)
@@ -54,24 +52,22 @@ class ConfirmBackupStackInputView : ConfirmBackupStackBaseView {
         isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.2, animations: {
             sender.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-        }) { (complete) in
+        }, completion: { _ in
             self.isUserInteractionEnabled = true
             DispatchQueue.main.async {
                 self.setupWords(zoomLastButton: false)
             }
-        }
-        
+        })
     }
     
     func setupWords(zoomLastButton: Bool) {
-        
         for view in subviews {
             view.removeFromSuperview()
         }
         
-        var offsetX : CGFloat = 0
-        var offsetY : CGFloat = 14
-        let deltaX  : CGFloat = 8
+        var offsetX: CGFloat = 0
+        var offsetY: CGFloat = 14
+        let deltaX: CGFloat = 8
         
         addEmptyInputContainerView(offsetY: offsetY)
 
@@ -107,5 +103,4 @@ class ConfirmBackupStackInputView : ConfirmBackupStackBaseView {
         self.heightConstraint.constant = lastButtonContainer.frame.origin.y + lastButtonContainer.frame.size.height + 14
         setNeedsDisplay()
     }
-
 }

@@ -118,7 +118,10 @@ final class WalletCoordinator: Coordinator {
 extension WalletCoordinator: WalletModuleOutput {
 
     func showPayoutsHistory() {
-        print("showPayoutsHistory")
+        let payoutsBuilder = PayoutsHistoryBuilder()
+        let payoutsHistoryVC = payoutsBuilder.build()
+        
+        navigationRouter.pushViewController(payoutsHistoryVC)
     }
     
     func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
@@ -251,7 +254,8 @@ extension WalletCoordinator: WalletSearchViewControllerDelegate {
         searchController.dismiss()
     }
     
-    func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
+    func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance,
+                                                  assets: [DomainLayer.DTO.SmartAssetBalance]) {
         
         navigationRouter.dismiss(animated: false, completion: nil)
         let vc = AssetDetailModuleBuilder(output: self)
@@ -356,7 +360,7 @@ fileprivate extension AssetDetailTypes.DTO.Asset.Info {
 extension WalletCoordinator: MyAddressModuleOutput {
     func myAddressShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
 
-        if aliases.count == 0 {
+        if aliases.isEmpty {
             let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
             controller.delegate = self
             let popup = PopupViewController()

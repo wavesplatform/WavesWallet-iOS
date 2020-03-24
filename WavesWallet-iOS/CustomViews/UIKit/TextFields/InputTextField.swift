@@ -6,11 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
 final class InputTextField: UIView, NibOwnerLoadable {
-
     enum Kind {
         case password
         case newPassword
@@ -28,9 +27,9 @@ final class InputTextField: UIView, NibOwnerLoadable {
     @IBOutlet private var textFieldValue: UITextField!
     @IBOutlet private var eyeButton: UIButton!
     @IBOutlet private var separatorView: SeparatorView!
-    
-    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
-                                                                                 action: #selector(handlerTapGesture(recognizer:)))
+
+    private lazy var tapGesture = UITapGestureRecognizer(target: self,
+                                                         action: #selector(handlerTapGesture(recognizer:)))
     private var secureText: String?
 
     var value: String? {
@@ -40,19 +39,13 @@ final class InputTextField: UIView, NibOwnerLoadable {
             ifNeedPlaceholder()
         }
 
-        get {
-            return textFieldValue.text
-        }
+        get { textFieldValue.text }
     }
-    
-    var text: String {
-        return textFieldValue.text ?? ""
-    }
-    
-    var trimmingText: String {
-        return text.trimmingCharacters(in: CharacterSet.whitespaces)
-    }
-  
+
+    var text: String { textFieldValue.text ?? "" }
+
+    var trimmingText: String { text.trimmingCharacters(in: CharacterSet.whitespaces) }
+
     var isEnabled: Bool {
         set {
             tapGesture.isEnabled = newValue
@@ -60,9 +53,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
             textFieldValue.isUserInteractionEnabled = newValue
         }
 
-        get {
-            return textFieldValue.isEnabled
-        }
+        get { textFieldValue.isEnabled }
     }
 
     private var isHiddenTitleLabel: Bool = true
@@ -83,7 +74,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     private var externalError: String?
 
     var valueValidator: ((String?) -> String?)?
-    var changedValue: ((Bool,String?) -> Void)?
+    var changedValue: ((Bool, String?) -> Void)?
     var textFieldShouldReturn: ((InputTextField) -> Void)?
 
     var rightView: UIView? {
@@ -124,7 +115,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     private(set) var isValidValue: Bool = false
-    
+
     private var kind: Kind?
 
     required init?(coder aDecoder: NSCoder) {
@@ -138,18 +129,18 @@ final class InputTextField: UIView, NibOwnerLoadable {
         textFieldValue.delegate = self
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
         textFieldValue.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
-    @discardableResult override func becomeFirstResponder() -> Bool {
-        return textFieldValue.becomeFirstResponder()
-    }
+    @discardableResult override func becomeFirstResponder() -> Bool { textFieldValue.becomeFirstResponder() }
 
     @objc private func handlerTapGesture(recognizer: UITapGestureRecognizer) {
-
         if recognizer.state == .ended {
-            textFieldValue.becomeFirstResponder()            
+            textFieldValue.becomeFirstResponder()
         }
     }
 
@@ -158,11 +149,10 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     @objc private func tapEyeButton() {
-        isSecureTextEntry = !isSecureTextEntry
+        isSecureTextEntry.toggle()
     }
 
     @objc private func textFieldChanged() {
-
         if isValidValue == false {
             checkValidValue()
         }
@@ -173,7 +163,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     private func ifNeedPlaceholder() {
-        let isShow = text.count > 0
+        let isShow = text.isNotEmpty
 
         let isHiddenTitleLabel = !isShow
         guard isHiddenTitleLabel != self.isHiddenTitleLabel else { return }
@@ -181,9 +171,9 @@ final class InputTextField: UIView, NibOwnerLoadable {
         titleLabel.isHidden = isHiddenTitleLabel
 
         if !self.isHiddenTitleLabel {
-            self.titleLabel.alpha = 0
+            titleLabel.alpha = 0
         } else {
-            self.titleLabel.alpha = 1
+            titleLabel.alpha = 1
         }
 
         UIView.animate(withDuration: 0.24) {
@@ -200,13 +190,12 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     private func checkValidValue(_ value: String?) {
-        var error: String? = nil
+        var error: String?
         var isValidValue: Bool = true
 
-        if let value = value, value.count > 0,
+        if let value = value, value.isNotEmpty,
             let validator = valueValidator,
-            let errorMessage = validator(value)
-        {
+            let errorMessage = validator(value) {
             error = errorMessage
             isValidValue = false
         } else if let externalError = externalError {
@@ -222,10 +211,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     var error: String? {
-
-        get {
-            return externalError ?? errorLabel.text
-        }
+        get { externalError ?? errorLabel.text }
 
         set {
             externalError = newValue
@@ -235,6 +221,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
 }
 
 // MARK: ViewConfiguration
+
 extension InputTextField: ViewConfiguration {
     func update(with model: InputTextField.Model) {
         kind = model.kind
@@ -243,7 +230,7 @@ extension InputTextField: ViewConfiguration {
         titleLabel.isHidden = isHiddenTitleLabel
 
         checkValidValue()
-        
+
         switch model.kind {
         case .text:
             isSecureTextEntry = false
@@ -257,10 +244,10 @@ extension InputTextField: ViewConfiguration {
             if #available(iOS 10.0, *) {
                 textFieldValue.textContentType = UITextContentType(rawValue: "")
             }
-            self.rightView = eyeButton
+            rightView = eyeButton
             isSecureTextEntry = true
             eyeButton.isHidden = false
-            textFieldValue.autocorrectionType = .no            
+            textFieldValue.autocorrectionType = .no
         }
 
         ifNeedPlaceholder()
@@ -268,22 +255,21 @@ extension InputTextField: ViewConfiguration {
 }
 
 // MARK: UITextFieldDelegate
-extension InputTextField: UITextFieldDelegate {
 
+extension InputTextField: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async {
             self.textFieldValue.selectedTextRange = self.textFieldValue.textRange(from: self.textFieldValue.endOfDocument,
                                                                                   to: self.textFieldValue.endOfDocument)
-        })
+        }
         separatorView.backgroundColor = .submit400
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         separatorView.backgroundColor = .accent100
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         checkValidValue()
         if isValidValue {
             textFieldShouldReturn?(self)
@@ -294,10 +280,9 @@ extension InputTextField: UITextFieldDelegate {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
         var newString = string
 
-        if self.autocapitalizationType == nil {
+        if autocapitalizationType == nil {
             newString = newString.lowercased()
         }
 
@@ -312,4 +297,3 @@ extension InputTextField: UITextFieldDelegate {
         return true
     }
 }
-

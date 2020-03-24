@@ -70,7 +70,7 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
     }
     
     private func setupFilters() {
-        scrollView.subviews.forEach{ $0.removeFromSuperview() }
+        scrollView.subviews.forEach { $0.removeFromSuperview() }
         
         var offset: CGFloat = Constants.startOffset
         let font = UIFont.systemFont(ofSize: 13)
@@ -93,10 +93,9 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
             
             offset = button.frame.origin.x + button.frame.size.width + Constants.offset
         }
-        
 
-        scrollView.contentSize.width =  model.selectedFilters.count > 0 ? offset + Constants.buttonClearOffset : offset
-        isHiddenButtonClear = model.selectedFilters.count == 0
+        scrollView.contentSize.width = model.selectedFilters.isNotEmpty ? offset + Constants.buttonClearOffset : offset
+        isHiddenButtonClear = model.selectedFilters.isEmpty
         isNeedShowButtonClearAnimation = gradientView.isHidden != isHiddenButtonClear
     }
     
@@ -108,12 +107,11 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
                 UIView.animate(withDuration: Constants.animationDuration, animations: {
                     self.gradientView.alpha = 0
                     self.buttonClear.alpha = 0
-                }) { (_) in
+                }, completion: { _ in
                     self.gradientView.isHidden = true
                     self.buttonClear.isHidden = true
-                }
-            }
-            else {
+                })
+            } else {
                 gradientView.isHidden = false
                 buttonClear.isHidden = false
                 gradientView.alpha = 0
@@ -142,22 +140,16 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
                                         shouldRasterize: true))
         }
     }
-
 }
 
 extension TradeFilterHeaderView: ViewConfiguration {
-
     func update(with model: TradeTypes.DTO.Filter) {
-        
         self.model = model
         setupFilters()
     }
 }
 
 extension TradeFilterHeaderView: ViewHeight {
-    
-    static func viewHeight() -> CGFloat {
-        return Constants.height
-    }
+    static func viewHeight() -> CGFloat { Constants.height }
 }
 
