@@ -106,18 +106,20 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
     
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-        obtainMassTransfer()
-            .map { massTransferTrait -> WalletTypes.DTO.Staking in
+        Observable.zip(enviroment.developmentConfigs(), obtainYearPercent(), obtainTotalProfit(), obtainLastPayoutsTransactions())
+            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions -> WalletTypes.DTO.Staking in
                 
-                let transactions = massTransferTrait.massTransferTransactions.transactions
-                let profitPercent = WalletInteractor.getTotalProfitPercent(transactions: transactions,
-                                                                           walletAddress: massTransferTrait.walletAddress)
+                let walletAddress = lastPayoutsTransactions.walletAddress
                 
-                let totalProfit = WalletInteractor.getTotalProfit(transactions: transactions,
-                                                                  walletAddress: massTransferTrait.walletAddress)
+                let profitPercent = WalletInteractor.getTotalProfitPercent(transactions: yearPercentMassTransfer.data,
+                                                                           walletAddress: config.staking.first?.addressByCalculateProfit ?? "")
                 
-                let totalBalanceCurrency = DomainLayer.DTO.Balance.Currency(title: "", ticker: massTransferTrait.assetTicker)
-                let totalBalanceMoney = Money(value: Decimal(totalProfit), massTransferTrait.precision ?? 0)
+                let totalProfitTransactions = totalProfitMassTransfer.massTransferTransactions.transactions
+                let totalProfit = WalletInteractor.getTotalProfit(transactions: totalProfitTransactions,
+                                                                  walletAddress: walletAddress)
+                
+                let totalBalanceCurrency = DomainLayer.DTO.Balance.Currency(title: "", ticker: totalProfitMassTransfer.assetTicker)
+                let totalBalanceMoney = Money(value: Decimal(totalProfit), totalProfitMassTransfer.precision ?? 0)
                 
                 let totalBalance = DomainLayer.DTO.Balance(currency: totalBalanceCurrency, money: totalBalanceMoney)
                 
@@ -133,7 +135,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                                                               inStaking: .init(currency: .init(title: "USDB",
                                                                                                ticker: "USDB"),
                                                                                money: Money(45254, 2))),
-                                               lastPayouts: massTransferTrait,
+                                               lastPayouts: lastPayoutsTransactions,
                                                landing: nil)
             }
     }
@@ -240,16 +242,78 @@ private extension WalletInteractor {
         return Calendar.current.date(from: dateComponents)
     }
     
-    private func obtainMassTransfer() -> Observable<PayoutsHistoryState.MassTransferTrait> {
+    /// Общий профит в процентах за год
+    /// Расчитывается по следующей формуле:  % = (арифметическое из транзикций) * количество транзакций / 100
+    /// Если транзакций меньше чем 14 берем количество того сколько есть (про ноль пока узнают)
+    private func obtainYearPercent() -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
+        enviroment
+            .developmentConfigs()
+            .map { config -> DataService.Query.MassTransferDataQuery in
+                
+                let calendar = Calendar.current
+                let dateNow = Date()
+                
+                let startDate = calendar.date(byAdding: .year, value: -1, to: dateNow).map { "\($0.millisecondsSince1970)" }
+                let endDate = "\(dateNow.millisecondsSince1970)"
+                
+                let query: DataService.Query.MassTransferDataQuery
+                
+                if let staking = config.staking.first {
+                    query = DataService.Query.MassTransferDataQuery(sender: staking.addressByPayoutsAnnualPercent,
+                                                                    timeStart: startDate,
+                                                                    timeEnd: endDate,
+                                                                    recipient: staking.addressByCalculateProfit,
+                                                                    assetId: staking.neutrinoAssetId,
+                                                                    after: nil,
+                                                                    limit: nil)
+                } else {
+                    // кейс если нет стакинга нужно как-то обработать
+                    query = DataService.Query.MassTransferDataQuery(sender: "",
+                                                                    timeStart: nil,
+                                                                    timeEnd: nil,
+                                                                    recipient: "",
+                                                                    assetId: "",
+                                                                    after: nil,
+                                                                    limit: nil)
+                }
+                
+                return query
+            }
+            .flatMap { [weak self] query -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
+                guard let strongSelf = self else { return Observable.never() }
+                return strongSelf.massTransferRepository.obtainPayoutsHistory(query: query)
+            }
+    }
+    
+    /// Общий доход (Синяя карточка)
+    private func obtainTotalProfit() -> Observable<PayoutsHistoryState.MassTransferTrait> {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+//        let timeStart = WalletInteractor.prepareStartOf2020Year().map { dateFormatter.string(from: $0) }
+//        let timeEnd = dateFormatter.string(from: Date())
+        
+        let timeStart = WalletInteractor.prepareStartOf2020Year().map { "\($0.millisecondsSince1970)" }
+        let timeEnd = "\(Date().millisecondsSince1970)"
+        
+        return performLastPayoutsTransactionRequest(timeStart: timeStart, timeEnd: timeEnd)
+    }
+    
+    private func obtainLastPayoutsTransactions() -> Observable<PayoutsHistoryState.MassTransferTrait> {
+        performLastPayoutsTransactionRequest(timeStart: nil, timeEnd: nil)
+    }
+    
+    private func performLastPayoutsTransactionRequest(timeStart: String?, timeEnd: String?)
+        -> Observable<PayoutsHistoryState.MassTransferTrait> {
         let authorizedWallet = authorizationInteractor.authorizedWallet()
         
         return enviroment
             .developmentConfigs()
             .withLatestFrom(authorizedWallet, resultSelector: { ($0, $1) })
             .map { config, signedWallet -> DataService.Query.MassTransferDataQuery in
-                let timeStart = WalletInteractor.prepareStartOf2020Year().map { "\($0.millisecondsSince1970)" }
-                let timeEnd = "\(Date().millisecondsSince1970)"
                 
+                // в чем разница между authorizedWallet.wallet.address и authorizedWallet.
+                //
                 if let staking = config.staking.first {
                     let query = DataService.Query.MassTransferDataQuery(sender: staking.addressByPayoutsAnnualPercent,
                                                                         timeStart: timeStart,
@@ -300,21 +364,20 @@ private extension WalletInteractor {
 }
 
 extension WalletInteractor {
-    private static func getTotalProfitPercent(transactions: [DataService.DTO.MassTransferTransaction], walletAddress: String)
-        -> Double {
-        // чо будет если будет меньше?
-        // (ариф.сред. из 14 последних выплат * 365) / 100
-        let profitPercentLastTransactions: [DataService.DTO.MassTransferTransaction] = transactions.suffix(14)
-        let finalCountLastProfit = profitPercentLastTransactions.count
+    private static func getTotalProfitPercent(transactions: [DataService.DTO.MassTransferTransaction],
+                                              walletAddress: String) -> Double {
+        // (ариф.сред. из транзакций) / 100
+        let finalCountLastProfit = transactions.count
         
-        let allProfit = getTotalProfit(transactions: profitPercentLastTransactions, walletAddress: walletAddress)
+        let allProfit = getTotalProfit(transactions: transactions, walletAddress: walletAddress)
         
         let average = allProfit / Double(finalCountLastProfit)
         
-        return (average * 365) / 100
+        return (average * 365)
     }
     
-    private static func getTotalProfit(transactions: [DataService.DTO.MassTransferTransaction], walletAddress: String) -> Double {
+    private static func getTotalProfit(transactions: [DataService.DTO.MassTransferTransaction],
+                                       walletAddress: String) -> Double {
         transactions.map {
             $0.transfers
                 .filter { $0.recipient == walletAddress }
