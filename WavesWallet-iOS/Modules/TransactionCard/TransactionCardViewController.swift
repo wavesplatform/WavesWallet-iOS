@@ -72,10 +72,8 @@ final class TransactionCardScroll: ModalTableView {
         super.layoutSubviews()
 
         let screenHeight = self.frame.height - self.adjustedContentInset.top
-//            - contentInset.top - controllerLayoutInsets.bottom
+
         let contentHeight = contentSize.height
-        
-//        print("controllerLayoutInsets \()")
 
         var arrowFrame = arrowButton.frame
         arrowFrame.size = Constants.sizeArrowButton

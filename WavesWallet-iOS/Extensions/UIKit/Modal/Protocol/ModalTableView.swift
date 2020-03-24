@@ -18,7 +18,6 @@ class ModalTableView: UITableView {
         return view
     }()
     
-
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -30,8 +29,8 @@ class ModalTableView: UITableView {
         insertSubview(backgroundModalView, at: 0)
     }
 
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
-    {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        
         if let tableHeaderView = tableHeaderView {
             let headerViewFrame = tableHeaderView.convert(tableHeaderView.frame, to: self)
 
@@ -39,12 +38,6 @@ class ModalTableView: UITableView {
                 return self
             }
         }
-//
-//        let backgroundModalFrame = backgroundModalView.convert(backgroundModalView.frame, to: self)
-//
-//        if backgroundModalFrame.contains(point) {
-//            return self
-//        }
 
         return super.hitTest(point, with: event)
     }

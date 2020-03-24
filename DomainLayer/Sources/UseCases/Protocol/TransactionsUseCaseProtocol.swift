@@ -22,7 +22,10 @@ public extension DomainLayer.Query {
         case burn(assetID: String)
         case cancelLease
         case sendTransaction(assetID: String)
-        case createOrder(amountAsset: String, priceAsset: String, settingsOrderFee: DomainLayer.DTO.Dex.SmartSettingsOrderFee, feeAssetId: String)
+        case createOrder(amountAsset: String,
+            priceAsset: String,
+            settingsOrderFee: DomainLayer.DTO.Dex.SmartSettingsOrderFee,
+            feeAssetId: String)
     }
 }
 

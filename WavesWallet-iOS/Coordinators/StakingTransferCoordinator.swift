@@ -22,8 +22,6 @@ final class StakingTransferCoordinator: Coordinator {
     
     init(router: Router){
         self.router = router
-        
-
     }
 
     func start() {

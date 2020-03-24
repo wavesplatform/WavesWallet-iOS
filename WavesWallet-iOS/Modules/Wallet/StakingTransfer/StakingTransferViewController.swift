@@ -49,9 +49,11 @@ final class StakingTransferViewController: ModalScrollViewController {
     private let disposeBag: DisposeBag = DisposeBag()
            
     //TODO: Change module builde
-    private var system: System<StakingTransfer.State, StakingTransfer.Event>! = StakingTransferSystem()
+    private var system: System<StakingTransfer.State, StakingTransfer.Event>! = StakingTransferSystem(assetId: "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p")
     
     private var sections: [Types.ViewModel.Section] = .init()
+    
+    private var snackBarKey: String? = nil
     
     weak var moduleOutput: StakingTransferModuleOutput?
     
@@ -136,11 +138,19 @@ extension StakingTransferViewController {
                                     
             updateRows.forEach { updateCellByModel(indexPath: $0) }
                                     
-        case .error(let networkError):
-            break
-            
-        default:
-            break
+        case .error(let displayError):
+                         
+            if let snackBar = snackBarKey {
+                hideSnack(key: snackBar)
+            }
+                        
+            switch displayError {
+            case .message(let message):
+                snackBarKey = showErrorSnack(title: message)
+                
+            default:
+                snackBarKey = showErrorNotFoundSnack()
+            }
         }
     }
     
@@ -191,6 +201,12 @@ extension StakingTransferViewController: UITableViewDataSource {
         let row = sections[indexPath]
         
         switch row {
+            
+        case .skeletonBalance:
+
+            let cell: StakingTransferSkeletonBalanceCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
+            return cell
+            
         case .balance(let model):
             
             let cell: StakingTransferBalanceCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
@@ -272,25 +288,15 @@ extension StakingTransferViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if cell is StakingTransferInputFieldCell {
-//            cell.becomeFirstResponder()
+        let row = sections[indexPath]
+        switch row {
+        case .skeletonBalance:
+
+            let cell = cell as? StakingTransferSkeletonBalanceCell
+            cell?.startAnimation()
+        default:
+            break
         }
-//        let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
-//        switch item {
-//        case .historySkeleton:
-//            let skeletonCell: WalletHistorySkeletonCell? = cell as? WalletHistorySkeletonCell
-//            skeletonCell?.startAnimation()
-//
-//        case .assetSkeleton:
-//            let skeletonCell: WalletAssetSkeletonCell? = cell as? WalletAssetSkeletonCell
-//            skeletonCell?.startAnimation()
-//
-//        case .balanceSkeleton:
-//            let skeletonCell: WalletLeasingBalanceSkeletonCell? = cell as? WalletLeasingBalanceSkeletonCell
-//            skeletonCell?.startAnimation()
-//        default:
-//            break
-//        }
     }
 }
 

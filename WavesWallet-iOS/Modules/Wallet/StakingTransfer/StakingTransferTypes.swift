@@ -11,10 +11,6 @@ import Extensions
 import DomainLayer
 import WavesSDK
 
-//TODO remove
-import RxSwift
-import RxCocoa
-
 enum StakingTransfer {
     enum DTO {}
     enum ViewModel {}
@@ -38,15 +34,9 @@ extension StakingTransfer.DTO {
     
     enum Data {
         
-        struct Deposit {
+        struct Transfer {
             let asset: DomainLayer.DTO.Asset
-            let availableBalance: DomainLayer.DTO.Balance
-            let transactionFeeBalance: DomainLayer.DTO.Balance
-        }
-        
-        struct Withdraw {
-            let asset: DomainLayer.DTO.Asset
-            let stakingBalance: DomainLayer.DTO.Balance
+            let balance: DomainLayer.DTO.Balance
             let transactionFeeBalance: DomainLayer.DTO.Balance
         }
         
@@ -56,16 +46,16 @@ extension StakingTransfer.DTO {
             let maxAmount: DomainLayer.DTO.Balance
         }
         
-         case deposit(Deposit)
-         case withdraw(Withdraw)
+         case deposit(Transfer)
+         case withdraw(Transfer)
          case card(Card)
      }
     
     
-    enum InputData {
+    enum InputData: Hashable {
         
-        struct Card {
-            enum Error {
+        struct Card: Hashable {
+            enum Error: Hashable {
                 case maxAmount
                 case minAmount
             }
@@ -74,53 +64,35 @@ extension StakingTransfer.DTO {
             var error: InputData.Card.Error?
         }
         
-        struct Withdraw {}
-        
-        struct Deposit {
-            
-            enum Error {
-                case maxAmount
-                case minAmount
+        struct Transfer: Hashable {
+            enum Error: Hashable {
+                case insufficientFunds
+                case insufficientFundsOnTax
             }
             
             var amount: Money?
-            var error: InputData.Deposit.Error?
+            var error: InputData.Transfer.Error?
         }
-
-        
-        case deposit(Deposit)
-        case withdraw(Withdraw)
+                
+        case deposit(Transfer)
+        case withdraw(Transfer)
         case card(Card)
     }
 }
     
-//Cordinator -> Kind.deposit ->
-
 extension StakingTransfer {
     enum Event {
         case viewDidAppear
-
         case showCard(StakingTransfer.DTO.Data.Card)
-        case showDeposit(StakingTransfer.DTO.Data.Deposit)
-        case showWithdraw(StakingTransfer.DTO.Data.Withdraw)
+        case showDeposit(StakingTransfer.DTO.Data.Transfer)
+        case showWithdraw(StakingTransfer.DTO.Data.Transfer)
+        case completedSendTransfer
+        case handlerError(NetworkError)
         case tapSendButton
         case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
         case input(Money?, IndexPath)
     }
 }
-
-/*
-
- 
- Event -> Mutate State -> State
- 
- UI Event ->
- 
- Backend Event -> x
-
-
-*/
-
 
 protocol Test {
     var title: String { get set }
@@ -137,6 +109,8 @@ extension StakingTransfer {
                 case loadDeposit
                 case loadWithdraw
                 case sendCard
+                case sendDeposit
+                case sendWithdraw
               }
             
             let kind: StakingTransfer.DTO.Kind
@@ -154,7 +128,7 @@ extension StakingTransfer {
                                 _ deleteRows: [IndexPath],
                                 _ reloadRows: [IndexPath],
                                 _ updateRows: [IndexPath])
-                case error(NetworkError)
+                case error(DisplayError)
             }
 
             var sections: [ViewModel.Section]
@@ -175,6 +149,7 @@ extension StakingTransfer.ViewModel {
     }
     
     enum Row: Equatable {
+        case skeletonBalance
         case balance(StakingTransferBalanceCell.Model)
         case inputField(StakingTransferInputFieldCell.Model)
         case scrollButtons(StakingTransferScrollButtonsCell.Model)
@@ -196,7 +171,7 @@ extension StakingTransfer.DTO.Data {
         }
     }
     
-    var withdraw: StakingTransfer.DTO.Data.Withdraw? {
+    var withdraw: StakingTransfer.DTO.Data.Transfer? {
         switch self {
         case .withdraw(let withdraw):
             return withdraw
@@ -205,7 +180,18 @@ extension StakingTransfer.DTO.Data {
         }
     }
     
-    var deposit: StakingTransfer.DTO.Data.Deposit? {
+    var transfer: StakingTransfer.DTO.Data.Transfer? {
+        switch self {
+        case .withdraw(let withdraw):
+            return withdraw
+        case .deposit(let deposit):
+            return deposit
+        default:
+            return nil
+        }
+    }
+    
+    var deposit: StakingTransfer.DTO.Data.Transfer? {
         switch self {
         case .deposit(let deposit):
             return deposit
@@ -226,7 +212,7 @@ extension StakingTransfer.DTO.InputData {
         }
     }
     
-    var withdraw: StakingTransfer.DTO.InputData.Withdraw? {
+    var withdraw: StakingTransfer.DTO.InputData.Transfer? {
         switch self {
         case .withdraw(let withdraw):
             return withdraw
@@ -235,7 +221,18 @@ extension StakingTransfer.DTO.InputData {
         }
     }
     
-    var deposit: StakingTransfer.DTO.InputData.Deposit? {
+    var transfer: StakingTransfer.DTO.InputData.Transfer? {
+        switch self {
+        case .withdraw(let withdraw):
+            return withdraw
+        case .deposit(let deposit):
+            return deposit
+        default:
+            return nil
+        }
+    }
+    
+    var deposit: StakingTransfer.DTO.InputData.Transfer? {
         switch self {
         case .deposit(let deposit):
             return deposit
@@ -244,3 +241,4 @@ extension StakingTransfer.DTO.InputData {
         }
     }
 }
+
