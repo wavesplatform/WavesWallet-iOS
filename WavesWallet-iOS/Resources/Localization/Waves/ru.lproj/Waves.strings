@@ -580,7 +580,7 @@
 "wallet.stakingbalance.button.trade" = "Торговать";
 "wallet.stakingbalance.button.buy" = "Купить";
 "wallet.stakingheader.estimatedInterest" = "Годовой доход";
-"wallet.stakingheader.perYear" = "";
+"wallet.stakingheader.perYear" = "%% в год";
 "wallet.stakingheader.howItWorks" = "Как это работает?";
 "wallet.stakingheader.totalProfit" = "Всего получено";
 "wallet.stakingheader.share" = "Поделиться";
@@ -776,4 +776,4 @@
 "receive.tootltip.addressOptions.wavesaccount.title" = "Аккаунт Waves";
 "receive.tootltip.addressOptions.wavesaccount.subtitle" = "Используйте эту опцию для получения WAVES, а также токенов, выпущенных на блокчейне Waves, с других аккаунтов сети Waves.";
 
-"staking.sharingText" = "Я заработал %@USDN пассивного дохода со средней годовой доходностью %@%%, лежа на диване! #Neutrino #WavesBlockchain";
+"staking.sharingText" = "Я заработал %@USDN пассивного дохода со средней годовой доходностью %@%%, лежа на диване!";

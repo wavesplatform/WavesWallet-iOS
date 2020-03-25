@@ -11,7 +11,7 @@ import Extensions
 import Foundation
 import UIKit
 
-final class BalanceLabel: UIView, NibOwnerLoadable {
+final class BalanceLabel: UIView, NibOwnerLoadable, ResetableView {
     @IBOutlet private var contentView: UIView!
 
     @IBOutlet private var titleLabel: UILabel!
@@ -38,8 +38,11 @@ final class BalanceLabel: UIView, NibOwnerLoadable {
         loadNibContent()
     }
 
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: frame.width, height: UIView.noIntrinsicMetric)
+    override var intrinsicContentSize: CGSize { CGSize(width: frame.width, height: UIView.noIntrinsicMetric) }
+    
+    func resetToEmptyState() {
+        titleLabel.text = nil
+        tickerView.resetToEmptyState()
     }
 }
 
