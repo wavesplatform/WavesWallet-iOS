@@ -280,13 +280,25 @@ extension WalletDisplayData: UITableViewDelegate {
                 self?.delegate?.openStakingFaq()
             }
             view.twAction = { [weak self] in
-                self?.delegate?.openTw("text")
+                
+                let percent = (header.percent * 100).rounded() / 100
+                let sharingText = Localizable.Waves.Staking
+                    .sharingText("\(header.total.displayText)", "\(percent)").trimmingCharacters(in: .whitespacesAndNewlines)
+                self?.delegate?.openTw(sharingText)
             }
             view.fbAction = { [weak self] in
-                self?.delegate?.openFb("text")
+                let percent = (header.percent * 100).rounded() / 100
+                
+                let sharingText = Localizable.Waves.Staking
+                    .sharingText("\(header.total.displayText)", "\(percent)").trimmingCharacters(in: .whitespacesAndNewlines)
+                self?.delegate?.openFb(sharingText)
             }
             view.vkAction = { [weak self] in
-                self?.delegate?.openVk("")
+                let percent = (header.percent * 100).rounded() / 100
+                
+                let sharingText = Localizable.Waves.Staking
+                    .sharingText("\(header.total.displayText)", "\(percent)").trimmingCharacters(in: .whitespacesAndNewlines)
+                self?.delegate?.openVk(sharingText)
             }
             return view
         }

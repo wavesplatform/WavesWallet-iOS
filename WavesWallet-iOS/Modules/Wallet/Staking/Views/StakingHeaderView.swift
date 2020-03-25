@@ -29,7 +29,6 @@ final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable {
     @IBOutlet weak var labelShare: UILabel!
     @IBOutlet weak var balanceLabel: BalanceLabel!
     
-    
     var howWorksAction: (() -> Void)?
     var twAction: (() -> Void)?
     var fbAction: (() -> Void)?
@@ -37,6 +36,9 @@ final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable {
         
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        backgroundColor = .basic50
+        contentView.backgroundColor = .basic50
         
         viewProfit.setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
                                               color: .black,
@@ -104,6 +106,6 @@ extension StakingHeaderView: ViewConfiguration {
 extension StakingHeaderView: ViewHeight {
     
     static func viewHeight() -> CGFloat {
-        return Contants.height
+        Contants.height
     }
 }

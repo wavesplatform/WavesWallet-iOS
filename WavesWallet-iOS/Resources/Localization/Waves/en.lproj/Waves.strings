@@ -826,3 +826,5 @@
 "payoutsHistory.title" = "Payouts History";
 
 "payoutsHistory.profit" = "Profit";
+
+"staking.sharingText" = "I earned %@USDN passive income, with an average annual yield of %@%%, lying on the couch! #Neutrino #WavesBlockchain";
