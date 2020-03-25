@@ -45,7 +45,8 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
                 queryDeposit(),
                 queryWithdraw(),
                 querySendDeposit(),
-                querySendWithdraw()]
+                querySendWithdraw(),
+                querySendCard()]
         
     }
     
@@ -94,6 +95,22 @@ private extension StakingTransferSystem {
                                       indexPath: indexPath,
                                       state: &state)
             
+        case .completedSendCard(let url):
+
+            state.core.action = .none
+            let updateRows = updateTransferButton(state: &state,
+                                                  status: .active)
+            
+            state.ui.action = .completedCard(updateRows, url)
+            
+            
+        case .handlerError(let error):
+            state.core.action = .none
+            let updateRows = updateTransferButton(state: &state,
+                                                  status: .active)
+            
+            state.ui.action = .update(updateRows, error: DisplayError(error: error))
+            
         case .showCard(let card):
             
             state.core.action = .none
@@ -116,9 +133,9 @@ private extension StakingTransferSystem {
                                             reloadRows: [],
                                             updateRows: [indexPath]),
                                       error: nil)
-                        
+            
             state.core.action = .sendCard
-                                    
+            
         default:
             state.core.action = .none
             state.ui.action = .none
@@ -147,7 +164,7 @@ private extension StakingTransferSystem {
             }
             
         case .tapAssistanceButton(let assistanceButton):
-                    
+            
             let balance = state.core.data?.transfer?.balance.money
             guard let money = balance?.calculatePercent(assistanceButton.percent) else { return }
             
@@ -197,7 +214,7 @@ private extension StakingTransferSystem {
             state.ui.action = .update(nil, error: nil)
             
         case .tapSendButton:
-                                    
+            
             let updateRows = updateTransferButton(state: &state, status: .loading)
             
             state.ui.action = .update(updateRows, error: nil)
@@ -215,7 +232,7 @@ private extension StakingTransferSystem {
             
             state.core.action = .none
             let updateRows = updateTransferButton(state: &state,
-                                                   status: .active)
+                                                  status: .active)
             
             state.ui.action = .update(updateRows, error: DisplayError(error: error))
         default:
@@ -223,7 +240,7 @@ private extension StakingTransferSystem {
             state.ui.action = .none
         }
     }
-        
+    
     private func updateTransferButton(state: inout State,
                                       status: BlueButton.Model.Status) -> StakingTransfer.State.UI.UpdateRows? {
         
@@ -238,7 +255,7 @@ private extension StakingTransferSystem {
         
         state.ui.replace(row: button,
                          indexPath: indexPath)
-                    
+        
         return .init(insertRows: [],
                      deleteRows: [],
                      reloadRows: [],
@@ -344,7 +361,7 @@ private extension StakingTransferSystem {
                                         updateRows: [inputIndexPath, indexPathButton]),
                                   error: nil)
     }
-
+    
     func changeCardStateAfterInput(input: Money?, indexPath: IndexPath, state: inout State) {
         
         guard let card = state.core.data?.card else { return }
@@ -382,7 +399,7 @@ private extension StakingTransferSystem {
         if hasPrevError {
             state.ui.remove(indexPath: nextIndexPath)
         }
-                
+        
         if let error = newInputCard.error, hasError == true {
             state.ui.add(row: card.error(by: error), indexPath: nextIndexPath)
         }
@@ -506,7 +523,7 @@ private extension StakingTransferSystem {
                 .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
         })
     }
-        
+    
     private struct TransferQuery: Hashable {
         let amount: Money
         let assetId: String
@@ -515,7 +532,7 @@ private extension StakingTransferSystem {
     func querySendWithdraw() -> Feedback {
         
         return react(request: { [weak self] (state) -> TransferQuery? in
-                        
+            
             guard let self = self else { return nil }
             
             if state.core.action == .sendWithdraw, let amount = state.core.input?.transfer?.amount {
@@ -525,18 +542,18 @@ private extension StakingTransferSystem {
             
             return nil
             
-        }, effects: { [weak self] query -> Signal<StakingTransfer.Event> in
-            
-            guard let self = self else { return Signal.empty() }
-            
-            return self
-                .stakingTransferInteractor
-                .sendWithdraw(amount: query.amount, assetId: query.assetId)
-                .map { .completedSendWithdraw($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            }, effects: { [weak self] query -> Signal<StakingTransfer.Event> in
+                
+                guard let self = self else { return Signal.empty() }
+                
+                return self
+                    .stakingTransferInteractor
+                    .sendWithdraw(amount: query.amount, assetId: query.assetId)
+                    .map { .completedSendWithdraw($0) }
+                    .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
         })
     }
-        
+    
     func querySendDeposit() -> Feedback {
         
         return react(request: { [weak self] (state) -> TransferQuery? in
@@ -550,84 +567,41 @@ private extension StakingTransferSystem {
             
             return nil
             
-        }, effects: { [weak self] query -> Signal<StakingTransfer.Event> in
+            }, effects: { [weak self] query -> Signal<StakingTransfer.Event> in
+                
+                guard let self = self else { return Signal.empty() }
+                
+                return self
+                    .stakingTransferInteractor
+                    .sendDeposit(amount: query.amount,
+                                 assetId: query.assetId)
+                    .map { .completedSendDeposit($0) }
+                    .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+        })
+    }
+    
+    func querySendCard() -> Feedback {
+        
+        return react(request: { [weak self] (state) -> TransferQuery? in
             
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return nil }
             
-            return self
-                .stakingTransferInteractor
-                .sendDeposit(amount: query.amount,
-                             assetId: query.assetId)
-                .map { .completedSendDeposit($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            if state.core.action == .sendCard, let amount = state.core.input?.card?.amount{
+                return TransferQuery(amount: amount,
+                                     assetId: self.assetId)
+            }
+            
+            return nil
+            
+            }, effects: { [weak self] query -> Signal<StakingTransfer.Event> in
+                
+                guard let self = self else { return Signal.empty() }
+                
+                return self
+                    .stakingTransferInteractor
+                    .sendCard(amount: query.amount, assetId: query.assetId)
+                    .map { .completedSendCard($0) }
+                    .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
         })
     }
 }
-
-
-private extension StakingTransfer.DTO.Data.Transfer {
-    
-    func inputField(input: StakingTransfer.DTO.InputData.Transfer?,
-                    kind: StakingTransfer.DTO.Kind) -> StakingTransfer.ViewModel.Row {
-        
-        switch kind {
-        case .withdraw:
-            return inputFieldForWithdraw(input: input)
-            
-        case .deposit:
-            return inputFieldForDeposit(input: input)
-            
-        case .card:
-            return .skeletonBalance
-        }
-    }
-    
-    func error(by error: StakingTransfer.DTO.InputData.Transfer.Error,
-               kind: StakingTransfer.DTO.Kind) -> StakingTransfer.ViewModel.Row {
-        
-        switch kind {
-        case .withdraw:
-            return errorForWithdraw(by: error)
-            
-        case .deposit:
-            return errorForDeposit(by: error)
-            
-        case .card:
-            return .skeletonBalance
-        }
-    }
-    
-    func button(status: BlueButton.Model.Status,
-                kind: StakingTransfer.DTO.Kind) -> StakingTransfer.ViewModel.Row {
-        
-        switch kind {
-        case .withdraw:
-            return buttonForWithdraw(status: status)
-            
-        case .deposit:
-            return buttonForDeposit(status: status)
-            
-        case .card:
-            return .skeletonBalance
-        }
-    }
-    
-    func sections(input: StakingTransfer.DTO.InputData.Transfer?,
-                  kind: StakingTransfer.DTO.Kind) -> [StakingTransfer.ViewModel.Section] {
-        
-        switch kind {
-        case .withdraw:
-            return sectionsForWithdraw(input: input)
-            
-        case .deposit:
-            return sectionsForDeposit(input: input)
-            
-        case .card:
-            return []
-        }
-    }
-}
-
-
-
-

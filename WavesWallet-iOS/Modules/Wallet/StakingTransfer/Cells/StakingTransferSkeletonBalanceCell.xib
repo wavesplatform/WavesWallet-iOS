@@ -95,7 +95,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERJ-aZ-jcg">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ERJ-aZ-jcg" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="16" y="68" width="259" height="1"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="4Bi-xg-f9r"/>

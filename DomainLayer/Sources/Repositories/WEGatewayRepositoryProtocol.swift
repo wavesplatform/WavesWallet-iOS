@@ -21,15 +21,35 @@ extension DomainLayer.DTO {
 extension DomainLayer.Query.WEGateway {
     
     public struct TransferBinding {
-        public var senderAsset: String
-        public var recipientAsset: String
-        public var recipientAddress: String
-        public var token: DomainLayer.DTO.WEOAuth.Token
+        public let senderAsset: String
+        public let recipientAsset: String
+        public let recipientAddress: String
+        public let token: DomainLayer.DTO.WEOAuth.Token
 
-        public init(senderAsset: String, recipientAsset: String, recipientAddress: String, token: DomainLayer.DTO.WEOAuth.Token) {
+        public init(senderAsset: String,
+                    recipientAsset: String,
+                    recipientAddress: String,
+                    token: DomainLayer.DTO.WEOAuth.Token) {
             self.senderAsset = senderAsset
             self.recipientAsset = recipientAsset
             self.recipientAddress = recipientAddress
+            self.token = token
+        }
+    }
+        
+    public struct RegisterOrder {
+        public let amount: Decimal
+        public let assetId: String
+        public let address: String
+        public let token: DomainLayer.DTO.WEOAuth.Token
+        
+        public init(amount: Decimal,
+                    assetId: String,
+                    address: String,
+                    token: DomainLayer.DTO.WEOAuth.Token) {
+            self.amount = amount
+            self.assetId = assetId
+            self.address = address
             self.token = token
         }
     }
@@ -88,8 +108,18 @@ extension DomainLayer.DTO.WEGateway {
             self.fee = fee
         }
     }
+    
+    public struct Order {
+        public var url: URL
+        
+        public init(url: URL) {
+            self.url = url
+        }
+    }
 }
 
 public protocol WEGatewayRepositoryProtocol {
     func transferBinding(request: DomainLayer.Query.WEGateway.TransferBinding) -> Observable<DomainLayer.DTO.WEGateway.TransferBinding>
+    
+    func adCashDepositsRegisterOrder(request: DomainLayer.Query.WEGateway.RegisterOrder) -> Observable<DomainLayer.DTO.WEGateway.Order>
 }

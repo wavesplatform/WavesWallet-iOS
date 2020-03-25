@@ -29,7 +29,7 @@ extension StakingTransfer.DTO.Data.Card {
             
             switch error {
             case .minAmount:
-                return Localizable.Waves.Staking.Transfer.Error.minamount(self.maxAmount.displayText)
+                return Localizable.Waves.Staking.Transfer.Error.minamount(self.minAmount.displayText)
                                 
             case .maxAmount:
                 return Localizable.Waves.Staking.Transfer.Error.maxamount(self.maxAmount.displayText)
@@ -48,7 +48,7 @@ extension StakingTransfer.DTO.Data.Card {
         return StakingTransfer
             .ViewModel
             .button(title: buttonTitle,
-                    status: .disabled)
+                    status: status)
     }
     
     func sections(input: StakingTransfer.DTO.InputData.Card?) -> [StakingTransfer.ViewModel.Section] {

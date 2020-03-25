@@ -34,7 +34,7 @@ final class StakingTransferCoordinator: Coordinator {
     init(router: Router, kind: StakingTransfer.DTO.Kind, assetId: String = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p") {
         self.router = router
         self.kind = kind
-        self.assetId = assetId
+    self.assetId = assetId
     }
 
     func start() {
@@ -61,5 +61,10 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
         self.hasNeedRemoveCoordinatorAfterDissmiss = false
          router.dismiss(animated: true, completion: nil)
         // TODO: Show display
+    }
+    
+    func stakingTransferDidSendCard(url: URL) {
+        self.hasNeedRemoveCoordinatorAfterDissmiss = false
+        router.dismiss(animated: true, completion: nil)
     }
 }

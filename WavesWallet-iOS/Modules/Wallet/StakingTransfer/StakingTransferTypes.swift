@@ -89,6 +89,7 @@ extension StakingTransfer {
         case showWithdraw(StakingTransfer.DTO.Data.Transfer)
         case completedSendWithdraw(DomainLayer.DTO.SmartTransaction)
         case completedSendDeposit(DomainLayer.DTO.SmartTransaction)
+        case completedSendCard(URL)
         case handlerError(NetworkError)
         case tapSendButton
         case tapAssistanceButton(StakingTransfer.DTO.AssistanceButton)
@@ -136,6 +137,7 @@ extension StakingTransfer {
                 case update(_ updateRows: UpdateRows?, error: DisplayError?)
                 case completedDeposit(_ updateRows: UpdateRows?, DomainLayer.DTO.SmartTransaction)
                 case completedWithdraw(_ updateRows: UpdateRows?, DomainLayer.DTO.SmartTransaction)
+                case completedCard(_ updateRows: UpdateRows?, URL)
                 
                 var updateRoes: UpdateRows? {
                     switch self {

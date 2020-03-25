@@ -26,6 +26,7 @@ final class StakingTransferInteractor {
     let transactionUseCase: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     let authorizationUseCase: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
+    let adCashDepositsUseCase: AdCashDepositsUseCaseProtocol = UseCasesFactory.instance.adCashDepositsUseCase
     
     //    init(accountBalanceUseCase: AccountBalanceUseCaseProtocol,
     //         transactionUseCase: TransactionsUseCaseProtocol,
@@ -56,8 +57,8 @@ final class StakingTransferInteractor {
                 
                 return Observable.zip(stakingBalance, wavesBalance, asset)
                     .flatMap { stakingBalance, wavesBalance, assets -> Observable<StakingTransfer.DTO.Data.Transfer> in
-                                                
-                        guard let asset = assets.first(where: { $0.id == assetId }) else { return Observable.never() }
+                                                                        
+                        guard let asset = assets.first(where: { $0.id == assetId }) else { return Observable.error(NetworkError.notFound) }
                         let wavesAsset = wavesBalance.asset
                         
                         let fee: DomainLayer.DTO.Balance = wavesAsset.balance(Constanst.transferFee)
@@ -87,22 +88,10 @@ final class StakingTransferInteractor {
                 let balanceNetrino = self.accountBalanceUseCase
                     .balance(by: assetId,
                              wallet: wallet)
-                    .catchError { (error) -> Observable<DomainLayer.DTO.SmartAssetBalance> in
-                                                                        
                     
-                        print(error)
-                        return Observable.never()
-                    }
-                
                 let waveBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId,
                                                                      wallet: wallet)
-                    .catchError { (error) -> Observable<DomainLayer.DTO.SmartAssetBalance> in
-                                                                        
                     
-                        print(error)
-                        return Observable.never()
-                    }
-                
                 return Observable.zip(balanceNetrino, waveBalance)
                     .flatMap { balanceNetrino, wavesBalance -> Observable<StakingTransfer.DTO.Data.Transfer> in
                         
@@ -127,7 +116,48 @@ final class StakingTransferInteractor {
     }
     
     func card(assetId: String) -> Observable<StakingTransfer.DTO.Data.Card> {
-        return Observable.never()
+        
+        let auth = self.authorizationUseCase.authorizedWallet()
+        
+        return auth.flatMap { [weak self] (wallet) -> Observable<StakingTransfer.DTO.Data.Card> in
+        
+            guard let self = self else { return Observable.never() }
+            
+            let assets = self.assetsUseCase.assets(by: [assetId],
+                                                  accountAddress: wallet.address)
+            
+            let requirementsOrder = self
+                .adCashDepositsUseCase
+                .requirementsOrder(assetId: assetId)
+                        
+            return Observable.zip(assets, requirementsOrder)
+                .flatMap({ (assets, requirementsOrder) -> Observable<StakingTransfer.DTO.Data.Card> in
+                    
+                    guard let asset = assets.first(where: { $0.id == assetId }) else { return Observable.error(NetworkError.notFound) }
+                    
+                    let minAmount = 
+                        asset
+                            .balance(requirementsOrder.amountMin.amount)
+                    
+                    let maxAmount = asset
+                        .balance(requirementsOrder.amountMax.amount)
+                    
+                    let card = StakingTransfer.DTO.Data.Card(asset: asset,
+                                                             minAmount: minAmount,
+                                                             maxAmount: maxAmount)
+                
+                        
+                    return Observable.just(card)
+                })
+        }
+    }
+    
+    func sendCard(amount: Money, assetId: String) -> Observable<URL> {
+        
+        return self.adCashDepositsUseCase
+            .createOrder(assetId: assetId,
+                         amount: amount)
+            .map { $0.url }
     }
     
     func sendDeposit(amount: Money, assetId: String) -> Observable<DomainLayer.DTO.SmartTransaction> {
@@ -154,7 +184,7 @@ final class StakingTransferInteractor {
         return Observable.just(balance)
     }
     
-    func sendInvokeTrasnfer(amount: Money, assetId: String, isDeposit: Bool) -> Observable<DomainLayer.DTO.SmartTransaction> {
+    private func sendInvokeTrasnfer(amount: Money, assetId: String, isDeposit: Bool) -> Observable<DomainLayer.DTO.SmartTransaction> {
         
         let developmentConfigs = self.developmentConfigsRepository.developmentConfigs()
         let authorizedWallet = self.authorizationUseCase.authorizedWallet()
@@ -164,8 +194,8 @@ final class StakingTransferInteractor {
                 
                 guard let self = self else { return Observable.never() }
                 
-                // TODO: Error
-                guard let staking = configs.staking.first(where: { $0.neutrinoAssetId == assetId }) else { return Observable.never() }
+                
+                guard let staking = configs.staking.first(where: { $0.neutrinoAssetId == assetId }) else { return Observable.error(NetworkError.notFound) }
                                                 
                 let call: InvokeScriptTransactionSender.Call = {
                 
