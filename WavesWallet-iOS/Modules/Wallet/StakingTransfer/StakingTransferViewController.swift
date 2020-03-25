@@ -98,7 +98,8 @@ final class StakingTransferViewController: ModalScrollViewController {
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
         
         print("self.layoutInsets.top \(self.layoutInsets.top)")
-        return 425  + self.layoutInsets.top
+//        return 425  + self.layoutInsets.top
+        return 480  + self.layoutInsets.top
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {

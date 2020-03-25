@@ -274,6 +274,7 @@
 		7B4FA715242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA714242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift */; };
 		7B4FA717242B585E00A2FB25 /* AdCashDepositsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */; };
 		7B4FA71B242BEA7A00A2FB25 /* DomainLayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */; };
+		7B4FA71E242C17D000A2FB25 /* TransactionCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71D242C17D000A2FB25 /* TransactionCompletedVC.swift */; };
 		7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B537E2423E08B43002A3976 /* Date+Helper.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
@@ -1651,6 +1652,7 @@
 		7B4FA714242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Transfer.swift"; sourceTree = "<group>"; };
 		7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCashDepositsUseCase.swift; sourceTree = "<group>"; };
 		7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLayerConstants.swift; sourceTree = "<group>"; };
+		7B4FA71D242C17D000A2FB25 /* TransactionCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCompletedVC.swift; sourceTree = "<group>"; };
 		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
@@ -3705,6 +3707,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7B4FA71C242C17AD00A2FB25 /* TransactionCompleted */ = {
+			isa = PBXGroup;
+			children = (
+				7B4FA71D242C17D000A2FB25 /* TransactionCompletedVC.swift */,
+			);
+			path = TransactionCompleted;
+			sourceTree = "<group>";
+		};
 		7B5FAA0422BBE3EB00621A44 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -4077,6 +4087,7 @@
 		7B85E61A23FD309B00365829 /* StakingTransfer */ = {
 			isa = PBXGroup;
 			children = (
+				7B4FA71C242C17AD00A2FB25 /* TransactionCompleted */,
 				7B922D832402C43A00271443 /* Views */,
 				7B85E62B23FD67F600365829 /* Cells */,
 				7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */,
@@ -7829,6 +7840,7 @@
 				87FA5D1024223BA4002F282D /* ChangePasswordModuleBuilder.swift in Sources */,
 				7B97B0A822FC78EA008BA3F4 /* DateFormatter+UI.swift in Sources */,
 				87FA5DCB24223FBE002F282D /* AssetBalanceCell.swift in Sources */,
+				7B4FA71E242C17D000A2FB25 /* TransactionCompletedVC.swift in Sources */,
 				87FA5D0324223B95002F282D /* AccountPassword.swift in Sources */,
 				8752A2662412799900B968C7 /* PayoutsHistorySystem.swift in Sources */,
 				0ADD801F21F22FFA0075FC59 /* RoutingCoordinator.swift in Sources */,

@@ -285,6 +285,8 @@ internal enum StoryboardScene {
     internal static let storyboardName = "StakingTransfer"
 
     internal static let stakingTransferViewController = SceneType<WavesWallet_iOS.StakingTransferViewController>(storyboard: StakingTransfer.self, identifier: "StakingTransferViewController")
+
+    internal static let transactionCompletedVC = SceneType<WavesWallet_iOS.TransactionCompletedVC>(storyboard: StakingTransfer.self, identifier: "TransactionCompletedVC")
   }
   internal enum StartLeasing: StoryboardType {
     internal static let storyboardName = "StartLeasing"
