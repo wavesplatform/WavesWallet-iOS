@@ -127,6 +127,12 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         WEOAuthRepository(environmentRepository: environmentRepositoryInternal,
                           developmentConfigsRepository: developmentConfigsRepository)
     
+    public private(set) lazy var stakingBalanceService: StakingBalanceService =
+        StakingBalanceServiceImpl(authorizationService: UseCasesFactory.instance.authorization,
+                                  devConfig: UseCasesFactory.instance.repositories.developmentConfigsRepository,
+                                  enviroment: environmentRepositoryInternal,
+                                  accountBalanceService: UseCasesFactory.instance.accountBalance)
+    
     public struct Resources {
         
         public typealias PathForFile = String

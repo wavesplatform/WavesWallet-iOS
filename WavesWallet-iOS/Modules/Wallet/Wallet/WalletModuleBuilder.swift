@@ -9,6 +9,7 @@
 import DomainLayer
 import UIKit
 import Extensions
+import WavesSDK
 
 struct WalletModuleBuilder: ModuleBuilderOutput {
     var output: WalletModuleOutput
@@ -22,10 +23,12 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
         let massTransferRepository = UseCasesFactory.instance.repositories.massTransferRepository
         let assetsUseCase = UseCasesFactory.instance.assets
         let accountSettingsRepository = UseCasesFactory.instance.repositories.accountSettingsRepository
+        let stakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
         
         let interactor = WalletInteractor(enviroment: enviroment,
                                           massTransferRepository: massTransferRepository,
                                           assetUseCase: assetsUseCase,
+                                          stakingBalanceService: stakingBalanceService,
                                           authorizationInteractor: authUseCase,
                                           accountBalanceInteractor: UseCasesFactory.instance.accountBalance,
                                           accountSettingsRepository: accountSettingsRepository,

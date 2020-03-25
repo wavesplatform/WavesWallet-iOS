@@ -89,6 +89,9 @@ extension StakingLastPayoutsCell: ViewConfiguration {
     func update(with model: [PayoutTransactionVM]) {
         lastPayouts = model
         collectionView.reloadData()
+        
+        // необходимо чтоб список не поехал в сторону (временное решение)
+        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
     }
 }
 

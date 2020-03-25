@@ -6,6 +6,7 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DataLayer
 import DomainLayer
 import Extensions
 import Foundation
@@ -33,11 +34,14 @@ final class WalletInteractor: WalletInteractorProtocol {
     
     private let walletsRepository: WalletsRepositoryProtocol
     
+    private let stakingBalanceService: StakingBalanceService
+    
     private let disposeBag = DisposeBag()
     
     init(enviroment: DevelopmentConfigsRepositoryProtocol,
          massTransferRepository: MassTransferRepositoryProtocol,
          assetUseCase: AssetsUseCaseProtocol,
+         stakingBalanceService: StakingBalanceService,
          authorizationInteractor: AuthorizationUseCaseProtocol,
          accountBalanceInteractor: AccountBalanceUseCaseProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
@@ -47,6 +51,7 @@ final class WalletInteractor: WalletInteractorProtocol {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
         self.assetUseCase = assetUseCase
+        self.stakingBalanceService = stakingBalanceService
         self.authorizationInteractor = authorizationInteractor
         self.accountBalanceInteractor = accountBalanceInteractor
         self.accountSettingsRepository = accountSettingsRepository
@@ -106,8 +111,14 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
     
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-        Observable.zip(enviroment.developmentConfigs(), obtainYearPercent(), obtainTotalProfit(), obtainLastPayoutsTransactions())
-            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions -> WalletTypes.DTO.Staking in
+
+        Observable
+            .zip(enviroment.developmentConfigs(),
+                 obtainYearPercent(),
+                 obtainTotalProfit(),
+                 obtainLastPayoutsTransactions(),
+                 stakingBalanceService.totalStakingBalance())
+            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance -> WalletTypes.DTO.Staking in
                 
                 let walletAddress = lastPayoutsTransactions.walletAddress
                 
@@ -125,16 +136,24 @@ final class WalletInteractor: WalletInteractorProtocol {
                 
                 let profit = WalletTypes.DTO.Staking.Profit(percent: profitPercent, total: totalBalance)
                 
+                let stakingCurrencyBalance = DomainLayer.DTO.Balance.Currency(title: "", ticker: stakingBalance.assetTicker)
+                
+                let totalStakingBalanceMoney = Money(stakingBalance.totalBalance, stakingBalance.precision)
+                let totalStakingBalance = DomainLayer.DTO.Balance(currency: stakingCurrencyBalance, money: totalStakingBalanceMoney)
+                
+                let availableStakingBalanceMoney = Money(stakingBalance.availbleBalance, stakingBalance.precision)
+                let availableStakingBalance = DomainLayer.DTO.Balance(currency: stakingCurrencyBalance,
+                                                                      money: availableStakingBalanceMoney)
+                
+                let inStakingBalanceMoney = Money(stakingBalance.depositeBalance, stakingBalance.precision)
+                let inStakingBalance = DomainLayer.DTO.Balance(currency: stakingCurrencyBalance, money: inStakingBalanceMoney)
+                
+                let balance = WalletTypes.DTO.Staking.Balance(total: totalStakingBalance,
+                                                              available: availableStakingBalance,
+                                                              inStaking: inStakingBalance)
+                
                 return WalletTypes.DTO.Staking(profit: profit,
-                                               balance: .init(total: .init(currency: .init(title: "USDB",
-                                                                                           ticker: "USDB"),
-                                                                           money: Money(45254, 2)),
-                                                              available: .init(currency: .init(title: "USDB",
-                                                                                               ticker: "USDB"),
-                                                                               money: Money(45254, 2)),
-                                                              inStaking: .init(currency: .init(title: "USDB",
-                                                                                               ticker: "USDB"),
-                                                                               money: Money(45254, 2))),
+                                               balance: balance,
                                                lastPayouts: lastPayoutsTransactions,
                                                landing: nil)
             }
@@ -287,12 +306,6 @@ private extension WalletInteractor {
     
     /// Общий доход (Синяя карточка)
     private func obtainTotalProfit() -> Observable<PayoutsHistoryState.MassTransferTrait> {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-//        let timeStart = WalletInteractor.prepareStartOf2020Year().map { dateFormatter.string(from: $0) }
-//        let timeEnd = dateFormatter.string(from: Date())
-        
         let timeStart = WalletInteractor.prepareStartOf2020Year().map { "\($0.millisecondsSince1970)" }
         let timeEnd = "\(Date().millisecondsSince1970)"
         
@@ -366,7 +379,7 @@ private extension WalletInteractor {
 extension WalletInteractor {
     private static func getTotalProfitPercent(transactions: [DataService.DTO.MassTransferTransaction],
                                               walletAddress: String) -> Double {
-        // (ариф.сред. из транзакций) / 100
+        // (ариф.сред. из транзакций) * 365
         let finalCountLastProfit = transactions.count
         
         let allProfit = getTotalProfit(transactions: transactions, walletAddress: walletAddress)
