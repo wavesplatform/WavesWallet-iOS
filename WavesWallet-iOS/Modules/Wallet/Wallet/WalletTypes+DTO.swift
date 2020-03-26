@@ -34,12 +34,6 @@ extension WalletTypes.DTO {
             let total: DomainLayer.DTO.Balance
         }
         
-        struct Payout {
-            let profit: DomainLayer.DTO.Balance
-            let assetIconURL: DomainLayer.DTO.Asset.Icon
-            let date: Date
-        }
-        
         struct Landing {
             let percent: Double
             let minimumDeposit: DomainLayer.DTO.Balance
@@ -53,7 +47,7 @@ extension WalletTypes.DTO {
         
         let profit: Profit
         let balance: Balance
-        let lastPayouts: [Payout]
+        let lastPayouts: PayoutsHistoryState.MassTransferTrait
         var landing: Landing?
     }
 }

@@ -104,7 +104,6 @@ extension PayoutsHistoryVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { rowItems.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if let rowItem = rowItems[safe: indexPath.row] {
             switch rowItem {
             case .payoutHistoryCell(let viewModel):
@@ -145,7 +144,7 @@ extension PayoutsHistoryVC: UITableViewDelegate {
 
 extension PayoutsHistoryVC {
     enum RowItem {
-        case payoutHistoryCell(PayoutsHistoryState.UI.PayoutTransactionVM)
+        case payoutHistoryCell(PayoutTransactionVM)
         case payoutsHistorySkeleton
     }
 }

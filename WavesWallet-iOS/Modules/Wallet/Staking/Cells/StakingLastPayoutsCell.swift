@@ -1,4 +1,4 @@
-    //
+//
 //  WalletStakingLastPayoutsCell.swift
 //  WavesWallet-iOS
 //
@@ -6,141 +6,136 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
+import DomainLayer
 import Extensions
+import UIKit
 
-private enum Constants {
-    static let collectionViewSpacing: CGFloat = 16
-    static let contentInset = UIEdgeInsets.init(top: 0, left: 16, bottom: 0, right: 16)
-}
+final class PayoutsFlowLayout: UICollectionViewFlowLayout {
+    override init() {
+        super.init()
+        initialSetup()
+    }
 
-//TODO: Copy/Paste from AssetTransactionsCell
-final class StakingLastPayoutsCell: UITableViewCell, NibReusable {
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialSetup()
+    }
 
-    @IBOutlet private weak var collectionView: UICollectionView!
-    
-    private var lastPayouts: [WalletTypes.DTO.Staking.Payout] = []
-    private var currentIndex: Int = 0
+    private func initialSetup() {
+        minimumInteritemSpacing = 8
+    }
 
-    var didSelectPayout:((WalletTypes.DTO.Staking.Payout) -> Void)?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        collectionView.contentInset = Constants.contentInset
-        collectionView.isPagingEnabled = true
-        if let collectionViewLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            collectionViewLayout.minimumLineSpacing = Constants.collectionViewSpacing
-        }
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        guard let attributesArray = super.layoutAttributesForElements(in: rect) else { return nil }
+
+        return attributesArray.compactMap { layoutAttributesForItem(at: $0.indexPath) }
+    }
+
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attributes = super.layoutAttributesForItem(at: indexPath) else { return nil }
+        guard let collectionView = collectionView else { return attributes }
+
+        let itemWidth = collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right)
+
+        attributes.frame = CGRect(x: attributes.frame.origin.x,
+                                  y: 0,
+                                  width: itemWidth,
+                                  height: collectionView.frame.height)
+
+        return attributes
     }
 }
 
-// MARK: ViewHeight
-    
-extension StakingLastPayoutsCell: ViewHeight {
-    static func viewHeight() -> CGFloat {
-        return StakingPayoutCollectionViewCell.viewHeight()
+private enum Constants {
+    static let collectionViewSpacing: CGFloat = 16
+    static let contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+}
+
+// TODO: Copy/Paste from AssetTransactionsCell
+final class StakingLastPayoutsCell: UITableViewCell, NibReusable {
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionViewLayout: UICollectionViewFlowLayout!
+
+    private var lastPayouts: [PayoutTransactionVM] = []
+    private var currentIndex = 0
+
+    var didSelectPayout: ((PayoutTransactionVM) -> Void)?
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        collectionViewLayout.scrollDirection = .horizontal
+        collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+
+        collectionView.registerCell(type: PayoutsTransactionCollectionViewCell.self)
+        collectionView.contentInset = Constants.contentInset
+
+        collectionView.dataSource = self
+        collectionView.delegate = self
+
+        collectionView.isPagingEnabled = true
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        collectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
 // MARK: ViewConfiguration
-    
+
 extension StakingLastPayoutsCell: ViewConfiguration {
-    
-    func update(with model: [WalletTypes.DTO.Staking.Payout]) {
+    func update(with model: [PayoutTransactionVM]) {
         lastPayouts = model
         collectionView.reloadData()
+        
+        // необходимо чтоб список не поехал в сторону (временное решение)
+        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
     }
 }
 
 // MARK: UICollectionViewDelegate
 
 extension StakingLastPayoutsCell: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didSelectPayout?(lastPayouts[indexPath.row])
-        collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
-    }
-    
-}
-
-// MARK: UICollectionViewDelegate
-
-extension StakingLastPayoutsCell: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - Constants.contentInset.left * 2,
-                      height: StakingPayoutCollectionViewCell.viewHeight())
+        collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
     }
 }
 
 // MARK: UICollectionViewDataSource
 
 extension StakingLastPayoutsCell: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return lastPayouts.count
-    }
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        lastPayouts.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: PayoutsTransactionCollectionViewCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
 
-        let cell: StakingPayoutCollectionViewCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
-
-        cell.update(with: lastPayouts[indexPath.row])
-
+        if let viewModel = lastPayouts[safe: indexPath.row] {
+            cell.update(with: viewModel)
+        }
+        
         return cell
     }
 }
 
 extension StakingLastPayoutsCell: UIScrollViewDelegate {
-    
-    //TODO: Duplicate code from AssetTransactionsCell.swift
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        if abs(velocity.x) < abs(velocity.y) { return }
-        
         targetContentOffset.pointee = scrollView.contentOffset
-        let pageWidth: CGFloat = bounds.width - 32
-        let minSpace: CGFloat = Constants.collectionViewSpacing
-        var cellToSwipe: Double = Double(CGFloat(scrollView.contentOffset.x) / CGFloat(pageWidth + minSpace))
         
-        // next
-        if cellToSwipe > Double(currentIndex) {
-            
-            if cellToSwipe - Double(currentIndex) > 0 && velocity.x >= 0 {
-                cellToSwipe += 1
-            }
-
-            // previous
-        } else if cellToSwipe < Double(currentIndex) {
-            
-            if Double(currentIndex) - cellToSwipe > 0.1 && velocity.x <= 0 {
-                cellToSwipe -= 1
-                cellToSwipe = ceil(cellToSwipe)
-            } else {
-                cellToSwipe = ceil(cellToSwipe)
-            }
-            
-        }
+        let factor: CGFloat = 0.5 // magic number
         
-        if cellToSwipe < 0 {
-            cellToSwipe = 0
-        } else if cellToSwipe >= Double(collectionView.numberOfItems(inSection: 0)) {
-            cellToSwipe = Double(collectionView.numberOfItems(inSection: 0)) - Double(1)
-        }
+        let cellSize = collectionView.frame.width - (Constants.contentInset.left + Constants.contentInset.right)
         
-        currentIndex = Int(cellToSwipe)
-        let indexPath:IndexPath = IndexPath(row: currentIndex, section:0)
-        collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
-    }    
+        let nextItem = Int(scrollView.contentOffset.x / cellSize + factor)
+        
+        let indexPath = IndexPath(row: nextItem, section: 0)
+        
+        collectionView?.scrollToItem(at: indexPath, at: .left, animated: true)
+    }
 }

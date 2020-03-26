@@ -71,6 +71,7 @@
                                 <constraint firstItem="MyM-Ja-dqZ" firstAttribute="leading" secondItem="a3D-an-RuV" secondAttribute="leading" id="Zf9-Im-1zo"/>
                                 <constraint firstItem="MyM-Ja-dqZ" firstAttribute="bottom" secondItem="a3D-an-RuV" secondAttribute="bottom" id="c46-5T-LOl"/>
                                 <constraint firstItem="wfc-ZX-bqZ" firstAttribute="leading" secondItem="DIs-aC-6iN" secondAttribute="trailing" constant="2" id="dfj-yz-nKb"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wfc-ZX-bqZ" secondAttribute="trailing" constant="16" id="ewf-gF-Pcs"/>
                                 <constraint firstItem="DIs-aC-6iN" firstAttribute="leading" secondItem="OHB-BM-Y7z" secondAttribute="leading" constant="16" id="lRr-zE-hHU" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">

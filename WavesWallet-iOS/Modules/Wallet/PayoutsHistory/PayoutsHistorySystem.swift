@@ -125,12 +125,11 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
         }
     }
     
-    private func prepareTransactionViewModels(massTransfersTrait: PayoutsHistoryState.MassTransferTrait)
-        -> [PayoutsHistoryState.UI.PayoutTransactionVM] {
+    private func prepareTransactionViewModels(massTransfersTrait: PayoutsHistoryState.MassTransferTrait) -> [PayoutTransactionVM] {
         massTransfersTrait
             .massTransferTransactions
             .transactions
-            .map { transaction -> PayoutsHistoryState.UI.PayoutTransactionVM in
+            .map { transaction -> PayoutTransactionVM in
                 let iconAsset = massTransfersTrait.assetLogo
                 let amount = transaction.transfers
                     .filter { $0.recipient == massTransfersTrait.walletAddress }
@@ -147,10 +146,10 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
                 
                 let dateText = dateFormatter.string(from: transaction.timestamp)
                 
-                return PayoutsHistoryState.UI.PayoutTransactionVM(title: Localizable.Waves.Payoutshistory.profit,
-                                                                  iconAsset: iconAsset,
-                                                                  transactionValue: transactionValue,
-                                                                  dateText: dateText)
+                return PayoutTransactionVM(title: Localizable.Waves.Payoutshistory.profit,
+                                           iconAsset: iconAsset,
+                                           transactionValue: transactionValue,
+                                           dateText: dateText)
             }
     }
 }
@@ -200,7 +199,8 @@ extension PayoutsHistorySystem {
                                                                         timeEnd: nil,
                                                                         recipient: signedWallet.wallet.address,
                                                                         assetId: staking.neutrinoAssetId,
-                                                                        after: lastCursor, limit: nil)
+                                                                        after: lastCursor,
+                                                                        limit: 15)
                     
                     return query
                 } else {
@@ -209,7 +209,8 @@ extension PayoutsHistorySystem {
                                                                         timeEnd: nil,
                                                                         recipient: "",
                                                                         assetId: "",
-                                                                        after: lastCursor, limit: nil)
+                                                                        after: lastCursor,
+                                                                        limit: 15)
                     return query
                 }
             }
