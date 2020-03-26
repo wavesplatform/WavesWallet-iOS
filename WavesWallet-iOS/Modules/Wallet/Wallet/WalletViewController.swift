@@ -422,7 +422,6 @@ extension WalletViewController: WalletDisplayDataDelegate {
     }
 
     func showPayout(payout: PayoutTransactionVM) {
-//        sendEvent.accept(.showPayout(payout))
     }
 
     func openTw(_ sharedText: String) {

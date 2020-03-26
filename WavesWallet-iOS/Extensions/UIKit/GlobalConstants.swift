@@ -40,6 +40,10 @@ enum UIGlobalConstants {
         static let twitter = "https://twitter.com/Waves_Exchange"
         static let client = "https://waves.exchange/"
         static let stakingFaq = "https://waves.exchange/staking/faq"
+        
+        static let twSharing = "https://twitter.com/share?url=https://waves.exchange/staking&text="
+        static let fbSharing = "https://www.facebook.com/sharer/sharer.php?u=https://waves.exchange/staking&quote="
+        static let vkSharing = "https://vk.com/share.php?url=https://waves.exchange/staking&description="
     }
     
     static let supportEmail = "support@waves.exchange"

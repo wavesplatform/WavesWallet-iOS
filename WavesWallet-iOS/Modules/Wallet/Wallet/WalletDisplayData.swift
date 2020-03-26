@@ -26,7 +26,6 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func openTw(_ sharedText: String)
     func openFb(_ sharedText: String)
     func openVk(_ sharedText: String)
-    func showPayout(payout: PayoutTransactionVM)
     func startStakingTapped()
 }
 
@@ -209,9 +208,6 @@ extension WalletDisplayData: UITableViewDataSource {
         case .stakingLastPayouts(let payouts):
             let cell = tableView.dequeueAndRegisterCell() as StakingLastPayoutsCell
             cell.update(with: payouts)
-            cell.didSelectPayout = { [weak self] payout in
-                self?.delegate?.showPayout(payout: payout)
-            }
             return cell
             
         case .emptyHistoryPayouts:
@@ -376,8 +372,7 @@ extension WalletDisplayData: UITableViewDelegate {
             return UITableView.automaticDimension
             
         case .stakingLastPayouts:
-            // если тут хардкод зачем вообще таблица? (касается не моей ячейки а всего экрана в целом)
-            return 84
+            return 78
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()

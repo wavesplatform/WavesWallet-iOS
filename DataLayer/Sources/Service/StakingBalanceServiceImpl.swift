@@ -19,8 +19,6 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     private let enviroment: ExtensionsEnvironmentRepositoryProtocols
     private let accountBalanceService: AccountBalanceUseCaseProtocol
     
-    private let disposeBag = DisposeBag()
-    
     init(authorizationService: AuthorizationUseCaseProtocol,
          devConfig: DevelopmentConfigsRepositoryProtocol,
          enviroment: ExtensionsEnvironmentRepositoryProtocols,

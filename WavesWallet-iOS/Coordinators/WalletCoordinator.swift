@@ -129,21 +129,21 @@ extension WalletCoordinator: WalletModuleOutput {
     }
     
     func openTw(sharedText: String) {
-        let urlString = "https://twitter.com/share?url=https://waves.exchange/staking&text=\(sharedText.urlEscaped)"
+        let urlString = UIGlobalConstants.URL.twSharing + sharedText.urlEscaped
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
     }
     
     func openVk(sharedText: String) {
-        let urlString = "https://vk.com/share.php?url=https://waves.exchange/staking&description=\(sharedText.urlEscaped)"
+        let urlString = UIGlobalConstants.URL.vkSharing + sharedText.urlEscaped
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
     }
     
     func openFb(sharedText: String) {
-        let urlString = "https://www.facebook.com/sharer/sharer.php?u=https://waves.exchange/staking&quote=\(sharedText.urlEscaped)"
+        let urlString = UIGlobalConstants.URL.fbSharing + sharedText.urlEscaped
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
