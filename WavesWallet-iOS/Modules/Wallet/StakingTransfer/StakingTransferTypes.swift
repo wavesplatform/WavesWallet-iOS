@@ -84,6 +84,7 @@ extension StakingTransfer.DTO {
 extension StakingTransfer {
     enum Event {
         case viewDidAppear
+        case viewDidDisappear
         case showCard(StakingTransfer.DTO.Data.Card)
         case showDeposit(StakingTransfer.DTO.Data.Transfer)
         case showWithdraw(StakingTransfer.DTO.Data.Transfer)

@@ -89,6 +89,12 @@ final class StakingTransferViewController: ModalScrollViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        system.send(.viewDidDisappear)
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         system.send(.viewDidAppear)
@@ -310,6 +316,9 @@ extension StakingTransferViewController: UITableViewDataSource {
             
             let cell: StakingTransferDescriptionCell = tableView.dequeueAndRegisterCell(indexPath: indexPath)
             cell.update(with: model)
+            cell.didSelectLinkWith = { [weak self] url in
+                self?.moduleOutput?.stakingTransferOpenURL(url)
+            }
             return cell
             
         }

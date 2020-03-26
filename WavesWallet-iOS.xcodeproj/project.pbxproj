@@ -274,7 +274,7 @@
 		7B4FA715242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA714242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift */; };
 		7B4FA717242B585E00A2FB25 /* AdCashDepositsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */; };
 		7B4FA71B242BEA7A00A2FB25 /* DomainLayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */; };
-		7B4FA71E242C17D000A2FB25 /* TransactionCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71D242C17D000A2FB25 /* TransactionCompletedVC.swift */; };
+		7B4FA71E242C17D000A2FB25 /* StakingTransactionCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */; };
 		7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B537E2423E08B43002A3976 /* Date+Helper.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
@@ -560,6 +560,7 @@
 		7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */; };
 		7BC17E7923F5908100F76B7B /* DeviceLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */; };
 		7BC373702429653B00B5120C /* StakingTransferTypes+Withdraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC3736F2429653B00B5120C /* StakingTransferTypes+Withdraw.swift */; };
+		7BCFAB37242CF416002850B1 /* URL+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFAB36242CF416002850B1 /* URL+Encoding.swift */; };
 		7BCFC36824092AB000B8AF1C /* StakingTransferTypes+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
@@ -1652,7 +1653,7 @@
 		7B4FA714242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Transfer.swift"; sourceTree = "<group>"; };
 		7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCashDepositsUseCase.swift; sourceTree = "<group>"; };
 		7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLayerConstants.swift; sourceTree = "<group>"; };
-		7B4FA71D242C17D000A2FB25 /* TransactionCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCompletedVC.swift; sourceTree = "<group>"; };
+		7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransactionCompletedVC.swift; sourceTree = "<group>"; };
 		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
@@ -1905,6 +1906,7 @@
 		7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinHeightTableViewCell.swift; sourceTree = "<group>"; };
 		7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLayoutConstraint.swift; sourceTree = "<group>"; };
 		7BC3736F2429653B00B5120C /* StakingTransferTypes+Withdraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Withdraw.swift"; sourceTree = "<group>"; };
+		7BCFAB36242CF416002850B1 /* URL+Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Encoding.swift"; sourceTree = "<group>"; };
 		7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Card.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
@@ -3193,6 +3195,7 @@
 				7B1A337624011AFD00AE54B9 /* StringProtocol+Ranges.swift */,
 				7B0D1B8224029FA700442B7B /* TTAttributed+Utils.swift */,
 				7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */,
+				7BCFAB36242CF416002850B1 /* URL+Encoding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3710,7 +3713,7 @@
 		7B4FA71C242C17AD00A2FB25 /* TransactionCompleted */ = {
 			isa = PBXGroup;
 			children = (
-				7B4FA71D242C17D000A2FB25 /* TransactionCompletedVC.swift */,
+				7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */,
 			);
 			path = TransactionCompleted;
 			sourceTree = "<group>";
@@ -7840,7 +7843,7 @@
 				87FA5D1024223BA4002F282D /* ChangePasswordModuleBuilder.swift in Sources */,
 				7B97B0A822FC78EA008BA3F4 /* DateFormatter+UI.swift in Sources */,
 				87FA5DCB24223FBE002F282D /* AssetBalanceCell.swift in Sources */,
-				7B4FA71E242C17D000A2FB25 /* TransactionCompletedVC.swift in Sources */,
+				7B4FA71E242C17D000A2FB25 /* StakingTransactionCompletedVC.swift in Sources */,
 				87FA5D0324223B95002F282D /* AccountPassword.swift in Sources */,
 				8752A2662412799900B968C7 /* PayoutsHistorySystem.swift in Sources */,
 				0ADD801F21F22FFA0075FC59 /* RoutingCoordinator.swift in Sources */,
@@ -8259,6 +8262,7 @@
 				0ADD802D21F22FFB0075FC59 /* ImportCoordinator.swift in Sources */,
 				E9B087BD2163886800937644 /* DexInfoTypes.swift in Sources */,
 				7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */,
+				7BCFAB37242CF416002850B1 /* URL+Encoding.swift in Sources */,
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
 				E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */,
 				E9443BA822DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift in Sources */,

@@ -3542,6 +3542,22 @@ internal enum Localizable {
         }
       }
 
+      internal enum Card {
+        /// Note that you have to go through all the necessary procedures on the %@ website.\nOnce you are done, USDN will be credited to your account within a few minutes.
+        internal static func subtitle(_ p1: String) -> String {
+          return Localizable.tr("Waves", "transactioncompleted.card.subtitle", p1)
+        }
+        /// Purchase completed!
+        internal static var title: String { return Localizable.tr("Waves", "transactioncompleted.card.title") }
+        internal static var titleKey: String { return "transactioncompleted.card.title" }
+
+        internal enum Subtitle {
+          /// Advanced Cash
+          internal static var url: String { return Localizable.tr("Waves", "transactioncompleted.card.subtitle.url") }
+          internal static var urlKey: String { return "transactioncompleted.card.subtitle.url" }
+        }
+      }
+
       internal enum Deposit {
         /// You have deposited %@
         internal static func subtitle(_ p1: String) -> String {
