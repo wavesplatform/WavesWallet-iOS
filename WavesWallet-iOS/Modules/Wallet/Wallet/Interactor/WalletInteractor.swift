@@ -152,10 +152,17 @@ final class WalletInteractor: WalletInteractorProtocol {
                                                               available: availableStakingBalance,
                                                               inStaking: inStakingBalance)
                 
+                let showLandingIfNeeded = WalletLandingSetting.value
+                
+                let minimumDeposit = DomainLayer.DTO.Balance(currency: totalBalanceCurrency,
+                                                             money: Money(10000, stakingBalance.precision))
+                let landing = WalletTypes.DTO.Staking.Landing(percent: profitPercent,
+                                                              minimumDeposit: minimumDeposit)
+                
                 return WalletTypes.DTO.Staking(profit: profit,
                                                balance: balance,
                                                lastPayouts: lastPayoutsTransactions,
-                                               landing: nil)
+                                               landing: showLandingIfNeeded ? landing : nil)
             }
     }
 }

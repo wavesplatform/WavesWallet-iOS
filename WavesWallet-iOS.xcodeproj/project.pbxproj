@@ -726,6 +726,7 @@
 		7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FA22FC742F002B19F8 /* BiometricManager+String.swift */; };
 		7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */; };
 		7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */; };
+		871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* Wallet+TSUD.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
 		8752A2662412799900B968C7 /* PayoutsHistorySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2612412799900B968C7 /* PayoutsHistorySystem.swift */; };
@@ -2098,6 +2099,7 @@
 		7BFB47FC22FC742F002B19F8 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeParser.swift; sourceTree = "<group>"; };
 		7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserWithoutBackupStorageTrack.swift; sourceTree = "<group>"; };
+		871D7262242CC94100F89403 /* Wallet+TSUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+TSUD.swift"; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
 		8752A2612412799900B968C7 /* PayoutsHistorySystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistorySystem.swift; sourceTree = "<group>"; };
@@ -2935,6 +2937,7 @@
 				0AE491F22107A51A009223DB /* WalletTypes+ViewModels.swift */,
 				E98092A822A85EE700914CF1 /* WalletViewController.swift */,
 				E95E14FE22A07364003552B8 /* WalletDisplayData.swift */,
+				871D7262242CC94100F89403 /* Wallet+TSUD.swift */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -7938,6 +7941,7 @@
 				E9B088062163886800937644 /* DexCompleteOrderViewController.swift in Sources */,
 				048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */,
 				875393322423BE5F00394762 /* ReceiveContainerModuleBuilder.swift in Sources */,
+				871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */,
 				E9802C5523B24AD8003C7BB4 /* Images.swift in Sources */,
 				7B8D5D7224093984008D013F /* StakingTransferTypes+ViewModel.swift in Sources */,
 				87FA5DA624223FA7002F282D /* WrapperAssetsSegmentedControl.swift in Sources */,
