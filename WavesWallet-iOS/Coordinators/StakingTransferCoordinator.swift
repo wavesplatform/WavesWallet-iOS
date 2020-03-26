@@ -34,12 +34,13 @@ final class StakingTransferCoordinator: Coordinator {
     init(router: Router, kind: StakingTransfer.DTO.Kind, assetId: String = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p") {
         self.router = router
         self.kind = kind
-    self.assetId = assetId
+        self.assetId = assetId
     }
 
     func start() {
-        let vc = StakingTransferModuleBuilder(output: self).build(input: .init(assetId: assetId,
-                                                                             kind: kind))
+        let vc = StakingTransferModuleBuilder(output: self)
+            .build(input: .init(assetId: assetId,
+                                kind: kind))
         modalRouter.pushViewController(vc)
         router.present(modalRouter, animated: true, completion: nil)
     }
@@ -50,14 +51,37 @@ final class StakingTransferCoordinator: Coordinator {
         modalRouter.popAllViewController()
     }
     
-    private func showTransactionCompleted(transaction: DomainLayer.DTO.SmartTransaction) {
+    private func showTransactionCompleted(amount: DomainLayer.DTO.Balance,
+                                          transaction: DomainLayer.DTO.SmartTransaction,
+                                          kind: TransactionCompletedVC.Model.Kind) {
         
                 
-        let vc = TransactionCompletedBuilder().build(input: transaction)
+        let vc = TransactionCompletedBuilder().build(input: .init(kind: kind,
+                                                                  balance: amount))
+        
+        vc.didTapSuccessButton = { [weak self] in
+            vc.dismiss(animated: true, completion: nil)
+            self?.removeFromParentCoordinator()
+        }
+        
+        vc.didTapDetailButton = { [weak self] in
+            vc.dismiss(animated: true, completion: nil)
+            guard let self = self else { return }
+            
+            let cordinator = TransactionCardCoordinator(kind: .transaction(transaction),
+                                                        router: self.router)
+            cordinator.delegate = self
+            
+            self.addChildCoordinatorAndStart(childCoordinator: cordinator)
+        }
+        
+        
         vc.modalPresentationStyle = .overFullScreen
         router.present(vc, animated: true, completion: nil)
     }
 }
+
+// MARK: StakingTransferModuleOutput
 
 extension StakingTransferCoordinator: StakingTransferModuleOutput {
     
@@ -65,19 +89,34 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
         removeModalFromCoordinator()
     }
     
-    func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction) {
+    func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction,
+                                       amount: DomainLayer.DTO.Balance) {
         removeModalFromCoordinator()
                 
-        showTransactionCompleted(transaction: transaction)
+        showTransactionCompleted(amount: amount,
+                                 transaction: transaction,
+                                 kind:  .deposit)
     }
     
-    func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction) {
+    func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction,
+                                        amount: DomainLayer.DTO.Balance) {
         
         removeModalFromCoordinator()
-        showTransactionCompleted(transaction: transaction)
+        showTransactionCompleted(amount: amount,
+                                 transaction: transaction,
+                                 kind:  .withdraw)
     }
     
     func stakingTransferDidSendCard(url: URL) {        
         removeModalFromCoordinator()
+    }
+}
+
+// MARK: TransactionCardCoordinatorDelegate
+
+extension StakingTransferCoordinator: TransactionCardCoordinatorDelegate {
+    
+    func transactionCardCoordinatorClosed() {
+        removeFromParentCoordinator()
     }
 }

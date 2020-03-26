@@ -17,6 +17,9 @@ private enum Constants {
     static let sessionLifeTime: Int64 = 1200000
     static let grantType: String = "password"
     static let scope: String = "client"
+    
+    static let currencyForLink: String = "USD"
+    static let currencyForAd: String = "AC_USD"
 }
 
 private struct TransferBindingResponse: Codable {
@@ -94,13 +97,12 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
                 let url = servicesEnvironment.walletEnvironment.servers.gateways.v2
                 
                 let token = request.token.accessToken
-                let assetId = "AC_USD"
-                let currency = "USD"
-                let amount = "\(request.amount)"
+                let currency = Constants.currencyForAd
+                let amount = request.amount
                 let address = request.address
                 
-                let adCashDepositsRegisterOrder: WEGateway.Query.AdCashDepositsRegisterOrder = .init(currency: assetId,
-                                                                                                     amount:    amount,
+                let adCashDepositsRegisterOrder: WEGateway.Query.AdCashDepositsRegisterOrder = .init(currency: currency,
+                                                                                                     amount: "\(amount)",
                                                                                                      address: address)
                 return self
                     .weGateway
@@ -117,7 +119,7 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
                     })
                     .map({ (response) -> DomainLayer.DTO.WEGateway.Order? in
                         guard let url = response.createAdCashUrl(amount: amount,
-                                                                 assetId: currency)
+                                                                 currency: Constants.currencyForLink)
                             else { return nil }
                         
                         
@@ -134,15 +136,16 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
 
 private extension RegisterOrderResponse {
  
-        func createAdCashUrl(amount: String,
-                             assetId: String) -> URL? {
+        func createAdCashUrl(amount: Decimal,
+                             currency: String) -> URL? {
                 
+            
             let accountEmail: String = authentication_data.account_email
             let acSciName: String = authentication_data.sci_name
             let acSign: String = authentication_data.signature
-            let acAmount: String = amount
+            let acAmount: String = String(format: "%.2f", amount.floatValue)
             let acOrderId: String = order_id
-            let acCurrency: String = assetId
+            let acCurrency: String = currency
             let acSuccessUrl: String = DomainLayerConstants.URL.fiatDepositSuccess
             let acFailUrl: String = DomainLayerConstants.URL.fiatDepositFail
          
@@ -156,9 +159,6 @@ private extension RegisterOrderResponse {
             params["ac_success_url"] = acSuccessUrl
             params["ac_fail_url"] = acFailUrl
            
-//            URL    https://wallet.advcash.com/sci/?ac_account_email=gw%40waves.exchange&ac_sci_name=wavesexchange&ac_amount=100000.00&ac_currency=USD&ac_order_id=ccc75ec6-abb3-40b6-bae7-4a97b314500b&ac_sign=DE7244FCE69163C98D9CAFB0BD0BD59650892533B9BEED0D8983E9D8A974ECA2&ac_success_url=https%3A%2F%2Fwaves.exchange%2Ffiatdeposit%2Fsuccess&ac_fail_url=https%3A%2F%2Fwaves.exchange%2Ffiatdeposit%2Ffail
-            
-//            https://wallet.advcash.com/sci?ac_order_id=0ae3b9f8-3d5d-49b3-90d4-8e7c855ea9de&ac_amount=100000&ac_account_email=gw@waves.exchange&ac_sci_name=wavesexchange&ac_success_url=https://waves.exchange/fiatdeposit/success&ac_fail_url=https://waves.exchange/fiatdeposit/fail&ac_sign=61FB18F45BC38AFAC5E3F83FE6A9F534886B2D6E1E9B86A0A51FBFAB65D3F451&ac_currency=USD
             var components = URLComponents(string: DomainLayerConstants.URL.advcash)
             components?.queryItems = params.map {
                  URLQueryItem(name: $0, value: $1)

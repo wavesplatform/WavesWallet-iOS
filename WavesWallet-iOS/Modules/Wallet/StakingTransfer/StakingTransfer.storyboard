@@ -54,47 +54,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jE5-hI-6ef">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jsO-bE-QkO">
-                                <rect key="frame" x="16" y="526" width="414" height="312"/>
+                                <rect key="frame" x="16" y="531" width="382" height="307"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fEl-Zu-9CV">
-                                        <rect key="frame" x="167" y="44" width="80" height="80"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="fEl-Zu-9CV">
+                                        <rect key="frame" x="151" y="44" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="jtM-tl-BSG"/>
                                             <constraint firstAttribute="width" constant="80" id="tNP-L5-UP3"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cfi-df-WQ5">
-                                        <rect key="frame" x="16" y="148" width="382" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your transaction is on the way!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cfi-df-WQ5">
+                                        <rect key="frame" x="69" y="148" width="245" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49j-0Y-cLB">
-                                        <rect key="frame" x="16" y="175" width="382" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have deposited 0.123456 USDN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49j-0Y-cLB">
+                                        <rect key="frame" x="16" y="175" width="350" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGd-UA-kru">
-                                        <rect key="frame" x="16" y="240" width="183" height="48"/>
-                                        <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="16" y="235" width="167" height="48"/>
+                                        <color key="backgroundColor" red="0.93333333333333335" green="0.96078431372549022" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="cCa-ci-r2z"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="View Details">
+                                            <color key="titleColor" red="0.12156862745098039" green="0.3529411764705882" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTapDetailButton" destination="aGa-mB-r9U" eventType="touchUpInside" id="Dd3-dl-1Ko"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Zs-OY-fin">
-                                        <rect key="frame" x="215" y="240" width="183" height="48"/>
+                                        <rect key="frame" x="199" y="235" width="167" height="48"/>
+                                        <color key="backgroundColor" red="0.12156862745098039" green="0.3529411764705882" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="SgQ-CX-nbT"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTapSuccessButton" destination="aGa-mB-r9U" eventType="touchUpInside" id="Gfc-r7-PSe"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -115,20 +135,39 @@
                                     <constraint firstItem="fEl-Zu-9CV" firstAttribute="centerX" secondItem="jsO-bE-QkO" secondAttribute="centerX" id="pud-9o-WPE"/>
                                     <constraint firstItem="49j-0Y-cLB" firstAttribute="leading" secondItem="jsO-bE-QkO" secondAttribute="leading" constant="16" id="qOU-hI-my2"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.30254181338028169" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="jsO-bE-QkO" firstAttribute="trailing" secondItem="tbj-5p-XyE" secondAttribute="trailing" constant="16" id="M7k-Pa-F6W"/>
+                            <constraint firstItem="jsO-bE-QkO" firstAttribute="trailing" secondItem="tbj-5p-XyE" secondAttribute="trailing" constant="-16" id="M7k-Pa-F6W"/>
+                            <constraint firstItem="jE5-hI-6ef" firstAttribute="top" secondItem="Jaf-2N-Cmr" secondAttribute="top" id="XmD-da-7Pw"/>
                             <constraint firstItem="jsO-bE-QkO" firstAttribute="leading" secondItem="tbj-5p-XyE" secondAttribute="leading" constant="16" id="Z1T-76-vOe"/>
+                            <constraint firstItem="tbj-5p-XyE" firstAttribute="trailing" secondItem="jE5-hI-6ef" secondAttribute="trailing" id="hBe-sU-Edx"/>
                             <constraint firstItem="tbj-5p-XyE" firstAttribute="bottom" secondItem="jsO-bE-QkO" secondAttribute="bottom" constant="24" id="pzo-6o-lTu"/>
+                            <constraint firstItem="jE5-hI-6ef" firstAttribute="leading" secondItem="tbj-5p-XyE" secondAttribute="leading" id="vPJ-NB-OMR"/>
+                            <constraint firstAttribute="bottom" secondItem="jE5-hI-6ef" secondAttribute="bottom" id="zHX-ZQ-XKp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tbj-5p-XyE"/>
                     </view>
+                    <connections>
+                        <outlet property="detailButton" destination="RGd-UA-kru" id="cdA-oX-HhG"/>
+                        <outlet property="shadowView" destination="jE5-hI-6ef" id="KbA-tg-1J8"/>
+                        <outlet property="subTitleLabel" destination="49j-0Y-cLB" id="MXB-fy-2bF"/>
+                        <outlet property="successButton" destination="9Zs-OY-fin" id="2r9-fW-eoN"/>
+                        <outlet property="titleLabel" destination="Cfi-df-WQ5" id="1j3-qf-fvv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7oh-w7-Lhg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-636.23188405797111" y="-531.02678571428567"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="userimgDone80Success400" width="80" height="80"/>
+    </resources>
 </document>

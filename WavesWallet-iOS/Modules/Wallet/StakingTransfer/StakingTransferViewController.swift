@@ -32,12 +32,14 @@ extension UIViewController {
 protocol StakingTransferModuleOutput: AnyObject {
     func stakingTransferOpenURL(_ url: URL)
     func stakingTransferDidSendCard(url: URL)
-    func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction)
-    func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction)
+    func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
+    func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
 }
 
 private enum Constants {
     static let headerHeight: CGFloat = 82
+    static let cardContentHight: CGFloat = 480
+    static let transferContentHeght: CGFloat = 425
 }
 
 final class StakingTransferViewController: ModalScrollViewController {
@@ -59,6 +61,8 @@ final class StakingTransferViewController: ModalScrollViewController {
     var system: System<StakingTransfer.State, StakingTransfer.Event>!
     
     private var sections: [Types.ViewModel.Section] = .init()
+    
+    private var kind: StakingTransfer.DTO.Kind? = nil
     
     private var snackBarKey: String? = nil
     
@@ -97,9 +101,14 @@ final class StakingTransferViewController: ModalScrollViewController {
     
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
         
-        print("self.layoutInsets.top \(self.layoutInsets.top)")
-//        return 425  + self.layoutInsets.top
-        return 480  + self.layoutInsets.top
+        guard let kind = self.kind else { return size.height }
+        
+        switch kind {
+        case .card:
+            return Constants.cardContentHight
+        case .deposit, .withdraw:
+            return Constants.transferContentHeght
+        }
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
@@ -112,6 +121,7 @@ extension StakingTransferViewController {
     private func update(state: StakingTransfer.State.UI) {
         
         self.sections = state.sections
+        self.kind = state.kind
         
         stakingTransferHeaderView.update(with: .init(title: state.title))
                         
@@ -119,11 +129,11 @@ extension StakingTransferViewController {
         case .none:
             break
             
-        case .completedDeposit(_ , let tx):
-            self.moduleOutput?.stakingTransferDidSendDeposit(transaction: tx)
+        case .completedDeposit(_ , let tx, let amount):
+            self.moduleOutput?.stakingTransferDidSendDeposit(transaction: tx, amount: amount)
         
-        case .completedWithdraw(_, let tx):
-            self.moduleOutput?.stakingTransferDidSendWithdraw(transaction: tx)
+        case .completedWithdraw(_, let tx, let amount):
+            self.moduleOutput?.stakingTransferDidSendWithdraw(transaction: tx, amount: amount)
             
         case .completedCard(_, let url):
             self.moduleOutput?.stakingTransferDidSendCard(url: url)

@@ -3522,6 +3522,41 @@ internal enum Localizable {
       }
     }
 
+    internal enum Transactioncompleted {
+      /// Your transaction is on the way!
+      internal static var title: String { return Localizable.tr("Waves", "transactioncompleted.title") }
+      internal static var titleKey: String { return "transactioncompleted.title" }
+
+      internal enum Button {
+
+        internal enum Success {
+          /// Ok
+          internal static var title: String { return Localizable.tr("Waves", "transactioncompleted.button.success.title") }
+          internal static var titleKey: String { return "transactioncompleted.button.success.title" }
+        }
+
+        internal enum Viewdetails {
+          /// View Details
+          internal static var title: String { return Localizable.tr("Waves", "transactioncompleted.button.viewdetails.title") }
+          internal static var titleKey: String { return "transactioncompleted.button.viewdetails.title" }
+        }
+      }
+
+      internal enum Deposit {
+        /// You have deposited %@
+        internal static func subtitle(_ p1: String) -> String {
+          return Localizable.tr("Waves", "transactioncompleted.deposit.subtitle", p1)
+        }
+      }
+
+      internal enum Withdraw {
+        /// You have withdrawn %@
+        internal static func subtitle(_ p1: String) -> String {
+          return Localizable.tr("Waves", "transactioncompleted.withdraw.subtitle", p1)
+        }
+      }
+    }
+
     internal enum Transactionfee {
 
       internal enum Label {

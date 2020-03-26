@@ -135,17 +135,21 @@ extension StakingTransfer {
             enum Action {
                 case none
                 case update(_ updateRows: UpdateRows?, error: DisplayError?)
-                case completedDeposit(_ updateRows: UpdateRows?, DomainLayer.DTO.SmartTransaction)
-                case completedWithdraw(_ updateRows: UpdateRows?, DomainLayer.DTO.SmartTransaction)
+                case completedDeposit(_ updateRows: UpdateRows?,
+                    transactions: DomainLayer.DTO.SmartTransaction,
+                    amount: DomainLayer.DTO.Balance)
+                case completedWithdraw(_ updateRows: UpdateRows?,
+                    transactions: DomainLayer.DTO.SmartTransaction,
+                    amount: DomainLayer.DTO.Balance)
                 case completedCard(_ updateRows: UpdateRows?, URL)
                 
                 var updateRoes: UpdateRows? {
                     switch self {
                     case .update(let model, _):
                         return model
-                    case .completedWithdraw(let model, _):
+                    case .completedWithdraw(let model, _, _):
                         return model
-                    case .completedDeposit(let model, _):
+                    case .completedDeposit(let model, _, _):
                         return model
                     default:
                         return nil
@@ -166,6 +170,7 @@ extension StakingTransfer {
             var sections: [ViewModel.Section]
             var title: String
             var action: Action
+            var kind: StakingTransfer.DTO.Kind
         }
         
         var ui: UI

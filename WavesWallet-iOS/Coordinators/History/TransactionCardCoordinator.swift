@@ -20,11 +20,13 @@ private struct Constants {
 protocol TransactionCardCoordinatorDelegate: AnyObject {
     func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder)
     func transactionCardCoordinatorCanceledLeasing()
+    func transactionCardCoordinatorClosed()
 }
 
 extension TransactionCardCoordinatorDelegate {
     func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {}
     func transactionCardCoordinatorCanceledLeasing() {}
+    func transactionCardCoordinatorClosed() {}
 }
 
 final class TransactionCardCoordinator: Coordinator {
@@ -33,7 +35,7 @@ final class TransactionCardCoordinator: Coordinator {
 
     weak var parent: Coordinator?
 
-    private var navigationRouter: NavigationRouter!
+    private let router: Router
     
     private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
         guard let self = self else { return }
@@ -49,14 +51,14 @@ final class TransactionCardCoordinator: Coordinator {
     weak var delegate: TransactionCardCoordinatorDelegate?
 
     convenience init(transaction: DomainLayer.DTO.SmartTransaction,
-                     router: NavigationRouter) {
+                     router: Router) {
         self.init(kind: .transaction(transaction),
                   router: router)
     }
 
-    init(kind: TransactionCard.Kind, router: NavigationRouter) {
+    init(kind: TransactionCard.Kind, router: Router) {
         self.kind = kind
-        self.navigationRouter = router
+        self.router = router
     }
 
     func start() {
@@ -71,7 +73,7 @@ final class TransactionCardCoordinator: Coordinator {
                                 callbackInput: callbackInput))
         
         modalRouter.pushViewController(vc)
-        navigationRouter.present(modalRouter, animated: true, completion: nil)
+        router.present(modalRouter, animated: true, completion: nil)
     }
 }
 
@@ -96,7 +98,8 @@ extension TransactionCardCoordinator: StartLeasingModuleOutput {
 extension TransactionCardCoordinator: TransactionCardModuleOutput {
     
     func transactionCardViewDismissCard() {
-        navigationRouter.dismiss(animated: true, completion: nil)
+        router.dismiss(animated: true, completion: nil)
+        self.delegate?.transactionCardCoordinatorClosed()
     }
 
     func transactionCardAddContact(address: String) {

@@ -826,3 +826,9 @@
 "payoutsHistory.title" = "Payouts History";
 
 "payoutsHistory.profit" = "Profit";
+
+"transactioncompleted.deposit.subtitle" = "You have deposited %@";
+"transactioncompleted.withdraw.subtitle" = "You have withdrawn %@";
+"transactioncompleted.title" = "Your transaction is on the way!";
+"transactioncompleted.button.viewdetails.title" = "View Details";
+"transactioncompleted.button.success.title" = "Ok";

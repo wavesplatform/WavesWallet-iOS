@@ -181,18 +181,43 @@ private extension StakingTransferSystem {
                                           inputIndexPath: indexPath,
                                           state: &state)
         case .completedSendWithdraw(let tx):
+
+            guard let asset = state.core.data?.transfer?.asset else {
+                state.ui.action = .none
+                state.core.action = .none
+                return
+            }
+            guard let amount = state.core.input?.transfer?.amount else {
+                state.ui.action = .none
+                state.core.action = .none
+                return
+            }
+            
+            let balance: DomainLayer.DTO.Balance = asset.balance(amount.amount)
             
             let updateRows = updateTransferButton(state: &state,
                                                   status: .active)
             
-            state.ui.action = .completedWithdraw(updateRows, tx)
+            state.ui.action = .completedWithdraw(updateRows, transactions: tx, amount: balance)
             
         case .completedSendDeposit(let tx):
             
+            guard let asset = state.core.data?.transfer?.asset else {
+                state.ui.action = .none
+                state.core.action = .none
+                return
+            }
+            guard let amount = state.core.input?.transfer?.amount else {
+                state.ui.action = .none
+                state.core.action = .none
+                return
+            }
+            
+            let balance: DomainLayer.DTO.Balance = asset.balance(amount.amount)
+                        
             let updateRows = updateTransferButton(state: &state,
                                                   status: .active)
-            
-            state.ui.action = .completedDeposit(updateRows, tx)
+            state.ui.action = .completedDeposit(updateRows, transactions: tx, amount: balance)
             
         case .showDeposit(let deposit):
             
