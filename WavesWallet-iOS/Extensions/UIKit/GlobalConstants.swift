@@ -39,9 +39,8 @@ enum UIGlobalConstants {
         static let faq = "https://waves.exchange/faq"
         static let twitter = "https://twitter.com/Waves_Exchange"
         static let client = "https://waves.exchange/"
-        static let stakingFaq = "https://waves.exchange/staking/faq"
-        static let linkSuccess = "https://waves.exchange/fiatdeposit/success"
-        static let linkFail = "https://waves.exchange/fiatdeposit/fail"
+        static let stakingFaq = "https://waves.exchange/staking/faq"                
+        static let advcash = "https://wallet.advcash.com/ru/login"        
     }
     
     static let supportEmail = "support@waves.exchange"

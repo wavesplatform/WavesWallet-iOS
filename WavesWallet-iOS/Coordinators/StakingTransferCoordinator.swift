@@ -45,10 +45,10 @@ final class StakingTransferCoordinator: Coordinator {
         router.present(modalRouter, animated: true, completion: nil)
     }
     
-    private func removeModalFromCoordinator() {
+    private func removeModalFromCoordinator(completion: (() -> Void)? = nil) {
         self.hasNeedRemoveCoordinatorAfterDissmiss = false
-        router.dismiss(animated: true, completion: nil)
         modalRouter.popAllViewController()
+        router.dismiss(animated: true, completion: completion)
     }
     
     
@@ -88,6 +88,7 @@ final class StakingTransferCoordinator: Coordinator {
         }
 
         vc.didSelectLinkWith = { url -> Void in
+            
             BrowserViewController.openURL(url,
                                           toViewController: self.router.viewController)
         }
@@ -102,31 +103,33 @@ final class StakingTransferCoordinator: Coordinator {
 extension StakingTransferCoordinator: StakingTransferModuleOutput {
     
     func stakingTransferOpenURL(_ url: URL) {
-        
+                 
         BrowserViewController.openURL(url,
-                                      toViewController: router.viewController)
+                                      toViewController: self.router.viewController)
     }
     
     func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction,
                                        amount: DomainLayer.DTO.Balance) {
-        removeModalFromCoordinator()
-                
-        showTransactionCompleted(transaction: transaction,
-                                 kind:  .deposit(balance: amount))
+        removeModalFromCoordinator(completion: { [weak self] in
+                                    
+            self?.showTransactionCompleted(transaction: transaction,
+                                           kind:  .deposit(balance: amount))
+        })
     }
     
     func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction,
                                         amount: DomainLayer.DTO.Balance) {
         
-        removeModalFromCoordinator()
-        showTransactionCompleted(transaction: transaction,
-                                 kind:  .withdraw(balance: amount))
+        removeModalFromCoordinator(completion: { [weak self] in
+            self?.showTransactionCompleted(transaction: transaction,
+                                           kind:  .withdraw(balance: amount))
+        })
     }
     
     func stakingTransferDidSendCard(url: URL) {        
         
         BrowserViewController.openURL(url,
-                                      toViewController: modalRouter.viewController  ,
+                                      toViewController: modalRouter.viewController,
                                         delegate: self)
     }
 }
@@ -147,13 +150,15 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
     func browserViewDissmiss() {}
     
     func browserViewRedirect(url: URL) {
-        let urla = URL.init(string: DomainLayerConstants.URL.fiatDepositSuccess)!
-        
-        if urla.path.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
-            removeModalFromCoordinator()
-            showCardCompleted()
-        } else if urla.path.contains(DomainLayerConstants.URL.fiatDepositFail)  {
-            router.viewController.showErrorNotFoundSnackWithoutAction()
+                
+        if url.absoluteString.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
+            
+            removeModalFromCoordinator(completion: { [weak self] in
+                self?.showCardCompleted()
+            })
+
+        } else if url.absoluteString.contains(DomainLayerConstants.URL.fiatDepositFail)  {
+            modalRouter.viewController.showErrorNotFoundSnackWithoutAction()
         }
     }
 }

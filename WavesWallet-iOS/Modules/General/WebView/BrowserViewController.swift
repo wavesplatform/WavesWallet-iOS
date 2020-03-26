@@ -130,6 +130,16 @@ extension BrowserViewController {
         vc.delegate = delegate
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
-        toViewController.present(nav, animated: true, completion: nil)
+        
+        let newToViewController: UIViewController = {
+               
+               if toViewController.presentedViewController != nil {
+                   return toViewController.presentedViewController ?? toViewController
+               } else {
+                   return toViewController
+               }
+         }()
+                
+        newToViewController.present(nav, animated: true, completion: nil)
     }
 }

@@ -121,7 +121,7 @@ extension StakingTransactionCompletedVC: ViewConfiguration {
                 title.addAttributes(NSMutableAttributedString.urlAttributted(),
                                     range: range)
                 
-                title.addAttributes([NSAttributedString.Key.link: UIGlobalConstants.URL.support],
+                title.addAttributes([NSAttributedString.Key.link: UIGlobalConstants.URL.advcash],
                                     range: range)
                 
             }
