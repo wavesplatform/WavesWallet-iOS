@@ -152,6 +152,8 @@ extension StakingTransfer {
                         return model
                     case .completedDeposit(let model, _, _):
                         return model
+                    case .completedCard(let model, _):
+                        return model
                     default:
                         return nil
                     }

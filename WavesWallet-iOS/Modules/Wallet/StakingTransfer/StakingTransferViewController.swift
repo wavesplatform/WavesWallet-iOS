@@ -97,7 +97,7 @@ final class StakingTransferViewController: ModalScrollViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        system.send(.viewDidAppear)
+        system.send(.viewDidAppear)        
     }
     
     private func setupUI() {

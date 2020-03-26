@@ -70,7 +70,7 @@ extension StakingTransfer.DTO.Data.Transfer {
         }
         
         let assistanceButtons: [StakingTransfer.DTO.AssistanceButton] = [.percent100, .percent75, .percent50, .percent25]
-        
+            
         let buttons: StakingTransferScrollButtonsCell.Model =
             .init(buttons: assistanceButtons.map { $0.rawValue })
         rows.append(.scrollButtons(buttons))

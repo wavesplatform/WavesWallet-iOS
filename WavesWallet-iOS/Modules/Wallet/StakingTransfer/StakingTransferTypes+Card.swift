@@ -8,6 +8,7 @@
 
 import UIKit
 import DomainLayer
+import Extensions
 
 extension StakingTransfer.DTO.Data.Card {
     
@@ -47,10 +48,24 @@ extension StakingTransfer.DTO.Data.Card {
         
         return StakingTransfer
             .ViewModel
-            .button(title: buttonTitle,
+            .   button(title: buttonTitle,
                     status: status)
     }
-    
+        
+    func errorKind(amount: Money) -> StakingTransfer.DTO.InputData.Card.Error? {
+                                                    
+        let minAmount = self.minAmount.money
+        let maxAmount = self.maxAmount.money
+                         
+        if amount > maxAmount {
+            return .maxAmount
+        } else if amount < minAmount {
+            return .minAmount
+        }
+        
+        return nil
+    }
+        
     func sections(input: StakingTransfer.DTO.InputData.Card?) -> [StakingTransfer.ViewModel.Section] {
                 
         var rows: [StakingTransfer.ViewModel.Row] = .init()
@@ -61,8 +76,7 @@ extension StakingTransfer.DTO.Data.Card {
         if let error = input?.error {
             rows.append(self.error(by: error))
         }
-                        
-        
+                                
         let assistanceButton: StakingTransfer.DTO.AssistanceButton = .max
         
         let buttons: StakingTransferScrollButtonsCell.Model =
@@ -73,14 +87,19 @@ extension StakingTransfer.DTO.Data.Card {
         
         rows.append(contentsOf: [.scrollButtons(buttons),
                                  .description(description)])
+                                    
+        let isActive: Bool = {
+            
+            if let amount = input?.amount {
+                return self.errorKind(amount: amount) == nil
+            }
+            return false
+        }()
         
-                    
-        
-        let button = self.button(status: .disabled)
+        let button = self.button(status: isActive == true ? .active : .disabled)
         
         rows.append(button)
-        
-        
+                
         let section: StakingTransfer
             .ViewModel
             .Section =

@@ -146,13 +146,13 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
 
     func browserViewDissmiss() {}
     
-    func browserViewRedirect(aurl: URL) {
-        let url = URL.init(string: DomainLayerConstants.URL.fiatDepositSuccess)!
+    func browserViewRedirect(url: URL) {
+        let urla = URL.init(string: DomainLayerConstants.URL.fiatDepositSuccess)!
         
-        if url.path.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
+        if urla.path.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
             removeModalFromCoordinator()
             showCardCompleted()
-        } else if url.path.contains(DomainLayerConstants.URL.fiatDepositFail)  {
+        } else if urla.path.contains(DomainLayerConstants.URL.fiatDepositFail)  {
             router.viewController.showErrorNotFoundSnackWithoutAction()
         }
     }
