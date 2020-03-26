@@ -151,6 +151,7 @@ extension WalletCoordinator: WalletModuleOutput {
     
     func openTrade() {
         print("openTrade")
+//        TradeCoordinator
     }
     
     func openBuy() {

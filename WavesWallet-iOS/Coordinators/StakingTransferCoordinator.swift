@@ -150,15 +150,28 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
     func browserViewDissmiss() {}
     
     func browserViewRedirect(url: URL) {
-                
-        if url.absoluteString.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
+               
+        let link = url.absoluteStringByTrimmingQuery() ?? ""
+        
+        if link.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
             
             removeModalFromCoordinator(completion: { [weak self] in
                 self?.showCardCompleted()
             })
 
-        } else if url.absoluteString.contains(DomainLayerConstants.URL.fiatDepositFail)  {
+        } else if link.contains(DomainLayerConstants.URL.fiatDepositFail)  {
             modalRouter.viewController.showErrorNotFoundSnackWithoutAction()
         }
+    }
+}
+
+// TODO: Move
+extension URL {
+    func absoluteStringByTrimmingQuery() -> String? {
+        if var urlcomponents = URLComponents(url: self, resolvingAgainstBaseURL: false) {
+            urlcomponents.query = nil
+            return urlcomponents.string
+        }
+        return nil
     }
 }

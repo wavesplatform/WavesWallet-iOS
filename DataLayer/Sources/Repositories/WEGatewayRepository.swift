@@ -33,13 +33,24 @@ private struct TransferBindingResponse: Codable {
 private struct RegisterOrderResponse: Codable {
 
     struct AuthenticationData: Codable {
-        let sci_name: String
-        let account_email: String
+        let sciName: String
+        let accountEmail: String
         var signature: String
+        
+        enum CodingKeys: String, CodingKey {
+            case sciName = "sci_name"
+            case accountEmail = "account_email"
+            case signature
+        }
     }
     
-    let order_id: String
-    let authentication_data: AuthenticationData
+    let orderId: String
+    let authenticationData: AuthenticationData
+    
+    enum CodingKeys: String, CodingKey {
+        case orderId = "order_id"
+        case authenticationData = "authentication_data"
+    }
 }
 
 final class WEGatewayRepository: WEGatewayRepositoryProtocol {
@@ -140,11 +151,11 @@ private extension RegisterOrderResponse {
                              currency: String) -> URL? {
                 
             
-            let accountEmail: String = authentication_data.account_email
-            let acSciName: String = authentication_data.sci_name
-            let acSign: String = authentication_data.signature
+            let accountEmail: String = authenticationData.accountEmail
+            let acSciName: String = authenticationData.sciName
+            let acSign: String = authenticationData.signature
             let acAmount: String = String(format: "%.2f", amount.floatValue)
-            let acOrderId: String = order_id
+            let acOrderId: String = orderId
             let acCurrency: String = currency
             let acSuccessUrl: String = DomainLayerConstants.URL.fiatDepositSuccess
             let acFailUrl: String = DomainLayerConstants.URL.fiatDepositFail

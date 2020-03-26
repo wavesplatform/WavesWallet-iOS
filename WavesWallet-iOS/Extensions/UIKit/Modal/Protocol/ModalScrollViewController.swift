@@ -81,18 +81,10 @@ extension ModalScrollViewController  {
     }
 
     private func setupInsets(animated: Bool) {
-//
-//        print("View \(self.view.frame.size)")
-//        print("scrollView \(self.scrollView.frame.size)")
-//        print("self.layoutInsets \(self.layoutInsets)")
-//        print("adjustedContentInset \(self.scrollView.adjustedContentInset)")
-//        print("visibleScrollViewHeight \(visibleScrollViewHeight(for: scrollView.frame.size))")
-         
+
         let bottom = bottomScrollInset(for: scrollView.frame.size)
         let top = scrollView.frame.height - visibleScrollViewHeight(for: scrollView.frame.size)
                 
-//        print("top \(top)")
-        
         let contentOffset = top
         scrollView.contentInset.bottom = bottom
         scrollView.contentInset.top = top
@@ -102,9 +94,6 @@ extension ModalScrollViewController  {
         content.y = -(contentOffset)
         scrollView.setContentOffset(content, animated: animated)
         scrollView.scrollIndicatorInsets.top = max(0, -(scrollView.contentOffset.y))
-        
-//        print("adjustedContentInset before \(self.scrollView.adjustedContentInset)")
-//        print("contentInset before \(self.scrollView.contentInset)")
     }
 
     private func setupScrollView() {
