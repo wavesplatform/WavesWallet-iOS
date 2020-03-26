@@ -77,4 +77,6 @@ public protocol RepositoriesFactoryProtocol {
     var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol { get }
     
     var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol { get }
+    
+    var stakingBalanceService: StakingBalanceService { get }
 }

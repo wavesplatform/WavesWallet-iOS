@@ -86,8 +86,7 @@ extension StakingBalanceCell: Localization {
         labelAvailableTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.available
         labelStakingTitle.text = Localizable.Waves.Wallet.Stakingbalance.Label.staking
         
-        buyButton.setTitle(Localizable.Waves.Wallet.Stakingbalance.Button.buy,
-                           for: .normal)
+        buyButton.setTitle(Localizable.Waves.Wallet.Stakingbalance.Button.buy, for: .normal)
         
         withdrawButton.setTitle(Localizable.Waves.Wallet.Stakingbalance.Button.withdraw,
                                 for: .normal)

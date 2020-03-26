@@ -13,7 +13,7 @@ private enum Contants {
     static let height: CGFloat = 118
 }
 
-final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable {
+final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable, ResetableView {
 
     @IBOutlet private weak var labelEstimatedInterest: UILabel!
     @IBOutlet private weak var labelPercentTitle: UILabel!
@@ -25,18 +25,36 @@ final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable {
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var buttonHowWorkds: UIButton!
     
-    @IBOutlet weak var labelTotalProfit: UILabel!
-    @IBOutlet weak var labelShare: UILabel!
-    @IBOutlet weak var balanceLabel: BalanceLabel!
-    
+    @IBOutlet private weak var labelTotalProfit: UILabel!
+    @IBOutlet private weak var labelShare: UILabel!
+    @IBOutlet private weak var balanceLabel: BalanceLabel!
     
     var howWorksAction: (() -> Void)?
     var twAction: (() -> Void)?
     var fbAction: (() -> Void)?
     var vkAction: (() -> Void)?
+    
+    @IBAction private func howWorksTapped(_ sender: Any) {
+        howWorksAction?()
+    }
+    
+    @IBAction private func twitterTapped(_ sender: Any) {
+        twAction?()
+    }
+    
+    @IBAction private func fbTapped(_ sender: Any) {
+        fbAction?()
+    }
+    
+    @IBAction private func vkTapped(_ sender: Any) {
+        vkAction?()
+    }
         
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        backgroundColor = .basic50
+        contentView.backgroundColor = .basic50
         
         viewProfit.setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
                                               color: .black,
@@ -54,28 +72,33 @@ final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable {
         viewProfit.direction = .horizontal            
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        resetToEmptyState()
+    }
+    
+    func resetToEmptyState() {
+        howWorksAction = nil
+        twAction = nil
+        fbAction = nil
+        vkAction = nil
+        
+        labelEstimatedInterest.text = nil
+        labelPercentTitle.text = nil
+        buttonHowWorkds.setTitle(nil, for: .normal)
+        labelTotalProfit.text = nil
+        labelShare.text = nil
+        
+        labelPercent.attributedText = nil
+        balanceLabel.resetToEmptyState()
+    }
+    
     private func setupLocalization() {
         labelEstimatedInterest.text = Localizable.Waves.Wallet.Stakingheader.estimatedInterest
         labelPercentTitle.text = Localizable.Waves.Wallet.Stakingheader.perYear
         buttonHowWorkds.setTitle(Localizable.Waves.Wallet.Stakingheader.howItWorks, for: .normal)
         labelTotalProfit.text = Localizable.Waves.Wallet.Stakingheader.totalProfit
         labelShare.text = Localizable.Waves.Wallet.Stakingheader.share
-    }
-    
-    @IBAction private func howWorksTapped(_ sender: Any) {
-        howWorksAction?()
-    }
-    
-    @IBAction private func twitterTapped(_ sender: Any) {
-        twAction?()
-    }
-    
-    @IBAction private func fbTapped(_ sender: Any) {
-        fbAction?()
-    }
-    
-    @IBAction private func vkTapped(_ sender: Any) {
-        vkAction?()
     }
 }
 
@@ -84,9 +107,9 @@ extension StakingHeaderView: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Staking.Profit) {
 
         setupLocalization()
-                        
-        let backgroundColor: UIColor = UIColor.white.withAlphaComponent(0.15)
-        
+
+        let backgroundColor = UIColor.white.withAlphaComponent(0.15)
+
         balanceLabel.update(with: .init(balance: model.total,
                                         sign: nil,
                                         style: .custom(font: UIFont.systemFont(ofSize: 17,
@@ -94,7 +117,7 @@ extension StakingHeaderView: ViewConfiguration {
                                                        textColor: .white,
                                                        tickerStyle: .custom(backgroundColor: backgroundColor,
                                                                             textColor: .white))))
-        
+
         labelPercent.attributedText = .styleForBalance(text: String(format: "%.02f", model.percent),
                                                        font: labelPercent.font,
                                                        weight: .bold)
@@ -102,8 +125,5 @@ extension StakingHeaderView: ViewConfiguration {
 }
 
 extension StakingHeaderView: ViewHeight {
-    
-    static func viewHeight() -> CGFloat {
-        return Contants.height
-    }
+    static func viewHeight() -> CGFloat { Contants.height }
 }

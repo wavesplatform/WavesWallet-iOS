@@ -84,19 +84,7 @@ extension PayoutsHistoryState.MassTransferTrait {
 }
 
 extension PayoutsHistoryState.UI {
-    struct PayoutTransactionVM {
-        let title: String
-        let iconAsset: AssetLogo.Icon?
-        let transactionValue: BalanceLabel.Model
-        let dateText: String
-        
-        init(title: String, iconAsset: AssetLogo.Icon?, transactionValue: BalanceLabel.Model, dateText: String) {
-            self.title = title
-            self.iconAsset = iconAsset
-            self.transactionValue = transactionValue
-            self.dateText = dateText
-        }
-    }
+    
 }
 
 enum PayoutsHistoryEvents {

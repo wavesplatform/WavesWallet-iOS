@@ -108,7 +108,6 @@ extension WalletTypes {
         case openFb(String)
         case openVk(String)
         case openTw(String)
-        case showPayout(WalletTypes.DTO.Staking.Payout)
         case startStaking
     }
 }

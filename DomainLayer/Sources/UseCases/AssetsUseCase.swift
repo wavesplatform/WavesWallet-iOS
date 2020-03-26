@@ -17,7 +17,6 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
 
     init(assetsRepositoryLocal: AssetsRepositoryProtocol,
          assetsRepositoryRemote: AssetsRepositoryProtocol) {
-
         self.repositoryLocal = assetsRepositoryLocal
         self.repositoryRemote = assetsRepositoryRemote
     }

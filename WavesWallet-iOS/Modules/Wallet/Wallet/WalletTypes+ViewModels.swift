@@ -31,7 +31,7 @@ extension WalletTypes.ViewModel {
         case quickNote
         case stakingBalance(WalletTypes.DTO.Staking.Balance)
         case stakingLastPayoutsTitle
-        case stakingLastPayouts([WalletTypes.DTO.Staking.Payout])
+        case stakingLastPayouts([PayoutTransactionVM])
         case emptyHistoryPayouts
         case landing(WalletTypes.DTO.Staking.Landing)
     }
@@ -157,14 +157,45 @@ extension WalletTypes.ViewModel.Section {
         rows.append(.stakingBalance(staking.balance))
         rows.append(.stakingLastPayoutsTitle)
                 
-        if staking.lastPayouts.count > 0 {
-            rows.append(.stakingLastPayouts(staking.lastPayouts))
+        let lastPayouts = prepareTransactionViewModels(massTransfersTrait: staking.lastPayouts)
+        
+        if lastPayouts.count > 0 {
+            rows.append(.stakingLastPayouts(lastPayouts))
             rows.append(.historyCell(.staking))
         } else {
             rows.append(.emptyHistoryPayouts)
         }
         
         return [.init(kind: .staking(staking.profit), items: rows, isExpanded: true)]
+    }
+    
+    private static func prepareTransactionViewModels(massTransfersTrait: PayoutsHistoryState.MassTransferTrait)
+        -> [PayoutTransactionVM] {
+        massTransfersTrait
+            .massTransferTransactions
+            .transactions
+            .map { transaction -> PayoutTransactionVM in
+                let iconAsset = massTransfersTrait.assetLogo
+                let amount = transaction.transfers
+                    .filter { $0.recipient == massTransfersTrait.walletAddress }
+                    .reduce(0) { $0 + $1.amount }
+                
+                let money = Money(value: Decimal(amount), massTransfersTrait.precision ?? 0)
+                let currency = DomainLayer.DTO.Balance.Currency(title: "", ticker: massTransfersTrait.assetTicker)
+                
+                let balance = DomainLayer.DTO.Balance(currency: currency, money: money)
+                let transactionValue = BalanceLabel.Model(balance: balance, sign: .plus, style: .medium)
+                
+                let dateFormatter = DateFormatter.uiSharedFormatter(key: "PayoutsHistorySystem",
+                                                                    style: .pretty(transaction.timestamp))
+                
+                let dateText = dateFormatter.string(from: transaction.timestamp)
+                
+                return PayoutTransactionVM(title: Localizable.Waves.Payoutshistory.profit,
+                                           iconAsset: iconAsset,
+                                           transactionValue: transactionValue,
+                                           dateText: dateText)
+            }
     }
 }
 

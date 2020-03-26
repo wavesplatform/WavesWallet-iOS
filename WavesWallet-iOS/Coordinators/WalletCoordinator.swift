@@ -124,20 +124,29 @@ extension WalletCoordinator: WalletModuleOutput {
         navigationRouter.pushViewController(payoutsHistoryVC)
     }
     
-    func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
+    func showPayout(payout: PayoutTransactionVM) {
         print("payout tapped", payout)
     }
     
     func openTw(sharedText: String) {
-        print(sharedText)
+        let urlString = UIGlobalConstants.URL.twSharing + sharedText.urlEscaped
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+        }
     }
     
     func openVk(sharedText: String) {
-        print(sharedText)
+        let urlString = UIGlobalConstants.URL.vkSharing + sharedText.urlEscaped
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+        }
     }
     
     func openFb(sharedText: String) {
-        print(sharedText)
+        let urlString = UIGlobalConstants.URL.fbSharing + sharedText.urlEscaped
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+        }
     }
     
     func openTrade() {

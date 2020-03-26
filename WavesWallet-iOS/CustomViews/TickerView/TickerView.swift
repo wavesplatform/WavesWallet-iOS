@@ -15,7 +15,7 @@ fileprivate enum Constants {
     static let cornerRadius: CGFloat = 2
 }
 
-final class TickerView: UIView, NibOwnerLoadable {
+final class TickerView: UIView, NibOwnerLoadable, ResetableView {
 
     struct Model {
         
@@ -70,14 +70,16 @@ final class TickerView: UIView, NibOwnerLoadable {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: Constants.height)
+        CGSize(width: UIView.noIntrinsicMetric, height: Constants.height)
+    }
+    
+    func resetToEmptyState() {
+        titleLabel.text = nil
     }
 }
 
 extension TickerView: ViewConfiguration {
-
     func update(with model: TickerView.Model) {
-
         titleLabel.text = model.text
         self.style = model.style
         setNeedsLayout()        
@@ -86,7 +88,6 @@ extension TickerView: ViewConfiguration {
 
 extension TickerView {
     static var spamTicker: TickerView.Model {
-        return .init(text: Localizable.Waves.General.Ticker.Title.spam,
-                     style: .normal)
+        .init(text: Localizable.Waves.General.Ticker.Title.spam, style: .normal)
     }
 }

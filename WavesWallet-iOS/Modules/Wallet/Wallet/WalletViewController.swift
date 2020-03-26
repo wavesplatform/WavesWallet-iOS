@@ -108,7 +108,7 @@ final class WalletViewController: UIViewController {
     }
 
     var isAssetDisplay: Bool {
-        return scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue
+        scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue
     }
 
     // TODO: Refactor method. I dont know how its work
@@ -161,9 +161,7 @@ extension WalletViewController: ScrolledContainerViewDelegate {
 // MARK: UIGestureRecognizerDelegate
 
 extension WalletViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool { true }
 }
 
 // MARK: Bind UI
@@ -423,8 +421,7 @@ extension WalletViewController: WalletDisplayDataDelegate {
         sendEvent.accept(.startStaking)
     }
 
-    func showPayout(payout: WalletTypes.DTO.Staking.Payout) {
-        sendEvent.accept(.showPayout(payout))
+    func showPayout(payout: PayoutTransactionVM) {
     }
 
     func openTw(_ sharedText: String) {
