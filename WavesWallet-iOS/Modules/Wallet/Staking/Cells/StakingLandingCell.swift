@@ -6,9 +6,10 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import RxSwift
 import TTTAttributedLabel
+import UIKit
 
 private enum Constants {
     static let blueViewRadius = CGSize(width: 14, height: 14)
@@ -17,7 +18,6 @@ private enum Constants {
 }
 
 final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
-
     @IBOutlet private weak var blueTopView: UIView!
     @IBOutlet private weak var labelEarnPercent: UILabel!
     @IBOutlet private weak var labelAnnualInterests: UILabel!
@@ -34,16 +34,18 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
     @IBOutlet private weak var scrollView: UIScrollView!
     
     private let shapeLayer = CAShapeLayer()
-        
-    private var model: Model? = nil
     
-    private static var totalProfitValue: Double? = nil
-    private var profitValue: Double? = nil
-    private var deffaultProfitValue: Double? = nil
+    private var model: Model?
+    
+    private var totalProfitValue: Double = 0
+    private var profitValue: Double = 0
+    private var deffaultProfitValue: Double?
     
     public var startStaking: (() -> Void)?
     
     public var didSelectLinkWith: ((URL) -> Void)?
+    
+    private var disposeBag = DisposeBag()
     
     private var isLastPage: Bool {
         return scrollView.currentPage == (scrollView.maxPages - 1)
@@ -52,13 +54,6 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         blueTopView.layer.mask = shapeLayer
-        
-        _ = Timer.scheduledTimer(timeInterval: 0.1,
-                                 target: self,
-                                 selector: #selector(update(timer:)),
-                                 userInfo: nil,
-                                 repeats: true)
-        
     }
     
     override func layoutSubviews() {
@@ -67,29 +62,29 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
         let maskPath = UIBezierPath(roundedRect: blueTopView.bounds,
                                     byRoundingCorners: [.topLeft, .bottomLeft],
                                     cornerRadii: Constants.blueDottedViewRadius)
-
+        
         shapeLayer.path = maskPath.cgPath
     }
     
-    @objc func update(timer: Timer) {
-        
+    private func update() {
         guard let model = self.model else { return }
-        guard let profitValue = profitValue else { return }
-                                
-        let totalProfitValue = StakingLandingCell.totalProfitValue
-        let money: Double = profitValue + (totalProfitValue ?? 0)
         
-        StakingLandingCell.totalProfitValue = money
+        // 10000k * percent / 365 in seconds
+        // секунды в году = 365 дней * 24 часа * 60 минут * 60 секунд
+        let yearInSeconds: Double = 365 * 24 * 60 * 60
+        
+        let total = (Double(model.minimumDeposit.money.amount) * model.percent) / yearInSeconds
+        totalProfitValue += total
         
         let minimumDeposit =  model.minimumDeposit.money
-        let deffaultProfitValue = self.deffaultProfitValue ?? 0
-        let amount = Int64((money + deffaultProfitValue) * pow(10, Double(minimumDeposit.decimals)))
-                                
-        let totalValue = Money(amount,
-                               minimumDeposit.decimals)
         
-                
+        let totalValue = Money(value: Decimal(totalProfitValue), minimumDeposit.decimals)
         labelMoney.attributedText = NSMutableAttributedString.stakingProfit(totalValue: totalValue)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
     @IBAction private func nextTapped(_ sender: Any) {
@@ -101,7 +96,6 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
     }
     
     private func ifNeedUpdateNextButton() {
-                        
         if isLastPage == false {
             buttonNext.setTitle(Localizable.Waves.Staking.Landing.next, for: .normal)
         } else {
@@ -111,10 +105,9 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
 }
 
 // MARK: Localization
+
 extension StakingLandingCell: Localization {
-    
     func setupLocalization() {
-        
         firstInfoView.titleLabel.text = Localizable.Waves.Staking.Landing.Slide.Buyusdn.title
         firstInfoView.subTitleLabel.text = Localizable.Waves.Staking.Landing.Slide.Buyusdn.subtitle
         
@@ -123,27 +116,24 @@ extension StakingLandingCell: Localization {
         
         thirdInfoView.titleLabel.text = Localizable.Waves.Staking.Landing.Slide.Passiveincome.title
         thirdInfoView.subTitleLabel.text = Localizable.Waves.Staking.Landing.Slide.Passiveincome.subtitle
-        
     }
 }
 
 // MARK: ViewConfiguration
 
 extension StakingLandingCell: ViewConfiguration {
-        
     func update(with model: WalletTypes.DTO.Staking.Landing) {
-        
         self.model = model
-                
+        
         let minimumDeposit = model.minimumDeposit.money
         let deffaultProfitValue = minimumDeposit.doubleValue * (model.percent / 100)
-                    
+        
         self.deffaultProfitValue = deffaultProfitValue
-        self.profitValue = (deffaultProfitValue / Constants.secondYear) / 10
-                        
+        profitValue = (deffaultProfitValue / Constants.secondYear) / 10
+        
         labelEarnPercent.attributedText = NSMutableAttributedString.stakingEarnPercent(percent: model.percent)
         labelAnnualInterests.text = Localizable.Waves.Staking.Landing.annualInterest
-                                    
+        
         labelProfitStaking.attributedText = NSMutableAttributedString.stakingProfitInfo(minimumDeposit: minimumDeposit)
         labelHowItWorks.text = Localizable.Waves.Staking.Landing.howItWorks
         
@@ -159,15 +149,19 @@ extension StakingLandingCell: ViewConfiguration {
         
         setupLocalization()
         ifNeedUpdateNextButton()
+        
+        Observable<Int>
+            .timer(0, period: 0.1, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in self?.update() })
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: UIScrollViewDelegate
 
 extension StakingLandingCell: UIScrollViewDelegate {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.pageControl.currentPage = scrollView.currentPage
+        pageControl.currentPage = scrollView.currentPage
         ifNeedUpdateNextButton()
     }
 }
@@ -175,21 +169,17 @@ extension StakingLandingCell: UIScrollViewDelegate {
 // MARK: UIScrollViewDelegate
 
 extension StakingLandingCell: TTTAttributedLabelDelegate {
-    
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        
         guard let url = url else { return }
         
-        self.didSelectLinkWith?(url)
+        didSelectLinkWith?(url)
     }
 }
 
 // MARK: NSMutableAttributedString
 
-fileprivate extension NSMutableAttributedString {
-    
+private extension NSMutableAttributedString {
     static func stakingEarnPercent(percent: Double) -> NSMutableAttributedString {
-                
         let percent = String(format: "%.02f", percent)
         let earnPercent = Localizable.Waves.Staking.Landing.earn(percent + "%")
         let attr = NSMutableAttributedString(string: earnPercent)
@@ -201,34 +191,30 @@ fileprivate extension NSMutableAttributedString {
     }
     
     static func stakingProfit(totalValue: Money) -> NSMutableAttributedString {
-                                               
         let attr = NSMutableAttributedString(string: "$" + totalValue.displayTextFull(isFiat: true))
         attr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.submit300],
                            range: (attr.string as NSString).range(of: totalValue.displayTextFull(isFiat: true)))
         return attr
     }
-            
+    
     static func stakingProfitInfo(minimumDeposit: Money) -> NSMutableAttributedString {
-                            
         let minimunStaking = "$" + minimumDeposit.displayText + "."
         
         let attr = NSMutableAttributedString(string: Localizable.Waves.Staking.Landing.profitWhenStaking(minimunStaking))
         attr.addAttributes([.font: UIFont.systemFont(ofSize: 13, weight: .light)], range: .init(location: 0, length: attr.string.count))
         attr.addAttributes([.font: UIFont.systemFont(ofSize: 13)],
                            range: (attr.string as NSString).range(of: minimunStaking))
-                    
+        
         return attr
     }
     
     static func stakingFaqAttributted() -> [NSAttributedString.Key: Any] {
-        
         return [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
                 NSAttributedString.Key.foregroundColor: UIColor.submit400,
                 NSAttributedString.Key.underlineStyle: NSNumber(value: false)]
     }
-            
+    
     static func stakingFaq() -> (string: NSMutableAttributedString, faqRange: NSRange) {
-                            
         let faq = Localizable.Waves.Staking.Landing.Faq.Part.two
         let fullText = Localizable.Waves.Staking.Landing.Faq.Part.one(Localizable.Waves.Staking.Landing.Faq.Part.two)
         
@@ -239,10 +225,10 @@ fileprivate extension NSMutableAttributedString {
                            range: .init(location: 0, length: attr.string.count))
         
         let faqRange = (attr.string as NSString).range(of: faq)
-                
+        
         attr.addAttributes(NSMutableAttributedString.stakingFaqAttributted(),
                            range: faqRange)
-                    
+        
         return (string: attr, faqRange: faqRange)
     }
 }

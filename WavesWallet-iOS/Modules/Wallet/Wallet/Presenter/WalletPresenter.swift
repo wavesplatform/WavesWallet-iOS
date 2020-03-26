@@ -460,14 +460,12 @@ final class WalletPresenter: WalletPresenterProtocol {
             moduleOutput?.openTw(sharedText: text)
             state.action = .none
             
-        case .showPayout(let payout):
-            moduleOutput?.showPayout(payout: payout)
-            state.action = .none
-            
         case .startStaking:
             if let staking = state.staking {
                 let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: true)
                 state.displayState = state.displayState.updateDisplay(kind: .staking, sections: sections)
+                
+                WalletLandingSetting.set(false)
             }
             
             state.hasSkipLanding = true

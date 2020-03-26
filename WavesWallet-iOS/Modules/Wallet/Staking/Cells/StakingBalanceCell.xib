@@ -208,7 +208,7 @@
                                         <rect key="frame" x="274.5" y="0.0" width="91.5" height="98"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="17" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" image="buyWithCardComingSoon">
+                                        <state key="normal" image="buyWithCard">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -273,7 +273,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="buyWithCardComingSoon" width="40" height="40"/>
+        <image name="buyWithCard" width="40" height="40"/>
         <image name="receive" width="40" height="40"/>
         <image name="send" width="40" height="40"/>
         <image name="trading" width="40" height="40"/>
