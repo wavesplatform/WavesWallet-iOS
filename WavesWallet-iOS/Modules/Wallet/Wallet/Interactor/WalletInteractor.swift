@@ -118,6 +118,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                  obtainTotalProfit(),
                  obtainLastPayoutsTransactions(),
                  stakingBalanceService.totalStakingBalance())
+            
             .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance -> WalletTypes.DTO.Staking in
                 
                 let walletAddress = lastPayoutsTransactions.walletAddress
@@ -159,9 +160,14 @@ final class WalletInteractor: WalletInteractorProtocol {
                 let landing = WalletTypes.DTO.Staking.Landing(percent: profitPercent,
                                                               minimumDeposit: minimumDeposit)
                 
+                let assetId = config.staking.first?.neutrinoAssetId ?? ""
+                
+                let neutrinoAsset = DomainLayer.DTO.Asset.init(id: assetId, gatewayId: "", wavesId: "", name: "", precision: 0, description: "", height: 0, timestamp: Date(), sender: "", quantity: 0, ticker: "", isReusable: true, isSpam: true, isFiat: true, isGeneral: true, isMyWavesToken: true, isWavesToken: true, isGateway: true, isWaves: true, modified: Date(), addressRegEx: "", iconLogoUrl: "", hasScript: false, minSponsoredFee: 0, gatewayType: "")
+                
                 return WalletTypes.DTO.Staking(profit: profit,
                                                balance: balance,
                                                lastPayouts: lastPayoutsTransactions,
+                                               neutrinoAsset: neutrinoAsset,
                                                landing: showLandingIfNeeded ? landing : nil)
             }
     }

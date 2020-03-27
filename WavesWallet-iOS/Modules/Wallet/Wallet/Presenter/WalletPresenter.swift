@@ -433,19 +433,23 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.action = .none
             
         case .openTrade:
-            moduleOutput?.openTrade()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openTrade(neutrinoAsset: neutrinoAsset)
             state.action = .none
 
         case .openBuy:
-            moduleOutput?.openBuy()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openBuy(neutrinoAsset: neutrinoAsset)
             state.action = .none
 
         case .openDeposit:
-            moduleOutput?.openDeposit()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openDeposit(neutrinoAsset: neutrinoAsset)
             state.action = .none
 
         case .openWithdraw:
-            moduleOutput?.openWithdraw()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openWithdraw(neutrinoAsset: neutrinoAsset)
             state.action = .none
             
         case .openFb(let text):
