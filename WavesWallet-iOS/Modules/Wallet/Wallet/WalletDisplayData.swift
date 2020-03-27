@@ -372,7 +372,7 @@ extension WalletDisplayData: UITableViewDelegate {
             return UITableView.automaticDimension
             
         case .stakingLastPayouts:
-            return 78
+            return 76
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()

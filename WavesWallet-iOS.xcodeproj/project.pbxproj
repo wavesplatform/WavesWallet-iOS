@@ -1031,8 +1031,6 @@
 		E988EDEB23F2666E00B742C1 /* StakingLastPayoutsTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDE923F2666E00B742C1 /* StakingLastPayoutsTitleCell.xib */; };
 		E988EDEE23F26D2900B742C1 /* StakingLastPayoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDEC23F26D2900B742C1 /* StakingLastPayoutsCell.swift */; };
 		E988EDEF23F26D2900B742C1 /* StakingLastPayoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDED23F26D2900B742C1 /* StakingLastPayoutsCell.xib */; };
-		E988EDF323F26E3F00B742C1 /* StakingPayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDF223F26E3F00B742C1 /* StakingPayoutView.swift */; };
-		E988EDF523F26E5100B742C1 /* StakingPayoutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDF423F26E5100B742C1 /* StakingPayoutView.xib */; };
 		E988EDFE23F2BD8600B742C1 /* StakingLandingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDFC23F2BD8500B742C1 /* StakingLandingCell.swift */; };
 		E988EDFF23F2BD8600B742C1 /* StakingLandingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDFD23F2BD8500B742C1 /* StakingLandingCell.xib */; };
 		E98F0589236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F0588236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift */; };
@@ -2422,8 +2420,6 @@
 		E988EDE923F2666E00B742C1 /* StakingLastPayoutsTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingLastPayoutsTitleCell.xib; sourceTree = "<group>"; };
 		E988EDEC23F26D2900B742C1 /* StakingLastPayoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingLastPayoutsCell.swift; sourceTree = "<group>"; };
 		E988EDED23F26D2900B742C1 /* StakingLastPayoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingLastPayoutsCell.xib; sourceTree = "<group>"; };
-		E988EDF223F26E3F00B742C1 /* StakingPayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingPayoutView.swift; sourceTree = "<group>"; };
-		E988EDF423F26E5100B742C1 /* StakingPayoutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingPayoutView.xib; sourceTree = "<group>"; };
 		E988EDFC23F2BD8500B742C1 /* StakingLandingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingLandingCell.swift; sourceTree = "<group>"; };
 		E988EDFD23F2BD8500B742C1 /* StakingLandingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingLandingCell.xib; sourceTree = "<group>"; };
 		E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryLocal.swift; sourceTree = "<group>"; };
@@ -4187,8 +4183,6 @@
 		7B9542C323FAC7A30079AB18 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E988EDF223F26E3F00B742C1 /* StakingPayoutView.swift */,
-				E988EDF423F26E5100B742C1 /* StakingPayoutView.xib */,
 				E9DC661F23ECA96600889AA3 /* StakingHeaderView.swift */,
 				E9DC662123ECA99800889AA3 /* StakingHeaderView.xib */,
 				7BF74C5B23FBF85E005F10FC /* StakingLadingInfoView.swift */,
@@ -7037,7 +7031,6 @@
 				7B85E62423FD349100365829 /* ModalTableViewController.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
-				E988EDF523F26E5100B742C1 /* StakingPayoutView.xib in Resources */,
 				E9DC661E23ECA06600889AA3 /* StakingBalanceCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
 				E955AF2423ABEC1200165B5E /* RobotoCondensed-Regular.ttf in Resources */,
@@ -7778,7 +7771,6 @@
 				E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */,
 				E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */,
 				7B49912C22F99B76005B7123 /* AssetsSearchEmptyCell.swift in Sources */,
-				E988EDF323F26E3F00B742C1 /* StakingPayoutView.swift in Sources */,
 				E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */,
 				E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */,
 				E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */,
