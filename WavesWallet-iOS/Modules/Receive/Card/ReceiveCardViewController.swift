@@ -187,6 +187,8 @@ extension ReceiveCardViewController: MoneyTextFieldDelegate {
         setupButtonState()
         sendEvent.accept(.updateAmount(value))
     }
+    
+    func moneyTextFieldShouldReturn() -> Bool { true }
 }
 
 // MARK: - UI

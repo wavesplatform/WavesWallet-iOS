@@ -26,21 +26,14 @@ final class UIDeveloperCoordinator: Coordinator {
     }
     
     func start() {
-        let payoutsBuilder = PayoutsHistoryBuilder()
-        let vc = payoutsBuilder.build()
+                
+        self.windowRouter.setRootViewController(emptyVC())
         
-        let navController = CustomNavigationController(rootViewController: vc)
+        let coordinator = StakingTransferCoordinator(router: self.windowRouter, kind: .card)
         
-        windowRouter.window.rootViewController = navController
-        windowRouter.window.makeKeyAndVisible()
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
         
-//        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
-//        
-//        addChildCoordinatorAndStart(childCoordinator: coordinator)
-//                
-//        let vc = TradeModuleBuilder(output: self).bui
-//        navigationRouter.pushViewController(vc)
-//        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }
 }
 
@@ -55,4 +48,15 @@ extension UIDeveloperCoordinator {
 
     func applicationDidBecomeActive() {}
     func openURL(link: DeepLink) {}
+}
+
+extension UIDeveloperCoordinator {
+    
+    func emptyVC() -> UIViewController {
+        let vc = UIViewController()
+        vc.view =  UIView()
+        vc.view.backgroundColor = .orangeYellowTwo
+        vc.view.frame = UIScreen.main.bounds
+        return vc
+    }
 }

@@ -9,12 +9,26 @@
 import UIKit
 import WebKit
 
+protocol BrowserViewControllerDelegate: AnyObject {
+    
+    func browserViewRedirect(url: URL)
+    func browserViewDissmiss()
+}
+
+extension BrowserViewControllerDelegate {
+    func browserViewRedirect(url: URL) {}
+    func browserViewDissmiss() {}
+}
+
+
 final class BrowserViewController: UIViewController {
     
-    let url: URL
+    private let url: URL
     
     private var webView: WKWebView!
     private var loader: UIActivityIndicatorView!
+    
+    var delegate: BrowserViewControllerDelegate? = nil
     
     init(url: URL) {
         self.url = url
@@ -76,27 +90,56 @@ final class BrowserViewController: UIViewController {
     }
     
     @objc func done(sender: Any) {
+        self.delegate?.browserViewDissmiss()
         dismiss(animated: true)
     }
 }
 
 extension BrowserViewController: WKNavigationDelegate {
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         finishLoading()
+    }
+    
+    func webView(_ webView: WKWebView,
+                        decidePolicyFor navigationAction: WKNavigationAction,
+                        decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
+        
+        if(navigationAction.navigationType == .other) {
+            if navigationAction.request.url != nil {
+                self.delegate?.browserViewRedirect(url: url)
+            }
+            decisionHandler(.allow)
+            return
+        }
+        decisionHandler(.allow)
     }
 }
 
 extension BrowserViewController {
-    static func openURL(_ url: URL) {
+    static func openURL(_ url: URL, delegate: BrowserViewControllerDelegate? = nil) {
         if let vc = AppDelegate.shared().window?.rootViewController {
-            openURL(url, toViewController: vc)
+            openURL(url, toViewController: vc, delegate: delegate)
         }
     }
     
-    static func openURL(_ url: URL, toViewController: UIViewController) {
+    static func openURL(_ url: URL,
+                        toViewController: UIViewController,
+                        delegate: BrowserViewControllerDelegate? = nil) {
         let vc = BrowserViewController(url: url)
+        vc.delegate = delegate
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
-        toViewController.present(nav, animated: true, completion: nil)
+        
+        let newToViewController: UIViewController = {
+               
+               if toViewController.presentedViewController != nil {
+                   return toViewController.presentedViewController ?? toViewController
+               } else {
+                   return toViewController
+               }
+         }()
+                
+        newToViewController.present(nav, animated: true, completion: nil)
     }
 }

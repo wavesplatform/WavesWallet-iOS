@@ -44,11 +44,11 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     override func layoutSubviews() {
         super.layoutSubviews()
             
-        let modalHeaderTopBoundY = self.layoutInsets.top
+        let modalHeaderTopBoundY: CGFloat = self.layoutInsets.top
         
         let headerTopY = max(modalHeaderTopBoundY,
                              -(self.tableView.contentOffset.y - modalHeaderTopBoundY))
-                        
+                                
         var frame = CGRect(x: 0,
                            y: headerTopY,
                            width: tableView.frame.size.width,

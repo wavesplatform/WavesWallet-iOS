@@ -22,7 +22,7 @@ extension StakingTransfer.ViewModel {
             let currency: DomainLayer.DTO.Balance.Currency = .init(title: asset.name,
                                                                    ticker: asset.ticker)
             
-            if let amount = amount, amount.amount > 0 {
+            if let amount = amount, amount.amount >= 0 {
                 return .balance(DomainLayer.DTO.Balance.init(currency: currency,
                                                              money: amount))
             } else {

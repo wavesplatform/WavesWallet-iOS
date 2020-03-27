@@ -37,6 +37,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
             subscribe.onCompleted()
             return Disposables.create()
         })
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
     
     func settings(by accountAddress: String, ids: [String]) -> Observable<[String: DomainLayer.DTO.AssetBalanceSettings]> {
@@ -60,6 +61,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
 
             return Disposables.create()
         })
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
 
     func settings(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
@@ -81,6 +83,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
 
             return Disposables.create()
         })
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
 
     func listenerSettings(by accountAddress: String, ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
@@ -135,7 +138,9 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
             }
             return Disposables.create()
         })
+        .subscribeOn(Schedulers.realmThreadScheduler)
     }
+    
 }
 
 private extension DomainLayer.DTO.AssetBalanceSettings {

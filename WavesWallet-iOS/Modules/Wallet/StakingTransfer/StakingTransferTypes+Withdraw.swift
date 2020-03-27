@@ -1,8 +1,8 @@
 //
-//  StakingTrasnferTypes+Deposit.swift
+//  StakingTransferTypes+Withdraw.swift
 //  WavesWallet-iOS
 //
-//  Created by rprokofev on 28.02.2020.
+//  Created by rprokofev on 24.03.2020.
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
@@ -11,9 +11,9 @@ import DomainLayer
 
 extension StakingTransfer.DTO.Data.Transfer {
     
-    func inputFieldForDeposit(input: StakingTransfer.DTO.InputData.Transfer?) -> StakingTransfer.ViewModel.Row {
-
-        let title = Localizable.Waves.Staking.Transfer.Deposit.Cell.Input.title
+    func inputFieldForWithdraw(input: StakingTransfer.DTO.InputData.Transfer?) -> StakingTransfer.ViewModel.Row {
+        
+        let title = Localizable.Waves.Staking.Transfer.Withdraw.Cell.Input.title
         
         return StakingTransfer
             .ViewModel
@@ -22,11 +22,11 @@ extension StakingTransfer.DTO.Data.Transfer {
                         asset: asset,
                         amount: input?.amount)
     }
-
-    func errorForDeposit(by error: StakingTransfer.DTO.InputData.Transfer.Error) -> StakingTransfer.ViewModel.Row {
-
+    
+    func errorForWithdraw(by error: StakingTransfer.DTO.InputData.Transfer.Error) -> StakingTransfer.ViewModel.Row {
+        
         let error: String = {
-
+            
             switch error {
                 
             case .insufficientFunds:
@@ -36,13 +36,13 @@ extension StakingTransfer.DTO.Data.Transfer {
                 return "insufficientFunds on tax 777"
             }
         }()
-
+        
         return StakingTransfer
             .ViewModel
             .error(title: error)
     }
     
-    func buttonForDeposit(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
+    func buttonForWithdraw(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
         
         let buttonTitle = Localizable.Waves.Staking.Transfer.Deposit.title
         
@@ -52,33 +52,33 @@ extension StakingTransfer.DTO.Data.Transfer {
                     status: status)
     }
     
-    func sectionsForDeposit(input: StakingTransfer.DTO.InputData.Transfer?) -> [StakingTransfer.ViewModel.Section] {
+    func sectionsForWithdraw(input: StakingTransfer.DTO.InputData.Transfer?) -> [StakingTransfer.ViewModel.Section] {
         
         var rows: [StakingTransfer.ViewModel.Row] = .init()
         
         let balance = StakingTransferBalanceCell.Model(assetURL: self.asset.iconLogo,
-                                                       title: Localizable.Waves.Staking.Transfer.Deposit.title,
+                                                       title: Localizable.Waves.Staking.Transfer.Withdraw.title,
                                                        money: self.balance.money)
         rows.append(.balance(balance))
         
-        let inputField = self.inputFieldForDeposit(input: input)
+        let inputField = self.inputFieldForWithdraw(input: input)
         rows.append(inputField)
-
+        
         if let error = input?.error {
-            let error = self.errorForDeposit(by: error)
+            let error = self.errorForWithdraw(by: error)
             rows.append(error)
         }
         
         let assistanceButtons: [StakingTransfer.DTO.AssistanceButton] = [.percent100, .percent75, .percent50, .percent25]
-        
+            
         let buttons: StakingTransferScrollButtonsCell.Model =
             .init(buttons: assistanceButtons.map { $0.rawValue })
         rows.append(.scrollButtons(buttons))
-                                         
+        
         let fee = StakingTransferFeeInfoCell.Model(balance: self.transactionFeeBalance)
         rows.append(.feeInfo(fee))
-                
-        let button = self.buttonForDeposit(status: .disabled)
+        
+        let button = self.buttonForWithdraw(status: .disabled)
         rows.append(button)
         
         let section: StakingTransfer.ViewModel.Section =

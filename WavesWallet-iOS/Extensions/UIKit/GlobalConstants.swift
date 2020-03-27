@@ -39,13 +39,15 @@ enum UIGlobalConstants {
         static let faq = "https://waves.exchange/faq"
         static let twitter = "https://twitter.com/Waves_Exchange"
         static let client = "https://waves.exchange/"
-        static let stakingFaq = "https://waves.exchange/staking/faq"
-        
         static let twSharing = "https://twitter.com/share?url=https://waves.exchange/staking&text="
         static let fbSharing = "https://www.facebook.com/sharer/sharer.php?u=https://waves.exchange/staking&quote="
         static let vkSharing = "https://vk.com/share.php?url=https://waves.exchange/staking&description="
+        static let stakingFaq = "https://waves.exchange/staking/faq"                
+        static let advcash = "https://wallet.advcash.com/ru/login"        
     }
     
     static let supportEmail = "support@waves.exchange"
+    
+    
 }
 

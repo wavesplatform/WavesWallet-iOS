@@ -170,7 +170,7 @@ private extension AccountBalanceUseCase {
     func removeOldsBalanceSettings(by wallet: DomainLayer.DTO.SignedWallet,
                                    balances: [DomainLayer.DTO.SmartAssetBalance]) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return assetsBalanceSettingsRepository
-            .removeBalancesSettting(actualIds: balances.map {$0.assetId}, accountAddress: wallet.address)
+            .removeBalancesSettting(actualIds: balances.map { $0.assetId }, accountAddress: wallet.address)
             .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 return Observable.just(balances)
             })
@@ -208,7 +208,7 @@ private extension AccountBalanceUseCase {
                 let settings = self.assetsBalanceSettings
                     .settings(by: wallet.address, assets: assets)
                     .map { (balances) -> [String: DomainLayer.DTO.AssetBalanceSettings] in
-                        return balances.reduce(into: [String: DomainLayer.DTO.AssetBalanceSettings](), { $0[$1.assetId] = $1 })
+                            return balances.reduce(into: [String: DomainLayer.DTO.AssetBalanceSettings](), { $0[$1.assetId] = $1 })
                 }
                 
                 let mapAssets = assets.reduce(into: [String: DomainLayer.DTO.Asset](), { $0[$1.id] = $1 })

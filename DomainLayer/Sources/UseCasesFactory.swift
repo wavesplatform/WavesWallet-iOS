@@ -136,4 +136,13 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                        authorizationUseCase: self.authorization)
         return useCase
     }()
+        
+    public private(set) lazy var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol = {
+
+        let useCase = ACashDepositsUseCase(gatewayRepository: repositories.weGatewayRepositoryProtocol,
+                                           oAuthRepository: repositories.weOAuthRepositoryProtocol,
+                                           authorizationUseCase: self.authorization,
+                                           assetsUseCase: self.assets)
+        return useCase
+    }()
 }

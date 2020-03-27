@@ -270,6 +270,11 @@
 		7B49912C22F99B76005B7123 /* AssetsSearchEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912B22F99B76005B7123 /* AssetsSearchEmptyCell.swift */; };
 		7B49912E22F9B470005B7123 /* AssetsSearchModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49912D22F9B470005B7123 /* AssetsSearchModuleOutput.swift */; };
 		7B4F964623E1BF3E00950D39 /* GoogleService-Info-Waves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B4F964523E1BF3E00950D39 /* GoogleService-Info-Waves.plist */; };
+		7B4FA713242AA9ED00A2FB25 /* StakingTransferModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA712242AA9ED00A2FB25 /* StakingTransferModuleBuilder.swift */; };
+		7B4FA715242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA714242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift */; };
+		7B4FA717242B585E00A2FB25 /* AdCashDepositsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */; };
+		7B4FA71B242BEA7A00A2FB25 /* DomainLayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */; };
+		7B4FA71E242C17D000A2FB25 /* StakingTransactionCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */; };
 		7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B537E2423E08B43002A3976 /* Date+Helper.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
@@ -402,8 +407,6 @@
 		7B85E61923FD2A6600365829 /* ModalScrollViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E61823FD2A6600365829 /* ModalScrollViewContext.swift */; };
 		7B85E61C23FD30B300365829 /* StakingTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */; };
 		7B85E62023FD311300365829 /* StakingTransfer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E61F23FD311300365829 /* StakingTransfer.storyboard */; };
-		7B85E62223FD328400365829 /* ModalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62123FD328400365829 /* ModalTableViewController.swift */; };
-		7B85E62423FD349100365829 /* ModalTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E62323FD349100365829 /* ModalTableViewController.xib */; };
 		7B85E62623FD3C4500365829 /* ModalTableControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */; };
 		7B85E62823FD56DD00365829 /* StakingTransferTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */; };
 		7B85E62A23FD578900365829 /* StakingTransferCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62923FD578900365829 /* StakingTransferCoordinator.swift */; };
@@ -556,6 +559,8 @@
 		7BC17E7523F569F400F76B7B /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7423F569F400F76B7B /* PageControl.swift */; };
 		7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */; };
 		7BC17E7923F5908100F76B7B /* DeviceLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */; };
+		7BC373702429653B00B5120C /* StakingTransferTypes+Withdraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC3736F2429653B00B5120C /* StakingTransferTypes+Withdraw.swift */; };
+		7BCFAB37242CF416002850B1 /* URL+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFAB36242CF416002850B1 /* URL+Encoding.swift */; };
 		7BCFC36824092AB000B8AF1C /* StakingTransferTypes+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
@@ -1646,6 +1651,11 @@
 		7B49912B22F99B76005B7123 /* AssetsSearchEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchEmptyCell.swift; sourceTree = "<group>"; };
 		7B49912D22F9B470005B7123 /* AssetsSearchModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchModuleOutput.swift; sourceTree = "<group>"; };
 		7B4F964523E1BF3E00950D39 /* GoogleService-Info-Waves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Waves.plist"; sourceTree = "<group>"; };
+		7B4FA712242AA9ED00A2FB25 /* StakingTransferModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferModuleBuilder.swift; sourceTree = "<group>"; };
+		7B4FA714242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Transfer.swift"; sourceTree = "<group>"; };
+		7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCashDepositsUseCase.swift; sourceTree = "<group>"; };
+		7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLayerConstants.swift; sourceTree = "<group>"; };
+		7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransactionCompletedVC.swift; sourceTree = "<group>"; };
 		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
@@ -1790,8 +1800,6 @@
 		7B85E61823FD2A6600365829 /* ModalScrollViewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalScrollViewContext.swift; sourceTree = "<group>"; };
 		7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferViewController.swift; sourceTree = "<group>"; };
 		7B85E61F23FD311300365829 /* StakingTransfer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StakingTransfer.storyboard; sourceTree = "<group>"; };
-		7B85E62123FD328400365829 /* ModalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTableViewController.swift; sourceTree = "<group>"; };
-		7B85E62323FD349100365829 /* ModalTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalTableViewController.xib; sourceTree = "<group>"; };
 		7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTableControllerDelegate.swift; sourceTree = "<group>"; };
 		7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferTypes.swift; sourceTree = "<group>"; };
 		7B85E62923FD578900365829 /* StakingTransferCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferCoordinator.swift; sourceTree = "<group>"; };
@@ -1899,6 +1907,8 @@
 		7BC17E7423F569F400F76B7B /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinHeightTableViewCell.swift; sourceTree = "<group>"; };
 		7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLayoutConstraint.swift; sourceTree = "<group>"; };
+		7BC3736F2429653B00B5120C /* StakingTransferTypes+Withdraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Withdraw.swift"; sourceTree = "<group>"; };
+		7BCFAB36242CF416002850B1 /* URL+Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Encoding.swift"; sourceTree = "<group>"; };
 		7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Card.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
@@ -3190,6 +3200,7 @@
 				7B1A337624011AFD00AE54B9 /* StringProtocol+Ranges.swift */,
 				7B0D1B8224029FA700442B7B /* TTAttributed+Utils.swift */,
 				7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */,
+				7BCFAB36242CF416002850B1 /* URL+Encoding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3704,6 +3715,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7B4FA71C242C17AD00A2FB25 /* TransactionCompleted */ = {
+			isa = PBXGroup;
+			children = (
+				7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */,
+			);
+			path = TransactionCompleted;
+			sourceTree = "<group>";
+		};
 		7B5FAA0422BBE3EB00621A44 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -3721,6 +3740,7 @@
 				7B5FAA0A22BBE3EB00621A44 /* Queries */,
 				7B5FAA0C22BBE3EB00621A44 /* Repositories */,
 				7B5FAA4F22BBE3EC00621A44 /* UseCases */,
+				7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -3885,6 +3905,7 @@
 				875393212423BA8D00394762 /* WEGatewayUseCase.swift */,
 				7B848A792301C0950092AD18 /* WidgetSettingsInizializationUseCase.swift */,
 				7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */,
+				7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -4056,8 +4077,6 @@
 				7BFB47F622FC742E002B19F8 /* ModalScrollViewController.swift */,
 				7B85E61623FD2A5600365829 /* ModalScrollViewRootView.swift */,
 				7B85E61823FD2A6600365829 /* ModalScrollViewContext.swift */,
-				7B85E62123FD328400365829 /* ModalTableViewController.swift */,
-				7B85E62323FD349100365829 /* ModalTableViewController.xib */,
 				7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */,
 			);
 			path = Protocol;
@@ -4077,6 +4096,7 @@
 		7B85E61A23FD309B00365829 /* StakingTransfer */ = {
 			isa = PBXGroup;
 			children = (
+				7B4FA71C242C17AD00A2FB25 /* TransactionCompleted */,
 				7B922D832402C43A00271443 /* Views */,
 				7B85E62B23FD67F600365829 /* Cells */,
 				7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */,
@@ -4084,6 +4104,9 @@
 				7B8D5D7124093984008D013F /* StakingTransferTypes+ViewModel.swift */,
 				7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */,
 				7B8D5D6F24093608008D013F /* StakingTrasnferTypes+Deposit.swift */,
+				7BC3736F2429653B00B5120C /* StakingTransferTypes+Withdraw.swift */,
+				7B4FA714242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift */,
+				7B4FA712242AA9ED00A2FB25 /* StakingTransferModuleBuilder.swift */,
 				7B85E61B23FD30B300365829 /* StakingTransferViewController.swift */,
 				7B85E61F23FD311300365829 /* StakingTransfer.storyboard */,
 				7B85E64023FD821B00365829 /* StakingTransferSystem.swift */,
@@ -7034,7 +7057,6 @@
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
 				E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */,
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
-				7B85E62423FD349100365829 /* ModalTableViewController.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				E988EDF523F26E5100B742C1 /* StakingPayoutView.xib in Resources */,
@@ -7389,6 +7411,7 @@
 				7B848A6D2301784B0092AD18 /* WidgetSettingsUseCaseProtocol.swift in Sources */,
 				7B5FAA9D22BBE3EC00621A44 /* AliasTransactionDomainDTO.swift in Sources */,
 				875393242423BAC300394762 /* WEGatewayUseCaseProtocol.swift in Sources */,
+				7B4FA71B242BEA7A00A2FB25 /* DomainLayerConstants.swift in Sources */,
 				7B5FAA9422BBE3EC00621A44 /* ScriptTransactionDomainDTO.swift in Sources */,
 				7B5FAA8222BBE3EC00621A44 /* AuthenticationRepositoryProtocol.swift in Sources */,
 				E99A3B7722BE5DB70070AC76 /* GatewayDomainDTO.swift in Sources */,
@@ -7454,6 +7477,7 @@
 				7B5FAAA422BBE3EC00621A44 /* WalletEnvironment.swift in Sources */,
 				E9983F2823ACFAC400859136 /* DexDomainDTO+Mapper.swift in Sources */,
 				7B5FAAC022BBE3EC00621A44 /* RXCrypto+SHA.swift in Sources */,
+				7B4FA717242B585E00A2FB25 /* AdCashDepositsUseCase.swift in Sources */,
 				7B5FAA8D22BBE3EC00621A44 /* AddressDomainDTO.swift in Sources */,
 				7B5FAABF22BBE3EC00621A44 /* PrivateKeyAccount.swift in Sources */,
 				7B5FAAA122BBE3EC00621A44 /* ContactDomainDTO.swift in Sources */,
@@ -7835,6 +7859,7 @@
 				87FA5D1024223BA4002F282D /* ChangePasswordModuleBuilder.swift in Sources */,
 				7B97B0A822FC78EA008BA3F4 /* DateFormatter+UI.swift in Sources */,
 				87FA5DCB24223FBE002F282D /* AssetBalanceCell.swift in Sources */,
+				7B4FA71E242C17D000A2FB25 /* StakingTransactionCompletedVC.swift in Sources */,
 				87FA5D0324223B95002F282D /* AccountPassword.swift in Sources */,
 				8752A2662412799900B968C7 /* PayoutsHistorySystem.swift in Sources */,
 				0ADD801F21F22FFA0075FC59 /* RoutingCoordinator.swift in Sources */,
@@ -7925,6 +7950,7 @@
 				E9B088002163886800937644 /* DexMyOrdersInteractorProtocol.swift in Sources */,
 				87FA5D5024223C31002F282D /* PasscodePresenter.swift in Sources */,
 				E95E151222A18C25003552B8 /* WalletSearchTableViewCell.swift in Sources */,
+				7BC373702429653B00B5120C /* StakingTransferTypes+Withdraw.swift in Sources */,
 				E9F69B9822A522E400CDBD00 /* WalletSearchPresenter.swift in Sources */,
 				7BD3605D240EF3AE006F3A77 /* StakingTransferInteractor.swift in Sources */,
 				E9B088132163886800937644 /* DexMarketInteractor.swift in Sources */,
@@ -8242,6 +8268,7 @@
 				87FA5D6B24223D2A002F282D /* AppNewsView.swift in Sources */,
 				E9B087FF2163886800937644 /* DexMyOrdersInteractor.swift in Sources */,
 				7B26A87F22ED13F300E7B024 /* WidgetSettingsViewController.swift in Sources */,
+				7B4FA713242AA9ED00A2FB25 /* StakingTransferModuleBuilder.swift in Sources */,
 				0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */,
 				87FA5D5324223C31002F282D /* PasscodeRegistationPresenter.swift in Sources */,
 				7B85E63323FD6BAC00365829 /* StakingTransferInputFieldCell.swift in Sources */,
@@ -8251,6 +8278,7 @@
 				0ADD802D21F22FFB0075FC59 /* ImportCoordinator.swift in Sources */,
 				E9B087BD2163886800937644 /* DexInfoTypes.swift in Sources */,
 				7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */,
+				7BCFAB37242CF416002850B1 /* URL+Encoding.swift in Sources */,
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
 				E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */,
 				E9443BA822DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift in Sources */,
@@ -8349,7 +8377,6 @@
 				E96DAB73228EEC87005ED12B /* WalletSortSegmentedControl.swift in Sources */,
 				0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */,
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
-				7B85E62223FD328400365829 /* ModalTableViewController.swift in Sources */,
 				7B3902A72237A74900AAFDB8 /* ActionsControl.swift in Sources */,
 				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
@@ -8392,6 +8419,7 @@
 				0ADD802921F22FFA0075FC59 /* EnterCoordinator.swift in Sources */,
 				0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */,
 				E95B47D121638A9F004D4E39 /* InfoPagesViewController.swift in Sources */,
+				7B4FA715242B57DF00A2FB25 /* StakingTransferTypes+Transfer.swift in Sources */,
 				0AF9222E212E0F1F003BA067 /* WalletHistorySkeletonCell.swift in Sources */,
 				E917B3AD21BD685800CC849A /* AmountSkeletonView.swift in Sources */,
 				0ADD802F21F22FFB0075FC59 /* EditAccountNameCoordinator.swift in Sources */,
@@ -9831,7 +9859,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = "WavesWallet-iOS/WavesWallet-iOS-Dev.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3986;
@@ -10988,7 +11016,7 @@
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = Exchange;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev 1583155185";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/Resources/ObjCBridgingHeader.h";

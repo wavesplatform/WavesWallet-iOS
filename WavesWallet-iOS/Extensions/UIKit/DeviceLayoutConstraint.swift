@@ -13,19 +13,19 @@ public class DeviceLayoutConstraint: NSLayoutConstraint {
         
     @IBInspectable var smallDevices: CGFloat = 0.0 {
         didSet {
-            updateConstant(sizes: Platform.Inch.smallDevices, constant: inch3_5)
+            updateConstant(sizes: Platform.Inch.smallDevices, constant: smallDevices)
         }
     }
     
     @IBInspectable var mediumDevices: CGFloat = 0.0 {
         didSet {
-            updateConstant(sizes: Platform.Inch.mediumDevices, constant: inch3_5)
+            updateConstant(sizes: Platform.Inch.mediumDevices, constant: mediumDevices)
         }
     }
     
     @IBInspectable var largeDevices: CGFloat = 0.0 {
         didSet {
-            updateConstant(sizes: Platform.Inch.largeDevices, constant: inch3_5)
+            updateConstant(sizes: Platform.Inch.largeDevices, constant: largeDevices)
         }
     }
     
