@@ -111,14 +111,23 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
     
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-
-        Observable
+        let obtainNeutrinoAsset = Observable.zip(authorizationInteractor.authorizedWallet(), enviroment.developmentConfigs())
+            .flatMap { [weak self] signedWallet, config -> Observable<[DomainLayer.DTO.Asset]> in
+                guard let strongSelf = self else { return Observable.never() }
+                
+                let neutrinoId = config.staking.first?.neutrinoAssetId ?? ""
+                let addressWallet = signedWallet.wallet.address
+                return strongSelf.assetUseCase.assets(by: [neutrinoId], accountAddress: addressWallet)
+            }
+        
+        return Observable
             .zip(enviroment.developmentConfigs(),
                  obtainYearPercent(),
                  obtainTotalProfit(),
                  obtainLastPayoutsTransactions(),
-                 stakingBalanceService.totalStakingBalance())
-            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance -> WalletTypes.DTO.Staking in
+                 stakingBalanceService.totalStakingBalance(),
+                 obtainNeutrinoAsset)
+            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance, neutrinoAsset -> WalletTypes.DTO.Staking in
                 
                 let walletAddress = lastPayoutsTransactions.walletAddress
                 
@@ -162,6 +171,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                 return WalletTypes.DTO.Staking(profit: profit,
                                                balance: balance,
                                                lastPayouts: lastPayoutsTransactions,
+                                               neutrinoAsset: neutrinoAsset.first,
                                                landing: showLandingIfNeeded ? landing : nil)
             }
     }
@@ -403,6 +413,6 @@ extension WalletInteractor {
                 .filter { $0.recipient == walletAddress }
                 .reduce(0) { $0 + $1.amount }
         }
-        .reduce(0, { $0 + $1 })
+        .reduce(0) { $0 + $1 }
     }
 }
