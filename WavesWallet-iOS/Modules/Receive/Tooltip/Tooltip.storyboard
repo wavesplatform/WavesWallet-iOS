@@ -17,11 +17,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXa-aJ-KWu">
-                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                                <rect key="frame" x="0.0" y="896" width="414" height="0.0"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="18Z-5G-AfO" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TooltipInfoCell" rowHeight="237" id="0rp-L0-YjN" userLabel="TooltipInfoCell" customClass="TooltipInfoCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -60,7 +60,7 @@
                                             <outlet property="titleLabel" destination="1Hb-Is-URe" id="pHS-L6-C1e"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TooltipSeparatorCell" translatesAutoresizingMaskIntoConstraints="NO" id="ssx-es-1cf" customClass="TooltipSeparatorCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TooltipSeparatorCell" translatesAutoresizingMaskIntoConstraints="NO" id="ssx-es-1cf" customClass="TooltipSeparatorCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="265" width="414" height="13"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ssx-es-1cf" translatesAutoresizingMaskIntoConstraints="NO" id="cz3-Tv-Yyl">
@@ -153,7 +153,7 @@
                             <constraint firstAttribute="bottom" secondItem="HXa-aJ-KWu" secondAttribute="bottom" id="7AE-qW-98K"/>
                             <constraint firstItem="HXa-aJ-KWu" firstAttribute="leading" secondItem="7Bd-SL-FvP" secondAttribute="leading" id="FQp-yZ-uhe"/>
                             <constraint firstItem="HXa-aJ-KWu" firstAttribute="top" secondItem="18Z-5G-AfO" secondAttribute="bottom" id="QNG-kr-Eda"/>
-                            <constraint firstItem="7Bd-SL-FvP" firstAttribute="bottom" secondItem="18Z-5G-AfO" secondAttribute="bottom" id="RMk-A1-Jjv"/>
+                            <constraint firstAttribute="bottom" secondItem="18Z-5G-AfO" secondAttribute="bottom" id="RMk-A1-Jjv"/>
                             <constraint firstItem="7Bd-SL-FvP" firstAttribute="trailing" secondItem="HXa-aJ-KWu" secondAttribute="trailing" id="lHe-Iu-e3M"/>
                             <constraint firstItem="7Bd-SL-FvP" firstAttribute="trailing" secondItem="18Z-5G-AfO" secondAttribute="trailing" id="ufc-uz-JIK"/>
                             <constraint firstItem="18Z-5G-AfO" firstAttribute="top" secondItem="7Bd-SL-FvP" secondAttribute="top" id="ve4-GM-ljE"/>

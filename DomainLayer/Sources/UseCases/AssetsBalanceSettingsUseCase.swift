@@ -48,7 +48,7 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
                                                            accountAddress: accountAddress,
                                                            environment: environment)
                         .flatMapLatest { [weak self] (settings) -> Observable<Bool> in
-                            
+                                                                                    
                             guard let self = self else { return Observable.never() }
                             return self
                                 .assetsBalanceSettingsRepository

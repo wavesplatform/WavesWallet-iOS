@@ -71,7 +71,8 @@ final class TransactionCardScroll: ModalTableView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let screenHeight = self.frame.height - contentInset.top - controllerLayoutInsets.bottom
+        let screenHeight = self.frame.height - self.adjustedContentInset.top
+
         let contentHeight = contentSize.height
 
         var arrowFrame = arrowButton.frame
@@ -172,7 +173,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 
     // MARK: ModalScrollViewContext
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return size.height - layoutInsetsTop()
+        return size.height
     }
 
     override func bottomScrollInset(for size: CGSize) -> CGFloat {

@@ -220,8 +220,8 @@ public struct InvokeScriptTransactionSender {
                 dApp: String,
                 call: Call?,
                 payment: [Payment],
-                chainId: String?,
-                timestamp: Date?) {
+                chainId: String? = nil,
+                timestamp: Date? = nil) {
         self.fee = fee
         self.feeAssetId = feeAssetId
         self.dApp = dApp

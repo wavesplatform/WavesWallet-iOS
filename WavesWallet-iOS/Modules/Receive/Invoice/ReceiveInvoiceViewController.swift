@@ -96,6 +96,7 @@ extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
         amount = value
         updateDisplayInfo()
     }
+    func moneyTextFieldShouldReturn() -> Bool { true }
 }
 
 // MARK: - UI

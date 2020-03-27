@@ -53,6 +53,7 @@ final class ChooseAccountCoordinator: Coordinator {
     }
 
     private func addOrImportAccountShow() {
+
         let elements: [ActionSheet.DTO.Element] = [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
 

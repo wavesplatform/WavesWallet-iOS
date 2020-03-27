@@ -29,6 +29,16 @@ class NavigationRouter: NSObject {
 
         navigationController.pushViewController(viewController, animated: animated)
     }
+    
+    func popAllViewController(animated: Bool = true,
+                              completion: (() -> Void)? = nil) {
+
+          if let completion = completion {
+              completions[viewController] = completion
+          }
+
+          navigationController.setViewControllers([], animated: animated)
+      }
 
     func popAllAndSetRootViewController(_ viewController: UIViewController,
                                         animated: Bool = true,

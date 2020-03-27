@@ -29,4 +29,6 @@ public protocol UseCasesFactoryProtocol {
     var correctionPairsUseCase: CorrectionPairsUseCaseProtocol { get }
     
     var weGatewayUseCase: WEGatewayUseCaseProtocol { get }
+    
+    var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol { get }
 }

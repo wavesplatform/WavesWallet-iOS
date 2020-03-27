@@ -72,7 +72,7 @@ public extension DomainLayer.DTO.Balance {
     }
 
     var displayText: String {
-        return money.displayText + " " + currency.title
+        return money.displayText + " " + currency.displayText
     }
 
     var displayTextWithoutCurrencyName: String {

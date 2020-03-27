@@ -14,7 +14,7 @@ import WavesSDKExtensions
 import DomainLayer
 
 private enum Constants {
-    static let sessionLifeTime: Int64 = 1200000
+    static let sessionLifeTime: Int64 = 12000000
     static let grantType: String = "password"
     static let scope: String = "client"
 }

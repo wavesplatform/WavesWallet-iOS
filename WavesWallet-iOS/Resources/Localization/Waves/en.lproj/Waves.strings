@@ -828,3 +828,17 @@
 "payoutsHistory.profit" = "Profit";
 
 "staking.sharingText" = "I earned %@USDN passive income, with an average annual yield of %@%%, lying on the couch! #Neutrino #WavesBlockchain";
+
+"transactioncompleted.deposit.subtitle" = "You have deposited %@";
+"transactioncompleted.withdraw.subtitle" = "You have withdrawn %@";
+
+
+"transactioncompleted.card.subtitle.url" = "Advanced Cash";
+
+"transactioncompleted.card.subtitle" = "Note that you have to go through all the necessary procedures on the %@ website.\nOnce you are done, USDN will be credited to your account within a few minutes.";
+
+"transactioncompleted.title" = "Your transaction is on the way!";
+"transactioncompleted.card.title" = "Purchase completed!";
+
+"transactioncompleted.button.viewdetails.title" = "View Details";
+"transactioncompleted.button.success.title" = "Ok";

@@ -78,8 +78,8 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
         UIView.animate(withDuration: animationDuration, animations: {
             controller.view.frame = finalFrame
-        }, completion: { finished in
-            transitionContext.completeTransition(finished)
+        }, completion: { [weak transitionContext] finished in
+            transitionContext?.completeTransition(finished)
         })
     }
 

@@ -137,6 +137,7 @@ extension DexCreateOrderInputView: MoneyTextFieldDelegate {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         textFieldDidChangeNewValue()
     }
+    func moneyTextFieldShouldReturn() -> Bool { true }
 }
 
 // MARK: - UITextFieldDelegate

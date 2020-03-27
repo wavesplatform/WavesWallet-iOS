@@ -30,27 +30,36 @@ extension StakingTransfer.State.UI {
                         
         let title = Localizable.Waves.Staking.Transfer.Card.title
         
-        return StakingTransfer.State.UI(sections: [],
+        let balance = StakingTransfer.ViewModel.Section(rows: [.skeletonBalance])
+        
+        return StakingTransfer.State.UI(sections: [balance],
                                         title: title,
-                                        action: .update)
+                                        action: .update(nil, error: nil),
+                                        kind: .card)
     }
 
     static func initialStateDeposit() -> StakingTransfer.State.UI {
 
         let title = Localizable.Waves.Staking.Transfer.Deposit.title
 
-        return StakingTransfer.State.UI(sections: [],
+        let balance = StakingTransfer.ViewModel.Section(rows: [.skeletonBalance])
+        
+        return StakingTransfer.State.UI(sections: [balance],
                                         title: title,
-                                        action: .update)
+                                        action: .update(nil, error: nil),
+                                        kind: .deposit)
     }
 
     static func initialStateWithdraw() -> StakingTransfer.State.UI {
 
         let title = Localizable.Waves.Staking.Transfer.Withdraw.title
 
-        return StakingTransfer.State.UI(sections: [],
+        let balance = StakingTransfer.ViewModel.Section(rows: [.skeletonBalance])
+        
+        return StakingTransfer.State.UI(sections: [balance],
                                         title: title,
-                                        action: .update)
+                                        action: .update(nil, error: nil),
+                                        kind: .withdraw)
     }
 }
 

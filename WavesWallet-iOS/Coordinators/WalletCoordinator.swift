@@ -151,18 +151,25 @@ extension WalletCoordinator: WalletModuleOutput {
     
     func openTrade() {
         print("openTrade")
+//        TradeCoordinator
     }
     
     func openBuy() {
-        print("openBuy")
+        let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .card)
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
     }
     
     func openDeposit() {
-        print("openDeposit")
+        let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .deposit)
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
     }
     
     func openWithdraw() {
-        print("openWithdraw")
+        let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
     }
     
     func openStakingFaq() {
