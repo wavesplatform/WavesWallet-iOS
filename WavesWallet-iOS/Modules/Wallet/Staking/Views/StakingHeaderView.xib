@@ -204,7 +204,19 @@
                                 <constraint firstItem="Lt2-t2-3rc" firstAttribute="leading" secondItem="ws0-BJ-OWm" secondAttribute="leading" id="fX8-ij-NNU"/>
                                 <constraint firstAttribute="bottom" secondItem="Lt2-t2-3rc" secondAttribute="bottom" constant="14" id="fnw-LX-TT5"/>
                                 <constraint firstItem="ws0-BJ-OWm" firstAttribute="leading" secondItem="Nwn-9U-WM3" secondAttribute="leading" id="ftb-7K-bd4"/>
-                                <constraint firstItem="Nwn-9U-WM3" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="jN8-r0-mR7"/>
+                                <constraint firstItem="Nwn-9U-WM3" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="jN8-r0-mR7" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
                                 <constraint firstItem="Lt2-t2-3rc" firstAttribute="top" secondItem="ws0-BJ-OWm" secondAttribute="bottom" constant="4" id="kqP-s1-8v6"/>
                                 <constraint firstItem="Nwn-9U-WM3" firstAttribute="top" secondItem="TZl-19-EVs" secondAttribute="bottom" constant="4" id="p2D-AZ-tym"/>
                                 <constraint firstItem="kkE-R1-tEe" firstAttribute="centerY" secondItem="Lt2-t2-3rc" secondAttribute="centerY" id="qhf-7J-61a"/>

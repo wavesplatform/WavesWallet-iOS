@@ -17,7 +17,7 @@ final class PayoutsFlowLayout: UICollectionViewFlowLayout {
     }
 
     private func initialSetup() {
-        sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 8, right: 16)
         
         minimumInteritemSpacing = 8
     }
@@ -29,15 +29,18 @@ final class PayoutsFlowLayout: UICollectionViewFlowLayout {
     }
 
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let attributes = super.layoutAttributesForItem(at: indexPath) else { return nil }
+        guard let attributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes else {
+            return nil
+        }
         guard let collectionView = collectionView else { return attributes }
 
         let itemWidth = collectionView.bounds.width - (sectionInset.left + sectionInset.right)
+        let itemHeight = collectionView.bounds.height - (sectionInset.top + sectionInset.bottom)
 
         attributes.frame = CGRect(x: attributes.frame.origin.x,
                                   y: 0,
                                   width: itemWidth,
-                                  height: collectionView.frame.height)
+                                  height: itemHeight)
 
         return attributes
     }

@@ -111,15 +111,23 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
     
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-
-        Observable
+        let obtainNeutrinoAsset = Observable.zip(authorizationInteractor.authorizedWallet(), enviroment.developmentConfigs())
+            .flatMap { [weak self] signedWallet, config -> Observable<[DomainLayer.DTO.Asset]> in
+                guard let strongSelf = self else { return Observable.never() }
+                
+                let neutrinoId = config.staking.first?.neutrinoAssetId ?? ""
+                let addressWallet = signedWallet.wallet.address
+                return strongSelf.assetUseCase.assets(by: [neutrinoId], accountAddress: addressWallet)
+            }
+        
+        return Observable
             .zip(enviroment.developmentConfigs(),
                  obtainYearPercent(),
                  obtainTotalProfit(),
                  obtainLastPayoutsTransactions(),
-                 stakingBalanceService.totalStakingBalance())
-            
-            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance -> WalletTypes.DTO.Staking in
+                 stakingBalanceService.totalStakingBalance(),
+                 obtainNeutrinoAsset)
+            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance, neutrinoAsset -> WalletTypes.DTO.Staking in
                 
                 let walletAddress = lastPayoutsTransactions.walletAddress
                 
@@ -160,14 +168,10 @@ final class WalletInteractor: WalletInteractorProtocol {
                 let landing = WalletTypes.DTO.Staking.Landing(percent: profitPercent,
                                                               minimumDeposit: minimumDeposit)
                 
-                let assetId = config.staking.first?.neutrinoAssetId ?? ""
-                
-                let neutrinoAsset = DomainLayer.DTO.Asset.init(id: assetId, gatewayId: "", wavesId: "", name: "", precision: 0, description: "", height: 0, timestamp: Date(), sender: "", quantity: 0, ticker: "", isReusable: true, isSpam: true, isFiat: true, isGeneral: true, isMyWavesToken: true, isWavesToken: true, isGateway: true, isWaves: true, modified: Date(), addressRegEx: "", iconLogoUrl: "", hasScript: false, minSponsoredFee: 0, gatewayType: "")
-                
                 return WalletTypes.DTO.Staking(profit: profit,
                                                balance: balance,
                                                lastPayouts: lastPayoutsTransactions,
-                                               neutrinoAsset: neutrinoAsset,
+                                               neutrinoAsset: neutrinoAsset.first,
                                                landing: showLandingIfNeeded ? landing : nil)
             }
     }
@@ -409,6 +413,6 @@ extension WalletInteractor {
                 .filter { $0.recipient == walletAddress }
                 .reduce(0) { $0 + $1.amount }
         }
-        .reduce(0, { $0 + $1 })
+        .reduce(0) { $0 + $1 }
     }
 }
