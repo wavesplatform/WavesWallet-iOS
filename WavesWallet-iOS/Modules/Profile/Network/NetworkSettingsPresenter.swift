@@ -6,11 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import DomainLayer
 
 protocol NetworkSettingsModuleOutput: AnyObject {
     func networkSettingSavedSetting()
@@ -21,7 +21,6 @@ protocol NetworkSettingsModuleInput {
 }
 
 protocol NetworkSettingsPresenterProtocol {
-
     typealias Feedback = (Driver<NetworkSettingsTypes.State>) -> Signal<NetworkSettingsTypes.Event>
     var moduleOutput: NetworkSettingsModuleOutput? { get set }
     var input: NetworkSettingsModuleInput! { get set }
@@ -29,13 +28,13 @@ protocol NetworkSettingsPresenterProtocol {
 }
 
 final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
-
     fileprivate typealias Types = NetworkSettingsTypes
     weak var moduleOutput: NetworkSettingsModuleOutput?
     var input: NetworkSettingsModuleInput!
 
-    private var accountSettingsRepository: AccountSettingsRepositoryProtocol = UseCasesFactory.instance.repositories.accountSettingsRepository
-    
+    private var accountSettingsRepository: AccountSettingsRepositoryProtocol = UseCasesFactory.instance.repositories
+        .accountSettingsRepository
+
     private var environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
 
     private let disposeBag: DisposeBag = DisposeBag()
@@ -45,7 +44,6 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
     }
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(environmentsQuery())
         newFeedbacks.append(deffaultEnvironmentQuery())
@@ -63,11 +61,9 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
     }
 
     private func handlerExternalQuery() -> Feedback {
-
         return react(request: { state -> Bool? in
 
             if let query = state.query {
-
                 switch query {
                 case .successSaveEnvironments:
                     return true
@@ -79,15 +75,13 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
                 return nil
             }
 
-        }, effects: { [weak self] address -> Signal<Types.Event> in
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
             self?.moduleOutput?.networkSettingSavedSetting()
             return Signal.just(.completedQuery)
         })
     }
 
-
     private func environmentsQuery() -> Feedback {
-
         return react(request: { state -> String? in
 
             if state.displayState.isAppeared == true {
@@ -106,19 +100,18 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             let accountSettings = self.accountSettingsRepository
                 .accountSettings(accountAddress: address)
-            
+
             let accountEnvironment = self.accountSettingsRepository.accountEnvironment(accountAddress: address)
 
             return Observable.zip(environment, accountSettings, accountEnvironment)
                 .map { Types.Event.setEnvironmets($0.0, $0.1, $0.2) }
                 .asSignal(onErrorRecover: { error in
-                    return Signal.just(Types.Event.handlerError(error))
+                    Signal.just(Types.Event.handlerError(error))
                 })
         })
     }
 
     private func deffaultEnvironmentQuery() -> Feedback {
-
         return react(request: { state -> String? in
 
             if let query = state.query, case .resetEnvironmentOnDeffault = query {
@@ -127,7 +120,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
                 return nil
             }
 
-        }, effects: { [weak self] address -> Signal<Types.Event> in
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
@@ -138,7 +131,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
             return environment
                 .map { Types.Event.setDeffaultEnvironmet($0) }
                 .asSignal(onErrorRecover: { error in
-                    return Signal.just(Types.Event.handlerError(error))
+                    Signal.just(Types.Event.handlerError(error))
                 })
         })
     }
@@ -150,11 +143,9 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
     }
 
     private func saveEnvironmentQuery() -> Feedback {
-
         return react(request: { state -> SaveQuery? in
 
             if let query = state.query, case .saveEnvironments = query {
-
                 let isEnabledSpam = state.displayState.isSpam
                 let spamUrl = state.displayState.spamUrl ?? ""
 
@@ -171,7 +162,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
-            
+
             let environment = self
                 .accountSettingsRepository
                 .setSpamURL(query.url, by: query.accountAddress)
@@ -182,12 +173,11 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
                 .accountSettingsRepository
                 .saveAccountSettings(accountAddress: query.accountAddress,
                                      settings: accountSettings)
-            
-            
+
             return Observable.zip(environment, saveAccountSettings)
                 .map { _ in Types.Event.successSave }
                 .asSignal(onErrorRecover: { error in
-                    return Signal.just(Types.Event.handlerError(error))
+                    Signal.just(Types.Event.handlerError(error))
                 })
         })
     }
@@ -196,9 +186,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 // MARK: Core State
 
 private extension NetworkSettingsPresenter {
-
     static func reduce(state: Types.State, event: Types.Event) -> Types.State {
-
         var newState = state
         reduce(state: &newState, event: event)
         return newState
@@ -209,7 +197,7 @@ private extension NetworkSettingsPresenter {
         case .readyView:
             state.displayState.isAppeared = true
 
-        case .setEnvironmets(let environment, let accountSettings, let accountEnvironment):
+        case let .setEnvironmets(environment, accountSettings, accountEnvironment):
             state.environment = environment
             state.accountSettings = accountSettings
             state.displayState.spamUrl = accountEnvironment?.spamUrl ?? environment.servers.spamUrl.absoluteString
@@ -219,7 +207,7 @@ private extension NetworkSettingsPresenter {
             state.displayState.isEnabledSpamSwitch = true
             state.displayState.isEnabledSpamInput = true
 
-        case .setDeffaultEnvironmet(let environment):
+        case let .setDeffaultEnvironmet(environment):
             state.environment = environment
             state.displayState.spamUrl = environment.servers.spamUrl.absoluteString
             state.displayState.isSpam = true
@@ -236,7 +224,7 @@ private extension NetworkSettingsPresenter {
             state.displayState.isEnabledSpamSwitch = true
             state.displayState.isEnabledSpamInput = true
 
-        case .inputSpam(let url):
+        case let .inputSpam(url):
 
             state.displayState.spamUrl = url
 
@@ -248,7 +236,7 @@ private extension NetworkSettingsPresenter {
                 state.displayState.spamError = nil
             }
 
-        case .switchSpam(let isOn):
+        case let .switchSpam(isOn):
             state.displayState.isSpam = isOn
 
         case .successSave:
@@ -280,8 +268,8 @@ private extension NetworkSettingsPresenter {
 }
 
 // MARK: UI State
-private extension NetworkSettingsPresenter {
 
+private extension NetworkSettingsPresenter {
     func initialState(wallet: DomainLayer.DTO.Wallet) -> Types.State {
         return Types.State(wallet: wallet,
                            accountSettings: nil,

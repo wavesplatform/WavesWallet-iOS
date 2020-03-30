@@ -163,7 +163,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     private func ifNeedPlaceholder() {
-        let isShow = text.isNotEmpty
+        let isShow = !text.isEmpty
 
         let isHiddenTitleLabel = !isShow
         guard isHiddenTitleLabel != self.isHiddenTitleLabel else { return }
@@ -193,7 +193,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
         var error: String?
         var isValidValue: Bool = true
 
-        if let value = value, value.isNotEmpty,
+        if let value = value, !value.isEmpty,
             let validator = valueValidator,
             let errorMessage = validator(value) {
             error = errorMessage

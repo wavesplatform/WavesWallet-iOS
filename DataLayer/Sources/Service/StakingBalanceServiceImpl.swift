@@ -7,13 +7,12 @@
 //
 
 import DomainLayer
-import Foundation
 import Extensions
+import Foundation
 import RxSwift
 import WavesSDK
 
 public final class StakingBalanceServiceImpl: StakingBalanceService {
-    
     private let authorizationService: AuthorizationUseCaseProtocol
     private let devConfig: DevelopmentConfigsRepositoryProtocol
     private let enviroment: ExtensionsEnvironmentRepositoryProtocols
@@ -32,19 +31,19 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     public func getAvailableStakingBalance() -> Observable<AvailableStakingBalance> {
         Observable
             .zip(authorizationService.authorizedWallet(), devConfig.developmentConfigs(), enviroment.servicesEnvironment())
-            .flatMap { [weak self] signedWallet, devConfig, appConfig -> Observable<DomainLayer.DTO.SmartAssetBalance> in
+            .flatMap { [weak self] signedWallet, devConfig, _ -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 guard let strongSelf = self else { return Observable.never() }
                 let assetId = devConfig.staking.first?.neutrinoAssetId ?? ""
                 
                 return strongSelf.accountBalanceService.balance(by: assetId, wallet: signedWallet)
-        }
-        .map { smartBalance -> AvailableStakingBalance in
-            AvailableStakingBalance(balance: smartBalance.totalBalance,
-                                    assetTicker: smartBalance.asset.ticker,
-                                    precision: smartBalance.asset.precision,
-                                    logoUrl: smartBalance.asset.iconLogoUrl,
-                                    assetLogo: smartBalance.asset.iconLogo)
-        }
+            }
+            .map { smartBalance -> AvailableStakingBalance in
+                AvailableStakingBalance(balance: smartBalance.totalBalance,
+                                        assetTicker: smartBalance.asset.ticker,
+                                        precision: smartBalance.asset.precision,
+                                        logoUrl: smartBalance.asset.iconLogoUrl,
+                                        assetLogo: smartBalance.asset.iconLogo)
+            }
     }
     
     public func totalStakingBalance() -> Observable<TotalStakingBalance> {
@@ -64,11 +63,11 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
         Observable
             .zip(authorizationService.authorizedWallet(), enviroment.servicesEnvironment(), devConfig.developmentConfigs())
             .flatMap { [weak self] signedWallet, servicesConfig, devConfig -> Observable<NodeService.DTO.AddressesData> in
-                guard let strongSelf = self else { return Observable.never() }
+                guard let sself = self else { return Observable.never() }
                 let walletAddress = signedWallet.wallet.address
                 let addressSmartContract = devConfig.staking.first?.addressStakingContract ?? ""
                 let neutrinoAssetId = devConfig.staking.first?.neutrinoAssetId ?? ""
-                let key = strongSelf.buildStakingDepositeBalanceKey(neutrinoAssetId: neutrinoAssetId, walletAddress: walletAddress)
+                let key = sself.buildStakingDepositeBalanceKey(neutrinoAssetId: neutrinoAssetId, walletAddress: walletAddress)
                 return servicesConfig
                     .wavesServices
                     .nodeServices

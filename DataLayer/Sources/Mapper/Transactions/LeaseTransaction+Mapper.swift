@@ -6,13 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
+import Foundation
+import WavesSDK
+import WavesSDKExtensions
 
 extension LeaseTransaction {
-
     convenience init(transaction: DomainLayer.DTO.LeaseTransaction) {
         self.init()
         type = transaction.type
@@ -31,14 +30,11 @@ extension LeaseTransaction {
         recipient = transaction.recipient
         modified = transaction.modified
         status = transaction.status.rawValue
-
     }
 }
 
 extension DomainLayer.DTO.LeaseTransaction {
-
     init(transaction: NodeService.DTO.LeaseTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -57,7 +53,6 @@ extension DomainLayer.DTO.LeaseTransaction {
     }
 
     init(transaction: LeaseTransaction) {
-
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -72,6 +67,6 @@ extension DomainLayer.DTO.LeaseTransaction {
                   amount: transaction.amount,
                   recipient: transaction.recipient,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)        
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

@@ -159,8 +159,6 @@ final class MultilineTextField: UIView {
     
     var value: String { textView.text }
     
-    var count: Int { value.count }
-    
     func updateText(newText: String) {
         textView.text = newText
         
@@ -175,7 +173,7 @@ final class MultilineTextField: UIView {
     // MARK: - Checks
     
     fileprivate func checkPlaceholder() {
-        placeholderLabel.isHidden = count > 0
+        placeholderLabel.isHidden = !value.isEmpty
     }
   
     fileprivate func checkSeparator() {
@@ -184,7 +182,7 @@ final class MultilineTextField: UIView {
     
     fileprivate func checkTitle() {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            self.titleLabel.alpha = self.count > 0 ? 1 : 0
+            self.titleLabel.alpha = !self.value.isEmpty ? 1 : 0
         })
     }
     
@@ -194,12 +192,12 @@ final class MultilineTextField: UIView {
         var errorString: String? = ""
         var isValidValue: Bool = false
         
-        if let text = text, text.isNotEmpty {
+        if let text = text, !text.isEmpty {
             errorString = delegate?.multilineTextField(textField: self, errorTextForValue: text)
             isValidValue = errorString == nil
         }
 
-        if let error = self.error, error.isNotEmpty {
+        if let error = self.error, !error.isEmpty {
             errorString = error
             isValidValue = errorString == nil
         }
@@ -225,7 +223,6 @@ extension MultilineTextField: ViewConfiguration {
 
 extension MultilineTextField: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
         let newText = (textView.text! as NSString).replacingCharacters(in: range, with: text).trimmingLeadingWhitespace()
         
         if text == "\n" {
@@ -237,7 +234,7 @@ extension MultilineTextField: UITextViewDelegate {
         }
        
         let newRange: NSRange
-        if text.isNotEmpty {
+        if !text.isEmpty {
             newRange = NSRange(location: textView.selectedRange.location + text.count, length: 0)
         } else {
             let location = textView.selectedRange.location - range.length

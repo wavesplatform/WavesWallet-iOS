@@ -32,10 +32,8 @@ target 'WavesWallet-iOS' do
     pod 'RxCocoa'
     
     pod 'TTTAttributedLabel'
-    pod 'UITextView+Placeholder'
     pod 'Down'
 
-    pod 'SwipeView'
     pod 'MGSwipeTableCell'
 
     pod 'UPCarouselFlowLayout'
@@ -44,16 +42,12 @@ target 'WavesWallet-iOS' do
 
     pod 'Skeleton'
     pod 'Charts'
-    pod 'Koloda'
 
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
     
     # Assisstant
     pod 'RxSwift'
-    pod 'RxSwiftExt'
-    pod 'RxOptional'
-    pod 'RxGesture'
     pod 'RxFeedback'
 
     pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
@@ -75,8 +69,6 @@ target 'MarketPulseWidget' do
   pod 'SwiftLint'
   
   pod 'RxSwift'
-  pod 'RxSwiftExt'
-  pod 'RxOptional'
   pod 'RxFeedback'
   pod 'RxCocoa'
   pod 'Moya'
@@ -114,16 +106,14 @@ target 'DataLayer' do
     pod 'RxRealm'
 
     # Assisstant
+    pod 'RxCocoa'
     pod 'RxSwift'
-    pod 'RxSwiftExt'
-    pod 'RxOptional'
     pod 'CSV.swift'
 
     pod 'CryptoSwift'
     pod 'DeviceKit'
     pod 'KeychainAccess'
 
-    pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'    
 end
@@ -139,9 +129,8 @@ target 'DomainLayer' do
     pod 'RxRealm'
 
     # Assisstant
-    pod 'RxSwift'
-    pod 'RxSwiftExt'
-    pod 'RxOptional'        
+    pod 'RxCocoa'
+    pod 'RxSwift'        
     pod 'RxReachability'
   
     pod 'KeychainAccess'        
@@ -156,9 +145,8 @@ target 'Extensions' do
     pod 'SwiftLint'    
 
     # Assisstant
+    pod 'RxCocoa'
     pod 'RxSwift'
-    pod 'RxSwiftExt'
-    pod 'RxOptional'
     pod 'DeviceKit'
     pod 'RxFeedback'
     pod 'RxReachability'    

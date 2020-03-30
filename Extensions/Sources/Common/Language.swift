@@ -9,7 +9,7 @@ import Foundation
 import WavesSDKExtensions
 
 public extension Notification.Name {
-    static let changedLanguage: Notification.Name = Notification.Name.init("com.waves.language.notification.changedLanguage")
+    static let changedLanguage: Notification.Name = Notification.Name("com.waves.language.notification.changedLanguage")
 }
 
 public struct Language: Codable {
@@ -36,40 +36,38 @@ public protocol LocalizableProtocol {
 }
 
 private struct LanguageCode: TSUD {
-
     private static let key: String = "com.waves.language.code"
     private static let deffaultLanguageCode: String = "en"
-    
+
     static var defaultValue: Language {
-        return Language.languages.first(where: { $0.code == LanguageCode.deffaultLanguageCode })!
+        Language.languages.first(where: { $0.code == LanguageCode.deffaultLanguageCode })!
     }
 
     static var stringKey: String {
         return LanguageCode.key
     }
-    
+
     static var userDefaults: UserDefaults {
-        return UserDefaults.init(suiteName: "group.com.wavesplatform") ?? .standard
+        return UserDefaults(suiteName: "group.com.wavesplatform") ?? .standard
     }
 }
 
 public extension Language {
-
     private static var localizable: LocalizableProtocol.Type!
     private static var jsonLanguages: String!
     fileprivate static var languages: [Language]!
-    
+
     static func load<L>(localizable: L.Type, languages: [Language]) where L: LocalizableProtocol {
-        
         self.languages = languages
         self.localizable = localizable
-        //Migration to group
-        if LanguageCode.get().code != LanguageCode.defaultValue.code && LanguageCode.get(.standard).code != LanguageCode.defaultValue.code {
+        // Migration to group
+        if LanguageCode.get().code != LanguageCode.defaultValue.code &&
+            LanguageCode.get(.standard).code != LanguageCode.defaultValue.code {
             LanguageCode.set(LanguageCode.get(.standard))
         }
-        
+
         let langauge = LanguageCode.get()
-        
+
         if isValidLanguage(langauge) {
             change(langauge, withoutNotification: true)
         } else {
@@ -78,15 +76,15 @@ public extension Language {
     }
 
     static var currentLanguage: Language {
-        return LanguageCode.get()
+        LanguageCode.get()
     }
 
     static var defaultLanguage: Language {
-        return LanguageCode.defaultValue
+        LanguageCode.defaultValue
     }
 
     static var currentLocale: Locale {
-        return Locale(identifier: currentLanguage.code)
+        Locale(identifier: currentLanguage.code)
     }
 
     static func change(_ language: Language, withoutNotification: Bool = false) {
@@ -104,18 +102,15 @@ public extension Language {
     }
 
     private static func isValidLanguage(_ language: Language) -> Bool {
-        
         if let path = Bundle.main.path(forResource: language.code, ofType: "lproj"),
             let _ = Bundle(path: path) {
-            
-            let isValidLanguage = self.languages?.first { $0.code == language.code } != nil            
+            let isValidLanguage = languages?.first { $0.code == language.code } != nil
             return isValidLanguage
         }
         return false
     }
-    
+
     func localizedString(key: String) -> String {
-        
         if let path = Bundle.main.path(forResource: code, ofType: "lproj"),
             let bundle = Bundle(path: path) {
             return bundle.localizedString(forKey: key, value: nil, table: "Waves")
@@ -123,4 +118,3 @@ public extension Language {
         return key
     }
 }
-

@@ -6,14 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
 import Extensions
+import Foundation
+import WavesSDK
+import WavesSDKExtensions
 
 extension AssetScriptTransaction {
-
     convenience init(transaction: DomainLayer.DTO.AssetScriptTransaction) {
         self.init()
         type = transaction.type
@@ -37,9 +36,9 @@ extension AssetScriptTransaction {
 }
 
 extension DomainLayer.DTO.AssetScriptTransaction {
-
-    init(transaction: NodeService.DTO.SetAssetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-        
+    init(transaction: NodeService.DTO.SetAssetScriptTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -58,7 +57,6 @@ extension DomainLayer.DTO.AssetScriptTransaction {
     }
 
     init(transaction: AssetScriptTransaction) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -76,4 +74,3 @@ extension DomainLayer.DTO.AssetScriptTransaction {
                   status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }
-

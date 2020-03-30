@@ -6,12 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
+import DomainLayer
+import Extensions
 import LocalAuthentication
 import RxSwift
-import RxOptional
-import Extensions
-import DomainLayer
+import UIKit
 
 protocol UseTouchIDModuleOutput: AnyObject {
     func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet)
@@ -24,7 +23,6 @@ protocol UseTouchIDModuleInput {
 }
 
 final class UseTouchIDViewController: UIViewController {
-
     @IBOutlet private weak var topLogoOffset: NSLayoutConstraint!
     @IBOutlet private weak var iconTouch: UIImageView!
     @IBOutlet private weak var labelTouchId: UILabel!
@@ -51,7 +49,6 @@ final class UseTouchIDViewController: UIViewController {
     }
 
     private func setupUI() {
-
         let biometricType = BiometricType.biometricByDevice
         let biometricTitle = biometricType.title ?? ""
         iconTouch.image = biometricType.icon
@@ -71,47 +68,46 @@ final class UseTouchIDViewController: UIViewController {
         buttonUseTouchId.setTitle(Localizable.Waves.Usetouchid.Button.Usebiometric.text(biometricTitle), for: .normal)
     }
 
-    private func startIndicator() -> Void {
+    private func startIndicator() {
         buttonUseTouchId.setTitle(nil, for: .normal)
         buttonUseTouchId.isEnabled = false
         buttonNotNow.isEnabled = false
         indicator.startAnimating()
     }
 
-    private func stopIndicator() -> Void {
+    private func stopIndicator() {
         setupButtonUseTouchId()
         buttonUseTouchId.isEnabled = true
         buttonNotNow.isEnabled = true
         indicator.stopAnimating()
     }
 
-    @IBAction func useTouchIdTapped(_ sender: Any) {
-
+    @IBAction func useTouchIdTapped(_: Any) {
         guard let input = input else { return }
         startIndicator()
 
         authorizationInteractor
-        .registerBiometric(wallet: input.wallet, passcode: input.passcode)
-        .observeOn(MainScheduler.asyncInstance)
-        .subscribe(onNext: { [weak self] status in
-            guard let self = self else { return }
-            if case .completed(let wallet) = status {
+            .registerBiometric(wallet: input.wallet, passcode: input.passcode)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] status in
+                guard let self = self else { return }
+                if case let .completed(wallet) = status {
+                    self.stopIndicator()
+                    self.moduleOutput?.userRegisteredBiometric(wallet: wallet)
+                }
+            }, onError: { [weak self] error in
+                guard let self = self else { return }
+                if let error = error as? AuthorizationUseCaseError, error == .biometricLockout {
+                    self.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
+                                                     subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
+                }
                 self.stopIndicator()
-                self.moduleOutput?.userRegisteredBiometric(wallet: wallet)
-            }
-        }, onError: { [weak self] error in
-            guard let self = self else { return }
-            if let error = error as? AuthorizationUseCaseError, error == .biometricLockout {
-                self.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
-                                                  subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
-            }
-            self.stopIndicator()
         })
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
 
-    @IBAction func notNowTapped(_ sender: Any) {
-        guard let wallet = self.input?.wallet else { return }
+    @IBAction func notNowTapped(_: Any) {
+        guard let wallet = input?.wallet else { return }
         moduleOutput?.userSkipRegisterBiometric(wallet: wallet)
     }
 }

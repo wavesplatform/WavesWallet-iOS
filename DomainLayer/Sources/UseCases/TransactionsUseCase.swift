@@ -6,53 +6,53 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import RxSwift
-import WavesSDKExtensions
 import WavesSDK
-import Extensions
+import WavesSDKExtensions
 
-fileprivate enum Constants {
+private enum Constants {
     static let durationInseconds: Double = 15
     static let maxLimit: Int = 1000
     static let offset: Int = 50
-    static let rateSmart: Int64 = 400000
+    static let rateSmart: Int64 = 400_000
 }
 
-fileprivate typealias IfNeededLoadNextTransactionsQuery =
+private typealias IfNeededLoadNextTransactionsQuery =
     (address: DomainLayer.DTO.Address,
-    specifications: TransactionsSpecifications,
-    currentOffset: Int,
-    currentLimit: Int)
+     specifications: TransactionsSpecifications,
+     currentOffset: Int,
+     currentLimit: Int)
 
-fileprivate typealias InitialTransactionsQuery =
+private typealias InitialTransactionsQuery =
     (address: DomainLayer.DTO.Address,
-    specifications: TransactionsSpecifications,
-    isHasTransactions: Bool)
+     specifications: TransactionsSpecifications,
+     isHasTransactions: Bool)
 
-fileprivate typealias AnyTransactionsQuery = (accountAddress: String, specifications: TransactionsSpecifications)
+private typealias AnyTransactionsQuery = (accountAddress: String, specifications: TransactionsSpecifications)
 
-fileprivate typealias NextTransactionsSyncQuery =
+private typealias NextTransactionsSyncQuery =
     (address: DomainLayer.DTO.Address,
-    specifications: TransactionsSpecifications,
-    currentOffset: Int,
-    currentLimit: Int,
-    isHasTransactions: Bool,
-    transactions: [DomainLayer.DTO.AnyTransaction],
-    remoteError: Error?)
+     specifications: TransactionsSpecifications,
+     currentOffset: Int,
+     currentLimit: Int,
+     isHasTransactions: Bool,
+     transactions: [DomainLayer.DTO.AnyTransaction],
+     remoteError: Error?)
 
-fileprivate typealias IsHasTransactionsSyncResult =
+private typealias IsHasTransactionsSyncResult =
     (isHasTransactions: Bool,
-    transactions: [DomainLayer.DTO.AnyTransaction],
-    remoteError: Error?)
+     transactions: [DomainLayer.DTO.AnyTransaction],
+     remoteError: Error?)
 
-fileprivate typealias IsHasTransactionsSyncQuery =
+private typealias IsHasTransactionsSyncQuery =
     (address: DomainLayer.DTO.Address,
-    ids: [String],
-    transactions: [DomainLayer.DTO.AnyTransaction],
-    remoteError: Error?)
+     ids: [String],
+     transactions: [DomainLayer.DTO.AnyTransaction],
+     remoteError: Error?)
 
-fileprivate struct SmartTransactionsSyncQuery {
+private struct SmartTransactionsSyncQuery {
     let address: DomainLayer.DTO.Address
     let transactions: [DomainLayer.DTO.AnyTransaction]
     let leaseTransactions: [DomainLayer.DTO.LeaseTransaction]?
@@ -73,10 +73,10 @@ private typealias RemoteResult = (txs: [DomainLayer.DTO.AnyTransaction], error: 
 private typealias RemoteActiveLeasingResult = (txs: [DomainLayer.DTO.LeaseTransaction], error: Error?)
 
 private typealias AnyTransactionsObservable = Observable<[DomainLayer.DTO.AnyTransaction]>
-fileprivate typealias AnyTransactionsSyncQuery = (address: DomainLayer.DTO.Address, specifications: TransactionsSpecifications, remoteError: Error?)
+private typealias AnyTransactionsSyncQuery =
+    (address: DomainLayer.DTO.Address, specifications: TransactionsSpecifications, remoteError: Error?)
 
 final class TransactionsUseCase: TransactionsUseCaseProtocol {
-
     typealias SmartTransactionsSyncObservable = SyncObservable<[DomainLayer.DTO.SmartTransaction]>
 
     private var transactionsRepositoryLocal: TransactionsRepositoryProtocol
@@ -91,9 +91,9 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     private var blockRepositoryRemote: BlockRepositoryProtocol
 
     private var accountSettingsRepository: AccountSettingsRepositoryProtocol
-    
+
     private var orderBookRepository: DexOrderBookRepositoryProtocol
-    
+
     init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
          assetsInteractors: AssetsUseCaseProtocol,
@@ -103,20 +103,19 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
          blockRepositoryRemote: BlockRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          orderBookRepository: DexOrderBookRepositoryProtocol) {
-
         self.transactionsRepositoryLocal = transactionsRepositoryLocal
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
         self.assetsInteractors = assetsInteractors
         self.addressInteractors = addressInteractors
         self.addressRepository = addressRepository
-        self.assetsRepository = assetsRepositoryRemote
+        assetsRepository = assetsRepositoryRemote
         self.blockRepositoryRemote = blockRepositoryRemote
         self.accountSettingsRepository = accountSettingsRepository
         self.orderBookRepository = orderBookRepository
     }
 
-    func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
-
+    func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType,
+                      accountAddress: String) -> Observable<Money> {
         let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress)
         let wavesAsset = assetsInteractors.assetsSync(by: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
             .flatMap { (asset) -> Observable<DomainLayer.DTO.Asset> in
@@ -127,20 +126,20 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                 } else if let result = asset.local?.result.first {
                     return Observable.just(result)
 
-                } else if let error =  asset.error {
+                } else if let error = asset.error {
                     return Observable.error(error)
                 } else {
                     return Observable.error(TransactionsUseCaseError.invalid)
                 }
             }
 
-        let isSmartAssets = transactionSpecs.assetIds.reduce(into: [Observable<(String,Bool)>]()) { (result, assetId) in
+        let isSmartAssets = transactionSpecs.assetIds.reduce(into: [Observable<(String, Bool)>]()) { result, assetId in
 
             let isSmartAsset = assetsRepository
                 .isSmartAsset(assetId, by: accountAddress)
-                .map({ isSmartAsset -> (String, Bool) in
-                    return (assetId, isSmartAsset)
-                })
+                .map { isSmartAsset -> (String, Bool) in
+                    (assetId, isSmartAsset)
+                }
 
             result.append(isSmartAsset)
         }
@@ -149,25 +148,24 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
         let rules = transactionsRepositoryRemote.feeRules()
 
-      
         return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable)
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
 
                 guard let self = self else { return Observable.never() }
 
-                let mapSmartAssets = isSmartAssets.reduce(into: [String:Bool](), { (result, isSmartAsset) in
+                let mapSmartAssets = isSmartAssets.reduce(into: [String: Bool]()) { result, isSmartAsset in
                     result[isSmartAsset.0] = isSmartAsset.1
-                })
+                }
 
                 let money = self.calculateFee(isSmartAddress: isSmartAccount,
-                                                wavesAsset: wavesAsset,
-                                                rules: rules,
-                                                isSmartAssets: mapSmartAssets,
-                                                type: transactionSpecs)
+                                              wavesAsset: wavesAsset,
+                                              rules: rules,
+                                              isSmartAssets: mapSmartAssets,
+                                              type: transactionSpecs)
 
                 return Observable.just(money)
             }
-            .catchError({ (error) -> Observable<Money> in
+            .catchError { (error) -> Observable<Money> in
 
                 switch error {
                 case let error as NetworkError:
@@ -180,70 +178,73 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                 default:
                     return Observable.error(TransactionsUseCaseError.commissionReceiving)
                 }
-            })
+            }
     }
-    
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {
 
-        return transactionsRepositoryRemote
-                .send(by: specifications, wallet: wallet)                
-                .flatMap({ [weak self] transaction -> Observable<DomainLayer.DTO.AnyTransaction> in
-                    guard let self = self else { return Observable.never() }
-                    return self.saveTransactions([transaction], accountAddress: wallet.address).map { _ in transaction }
-                })
-                .flatMap({ [weak self] tx -> Observable<DomainLayer.DTO.SmartTransaction> in
-                    guard let self = self else { return Observable.never() }
-                    return self.smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: wallet.address,
-                                                                                                                  contact: nil,
-                                                                                                                  isMyAccount: true,
-                                                                                                                  aliases: []),
-                                                                                  transactions: [tx],
-                                                                                  leaseTransactions: nil,
-                                                                                  senderSpecifications: specifications,
-                                                                                  remoteError: nil))
-                        .map({ (ts) -> [DomainLayer.DTO.SmartTransaction] in
-                            return ts.resultIngoreError ?? []
-                        })
-                        .flatMap({ txs -> Observable<DomainLayer.DTO.SmartTransaction> in
-                            guard let tx = txs.first else { return Observable.error(TransactionsUseCaseError.invalid) }
-                            return Observable.just(tx)
-                        })
-                })
+    func send(by specifications: TransactionSenderSpecifications,
+              wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {
+        transactionsRepositoryRemote
+            .send(by: specifications, wallet: wallet)
+            .flatMap { [weak self] transaction -> Observable<DomainLayer.DTO.AnyTransaction> in
+                guard let self = self else { return Observable.never() }
+                return self.saveTransactions([transaction], accountAddress: wallet.address).map { _ in transaction }
+            }
+            .flatMap { [weak self] tx -> Observable<DomainLayer.DTO.SmartTransaction> in
+                guard let self = self else { return Observable.never() }
+
+                let address = DomainLayer.DTO.Address(address: wallet.address,
+                                                      contact: nil,
+                                                      isMyAccount: true,
+                                                      aliases: [])
+
+                return self.smartTransactionsSync(SmartTransactionsSyncQuery(address: address,
+                                                                             transactions: [tx],
+                                                                             leaseTransactions: nil,
+                                                                             senderSpecifications: specifications,
+                                                                             remoteError: nil))
+                    .map { ts -> [DomainLayer.DTO.SmartTransaction] in
+                        ts.resultIngoreError ?? []
+                    }
+                    .flatMap { txs -> Observable<DomainLayer.DTO.SmartTransaction> in
+                        guard let tx = txs.first else { return Observable.error(TransactionsUseCaseError.invalid) }
+                        return Observable.just(tx)
+                    }
+            }
     }
 
     func activeLeasingTransactionsSync(by accountAddress: String) -> SmartTransactionsSyncObservable {
-
         return transactionsRepositoryRemote
             .activeLeasingTransactions(by: accountAddress)
-            .map  {
+            .map {
                 return RemoteActiveLeasingResult(txs: $0, error: nil)
             }
-            .catchError({ (error) -> Observable<RemoteActiveLeasingResult> in
-                return Observable.just(RemoteActiveLeasingResult(txs: [], error: error))
-            })
-            .flatMap({ [weak self] result -> Observable<RemoteActiveLeasingResult> in
+            .catchError { error -> Observable<RemoteActiveLeasingResult> in
+                Observable.just(RemoteActiveLeasingResult(txs: [], error: error))
+            }
+            .flatMap { [weak self] result -> Observable<RemoteActiveLeasingResult> in
                 guard let self = self else { return Observable.never() }
 
                 let anyTxs = result.txs.map { DomainLayer.DTO.AnyTransaction.lease($0) }
 
                 return self
                     .saveTransactions(anyTxs, accountAddress: accountAddress)
-                    .map { _ in result}
-            })
-            .flatMap({ [weak self] result -> SmartTransactionsSyncObservable in
+                    .map { _ in result }
+            }
+            .flatMap { [weak self] result -> SmartTransactionsSyncObservable in
                 guard let self = self else { return Observable.never() }
 
                 let anyTxs = result.txs.map { DomainLayer.DTO.AnyTransaction.lease($0) }
 
-                return self.smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: accountAddress,
-                                                                                                               contact: nil,
-                                                                                                               isMyAccount: true,
-                                                                                                               aliases: []),
-                                                                              transactions: anyTxs,
-                                                                              leaseTransactions: result.txs,
-                                                                              senderSpecifications: nil,
-                                                                              remoteError: result.error))
-            })
+                return self
+                    .smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: accountAddress,
+                                                                                                       contact: nil,
+                                                                                                       isMyAccount: true,
+                                                                                                       aliases: []),
+                                                                      transactions: anyTxs,
+                                                                      leaseTransactions: result.txs,
+                                                                      senderSpecifications: nil,
+                                                                      remoteError: result.error))
+            }
     }
 
     private struct AnyTransactionsAndAddress {
@@ -251,16 +252,17 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
         let transactions: [DomainLayer.DTO.AnyTransaction]
     }
 
+    // это что и зачем? (такие названия не приемлемы, они вводят в заблуждение)
     private struct isHasTransactionsAndAddress {
         let address: DomainLayer.DTO.Address
         let isHasTransactions: Bool
     }
 
-    func transactionsSync(by accountAddress: String, specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> {
-
-        return addressInteractors
+    func transactionsSync(by accountAddress: String,
+                          specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> {
+        addressInteractors
             .addressSync(by: [accountAddress], myAddress: accountAddress)
-            .flatMap({ [weak self] (sync) -> Observable<AnyTransactionsAndAddress> in
+            .flatMap { [weak self] sync -> Observable<AnyTransactionsAndAddress> in
 
                 guard let self = self else { return Observable.never() }
 
@@ -268,32 +270,33 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                     if let error = sync.error {
                         return Observable.error(error)
                     } else {
-                        return  Observable.error(TransactionsUseCaseError.invalid)
+                        return Observable.error(TransactionsUseCaseError.invalid)
                     }
                 }
 
                 return self.transactionsRepositoryLocal
                     .transactions(by: address,
-                                  specifications: TransactionsSpecifications.init(page: .init(offset: 0, limit: Constants.maxLimit),
-                                                                                  assets: [],
-                                                                                  senders: [],
-                                                                                  types: TransactionType.all))
+                                  specifications: TransactionsSpecifications(page: .init(offset: 0, limit: Constants.maxLimit),
+                                                                             assets: [],
+                                                                             senders: [],
+                                                                             types: TransactionType.all))
                     .map { AnyTransactionsAndAddress(address: address,
-                                                     transactions: $0) }
-            })
-            .map({ (model) -> isHasTransactionsAndAddress in
+                                                     transactions: $0)
+                    }
+            }
+            .map { model -> isHasTransactionsAndAddress in
                 let isHasTransactions = model.transactions.count >= Constants.maxLimit
                 return isHasTransactionsAndAddress(address: model.address,
                                                    isHasTransactions: isHasTransactions)
-            })
+            }
             .map { InitialTransactionsQuery(address: $0.address,
                                             specifications: specifications,
                                             isHasTransactions: $0.isHasTransactions) }
             .flatMap(weak: self, selector: { $0.initialLoadingTransactionSync })
-            .catchError({ (error) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> in
+            .catchError { error -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> in
 
-                return Observable.just(.error(error))
-            })
+                Observable.just(.error(error))
+            }
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
             .share()
     }
@@ -301,10 +304,8 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
 // MARK: - - Main Logic sync download/save transactions
 
-fileprivate extension TransactionsUseCase {
-
+private extension TransactionsUseCase {
     private func initialLoadingTransactionSync(query: InitialTransactionsQuery) -> SmartTransactionsSyncObservable {
-
         if query.isHasTransactions {
             return ifNeededLoadNextTransactionsSync(IfNeededLoadNextTransactionsQuery(address: query.address,
                                                                                       specifications: query.specifications,
@@ -318,45 +319,35 @@ fileprivate extension TransactionsUseCase {
 
     private func firstTransactionsLoadingSync(_ address: DomainLayer.DTO.Address,
                                               specifications: TransactionsSpecifications) -> SmartTransactionsSyncObservable {
-
-        return transactionsRepositoryRemote
+        transactionsRepositoryRemote
             .transactions(by: address,
                           offset: 0,
                           limit: Constants.maxLimit)
-            .map {
-                return RemoteResult(txs: $0, error: nil)
-            }
-            .catchError({ (error) -> Observable<RemoteResult> in
-                return Observable.just(RemoteResult(txs: [], error: error))
-            })
-            .flatMap({ [weak self] result -> Observable<RemoteResult> in
+            .map { RemoteResult(txs: $0, error: nil) }
+            .catchError { error -> Observable<RemoteResult> in Observable.just(RemoteResult(txs: [], error: error)) }
+            .flatMap { [weak self] result -> Observable<RemoteResult> in
                 guard let self = self else { return Observable.never() }
-                if result.txs.count == 0 {
+                if result.txs.isEmpty {
                     return Observable.just(result)
                 }
                 return self
                     .saveTransactions(result.txs, accountAddress: address.address)
                     .map { _ in result }
-            })
-            .map { result in AnyTransactionsSyncQuery(address: address, specifications: specifications, remoteError: result.error) }
+            }
+            .map { result in
+                AnyTransactionsSyncQuery(address: address, specifications: specifications, remoteError: result.error)
+            }
             .flatMap(weak: self, selector: { $0.smartTransactionsFromAnyTransactionsSync })
-            .catchError({ (error) -> SmartTransactionsSyncObservable in
-                return SmartTransactionsSyncObservable.just(.error(error))
-            })
+            .catchError { error -> SmartTransactionsSyncObservable in SmartTransactionsSyncObservable.just(.error(error)) }
     }
 
     private func ifNeededLoadNextTransactionsSync(_ query: IfNeededLoadNextTransactionsQuery) -> SmartTransactionsSyncObservable {
-
-        return transactionsRepositoryRemote
+        transactionsRepositoryRemote
             .transactions(by: query.address,
                           offset: query.currentOffset,
                           limit: query.currentLimit)
-            .map {
-                return RemoteResult(txs: $0, error: nil)
-            }
-            .catchError({ (error) -> Observable<RemoteResult> in
-                return Observable.just(RemoteResult(txs: [], error: error))
-            })
+            .map { RemoteResult(txs: $0, error: nil) }
+            .catchError { error -> Observable<RemoteResult> in Observable.just(RemoteResult(txs: [], error: error)) }
             .map {
                 let ids = $0.txs.reduce(into: [String]()) { list, tx in
                     list.append(tx.id)
@@ -371,35 +362,34 @@ fileprivate extension TransactionsUseCase {
                                              currentLimit: query.currentLimit,
                                              isHasTransactions: $0.isHasTransactions,
                                              transactions: $0.transactions,
-                                             remoteError: $0.remoteError) }
+                                             remoteError: $0.remoteError)
+            }
             .flatMap(weak: self, selector: { $0.nextTransactionsSync })
-            .catchError({ (error) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> in
-                return Observable.just(Sync.error(error))
-            })
+            .catchError { error -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> in Observable.just(Sync.error(error)) }
     }
 
     private func nextTransactionsSync(_ query: NextTransactionsSyncQuery) -> SmartTransactionsSyncObservable {
-
         if query.isHasTransactions {
             return saveTransactions(query.transactions, accountAddress: query.address.address)
-                .flatMap({ [weak self] _ -> SmartTransactionsSyncObservable in
+                .flatMap { [weak self] _ -> SmartTransactionsSyncObservable in
                     guard let self = self else { return Observable.never() }
                     return self.smartTransactionsFromAnyTransactionsSync(AnyTransactionsSyncQuery(address: query.address,
-                                                                                                   specifications: query.specifications,
-                                                                                                   remoteError: query.remoteError))
-                })
+                                                                                                  specifications: query
+                                                                                                      .specifications,
+                                                                                                  remoteError: query.remoteError))
+                }
         } else {
             return saveTransactions(query.transactions, accountAddress: query.address.address)
                 .map { _ in IfNeededLoadNextTransactionsQuery(address: query.address,
                                                               specifications: query.specifications,
                                                               currentOffset: query.currentOffset + query.currentLimit,
-                                                              currentLimit: query.currentLimit) }
+                                                              currentLimit: query.currentLimit)
+                }
                 .flatMap(weak: self, selector: { $0.ifNeededLoadNextTransactionsSync })
         }
     }
 
     private func anyTransactionsLocal(_ query: AnyTransactionsSyncQuery) -> AnyTransactionsObservable {
-
         let txs = transactionsRepositoryLocal
             .transactions(by: query.address, specifications: query.specifications)
 
@@ -408,122 +398,117 @@ fileprivate extension TransactionsUseCase {
 
         newTxs = Observable.merge(Observable.just([]), newTxs)
 
-        return Observable.merge(txs, newTxs.flatMap({ newTxs -> AnyTransactionsObservable in
+        return Observable.merge(txs, newTxs.flatMap { newTxs -> AnyTransactionsObservable in
 
-            if newTxs.count == 0 {
+            if newTxs.isEmpty {
                 return Observable.empty()
             } else {
                 return txs
             }
-        }))
+        })
     }
 
     private func smartTransactionsFromAnyTransactionsSync(_ query: AnyTransactionsSyncQuery) -> SmartTransactionsSyncObservable {
-
-        return anyTransactionsLocal(query)
+        anyTransactionsLocal(query)
             .map { SmartTransactionsSyncQuery(address: query.address,
                                               transactions: $0,
                                               leaseTransactions: nil,
                                               senderSpecifications: nil,
-                                              remoteError: query.remoteError) }
+                                              remoteError: query.remoteError)
+            }
             .flatMap(weak: self, selector: { $0.smartTransactionsSync })
-
     }
 
     private func smartTransactionsSync(_ query: SmartTransactionsSyncQuery) -> SmartTransactionsSyncObservable {
-        return prepareTransactionsForSyncQuery(query)
-            .flatMap({ [weak self] (query) -> SmartTransactionsSyncObservable in
+        prepareTransactionsForSyncQuery(query)
+            .flatMap { [weak self] query -> SmartTransactionsSyncObservable in
                 guard let self = self else { return Observable.never() }
                 return self.mapToSmartTransactionsSync(query)
-            })
+            }
     }
 
     private func prepareTransactionsForSyncQuery(_ query: SmartTransactionsSyncQuery) -> Observable<SmartTransactionsSyncQuery> {
-
         var activeLeasing: Observable<[DomainLayer.DTO.LeaseTransaction]>!
 
         if let leaseTransactions = query.leaseTransactions {
-                activeLeasing = Observable.just(leaseTransactions)
+            activeLeasing = Observable.just(leaseTransactions)
         } else {
-
             let isNeedActiveLeasing = query.transactions.first(where: { (tx) -> Bool in
-                return tx.isLease == true && tx.status == .completed
+                tx.isLease == true && tx.status == .completed
             }) != nil
 
             if isNeedActiveLeasing {
-                //need handler error correct
+                // need handler error correct
                 activeLeasing = transactionsRepositoryRemote
                     .activeLeasingTransactions(by: query.address.address)
-                    .catchError({ error -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
-                        return Observable.just([])
-                    })
+                    .catchError { _ -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+                        Observable.just([])
+                    }
             } else {
                 activeLeasing = Observable.just([])
             }
         }
 
         return activeLeasing
-            .map({ (txs) -> SmartTransactionsSyncQuery in
-                return SmartTransactionsSyncQuery(address: query.address,
-                                                  transactions: query.transactions,
-                                                  leaseTransactions: txs,
-                                                  senderSpecifications: query.senderSpecifications,
-                                                  remoteError: query.remoteError)
-            })
-            .flatMap({ [weak self] (query) -> Observable<SmartTransactionsSyncQuery> in
+            .map { txs -> SmartTransactionsSyncQuery in
+                SmartTransactionsSyncQuery(address: query.address,
+                                           transactions: query.transactions,
+                                           leaseTransactions: txs,
+                                           senderSpecifications: query.senderSpecifications,
+                                           remoteError: query.remoteError)
+            }
+            .flatMap { [weak self] query -> Observable<SmartTransactionsSyncQuery> in
                 guard let self = self else { return Observable.never() }
                 return self.prepareTransactionsForSenderSpecifications(query: query)
-            })
+            }
     }
 
-    private func prepareTransactionsForSenderSpecifications(query: SmartTransactionsSyncQuery) -> Observable<SmartTransactionsSyncQuery> {
-
+    private func prepareTransactionsForSenderSpecifications(query: SmartTransactionsSyncQuery)
+        -> Observable<SmartTransactionsSyncQuery> {
         let isLeaseCancel = query
-            .transactions.first { (tx) -> Bool in
-                return tx.isLeaseCancel && tx.status == .unconfirmed
+            .transactions.first { tx -> Bool in
+                tx.isLeaseCancel && tx.status == .unconfirmed
             } != nil
 
         guard isLeaseCancel else { return Observable.just(query) }
 
-         //When sended lease cancel tx, node dont send responce lease tx
+        // When sended lease cancel tx, node dont send responce lease tx
         return transactionsRepositoryLocal
             .transactions(by: query.address, specifications: TransactionsSpecifications(page: nil,
                                                                                         assets: [],
                                                                                         senders: [],
                                                                                         types: [TransactionType.createLease]))
-            .flatMap { (txs) -> Observable<[String: DomainLayer.DTO.AnyTransaction]> in
-                let map = txs.reduce(into: [String: DomainLayer.DTO.AnyTransaction].init(), { (result, tx) in
+            .flatMap { txs -> Observable<[String: DomainLayer.DTO.AnyTransaction]> in
+                let map = txs.reduce(into: [String: DomainLayer.DTO.AnyTransaction].init()) { result, tx in
                     result[tx.id] = tx
-                })
+                }
                 return Observable.just(map)
             }
-            .flatMap({ txsMap -> Observable<[DomainLayer.DTO.AnyTransaction]> in
-                let txs = query.transactions.map({ (anyTx) -> DomainLayer.DTO.AnyTransaction in
+            .flatMap { txsMap -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+                let txs = query.transactions.map { anyTx -> DomainLayer.DTO.AnyTransaction in
 
-                    if case .leaseCancel(let leaseCancelTx) = anyTx, case .lease(let leaseTx)? = txsMap[leaseCancelTx.leaseId] {
+                    if case let .leaseCancel(leaseCancelTx) = anyTx, case let .lease(leaseTx)? = txsMap[leaseCancelTx.leaseId] {
                         var newLeaseCancelTx = leaseCancelTx
                         newLeaseCancelTx.lease = leaseTx
                         return DomainLayer.DTO.AnyTransaction.leaseCancel(newLeaseCancelTx)
                     } else {
                         return anyTx
                     }
-                })
+                }
 
                 return Observable.just(txs)
-            })
+            }
             .map { txs in
-                return SmartTransactionsSyncQuery(address: query.address,
-                                                  transactions: txs,
-                                                  leaseTransactions: query.leaseTransactions,
-                                                  senderSpecifications: query.senderSpecifications,
-                                                  remoteError: query.remoteError)
-        }
+                SmartTransactionsSyncQuery(address: query.address,
+                                           transactions: txs,
+                                           leaseTransactions: query.leaseTransactions,
+                                           senderSpecifications: query.senderSpecifications,
+                                           remoteError: query.remoteError)
+            }
     }
 
     private func mapToSmartTransactionsSync(_ query: SmartTransactionsSyncQuery) -> SmartTransactionsSyncObservable {
-
-        guard query.transactions.count != 0 else {
-
+        guard !query.transactions.isEmpty else {
             if let error = query.remoteError {
                 return Observable.just(.local([], error: error))
             } else {
@@ -539,42 +524,38 @@ fileprivate extension TransactionsUseCase {
 
         let listAccountsIds = accountsIds.flatMap { [$0] }
 
-        let assets = self.assetsInteractors.assetsSync(by: assetsIds,
-                                                       accountAddress: accountAddress).take(1)
+        let assets = assetsInteractors.assetsSync(by: assetsIds,
+                                                  accountAddress: accountAddress).take(1)
 
-        let accounts = self.addressInteractors.addressSync(by: listAccountsIds,
-                                                             myAddress: accountAddress)
-        
+        let accounts = addressInteractors.addressSync(by: listAccountsIds,
+                                                      myAddress: accountAddress)
+
         let blockHeight = blockRepositoryRemote
             .height(accountAddress: accountAddress)
-            .catchError { (_) -> Observable<Int64> in
-                return Observable.just(0)
-            }
+            .catchError { _ -> Observable<Int64> in Observable.just(0) } // TODO: думаю что в данном моменте возвращать 0 неверно
 
         let accountSettings = accountSettingsRepository.accountSettings(accountAddress: accountAddress)
-        
+
         return Observable
             .zip(blockHeight, assets, accountSettings)
-            .flatMap { (args) -> Observable<SmartTransactionSyncData> in
+            .flatMap { args -> Observable<SmartTransactionSyncData> in
                 let blocks = args.0
                 let assets = args.1
                 let settings = args.2
-                
+
                 let activeLeaseing = query.leaseTransactions ?? []
 
                 return accounts
-                    .map({ (accounts) -> SmartTransactionSyncData in
-
-                        return SmartTransactionSyncData(assets: assets,
-                                                        transaction: query.transactions,
-                                                        block: blocks,
-                                                        accounts: accounts,
-                                                        leaseTxs: activeLeaseing,
-                                                        isEnableSpamFilter: settings?.isEnabledSpam ?? false)
-
-                    })
+                    .map { accounts -> SmartTransactionSyncData in
+                        SmartTransactionSyncData(assets: assets,
+                                                 transaction: query.transactions,
+                                                 block: blocks,
+                                                 accounts: accounts,
+                                                 leaseTxs: activeLeaseing,
+                                                 isEnableSpamFilter: settings?.isEnabledSpam ?? false)
+                    }
             }
-            .flatMap { [weak self] (data) -> SmartTransactionsSyncObservable in
+            .flatMap { [weak self] data -> SmartTransactionsSyncObservable in
 
                 guard let self = self else { return Observable.never() }
 
@@ -586,7 +567,7 @@ fileprivate extension TransactionsUseCase {
                             return SmartTransactionsSyncObservable.just(.error(error))
                         }
                     }
-                    
+
                     return SmartTransactionsSyncObservable.just(.error(TransactionsUseCaseError.invalid))
                 }
 
@@ -602,9 +583,9 @@ fileprivate extension TransactionsUseCase {
                     return SmartTransactionsSyncObservable.just(.error(TransactionsUseCaseError.invalid))
                 }
 
-                let assetsMap = assets.reduce(into: [String: DomainLayer.DTO.Asset](), { $0[$1.id] = $1 })
-                let accountsMap = accounts.reduce(into: [String: DomainLayer.DTO.Address](), { $0[$1.address] = $1 })
-                let leaseTxsMap = data.leaseTxs.reduce(into: [String: DomainLayer.DTO.LeaseTransaction](), { $0[$1.id] = $1 })
+                let assetsMap = assets.reduce(into: [String: DomainLayer.DTO.Asset]()) { $0[$1.id] = $1 }
+                let accountsMap = accounts.reduce(into: [String: DomainLayer.DTO.Address]()) { $0[$1.address] = $1 }
+                let leaseTxsMap = data.leaseTxs.reduce(into: [String: DomainLayer.DTO.LeaseTransaction]()) { $0[$1.id] = $1 }
 
                 let txs = self.mapToSmartTransactions(by: accountAddress,
                                                       txs: data.transaction,
@@ -619,7 +600,7 @@ fileprivate extension TransactionsUseCase {
                 } else {
                     return .just(.remote(txs))
                 }
-        }
+            }
     }
 
     private func mapToSmartTransactions(by accountAddress: String,
@@ -628,61 +609,57 @@ fileprivate extension TransactionsUseCase {
                                         accounts: [String: DomainLayer.DTO.Address],
                                         block: Int64,
                                         leaseTxs: [String: DomainLayer.DTO.LeaseTransaction],
-                                        isEnableSpamFilter: Bool) -> [DomainLayer.DTO.SmartTransaction]
-    {
-        return txs.map({ (tx) -> DomainLayer.DTO.SmartTransaction? in
-            return tx.transaction(by: accountAddress,
-                                  assets: assets,
-                                  accounts: accounts,
-                                  totalHeight: block,
-                                  leaseTransactions: leaseTxs,
-                                  mapTxs: [:])
-        })
+                                        isEnableSpamFilter: Bool) -> [DomainLayer.DTO.SmartTransaction] {
+        txs.map { tx -> DomainLayer.DTO.SmartTransaction? in
+            tx.transaction(by: accountAddress,
+                           assets: assets,
+                           accounts: accounts,
+                           totalHeight: block,
+                           leaseTransactions: leaseTxs,
+                           mapTxs: [:])
+        }
         .compactMap { $0 }
-            .filter { $0.isCanceledLeasingBySender == false &&
-                $0.isSpamTransaction(isEnableSpam: isEnableSpamFilter) == false }
+        .filter { $0.isCanceledLeasingBySender == false &&
+            $0.isSpamTransaction(isEnableSpam: isEnableSpamFilter) == false
+        }
     }
 }
 
 // MARK: - - Assistants method
 
-fileprivate extension TransactionsUseCase {
-
+private extension TransactionsUseCase {
     private func isHasTransactionsSync(_ query: IsHasTransactionsSyncQuery) -> Observable<IsHasTransactionsSyncResult> {
-
-        return transactionsRepositoryLocal.isHasTransactions(by: query.ids,
-                                                             accountAddress: query.address.address,
-                                                             ignoreUnconfirmed: true)
+        transactionsRepositoryLocal.isHasTransactions(by: query.ids,
+                                                      accountAddress: query.address.address,
+                                                      ignoreUnconfirmed: true)
             .map { IsHasTransactionsSyncResult(isHasTransactions: $0,
                                                transactions: query.transactions,
-                                               remoteError: query.remoteError)}
+                                               remoteError: query.remoteError)
+            }
     }
 
     private func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool> {
-
-        return transactionsRepositoryLocal
-            .saveTransactions(transactions, accountAddress: accountAddress)
+        transactionsRepositoryLocal.saveTransactions(transactions, accountAddress: accountAddress)
     }
-
 
     private func assets(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Asset]> {
         let assets = assetsInteractors
             .assets(by: ids,
                     accountAddress: accountAddress)
-            .map { $0.reduce(into: [String: DomainLayer.DTO.Asset](), { list, asset in
+            .map { $0.reduce(into: [String: DomainLayer.DTO.Asset]()) { list, asset in
                 list[asset.id] = asset
-            })
-        }
+            }
+            }
         return assets
     }
 
     private func accounts(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Address]> {
         let accounts = addressInteractors
             .address(by: ids, myAddress: accountAddress)
-            .map { $0.reduce(into: [String: DomainLayer.DTO.Address](), { list, account in
+            .map { $0.reduce(into: [String: DomainLayer.DTO.Address]()) { list, account in
                 list[account.address] = account
-            })
-        }
+            }
+            }
         return accounts
     }
 
@@ -691,9 +668,6 @@ fileprivate extension TransactionsUseCase {
                               rules: DomainLayer.DTO.TransactionFeeRules,
                               isSmartAssets: [String: Bool],
                               type: DomainLayer.Query.TransactionSpecificationType) -> Money {
-
-
-
         var rule: DomainLayer.DTO.TransactionFeeRules.Rule!
 
         if let txType = type.transactionType {
@@ -703,8 +677,8 @@ fileprivate extension TransactionsUseCase {
         }
 
         var fee: Int64 = rule.fee
-        
-        if rule.addSmartAccountFee && isSmartAddress {
+
+        if rule.addSmartAccountFee, isSmartAddress {
             fee += rules.smartAccountExtraFee
         }
 
@@ -712,20 +686,20 @@ fileprivate extension TransactionsUseCase {
         case .createAlias, .lease, .cancelLease:
             break
 
-        case .burn(let assetId):
-            if rule.addSmartAssetFee && isSmartAssets[assetId] == true {
+        case let .burn(assetId):
+            if rule.addSmartAssetFee, isSmartAssets[assetId] == true {
                 fee += rules.smartAssetExtraFee
             }
 
-        case .sendTransaction(let assetId):
-            if rule.addSmartAssetFee && isSmartAssets[assetId] == true {
+        case let .sendTransaction(assetId):
+            if rule.addSmartAssetFee, isSmartAssets[assetId] == true {
                 fee += rules.smartAssetExtraFee
             }
 
-        case .createOrder(let amountAssetId, let priceAssetId, let settingsOrderFee, let feeAssetId):
-            
+        case let .createOrder(amountAssetId, priceAssetId, settingsOrderFee, feeAssetId):
+
             var n: Int64 = 0
-            
+
             if isSmartAssets[amountAssetId] == true {
                 n += 1
             }
@@ -733,9 +707,9 @@ fileprivate extension TransactionsUseCase {
             if isSmartAssets[priceAssetId] == true {
                 n += 1
             }
-            
-            if isSmartAssets[feeAssetId] == true &&
-                feeAssetId != amountAssetId &&
+
+            if isSmartAssets[feeAssetId] == true,
+                feeAssetId != amountAssetId,
                 feeAssetId != priceAssetId {
                 n += 1
             }
@@ -743,72 +717,65 @@ fileprivate extension TransactionsUseCase {
             if isSmartAddress {
                 n += 1
             }
-           
-            let assetRate = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.rate ?? 0
-            let assetDecimal = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.asset.decimals ?? 0
+
+            let assetRate = settingsOrderFee.feeAssets.first(where: { $0.asset.id == feeAssetId })?.rate ?? 0
+            let assetDecimal = settingsOrderFee.feeAssets.first(where: { $0.asset.id == feeAssetId })?.asset.decimals ?? 0
             let assetFee = assetRate * Double(settingsOrderFee.baseFee + Constants.rateSmart * n)
-            
+
             return Money(Int64(ceil(assetFee)), assetDecimal)
         }
 
         return Money(fee, wavesAsset.precision)
     }
-
 }
 
 // MARK: - -
+
 private extension Array where Element == DomainLayer.DTO.AnyTransaction {
-
     var assetsIds: [String] {
-
-        return reduce(into: [String](), { list, tx in
+        reduce(into: [String]()) { list, tx in
             let assetsIds = tx.assetsIds
             list.append(contentsOf: assetsIds)
-        })
-        .reduce(into: Set<String>(), { set, id in
+        }
+        .reduce(into: Set<String>()) { set, id in
             set.insert(id)
-        })
+        }
         .flatMap { [$0] }
     }
 
-
     var accountsIds: Set<String> {
-
-        return reduce(into: [String](), { list, tx in
+        reduce(into: [String]()) { list, tx in
             let accountsIds = tx.accountsIds
             list.append(contentsOf: accountsIds)
-        })
-        .reduce(into: Set<String>(), { set, id in
-            set.insert(id)
-        })
+        }
+        .reduce(into: Set<String>()) { set, id in set.insert(id) }
     }
 }
 
 // MARK: - -  Assisstants Mapper
+
 private extension DomainLayer.DTO.AnyTransaction {
-
     var assetsIds: [String] {
-
         switch self {
         case .unrecognised:
             return [WavesSDKConstants.wavesAssetId]
 
-        case .issue(let tx):
+        case let .issue(tx):
             return [tx.assetId]
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             let assetId = tx.assetId
             return [assetId, WavesSDKConstants.wavesAssetId, tx.feeAssetId]
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             return [tx.assetId]
 
-        case .burn(let tx):
-            
+        case let .burn(tx):
+
             return [tx.assetId, WavesSDKConstants.wavesAssetId]
 
-        case .exchange(let tx):
-            
+        case let .exchange(tx):
+
             var ids = [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
             if let matcherFeeAssetId = tx.order1.matcherFeeAssetId {
                 ids.append(matcherFeeAssetId)
@@ -817,7 +784,7 @@ private extension DomainLayer.DTO.AnyTransaction {
                 ids.append(matcherFeeAssetId)
             }
             return ids
-            
+
         case .lease:
             return [WavesSDKConstants.wavesAssetId]
 
@@ -827,7 +794,7 @@ private extension DomainLayer.DTO.AnyTransaction {
         case .alias:
             return [WavesSDKConstants.wavesAssetId]
 
-        case .massTransfer(let tx):
+        case let .massTransfer(tx):
             return [tx.assetId, WavesSDKConstants.wavesAssetId]
 
         case .data:
@@ -836,13 +803,13 @@ private extension DomainLayer.DTO.AnyTransaction {
         case .script:
             return [WavesSDKConstants.wavesAssetId]
 
-        case .assetScript(let tx):
+        case let .assetScript(tx):
             return [tx.assetId]
 
-        case .sponsorship(let tx):
+        case let .sponsorship(tx):
             return [tx.assetId]
-            
-        case .invokeScript(let tx):
+
+        case let .invokeScript(tx):
 
             if let payment = tx.payment, let assetId = payment.assetId {
                 return [WavesSDKConstants.wavesAssetId, assetId]
@@ -852,30 +819,29 @@ private extension DomainLayer.DTO.AnyTransaction {
     }
 
     var accountsIds: [String] {
-
         switch self {
-        case .unrecognised(let tx):
+        case let .unrecognised(tx):
             return [tx.sender]
 
-        case .issue(let tx):
+        case let .issue(tx):
             return [tx.sender]
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             return [tx.sender, tx.recipient]
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             return [tx.sender]
 
-        case .burn(let tx):
+        case let .burn(tx):
             return [tx.sender]
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return [tx.sender, tx.order1.sender, tx.order2.sender]
 
-        case .lease(let tx):
+        case let .lease(tx):
             return [tx.sender, tx.recipient]
 
-        case .leaseCancel(let tx):
+        case let .leaseCancel(tx):
             var accountsIds: [String] = [String]()
             accountsIds.append(tx.sender)
             if let lease = tx.lease {
@@ -885,34 +851,33 @@ private extension DomainLayer.DTO.AnyTransaction {
 
             return accountsIds
 
-        case .alias(let tx):
+        case let .alias(tx):
             return [tx.sender]
 
-        case .massTransfer(let tx):
+        case let .massTransfer(tx):
             var list = tx.transfers.map { $0.recipient }
             list.append(tx.sender)
             return list
 
-        case .data(let tx):
+        case let .data(tx):
             return [tx.sender]
 
-        case .script(let tx):
+        case let .script(tx):
             return [tx.sender]
 
-        case .assetScript(let tx):
+        case let .assetScript(tx):
             return [tx.sender]
 
-        case .sponsorship(let tx):
+        case let .sponsorship(tx):
             return [tx.sender]
-            
-        case .invokeScript(let tx):
+
+        case let .invokeScript(tx):
             return [tx.sender]
         }
     }
 }
 
 private extension TransactionSenderSpecifications {
-
     var isCancelLease: Bool {
         switch self {
         case .cancelLease:
@@ -925,19 +890,18 @@ private extension TransactionSenderSpecifications {
 }
 
 private extension DomainLayer.Query.TransactionSpecificationType {
-
     var assetIds: [String] {
         switch self {
         case .createAlias, .lease, .cancelLease:
             return []
 
-        case .burn(let assetId):
+        case let .burn(assetId):
             return [assetId]
 
-        case .sendTransaction(let assetId):
+        case let .sendTransaction(assetId):
             return [assetId]
 
-        case .createOrder(let amountAssetId, let priceAssetId, _, let feeAssetId):
+        case let .createOrder(amountAssetId, priceAssetId, _, feeAssetId):
             return [amountAssetId, priceAssetId, feeAssetId]
         }
     }
@@ -963,13 +927,10 @@ private extension DomainLayer.Query.TransactionSpecificationType {
             return TransactionType.exchange
         }
     }
-
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction {
-    
+private extension DomainLayer.DTO.SmartTransaction {
     var isCanceledLeasingBySender: Bool {
-        
         switch kind {
         case .canceledLeasing:
             return sender.isMyAccount ? false : true
@@ -977,45 +938,44 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             return false
         }
     }
-    
+
     func isSpamTransaction(isEnableSpam: Bool) -> Bool {
         if isEnableSpam {
             switch kind {
             case .spamReceive:
                 return true
-            
+
             case .spamMassReceived:
                 return true
-            
-            case .sent(let tx):
-                return tx.asset.isSpam
-                
-            case .selfTransfer(let tx):
-                return tx.asset.isSpam
-                
-            case .massSent(let tx):
-                return tx.asset.isSpam
-                
-            case .tokenGeneration(let tx):
-                return tx.asset.isSpam
-                
-            case .tokenBurn(let tx):
+
+            case let .sent(tx):
                 return tx.asset.isSpam
 
-            case .tokenReissue(let tx):
+            case let .selfTransfer(tx):
                 return tx.asset.isSpam
 
-            case .assetScript(let asset):
+            case let .massSent(tx):
+                return tx.asset.isSpam
+
+            case let .tokenGeneration(tx):
+                return tx.asset.isSpam
+
+            case let .tokenBurn(tx):
+                return tx.asset.isSpam
+
+            case let .tokenReissue(tx):
+                return tx.asset.isSpam
+
+            case let .assetScript(asset):
                 return asset.isSpam
-                
-            case .sponsorship(_, let asset):
+
+            case let .sponsorship(_, asset):
                 return asset.isSpam
-                
+
             default:
                 return false
             }
         }
         return false
-       
     }
 }

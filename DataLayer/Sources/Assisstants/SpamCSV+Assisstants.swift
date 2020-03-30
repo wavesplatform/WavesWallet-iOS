@@ -6,21 +6,19 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
 import CSV
+import Foundation
 
-fileprivate enum Constants {
+private enum Constants {
     static let keyAddress: String = "scam"
 }
 
 enum SpamCVC {
-
     enum SpamError: Error {
         case invalid
     }
 
     static func scamAddressFrom(row: [String]) -> String? {
-
         if row.count == 1 {
             return row[0]
         }
@@ -32,7 +30,7 @@ enum SpamCVC {
         let address = row[0]
         let type = row[1]
 
-        if type.lowercased() != Constants.keyAddress, address.count == 0 {
+        if type.lowercased() != Constants.keyAddress, address.isEmpty {
             return nil
         }
 
@@ -41,7 +39,7 @@ enum SpamCVC {
 
     static func addresses(from data: Data) throws -> [String] {
         guard let text = String(data: data, encoding: .utf8) else { throw SpamError.invalid }
-        guard let csv: CSV = try? CSV(string: text, hasHeaderRow: false) else { throw SpamError.invalid }
+        guard let csv = try? CSV(string: text, hasHeaderRow: false) else { throw SpamError.invalid }
 
         var addresses = [String]()
         while let row = csv.next() {

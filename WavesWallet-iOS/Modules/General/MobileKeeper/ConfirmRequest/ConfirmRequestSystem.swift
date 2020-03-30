@@ -21,7 +21,8 @@ private typealias Types = ConfirmRequest
 final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Event> {
     
     private lazy var assetsUseCase: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
-    private lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
+    private lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol =
+        UseCasesFactory.instance.repositories.mobileKeeperRepository
     
     private let input: ConfirmRequest.DTO.Input
     

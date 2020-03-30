@@ -6,9 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import QRCodeReader
 import Extensions
+import QRCodeReader
+import UIKit
 
 private enum Constansts {
     static let rightButtonOffset: CGFloat = 45
@@ -21,17 +21,16 @@ protocol AddAddressTextFieldDelegate: AnyObject {
 }
 
 final class AddAddressTextField: UIView, NibOwnerLoadable {
-
     @IBOutlet private weak var addressTextField: InputTextField!
     @IBOutlet private var buttonDelete: UIButton!
     @IBOutlet private var buttonScan: UIButton!
-    
+
     private var isShowDeleteButton = false
-    
+
     weak var delegate: AddAddressTextFieldDelegate?
-    
+
     var text: String {
-        set (newValue) {
+        set(newValue) {
             addressTextField.value = newValue
             setupButtonsState(animation: false)
         }
@@ -41,7 +40,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     }
 
     var error: String? {
-        set (newValue) {
+        set(newValue) {
             addressTextField.error = newValue
         }
         get {
@@ -56,16 +55,16 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
             buttonScan.isHidden = !isEnabled
         }
     }
-    
+
     var trimmingText: String {
         return text.trimmingCharacters(in: CharacterSet.whitespaces)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         addressTextField.returnKey = .next
@@ -79,7 +78,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
             self.delegate?.addressTextFieldTappedNext()
         }
 
-        addressTextField.changedValue = { [weak self] (_, value) in
+        addressTextField.changedValue = { [weak self] _, value in
             guard let self = self else { return }
             self.delegate?.addAddressTextField(self, didChange: value ?? "")
             self.setupButtonsState(animation: true)
@@ -93,23 +92,20 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     @discardableResult override func becomeFirstResponder() -> Bool {
         return addressTextField.becomeFirstResponder()
     }
-    
+
     private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
 }
 
 // MARK: - Actions
 
 private extension AddAddressTextField {
-
-    
-    @IBAction func deleteTapped(_ sender: Any) {
-        self.addressTextField.value = nil
+    @IBAction func deleteTapped(_: Any) {
+        addressTextField.value = nil
         setupButtonsState(animation: true)
         delegate?.addAddressTextField(self, didChange: text)
     }
-    
-    @IBAction func scanTapped(_ sender: Any) {
-        
+
+    @IBAction func scanTapped(_: Any) {
         CameraAccess.requestAccess(success: { [weak self] in
             guard let self = self else { return }
             self.showScanner()
@@ -118,14 +114,12 @@ private extension AddAddressTextField {
             let alert = CameraAccess.alertController
             self.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
-        
     }
 }
 
 private extension AddAddressTextField {
     func setupButtonsState(animation: Bool) {
-        
-        if text.count > 0 {
+        if !text.isEmpty {
             if !isShowDeleteButton {
                 isShowDeleteButton = true
 
@@ -151,12 +145,10 @@ private extension AddAddressTextField {
 // MARK: - QRCodeReaderViewController
 
 private extension AddAddressTextField {
-    
     func showScanner() {
-        
         guard QRCodeReader.isAvailable() else { return }
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            
+
             if let value = result?.value {
                 let address = QRCodeParser.parseAddress(value)
                 self.addressTextField.value = address
@@ -164,7 +156,7 @@ private extension AddAddressTextField {
                 self.setupButtonsState(animation: true)
                 self.delegate?.addAddressTextField(self, didChange: self.text)
             }
-            
+
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
         }
 

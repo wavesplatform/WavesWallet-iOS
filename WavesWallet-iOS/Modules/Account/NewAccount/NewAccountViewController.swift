@@ -199,8 +199,8 @@ final class NewAccountViewController: UIViewController {
             return
         }
 
-        guard let name = accountNameInput.value?.value?.trimmingCharacters(in: .whitespaces) else { return }
-        guard let password = passwordInput.value?.value?.trimmingCharacters(in: .whitespaces) else { return }
+        guard let name = accountNameInput.value?.trimmingCharacters(in: .whitespaces) else { return }
+        guard let password = passwordInput.value?.trimmingCharacters(in: .whitespaces) else { return }
         guard let avatar = currentAvatar else { return }
         
         let account = NewAccountTypes.DTO.Account(privateKey: avatar.privateKey, password: password, name: name)

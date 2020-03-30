@@ -5,20 +5,17 @@
 //  Created by Pavel Gubin on 06.07.2019.
 //
 
-import Foundation
 import DomainLayer
+import Foundation
 import WavesSDK
-import WavesSDKExtensions
 import WavesSDKCrypto
+import WavesSDKExtensions
 
 extension TransactionSenderSpecifications {
-    
     private func chainId(servicesEnvironment: ApplicationEnviroment,
                          specifications: TransactionSenderSpecifications,
                          wallet: DomainLayer.DTO.SignedWallet) -> String {
-        
         let walletEnvironment = servicesEnvironment.walletEnvironment
-        
         
         return specifications.chainId ?? walletEnvironment.scheme
     }
@@ -30,16 +27,15 @@ extension TransactionSenderSpecifications {
     func broadcastSpecification(servicesEnvironment: ApplicationEnviroment,
                                 wallet: DomainLayer.DTO.SignedWallet,
                                 specifications: TransactionSenderSpecifications) -> NodeService.Query.Transaction? {
-        
         let walletEnvironment = servicesEnvironment.walletEnvironment
         let timestampServerDiff = servicesEnvironment.timestampServerDiff
         
-        let scheme = chainId(servicesEnvironment: servicesEnvironment,
-                             specifications: specifications,
-                             wallet: wallet)
+        let scheme = self.chainId(servicesEnvironment: servicesEnvironment,
+                                  specifications: specifications,
+                                  wallet: wallet)
         
         let timestamp = self.timestamp(specifications: specifications)
-                        .millisecondsSince1970(timestampDiff: timestampServerDiff)
+            .millisecondsSince1970(timestampDiff: timestampServerDiff)
         
         var signature = self.signature(timestamp: timestamp,
                                        scheme: scheme,
@@ -65,9 +61,7 @@ extension TransactionSenderSpecifications {
                                                 environment: WalletEnvironment,
                                                 publicKey: String,
                                                 proofs: [String]) -> NodeService.Query.Transaction {
-        
         switch self {
-            
         case .burn(let model):
             
             return .burn(NodeService.Query.Transaction.Burn(version: self.version,
@@ -125,20 +119,21 @@ extension TransactionSenderSpecifications {
                                                             chainId: environment.scheme))
             
         case .send(let model):
+            let recipient: String
             
-            var recipient = ""
             if model.recipient.count <= WavesSDKConstants.aliasNameMaxLimitSymbols {
                 recipient = environment.aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
             }
             
+            let attachment = Base58Encoder.encode(Array(model.attachment.utf8))
             return .transfer(NodeService.Query.Transaction.Transfer(version: self.version,
                                                                     recipient: recipient,
                                                                     assetId: model.assetId,
                                                                     amount: model.amount,
                                                                     fee: model.fee,
-                                                                    attachment: Base58Encoder.encode(Array(model.attachment.utf8)),
+                                                                    attachment: attachment,
                                                                     feeAssetId: model.getFeeAssetID,
                                                                     timestamp: timestamp,
                                                                     senderPublicKey: publicKey,
@@ -146,59 +141,55 @@ extension TransactionSenderSpecifications {
                                                                     chainId: environment.scheme))
             
         case .invokeScript(let model):
-         
-    
-         var call: NodeService.Query.Transaction.InvokeScript.Call? = nil
-         
-         if let localCall = model.call {
+            var call: NodeService.Query.Transaction.InvokeScript.Call?
             
-            let args = localCall.args.map({ (arg) -> NodeService.Query.Transaction.InvokeScript.Arg in
-                
-                let value: NodeService.Query.Transaction.InvokeScript.Arg.Value = { () -> NodeService.Query.Transaction.InvokeScript.Arg.Value in
+            if let localCall = model.call {
+                let args = localCall.args.map { arg -> NodeService.Query.Transaction.InvokeScript.Arg in
                     
-                    switch arg.value {
-                    case .binary(let value):
-                        return .binary(value)
+                    let value: NodeService.Query.Transaction.InvokeScript.Arg.Value = { ()
+                        -> NodeService.Query.Transaction.InvokeScript.Arg.Value in
                         
-                    case .bool(let value):
-                        return .bool(value)
-                        
-                    case .integer(let value):
-                        return .integer(value)
-                        
-                    case .string(let value):
-                        return .string(value)
-                    }
+                        switch arg.value {
+                        case .binary(let value):
+                            return .binary(value)
+                            
+                        case .bool(let value):
+                            return .bool(value)
+                            
+                        case .integer(let value):
+                            return .integer(value)
+                            
+                        case .string(let value):
+                            return .string(value)
+                        }
+                    }()
                     
-                }()
+                    return .init(value: value)
+                }
                 
-                return .init(value: value)
-            })
+                call = NodeService.Query.Transaction.InvokeScript.Call(function: localCall.function,
+                                                                       args: args)
+            }
             
-            call = NodeService.Query.Transaction.InvokeScript.Call(function: localCall.function,
-                                                                   args: args)
-         }
-         
-         let payment = model.payment.map { NodeService.Query.Transaction.InvokeScript.Payment.init(amount: $0.amount, assetId: $0.assetId) }
-         
-         return .invokeScript(.init(version: self.version,
-                                   chainId: environment.scheme,
-                                   fee: model.fee,
-                                   timestamp: timestamp,
-                                   senderPublicKey: publicKey,
-                                   feeAssetId: model.feeAssetId,
-                                proofs: proofs,
-                                dApp: model.dApp,
-                                call: call,
-                                payment: payment))
-}
-        
+            let payment = model.payment.map {
+                NodeService.Query.Transaction.InvokeScript.Payment(amount: $0.amount, assetId: $0.assetId)
+            }
+            
+            return .invokeScript(.init(version: self.version,
+                                       chainId: environment.scheme,
+                                       fee: model.fee,
+                                       timestamp: timestamp,
+                                       senderPublicKey: publicKey,
+                                       feeAssetId: model.feeAssetId,
+                                       proofs: proofs,
+                                       dApp: model.dApp,
+                                       call: call,
+                                       payment: payment))
+        }
     }
     
     func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
-        
         switch self {
-            
         case .data(let model):
             
             let bytes = TransactionSignatureV1.data(.init(fee: model.fee,
@@ -229,7 +220,6 @@ extension TransactionSenderSpecifications {
                                                                  timestamp: timestamp)).bytesStructure
             
             return bytes
-            
             
         case .createAlias(let model):
             
@@ -272,11 +262,10 @@ extension TransactionSenderSpecifications {
             var call: TransactionSignatureV1.Structure.InvokeScript.Call?
             
             if let localCall = model.call {
-                
-                let args = localCall.args.map { (arg) -> TransactionSignatureV1.Structure.InvokeScript.Arg in
+                let args = localCall.args.map { arg -> TransactionSignatureV1.Structure.InvokeScript.Arg in
                     
                     let value = { () -> TransactionSignatureV1.Structure.InvokeScript.Arg.Value in
-                    
+                        
                         switch arg.value {
                         case .binary(let value):
                             return .binary(value)
@@ -286,20 +275,22 @@ extension TransactionSenderSpecifications {
                             
                         case .bool(let value):
                             return .bool(value)
-                        
+                            
                         case .string(let value):
                             return .string(value)
                         }
                     }()
                     
-                    return TransactionSignatureV1.Structure.InvokeScript.Arg.init(value: value)
+                    return TransactionSignatureV1.Structure.InvokeScript.Arg(value: value)
                 }
                 
-                call = TransactionSignatureV1.Structure.InvokeScript.Call.init(function: localCall.function,
-                                                                               args: args)
+                call = TransactionSignatureV1.Structure.InvokeScript.Call(function: localCall.function,
+                                                                          args: args)
             }
             
-            let payment = model.payment.map { TransactionSignatureV1.Structure.InvokeScript.Payment.init(amount: $0.amount, assetId: $0.assetId) }
+            let payment = model.payment.map {
+                TransactionSignatureV1.Structure.InvokeScript.Payment(amount: $0.amount, assetId: $0.assetId)
+            }
             
             let bytes = TransactionSignatureV1.invokeScript(.init(senderPublicKey: Base58Encoder.encode(publicKey),
                                                                   fee: model.fee,
@@ -310,26 +301,22 @@ extension TransactionSenderSpecifications {
                                                                   call: call,
                                                                   payment: payment))
                 .bytesStructure
-                                
+            
             return bytes
         }
     }
 }
 
-
 private extension SendTransactionSender {
-    
     var getFeeAssetID: String {
-        return feeAssetID == WavesSDKConstants.wavesAssetId ? "" : feeAssetID
+        feeAssetID == WavesSDKConstants.wavesAssetId ? "" : feeAssetID
     }
 }
 
 private extension DataTransactionSender {
-    
     var dataForSignature: [TransactionSignatureV1.Structure.Data.Value] {
-        return self.data.map({ (value) -> TransactionSignatureV1.Structure.Data.Value in
-            
-            var kind: TransactionSignatureV1.Structure.Data.Value.Kind!
+        data.map { value -> TransactionSignatureV1.Structure.Data.Value in
+            let kind: TransactionSignatureV1.Structure.Data.Value.Kind
             
             switch value.value {
             case .binary(let data):
@@ -345,15 +332,13 @@ private extension DataTransactionSender {
                 kind = .string(str)
             }
             
-            return TransactionSignatureV1.Structure.Data.Value.init(key: value.key, value: kind)
-            
-        })
+            return TransactionSignatureV1.Structure.Data.Value(key: value.key, value: kind)
+        }
     }
     
     var dataForNode: [NodeService.Query.Transaction.Data.Value] {
-        return self.data.map { (value) -> NodeService.Query.Transaction.Data.Value in
-            
-            var kind: NodeService.Query.Transaction.Data.Value.Kind!
+        data.map { value -> NodeService.Query.Transaction.Data.Value in
+            let kind: NodeService.Query.Transaction.Data.Value.Kind
             
             switch value.value {
             case .binary(let data):

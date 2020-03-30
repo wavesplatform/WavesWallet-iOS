@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 public extension UITableView {
-    func registerHeaderFooter<HeaderFooter>(type: HeaderFooter.Type) where HeaderFooter: UITableViewHeaderFooterView & NibReusable {
+    func registerHeaderFooter<HeaderFooter>(type: HeaderFooter.Type)
+        where HeaderFooter: UITableViewHeaderFooterView & NibReusable {
         register(HeaderFooter.nib, forHeaderFooterViewReuseIdentifier: HeaderFooter.reuseIdentifier)
     }
 

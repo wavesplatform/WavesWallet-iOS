@@ -78,7 +78,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
 
 private extension AssetListInteractor {
     func getCachedAssets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
-        if cachedAssets.isNotEmpty {
+        if !cachedAssets.isEmpty {
             return Observable.just(cachedAssets)
         }
         return accountBalanceInteractor
@@ -151,7 +151,7 @@ private extension AssetListInteractor {
     }
     
     func isValidSearch(name: String, searchText: String) -> Bool {
-        let searchWords = searchText.components(separatedBy: " ").filter { $0.isNotEmpty }
+        let searchWords = searchText.components(separatedBy: " ").filter { !$0.isEmpty }
         
         var validations: [Bool] = []
         for word in searchWords {

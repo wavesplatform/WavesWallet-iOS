@@ -6,22 +6,20 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
+import Extensions
 import Foundation
+import RxCocoa
 import RxFeedback
 import RxSwift
-import RxSwiftExt
-import RxCocoa
-import WavesSDKExtensions
 import WavesSDK
-import Extensions
-import DomainLayer
+import WavesSDKExtensions
 
 private struct Constants {
     static let shiftIndexInLenght: Int = 1
 }
 
 private struct OrderQuery: Equatable {
-
     let order: DomainLayer.DTO.Dex.MyOrder
 
     static func == (lhs: OrderQuery, rhs: OrderQuery) -> Bool {
@@ -32,13 +30,13 @@ private struct OrderQuery: Equatable {
 private typealias Types = TransactionCard
 
 final class TransactionCardSystem: System<TransactionCard.State, TransactionCard.Event> {
-
     private let kind: TransactionCard.Kind
 
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
-    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol =
+        UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let orderbookInteractor = UseCasesFactory.instance.oderbook
 
     init(kind: TransactionCard.Kind) {
@@ -46,7 +44,6 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     }
 
     override func initialState() -> State! {
-
         let core: State.Core = .init(kind: kind,
                                      contacts: .init(),
                                      showingAllRecipients: false,
@@ -54,8 +51,6 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
                                      action: .none)
 
         let sections = section(by: core)
-        
-        
 
         return State(ui: .init(sections: sections,
                                title: "",
@@ -68,9 +63,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     }
 
     override func reduce(event: Event, state: inout State) {
-
         switch event {
-
         case .showAllRecipients:
 
             guard let transaction = state.core.kind.transaction else { return }
@@ -82,27 +75,30 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
             guard let lastMassReceivedRowIndex = state.ui.findLastMassReceivedRowIndex() else { return }
 
             let lastRowAddress = lastMassReceivedRowModel.contactDetail.address
-            
+
             guard let transferIndex = massTransferAny.findTransferIndex(by: lastRowAddress) else { return }
 
-
             let count = max(0, massTransferAny.transfers.count)
-            let results = massTransferAny.transfers[(transferIndex + Constants.shiftIndexInLenght)..<count]
+            let results = massTransferAny.transfers[(transferIndex + Constants.shiftIndexInLenght) ..< count]
 
             let newRows = results
                 .enumerated()
-                .map { $0.element.createTransactionCardMassSentRecipientModel(currency: massTransferAny.total.currency,
-                                                                              number: lastMassReceivedRowIndex + $0.offset + Constants.shiftIndexInLenght * 2,
-                                                                              core: state.core) }
+                .map {
+                    $0.element
+                        .createTransactionCardMassSentRecipientModel(
+                            currency: massTransferAny.total.currency,
+                            number: lastMassReceivedRowIndex + $0.offset + Constants.shiftIndexInLenght * 2,
+                            core: state.core)
+                }
                 .map { Types.Row.massSentRecipient($0) }
 
-            let insertIndexPaths = [Int](0..<count).map {
-                return IndexPath(row: $0 + lastMassReceivedRowIndex + Constants.shiftIndexInLenght, section: 0)
+            let insertIndexPaths = [Int](0 ..< count).map {
+                IndexPath(row: $0 + lastMassReceivedRowIndex + Constants.shiftIndexInLenght, section: 0)
             }
 
             var newRowsAtSection = section.rows
 
-            newRowsAtSection = newRowsAtSection.filter { (row) -> Bool in
+            newRowsAtSection = newRowsAtSection.filter { row -> Bool in
                 if case .showAll = row {
                     return false
                 }
@@ -110,14 +106,17 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
                 return true
             }
 
-            let deleteIndexPaths = section.rows.enumerated().filter { (offset, element) -> Bool in
-                if case .showAll = element {
-                    return true
-                }
+            let deleteIndexPaths = section
+                .rows
+                .enumerated()
+                .filter { _, element -> Bool in
+                    if case .showAll = element {
+                        return true
+                    }
 
-                return false
-            }
-            .map { IndexPath(row: $0.offset , section: 0) }
+                    return false
+                }
+                .map { IndexPath(row: $0.offset, section: 0) }
 
             newRowsAtSection.insert(contentsOf: newRows, at: lastMassReceivedRowIndex + Constants.shiftIndexInLenght)
 
@@ -128,28 +127,28 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
                                           insertIndexPaths: insertIndexPaths,
                                           deleteIndexPaths: deleteIndexPaths)
 
-        case .addContact(let contact):
+        case let .addContact(contact):
 
             state.core.contacts[contact.address] = .contact(contact)
             let sections = section(by: state.core)
             state.ui.sections = sections
             state.ui.action = .update
 
-        case .deleteContact(let contact):
+        case let .deleteContact(contact):
 
             state.core.contacts[contact.address] = .deleted
             let sections = section(by: state.core)
             state.ui.sections = sections
             state.ui.action = .update
 
-        case .editContact(let contact):
+        case let .editContact(contact):
 
             state.core.contacts[contact.address] = .contact(contact)
             let sections = section(by: state.core)
             state.ui.sections = sections
             state.ui.action = .update
 
-        case .updateFeeByOrder(let fee):
+        case let .updateFeeByOrder(fee):
 
             guard var section = state.ui.sections.first else { return }
 
@@ -184,12 +183,12 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
             order.status = .cancelled
             state.core.kind = .order(order)
             state.core.action = .none
-            
+
             let sections = section(by: state.core)
             state.ui.sections = sections
             state.ui.action = .didCancelOrder
 
-        case .handlerError(let error):
+        case let .handlerError(error):
 
             state.core.action = .none
 
@@ -202,10 +201,9 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     }
 }
 
-fileprivate extension Types.State.UI {
-
+private extension Types.State.UI {
     func findLastMassReceivedRowModel() -> TransactionCardMassSentRecipientCell.Model? {
-        if let last = receivedRowsAny.last, case .massSentRecipient(let model) = last {
+        if let last = receivedRowsAny.last, case let .massSentRecipient(model) = last {
             return model
         }
 
@@ -213,8 +211,7 @@ fileprivate extension Types.State.UI {
     }
 
     func findLastMassReceivedRowIndex() -> Int? {
-
-        let list = rows.enumerated().filter { (element, model) -> Bool in
+        let list = rows.enumerated().filter { (_, model) -> Bool in
 
             switch model {
             case .massSentRecipient:
@@ -222,7 +219,6 @@ fileprivate extension Types.State.UI {
 
             default:
                 return false
-
             }
         }
 
@@ -230,27 +226,24 @@ fileprivate extension Types.State.UI {
     }
 
     var receivedRowsAnyModel: [TransactionCardMassSentRecipientCell.Model] {
-
-        return rows.map({ (row) -> TransactionCardMassSentRecipientCell.Model? in
+        return rows.map { (row) -> TransactionCardMassSentRecipientCell.Model? in
 
             switch row {
-            case .massSentRecipient(let model):
+            case let .massSentRecipient(model):
                 return model
 
             default:
                 return nil
-
             }
-        })
+        }
         .compactMap { $0 }
     }
 
     var rows: [Types.Row] {
-        return self.sections.first?.rows ?? []
+        return sections.first?.rows ?? []
     }
 
     var receivedRowsAny: [Types.Row] {
-
         return rows.filter { (row) -> Bool in
             switch row {
             case .massSentRecipient:
@@ -258,49 +251,45 @@ fileprivate extension Types.State.UI {
 
             default:
                 return false
-
             }
         }
     }
 }
 
-fileprivate extension TransactionCardSystem {
-
+private extension TransactionCardSystem {
     private var calculateFeeByOrder: Feedback {
         return react(request: { (state) -> OrderQuery? in
-
-            if case .order(let order) = state.core.kind, state.core.feeBalance == nil {
+            if case let .order(order) = state.core.kind, state.core.feeBalance == nil {
                 return OrderQuery(order: order)
             } else {
                 return nil
             }
-
         }, effects: { [weak self] (query) -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
             let feeAssetId = query.order.feeAsset ?? WavesSDKConstants.wavesAssetId
-            
+
             let balance = self.getAsset(feeAssetId)
-                .flatMap({ [weak self] (asset) -> Observable<DomainLayer.DTO.Balance> in
-                    
+                .flatMap { [weak self] (asset) -> Observable<DomainLayer.DTO.Balance> in
+
                     guard let self = self else { return Observable.empty() }
-                    
+
                     let fee: Observable<DomainLayer.DTO.Balance> = { () -> Observable<Money> in
                         if let fee = query.order.fee {
                             return Observable.just(Money(fee, asset.precision))
                         } else {
                             return self.getFee(amountAsset: query.order.amountAsset.id,
-                                                  priceAsset: query.order.priceAsset.id,
-                                                  feeAsset: feeAssetId)
+                                               priceAsset: query.order.priceAsset.id,
+                                               feeAsset: feeAssetId)
                         }
                     }()
-                    .map { DomainLayer.DTO.Balance(currency: .init(title: asset.displayName,
-                                                   ticker: asset.ticker),
-                                   money: $0) }
-                    
+                        .map { DomainLayer.DTO.Balance(currency: .init(title: asset.displayName,
+                                                                       ticker: asset.ticker),
+                                                       money: $0) }
+
                     return fee
-                })
+                }
                 .map { Types.Event.updateFeeByOrder(fee: $0) }
 
             return balance.asSignal(onErrorSignalWith: .empty())
@@ -310,7 +299,7 @@ fileprivate extension TransactionCardSystem {
     private var cancelOrder: Feedback {
         return react(request: { (state) -> OrderQuery? in
 
-            if case .order(let order) = state.core.kind, case .cancelingOrder = state.core.action {
+            if case let .order(order) = state.core.kind, case .cancelingOrder = state.core.action {
                 return OrderQuery(order: order)
             } else {
                 return nil
@@ -324,16 +313,15 @@ fileprivate extension TransactionCardSystem {
                 .cancelOrder(order: query.order)
                 .map { _ in Types.Event.applyCanceledOrder }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
+                    Signal.just(.handlerError(error))
                 }
         })
     }
 
     private func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<Bool> {
-
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] (wallet) ->  Observable<Bool> in
+            .flatMap { [weak self] (wallet) -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
                 return self
                     .dexOrderBookRepository
@@ -341,10 +329,10 @@ fileprivate extension TransactionCardSystem {
                                  orderId: order.id,
                                  amountAsset: order.amountAsset.id,
                                  priceAsset: order.priceAsset.id)
-                    .flatMap({ (status) -> Observable<Bool> in
-                        return Observable.just(true)
-                    })
-        })
+                    .flatMap { (_) -> Observable<Bool> in
+                        Observable.just(true)
+                    }
+            }
     }
 
     private func getFee(amountAsset: String,
@@ -352,40 +340,40 @@ fileprivate extension TransactionCardSystem {
                         feeAsset: String) -> Observable<Money> {
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Money> in
+            .flatMap { [weak self] (wallet) -> Observable<Money> in
                 guard let self = self else { return Observable.empty() }
                 return self.orderbookInteractor.orderSettingsFee()
-                    .flatMap({ [weak self] (orderSettingsFee) ->  Observable<Money> in
+                    .flatMap { [weak self] (orderSettingsFee) -> Observable<Money> in
                         guard let self = self else { return Observable.empty() }
                         return self.transactionsInteractor
-                            
-                            //TODO: need update feeAssetId to correct calculation when api will be available for matcher
+
+                            // TODO: need update feeAssetId to correct calculation when api will be available for matcher
                             .calculateFee(by: .createOrder(amountAsset: amountAsset,
                                                            priceAsset: priceAsset,
                                                            settingsOrderFee: orderSettingsFee,
                                                            feeAssetId: feeAsset),
                                           accountAddress: wallet.address)
-                    })
-            })
+                    }
+            }
     }
 
     private func getAsset(_ assetID: String) -> Observable<DomainLayer.DTO.Asset> {
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] (wallet) ->  Observable<DomainLayer.DTO.Asset> in
+            .flatMap { [weak self] (wallet) -> Observable<DomainLayer.DTO.Asset> in
                 guard let self = self else { return Observable.empty() }
-                return  self
+                return self
                     .assetsInteractor
                     .assets(by: [assetID],
                             accountAddress: wallet.address)
                     .map { $0.first }
-                    .filterNil()
-            })
+                    .filter { $0 != nil }
+                    .map { $0! }
+            }
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction.MassTransfer {
-
+private extension DomainLayer.DTO.SmartTransaction.MassTransfer {
     func findTransfer(by address: String) -> DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer? {
         return transfers.first { $0.recipient.address == address }
     }
@@ -399,29 +387,25 @@ fileprivate extension DomainLayer.DTO.SmartTransaction.MassTransfer {
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction {
-
+private extension DomainLayer.DTO.SmartTransaction {
     var massTransferAny: MassTransfer? {
-
         switch kind {
-        case .massSent(let massTransfer):
+        case let .massSent(massTransfer):
             return massTransfer
 
         default:
             return nil
-
         }
     }
 }
 
 extension TransactionCardSystem {
-
-    func section(by core: TransactionCard.State.Core) -> [TransactionCard.Section]  {
+    func section(by core: TransactionCard.State.Core) -> [TransactionCard.Section] {
         switch core.kind {
-        case .transaction(let tx):
+        case let .transaction(tx):
             return tx.sections(core: core)
 
-        case .order(let order):
+        case let .order(order):
             return order.sections(core: core)
         }
     }

@@ -6,12 +6,12 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import Foundation
-import WavesSDKCrypto
-import RxSwift
-import Moya
 import DomainLayer
+import Foundation
+import Moya
+import RxSwift
 import WavesSDK
+import WavesSDKCrypto
 
 private enum Constants {
     static let sessionLifeTime: Int64 = 1200000
@@ -31,7 +31,6 @@ private struct TransferBindingResponse: Codable {
 }
 
 private struct RegisterOrderResponse: Codable {
-
     struct AuthenticationData: Codable {
         let sciName: String
         let accountEmail: String
@@ -54,7 +53,6 @@ private struct RegisterOrderResponse: Codable {
 }
 
 final class WEGatewayRepository: WEGatewayRepositoryProtocol {
-    
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     
@@ -66,11 +64,11 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
         self.developmentConfigsRepository = developmentConfigsRepository
     }
     
-    func transferBinding(request: DomainLayer.Query.WEGateway.TransferBinding) -> Observable<DomainLayer.DTO.WEGateway.TransferBinding> {
-        
-        return Observable.zip(environmentRepository.servicesEnvironment(),
-                              developmentConfigsRepository.developmentConfigs())
-            .flatMap({ [weak self] (servicesEnvironment, developmentConfigs) ->  Observable<DomainLayer.DTO.WEGateway.TransferBinding> in
+    func transferBinding(request: DomainLayer.Query.WEGateway.TransferBinding)
+        -> Observable<DomainLayer.DTO.WEGateway.TransferBinding> {
+        Observable.zip(environmentRepository.servicesEnvironment(), developmentConfigsRepository.developmentConfigs())
+            .flatMap { [weak self] servicesEnvironment, developmentConfigs
+                -> Observable<DomainLayer.DTO.WEGateway.TransferBinding> in
                 guard let self = self else { return Observable.empty() }
                 
                 let url = servicesEnvironment.walletEnvironment.servers.gateways.v2
@@ -89,20 +87,22 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(TransferBindingResponse.self)
-                    .map { DomainLayer.DTO.WEGateway.TransferBinding(addresses: $0.addresses,
-                                                                     amountMin: $0.amount_min.decodeInt64FromBase64(),
-                                                                     amountMax: $0.amount_max.decodeInt64FromBase64(),
-                                                                     taxRate: $0.tax_rate,
-                                                                     taxFlat: $0.tax_flat.decodeInt64FromBase64()) }
+                    .map {
+                        DomainLayer.DTO.WEGateway.TransferBinding(addresses: $0.addresses,
+                                                                  amountMin: $0.amount_min.decodeInt64FromBase64(),
+                                                                  amountMax: $0.amount_max.decodeInt64FromBase64(),
+                                                                  taxRate: $0.tax_rate,
+                                                                  taxFlat: $0.tax_flat.decodeInt64FromBase64())
+                    }
                     .asObservable()
-            })
+            }
     }
     
-    func adCashDepositsRegisterOrder(request: DomainLayer.Query.WEGateway.RegisterOrder) -> Observable<DomainLayer.DTO.WEGateway.Order> {
-        
-        return environmentRepository
+    func adCashDepositsRegisterOrder(request: DomainLayer.Query.WEGateway.RegisterOrder)
+        -> Observable<DomainLayer.DTO.WEGateway.Order> {
+        environmentRepository
             .servicesEnvironment()
-            .flatMap({ [weak self] (servicesEnvironment) ->  Observable<DomainLayer.DTO.WEGateway.Order> in
+            .flatMap { [weak self] servicesEnvironment -> Observable<DomainLayer.DTO.WEGateway.Order> in
                 guard let self = self else { return Observable.empty() }
                 
                 let url = servicesEnvironment.walletEnvironment.servers.gateways.v2
@@ -124,59 +124,54 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(RegisterOrderResponse.self)
-                    .catchError({ (ERROR) -> PrimitiveSequence<SingleTrait, RegisterOrderResponse> in
-                        print(ERROR)
-                        return Single.never()
-                    })
-                    .map({ (response) -> DomainLayer.DTO.WEGateway.Order? in
-                        guard let url = response.createAdCashUrl(amount: amount,
-                                                                 currency: Constants.currencyForLink)
-                            else { return nil }
-                        
+                    .catchError { _ -> PrimitiveSequence<SingleTrait, RegisterOrderResponse> in
+                        // это нормально?
+                        Single.never()
+                    }
+                    .map { response -> DomainLayer.DTO.WEGateway.Order? in
+                        guard let url = response.createAdCashUrl(amount: amount, currency: Constants.currencyForLink) else {
+                            return nil
+                        }
                         
                         return DomainLayer.DTO.WEGateway.Order(url: url)
-                    })
-                    .flatMap({ (order) -> Single<DomainLayer.DTO.WEGateway.Order> in
-                        guard let order = order else { return Single.error(NetworkError.notFound)}
+                    }
+                    .flatMap { order -> Single<DomainLayer.DTO.WEGateway.Order> in
+                        guard let order = order else { return Single.error(NetworkError.notFound) }
                         return Single.just(order)
-                    })
+                    }
                     .asObservable()
-            })
-    }    
+            }
+    }
 }
 
 private extension RegisterOrderResponse {
- 
-        func createAdCashUrl(amount: Decimal,
-                             currency: String) -> URL? {
-                
-            
-            let accountEmail: String = authenticationData.accountEmail
-            let acSciName: String = authenticationData.sciName
-            let acSign: String = authenticationData.signature
-            let acAmount: String = String(format: "%.2f", amount.floatValue)
-            let acOrderId: String = orderId
-            let acCurrency: String = currency
-            let acSuccessUrl: String = DomainLayerConstants.URL.fiatDepositSuccess
-            let acFailUrl: String = DomainLayerConstants.URL.fiatDepositFail
-         
-            var params: [String: String] = .init()
-            params["ac_account_email"] = accountEmail
-            params["ac_sci_name"] = acSciName
-            params["ac_sign"] = acSign
-            params["ac_amount"] = acAmount
-            params["ac_order_id"] = acOrderId
-            params["ac_currency"] = acCurrency
-            params["ac_success_url"] = acSuccessUrl
-            params["ac_fail_url"] = acFailUrl
-           
-            var components = URLComponents(string: DomainLayerConstants.URL.advcash)
-            components?.queryItems = params.map {
-                 URLQueryItem(name: $0, value: $1)
-            }
-            
-            let url = components?.url
-            
-            return url
+    func createAdCashUrl(amount: Decimal, currency: String) -> URL? {
+        let accountEmail = authenticationData.accountEmail
+        let acSciName = authenticationData.sciName
+        let acSign = authenticationData.signature
+        let acAmount = String(format: "%.2f", amount.floatValue)
+        let acOrderId = orderId
+        let acCurrency = currency
+        let acSuccessUrl = DomainLayerConstants.URL.fiatDepositSuccess
+        let acFailUrl = DomainLayerConstants.URL.fiatDepositFail
+        
+        var params: [String: String] = .init()
+        params["ac_account_email"] = accountEmail
+        params["ac_sci_name"] = acSciName
+        params["ac_sign"] = acSign
+        params["ac_amount"] = acAmount
+        params["ac_order_id"] = acOrderId
+        params["ac_currency"] = acCurrency
+        params["ac_success_url"] = acSuccessUrl
+        params["ac_fail_url"] = acFailUrl
+        
+        var components = URLComponents(string: DomainLayerConstants.URL.advcash)
+        components?.queryItems = params.map {
+            URLQueryItem(name: $0, value: $1)
         }
+        
+        let url = components?.url
+        
+        return url
+    }
 }

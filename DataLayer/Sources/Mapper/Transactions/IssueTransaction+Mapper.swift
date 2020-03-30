@@ -6,13 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
+import Foundation
+import WavesSDK
+import WavesSDKExtensions
 
 extension IssueTransaction {
-
     convenience init(transaction: DomainLayer.DTO.IssueTransaction) {
         self.init()
         type = transaction.type
@@ -41,9 +40,9 @@ extension IssueTransaction {
 }
 
 extension DomainLayer.DTO.IssueTransaction {
-
-    init(transaction: NodeService.DTO.IssueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-
+    init(transaction: NodeService.DTO.IssueTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -67,7 +66,6 @@ extension DomainLayer.DTO.IssueTransaction {
     }
 
     init(transaction: IssueTransaction) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,

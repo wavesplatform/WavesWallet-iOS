@@ -6,82 +6,80 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
 import DomainLayer
 import Extensions
+import Foundation
 
-private struct Constants {
-    static let maxVisibleRecipients: Int = 3    
+private enum Constants {
+    static let maxVisibleRecipients: Int = 3
 }
 
-fileprivate typealias Types = TransactionCard
+private typealias Types = TransactionCard
 
 extension DomainLayer.DTO.SmartTransaction {
-
     func sections(core: TransactionCard.State.Core) -> [TransactionCard.Section] {
-
-        switch self.kind {
-        case .sent(let transfer):
+        switch kind {
+        case let .sent(transfer):
             return sentSection(transfer: transfer, core: core)
-            
-        case .receive(let transfer):
+
+        case let .receive(transfer):
             return receiveSection(transfer: transfer, core: core)
 
-        case .spamReceive(let transfer):
+        case let .spamReceive(transfer):
             return spamReceiveSection(transfer: transfer, core: core)
 
-        case .selfTransfer(let transfer):
+        case let .selfTransfer(transfer):
             return selfTransferSection(transfer: transfer, core: core)
 
-        case .massSent(let transfer):
+        case let .massSent(transfer):
             return massSentSection(transfer: transfer, core: core)
 
-        case .massReceived(let massReceive):
+        case let .massReceived(massReceive):
             return massReceivedSection(transfer: massReceive, core: core)
 
-        case .spamMassReceived(let massReceive):
+        case let .spamMassReceived(massReceive):
             return massReceivedSection(transfer: massReceive, core: core)
 
-        case .startedLeasing(let leasing):
+        case let .startedLeasing(leasing):
             return leasingSection(transfer: leasing,
                                   title: Localizable.Waves.Transactioncard.Title.startedLeasing,
                                   titleContact: Localizable.Waves.Transactioncard.Title.nodeAddress,
                                   needCancelLeasing: true,
                                   core: core)
 
-        case .canceledLeasing(let leasing):
+        case let .canceledLeasing(leasing):
             return leasingSection(transfer: leasing,
                                   title: Localizable.Waves.Transactioncard.Title.canceledLeasing,
                                   titleContact: Localizable.Waves.Transactioncard.Title.nodeAddress,
                                   needCancelLeasing: false,
                                   core: core)
 
-        case .incomingLeasing(let leasing):
+        case let .incomingLeasing(leasing):
             return leasingSection(transfer: leasing,
                                   title: Localizable.Waves.Transactioncard.Title.incomingLeasing,
                                   titleContact: Localizable.Waves.Transactioncard.Title.leasingFrom,
                                   needCancelLeasing: false,
                                   core: core)
 
-        case .exchange(let exchange):
+        case let .exchange(exchange):
             return exchangeSection(transfer: exchange)
 
-        case .tokenGeneration(let issue):
+        case let .tokenGeneration(issue):
             return issueSection(transfer: issue,
                                 title: Localizable.Waves.Transactioncard.Title.tokenGeneration,
                                 balanceSign: .none)
 
-        case .tokenBurn(let issue):
+        case let .tokenBurn(issue):
             return issueSection(transfer: issue,
                                 title: Localizable.Waves.Transactioncard.Title.tokenBurn,
                                 balanceSign: .minus)
 
-        case .tokenReissue(let issue):
+        case let .tokenReissue(issue):
             return issueSection(transfer: issue,
                                 title: Localizable.Waves.Transactioncard.Title.tokenReissue,
                                 balanceSign: .plus)
 
-        case .createdAlias(let alias):
+        case let .createdAlias(alias):
             return deffaultSection(title: Localizable.Waves.Transactioncard.Title.createAlias,
                                    description: alias)
 
@@ -93,20 +91,21 @@ extension DomainLayer.DTO.SmartTransaction {
             return deffaultSection(title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
                                    description: Localizable.Waves.Transactioncard.Title.dataTransaction)
 
-        case .script(let isHasScript):
+        case let .script(isHasScript):
 
-            let description = isHasScript == true ? Localizable.Waves.Transactioncard.Title.setScriptTransaction : Localizable.Waves.Transactioncard.Title.cancelScriptTransaction
+            let description = isHasScript ? Localizable.Waves.Transactioncard.Title.setScriptTransaction :
+                Localizable.Waves.Transactioncard.Title.cancelScriptTransaction
 
             return deffaultSection(title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
                                    description: description)
 
-        case .assetScript(let asset):
+        case let .assetScript(asset):
             return setAssetScriptSection(asset: asset)
 
-        case .sponsorship(let isEnabled, let asset):
+        case let .sponsorship(isEnabled, asset):
             return sponsorshipSection(asset: asset, isEnabled: isEnabled)
-            
-        case .invokeScript(let tx):
+
+        case let .invokeScript(tx):
             return invokeScriptSection(tx: tx,
                                        title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
                                        subTitle: Localizable.Waves.Transactioncard.Title.scriptInvocation)
@@ -114,22 +113,22 @@ extension DomainLayer.DTO.SmartTransaction {
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction {
+private extension DomainLayer.DTO.SmartTransaction {
     // MARK: - Sent Sections
 
-    func sentSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
-
-        return transferSection(transfer: transfer,
-                               generalTitle: Localizable.Waves.Transactioncard.Title.sent,
-                               addressTitle: Localizable.Waves.Transactioncard.Title.sentTo,
-                               balanceSign: .minus,
-                               core: core,
-                               needSendAgain: transfer.asset.isGateway == false)
+    func sentSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) -> [Types.Section] {
+        transferSection(transfer: transfer,
+                        generalTitle: Localizable.Waves.Transactioncard.Title.sent,
+                        addressTitle: Localizable.Waves.Transactioncard.Title.sentTo,
+                        balanceSign: .minus,
+                        core: core,
+                        needSendAgain: transfer.asset.isGateway == false)
     }
 
     // MARK: - Receive Sections
-    func receiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
 
+    func receiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
+                        core: TransactionCard.State.Core) -> [Types.Section] {
         if transfer.hasSponsorship {
             return receivedSponsorshipSection(transfer: transfer)
         }
@@ -142,48 +141,51 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - SpamReceive Sections
-    func spamReceiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
 
-        return transferSection(transfer: transfer,
-                               generalTitle: Localizable.Waves.Transactioncard.Title.spamReceived,
-                               addressTitle: Localizable.Waves.Transactioncard.Title.receivedFrom,
-                               balanceSign: .plus,
-                               core: core)
+    func spamReceiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
+                            core: TransactionCard.State.Core) -> [Types.Section] {
+        transferSection(transfer: transfer,
+                        generalTitle: Localizable.Waves.Transactioncard.Title.spamReceived,
+                        addressTitle: Localizable.Waves.Transactioncard.Title.receivedFrom,
+                        balanceSign: .plus,
+                        core: core)
     }
 
     // MARK: - SelfTransfer Sections
-    func selfTransferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
 
-        return transferSection(transfer: transfer,
-                               generalTitle: Localizable.Waves.Transactioncard.Title.selfTransfer,
-                               addressTitle: Localizable.Waves.Transactioncard.Title.receivedFrom,
-                               balanceSign: .plus,
-                               core: core)
+    func selfTransferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
+                             core: TransactionCard.State.Core) -> [Types.Section] {
+        transferSection(transfer: transfer,
+                        generalTitle: Localizable.Waves.Transactioncard.Title.selfTransfer,
+                        addressTitle: Localizable.Waves.Transactioncard.Title.receivedFrom,
+                        balanceSign: .plus,
+                        core: core)
     }
 
     // MARK: - Sponsorship Sections
-    func sponsorshipSection(asset: DomainLayer.DTO.SmartTransaction.Asset,
-                            isEnabled: Bool) ->  [Types.Section] {
 
+    func sponsorshipSection(asset: DomainLayer.DTO.SmartTransaction.Asset,
+                            isEnabled: Bool) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
-        let title = isEnabled == true ? Localizable.Waves.Transactioncard.Title.setSponsorship : Localizable.Waves.Transactioncard.Title.disableSponsorship
+        let title = isEnabled ? Localizable.Waves.Transactioncard.Title.setSponsorship :
+            Localizable.Waves.Transactioncard.Title.disableSponsorship
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
                                                                info: .descriptionLabel(asset.displayName))
 
-        rows.append(contentsOf:[.general(rowGeneralModel)])
+        rows.append(contentsOf: [.general(rowGeneralModel)])
 
-        let rowAssetModel = TransactionCardAssetDetailCell.Model.init(assetId: asset.id,
-                                                                      isReissuable: nil)
+        let rowAssetModel = TransactionCardAssetDetailCell.Model(assetId: asset.id,
+                                                                 isReissuable: nil)
 
         rows.append(.assetDetail(rowAssetModel))
 
         let balance = DomainLayer.DTO.Balance(currency: .init(title: asset.displayName,
-                                              ticker: asset.ticker),
-                              money: Money(asset.minSponsoredFee,
-                                           asset.precision))
+                                                              ticker: asset.ticker),
+                                              money: Money(asset.minSponsoredFee,
+                                                           asset.precision))
 
         if isEnabled {
             let rowSponsorshipModel = TransactionCardSponsorshipDetailCell
@@ -196,22 +198,17 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
-
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-
-
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.keyValue(rowBlockModel()),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -219,16 +216,16 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - Set Asset Script Sections
-    func setAssetScriptSection(asset: DomainLayer.DTO.SmartTransaction.Asset) ->  [Types.Section] {
 
+    func setAssetScriptSection(asset: DomainLayer.DTO.SmartTransaction.Asset) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
-        let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
-                                                               title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
-                                                               info: .descriptionLabel(Localizable.Waves.Transactioncard.Title.setAssetScript))
+        let rowGeneralModel = TransactionCardGeneralCell.Model(
+            image: kind.image,
+            title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
+            info: .descriptionLabel(Localizable.Waves.Transactioncard.Title.setAssetScript))
 
-
-        let rowAssetModel = TransactionCardAssetCell.Model.init(asset: asset)
+        let rowAssetModel = TransactionCardAssetCell.Model(asset: asset)
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
@@ -236,16 +233,15 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-        rows.append(contentsOf:[.general(rowGeneralModel),
-                                .asset(rowAssetModel),
-                                .keyValue(self.rowBlockModel()),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.general(rowGeneralModel),
+                                 .asset(rowAssetModel),
+                                 .keyValue(rowBlockModel()),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -253,10 +249,9 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - Received Sponsorship Sections
-    func receivedSponsorshipSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer) ->  [Types.Section] {
 
+    func receivedSponsorshipSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer) -> [Types.Section] {
         var rows: [Types.Row] = .init()
-
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: Localizable.Waves.Transactioncard.Title.receivedSponsorship,
@@ -264,15 +259,15 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                                                                                     sign: .plus,
                                                                                     style: .large)))
 
-        rows.append(contentsOf:[.general(rowGeneralModel)])
+        rows.append(contentsOf: [.general(rowGeneralModel)])
 
-        let rowAssetModel = TransactionCardAssetDetailCell.Model.init(assetId: transfer.asset.id,
-                                                                      isReissuable: nil)
+        let rowAssetModel = TransactionCardAssetDetailCell.Model(assetId: transfer.asset.id,
+                                                                 isReissuable: nil)
 
         rows.append(.assetDetail(rowAssetModel))
 
-        if let attachment = transfer.attachment, attachment.count > 0 {
-            let rowDescriptionModel = TransactionCardDescriptionCell.Model.init(description: attachment)
+        if let attachment = transfer.attachment, !attachment.isEmpty {
+            let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
         }
 
@@ -282,56 +277,55 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-
-
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.keyValue(rowBlockModel()),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
         return [section]
     }
 
-    // MARK - invokescript
-    func invokeScriptSection(tx: DomainLayer.DTO.SmartTransaction.InvokeScript, title: String, subTitle: String) -> [Types.Section] {
+    // MARK: - invokescript
+
+    func invokeScriptSection(tx: DomainLayer.DTO.SmartTransaction.InvokeScript,
+                             title: String,
+                             subTitle: String) -> [Types.Section] {
         var rows: [Types.Row] = .init()
-        
+
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
                                                                info: .descriptionLabel(subTitle))
-        
+
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
-        
+
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
-        
+
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-        rows.append(contentsOf:[.general(rowGeneralModel),
-                                .invokeScript(tx),
-                                .keyValue(self.rowBlockModel()),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-        
-        
+        rows.append(contentsOf: [.general(rowGeneralModel),
+                                 .invokeScript(tx),
+                                 .keyValue(rowBlockModel()),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
+
         let section = Types.Section(rows: rows)
-        
+
         return [section]
     }
 
     // MARK: - Deffault Sections
-    func deffaultSection(title: String,
-                         description: String) ->  [Types.Section] {
 
+    func deffaultSection(title: String,
+                         description: String) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
@@ -344,16 +338,15 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-        rows.append(contentsOf:[.general(rowGeneralModel),
-                                .dashedLine(.nonePadding),
-                                .keyValue(self.rowBlockModel()),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.general(rowGeneralModel),
+                                 .dashedLine(.nonePadding),
+                                 .keyValue(rowBlockModel()),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -361,12 +354,11 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - Issue Sections
+
     func issueSection(transfer: DomainLayer.DTO.SmartTransaction.Issue,
                       title: String,
-                      balanceSign: DomainLayer.DTO.Balance.Sign) ->  [Types.Section] {
-
+                      balanceSign: DomainLayer.DTO.Balance.Sign) -> [Types.Section] {
         var rows: [Types.Row] = .init()
-
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
@@ -374,36 +366,31 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                                                                                     sign: balanceSign,
                                                                                     style: .large)))
 
-        rows.append(contentsOf:[.general(rowGeneralModel)])
+        rows.append(contentsOf: [.general(rowGeneralModel)])
 
-        let rowAssetModel = TransactionCardAssetDetailCell.Model.init(assetId: transfer.asset.id,
-                                                                      isReissuable: transfer.asset.isReusable)
+        let rowAssetModel = TransactionCardAssetDetailCell.Model(assetId: transfer.asset.id,
+                                                                 isReissuable: transfer.asset.isReusable)
 
         rows.append(.assetDetail(rowAssetModel))
 
-        if let description = transfer.description, description.count > 0 {
-            let rowDescriptionModel = TransactionCardDescriptionCell.Model.init(description: description)
+        if let description = transfer.description, !description.isEmpty {
+            let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: description)
             rows.append(.description(rowDescriptionModel))
         }
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
-
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-
-
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.keyValue(rowBlockModel(isLargePadding: true)),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -411,8 +398,8 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - Exchange Sections
-    func exchangeSection(transfer: DomainLayer.DTO.SmartTransaction.Exchange) ->  [Types.Section] {
 
+    func exchangeSection(transfer: DomainLayer.DTO.SmartTransaction.Exchange) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let myOrder = transfer.myOrder
@@ -439,64 +426,59 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                                                                                     sign: sign,
                                                                                     style: .large)))
 
-        rows.append(contentsOf:[.general(rowGeneralModel)])
+        rows.append(contentsOf: [.general(rowGeneralModel)])
 
-        let rowExchangeModel = TransactionCardExchangeCell.Model.init(amount: viewModelEchange,
-                                                                      price: .init(balance: transfer.price,
-                                                                                   sign: nil,
-                                                                                   style: .small))
+        let rowExchangeModel = TransactionCardExchangeCell.Model(amount: viewModelEchange,
+                                                                 price: .init(balance: transfer.price,
+                                                                              sign: nil,
+                                                                              style: .small))
 
-        rows.append(contentsOf:[.exchange(rowExchangeModel)])
+        rows.append(contentsOf: [.exchange(rowExchangeModel)])
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
-
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
-        
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
-                                .keyValue(self.rowConfirmationsModel),
-                                .exchangeFee(self.rowExchangeFeeModel(tx: transfer)),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
 
+        rows.append(contentsOf: [.keyValue(rowBlockModel(isLargePadding: true)),
+                                 .keyValue(rowConfirmationsModel),
+                                 .exchangeFee(rowExchangeFeeModel(tx: transfer)),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
         return [section]
     }
 
-    func rowExchangeFeeModel(tx:  DomainLayer.DTO.SmartTransaction.Exchange) -> TransactionCardExchangeFeeCell.Model {
-        var fee1: BalanceLabel.Model!
+    func rowExchangeFeeModel(tx: DomainLayer.DTO.SmartTransaction.Exchange) -> TransactionCardExchangeFeeCell.Model {
+        var fee1: BalanceLabel.Model
         var fee2: BalanceLabel.Model?
-        
+
         if tx.order1.sender == tx.order2.sender {
             fee1 = BalanceLabel.Model(balance: tx.sellMatcherFee, sign: nil, style: .small)
             fee2 = BalanceLabel.Model(balance: tx.buyMatcherFee, sign: nil, style: .small)
-        }
-        else {
+        } else {
             if tx.myOrder.kind == .sell {
                 fee1 = BalanceLabel.Model(balance: tx.sellMatcherFee, sign: nil, style: .small)
-            }
-            else {
+            } else {
                 fee1 = BalanceLabel.Model(balance: tx.buyMatcherFee, sign: nil, style: .small)
             }
         }
-        
+
         return .init(fee1: fee1, fee2: fee2)
     }
-    
+
     // MARK: - Leasing Sections
+
     func leasingSection(transfer: DomainLayer.DTO.SmartTransaction.Leasing,
                         title: String,
                         titleContact: String = "",
                         needCancelLeasing: Bool,
-                        core: Types.State.Core) ->  [Types.Section] {
-
+                        core: Types.State.Core) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
@@ -505,8 +487,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                                                                                     sign: nil,
                                                                                     style: .large)))
 
-        rows.append(contentsOf:[.general(rowGeneralModel)])
-
+        rows.append(contentsOf: [.general(rowGeneralModel)])
 
         let address = transfer.account.address
 
@@ -517,36 +498,32 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let isEditName = name != nil
 
-        let rowAddressModel = TransactionCardAddressCell.Model.init(contact: contact,
-                                                                    contactDetail: .init(title: titleContact,
-                                                                                         address: address,
-                                                                                         name: name),
-                                                                    isSpam: transfer.asset.isSpam,
-                                                                    isEditName: isEditName)
+        let rowAddressModel = TransactionCardAddressCell.Model(contact: contact,
+                                                               contactDetail: .init(title: titleContact,
+                                                                                    address: address,
+                                                                                    name: name),
+                                                               isSpam: transfer.asset.isSpam,
+                                                               isEditName: isEditName)
 
-        rows.append(contentsOf:[.address(rowAddressModel)])
+        rows.append(contentsOf: [.address(rowAddressModel)])
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-        if needCancelLeasing && self.status == .activeNow {            
+        if needCancelLeasing, status == .activeNow {
             buttonsActions.append(.cancelLeasing)
         }
 
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
-
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-
-
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.keyValue(rowBlockModel(isLargePadding: true)),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -554,18 +531,18 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - Mass Received Sections
-    func massReceivedSection(transfer: DomainLayer.DTO.SmartTransaction.MassReceive,
-                             core: Types.State.Core) ->  [Types.Section] {
 
+    func massReceivedSection(transfer: DomainLayer.DTO.SmartTransaction.MassReceive,
+                             core: Types.State.Core) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
-                                                               title:  Localizable.Waves.Transactioncard.Title.massReceived,
+                                                               title: Localizable.Waves.Transactioncard.Title.massReceived,
                                                                info: .balance(.init(balance: transfer.myTotal,
                                                                                     sign: .plus,
                                                                                     style: .large)))
 
-        rows.append(contentsOf:[.general(rowGeneralModel)])
+        rows.append(contentsOf: [.general(rowGeneralModel)])
 
         let isSpam = transfer.asset.isSpam
 
@@ -581,13 +558,14 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             rows.append(.address(rowRecipientModel))
         }
 
-        if core.showingAllRecipients == false && transfer.transfers.count > Constants.maxVisibleRecipients {
-            rows.append(.showAll(TransactionCardShowAllCell.Model.init(countOtherTransactions: transfer.transfers.count - Constants.maxVisibleRecipients)))
+        if core.showingAllRecipients == false, transfer.transfers.count > Constants.maxVisibleRecipients {
+            let countOtherTransactions = transfer.transfers.count - Constants.maxVisibleRecipients
+            let model = TransactionCardShowAllCell.Model(countOtherTransactions: countOtherTransactions)
+            rows.append(.showAll(model))
         }
 
-
-        if let attachment = transfer.attachment, attachment.count > 0 {
-            let rowDescriptionModel = TransactionCardDescriptionCell.Model.init(description: attachment)
+        if let attachment = transfer.attachment, !attachment.isEmpty {
+            let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
         }
 
@@ -597,16 +575,13 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-
-
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.keyValue(rowBlockModel()),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -614,9 +589,9 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - MassSent Sections
-    func massSentSection(transfer: DomainLayer.DTO.SmartTransaction.MassTransfer,
-                         core: Types.State.Core) ->  [Types.Section] {
 
+    func massSentSection(transfer: DomainLayer.DTO.SmartTransaction.MassTransfer,
+                         core: Types.State.Core) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
@@ -625,7 +600,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                                                                                     sign: .minus,
                                                                                     style: .large)))
 
-        rows.append(contentsOf:[.general(rowGeneralModel)])
+        rows.append(contentsOf: [.general(rowGeneralModel)])
 
         var visibleTransfers: [DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer] = transfer.transfers
 
@@ -633,9 +608,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             visibleTransfers = Array(transfer.transfers.prefix(Constants.maxVisibleRecipients))
         }
 
-
         for element in visibleTransfers.enumerated() {
-
             let rowRecipientModel = element
                 .element
                 .createTransactionCardMassSentRecipientModel(currency: transfer.total.currency,
@@ -645,13 +618,14 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             rows.append(.massSentRecipient(rowRecipientModel))
         }
 
-        if core.showingAllRecipients == false  && transfer.transfers.count > Constants.maxVisibleRecipients {
-            rows.append(.showAll(TransactionCardShowAllCell.Model.init(countOtherTransactions: transfer.transfers.count - Constants.maxVisibleRecipients)))
+        if core.showingAllRecipients == false, transfer.transfers.count > Constants.maxVisibleRecipients {
+            let countOtherTransactions = transfer.transfers.count - Constants.maxVisibleRecipients
+            let model = TransactionCardShowAllCell.Model(countOtherTransactions: countOtherTransactions)
+            rows.append(.showAll(model))
         }
 
-
-        if let attachment = transfer.attachment, attachment.count > 0 {
-            let rowDescriptionModel = TransactionCardDescriptionCell.Model.init(description: attachment)
+        if let attachment = transfer.attachment, !attachment.isEmpty {
+            let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
         }
 
@@ -661,16 +635,13 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-
-
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.keyValue(rowBlockModel()),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -678,13 +649,13 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     // MARK: - Transfer Sections
+
     func transferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
                          generalTitle: String,
                          addressTitle: String,
                          balanceSign: DomainLayer.DTO.Balance.Sign,
                          core: TransactionCard.State.Core,
-                         needSendAgain: Bool = false) ->  [Types.Section] {
-
+                         needSendAgain: Bool = false) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let isSpam = transfer.asset.isSpam
@@ -698,35 +669,34 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         rows.append(.general(rowGeneralModel))
 
         if isSelfTransfer == false {
-            
             let address = transfer.recipient.address
-            
+
             let contact = core.normalizedContact(by: address,
                                                  externalContact: transfer.recipient.contact)
-            
+
             let name = contact?.name
             let isEditName = name != nil
-            
-            let rowAddressModel = TransactionCardAddressCell.Model.init(contact: contact,
-                                                                        contactDetail: .init(title: addressTitle,
-                                                                                             address: address,
-                                                                                             name: name),
-                                                                        isSpam: isSpam,
-                                                                        isEditName: isEditName)
+
+            let rowAddressModel = TransactionCardAddressCell.Model(contact: contact,
+                                                                   contactDetail: .init(title: addressTitle,
+                                                                                        address: address,
+                                                                                        name: name),
+                                                                   isSpam: isSpam,
+                                                                   isEditName: isEditName)
             rows.append(.address(rowAddressModel))
         }
-        
+
         var isLargePadding: Bool = true
 
-        if let attachment = transfer.attachment, attachment.count > 0 {
-            let rowDescriptionModel = TransactionCardDescriptionCell.Model.init(description: attachment)
+        if let attachment = transfer.attachment, !attachment.isEmpty {
+            let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
             isLargePadding = false
         }
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-        if needSendAgain && self.status == .completed {
+        if needSendAgain, status == .completed {
             buttonsActions.append(.sendAgain)
         }
 
@@ -734,16 +704,13 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
-
-
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: isLargePadding)),
-                                .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
-                                .keyValue(self.rowTimestampModel),
-                                .status(self.rowStatusModel),
-                                .dashedLine(.topPadding),
-                                .actions(rowActionsModel)])
-
+        rows.append(contentsOf: [.keyValue(rowBlockModel(isLargePadding: isLargePadding)),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
 
         let section = Types.Section(rows: rows)
 
@@ -761,26 +728,27 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
     var rowConfirmationsModel: TransactionCardKeyValueCell.Model {
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations,
-                                                 value: "\(String(describing: confirmationHeight))",
-                                                 style: .init(padding: .normalPadding, textColor: .black))
+        TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations,
+                                          value: "\(String(describing: confirmationHeight))",
+                                          style: .init(padding: .normalPadding, textColor: .black))
     }
 
     var rowFeeModel: TransactionCardKeyBalanceCell.Model {
-        return TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee,
-                                                   value: BalanceLabel.Model(balance: self.totalFee,
-                                                                             sign: nil,
-                                                                             style: .small),
-                                                   style: .normalPadding)
+        TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee,
+                                            value: BalanceLabel.Model(balance: totalFee,
+                                                                      sign: nil,
+                                                                      style: .small),
+                                            style: .normalPadding)
     }
 
     var rowTimestampModel: TransactionCardKeyValueCell.Model {
-
         let formatter = DateFormatter.uiSharedFormatter(key: TransactionCard.Constants.transactionCardDateFormatterKey)
         formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: timestamp)
 
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue, style: .init(padding: .normalPadding, textColor: .black))
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp,
+                                                 value: timestampValue,
+                                                 style: .init(padding: .normalPadding, textColor: .black))
     }
 
     var rowStatusModel: TransactionCardStatusCell.Model {
@@ -798,11 +766,9 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 }
 
 extension Types.State.Core {
-
     func normalizedContact(by address: String, externalContact: DomainLayer.DTO.Contact?) -> DomainLayer.DTO.Contact? {
-
         if let mutation = contacts[address] {
-            if case .contact(let newContact) = mutation {
+            if case let .contact(newContact) = mutation {
                 return newContact
             } else {
                 return nil
@@ -814,9 +780,7 @@ extension Types.State.Core {
 }
 
 extension DomainLayer.DTO.SmartTransaction.MassReceive.Transfer {
-
     func createTransactionCardAddressCell(isSpam: Bool, core: TransactionCard.State.Core) -> TransactionCardAddressCell.Model {
-
         let address = recipient.address
 
         let contact = core.normalizedContact(by: address,
@@ -827,59 +791,49 @@ extension DomainLayer.DTO.SmartTransaction.MassReceive.Transfer {
 
         let addressTitle = Localizable.Waves.Transactioncard.Title.receivedFrom
 
-        let rowRecipientModel = TransactionCardAddressCell.Model
-            .init(contact: recipient.contact,
-                  contactDetail: .init(title: addressTitle,
-                                       address: address,
-                                       name: name),
-                  isSpam: isSpam,
-                  isEditName: isEditName)
+        let contactDetail = ContactDetailView.Model(title: addressTitle, address: address, name: name)
+        let rowRecipientModel = TransactionCardAddressCell.Model(contact: recipient.contact,
+                                                                 contactDetail: contactDetail,
+                                                                 isSpam: isSpam,
+                                                                 isEditName: isEditName)
 
         return rowRecipientModel
     }
 }
 
 extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
-
     func createTransactionCardMassSentRecipientModel(currency: DomainLayer.DTO.Balance.Currency,
                                                      number: Int,
-                                                     core: TransactionCard.State.Core) -> TransactionCardMassSentRecipientCell.Model {
-
+                                                     core: TransactionCard.State.Core)
+        -> TransactionCardMassSentRecipientCell.Model {
         let address = recipient.address
 
-        let contact = core.normalizedContact(by: address,
-                                             externalContact: recipient.contact)
+        let contact = core.normalizedContact(by: address, externalContact: recipient.contact)
 
         let name = contact?.name
         let isEditName = name != nil
 
-        let balance = DomainLayer.DTO.Balance(currency: currency,
-                              money: amount)
+        let balance = DomainLayer.DTO.Balance(currency: currency, money: amount)
 
         let addressTitle = Localizable.Waves.Transactioncard.Title.recipient("\(number)")
 
-        let rowRecipientModel = TransactionCardMassSentRecipientCell.Model
-            .init(contact: contact,
-                  contactDetail: .init(title: addressTitle,
-                                       address: address,
-                                       name: name),
-                  balance: .init(balance: balance,
-                                 sign: nil,
-                                 style: .small),
-                  isEditName: isEditName)
+        let contactDetail = ContactDetailView.Model(title: addressTitle, address: address, name: name)
+        let balanceModel = BalanceLabel.Model(balance: balance, sign: nil, style: .small)
+        let rowRecipientModel = TransactionCardMassSentRecipientCell.Model(contact: contact,
+                                                                           contactDetail: contactDetail,
+                                                                           balance: balanceModel,
+                                                                           isEditName: isEditName)
 
         return rowRecipientModel
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction {
-
+private extension DomainLayer.DTO.SmartTransaction {
     var isSelfTransfer: Bool {
-       
         switch kind {
         case .selfTransfer:
             return true
-            
+
         default:
             return false
         }

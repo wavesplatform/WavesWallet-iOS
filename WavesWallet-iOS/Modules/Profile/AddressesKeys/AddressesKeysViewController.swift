@@ -6,21 +6,20 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
+import Extensions
+import RxCocoa
 import RxFeedback
 import RxSwift
-import RxCocoa
-import Extensions
+import UIKit
 
 final class AddressesKeysViewController: UIViewController {
-
     typealias Types = AddressesKeysTypes
 
     @IBOutlet private var tableView: UITableView!
 
     private var sections: [Types.ViewModel.Section] = []
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
-    
+
     var presenter: AddressesKeysPresenterProtocol!
 
     override func viewDidLoad() {
@@ -33,7 +32,7 @@ final class AddressesKeysViewController: UIViewController {
 
         tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
-        
+
         setupSystem()
     }
 }
@@ -41,11 +40,9 @@ final class AddressesKeysViewController: UIViewController {
 // MARK: RxFeedback
 
 private extension AddressesKeysViewController {
-
     func setupSystem() {
-
         let uiFeedback: AddressesKeysPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
         let readyViewFeedback: AddressesKeysPresenterProtocol.Feedback = { [weak self] _ in
@@ -74,7 +71,6 @@ private extension AddressesKeysViewController {
     }
 
     func subscriptions(state: Driver<Types.State>) -> [Disposable] {
-
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
@@ -86,13 +82,12 @@ private extension AddressesKeysViewController {
     }
 
     func updateView(with state: Types.DisplayState) {
-
-        self.sections = state.sections
+        sections = state.sections
         if let action = state.action {
             switch action {
             case .update:
 
-            tableView.reloadData()
+                tableView.reloadData()
             case .none:
                 break
             }
@@ -100,29 +95,26 @@ private extension AddressesKeysViewController {
     }
 }
 
-
 // MARK: UITableViewDataSource
 
 extension AddressesKeysViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in _: UITableView) -> Int {
         return sections.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let row = sections[indexPath]
         switch row {
-        case .address(let address):
+        case let .address(address):
             let cell: AddressesKeysValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Address.title, value: address))
             return cell
 
-        case .aliases(let count):
+        case let .aliases(count):
             let cell: AddressesKeysAliacesCell = tableView.dequeueCell()
             cell.update(with: .init(count: count))
             cell.infoButtonDidTap = { [weak self] in
@@ -137,17 +129,17 @@ extension AddressesKeysViewController: UITableViewDataSource {
             }
             return cell
 
-        case .privateKey(let key):
+        case let .privateKey(key):
             let cell: AddressesKeysValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Privatekey.title, value: key))
             return cell
 
-        case .seed(let seed):
+        case let .seed(seed):
             let cell: AddressesKeysValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Seed.title, value: seed))
             return cell
 
-        case .publicKey(let publicKey):
+        case let .publicKey(publicKey):
             let cell: AddressesKeysValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Addresseskeys.Cell.Publickey.title, value: publicKey))
             return cell
@@ -162,43 +154,48 @@ extension AddressesKeysViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension AddressesKeysViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
         let row = sections[indexPath]
         switch row {
-        case .address(let address):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Address.title, value: address), width: tableView.frame.width)
+        case let .address(address):
+            return AddressesKeysValueCell
+                .viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Address.title, value: address),
+                            width: tableView.frame.width)
 
-        case .aliases(let count):
+        case let .aliases(count):
             return AddressesKeysAliacesCell.viewHeight(model: .init(count: count), width: tableView.frame.width)
 
         case .hiddenPrivateKey:
             return AddressesKeysHiddenPrivateKeyCell.viewHeight(model: (), width: tableView.frame.width)
 
-        case .seed(let seed):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Seed.title, value: seed), width: tableView.frame.width)
+        case let .seed(seed):
+            return AddressesKeysValueCell
+                .viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Seed.title, value: seed),
+                            width: tableView.frame.width)
 
-        case .privateKey(let seed):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Privatekey.title, value: seed), width: tableView.frame.width)
+        case let .privateKey(seed):
+            return AddressesKeysValueCell
+                .viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Privatekey.title, value: seed),
+                            width: tableView.frame.width)
 
-        case .publicKey(let publicKey):
-            return AddressesKeysValueCell.viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Publickey.title, value: publicKey), width: tableView.frame.width)
+        case let .publicKey(publicKey):
+            return AddressesKeysValueCell
+                .viewHeight(model: .init(title: Localizable.Waves.Addresseskeys.Cell.Publickey.title, value: publicKey),
+                            width: tableView.frame.width)
 
         case .skeleton:
             return AddressesKeysSkeletonCell.viewHeight()
         }
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
+    func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let row = sections[indexPath]
 
         switch row {
         case .skeleton:
             let skeleton = cell as? AddressesKeysSkeletonCell
             skeleton?.startAnimation()
-            
+
         default:
             break
         }
@@ -208,8 +205,7 @@ extension AddressesKeysViewController: UITableViewDelegate {
 // MARK: UIScrollViewDelegate
 
 extension AddressesKeysViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_: UIScrollView) {
         setupTopBarLine()
     }
 }

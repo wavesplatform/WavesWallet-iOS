@@ -1,12 +1,12 @@
 //
 //  AddressesKeysAddressCell.swift
-//  
+//
 //
 //  Created by mefilt on 26/10/2018.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
 private enum Constants {
     static let topPadding: CGFloat = 24
@@ -19,18 +19,16 @@ private enum Constants {
 }
 
 final class AddressesKeysValueCell: UITableViewCell, Reusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subTitleLabel: UILabel!
     @IBOutlet private var copyButton: PasteboardButton!
 
-
     override func awakeFromNib() {
         super.awakeFromNib()
 
         copyButton.copiedText = { [weak self] in
-            return self?.subTitleLabel.text
+            self?.subTitleLabel.text
         }
     }
 }
@@ -38,7 +36,6 @@ final class AddressesKeysValueCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension AddressesKeysValueCell: ViewConfiguration {
-
     struct Model {
         let title: String
         let value: String
@@ -53,11 +50,12 @@ extension AddressesKeysValueCell: ViewConfiguration {
 // MARK: ViewCalculateHeight
 
 extension AddressesKeysValueCell: ViewCalculateHeight {
-
     static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
+        let size = model.value
+            .maxHeightMultiline(font: .systemFont(ofSize: 13),
+                                forWidth: width - Constants.leftOrRightPadding - Constants.infoButtonSize)
 
-        let size = model.value.maxHeightMultiline(font: .systemFont(ofSize: 13), forWidth: width - Constants.leftOrRightPadding - Constants.infoButtonSize)
-
-        return Constants.topPadding + Constants.bottomPadding + Constants.separatoHeight + Constants.titleKeyHeight + size + Constants.paddingTitleTop
+        return Constants.topPadding + Constants.bottomPadding + Constants.separatoHeight + Constants
+            .titleKeyHeight + size + Constants.paddingTitleTop
     }
 }
