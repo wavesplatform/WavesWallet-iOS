@@ -16,17 +16,14 @@ final class WidgetTransactionsDataService: TransactionsDataServiceProtocol {
     private let transactionsProvider: MoyaProvider<WidgetDataService.Target.Transactions> = InternalWidgetService.moyaProvider()
     
     func transactionsExchange(query: DataService.Query.ExchangeFilters) -> Observable<[DataService.DTO.ExchangeTransaction]> {
-        return self
-            .transactionsProvider
+        transactionsProvider
             .rx
             .request(.init(kind: .getExchangeWithFilters(query),
                            dataUrl: InternalWidgetService.shared.dataUrl,
                            matcher: query.matcher),
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
-            .catchError { (error) -> Single<Response> in
-                Single<Response>.error(NetworkError.error(by: error))
-            }
+            .catchError { error -> Single<Response> in Single<Response>.error(NetworkError.error(by: error)) }
             .map(WidgetDataService.Response<[WidgetDataService.Response<DataService.DTO.ExchangeTransaction>]>.self,
                  atKeyPath: nil,
                  using: JSONDecoder.isoDecoderBySyncingTimestamp(0),
@@ -35,7 +32,8 @@ final class WidgetTransactionsDataService: TransactionsDataServiceProtocol {
             .asObservable()
     }
     
-    func getMassTransferTransactions(query: DataService.Query.MassTransferDataQuery) -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
+    func getMassTransferTransactions(query: DataService.Query.MassTransferDataQuery)
+        -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
         Observable.never()
     }
 }

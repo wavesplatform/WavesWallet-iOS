@@ -6,12 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import WavesSDK
-import DomainLayer
 
 extension UnrecognisedTransaction {
-
     convenience init(transaction: DomainLayer.DTO.UnrecognisedTransaction) {
         self.init()
         type = transaction.type
@@ -28,9 +27,9 @@ extension UnrecognisedTransaction {
 }
 
 extension DomainLayer.DTO.UnrecognisedTransaction {
-
-    init(transaction: NodeService.DTO.UnrecognisedTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-
+    init(transaction: NodeService.DTO.UnrecognisedTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -43,7 +42,6 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
     }
 
     init(transaction: UnrecognisedTransaction) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,

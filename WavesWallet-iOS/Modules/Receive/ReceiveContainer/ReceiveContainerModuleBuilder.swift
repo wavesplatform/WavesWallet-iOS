@@ -6,19 +6,16 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
+import UIKit
 
 struct ReceiveContainerModuleBuilder: ModuleBuilder {
-    
     func build(input: DomainLayer.DTO.SmartAssetBalance?) -> UIViewController {
-        
         let vc = StoryboardScene.Receive.receiveContainerViewController.instantiate()
         let showAllList = true
-        
+
         if let asset = input {
-            
             if input?.asset.isWaves == true {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
                                                                         selectedAsset: asset,
@@ -28,13 +25,13 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
             } else {
-                
                 if input?.asset.isGeneral == true {
                     vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [],
                                                                                    selectedAsset: asset,
-                                                                                   showAllList: showAllList)), state: .cryptoCurrency)
+                                                                                   showAllList: showAllList)),
+                           state: .cryptoCurrency)
                 }
-                
+
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
@@ -43,13 +40,12 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
             vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency],
                                                                            selectedAsset: nil,
                                                                            showAllList: showAllList)), state: .cryptoCurrency)
-            
+
             vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [.waves, .cryptoCurrency, .fiat, .wavesToken],
                                                                     selectedAsset: nil,
                                                                     showAllList: showAllList)), state: .invoice)
         }
-        
-        
+
         return vc
     }
 }

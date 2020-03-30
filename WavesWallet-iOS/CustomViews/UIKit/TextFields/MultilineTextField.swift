@@ -159,8 +159,6 @@ final class MultilineTextField: UIView {
     
     var value: String { textView.text }
     
-    var count: Int { value.count }
-    
     func updateText(newText: String) {
         textView.text = newText
         
@@ -175,7 +173,7 @@ final class MultilineTextField: UIView {
     // MARK: - Checks
     
     fileprivate func checkPlaceholder() {
-        placeholderLabel.isHidden = count > 0
+        placeholderLabel.isHidden = value.isNotEmpty
     }
   
     fileprivate func checkSeparator() {
@@ -184,7 +182,7 @@ final class MultilineTextField: UIView {
     
     fileprivate func checkTitle() {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            self.titleLabel.alpha = self.count > 0 ? 1 : 0
+            self.titleLabel.alpha = self.value.isNotEmpty ? 1 : 0
         })
     }
     
@@ -225,7 +223,6 @@ extension MultilineTextField: ViewConfiguration {
 
 extension MultilineTextField: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
         let newText = (textView.text! as NSString).replacingCharacters(in: range, with: text).trimmingLeadingWhitespace()
         
         if text == "\n" {

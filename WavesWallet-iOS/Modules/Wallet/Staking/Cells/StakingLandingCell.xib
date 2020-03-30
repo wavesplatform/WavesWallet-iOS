@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -362,17 +362,15 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="v9F-QR-ETd" firstAttribute="top" secondItem="Dnw-se-Nv5" secondAttribute="top" id="7TL-h0-EtL"/>
+                            <constraint firstItem="v9F-QR-ETd" firstAttribute="top" secondItem="0T6-dJ-fDG" secondAttribute="top" id="7TL-h0-EtL"/>
                             <constraint firstItem="3xX-CJ-Xe4" firstAttribute="height" secondItem="0T6-dJ-fDG" secondAttribute="height" id="9er-Oj-E0S"/>
-                            <constraint firstItem="v9F-QR-ETd" firstAttribute="trailing" secondItem="Dnw-se-Nv5" secondAttribute="trailing" id="NCO-b6-b0A"/>
-                            <constraint firstItem="v9F-QR-ETd" firstAttribute="bottom" secondItem="Dnw-se-Nv5" secondAttribute="bottom" id="Wl4-vS-jnT"/>
+                            <constraint firstItem="v9F-QR-ETd" firstAttribute="trailing" secondItem="0T6-dJ-fDG" secondAttribute="trailing" id="NCO-b6-b0A"/>
+                            <constraint firstItem="v9F-QR-ETd" firstAttribute="bottom" secondItem="0T6-dJ-fDG" secondAttribute="bottom" id="Wl4-vS-jnT"/>
                             <constraint firstItem="wpf-mB-SLn" firstAttribute="width" secondItem="0T6-dJ-fDG" secondAttribute="width" id="bR8-VL-33Q"/>
-                            <constraint firstItem="v9F-QR-ETd" firstAttribute="leading" secondItem="Dnw-se-Nv5" secondAttribute="leading" id="lhg-H8-HmM"/>
+                            <constraint firstItem="v9F-QR-ETd" firstAttribute="leading" secondItem="0T6-dJ-fDG" secondAttribute="leading" id="lhg-H8-HmM"/>
                             <constraint firstItem="3xX-CJ-Xe4" firstAttribute="width" secondItem="0T6-dJ-fDG" secondAttribute="width" id="mdF-so-Wlf"/>
                             <constraint firstItem="f9V-IM-07y" firstAttribute="width" secondItem="0T6-dJ-fDG" secondAttribute="width" id="xdY-J8-Lhk"/>
                         </constraints>
-                        <viewLayoutGuide key="contentLayoutGuide" id="Dnw-se-Nv5"/>
-                        <viewLayoutGuide key="frameLayoutGuide" id="K7w-Gb-F7A"/>
                         <connections>
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="UgO-S0-Ilo"/>
                         </connections>

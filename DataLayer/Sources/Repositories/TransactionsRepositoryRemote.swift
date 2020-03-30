@@ -6,79 +6,50 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import Moya
 import CryptoSwift
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
+import Foundation
+import Moya
+import RxSwift
+import WavesSDK
+import WavesSDKExtensions
 
-fileprivate enum Constants {
+private enum Constants {
     static let maxLimit: Int = 10000
     static let feeRuleJsonName = "fee"
 }
 
 extension TransactionSenderSpecifications {
-
     var version: Int {
         switch self {
-        case .createAlias:
-            return 2
-
-        case .lease:
-            return 2
-            
-        case .burn:
-            return 2
-
-        case .cancelLease:
-            return 2
-
-        case .data:
-            return 1
-
-        case .send:
-            return 2
-            
-        case .invokeScript:
-            return 1
+        case .createAlias: return 2
+        case .lease: return 2
+        case .burn: return 2
+        case .cancelLease: return 2
+        case .data: return 1
+        case .send: return 2
+        case .invokeScript: return 1
         }
     }
 
     var type: TransactionType {
         switch self {
-            
-        case .invokeScript:
-            return TransactionType.invokeScript
-            
-        case .createAlias:
-            return TransactionType.createAlias
-
-        case .lease:
-            return TransactionType.createLease
-            
-        case .burn:
-            return TransactionType.burn
-
-        case .cancelLease:
-            return TransactionType.cancelLease
-
-        case .data:
-            return TransactionType.data
-
-        case .send:
-            return TransactionType.transfer
+        case .invokeScript: return TransactionType.invokeScript
+        case .createAlias: return TransactionType.createAlias
+        case .lease: return TransactionType.createLease
+        case .burn: return TransactionType.burn
+        case .cancelLease: return TransactionType.cancelLease
+        case .data: return TransactionType.data
+        case .send: return TransactionType.transfer
         }
     }
 }
 
 final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
-    
     private let transactionRules: MoyaProvider<ResourceAPI.Service.TransactionRules> = .anyMoyaProvider()
 
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
-    
+
     init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
@@ -86,71 +57,69 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     func transactions(by address: DomainLayer.DTO.Address,
                       offset: Int,
                       limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-
-        return environmentRepository
+        environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
-                                
+            .flatMapLatest { servicesEnvironment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+
                 let limit = min(Constants.maxLimit, offset + limit)
-                
+
                 return servicesEnvironment
                     .wavesServices
                     .nodeServices
                     .transactionNodeService
                     .transactions(by: address.address,
-                          offset: 0,
-                          limit: limit)
+                                  offset: 0,
+                                  limit: limit)
                     .map { $0.anyTransactions(status: .completed, environment: servicesEnvironment.walletEnvironment) }
-            })
+            }
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
-
-        return environmentRepository
+        environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
-                                                
-                return servicesEnvironment
+            .flatMapLatest { servicesEnvironment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+                servicesEnvironment
                     .wavesServices
                     .nodeServices
                     .leasingNodeService
                     .leasingActiveTransactions(by: accountAddress)
-                    .map { $0.map { tx in
-                        return DomainLayer.DTO.LeaseTransaction(transaction: tx,
-                                                                status: .activeNow,
-                                                                environment: servicesEnvironment.walletEnvironment)
+                    .map {
+                        $0.map { tx in
+                            DomainLayer.DTO.LeaseTransaction(transaction: tx,
+                                                             status: .activeNow,
+                                                             environment: servicesEnvironment.walletEnvironment)
                         }
                     }
                     .asObservable()
-            })
+            }
     }
 
     func send(by specifications: TransactionSenderSpecifications,
               wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
-
-        return environmentRepository
+        environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<DomainLayer.DTO.AnyTransaction> in
-                
+            .flatMapLatest { servicesEnvironment -> Observable<DomainLayer.DTO.AnyTransaction> in
+
                 let walletEnvironment = servicesEnvironment.walletEnvironment
-                
+
                 let specs = specifications.broadcastSpecification(servicesEnvironment: servicesEnvironment,
-                                                                                   wallet: wallet,
-                                                                                   specifications: specifications)
-                
+                                                                  wallet: wallet,
+                                                                  specifications: specifications)
+
                 guard let broadcastSpecification = specs else { return Observable.empty() }
-                
+
                 return servicesEnvironment
                     .wavesServices
                     .nodeServices
                     .transactionNodeService
                     .transactions(query: broadcastSpecification)
-                    .map({ $0.anyTransaction(status: .unconfirmed, environment: walletEnvironment) })
+                    .map { $0.anyTransaction(status: .unconfirmed, environment: walletEnvironment) }
                     .asObservable()
-            })
+            }
     }
 
-// MARK - -  Dont support
+    // MARK: - -  Dont support
+
     func newTransactions(by address: DomainLayer.DTO.Address,
                          specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
         assertMethodDontSupported()
@@ -184,54 +153,53 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     }
 
     func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules> {
-        return transactionRules
+        transactionRules
             .rx
             .request(.get)
             .map(ResourceAPI.DTO.TransactionFeeRules.self)
-            .catchError({ error -> Single<ResourceAPI.DTO.TransactionFeeRules> in
-                
+            .catchError { error -> Single<ResourceAPI.DTO.TransactionFeeRules> in
                 if let rule: ResourceAPI.DTO.TransactionFeeRules = JSONDecoder.decode(json: Constants.feeRuleJsonName) {
                     return Single.just(rule)
                 } else {
                     return Single.error(error)
                 }
-            })
+            }
             .asObservable()
-            .map({ (txRules) -> DomainLayer.DTO.TransactionFeeRules in
+            .map { txRules -> DomainLayer.DTO.TransactionFeeRules in
 
                 let deffault = txRules.calculate_fee_rules[TransactionFeeDefaultRule]
 
                 let rules = TransactionType
                     .all
-                    .reduce(into: [TransactionType: DomainLayer.DTO.TransactionFeeRules.Rule](), { (result, type) in
+                    .reduce(into: [TransactionType: DomainLayer.DTO.TransactionFeeRules.Rule]()) { result, type in
 
-                    let rule = txRules.calculate_fee_rules["\(type.rawValue)"]
+                        let rule = txRules.calculate_fee_rules["\(type.rawValue)"]
 
-                    let addSmartAssetFee = (rule?.add_smart_asset_fee ?? deffault?.add_smart_asset_fee) ?? false
-                    let addSmartAccountFee = (rule?.add_smart_account_fee ?? deffault?.add_smart_account_fee) ?? false
-                    let minPriceStep = (rule?.min_price_step ?? deffault?.min_price_step) ?? 0
-                    let fee = (rule?.fee ?? deffault?.fee) ?? 0
-                    let pricePerTransfer = (rule?.price_per_transfer ?? deffault?.price_per_transfer) ?? 0
-                    let pricePerKb = (rule?.price_per_kb ?? deffault?.price_per_kb) ?? 0
+                        let addSmartAssetFee = (rule?.add_smart_asset_fee ?? deffault?.add_smart_asset_fee) ?? false
+                        let addSmartAccountFee = (rule?.add_smart_account_fee ?? deffault?.add_smart_account_fee) ?? false
+                        let minPriceStep = (rule?.min_price_step ?? deffault?.min_price_step) ?? 0
+                        let fee = (rule?.fee ?? deffault?.fee) ?? 0
+                        let pricePerTransfer = (rule?.price_per_transfer ?? deffault?.price_per_transfer) ?? 0
+                        let pricePerKb = (rule?.price_per_kb ?? deffault?.price_per_kb) ?? 0
 
-                    let newRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: addSmartAssetFee,
-                                                                           addSmartAccountFee: addSmartAccountFee,
-                                                                           minPriceStep: minPriceStep,
-                                                                           fee: fee,
-                                                                           pricePerTransfer: pricePerTransfer,
-                                                                           pricePerKb: pricePerKb)
+                        let newRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: addSmartAssetFee,
+                                                                               addSmartAccountFee: addSmartAccountFee,
+                                                                               minPriceStep: minPriceStep,
+                                                                               fee: fee,
+                                                                               pricePerTransfer: pricePerTransfer,
+                                                                               pricePerKb: pricePerKb)
 
-                    result[type] = newRule
-                })
+                        result[type] = newRule
+                    }
 
-
-                let newDefaultRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: deffault?.add_smart_asset_fee ?? false,
-                                                                              addSmartAccountFee: deffault?.add_smart_account_fee ?? false,
+                let addSmartAssetFee = deffault?.add_smart_asset_fee ?? false
+                let addSmartAccountFee = deffault?.add_smart_account_fee ?? false
+                let newDefaultRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: addSmartAssetFee,
+                                                                              addSmartAccountFee: addSmartAccountFee,
                                                                               minPriceStep: deffault?.min_price_step ?? 0,
                                                                               fee: deffault?.fee ?? 0,
                                                                               pricePerTransfer: deffault?.price_per_transfer ?? 0,
                                                                               pricePerKb: deffault?.price_per_kb ?? 0)
-
 
                 let newRules = DomainLayer.DTO.TransactionFeeRules(smartAssetExtraFee: txRules.smart_asset_extra_fee,
                                                                    smartAccountExtraFee: txRules.smart_account_extra_fee,
@@ -239,6 +207,6 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                                                    rules: rules)
 
                 return newRules
-            })
+            }
     }
 }

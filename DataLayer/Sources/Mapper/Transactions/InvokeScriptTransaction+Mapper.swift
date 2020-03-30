@@ -6,12 +6,11 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import WavesSDK
-import DomainLayer
 
 extension InvokeScriptTransaction {
-    
     convenience init(transaction: DomainLayer.DTO.InvokeScriptTransaction) {
         self.init()
         
@@ -38,25 +37,24 @@ extension InvokeScriptTransaction {
             payment?.amount = txPayment.amount
             payment?.assetId = txPayment.assetId
         }
-
     }
 }
+
 extension DomainLayer.DTO.InvokeScriptTransaction {
-    
-    init(transaction: NodeService.DTO.InvokeScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-        
-        
-        var call: DomainLayer.DTO.InvokeScriptTransaction.Call? = nil
+    init(transaction: NodeService.DTO.InvokeScriptTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
+        var call: DomainLayer.DTO.InvokeScriptTransaction.Call?
         
         if let localCall = transaction.call {
             let args = localCall.args.map { (arg) -> DomainLayer.DTO.InvokeScriptTransaction.Call.Args in
                 
                 let value = { () -> DomainLayer.DTO.InvokeScriptTransaction.Call.Args.Value in
-                 
+                    
                     switch arg.value {
                     case .binary(let value):
                         return .binary(value)
-                    
+                        
                     case .bool(let value):
                         return .bool(value)
                         
@@ -71,7 +69,7 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
                 return .init(type: arg.type, value: value)
             }
             
-            call = DomainLayer.DTO.InvokeScriptTransaction.Call.init(function: localCall.function, args: args)
+            call = DomainLayer.DTO.InvokeScriptTransaction.Call(function: localCall.function, args: args)
         }
         
         self.init(type: transaction.type,
@@ -93,9 +91,8 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
     }
     
     init(transaction: InvokeScriptTransaction) {
-        
-        //TODO: chainId: String
-        //TODO: Call to bd
+        // TODO: chainId: String
+        // TODO: Call to bd
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,

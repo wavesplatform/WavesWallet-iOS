@@ -49,10 +49,12 @@ final class AppCoordinator: Coordinator {
     private let windowRouter: WindowRouter
 
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
+    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol =
+        UseCasesFactory.instance.repositories.mobileKeeperRepository
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol = UseCasesFactory.instance.applicationVersionUseCase
 
-    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol =
+        UseCasesFactory.instance.repositories.developmentConfigsRepository
 
     private let disposeBag = DisposeBag()
     private var deepLink: DeepLink?

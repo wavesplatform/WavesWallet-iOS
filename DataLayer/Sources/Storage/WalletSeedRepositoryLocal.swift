@@ -6,22 +6,23 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import RealmSwift
-import WavesSDKExtensions
 import DomainLayer
 import Extensions
+import Foundation
+import RealmSwift
+import RxSwift
+import WavesSDKExtensions
 
-fileprivate enum Constants {
+private enum Constants {
     static let schemaVersion: UInt64 = 4
 }
 
 final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
-
-    func seed(for address: String, publicKey: String, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
-
-        return Observable.create({ [weak self] (observer) -> Disposable in
+    func seed(for address: String,
+              publicKey: String,
+              seedId: String,
+              password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
+        Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
                 observer.onError(RepositoryError.fail)
@@ -34,26 +35,25 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
                     return Disposables.create()
                 }
 
-                
                 if let object = realm.object(ofType: SeedItem.self, forPrimaryKey: publicKey) {
                     observer.onNext(DomainLayer.DTO.WalletSeed(seed: object))
                     observer.onCompleted()
                 } else {
                     observer.onError(WalletSeedRepositoryError.notFound)
                 }
-
-            } catch let error {
+            } catch {
                 SweetLogger.error(error)
                 observer.onError(error)
             }
 
             return Disposables.create()
-        })
+        }
     }
 
-    func saveSeed(for walletSeed: DomainLayer.DTO.WalletSeed, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
-
-        return Observable.create({ [weak self] (observer) -> Disposable in
+    func saveSeed(for walletSeed: DomainLayer.DTO.WalletSeed,
+                  seedId: String,
+                  password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
+        Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
                 observer.onError(RepositoryError.fail)
@@ -68,25 +68,24 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
 
                 do {
                     try realm.write {
-                        realm.add(SeedItem.init(seed: walletSeed), update: .all)
+                        realm.add(SeedItem(seed: walletSeed), update: .all)
                     }
                     observer.onNext(walletSeed)
                     observer.onCompleted()
                 } catch _ {
                     observer.onError(WalletSeedRepositoryError.fail)
                 }
-
-            } catch let error {
+            } catch {
                 SweetLogger.error(error)
                 observer.onError(error)
             }
 
             return Disposables.create()
-        })
+        }
     }
 
     func deleteSeed(for address: String, seedId: String) -> Observable<Bool> {
-        return Observable.create({ [weak self] (observer) -> Disposable in
+        Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
                 observer.onError(RepositoryError.fail)
@@ -101,15 +100,14 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
             }
 
             return Disposables.create()
-        })
+        }
     }
 }
 
 // MARK: Realm
+
 private extension WalletSeedRepositoryLocal {
-
     func removeDB(address: String, seedId: String) -> Bool {
-
         guard let fileURL = Realm.Configuration.defaultConfiguration.fileURL else {
             SweetLogger.error("File Realm is nil")
             return false
@@ -130,7 +128,6 @@ private extension WalletSeedRepositoryLocal {
     func realmConfig(address: String,
                      password: String,
                      seedId: String) -> Realm.Configuration? {
-
         var config = Realm.Configuration(encryptionKey: Data(bytes: Hash.sha512(Array(password.utf8))))
         config.objectTypes = [SeedItem.self]
         config.schemaVersion = UInt64(Constants.schemaVersion)
@@ -153,7 +150,6 @@ private extension WalletSeedRepositoryLocal {
     func realm(address: String,
                seedId: String,
                password: String) throws -> Realm? {
-
         guard let config = realmConfig(address: address,
                                        password: password,
                                        seedId: seedId) else { return nil }
@@ -162,7 +158,6 @@ private extension WalletSeedRepositoryLocal {
             let realm = try Realm(configuration: config)
             return realm
         } catch let error as Realm.Error {
-
             switch error {
             case Realm.Error.fileAccess, Realm.Error.filePermissionDenied:
                 throw WalletSeedRepositoryError.permissionDenied
@@ -170,7 +165,6 @@ private extension WalletSeedRepositoryLocal {
             default:
                 throw WalletSeedRepositoryError.fail
             }
-
         } catch let e {
             SweetLogger.error(e)
             throw WalletSeedRepositoryError.fail

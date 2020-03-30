@@ -10,32 +10,6 @@ import Foundation
 import Moya
 import WavesSDK
 
-//Вбиваем сумму, проверяем на лимиты и идем создавать ордер для Advanced Cash
-//Для этого идем тоже пока на "https://waves.exchange/"
-//@POST("gateways/acash.ACashDeposits/RegisterOrder")
-//fun registerOrder(@Header("Authorization") token: String, // Нужно положить токен в заголовок "Bearer LALALA_SAM_TOKEN" @Header("Authorization")
-//@Body request: RegisterOrderRequest)
-//: Observable<RegisterOrderResponse>
-//Укладываем объект
-//data class RegisterOrderRequest(
-//@SerializedName("currency") var currency: String = ExchangeService.AC_USD, // const val AC_USD = "AC_USD"
-//@SerializedName("amount") var amount: String, // амаунт в формате "123.00" "123.90" с копейками иначе потом подпись не пройдет
-//@SerializedName("address") var address: String) // адрес из списка выше в TransferBindingResponse.addresses[0]
-//В ответ приходит, это понадобится позже чтобы пойти в WebView:
-//data class RegisterOrderResponse(
-//@SerializedName("order_id")
-//var orderId: String = "",
-//@SerializedName("authentication_data")
-//var authenticationData: AuthenticationData = AuthenticationData()) {
-//data class AuthenticationData(
-//@SerializedName("sci_name")
-//var sciName: String = "",
-//@SerializedName("account_email")
-//var accountEmail: String = "",
-//@SerializedName("signature")
-//var signature: String = "")
-//}
-
 enum WEGateway {
     enum Service {
         case transferBinding(baseURL: URL, query: WEGateway.Query.TransferBinding)
@@ -46,7 +20,6 @@ enum WEGateway {
 }
 
 extension WEGateway.Query {
-   
     struct TransferBinding: Codable {
         let token: String
         let senderAsset: String
@@ -69,18 +42,14 @@ extension WEGateway.Query {
 }
 
 extension WEGateway.Service: TargetType {
-    
-    var sampleData: Data {
-        Data()
-    }
+    var sampleData: Data { Data() }
     
     var baseURL: URL {
-        
         switch self {
         case .transferBinding(let baseURL, _):
             return baseURL
             
-        case .adCashDepositsRegisterOrder(let baseURL, _,  _):
+        case .adCashDepositsRegisterOrder(let baseURL, _, _):
             return baseURL
         }
     }
@@ -103,7 +72,6 @@ extension WEGateway.Service: TargetType {
             
         case .adCashDepositsRegisterOrder(_, let token, _):
             headers["Authorization"] = token
-            
         }
         
         return headers
@@ -123,4 +91,3 @@ extension WEGateway.Service: TargetType {
         }
     }
 }
-

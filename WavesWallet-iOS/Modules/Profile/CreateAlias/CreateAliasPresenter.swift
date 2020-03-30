@@ -6,14 +6,14 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
+import Extensions
 import Foundation
+import RxCocoa
 import RxFeedback
 import RxSwift
-import RxCocoa
-import WavesSDKExtensions
 import WavesSDK
-import Extensions
-import DomainLayer
+import WavesSDKExtensions
 
 protocol CreateAliasModuleOutput: AnyObject {
     func createAliasCompletedCreateAlias(_ alias: String)
@@ -22,7 +22,6 @@ protocol CreateAliasModuleOutput: AnyObject {
 protocol CreateAliasModuleInput {}
 
 protocol CreateAliasPresenterProtocol {
-
     typealias Feedback = (Driver<CreateAliasTypes.State>) -> Signal<CreateAliasTypes.Event>
 
     var moduleOutput: CreateAliasModuleOutput? { get set }
@@ -30,7 +29,6 @@ protocol CreateAliasPresenterProtocol {
 }
 
 final class CreateAliasPresenter: CreateAliasPresenterProtocol {
-
     fileprivate typealias Types = CreateAliasTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
@@ -42,13 +40,12 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
     weak var moduleOutput: CreateAliasModuleOutput?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(checkExistAliasQuery())
         newFeedbacks.append(getAliasesQuery())
         newFeedbacks.append(externalQueries())
         newFeedbacks.append(enoughtWavesFeeBalanceQuery())
-         
+
         let initialState = self.initialState()
 
         let system = Driver.system(initialState: initialState,
@@ -63,44 +60,43 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
 // MARK: - Feedbacks
 
 fileprivate extension CreateAliasPresenter {
-
     func enoughtWavesFeeBalanceQuery() -> Feedback {
         return react(request: { state -> Bool? in
 
-            return state.displayState.isAppeared ? true : nil
+            state.displayState.isAppeared ? true : nil
 
         }, effects: { [weak self] _ -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
             return self
                 .authorizationInteractor.authorizedWallet()
-                .flatMap{ [weak self] wallet ->  Observable<Bool> in
+                .flatMap { [weak self] wallet -> Observable<Bool> in
                     guard let self = self else { return Observable.empty() }
 
                     return self.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
-                        .flatMap { [weak self] fee ->  Observable<Bool> in
+                        .flatMap { [weak self] fee -> Observable<Bool> in
                             guard let self = self else { return Observable.empty() }
 
                             return self.accountBalanceInteractor
                                 .balances()
                                 .flatMap { (balances) -> Observable<Bool> in
-                                    if let assetBalance = balances.first(where: {$0.assetId == WavesSDKConstants.wavesAssetId}) {
+                                    if let assetBalance = balances
+                                        .first(where: { $0.assetId == WavesSDKConstants.wavesAssetId }) {
                                         return Observable.just(assetBalance.availableBalance >= fee.amount)
                                     }
                                     return Observable.just(false)
-                            }
-                    }
+                                }
+                        }
                 }
-                .map {.didFinishValidateFeeBalance($0)}
+                .map { .didFinishValidateFeeBalance($0) }
                 .asSignal(onErrorRecover: { e in
                     SweetLogger.error(e)
                     return Signal.just(Types.Event.didFinishValidateFeeBalance(false))
                 })
         })
     }
-    
-    func externalQueries() -> Feedback {
 
+    func externalQueries() -> Feedback {
         return react(request: { state -> Types.Query? in
 
             switch state.query {
@@ -114,7 +110,7 @@ fileprivate extension CreateAliasPresenter {
 
             guard let self = self else { return Signal.empty() }
 
-            if case .completedCreateAlias(let name) = query {
+            if case let .completedCreateAlias(name) = query {
                 self.moduleOutput?.createAliasCompletedCreateAlias(name)
             }
 
@@ -123,10 +119,9 @@ fileprivate extension CreateAliasPresenter {
     }
 
     func getAliasesQuery() -> Feedback {
-
         return react(request: { state -> String? in
 
-            if case .createAlias(let name)? = state.query {
+            if case let .createAlias(name)? = state.query {
                 return name
             } else {
                 return nil
@@ -139,22 +134,22 @@ fileprivate extension CreateAliasPresenter {
             return self
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap({ [weak self] wallet -> Observable<(Money, DomainLayer.DTO.SignedWallet)> in
+                .flatMap { [weak self] wallet -> Observable<(Money, DomainLayer.DTO.SignedWallet)> in
                     guard let self = self else { return Observable.empty() }
 
                     return self
                         .transactionsInteractor
                         .calculateFee(by: .createAlias, accountAddress: wallet.address)
                         .map { ($0, wallet) }
-                })
-                .flatMap({ [weak self] data -> Observable<Bool> in
+                }
+                .flatMap { [weak self] data -> Observable<Bool> in
                     guard let self = self else { return Observable.empty() }
 
                     return self
                         .transactionsInteractor
                         .send(by: .createAlias(.init(alias: name, fee: data.0.amount)), wallet: data.1)
                         .map { _ in true }
-                })
+                }
                 .map { _ in .aliasCreated }
                 .asSignal(onErrorRecover: { e in
                     SweetLogger.error(e)
@@ -163,12 +158,10 @@ fileprivate extension CreateAliasPresenter {
         })
     }
 
-
     func checkExistAliasQuery() -> Feedback {
-
         return react(request: { state -> String? in
 
-            if case .checkExist(let name)? = state.query {
+            if case let .checkExist(name)? = state.query {
                 return name
             } else {
                 return nil
@@ -180,12 +173,12 @@ fileprivate extension CreateAliasPresenter {
             return self
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap({ wallet -> Observable<String> in
-                    return self.aliasesRepository.alias(by: name, accountAddress: wallet.address)
-                })
+                .flatMap { wallet -> Observable<String> in
+                    self.aliasesRepository.alias(by: name, accountAddress: wallet.address)
+                }
                 .map { _ in .errorAliasExist }
                 .asSignal(onErrorRecover: { e in
-                    
+
                     if let error = e as? AliasesRepositoryError, error == .dontExist {
                         return Signal.just(Types.Event.aliasNameFree)
                     }
@@ -198,7 +191,6 @@ fileprivate extension CreateAliasPresenter {
 // MARK: Core State
 
 private extension CreateAliasPresenter {
-
     static func reduce(state: Types.State, event: Types.Event) -> Types.State {
         var newState = state
         reduce(state: &newState, event: event)
@@ -206,7 +198,6 @@ private extension CreateAliasPresenter {
     }
 
     static func reduce(state: inout Types.State, event: Types.Event) {
-
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
@@ -217,13 +208,13 @@ private extension CreateAliasPresenter {
         case .viewDidDisappear:
             state.displayState.isAppeared = false
 
-        case .input(let text):
+        case let .input(text):
             state.displayState.input = text
             state.displayState.action = nil
             state.query = nil
             state.displayState.errorState = .none
 
-            var inputError: String? = nil
+            var inputError: String?
             if let text = text {
                 if RegEx.alias(text) {
                     if text.count < WavesSDKConstants.aliasNameMinLimitSymbols {
@@ -264,10 +255,11 @@ private extension CreateAliasPresenter {
             state.displayState.action = .update
             state.displayState.isLoading = false
             state.displayState.isEnabledSaveButton = false
-            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: Localizable.Waves.Createalias.Error.alreadyinuse)])
+            let section = Types.ViewModel
+                .Section(rows: [.input(state.displayState.input, error: Localizable.Waves.Createalias.Error.alreadyinuse)])
             state.displayState.sections = [section]
 
-        case .handlerError(let error):
+        case let .handlerError(error):
             state.query = nil
             state.displayState.isLoading = false
             state.displayState.isEnabledSaveButton = state.displayState.isValidEnoughtFee
@@ -289,8 +281,8 @@ private extension CreateAliasPresenter {
 
         case .completedQuery:
             state.query = nil
-            
-        case .didFinishValidateFeeBalance(let isValidEnoughtFee):
+
+        case let .didFinishValidateFeeBalance(isValidEnoughtFee):
             state.displayState.isEnabledSaveButton = isValidEnoughtFee
             state.displayState.isValidEnoughtFee = isValidEnoughtFee
             state.displayState.action = .updateValidationFeeBalance(isValidEnoughtFee)
@@ -301,14 +293,12 @@ private extension CreateAliasPresenter {
 // MARK: UI State
 
 private extension CreateAliasPresenter {
-
     func initialState() -> Types.State {
         return Types.State(query: nil,
                            displayState: initialDisplayState())
     }
 
     func initialDisplayState() -> Types.DisplayState {
-
         return Types.DisplayState(sections: [],
                                   input: nil,
                                   errorState: .none,
@@ -319,4 +309,3 @@ private extension CreateAliasPresenter {
                                   isValidEnoughtFee: true)
     }
 }
-

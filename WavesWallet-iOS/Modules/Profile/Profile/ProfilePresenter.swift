@@ -6,15 +6,14 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import RxFeedback
-import RxSwift
-import RxCocoa
 import DomainLayer
 import Extensions
+import Foundation
+import RxCocoa
+import RxFeedback
+import RxSwift
 
 protocol ProfileModuleOutput: AnyObject {
-
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
     func showAddressBook()
     func showLanguage()
@@ -32,7 +31,6 @@ protocol ProfileModuleOutput: AnyObject {
 }
 
 protocol ProfilePresenterProtocol {
-
     typealias Feedback = (Driver<ProfileTypes.State>) -> Signal<ProfileTypes.Event>
 
     var moduleOutput: ProfileModuleOutput? { get set }
@@ -40,7 +38,6 @@ protocol ProfilePresenterProtocol {
 }
 
 final class ProfilePresenter: ProfilePresenterProtocol {
-
     fileprivate typealias Types = ProfileTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
@@ -53,10 +50,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     weak var moduleOutput: ProfileModuleOutput?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(reactQuries())
-        newFeedbacks.append(profileQuery())        
+        newFeedbacks.append(profileQuery())
         newFeedbacks.append(blockQuery())
         newFeedbacks.append(deleteAccountQuery())
         newFeedbacks.append(logoutAccountQuery())
@@ -77,10 +73,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 }
 
 // MARK: - Feedbacks
+
 fileprivate extension ProfilePresenter {
-
     static func needQuery(_ state: Types.State) -> Types.Query? {
-
         guard let query = state.query else { return nil }
 
         switch query {
@@ -96,7 +91,7 @@ fileprivate extension ProfilePresenter {
              .showSupport,
              .setEnabledBiometric,
              .showAlertForEnabledBiometric:
-            
+
             return query
         default:
             break
@@ -106,9 +101,8 @@ fileprivate extension ProfilePresenter {
     }
 
     static func handlerQuery(owner: ProfilePresenter, query: Types.Query) {
-
         switch query {
-        case .showAddressesKeys(let wallet):
+        case let .showAddressesKeys(wallet):
             owner.moduleOutput?.showAddressesKeys(wallet: wallet)
 
         case .showAddressBook:
@@ -117,18 +111,18 @@ fileprivate extension ProfilePresenter {
         case .showLanguage:
             owner.moduleOutput?.showLanguage()
 
-        case .showBackupPhrase(let wallet):
+        case let .showBackupPhrase(wallet):
             owner.moduleOutput?.showBackupPhrase(wallet: wallet) { [weak owner] isBackedUp in
                 owner?.eventInput.onNext(.setBackedUp(isBackedUp))
             }
 
-        case .showChangePassword(let wallet):
+        case let .showChangePassword(wallet):
             owner.moduleOutput?.showChangePassword(wallet: wallet)
 
-        case .showChangePasscode(let wallet):
+        case let .showChangePasscode(wallet):
             owner.moduleOutput?.showChangePasscode(wallet: wallet)
 
-        case .showNetwork(let wallet):
+        case let .showNetwork(wallet):
             owner.moduleOutput?.showNetwork(wallet: wallet)
 
         case .showRateApp:
@@ -143,7 +137,7 @@ fileprivate extension ProfilePresenter {
         case .showSupport:
             owner.moduleOutput?.showSupport()
 
-        case .setEnabledBiometric(let isOn, let wallet):
+        case let .setEnabledBiometric(isOn, wallet):
             owner.moduleOutput?.accountSetEnabledBiometric(isOn: isOn, wallet: wallet)
 
         default:
@@ -153,30 +147,29 @@ fileprivate extension ProfilePresenter {
 
     func registerPushNotificationsQeury() -> Feedback {
         return react(request: { state -> Bool? in
-               guard let query = state.query else { return nil }
-               if case .registerPushNotifications = query {
-                   return true
-               } else {
-                   return nil
-               }
+            guard let query = state.query else { return nil }
+            if case .registerPushNotifications = query {
+                return true
+            } else {
+                return nil
+            }
 
-           }, effects: { _ -> Signal<Types.Event> in
-                return PushNotificationsManager.rx.getNotificationsStatus()
-                    .flatMap { (status) -> Observable<Bool> in
-                        if status == .notDetermined {
-                             return PushNotificationsManager.rx.registerRemoteNotifications()
-                        }
-                        else {
-                            return PushNotificationsManager.rx.openSettings().map { _ in false }
-                        }
+        }, effects: { _ -> Signal<Types.Event> in
+            PushNotificationsManager.rx.getNotificationsStatus()
+                .flatMap { (status) -> Observable<Bool> in
+                    if status == .notDetermined {
+                        return PushNotificationsManager.rx.registerRemoteNotifications()
+                    } else {
+                        return PushNotificationsManager.rx.openSettings().map { _ in false }
                     }
-                    .map { Types.Event.setPushNotificationsSettings($0)}
-                    .asSignal(onErrorRecover: { _ in
-                        return Signal.empty()
+                }
+                .map { Types.Event.setPushNotificationsSettings($0) }
+                .asSignal(onErrorRecover: { _ in
+                    Signal.empty()
                     })
            })
     }
-    
+
     func setPushNotificationsQeury() -> Feedback {
         return react(request: { state -> Bool? in
             guard let query = state.query else { return nil }
@@ -187,17 +180,17 @@ fileprivate extension ProfilePresenter {
             }
 
         }, effects: { _ -> Signal<Types.Event> in
-            return PushNotificationsManager.rx.getNotificationsStatus().map { Types.Event.setPushNotificationsSettings($0 == .authorized)}
+            PushNotificationsManager.rx.getNotificationsStatus()
+                .map { Types.Event.setPushNotificationsSettings($0 == .authorized) }
                 .asSignal(onErrorRecover: { _ in
-                return Signal.empty()
+                    Signal.empty()
             })
         })
     }
-    
-    func reactQuries() -> Feedback {
 
+    func reactQuries() -> Feedback {
         return react(request: { state -> Types.Query? in
-            return ProfilePresenter.needQuery(state)
+            ProfilePresenter.needQuery(state)
         }, effects: { [weak self] query -> Signal<Types.Event> in
             guard let self = self else { return Signal.empty() }
             ProfilePresenter.handlerQuery(owner: self, query: query)
@@ -206,21 +199,20 @@ fileprivate extension ProfilePresenter {
     }
 
     func handlerEvent() -> Feedback {
-        return react(request: { state -> Bool? in
-            return true
-        }, effects: { [weak self] isOn -> Signal<Types.Event> in
+        return react(request: { _ -> Bool? in
+            true
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
             guard let self = self else { return Signal.empty() }
             return self.eventInput.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 
     func setBackupQuery() -> Feedback {
-
         return react(request: { state -> DomainLayer.DTO.Wallet? in
 
             guard let query = state.query else { return nil }
             guard let wallet = state.wallet else { return nil }
-            if case .setBackedUp(let isBackedUp) = query {
+            if case let .setBackedUp(isBackedUp) = query {
                 var newWallet = wallet
                 newWallet.isBackedUp = isBackedUp
                 return newWallet
@@ -231,20 +223,19 @@ fileprivate extension ProfilePresenter {
         }, effects: { [weak self] wallet -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
-            
+
             return self
                 .authorizationInteractor
                 .changeWallet(wallet)
                 .map { $0.isBackedUp }
-                .map { Types.Event.setBackedUp($0)}
+                .map { Types.Event.setBackedUp($0) }
                 .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                    Signal.empty()
                 })
         })
     }
 
     func profileQuery() -> Feedback {
-
         return react(request: { state -> Bool? in
 
             if state.displayState.isAppeared == true {
@@ -253,27 +244,25 @@ fileprivate extension ProfilePresenter {
                 return nil
             }
 
-        }, effects: { [weak self] isOn -> Signal<Types.Event> in
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
             return self
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
                     guard let self = self else { return Observable.empty() }
                     return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
-                })
+                }
                 .map { Types.Event.setWallet($0) }
                 .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                    Signal.empty()
                 })
         })
     }
 
-
     func blockQuery() -> Feedback {
-
         return react(request: { state -> String? in
 
             if state.displayState.isAppeared == true, state.wallet != nil {
@@ -288,16 +277,15 @@ fileprivate extension ProfilePresenter {
 
             return self
                 .blockRepository
-                .height(accountAddress: address)                
+                .height(accountAddress: address)
                 .map { Types.Event.setBlock($0) }
                 .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                    Signal.empty()
                 })
         })
     }
 
     func logoutAccountQuery() -> Feedback {
-
         return react(request: { state -> Bool? in
 
             guard let query = state.query else { return nil }
@@ -307,7 +295,7 @@ fileprivate extension ProfilePresenter {
                 return nil
             }
 
-        }, effects: { [weak self] query -> Signal<Types.Event> in
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
@@ -319,16 +307,15 @@ fileprivate extension ProfilePresenter {
                         .accountLogouted()
                 })
                 .map { _ in
-                    return Types.Event.none
+                    Types.Event.none
                 }
                 .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                    Signal.empty()
                 })
         })
     }
 
     func deleteAccountQuery() -> Feedback {
-
         return react(request: { state -> Bool? in
             guard let query = state.query else { return nil }
             if case .deleteAccount = query {
@@ -337,26 +324,26 @@ fileprivate extension ProfilePresenter {
                 return nil
             }
 
-        }, effects: { [weak self] query -> Signal<Types.Event> in
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
             return self
                 .authorizationInteractor.logout()
-                .flatMap({ [weak self] wallet -> Observable<Types.Event> in
+                .flatMap { [weak self] wallet -> Observable<Types.Event> in
                     guard let self = self else { return Observable.empty() }
                     return self
                         .authorizationInteractor
                         .deleteWallet(wallet)
                         .map { _ in
-                            return Types.Event.none
+                            Types.Event.none
                         }
-                })
+                }
                 .do(onNext: { [weak self] _ in
                     self?.moduleOutput?.accountDeleted()
                 })
                 .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                    Signal.empty()
                 })
         })
     }
@@ -365,7 +352,6 @@ fileprivate extension ProfilePresenter {
 // MARK: Core State
 
 private extension ProfilePresenter {
-
     static func reduce(state: Types.State, event: Types.Event) -> Types.State {
         var newState = state
         reduce(state: &newState, event: event)
@@ -373,7 +359,6 @@ private extension ProfilePresenter {
     }
 
     static func reduce(state: inout Types.State, event: Types.Event) {
-
         state.displayState.action = nil
 
         switch event {
@@ -384,14 +369,13 @@ private extension ProfilePresenter {
         case .viewDidAppear:
             state.displayState.isAppeared = true
             state.query = .updatePushNotificationsSettings
-            
-        case .setWallet(let wallet):
+
+        case let .setWallet(wallet):
 
             let generalSettings = Types.ViewModel.Section(rows: [.addressesKeys,
                                                                  .addressbook,
                                                                  .pushNotifications(isActive: state.isActivePushNotifications),
                                                                  .language(Language.currentLanguage)], kind: .general)
-
 
             var securityRows: [Types.ViewModel.Row] = [.backupPhrase(isBackedUp: wallet.isBackedUp),
                                                        .changePassword,
@@ -410,7 +394,8 @@ private extension ProfilePresenter {
             let other = Types.ViewModel.Section(rows: [.rateApp,
                                                        .feedback,
                                                        .supportWavesplatform,
-                                                       .info(version: Bundle.main.versionAndBuild, height: nil, isBackedUp: wallet.isBackedUp)], kind: .other)
+                                                       .info(version: Bundle.main.versionAndBuild, height: nil,
+                                                             isBackedUp: wallet.isBackedUp)], kind: .other)
 
             state.displayState.sections = [generalSettings,
                                            security,
@@ -418,7 +403,7 @@ private extension ProfilePresenter {
             state.wallet = wallet
             state.displayState.action = .update
 
-        case .tapRow(let row):
+        case let .tapRow(row):
 
             guard let wallet = state.wallet else { return }
 
@@ -455,22 +440,22 @@ private extension ProfilePresenter {
 
             case .biometricDisabled:
                 state.query = .showAlertForEnabledBiometric
-                
-            case .pushNotifications(let isActive):
+
+            case let .pushNotifications(isActive):
                 guard isActive == false else { return }
                 state.query = .registerPushNotifications
-                
+
             default:
                 break
             }
 
-        case .setBlock(let block):
+        case let .setBlock(block):
             state.block = block
             updateInfo(state: &state, block: block, isBackedUp: state.wallet?.isBackedUp ?? false)
             state
                 .displayState.action = .update
 
-        case .setBackedUp(let isBackedUp):
+        case let .setBackedUp(isBackedUp):
 
             guard let section = state
                 .displayState
@@ -488,7 +473,7 @@ private extension ProfilePresenter {
                     }
                     return false
                 }) else {
-                    return
+                return
             }
             state
                 .displayState
@@ -497,7 +482,7 @@ private extension ProfilePresenter {
             state.displayState.action = nil
             state.query = .setBackedUp(isBackedUp)
 
-        case .setEnabledBiometric(let isOn):
+        case let .setEnabledBiometric(isOn):
 
             guard let section = state
                 .displayState
@@ -515,7 +500,7 @@ private extension ProfilePresenter {
                     }
                     return false
                 }) else {
-                    return
+                return
             }
 
             if let wallet = state.wallet {
@@ -537,22 +522,21 @@ private extension ProfilePresenter {
         case .completedQuery:
             state.query = nil
 
-        case .setPushNotificationsSettings(let isActive):
+        case let .setPushNotificationsSettings(isActive):
             state.isActivePushNotifications = isActive
             updateInfo(state: &state, isActivePushNotifications: isActive)
             state.displayState.action = .update
             state.query = nil
-            
+
         case .updatePushNotificationsSettings:
             state.query = .updatePushNotificationsSettings
-            
+
         default:
             break
         }
     }
 
     static func updateInfo(state: inout Types.State, isActivePushNotifications: Bool) {
-
         guard let section = state
             .displayState
             .sections
@@ -569,7 +553,7 @@ private extension ProfilePresenter {
                 }
                 return false
             }) else {
-                return
+            return
         }
 
         state
@@ -577,9 +561,8 @@ private extension ProfilePresenter {
             .sections[section.offset]
             .rows[index.offset] = .pushNotifications(isActive: isActivePushNotifications)
     }
-    
-    static func updateInfo(state: inout Types.State, block: Int64, isBackedUp: Bool) {
 
+    static func updateInfo(state: inout Types.State, block: Int64, isBackedUp: Bool) {
         guard let section = state
             .displayState
             .sections
@@ -596,7 +579,7 @@ private extension ProfilePresenter {
                 }
                 return false
             }) else {
-                return
+            return
         }
 
         state
@@ -604,17 +587,16 @@ private extension ProfilePresenter {
             .sections[section.offset]
             .rows[index.offset] = .info(version: Bundle.main.versionAndBuild,
                                         height: "\(block)",
-                isBackedUp: isBackedUp)
+                                        isBackedUp: isBackedUp)
     }
 }
-
 
 // MARK: UI State
 
 private extension ProfilePresenter {
-
     func initialState() -> Types.State {
-        return Types.State(query: nil, wallet: nil, block: nil, displayState: initialDisplayState(), isActivePushNotifications: false)
+        return Types
+            .State(query: nil, wallet: nil, block: nil, displayState: initialDisplayState(), isActivePushNotifications: false)
     }
 
     func initialDisplayState() -> Types.DisplayState {

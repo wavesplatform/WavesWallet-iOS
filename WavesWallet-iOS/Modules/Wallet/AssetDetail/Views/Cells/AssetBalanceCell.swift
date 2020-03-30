@@ -6,8 +6,8 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
 fileprivate enum Constants {
     static let heightViewWithoutBalances: CGFloat = 208
@@ -17,14 +17,13 @@ fileprivate enum Constants {
     static let heightSeparator: CGFloat = 0.5
     static let countSeparatorsWhenThreeFields: CGFloat = 3
     static let countSeparatorsWhenTwoFields: CGFloat = 3
-    
+
     enum Font {
         static let percentSize: CGFloat = 11
     }
 }
 
 final class AssetBalanceCell: UITableViewCell, NibReusable {
-
     private struct Options {
         var isHiddenLeased: Bool
         var isHiddenInOrder: Bool
@@ -41,7 +40,7 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private var balanceLabel: UILabel!
     @IBOutlet private weak var labelPriceUsd: UILabel!
     @IBOutlet private weak var viewPercent: PercentTickerView!
-    
+
     @IBOutlet private var sendButton: UIButton!
     @IBOutlet private var receiveButton: UIButton!
     @IBOutlet private var exchangeButton: UIButton!
@@ -52,7 +51,7 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     var receiveAction: (() -> Void)?
     var sendAction: (() -> Void)?
     var exchangeAction: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
@@ -65,17 +64,16 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     @objc private func exchangeTapped() {
         exchangeAction?()
     }
-    
+
     @objc private func receiveTapped() {
         receiveAction?()
     }
-    
+
     @objc private func sendTapped() {
         sendAction?()
     }
-    
-    override func updateConstraints() {
 
+    override func updateConstraints() {
         if isNeedsUpdateConstraints {
             isNeedsUpdateConstraints = false
 
@@ -83,11 +81,11 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
             viewInOrder.isHidden = options.isHiddenInOrder
             viewTotal.isHidden = options.isHiddenLeased && options.isHiddenInOrder
 
-            if options.isHiddenInOrder && options.isHiddenLeased {
+            if options.isHiddenInOrder, options.isHiddenLeased {
                 firstSeparatorView.isHidden = false
                 secondSeparatorView.isHidden = true
                 thirdSeparatorView.isHidden = true
-            } else if !options.isHiddenInOrder && !options.isHiddenLeased {
+            } else if !options.isHiddenInOrder, !options.isHiddenLeased {
                 firstSeparatorView.isHidden = false
                 secondSeparatorView.isHidden = false
                 thirdSeparatorView.isHidden = false
@@ -103,12 +101,9 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
 }
 
 extension AssetBalanceCell: ViewConfiguration {
-
-    
     func update(with model: AssetDetailTypes.DTO.PriceAsset) {
-
         let balance = model.asset.balance
-        
+
         options = Options(isHiddenLeased: balance.leasedMoney.isZero, isHiddenInOrder: balance.inOrderMoney.isZero)
 
         sendButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.send, for: .normal)
@@ -117,8 +112,9 @@ extension AssetBalanceCell: ViewConfiguration {
 
         titleLabel.text = Localizable.Waves.Asset.Cell.Balance.avaliableBalance
 
-        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: balance.avaliableMoney.displayTextFull(isFiat: balance.isFiat),
-                                                                         font: balanceLabel.font)
+        balanceLabel.attributedText = NSAttributedString
+            .styleForBalance(text: balance.avaliableMoney.displayTextFull(isFiat: balance.isFiat),
+                             font: balanceLabel.font)
 
         viewLeased.update(with: .init(name: Localizable.Waves.Asset.Cell.Balance.leased,
                                       money: balance.leasedMoney,
@@ -134,24 +130,22 @@ extension AssetBalanceCell: ViewConfiguration {
                                        lastPrice: model.price.lastPrice,
                                        fontSize: Constants.Font.percentSize))
         labelPriceUsd.text = "$ " + model.price.priceUSD.displayText
-        
+
         isNeedsUpdateConstraints = true
         setNeedsUpdateConstraints()
     }
 }
 
 extension AssetBalanceCell: ViewCalculateHeight {
-
-    static func viewHeight(model: AssetDetailTypes.DTO.PriceAsset, width: CGFloat) -> CGFloat {
-
+    static func viewHeight(model: AssetDetailTypes.DTO.PriceAsset, width _: CGFloat) -> CGFloat {
         let isHiddenLeased = model.asset.balance.leasedMoney.isZero
         let isHiddenInOrder = model.asset.balance.inOrderMoney.isZero
 
-        if isHiddenLeased && isHiddenInOrder {
+        if isHiddenLeased, isHiddenInOrder {
             return Constants.heightViewWithoutBalances + Constants.bottomPadding
         }
 
-        var height : CGFloat = Constants.heightViewWithoutBalances
+        var height: CGFloat = Constants.heightViewWithoutBalances
 
         if isHiddenLeased == false {
             height += Constants.heightBalanceView
@@ -161,11 +155,11 @@ extension AssetBalanceCell: ViewCalculateHeight {
             height += Constants.heightBalanceView
         }
 
-         height += Constants.heightFirstBalanceView + Constants.bottomPadding
+        height += Constants.heightFirstBalanceView + Constants.bottomPadding
 
-        if isHiddenInOrder && isHiddenLeased {
+        if isHiddenInOrder, isHiddenLeased {
             height += Constants.heightSeparator
-        } else if !isHiddenInOrder && !isHiddenLeased {
+        } else if !isHiddenInOrder, !isHiddenLeased {
             height += Constants.heightSeparator * Constants.countSeparatorsWhenThreeFields
         } else {
             height += Constants.heightSeparator * Constants.countSeparatorsWhenTwoFields

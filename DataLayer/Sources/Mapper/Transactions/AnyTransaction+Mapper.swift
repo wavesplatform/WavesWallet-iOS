@@ -6,17 +6,16 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
 import Extensions
+import Foundation
+import WavesSDK
+import WavesSDKExtensions
 
 extension NodeService.DTO.Transaction {
-
-    func anyTransaction(status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) -> DomainLayer.DTO.AnyTransaction {
-
-        switch self  {
+    func anyTransaction(status: DomainLayer.DTO.TransactionStatus,
+                        environment: WalletEnvironment) -> DomainLayer.DTO.AnyTransaction {
+        switch self {
         case .unrecognised(let transaction):
             return .unrecognised(.init(transaction: transaction, status: status, environment: environment))
 
@@ -66,9 +65,8 @@ extension NodeService.DTO.Transaction {
 }
 
 extension NodeService.DTO.TransactionContainers {
-
-    func anyTransactions(status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) -> [DomainLayer.DTO.AnyTransaction] {
-
+    func anyTransactions(status: DomainLayer.DTO.TransactionStatus,
+                         environment: WalletEnvironment) -> [DomainLayer.DTO.AnyTransaction] {
         var anyTransactions = [DomainLayer.DTO.AnyTransaction]()
 
         for transaction in self.transactions {
@@ -80,7 +78,6 @@ extension NodeService.DTO.TransactionContainers {
 }
 
 extension DomainLayer.DTO.AnyTransaction {
-
     var leaseTransaction: DomainLayer.DTO.LeaseTransaction? {
         switch self {
         case .lease(let tx):
@@ -92,7 +89,6 @@ extension DomainLayer.DTO.AnyTransaction {
     }
 
     var transaction: Transaction {
-        
         switch self {
         case .unrecognised(let tx):
             return UnrecognisedTransaction(transaction: tx)
@@ -135,14 +131,13 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .sponsorship(let tx):
             return SponsorshipTransaction(transaction: tx)
-            
+
         case .invokeScript(let tx):
             return InvokeScriptTransaction(transaction: tx)
         }
     }
 
     func anyTransaction(from: Transaction) -> AnyTransaction {
-
         let any = AnyTransaction()
         any.type = from.type
         any.id = from.id
