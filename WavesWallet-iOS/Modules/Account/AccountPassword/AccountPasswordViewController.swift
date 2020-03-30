@@ -11,7 +11,6 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import IdentityImg
-import IQKeyboardManagerSwift
 
 protocol AccountPasswordViewControllerDelegate: class {
     func accountPasswordViewControllerDidSuccessEnter()

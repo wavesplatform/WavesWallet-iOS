@@ -76,6 +76,7 @@ class ModalRootView: UIView, ModalScrollViewRootView {
             view.layer.cornerRadius = headerView.layer.cornerRadius
             view.layer.maskedCorners = headerView.layer.maskedCorners
             view.isUserInteractionEnabled = false
+            view.translatesAutoresizingMaskIntoConstraints = true
             return view
         }()
 

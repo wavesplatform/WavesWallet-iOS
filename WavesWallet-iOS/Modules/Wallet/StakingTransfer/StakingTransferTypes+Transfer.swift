@@ -28,21 +28,24 @@ extension StakingTransfer.DTO.Data.Transfer {
         case .card:
             return .skeletonBalance
         }
-    }
-    
-    func error(by error: StakingTransfer.DTO.InputData.Transfer.Error,
-               kind: StakingTransfer.DTO.Kind) -> StakingTransfer.ViewModel.Row {
+    }    
+    func error(by error: StakingTransfer.DTO.InputData.Transfer.Error) -> StakingTransfer.ViewModel.Row {
         
-        switch kind {
-        case .withdraw:
-            return errorForWithdraw(by: error)
+        let error: String = {
             
-        case .deposit:
-            return errorForDeposit(by: error)
-            
-        case .card:
-            return .skeletonBalance
-        }
+            switch error {
+                
+            case .insufficientFunds:
+                return Localizable.Waves.Staking.Transfer.Error.insufficientfunds
+                
+            case .insufficientFundsOnTax:
+                return Localizable.Waves.Staking.Transfer.Error.insufficientFundsOnTax
+            }
+        }()
+        
+        return StakingTransfer
+            .ViewModel
+            .error(title: error)
     }
     
     func button(status: BlueButton.Model.Status,
@@ -73,6 +76,23 @@ extension StakingTransfer.DTO.Data.Transfer {
         case .card:
             return []
         }
+    }
+    
+    func errorKind(amount: Money) -> StakingTransfer.DTO.InputData.Transfer.Error? {
+        
+        let avaliableBalanceForFee = self.avaliableBalanceForFee.money
+        let transactionFeeBalance =  self.transactionFeeBalance.money
+        let balance = self.balance.money
+                         
+        if balance.amount == 0 {
+            return .insufficientFunds
+        } else if amount.amount > balance.amount {
+            return .insufficientFunds
+         } else if avaliableBalanceForFee.amount < transactionFeeBalance.amount {
+             return .insufficientFundsOnTax
+         }
+            
+        return nil
     }
 }
 

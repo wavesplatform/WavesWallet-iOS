@@ -797,6 +797,7 @@
 "staking.transfer.cell.transactionfee.title" = "Transaction Fee:";
 
 "staking.transfer.withdraw.cell.input.title" = "Staking balance:";
+
 "staking.transfer.withdraw.title" = "Withdraw";
 "staking.transfer.withdraw.cell.input.title" = "Withdraw from Smart Contract";
 "staking.transfer.withdraw.button.title" = "Withdraw";
@@ -842,3 +843,7 @@
 
 "transactioncompleted.button.viewdetails.title" = "View Details";
 "transactioncompleted.button.success.title" = "Ok";
+
+"staking.transfer.error.insufficientfunds" = "Insufficient funds.";
+
+"staking.transfer.error.insufficientFundsOnTax" = "You don't have enough funds to pay the fee.";
