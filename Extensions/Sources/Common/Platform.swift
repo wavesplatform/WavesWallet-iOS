@@ -21,15 +21,15 @@ public extension Platform {
         case inch12_9 = 12.9
         
         public static var smallDevices: [Inch] {
-            return [.inch3_5, .inch4, .inch4_7, .inch5_5]
+            return [.inch3_5, .inch4]
         }
         
         public static var mediumDevices: [Inch] {
-            return [.inch5_8, .inch6_1]
+            return [.inch4_7, .inch5_5, .inch5_8]
         }
         
         public static var largeDevices: [Inch] {
-            return [.inch6_5]
+            return [.inch6_1, .inch6_5]
         }
     }
 }

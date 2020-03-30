@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -239,14 +239,17 @@
             <connections>
                 <outlet property="balanceLabel" destination="Nwn-9U-WM3" id="vZp-sM-LQu"/>
                 <outlet property="buttonHowWorkds" destination="a3D-an-RuV" id="tdR-Bm-KvE"/>
+                <outlet property="fbButton" destination="kkE-R1-tEe" id="wne-Qd-KdN"/>
                 <outlet property="labelEstimatedInterest" destination="KQq-wN-vUg" id="zI0-6y-huz"/>
                 <outlet property="labelPercent" destination="DIs-aC-6iN" id="U0v-Wp-B9M"/>
                 <outlet property="labelPercentTitle" destination="wfc-ZX-bqZ" id="PFP-6Q-n5d"/>
                 <outlet property="labelShare" destination="ws0-BJ-OWm" id="PTP-58-emY"/>
                 <outlet property="labelTotalProfit" destination="TZl-19-EVs" id="RTz-Bp-jJI"/>
+                <outlet property="twitterButton" destination="Lt2-t2-3rc" id="J9F-PG-Vdt"/>
                 <outlet property="viewContainer" destination="rNa-mA-iCM" id="YK3-zc-BSj"/>
                 <outlet property="viewEstimetedInterest" destination="OHB-BM-Y7z" id="ib0-4D-sHz"/>
                 <outlet property="viewProfit" destination="ZoD-eL-eeR" id="0Jl-me-zD6"/>
+                <outlet property="vkButton" destination="viz-O7-ZeU" id="166-V5-tK6"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="129.98500749625188"/>
         </view>

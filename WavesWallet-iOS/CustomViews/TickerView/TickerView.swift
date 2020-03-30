@@ -23,8 +23,7 @@ final class TickerView: UIView, NibOwnerLoadable, ResetableView {
         enum Style {
             case soft //SPAM
             case normal //ticker
-            case custom(backgroundColor: UIColor,
-                        textColor: UIColor) //TICKER
+            case custom(backgroundColor: UIColor, textColor: UIColor) //TICKER
         }
 
         let text: String
@@ -50,7 +49,7 @@ final class TickerView: UIView, NibOwnerLoadable, ResetableView {
         
         switch style {
         case .normal:
-            backgroundColor = .basic100
+            backgroundColor = .submit50
             titleLabel.textColor = .info500
             layer.clip(cornerRadius: Constants.cornerRadius)
                         
@@ -58,7 +57,8 @@ final class TickerView: UIView, NibOwnerLoadable, ResetableView {
             backgroundColor = .white
             titleLabel.textColor = .info500
             layer.border(cornerRadius: Constants.cornerRadius,
-                         borderWidth: 0.5, borderColor: .info500)
+                         borderWidth: 0.5,
+                         borderColor: .info500)
             
         case .custom(let backgroundColor,
                      let textColor):
