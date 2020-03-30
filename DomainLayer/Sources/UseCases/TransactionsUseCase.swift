@@ -191,16 +191,18 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
             }
             .flatMap { [weak self] tx -> Observable<DomainLayer.DTO.SmartTransaction> in
                 guard let self = self else { return Observable.never() }
-                return self
-                    .smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: wallet.address,
-                                                                                                       contact: nil,
-                                                                                                       isMyAccount: true,
-                                                                                                       aliases: []),
-                                                                      transactions: [tx],
-                                                                      leaseTransactions: nil,
-                                                                      senderSpecifications: specifications,
-                                                                      remoteError: nil))
-                    .map { (ts) -> [DomainLayer.DTO.SmartTransaction] in
+
+                let address = DomainLayer.DTO.Address(address: wallet.address,
+                                                      contact: nil,
+                                                      isMyAccount: true,
+                                                      aliases: [])
+
+                return self.smartTransactionsSync(SmartTransactionsSyncQuery(address: address,
+                                                                             transactions: [tx],
+                                                                             leaseTransactions: nil,
+                                                                             senderSpecifications: specifications,
+                                                                             remoteError: nil))
+                    .map { ts -> [DomainLayer.DTO.SmartTransaction] in
                         ts.resultIngoreError ?? []
                     }
                     .flatMap { txs -> Observable<DomainLayer.DTO.SmartTransaction> in
@@ -530,7 +532,7 @@ private extension TransactionsUseCase {
 
         let blockHeight = blockRepositoryRemote
             .height(accountAddress: accountAddress)
-            .catchError { _ -> Observable<Int64> in Observable.just(0) } // думаю что в данном моменте возвращать 0 неверно
+            .catchError { _ -> Observable<Int64> in Observable.just(0) } // TODO: думаю что в данном моменте возвращать 0 неверно
 
         let accountSettings = accountSettingsRepository.accountSettings(accountAddress: accountAddress)
 
@@ -545,7 +547,6 @@ private extension TransactionsUseCase {
 
                 return accounts
                     .map { accounts -> SmartTransactionSyncData in
-
                         SmartTransactionSyncData(assets: assets,
                                                  transaction: query.transactions,
                                                  block: blocks,

@@ -147,7 +147,6 @@ final class EditAccountNameViewController: UIViewController {
         authorization
             .changeWallet(wallet)
             .subscribe(onNext: { [weak self] wallet in
-                // обратить внимание!!!
                 guard let self = self else { return }
                 self.save(wallet)
             })
