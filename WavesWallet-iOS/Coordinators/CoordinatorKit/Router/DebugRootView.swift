@@ -125,11 +125,11 @@ final class DebugWindowRouter: WindowRouter {
     override func windowDidAppear() {
         super.windowDidAppear()
         
-        debugRootView.didTapOnButton = { [weak self] in
-            self?.showSupport()
-        }
+//        debugRootView.didTapOnButton = { [weak self] in
+//            self?.showSupport()
+//        }
         
-        debugWindow.makeKeyAndVisible()
+//        debugWindow.makeKeyAndVisible()
     }
     
     private func showSupport() {

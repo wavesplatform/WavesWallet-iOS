@@ -311,24 +311,13 @@ private extension StakingTransferSystem {
         guard let transfer = state.core.data?.transfer else { return }
         
         let kind = state.core.kind
-        
-        let balance = transfer.balance.money
-        
-        let avaliableBalanceForFee = transfer.avaliableBalanceForFee.money
-        
-        let transactionFeeBalance = transfer.transactionFeeBalance.money
-        
+                
         let prevInputTransfer = state.core.input?.transfer
         
         var error: StakingTransfer.DTO.InputData.Transfer.Error? = nil
         
-        if let input = input {
-            
-            if input.amount > balance.amount {
-                error = .insufficientFunds
-            } else if avaliableBalanceForFee.amount < transactionFeeBalance.amount {
-                error = .insufficientFundsOnTax
-            }
+        if let input = input {            
+            error = transfer.errorKind(amount: input)
         }
         
         let newInputTrasnfer: StakingTransfer.DTO.InputData.Transfer = .init(amount: input, error: error)
@@ -347,7 +336,8 @@ private extension StakingTransferSystem {
         let hasPrevError = prevInputTransfer?.error != nil
         let hasError = error != nil
         let reloadError = hasPrevError && hasError
-        
+        let isActiveButton = hasError != true && input != nil
+            
         let inputField = transfer.inputField(input: newInputTrasnfer,
                                              kind: kind)
         
@@ -359,17 +349,17 @@ private extension StakingTransferSystem {
         if hasPrevError {
             state.ui.remove(indexPath: nextIndexPath)
         }
+                        
+        if let error = newInputTrasnfer.error, hasError == true {            
+            let errorRow = transfer.error(by: error)
+            state.ui.add(row: errorRow, indexPath: nextIndexPath)
+        }
         
         let rowsCount = state.ui.sections[0].rows.count
         let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
         
-        if let error = newInputTrasnfer.error, hasError == true {
-            
-            let errorRow = transfer.error(by: error, kind: kind)
-            state.ui.add(row: errorRow, indexPath: nextIndexPath)
-        }
         
-        let button = transfer.button(status: hasError == true ? .disabled : .active,
+        let button = transfer.button(status: isActiveButton ? .active : .disabled,
                                      kind: kind)
         
         state.ui.replace(row: button,
@@ -405,8 +395,6 @@ private extension StakingTransferSystem {
         guard let card = state.core.data?.card else { return }
         
         let prevInputCard = state.core.input?.card
-        let minAmount = card.minAmount
-        let maxAmount = card.maxAmount
         
         var error: StakingTransfer.DTO.InputData.Card.Error? = nil
         
@@ -422,6 +410,8 @@ private extension StakingTransferSystem {
         let hasPrevError = prevInputCard?.error != nil
         let hasError = error != nil
         let reloadError = hasPrevError && hasError
+        
+        let isActiveButton = hasError != true && input != nil
         
         let inputField = card.inputField(input: newInputCard)
         
@@ -441,7 +431,7 @@ private extension StakingTransferSystem {
         let rowsCount = state.ui.sections[0].rows.count
         let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
         
-        state.ui.replace(row: card.button(status: hasError == true ? .disabled : .active), indexPath: indexPathButton)
+        state.ui.replace(row: card.button(status: isActiveButton ? .active : .disabled), indexPath: indexPathButton)
         
         var insertRows: [IndexPath] = .init()
         var deleteRows: [IndexPath] = .init()

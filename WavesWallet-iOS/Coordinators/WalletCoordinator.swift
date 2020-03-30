@@ -149,24 +149,28 @@ extension WalletCoordinator: WalletModuleOutput {
         }
     }
     
-    func openTrade() {
-        print("openTrade")
-//        TradeCoordinator
+    func openTrade(neutrinoAsset: DomainLayer.DTO.Asset) {
+        
+        let coordinator = TradeCoordinator(navigationRouter: self.navigationRouter,
+                                           selectedAsset: neutrinoAsset)
+        
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
     }
     
-    func openBuy() {
+    func openBuy(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .card)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
     
-    func openDeposit() {
+    func openDeposit(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .deposit)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
     
-    func openWithdraw() {
+    func openWithdraw(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()

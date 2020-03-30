@@ -22,26 +22,7 @@ extension StakingTransfer.DTO.Data.Transfer {
                         asset: asset,
                         amount: input?.amount)
     }
-    
-    func errorForWithdraw(by error: StakingTransfer.DTO.InputData.Transfer.Error) -> StakingTransfer.ViewModel.Row {
         
-        let error: String = {
-            
-            switch error {
-                
-            case .insufficientFunds:
-                return "insufficientFunds 666"
-                
-            case .insufficientFundsOnTax:
-                return "insufficientFunds on tax 777"
-            }
-        }()
-        
-        return StakingTransfer
-            .ViewModel
-            .error(title: error)
-    }
-    
     func buttonForWithdraw(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
         
         let buttonTitle = Localizable.Waves.Staking.Transfer.Deposit.title
@@ -65,12 +46,20 @@ extension StakingTransfer.DTO.Data.Transfer {
         rows.append(inputField)
         
         if let error = input?.error {
-            let error = self.errorForWithdraw(by: error)
+            let error = self.error(by: error)
             rows.append(error)
         }
+                                    
+        let isActive: Bool = {
+            
+            if let amount = input?.amount {
+                return self.errorKind(amount: amount)  == nil
+            }
+            return false
+        }()
         
         let assistanceButtons: [StakingTransfer.DTO.AssistanceButton] = [.percent100, .percent75, .percent50, .percent25]
-            
+                    
         let buttons: StakingTransferScrollButtonsCell.Model =
             .init(buttons: assistanceButtons.map { $0.rawValue })
         rows.append(.scrollButtons(buttons))
@@ -78,7 +67,7 @@ extension StakingTransfer.DTO.Data.Transfer {
         let fee = StakingTransferFeeInfoCell.Model(balance: self.transactionFeeBalance)
         rows.append(.feeInfo(fee))
         
-        let button = self.buttonForWithdraw(status: .disabled)
+        let button = self.buttonForWithdraw(status: isActive ? .active : .disabled)
         rows.append(button)
         
         let section: StakingTransfer.ViewModel.Section =
