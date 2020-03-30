@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -175,7 +175,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="91.5" height="98"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="17" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" image="send">
+                                        <state key="normal" image="icon_send">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -186,7 +186,7 @@
                                         <rect key="frame" x="91.5" y="0.0" width="91.5" height="98"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="17" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" image="receive">
+                                        <state key="normal" image="icon_receive">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -274,8 +274,8 @@
     </objects>
     <resources>
         <image name="buyWithCard" width="40" height="40"/>
-        <image name="receive" width="40" height="40"/>
-        <image name="send" width="40" height="40"/>
+        <image name="icon_receive" width="40" height="40"/>
+        <image name="icon_send" width="40" height="40"/>
         <image name="trading" width="40" height="40"/>
     </resources>
 </document>

@@ -65,6 +65,13 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
         shapeLayer.path = maskPath.cgPath
     }
     
+    private func initialSetup() {
+        if Platform.isSmallDevices {
+            labelEarnPercent.font = UIFont.systemFont(ofSize: 18, weight: .black)
+            labelMoney.font = UIFont.systemFont(ofSize: 18, weight: .black)
+        }
+    }
+    
     private func update() {
         guard let model = self.model else { return }
         
