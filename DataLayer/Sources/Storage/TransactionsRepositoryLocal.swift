@@ -175,7 +175,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             let transactions = self.mapping(result: result, by: specifications)
 
             observer.onNext(transactions)
-//            observer.onCompleted()
+            observer.onCompleted()
             return Disposables.create()
         }
     }
@@ -317,7 +317,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 }
 
             observer.onNext(!result.isEmpty)
-//            observer.onCompleted()
+            observer.onCompleted()
 
             return Disposables.create()
         }
@@ -342,7 +342,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             }
 
             observer.onNext(result)
-//            observer.onCompleted()
+            observer.onCompleted()
 
             return Disposables.create()
         }
@@ -364,7 +364,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                     return true
                 }
             observer.onNext(result.count == ids.count)
-//            observer.onCompleted()
+            observer.onCompleted()
 
             return Disposables.create()
         }
