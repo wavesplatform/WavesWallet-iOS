@@ -23,7 +23,7 @@ final class WalletCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private lazy var walletViewContoller: UIViewController = {
-        return WalletModuleBuilder(output: self).build()
+        return WalletModuleBuilder(output: self).build(input: self.isDisplayInvesting)
     }()
 
     private var navigationRouter: NavigationRouter
@@ -37,9 +37,11 @@ final class WalletCoordinator: Coordinator {
     private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
     
     private var hasSendedNewUserWithoutBackupStorageTrack: Bool = false
+    private let isDisplayInvesting: Bool
     
-    init(navigationRouter: NavigationRouter){
+    init(navigationRouter: NavigationRouter, isDisplayInvesting: Bool) {
         self.navigationRouter = navigationRouter
+        self.isDisplayInvesting = isDisplayInvesting
     }
 
     func start() {
@@ -93,7 +95,7 @@ final class WalletCoordinator: Coordinator {
         let coordinator = PushNotificationsCoordinator()
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
-    
+            
     private func showNewsAndBackupTost() {
         showBackupTost()
         showNews()
@@ -117,6 +119,11 @@ final class WalletCoordinator: Coordinator {
 
 extension WalletCoordinator: WalletModuleOutput {
 
+    func showAccountHistory() {
+        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .all)
+        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
+    }
+    
     func showPayoutsHistory() {
         let payoutsBuilder = PayoutsHistoryBuilder()
         let payoutsHistoryVC = payoutsBuilder.build()

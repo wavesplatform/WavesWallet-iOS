@@ -57,12 +57,12 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         return NavigationRouter(navigationController: navigation)
     }()
 
-    private let navigationRouterHistory: NavigationRouter = {
+    private let navigationRouterInvest: NavigationRouter = {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.tabbarHistoryDefault.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.tabbarHistoryActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.invest26.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.investActive26.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -92,12 +92,13 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
     private let popoperButton: PopoperButtonViewController = {
 
-        let popoperButton = PopoperButtonViewController()
-        popoperButton.tabBarItem.image = Images.tabbarActionDefalt.image.withRenderingMode(.alwaysOriginal)
-        popoperButton.tabBarItem.selectedImage = Images.tabbarActionActive.image.withRenderingMode(.alwaysOriginal)
-        popoperButton.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+        let navigation = PopoperButtonViewController()
+        navigation.tabBarItem.image = Images.fastHange26.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.fastHangeActive26.image.withRenderingMode(.alwaysOriginal)
+        
+        navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        return popoperButton
+        return navigation
     }()
 
     init(slideMenuRouter: SlideMenuRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
@@ -107,16 +108,20 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         tabBarRouter.setViewControllers([navigationRouterWallet.navigationController,
                                          navigationRouterDex.navigationController,
+                                         navigationRouterInvest.navigationController,
                                          popoperButton,
-                                         navigationRouterHistory.navigationController,
                                          navigationRouterProfile.navigationController])
 
-        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet)
+        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet,
+                                                  isDisplayInvesting: false)
         addChildCoordinatorAndStart(childCoordinator: walletCoordinator)
 
-        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouterHistory, historyType: .all)
-        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
-
+        let investingCoordinator = WalletCoordinator(navigationRouter: navigationRouterInvest,
+                                                     isDisplayInvesting: true)
+        
+        addChildCoordinatorAndStart(childCoordinator: investingCoordinator)
+        
+        
         let tradeCoordinator = TradeCoordinator(navigationRouter: navigationRouterDex)
         addChildCoordinatorAndStart(childCoordinator: tradeCoordinator)
 

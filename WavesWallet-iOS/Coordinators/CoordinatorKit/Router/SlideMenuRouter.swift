@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//TODO: Remove
 final class SlideMenuRouter: NSObject {
 
     public let slideMenu: SlideMenu

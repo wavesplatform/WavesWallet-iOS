@@ -30,8 +30,7 @@ final class ProfileViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        createMenuButton()
+        
         setupBigNavigationBar()
         setupSystem()
         setupLanguages()

@@ -257,6 +257,10 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .tapSortButton:
             moduleOutput?.showWalletSort(balances: state.assets)
             state.action = .none
+            
+        case .tapHistory:
+            moduleOutput?.showAccountHistory()
+            state.action = .none
 
         case .tapAddressButton:
             moduleOutput?.showMyAddress()

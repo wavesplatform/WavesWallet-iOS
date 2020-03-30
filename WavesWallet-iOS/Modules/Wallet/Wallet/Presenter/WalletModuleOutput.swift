@@ -15,6 +15,7 @@ protocol WalletModuleOutput: AnyObject {
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance])
     func showMyAddress()
     func showHistoryForLeasing()
+    func showAccountHistory()
     func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance])
     func showStartLease(availableMoney: Money)
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
