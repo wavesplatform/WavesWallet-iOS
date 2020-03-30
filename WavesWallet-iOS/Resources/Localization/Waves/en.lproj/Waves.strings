@@ -561,8 +561,8 @@
 "wallet.label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
 "wallet.label.quickNote.description.third" = "The generating balance will be updated after 1000 blocks.";
 "wallet.label.startedLeasing" = "Started Leasing";
-"wallet.label.viewHistory" = "Transaction history";
 "wallet.label.totalBalance" = "Total balance";
+"wallet.label.viewHistory" = "Transaction history";
 "wallet.navigationBar.title" = "Wallet";
 "wallet.section.activeNow" = "Active now (%d)";
 "wallet.section.hiddenAssets" = "Hidden tokens (%d)";
@@ -570,51 +570,6 @@
 "wallet.section.spamAssets" = "Suspicious tokens (%d)";
 "wallet.segmentedControl.assets" = "Tokens";
 "wallet.segmentedControl.leasing" = "Leasing";
-"wallet.segmentedControl.staking" = "Staking";
-"wallet.segmentedControl.new" = "new";
-
-
-"wallet.stakingbalance.label.totalBalance" = "Total balance";
-"wallet.stakingbalance.label.staking" = "Staking";
-"wallet.stakingbalance.label.available" = "Available";
-"wallet.stakingbalance.button.deposit" = "Deposit";
-"wallet.stakingbalance.button.withdraw" = "Withdraw";
-"wallet.stakingbalance.button.trade" = "Trade";
-"wallet.stakingbalance.button.buy" = "Buy";
-"wallet.stakingheader.estimatedInterest" = "Estimated Interest";
-"wallet.stakingheader.perYear" = "%% per year";
-"wallet.stakingheader.howItWorks" = "How it works?";
-"wallet.stakingheader.totalProfit" = "Total Profit";
-"wallet.stakingheader.share" = "Share";
-"wallet.sharedTitle" = "I earned %@ USDN passive income, with an average annual yield of %@, lying on the couch!";
-"wallet.stakingPayouts.lastPayouts" = "Last Payouts";
-"wallet.stakingPayouts.profit" = "Profit";
-"wallet.stakingPayouts.payoutsHistory" = "Payouts History";
-"wallet.stakingPayouts.youDontHavePayouts" = "You don't have any payouts yet";
-
-"staking.landing.earn" = "Earn %@";
-"staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
-"staking.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
-"staking.landing.howItWorks" = "How it works?";
-"staking.landing.next" = "Next";
-"staking.landing.startStaking" = "Start Staking";
-
-"staking.landing.slide.buyusdn.title" = "Buy USD-N";
-"staking.landing.slide.buyusdn.subtitle" = "with fiat or crypto";
-
-"staking.landing.slide.buyusdn.title" = "Buy USD-N";
-"staking.landing.slide.buyusdn.subtitle" = "with fiat or crypto";
-
-"staking.landing.slide.depositusdn.title" = "Deposit USD-N";
-"staking.landing.slide.depositusdn.subtitle" = "to smart contract";
-
-"staking.landing.slide.passiveincome.title" = "Enjoy your passive income";
-"staking.landing.slide.passiveincome.subtitle" = "every day";
-
-
-"staking.landing.faq.part.one" = "Still have questions? Please visit %@";
-"staking.landing.faq.part.two" = "FAQ";
-
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";
@@ -791,59 +746,64 @@
 "receive.tootltip.addressOptions.externalsource.subtitle" = "Use this option for receiving funds from other exchanges and crypto-wallets.";
 "receive.tootltip.addressOptions.wavesaccount.title" = "Waves Account";
 "receive.tootltip.addressOptions.wavesaccount.subtitle" = "Use this option to receive WAVES and Waves-based assets from another account in the Waves blockchain.";
-
-
-
-"staking.transfer.cell.transactionfee.title" = "Transaction Fee:";
-
+"staking.transfer.cell.transactionfee.title" = "Fee:";
 "staking.transfer.withdraw.cell.input.title" = "Staking balance:";
-
 "staking.transfer.withdraw.title" = "Withdraw";
-"staking.transfer.withdraw.cell.input.title" = "Withdraw from Smart Contract";
 "staking.transfer.withdraw.button.title" = "Withdraw";
-
 "staking.transfer.deposit.cell.input.title" = "Available balance:";
 "staking.transfer.deposit.title" = "Deposit";
-"staking.transfer.deposit.cell.input.title" = "Deposit to Smart Contract";
 "staking.transfer.deposit.button.title" = "Deposit";
-
 "staking.transfer.card.cell.input.title" = "Amount";
-"staking.transfer.card.title" = "Buy with Card";
-
-"staking.transfer.card.cell.description.title.part1" = "• The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.";
-
+"staking.transfer.card.title" = "Buy Crypto";
+"staking.transfer.card.cell.description.title.part1" = "• You can buy USDN with your bank card or by direct transfer to the Advanced Cash account.";
 "staking.transfer.card.cell.description.title.part2" = "• After a successful payment on the partners' website, USDN will be credited to your account within a few minutes.";
-
 "staking.transfer.card.cell.description.title.part3" = "• The minimum amount is %@. The maximum amount is %@.";
-
 "staking.transfer.card.cell.description.title.part4" = "• If you have problems with your payment, please create a ticket on the %@ website.";
-
 "staking.transfer.card.cell.description.title.part4.url" = "support";
-
 "staking.transfer.error.maxamount" = "Max amount is %@.";
-
 "staking.transfer.error.minamount" = "Min amount is %@.";
-
 "payoutsHistory.title" = "Payouts History";
-
 "payoutsHistory.profit" = "Profit";
-
 "staking.sharingText" = "I earned %@USDN passive income, with an average annual yield of %@%%, lying on the couch! #Neutrino #WavesBlockchain";
-
 "transactioncompleted.deposit.subtitle" = "You have deposited %@";
 "transactioncompleted.withdraw.subtitle" = "You have withdrawn %@";
-
-
 "transactioncompleted.card.subtitle.url" = "Advanced Cash";
-
-"transactioncompleted.card.subtitle" = "Note that you have to go through all the necessary procedures on the %@ website.\nOnce you are done, USDN will be credited to your account within a few minutes.";
-
+"transactioncompleted.card.subtitle" = "Don't forget to check your email that you specified during the registration on the %@ website!";
 "transactioncompleted.title" = "Your transaction is on the way!";
-"transactioncompleted.card.title" = "Purchase completed!";
-
 "transactioncompleted.button.viewdetails.title" = "View Details";
 "transactioncompleted.button.success.title" = "Ok";
-
 "staking.transfer.error.insufficientfunds" = "Insufficient funds.";
-
 "staking.transfer.error.insufficientFundsOnTax" = "You don't have enough funds to pay the fee.";
+"wallet.segmentedControl.staking" = "Staking";
+"wallet.segmentedControl.new" = "new";
+"wallet.stakingbalance.label.totalBalance" = "Total balance";
+"wallet.stakingbalance.label.staking" = "Staked Balance";
+"wallet.stakingbalance.label.available" = "Available Balance";
+"wallet.stakingbalance.button.deposit" = "Deposit";
+"wallet.stakingbalance.button.withdraw" = "Withdraw";
+"wallet.stakingbalance.button.trade" = "Trade";
+"wallet.stakingbalance.button.buy" = "Buy";
+"wallet.stakingheader.estimatedInterest" = "Estimated Interest";
+"wallet.stakingheader.perYear" = "%% per year";
+"wallet.stakingheader.howItWorks" = "How does it work?";
+"wallet.stakingheader.totalProfit" = "Total Profit";
+"wallet.stakingheader.share" = "Share";
+"wallet.stakingPayouts.lastPayouts" = "Last Payouts";
+"wallet.stakingPayouts.profit" = "Profit";
+"wallet.stakingPayouts.payoutsHistory" = "Payouts History";
+"wallet.stakingPayouts.youDontHavePayouts" = "You don't have any payouts yet";
+"staking.landing.earn" = "Earn %@";
+"staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
+"staking.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
+"staking.landing.howItWorks" = "How does it work?";
+"staking.landing.next" = "Next";
+"staking.landing.startStaking" = "Start Now";
+"staking.landing.slide.buyusdn.title" = "Buy USDN";
+"staking.landing.slide.buyusdn.subtitle" = "with fiat or crypto";
+"staking.landing.slide.depositusdn.title" = "Deposit USD-N";
+"staking.landing.slide.depositusdn.subtitle" = "to smart contract";
+"staking.landing.slide.passiveincome.title" = "Enjoy your passive income";
+"staking.landing.slide.passiveincome.subtitle" = "every day";
+"staking.landing.faq.part.one" = "Still have questions? Please visit %@\"";
+"staking.landing.faq.part.two" = "FAQ";
+"transactioncompleted.card.title" = "Buy Crypto";

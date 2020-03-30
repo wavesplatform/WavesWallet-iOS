@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,28 +18,22 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcK-6x-dtJ">
-                        <rect key="frame" x="36" y="0.0" width="591" height="154.5"/>
+                        <rect key="frame" x="36" y="0.0" width="591" height="141.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Earn 21.65%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fG-lW-0l0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Earn 21.65%" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fG-lW-0l0">
                                 <rect key="frame" x="40" y="15" width="511" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Annual Interest by doing NOTHING." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKW-Pj-RM5">
-                                <rect key="frame" x="26" y="42.5" width="539" height="16"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12.21352" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSR-HT-Yj5">
-                                <rect key="frame" x="40" y="78.5" width="511" height="26.5"/>
+                                <rect key="frame" x="40" y="65.5" width="511" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufL-DJ-Csi">
-                                <rect key="frame" x="26" y="107" width="565" height="31.5"/>
+                                <rect key="frame" x="26" y="94" width="565" height="31.5"/>
                                 <string key="text">the profit you earn when you start staking $10,000. the profit you earn when you start staking $10,000. the profit you earn when you start staking $10,000. </string>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                 <nil key="textColor"/>
@@ -50,21 +44,18 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ufL-DJ-Csi" secondAttribute="trailing" id="522-rd-3u4"/>
                             <constraint firstItem="ufL-DJ-Csi" firstAttribute="leading" secondItem="bcK-6x-dtJ" secondAttribute="leading" constant="26" id="BCv-Ow-chr"/>
-                            <constraint firstItem="SKW-Pj-RM5" firstAttribute="top" secondItem="0fG-lW-0l0" secondAttribute="bottom" constant="1" id="Fyi-AM-bT6"/>
                             <constraint firstItem="ufL-DJ-Csi" firstAttribute="top" secondItem="lSR-HT-Yj5" secondAttribute="bottom" constant="2" id="Ls7-Ks-mXw"/>
                             <constraint firstAttribute="trailing" secondItem="lSR-HT-Yj5" secondAttribute="trailing" constant="40" id="QWS-BR-5Bp"/>
-                            <constraint firstItem="SKW-Pj-RM5" firstAttribute="leading" secondItem="bcK-6x-dtJ" secondAttribute="leading" constant="26" id="SRM-xu-bjq"/>
-                            <constraint firstAttribute="trailing" secondItem="SKW-Pj-RM5" secondAttribute="trailing" constant="26" id="ZJ7-Wl-oLV"/>
                             <constraint firstItem="lSR-HT-Yj5" firstAttribute="leading" secondItem="bcK-6x-dtJ" secondAttribute="leading" constant="40" id="geD-vB-6Nb"/>
                             <constraint firstAttribute="bottom" secondItem="ufL-DJ-Csi" secondAttribute="bottom" constant="16" id="hea-4h-Dku"/>
-                            <constraint firstAttribute="trailing" secondItem="0fG-lW-0l0" secondAttribute="trailing" constant="40" id="m4F-xf-Clf"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="0fG-lW-0l0" secondAttribute="trailing" constant="40" id="m4F-xf-Clf"/>
                             <constraint firstItem="0fG-lW-0l0" firstAttribute="top" secondItem="bcK-6x-dtJ" secondAttribute="top" constant="15" id="qA3-ac-cbZ"/>
                             <constraint firstItem="0fG-lW-0l0" firstAttribute="leading" secondItem="bcK-6x-dtJ" secondAttribute="leading" constant="40" id="twi-T7-NS4"/>
-                            <constraint firstItem="lSR-HT-Yj5" firstAttribute="top" secondItem="SKW-Pj-RM5" secondAttribute="bottom" constant="20" id="xjs-Ff-Tx1"/>
+                            <constraint firstItem="lSR-HT-Yj5" firstAttribute="top" secondItem="0fG-lW-0l0" secondAttribute="bottom" constant="24" id="uXc-kF-H76"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myn-kx-9vF" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="16" y="525.5" width="595" height="48"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myn-kx-9vF" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="16" y="531.5" width="595" height="48"/>
                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="gkN-3Y-jL8"/>
@@ -81,7 +72,7 @@
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="szL-Kb-jPa" customClass="DottedRoundView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="26" y="66.5" width="611" height="80"/>
+                        <rect key="frame" x="26" y="57.5" width="611" height="76"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="dottedCornerRadius">
@@ -98,14 +89,14 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="Still have questions? Please visit FAQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dQ-RM-bIg" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="10" y="593.5" width="607" height="299.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Still have questions? Please visit FAQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dQ-RM-bIg" customClass="TTTAttributedLabel">
+                        <rect key="frame" x="10" y="599.5" width="607" height="293.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0T6-dJ-fDG">
-                        <rect key="frame" x="0.0" y="244" width="627" height="195.5"/>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0T6-dJ-fDG">
+                        <rect key="frame" x="0.0" y="250" width="627" height="195.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="v9F-QR-ETd">
                                 <rect key="frame" x="0.0" y="0.0" width="1881" height="195.5"/>
@@ -375,14 +366,14 @@
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="UgO-S0-Ilo"/>
                         </connections>
                     </scrollView>
-                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="6" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="vhe-Yg-ni3" customClass="PageControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="213.5" y="479.5" width="200" height="6"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="6" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="vhe-Yg-ni3" customClass="PageControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="213.5" y="485.5" width="200" height="6"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="6" id="Ltp-AM-jMG"/>
                         </constraints>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="How it works?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RX-Eb-jy5">
-                        <rect key="frame" x="258" y="189.5" width="111.5" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it works?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RX-Eb-jy5">
+                        <rect key="frame" x="258" y="195.5" width="111.5" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -428,6 +419,7 @@
                     </constraint>
                     <constraint firstAttribute="trailing" secondItem="myn-kx-9vF" secondAttribute="trailing" constant="16" id="N5Q-V0-ru5"/>
                     <constraint firstItem="bcK-6x-dtJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NWA-fp-iyz"/>
+                    <constraint firstItem="szL-Kb-jPa" firstAttribute="top" secondItem="lSR-HT-Yj5" secondAttribute="top" constant="-8" id="PyI-oF-ITi"/>
                     <constraint firstItem="6dQ-RM-bIg" firstAttribute="top" secondItem="myn-kx-9vF" secondAttribute="bottom" constant="20" id="Xvd-my-zRy" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
@@ -469,7 +461,6 @@
                     </constraint>
                     <constraint firstItem="szL-Kb-jPa" firstAttribute="leading" secondItem="bcK-6x-dtJ" secondAttribute="leading" constant="-10" id="gly-jk-1lq"/>
                     <constraint firstItem="6dQ-RM-bIg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jYA-9E-fSf"/>
-                    <constraint firstItem="szL-Kb-jPa" firstAttribute="top" secondItem="SKW-Pj-RM5" secondAttribute="bottom" constant="8" id="kba-G6-1WE"/>
                     <constraint firstAttribute="trailing" secondItem="0T6-dJ-fDG" secondAttribute="trailing" id="kg5-ao-5yF"/>
                     <constraint firstItem="0T6-dJ-fDG" firstAttribute="centerX" secondItem="4RX-Eb-jy5" secondAttribute="centerX" id="ktg-hx-nF0"/>
                     <constraint firstItem="4RX-Eb-jy5" firstAttribute="top" secondItem="bcK-6x-dtJ" secondAttribute="bottom" constant="54" id="m8P-s5-1f8" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -511,7 +502,6 @@
                 <outlet property="buttonNext" destination="myn-kx-9vF" id="FzU-WG-wDr"/>
                 <outlet property="faqLabel" destination="6dQ-RM-bIg" id="mmO-9n-HOR"/>
                 <outlet property="firstInfoView" destination="f9V-IM-07y" id="31t-rU-VDa"/>
-                <outlet property="labelAnnualInterests" destination="SKW-Pj-RM5" id="crh-yX-oW0"/>
                 <outlet property="labelEarnPercent" destination="0fG-lW-0l0" id="NGs-C3-sRN"/>
                 <outlet property="labelHowItWorks" destination="4RX-Eb-jy5" id="VQz-v6-12g"/>
                 <outlet property="labelMoney" destination="lSR-HT-Yj5" id="iY6-2O-bOd"/>

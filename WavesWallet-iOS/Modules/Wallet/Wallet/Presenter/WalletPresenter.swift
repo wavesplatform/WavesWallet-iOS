@@ -469,7 +469,9 @@ final class WalletPresenter: WalletPresenterProtocol {
                 let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: true)
                 state.displayState = state.displayState.updateDisplay(kind: .staking, sections: sections)
                 
-                WalletLandingSetting.set(false)
+                var value = WalletLandingSetting.value
+                value[staking.accountAddress] = true
+                WalletLandingSetting.set(value)
             }
             
             state.hasSkipLanding = true
