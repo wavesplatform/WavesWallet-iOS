@@ -10,6 +10,7 @@ import DomainLayer
 import Extensions
 import Foundation
 import RealmSwift
+import RxCocoa
 import RxRealm
 import RxSwift
 import WavesSDKExtensions

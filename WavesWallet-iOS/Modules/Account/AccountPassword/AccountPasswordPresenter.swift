@@ -6,12 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import RxOptional
-import DomainLayer
 
 protocol AccountPasswordModuleInput {
     var kind: AccountPasswordTypes.DTO.Kind { get }
@@ -23,7 +22,6 @@ protocol AccountPasswordModuleOutput: AnyObject {
 }
 
 protocol AccountPasswordPresenterProtocol {
-
     typealias Feedback = (Driver<AccountPasswordTypes.State>) -> Signal<AccountPasswordTypes.Event>
 
     var interactor: AccountPasswordInteractorProtocol! { get set }
@@ -38,7 +36,6 @@ private struct LogInQuery: Equatable {
 }
 
 final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
-
     fileprivate typealias Types = AccountPasswordTypes
 
     var interactor: AccountPasswordInteractorProtocol!
@@ -48,7 +45,6 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(logIn())
         newFeedbacks.append(verifyAccess())
@@ -59,9 +55,11 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
                                    reduce: AccountPasswordPresenter.reduce,
                                    feedback: newFeedbacks)
 
+        // TODO: .filter { $0 != nil }.map { $0! } вынести в extension для rx
         system
             .map { $0.query }
-            .filterNil()
+            .filter { $0 != nil }
+            .map { $0! }
             .drive(onNext: { [weak self] query in
                 guard let self = self else { return }
                 self.handlerQuery(query: query)
@@ -70,12 +68,11 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
     }
 
     private func logIn() -> Feedback {
-
         return react(request: { state -> LogInQuery? in
 
             guard let query = state.query else { return nil }
 
-            if case .logIn(let wallet, let password) = query {
+            if case let .logIn(wallet, password) = query {
                 return LogInQuery(wallet: wallet, password: password)
             }
 
@@ -97,13 +94,11 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
     }
 
     private func verifyAccess() -> Feedback {
-
-
         return react(request: { state -> LogInQuery? in
 
             guard let query = state.query else { return nil }
 
-            if case .verifyAccess(let wallet, let password) = query {
+            if case let .verifyAccess(wallet, password) = query {
                 return LogInQuery(wallet: wallet, password: password)
             }
 
@@ -128,13 +123,12 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
 // MARK: Core State
 
 private extension AccountPasswordPresenter {
-
     func handlerQuery(query: Types.State.Query) {
         switch query {
-        case .authorizationCompleted(let wallet, let password):
+        case let .authorizationCompleted(wallet, password):
             moduleOutput?.accountPasswordAuthorizationCompleted(wallet: wallet, password: password)
 
-        case .verifyAccessCompleted(let wallet, let password):
+        case let .verifyAccessCompleted(wallet, password):
             moduleOutput?.accountPasswordVerifyAccess(signedWallet: wallet, password: password)
 
         default:
@@ -143,34 +137,32 @@ private extension AccountPasswordPresenter {
     }
 
     static func reduce(state: Types.State, event: Types.Event) -> Types.State {
-
         var newState = state
         reduce(state: &newState, event: event)
         return newState
     }
 
     static func reduce(state: inout Types.State, event: Types.Event) {
-
         switch event {
-        case .tapLogIn(let password):
+        case let .tapLogIn(password):
             state.displayState.error = nil
-            
+
             switch state.kind {
-            case .logIn(let wallet):
+            case let .logIn(wallet):
                 state.query = .logIn(wallet: wallet, password: password)
 
-            case .verifyAccess(let wallet):
+            case let .verifyAccess(wallet):
                 state.query = .verifyAccess(wallet: wallet, password: password)
             }
 
             state.displayState.isLoading = true
 
-        case .completedLogIn(let wallet, let password):
+        case let .completedLogIn(wallet, password):
             state.query = .authorizationCompleted(wallet, password)
             state.displayState.isLoading = false
             state.displayState.error = nil
 
-        case .completedVerifyAccess(let wallet, let password):
+        case let .completedVerifyAccess(wallet, password):
             state.query = .verifyAccessCompleted(wallet, password)
             state.displayState.isLoading = false
             state.displayState.error = nil
@@ -179,7 +171,6 @@ private extension AccountPasswordPresenter {
             state.query = nil
             state.displayState.error = .incorrectPassword
             state.displayState.isLoading = false
-
         }
     }
 }
@@ -187,7 +178,6 @@ private extension AccountPasswordPresenter {
 // MARK: UI State
 
 private extension AccountPasswordPresenter {
-
     func initialState(kind: AccountPasswordTypes.DTO.Kind) -> Types.State {
         return Types.State(displayState: initialDisplayState(kind: kind),
                            kind: kind,
@@ -195,15 +185,14 @@ private extension AccountPasswordPresenter {
     }
 
     func initialDisplayState(kind: AccountPasswordTypes.DTO.Kind) -> Types.DisplayState {
-
         switch kind {
-        case .logIn(let wallet):
+        case let .logIn(wallet):
             return .init(isLoading: false,
                          error: nil,
                          name: wallet.name,
                          address: wallet.address)
 
-        case .verifyAccess(let wallet):
+        case let .verifyAccess(wallet):
             return .init(isLoading: false,
                          error: nil,
                          name: wallet.name,

@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseCore
 import FirebaseDatabase
 import Foundation
+import RxCocoa
 import RxSwift
 import WavesSDK
 import WavesSDKExtensions

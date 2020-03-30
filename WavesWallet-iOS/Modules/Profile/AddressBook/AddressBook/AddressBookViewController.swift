@@ -129,7 +129,7 @@ private extension AddressBookViewController {
 
 extension AddressBookViewController: SearchBarViewDelegate {
     func searchBarDidChangeText(_ searchText: String) {
-        isSearchMode = searchText.isNotEmpty
+        isSearchMode = !searchText.isEmpty
         sendEvent.accept(.searchTextChange(text: searchText))
     }
 }

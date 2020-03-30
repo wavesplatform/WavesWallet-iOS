@@ -136,7 +136,7 @@ extension PayoutsHistoryVC: UITableViewDelegate {
         if let cell = cell as? PayoutsTransactionsSkeletonCell {
             cell.startAnimation()
         }
-        if cell is PayoutsTransactionCell, rowItems.isNotEmpty, indexPath.row == rowItems.endIndex - 1, canLoadMore {
+        if cell is PayoutsTransactionCell, !rowItems.isEmpty, indexPath.row == rowItems.endIndex - 1, canLoadMore {
             system?.send(.loadMore)
         }
     }

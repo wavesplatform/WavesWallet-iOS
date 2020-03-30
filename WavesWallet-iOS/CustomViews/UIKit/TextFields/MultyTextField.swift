@@ -131,7 +131,7 @@ final class MultyTextField: UIView, NibOwnerLoadable {
         var error: String?
         var isValidValue: Bool = false
 
-        if let value = value, value.isNotEmpty {
+        if let value = value, !value.isEmpty {
             error = valueValidator?(value)
             isValidValue = error == nil
         }
@@ -161,7 +161,8 @@ extension MultyTextField: UITextViewDelegate {
     private func updateTextView(_ text: String?) {
         self.originalText = text
         checkValidValue(text)
-        let isEmptyText = text?.isNotEmpty ?? false
+        // обратить внимание!!!
+        let isEmptyText = !(text?.isEmpty ?? false)
         placeHolder.isHidden = isEmptyText
         textViewValue.text = text
         textViewValue.alignTextVerticallyInContainer()

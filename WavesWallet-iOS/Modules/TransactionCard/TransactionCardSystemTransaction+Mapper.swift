@@ -266,7 +266,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
         rows.append(.assetDetail(rowAssetModel))
 
-        if let attachment = transfer.attachment, attachment.isNotEmpty {
+        if let attachment = transfer.attachment, !attachment.isEmpty {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
         }
@@ -373,7 +373,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
         rows.append(.assetDetail(rowAssetModel))
 
-        if let description = transfer.description, description.isNotEmpty {
+        if let description = transfer.description, !description.isEmpty {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: description)
             rows.append(.description(rowDescriptionModel))
         }
@@ -564,7 +564,7 @@ private extension DomainLayer.DTO.SmartTransaction {
             rows.append(.showAll(model))
         }
 
-        if let attachment = transfer.attachment, attachment.isNotEmpty {
+        if let attachment = transfer.attachment, !attachment.isEmpty {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
         }
@@ -624,7 +624,7 @@ private extension DomainLayer.DTO.SmartTransaction {
             rows.append(.showAll(model))
         }
 
-        if let attachment = transfer.attachment, attachment.isNotEmpty {
+        if let attachment = transfer.attachment, !attachment.isEmpty {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
         }
@@ -688,7 +688,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
         var isLargePadding: Bool = true
 
-        if let attachment = transfer.attachment, attachment.isNotEmpty {
+        if let attachment = transfer.attachment, !attachment.isEmpty {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: attachment)
             rows.append(.description(rowDescriptionModel))
             isLargePadding = false

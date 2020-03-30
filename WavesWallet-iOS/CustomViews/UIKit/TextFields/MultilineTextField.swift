@@ -173,7 +173,7 @@ final class MultilineTextField: UIView {
     // MARK: - Checks
     
     fileprivate func checkPlaceholder() {
-        placeholderLabel.isHidden = value.isNotEmpty
+        placeholderLabel.isHidden = !value.isEmpty
     }
   
     fileprivate func checkSeparator() {
@@ -182,7 +182,7 @@ final class MultilineTextField: UIView {
     
     fileprivate func checkTitle() {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            self.titleLabel.alpha = self.value.isNotEmpty ? 1 : 0
+            self.titleLabel.alpha = !self.value.isEmpty ? 1 : 0
         })
     }
     
@@ -192,12 +192,12 @@ final class MultilineTextField: UIView {
         var errorString: String? = ""
         var isValidValue: Bool = false
         
-        if let text = text, text.isNotEmpty {
+        if let text = text, !text.isEmpty {
             errorString = delegate?.multilineTextField(textField: self, errorTextForValue: text)
             isValidValue = errorString == nil
         }
 
-        if let error = self.error, error.isNotEmpty {
+        if let error = self.error, !error.isEmpty {
             errorString = error
             isValidValue = errorString == nil
         }
@@ -234,7 +234,7 @@ extension MultilineTextField: UITextViewDelegate {
         }
        
         let newRange: NSRange
-        if text.isNotEmpty {
+        if !text.isEmpty {
             newRange = NSRange(location: textView.selectedRange.location + text.count, length: 0)
         } else {
             let location = textView.selectedRange.location - range.length

@@ -253,7 +253,7 @@ private extension HistoryViewController {
             }
             snackError = nil
             globalErrorView.isHidden = true
-            emptyView.isHidden = state.sections.isNotEmpty
+            emptyView.isHidden = !state.sections.isEmpty
 
         case let .error(error):
             emptyView.isHidden = true

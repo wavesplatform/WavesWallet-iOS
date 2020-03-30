@@ -35,21 +35,21 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         }
         
         if searchCompoments.count == 1 {
-            let searchWords = searchCompoments[0].components(separatedBy: " ").filter { $0.isNotEmpty }
-            if searchWords.isNotEmpty {
+            let searchWords = searchCompoments[0].components(separatedBy: " ").filter { !$0.isEmpty }
+            if !searchWords.isEmpty {
                 kind = .byAsset(searchWords[0])
             } else {
                 return Observable.just([])
             }
         } else if searchCompoments.count >= 2 {
-            let searchAmountWords = searchCompoments[0].components(separatedBy: " ").filter { $0.isNotEmpty }
-            let searchPriceWords = searchCompoments[1].components(separatedBy: " ").filter { $0.isNotEmpty }
+            let searchAmountWords = searchCompoments[0].components(separatedBy: " ").filter { !$0.isEmpty }
+            let searchPriceWords = searchCompoments[1].components(separatedBy: " ").filter { !$0.isEmpty }
             
-            if searchAmountWords.isNotEmpty, searchPriceWords.isNotEmpty {
+            if !searchAmountWords.isEmpty, !searchPriceWords.isEmpty {
                 kind = .byAssets(firstName: searchAmountWords[0], secondName: searchPriceWords[0])
-            } else if searchAmountWords.isNotEmpty {
+            } else if !searchAmountWords.isEmpty {
                 kind = .byAsset(searchAmountWords[0])
-            } else if searchPriceWords.isNotEmpty {
+            } else if !searchPriceWords.isEmpty {
                 kind = .byAsset(searchPriceWords[0])
             } else {
                 return Observable.just([])
@@ -80,7 +80,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
     // TODO: Any model from dataservice return like null. Need refactor
     func pairs(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
-        guard pairs.isNotEmpty else { return Observable.just([]) }
+        guard !pairs.isEmpty else { return Observable.just([]) }
         
         return Observable.zip(environmentRepository.servicesEnvironment(),
                               matcherRepository.matcherPublicKey(),

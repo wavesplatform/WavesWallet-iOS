@@ -12,7 +12,6 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import RxSwiftExt
 import WavesSDK
 import WavesSDKExtensions
 
@@ -368,7 +367,8 @@ private extension TransactionCardSystem {
                     .assets(by: [assetID],
                             accountAddress: wallet.address)
                     .map { $0.first }
-                    .filterNil()
+                    .filter { $0 != nil }
+                    .map { $0! }
             }
     }
 }

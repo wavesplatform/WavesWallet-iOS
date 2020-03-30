@@ -10,6 +10,7 @@ import DomainLayer
 import Extensions
 import Foundation
 import Moya
+import RxCocoa
 import RxSwift
 import WavesSDK
 import WavesSDKExtensions

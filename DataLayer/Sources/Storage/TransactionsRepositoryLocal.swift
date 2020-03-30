@@ -10,7 +10,6 @@ import DomainLayer
 import Extensions
 import Foundation
 import RealmSwift
-import RxOptional
 import RxRealm
 import RxSwift
 import WavesSDK
@@ -176,7 +175,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             let transactions = self.mapping(result: result, by: specifications)
 
             observer.onNext(transactions)
-            observer.onCompleted()
+//            observer.onCompleted()
             return Disposables.create()
         }
     }
@@ -189,7 +188,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         let hasWaves = specifications.assets.contains(wavesAssetId)
 
         var types = specifications.types
-        if specifications.assets.isNotEmpty, !hasWaves {
+        if !specifications.assets.isEmpty, !hasWaves {
             types = types.filter { !TransactionType.waves.contains($0) }
         }
 
@@ -318,7 +317,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 }
 
             observer.onNext(!result.isEmpty)
-            observer.onCompleted()
+//            observer.onCompleted()
 
             return Disposables.create()
         }
@@ -343,7 +342,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             }
 
             observer.onNext(result)
-            observer.onCompleted()
+//            observer.onCompleted()
 
             return Disposables.create()
         }
@@ -365,7 +364,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                     return true
                 }
             observer.onNext(result.count == ids.count)
-            observer.onCompleted()
+//            observer.onCompleted()
 
             return Disposables.create()
         }
@@ -423,7 +422,7 @@ extension IssueTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = []
         predicates.append(NSPredicate(format: "issueTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "issueTransaction.assetId IN %@", from.assets))
         }
 
@@ -436,7 +435,7 @@ extension TransferTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = []
         predicates.append(NSPredicate(format: "transferTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             let aliases = myAddress.aliases.map { $0.name }
             let predicateFormat = "transferTransaction.assetId IN %@ AND ((transferTransaction.sender == %@" +
                 " ||  transferTransaction.sender IN %@) OR" +
@@ -464,7 +463,7 @@ extension ReissueTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "reissueTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "reissueTransaction.assetId IN %@", from.assets))
         }
 
@@ -492,10 +491,10 @@ extension AliasTransaction: TransactionsSpecificationsConverter {
 
 extension MassTransferTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
-        var predicates: [NSPredicate] = .init()
+        var predicates: [NSPredicate] = []
         predicates.append(NSPredicate(format: "massTransferTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "massTransferTransaction.assetId IN %@", from.assets))
         }
 
@@ -508,7 +507,7 @@ extension BurnTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "burnTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "burnTransaction.assetId IN %@", from.assets))
         }
 
@@ -521,7 +520,7 @@ extension ExchangeTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "exchangeTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             let format = "exchangeTransaction.order1.assetPair.amountAsset IN %@"
                 + " OR exchangeTransaction.order1.assetPair.priceAsset IN %@"
                 + " OR exchangeTransaction.order2.assetPair.amountAsset IN %@"
@@ -549,7 +548,7 @@ extension AssetScriptTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "assetScriptTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "assetScriptTransaction.assetId IN %@", from.assets))
         }
 
@@ -568,7 +567,7 @@ extension SponsorshipTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "sponsorshipTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "sponsorshipTransaction.assetId IN %@", from.assets))
         }
 
@@ -581,7 +580,7 @@ extension InvokeScriptTransaction: TransactionsSpecificationsConverter {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "invokeScriptTransaction != NULL"))
 
-        if from.assets.isNotEmpty {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "invokeScriptTransaction.payment.assetId IN %@", from.assets))
         }
 

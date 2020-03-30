@@ -206,7 +206,7 @@ private extension TradeViewController {
                 case .didFailGetError(let error):
                     self.hideErrorIfExist()
                     
-                    if state.categories.isNotEmpty {
+                    if !state.categories.isEmpty {
                         switch error {
                         case .internetNotWorking:
                             self.errorSnackKey = self.showWithoutInternetSnack { [weak self] in

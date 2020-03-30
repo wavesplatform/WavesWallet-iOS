@@ -94,7 +94,7 @@ final class TradeFilterHeaderView: UITableViewHeaderFooterView, NibReusable {
             offset = button.frame.origin.x + button.frame.size.width + Constants.offset
         }
 
-        scrollView.contentSize.width = model.selectedFilters.isNotEmpty ? offset + Constants.buttonClearOffset : offset
+        scrollView.contentSize.width = !model.selectedFilters.isEmpty ? offset + Constants.buttonClearOffset : offset
         isHiddenButtonClear = model.selectedFilters.isEmpty
         isNeedShowButtonClearAnimation = gradientView.isHidden != isHiddenButtonClear
     }

@@ -4294,6 +4294,7 @@
 		7B97B06722FC784F008BA3F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				7BF66F9323F2EBAE004CAC8B /* Data+Bytes.swift */,
 				7B97B06A22FC784F008BA3F4 /* Decimal+Assisstants.swift */,
 				7B881875230590BB00AB0549 /* DeepLink.swift */,
 				7BFB47DE22FC742D002B19F8 /* Kingfisher+Rx.swift */,
@@ -4307,7 +4308,6 @@
 				7B97B06922FC784F008BA3F4 /* Sync.swift */,
 				7B97B07022FC784F008BA3F4 /* System.swift */,
 				7B97B06D22FC784F008BA3F4 /* TSUD+Rx.swift */,
-				7BF66F9323F2EBAE004CAC8B /* Data+Bytes.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";

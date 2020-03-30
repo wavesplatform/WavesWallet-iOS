@@ -323,7 +323,6 @@ fileprivate extension ProfilePresenter {
             } else {
                 return nil
             }
-
         }, effects: { [weak self] _ -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
