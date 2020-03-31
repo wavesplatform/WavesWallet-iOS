@@ -29,6 +29,7 @@ protocol ProfileModuleOutput: AnyObject {
     func accountLogouted()
     func accountDeleted()
     func showAlertForEnabledBiometric()
+    func openDebug()
 }
 
 protocol ProfilePresenterProtocol {
@@ -97,7 +98,8 @@ fileprivate extension ProfilePresenter {
              .setEnabledBiometric,
              .showAlertForEnabledBiometric,
              .openFaq,
-             .openTermOfCondition:
+             .openTermOfCondition,
+             .didTapDebug:
             
             return query
         default:
@@ -157,6 +159,9 @@ fileprivate extension ProfilePresenter {
             if let url = URL(string: UIGlobalConstants.URL.termsOfConditions) {
                 BrowserViewController.openURL(url)
             }
+            
+        case .didTapDebug:
+            owner.moduleOutput?.openDebug()
 
         default:
             break
@@ -570,6 +575,9 @@ private extension ProfilePresenter {
             
         case .updatePushNotificationsSettings:
             state.query = .updatePushNotificationsSettings
+            
+        case .didTapDebug:
+            state.query = .didTapDebug
             
         default:
             break

@@ -36,6 +36,7 @@ extension ProfileTypes {
         case registerPushNotifications
         case openFaq
         case openTermOfCondition
+        case didTapDebug
     }
 
     struct State: Mutating {
@@ -59,6 +60,7 @@ extension ProfileTypes {
         case completedQuery
         case setPushNotificationsSettings(Bool)
         case updatePushNotificationsSettings
+        case didTapDebug
         case none
     }
 

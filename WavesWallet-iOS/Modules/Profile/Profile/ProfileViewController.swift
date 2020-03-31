@@ -211,7 +211,10 @@ extension ProfileViewController: UITableViewDataSource {
 
         case .exchangeTitle:
             let cell: ExchangeTitleCell = tableView.dequeueCell()
-            cell.view.setTitleText(Localizable.Waves.Menu.Label.description)
+            let didTapDebug: VoidClosure = { [weak self] in
+                self?.eventInput.onNext(.didTapDebug)
+            }
+            cell.view.setTitleText(Localizable.Waves.Menu.Label.description, didTapDebug: didTapDebug)
             return cell
 
         case .rateApp:

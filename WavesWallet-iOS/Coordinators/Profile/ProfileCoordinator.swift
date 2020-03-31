@@ -218,6 +218,15 @@ extension ProfileCoordinator: ProfileModuleOutput {
             .build(input: .init(wallet: wallet))
         navigationRouter.pushViewController(vc)
     }
+    
+    func openDebug() {
+        let vc = StoryboardScene.Support.debugViewController.instantiate()
+        vc.delegate = self
+        let nv = CustomNavigationController()
+        nv.viewControllers = [vc]
+        nv.modalPresentationStyle = .fullScreen
+        navigationRouter.present(nv, animated: true, completion: nil)
+    }
 
     func accountLogouted() {
         
@@ -242,6 +251,26 @@ extension ProfileCoordinator: ProfileModuleOutput {
         }
         #endif
         self.applicationCoordinator?.showEnterDisplay()
+    }
+}
+
+extension ProfileCoordinator: DebugViewControllerDelegate {
+    func dissmissDebugVC(isNeedRelaunchApp: Bool) {
+        if isNeedRelaunchApp {
+            relaunchApplication()
+        }
+
+        navigationRouter.dismiss(animated: true, completion: nil)
+    }
+    
+    func relaunchApplication() {
+        authorization
+            .logout()
+            .subscribe(onCompleted: { [weak self] in
+                guard let self = self else { return }
+                self.applicationCoordinator?.showEnterDisplay()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
