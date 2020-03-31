@@ -290,10 +290,6 @@ private extension AccountBalanceUseCase {
                 return self.mappingBalancesToSmartBalances(by: wallet, query: query)
             }
             .flatMap({ [weak self] (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                guard let self = self else { return Observable.empty()}
-                return self.removeOldsBalanceSettings(by: wallet, balances: balances)
-            })
-            .flatMap({ [weak self] (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let self = self else { return Observable.empty() }
                 return self.trackFromZeroBalancesToAnalytic(assets: balances,
                                                             accountAddress: wallet.address)
