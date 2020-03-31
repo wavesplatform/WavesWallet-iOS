@@ -2320,6 +2320,9 @@ internal enum Localizable {
       }
 
       internal enum Cell {
+        /// Join the Waves Community
+        internal static var joinTheWavesCommunity: String { return Localizable.tr("Waves", "profile.cell.joinTheWavesCommunity") }
+        internal static var joinTheWavesCommunityKey: String { return "profile.cell.joinTheWavesCommunity" }
 
         internal enum Addressbook {
           /// Address book

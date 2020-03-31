@@ -34,6 +34,8 @@ extension ProfileTypes {
         case deleteAccount
         case updatePushNotificationsSettings
         case registerPushNotifications
+        case openFaq
+        case openTermOfCondition
     }
 
     struct State: Mutating {
@@ -86,9 +88,13 @@ extension ProfileTypes.ViewModel {
         case biometricDisabled
         case biometric(isOn: Bool)
         case network
+        case exchangeTitle
         case rateApp
         case feedback
+        case faq
+        case termOfConditions
         case supportWavesplatform
+        case socialNetwork
         case info(version: String, height: String?, isBackedUp: Bool)
     }
 

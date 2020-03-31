@@ -76,8 +76,11 @@ private extension ProfileViewController {
     }
 
     private func setupTableview() {
-        self.tableView.contentInset = Constants.contentInset
-        self.tableView.scrollIndicatorInsets = Constants.contentInset
+        tableView.registerCell(type: SocialNetworkCell.self)
+        tableView.registerCell(type: ExchangeTitleCell.self)
+        
+        tableView.contentInset = Constants.contentInset
+        tableView.scrollIndicatorInsets = Constants.contentInset
     }
 }
 
@@ -204,6 +207,11 @@ extension ProfileViewController: UITableViewDataSource {
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Network.title))
             return cell
+            
+        case .exchangeTitle:
+            let cell: ExchangeTitleCell = tableView.dequeueCell()
+            cell.view.setTitleText(Localizable.Waves.Menu.Label.description)
+            return cell
 
         case .rateApp:
             let cell: ProfileValueCell = tableView.dequeueCell()
@@ -214,12 +222,49 @@ extension ProfileViewController: UITableViewDataSource {
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Feedback.title))
             return cell
+            
+        case .faq:
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Waves.Menu.Button.faq))
+            return cell
+            
+        case .termOfConditions:
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Waves.Menu.Button.termsandconditions))
+            return cell
 
         case .supportWavesplatform:
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Supportwavesplatform.title))
             return cell
             
+        case .socialNetwork:
+            let cell: SocialNetworkCell = tableView.dequeueCell()
+            
+            let didTapTelegram: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.telegram) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+            
+            let didTapMediun: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.medium) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+            
+            let didTapTwitter: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.twitter) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+            
+            cell.view.setTitle(Localizable.Waves.Profile.Cell.joinTheWavesCommunity,
+                               didTapTelegram: didTapTelegram,
+                               didTapMedium: didTapMediun,
+                               didTapTwitter: didTapTwitter)
+            return cell
+
         case .info(let version, let height, let isBackedUp):
             let cell: ProfileInfoCell = tableView.dequeueCell()
 
@@ -267,8 +312,16 @@ extension ProfileViewController: UITableViewDelegate {
         eventInput.onNext(.tapRow(row))
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return ProfileHeaderView.viewHeight()
+    func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let row = sections[safe: section] {
+            switch row.kind {
+            case .other: return 0
+            default: return ProfileHeaderView.viewHeight()
+            }
+        } else {
+            return 0
+        }
+//        return ProfileHeaderView.viewHeight()
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -286,7 +339,8 @@ extension ProfileViewController: UITableViewDelegate {
 
         case .other:
             view.update(with: Localizable.Waves.Profile.Header.Other.title)
-
+        case .other: return nil
+            // view.update(with: Localizable.Waves.Profile.Header.Other.title)
         }
        
         return view
@@ -306,6 +360,8 @@ extension ProfileViewController: UITableViewDelegate {
              .network,
              .rateApp,
              .feedback,
+             .faq,
+             .termOfConditions,
              .supportWavesplatform:
             return ProfileValueCell.cellHeight()
 
@@ -320,6 +376,10 @@ extension ProfileViewController: UITableViewDelegate {
 
         case .info:
             return ProfileInfoCell.cellHeight()
+            
+        case .exchangeTitle: return 170
+            
+        case .socialNetwork: return 115 // разобраться с хардкодом
         }
     }
 }

@@ -145,6 +145,16 @@ fileprivate extension ProfilePresenter {
 
         case .setEnabledBiometric(let isOn, let wallet):
             owner.moduleOutput?.accountSetEnabledBiometric(isOn: isOn, wallet: wallet)
+            
+        case .openFaq:
+            if let url = URL(string: UIGlobalConstants.URL.medium) {
+                BrowserViewController.openURL(url)
+            }
+            
+        case .openTermOfCondition:
+            if let url = URL(string: UIGlobalConstants.URL.termsOfConditions) {
+                BrowserViewController.openURL(url)
+            }
 
         default:
             break
@@ -407,10 +417,17 @@ private extension ProfilePresenter {
 
             let security = Types.ViewModel.Section(rows: securityRows, kind: .security)
 
-            let other = Types.ViewModel.Section(rows: [.rateApp,
+            let other = Types.ViewModel.Section(rows: [.exchangeTitle,
+                                                       .rateApp,
                                                        .feedback,
+                                                       .faq,
+                                                       .termOfConditions,
                                                        .supportWavesplatform,
-                                                       .info(version: Bundle.main.versionAndBuild, height: nil, isBackedUp: wallet.isBackedUp)], kind: .other)
+                                                       .socialNetwork,
+                                                       .info(version: Bundle.main.versionAndBuild,
+                                                             height: nil,
+                                                             isBackedUp: wallet.isBackedUp)],
+                                                kind: .other)
 
             state.displayState.sections = [generalSettings,
                                            security,
@@ -460,6 +477,12 @@ private extension ProfilePresenter {
                 guard isActive == false else { return }
                 state.query = .registerPushNotifications
                 
+            case .faq:
+                state.query = .openFaq
+                
+            case .termOfConditions:
+                state.query = .openTermOfCondition
+
             default:
                 break
             }
