@@ -56,6 +56,7 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
                         }
                         .flatMapLatest { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                             
+                            //TODO: Remove listenerSettings from code and move to Intercator display
                             guard let self = self else { return Observable.never() }
                             return self
                                 .assetsBalanceSettingsRepository
