@@ -394,13 +394,14 @@ private extension WalletViewController {
     }
 
     func setupLanguages() {
+        
         navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
     }
 
     func setupButons(kind: WalletTypes.DisplayState.Kind) {
 
         navigationItem.leftBarButtonItems = [buttonAddress]
-        navigationItem.rightBarButtonItems = [buttonHistory]        
+        navigationItem.rightBarButtonItems = [buttonHistory]
     }
 
     func setupTableView() {

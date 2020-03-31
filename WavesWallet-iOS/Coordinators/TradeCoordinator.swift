@@ -137,6 +137,7 @@ extension TradeCoordinator: TradeModuleOutput {
 // MARK: - DexTraderContainerModuleOutput
 
 extension TradeCoordinator: DexTraderContainerModuleOutput {
+    
     func showInfo(pair: DexInfoPair.DTO.Pair) {
         let controller = DexInfoModuleBuilder().build(input: pair)
         let popup = PopupViewController()

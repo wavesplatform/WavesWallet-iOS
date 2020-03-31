@@ -12,7 +12,7 @@ import WavesSDKExtensions
 /// Структура предназначена для понимания нужно ли показывать лендинг (true - нужно показать, false показать не нужно)
 struct WalletLandingSetting: TSUD {
             
-    static var defaultValue: [String: Bool] = .init()
+    static var defaultValue: [String: Bool] = [:]
     
     typealias ValueType = [String: Bool]
 }
