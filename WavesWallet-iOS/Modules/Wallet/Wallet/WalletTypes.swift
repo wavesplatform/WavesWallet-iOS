@@ -101,7 +101,7 @@ extension WalletTypes {
         case isShowCleanWalletBanner(Bool)
         case completeCleanWalletBanner(Bool)
         case isHasAppUpdate(Bool)
-        case openStakingFaq
+        case openStakingFaq(fromLanding: Bool)
         case openWithdraw
         case openBuy
         case openDeposit

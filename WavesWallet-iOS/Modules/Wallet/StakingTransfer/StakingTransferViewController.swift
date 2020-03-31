@@ -33,7 +33,7 @@ extension UIViewController {
 
 protocol StakingTransferModuleOutput: AnyObject {
     func stakingTransferOpenURL(_ url: URL)
-    func stakingTransferDidSendCard(url: URL)
+    func stakingTransferDidSendCard(url: URL, amount: DomainLayer.DTO.Balance)
     func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
     func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
 }
@@ -215,8 +215,8 @@ extension StakingTransferViewController {
         case .completedWithdraw(_, let tx, let amount):
             self.moduleOutput?.stakingTransferDidSendWithdraw(transaction: tx, amount: amount)
             
-        case .completedCard(_, let url):
-            self.moduleOutput?.stakingTransferDidSendCard(url: url)
+        case .completedCard(_, let url, let amount):
+            self.moduleOutput?.stakingTransferDidSendCard(url: url, amount: amount)
             
         case .update(let updateRows, _):
             

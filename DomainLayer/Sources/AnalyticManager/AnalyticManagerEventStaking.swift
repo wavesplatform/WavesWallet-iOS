@@ -36,11 +36,13 @@ public enum AnalyticManagerEventStaking: AnalyticManagerEventInfo {
     case mainBuyTap
     case mainPayoutsHistoryTap
     case depositSendTap(amount: Int64, assetTicker: String)
-    case depositSuccessViewDetails
     case withdrawSendTap(amount: Int64, assetTicker: String)
+    case cardSendTap(amount: Int64, assetTicker: String)
+    case cardSuccess(amount: Int64, assetTicker: String)
+    case depositSuccess(amount: Int64, assetTicker: String)
+    case withdrawSuccess(amount: Int64, assetTicker: String)
+    case depositSuccessViewDetails
     case withdrawSuccessViewDetails
-    case cardSendTap
-    case carSuccess
     
     public var name: String {
         
@@ -58,8 +60,12 @@ public enum AnalyticManagerEventStaking: AnalyticManagerEventInfo {
         case .depositSuccessViewDetails: return "Staking Deposit Success View Details"
         case .withdrawSendTap: return "Staking Withdraw Send Tap"
         case .withdrawSuccessViewDetails: return "Staking Withdraw Success View Details"
+            
+        case .depositSuccess: return "Staking Deposit Success"
+        case .withdrawSuccess: return "Staking Withdraw Success"
+            
         case .cardSendTap: return "Staking Card Send Tap"
-        case .carSuccess: return "Staking Card Success"
+        case .cardSuccess: return "Staking Card Success"
         }
         
     }
@@ -73,6 +79,15 @@ public enum AnalyticManagerEventStaking: AnalyticManagerEventInfo {
             return ["amount": "\(amount)", "asset": assetTicker]
         case let .withdrawSendTap(amount, assetTicker):
             return ["amount": "\(amount)", "asset": assetTicker]
+        case let .cardSendTap(amount, assetTicker):
+            return ["amount": "\(amount)", "asset": assetTicker]
+        case let .cardSuccess(amount, assetTicker):
+            return ["amount": "\(amount)", "asset": assetTicker]
+        case let .depositSuccess(amount, assetTicker):
+            return ["amount": "\(amount)", "asset": assetTicker]
+        case let .withdrawSuccess(amount, assetTicker):
+            return ["amount": "\(amount)", "asset": assetTicker]
+            
         default:
             return [:]
         }

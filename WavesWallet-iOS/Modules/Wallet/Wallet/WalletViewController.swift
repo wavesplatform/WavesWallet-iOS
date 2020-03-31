@@ -449,8 +449,8 @@ extension WalletViewController: WalletDisplayDataDelegate {
         sendEvent.accept(.openVk(sharedText))
     }
 
-    func openStakingFaq() {
-        sendEvent.accept(.openStakingFaq)
+    func openStakingFaq(fromLanding: Bool) {
+        sendEvent.accept(.openStakingFaq(fromLanding: fromLanding))
     }
 
     func withdrawTapped() {

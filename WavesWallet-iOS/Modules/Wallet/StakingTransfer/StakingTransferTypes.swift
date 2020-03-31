@@ -142,7 +142,7 @@ extension StakingTransfer {
                 case completedWithdraw(_ updateRows: UpdateRows?,
                     transactions: DomainLayer.DTO.SmartTransaction,
                     amount: DomainLayer.DTO.Balance)
-                case completedCard(_ updateRows: UpdateRows?, URL)
+                case completedCard(_ updateRows: UpdateRows?, url: URL, amount: DomainLayer.DTO.Balance)
                 
                 var updateRoes: UpdateRows? {
                     switch self {
@@ -152,7 +152,7 @@ extension StakingTransfer {
                         return model
                     case .completedDeposit(let model, _, _):
                         return model
-                    case .completedCard(let model, _):
+                    case .completedCard(let model, _, _):
                         return model
                     default:
                         return nil
