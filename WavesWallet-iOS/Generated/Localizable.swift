@@ -1861,6 +1861,15 @@ internal enum Localizable {
       }
     }
 
+    internal enum Investment {
+
+      internal enum Navigationbar {
+        /// Investment
+        internal static var title: String { return Localizable.tr("Waves", "investment.navigationbar.title") }
+        internal static var titleKey: String { return "investment.navigationbar.title" }
+      }
+    }
+
     internal enum Keeper {
 
       internal enum Button {

@@ -395,7 +395,11 @@ private extension WalletViewController {
 
     func setupLanguages() {
         
-        navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
+        if isDisplayInvesting {
+            navigationItem.title = Localizable.Waves.Investment.Navigationbar.title
+        } else {
+            navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
+        }
     }
 
     func setupButons(kind: WalletTypes.DisplayState.Kind) {
