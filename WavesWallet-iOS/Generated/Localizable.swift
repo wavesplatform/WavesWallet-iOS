@@ -1861,6 +1861,15 @@ internal enum Localizable {
       }
     }
 
+    internal enum Investment {
+
+      internal enum Navigationbar {
+        /// Investment
+        internal static var title: String { return Localizable.tr("Waves", "investment.navigationbar.title") }
+        internal static var titleKey: String { return "investment.navigationbar.title" }
+      }
+    }
+
     internal enum Keeper {
 
       internal enum Button {
@@ -2966,7 +2975,7 @@ internal enum Localizable {
         internal static func earn(_ p1: String) -> String {
           return Localizable.tr("Waves", "staking.landing.earn", p1)
         }
-        /// How it works?
+        /// How does it work?
         internal static var howItWorks: String { return Localizable.tr("Waves", "staking.landing.howItWorks") }
         internal static var howItWorksKey: String { return "staking.landing.howItWorks" }
         /// Next
@@ -2976,14 +2985,14 @@ internal enum Localizable {
         internal static func profitWhenStaking(_ p1: String) -> String {
           return Localizable.tr("Waves", "staking.landing.profitWhenStaking", p1)
         }
-        /// Start Staking
+        /// Start Now
         internal static var startStaking: String { return Localizable.tr("Waves", "staking.landing.startStaking") }
         internal static var startStakingKey: String { return "staking.landing.startStaking" }
 
         internal enum Faq {
 
           internal enum Part {
-            /// Still have questions? Please visit %@
+            /// Still have questions? Please visit %@"
             internal static func one(_ p1: String) -> String {
               return Localizable.tr("Waves", "staking.landing.faq.part.one", p1)
             }
@@ -2999,7 +3008,7 @@ internal enum Localizable {
             /// with fiat or crypto
             internal static var subtitle: String { return Localizable.tr("Waves", "staking.landing.slide.buyusdn.subtitle") }
             internal static var subtitleKey: String { return "staking.landing.slide.buyusdn.subtitle" }
-            /// Buy USD-N
+            /// Buy USDN
             internal static var title: String { return Localizable.tr("Waves", "staking.landing.slide.buyusdn.title") }
             internal static var titleKey: String { return "staking.landing.slide.buyusdn.title" }
           }
@@ -3027,7 +3036,7 @@ internal enum Localizable {
       internal enum Transfer {
 
         internal enum Card {
-          /// Buy with Card
+          /// Buy Crypto
           internal static var title: String { return Localizable.tr("Waves", "staking.transfer.card.title") }
           internal static var titleKey: String { return "staking.transfer.card.title" }
 
@@ -3036,7 +3045,7 @@ internal enum Localizable {
             internal enum Description {
 
               internal enum Title {
-                /// • The fee is 0. For 100 USD, you'll get exaсtly 100 USDN.
+                /// • You can buy USDN with your bank card or by direct transfer to the Advanced Cash account.
                 internal static var part1: String { return Localizable.tr("Waves", "staking.transfer.card.cell.description.title.part1") }
                 internal static var part1Key: String { return "staking.transfer.card.cell.description.title.part1" }
                 /// • After a successful payment on the partners' website, USDN will be credited to your account within a few minutes.
@@ -3070,7 +3079,7 @@ internal enum Localizable {
         internal enum Cell {
 
           internal enum Transactionfee {
-            /// Transaction Fee:
+            /// Fee:
             internal static var title: String { return Localizable.tr("Waves", "staking.transfer.cell.transactionfee.title") }
             internal static var titleKey: String { return "staking.transfer.cell.transactionfee.title" }
           }
@@ -3090,7 +3099,7 @@ internal enum Localizable {
           internal enum Cell {
 
             internal enum Input {
-              /// Deposit to Smart Contract
+              /// Available balance:
               internal static var title: String { return Localizable.tr("Waves", "staking.transfer.deposit.cell.input.title") }
               internal static var titleKey: String { return "staking.transfer.deposit.cell.input.title" }
             }
@@ -3128,7 +3137,7 @@ internal enum Localizable {
           internal enum Cell {
 
             internal enum Input {
-              /// Withdraw from Smart Contract
+              /// Staking balance:
               internal static var title: String { return Localizable.tr("Waves", "staking.transfer.withdraw.cell.input.title") }
               internal static var titleKey: String { return "staking.transfer.withdraw.cell.input.title" }
             }
@@ -3553,11 +3562,11 @@ internal enum Localizable {
       }
 
       internal enum Card {
-        /// Note that you have to go through all the necessary procedures on the %@ website.\nOnce you are done, USDN will be credited to your account within a few minutes.
+        /// Don't forget to check your email that you specified during the registration on the %@ website!
         internal static func subtitle(_ p1: String) -> String {
           return Localizable.tr("Waves", "transactioncompleted.card.subtitle", p1)
         }
-        /// Purchase completed!
+        /// Buy Crypto
         internal static var title: String { return Localizable.tr("Waves", "transactioncompleted.card.title") }
         internal static var titleKey: String { return "transactioncompleted.card.title" }
 
@@ -3704,10 +3713,6 @@ internal enum Localizable {
     }
 
     internal enum Wallet {
-      /// I earned %@ USDN passive income, with an average annual yield of %@, lying on the couch!
-      internal static func sharedTitle(_ p1: String, _ p2: String) -> String {
-        return Localizable.tr("Waves", "wallet.sharedTitle", p1, p2)
-      }
 
       internal enum Button {
         /// Start Lease
@@ -3826,10 +3831,10 @@ internal enum Localizable {
         }
 
         internal enum Label {
-          /// Available
+          /// Available Balance
           internal static var available: String { return Localizable.tr("Waves", "wallet.stakingbalance.label.available") }
           internal static var availableKey: String { return "wallet.stakingbalance.label.available" }
-          /// Staking
+          /// Staked Balance
           internal static var staking: String { return Localizable.tr("Waves", "wallet.stakingbalance.label.staking") }
           internal static var stakingKey: String { return "wallet.stakingbalance.label.staking" }
           /// Total balance
@@ -3842,7 +3847,7 @@ internal enum Localizable {
         /// Estimated Interest
         internal static var estimatedInterest: String { return Localizable.tr("Waves", "wallet.stakingheader.estimatedInterest") }
         internal static var estimatedInterestKey: String { return "wallet.stakingheader.estimatedInterest" }
-        /// How it works?
+        /// How does it work?
         internal static var howItWorks: String { return Localizable.tr("Waves", "wallet.stakingheader.howItWorks") }
         internal static var howItWorksKey: String { return "wallet.stakingheader.howItWorks" }
         /// %% per year

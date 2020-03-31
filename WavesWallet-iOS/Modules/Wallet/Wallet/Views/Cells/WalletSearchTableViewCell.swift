@@ -19,6 +19,7 @@ final class WalletSearchTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var textField: UITextField!
     
     var searchTapped:(() -> Void)?
+    var sortTapped:(() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +33,10 @@ final class WalletSearchTableViewCell: UITableViewCell, NibReusable {
     
     @IBAction private func searchButtonTapped(_ sender: Any) {
         searchTapped?()
+    }
+    
+    @IBAction private func sortButtonTapped(_ sender: Any) {
+        sortTapped?()
     }
 }
 

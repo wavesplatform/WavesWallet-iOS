@@ -45,6 +45,7 @@ extension WalletTypes.DTO {
             let inStaking: DomainLayer.DTO.Balance
         }
         
+        let accountAddress: String
         let profit: Profit
         let balance: Balance
         let lastPayouts: PayoutsHistoryState.MassTransferTrait

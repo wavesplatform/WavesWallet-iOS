@@ -20,7 +20,6 @@ private enum Constants {
 final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
     @IBOutlet private weak var blueTopView: UIView!
     @IBOutlet private weak var labelEarnPercent: UILabel!
-    @IBOutlet private weak var labelAnnualInterests: UILabel!
     @IBOutlet private weak var labelMoney: UILabel!
     @IBOutlet private weak var labelProfitStaking: UILabel!
     @IBOutlet private weak var buttonNext: HighlightedButton!
@@ -139,7 +138,6 @@ extension StakingLandingCell: ViewConfiguration {
         profitValue = (deffaultProfitValue / Constants.secondYear) / 10
         
         labelEarnPercent.attributedText = NSMutableAttributedString.stakingEarnPercent(percent: model.percent)
-        labelAnnualInterests.text = Localizable.Waves.Staking.Landing.annualInterest
         
         labelProfitStaking.attributedText = NSMutableAttributedString.stakingProfitInfo(minimumDeposit: minimumDeposit)
         labelHowItWorks.text = Localizable.Waves.Staking.Landing.howItWorks

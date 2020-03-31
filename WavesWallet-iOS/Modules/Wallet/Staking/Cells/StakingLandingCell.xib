@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,28 +18,22 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcK-6x-dtJ">
-                        <rect key="frame" x="36" y="0.0" width="591" height="154.5"/>
+                        <rect key="frame" x="36" y="0.0" width="591" height="141.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Earn 21.65%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fG-lW-0l0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Earn 21.65%" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fG-lW-0l0">
                                 <rect key="frame" x="40" y="15" width="511" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Annual Interest by doing NOTHING." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKW-Pj-RM5">
-                                <rect key="frame" x="26" y="42.5" width="539" height="16"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12.21352" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSR-HT-Yj5">
-                                <rect key="frame" x="40" y="78.5" width="511" height="26.5"/>
+                                <rect key="frame" x="40" y="65.5" width="511" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufL-DJ-Csi">
-                                <rect key="frame" x="26" y="107" width="565" height="31.5"/>
+                                <rect key="frame" x="26" y="94" width="565" height="31.5"/>
                                 <string key="text">the profit you earn when you start staking $10,000. the profit you earn when you start staking $10,000. the profit you earn when you start staking $10,000. </string>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                 <nil key="textColor"/>
@@ -141,7 +135,7 @@
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="szL-Kb-jPa" customClass="DottedRoundView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="26" y="66.5" width="611" height="80"/>
+                        <rect key="frame" x="26" y="57.5" width="611" height="76"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="dottedCornerRadius">
@@ -476,6 +470,7 @@
                     </constraint>
                     <constraint firstAttribute="trailing" secondItem="myn-kx-9vF" secondAttribute="trailing" constant="16" id="N5Q-V0-ru5"/>
                     <constraint firstItem="bcK-6x-dtJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NWA-fp-iyz"/>
+                    <constraint firstItem="szL-Kb-jPa" firstAttribute="top" secondItem="lSR-HT-Yj5" secondAttribute="top" constant="-8" id="PyI-oF-ITi"/>
                     <constraint firstItem="6dQ-RM-bIg" firstAttribute="top" secondItem="myn-kx-9vF" secondAttribute="bottom" constant="20" id="Xvd-my-zRy" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="smallDevices">
@@ -583,7 +578,6 @@
                 <outlet property="buttonNext" destination="myn-kx-9vF" id="FzU-WG-wDr"/>
                 <outlet property="faqLabel" destination="6dQ-RM-bIg" id="mmO-9n-HOR"/>
                 <outlet property="firstInfoView" destination="f9V-IM-07y" id="31t-rU-VDa"/>
-                <outlet property="labelAnnualInterests" destination="SKW-Pj-RM5" id="crh-yX-oW0"/>
                 <outlet property="labelEarnPercent" destination="0fG-lW-0l0" id="NGs-C3-sRN"/>
                 <outlet property="labelHowItWorks" destination="4RX-Eb-jy5" id="VQz-v6-12g"/>
                 <outlet property="labelMoney" destination="lSR-HT-Yj5" id="iY6-2O-bOd"/>

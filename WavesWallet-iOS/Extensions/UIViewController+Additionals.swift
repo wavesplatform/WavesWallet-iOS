@@ -34,17 +34,6 @@ extension UIViewController {
                                                            action: #selector(backTapped))
     }
 
-
-    func createMenuButton(isWhite: Bool = false) {
-        let item = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
-
-        if isWhite {
-            item.tintColor = UIColor.white
-        }
-
-        navigationItem.leftBarButtonItem = item
-    }
-
     @objc func menuTapped() {
         
         UseCasesFactory

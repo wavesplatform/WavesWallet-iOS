@@ -24,7 +24,7 @@ struct HistoryModuleBuilder: ModuleBuilderOutput {
 
         switch input.type {
         case .all:
-            vc.createMenuButton()
+            vc.createBackButton()
 
         default:
             vc.createBackButton()

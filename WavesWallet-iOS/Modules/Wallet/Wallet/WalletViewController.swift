@@ -26,6 +26,7 @@ private extension WalletTypes.DisplayState.Kind {
     }
 }
 
+//TODO: refactor all module
 final class WalletViewController: UIViewController {
     @IBOutlet private weak var scrolledTablesComponent: ScrolledContainerView!
     @IBOutlet var globalErrorView: GlobalErrorView!
@@ -33,7 +34,7 @@ final class WalletViewController: UIViewController {
     private var displayData: WalletDisplayData!
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing, .staking]
+    private var displays: [WalletTypes.DisplayState.Kind] = []
 
     private var isRefreshing: Bool = false
     private var snackError: String?
@@ -43,20 +44,32 @@ final class WalletViewController: UIViewController {
                                                 style: .plain,
                                                 target: nil,
                                                 action: nil)
-    private let buttonSort = UIBarButtonItem(image: Images.walletSort.image,
-                                             style: .plain,
-                                             target: nil,
-                                             action: nil)
+    private let buttonHistory = UIBarButtonItem(image: Images.history21122.image,
+                                                style: .plain,
+                                                target: nil,
+                                                action: nil)
 
     private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
 
     var presenter: WalletPresenterProtocol!
-
+    
+    var isDisplayInvesting: Bool = false {
+        didSet {
+            if isDisplayInvesting {
+                displays = [.staking, .leasing]
+            } else {
+                displays = [.assets]
+            }
+        }
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        displayData = WalletDisplayData(scrolledTablesComponent: scrolledTablesComponent)
-
+        displayData = WalletDisplayData(scrolledTablesComponent: scrolledTablesComponent,
+                                        displays: displays)
+        displayData.isDisplayInvesting = isDisplayInvesting
+        
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
 
@@ -66,7 +79,6 @@ final class WalletViewController: UIViewController {
 
         setupLanguages()
         setupBigNavigationBar()
-        createMenuButton()
         setupTableView()
         setupSystem()
 
@@ -149,7 +161,7 @@ extension WalletViewController: UIScrollViewDelegate {
 
 extension WalletViewController: ScrolledContainerViewDelegate {
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
-        setupRightButons(kind: displays[index])
+        setupButons(kind: displays[index])
         sendEvent.accept(.changeDisplay(displays[index]))
 
         DispatchQueue.main.async {
@@ -201,10 +213,10 @@ extension WalletViewController {
     }
 
     func events() -> [Signal<WalletTypes.Event>] {
-        let sortTapEvent = buttonSort
+        let sortTapEvent = buttonHistory
             .rx
             .tap
-            .map { WalletTypes.Event.tapSortButton }
+            .map { WalletTypes.Event.tapHistory }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let addressTapEvent = buttonAddress
@@ -302,7 +314,7 @@ extension WalletViewController {
         }
         scrolledTablesComponent.setSelectedIndex(displays.firstIndex(of: state.kind) ?? 0,
                                                  animation: false)
-        setupRightButons(kind: state.kind)
+        setupButons(kind: state.kind)
     }
 
     func updateErrorView(with state: DisplayErrorState) {
@@ -382,17 +394,18 @@ private extension WalletViewController {
     }
 
     func setupLanguages() {
-        navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
+        
+        if isDisplayInvesting {
+            navigationItem.title = Localizable.Waves.Investment.Navigationbar.title
+        } else {
+            navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
+        }
     }
 
-    func setupRightButons(kind: WalletTypes.DisplayState.Kind) {
-        switch kind {
-        case .assets:
-            navigationItem.rightBarButtonItems = [buttonAddress, buttonSort]
+    func setupButons(kind: WalletTypes.DisplayState.Kind) {
 
-        case .leasing, .staking:
-            navigationItem.rightBarButtonItems = [buttonAddress]
-        }
+        navigationItem.leftBarButtonItems = [buttonAddress]
+        navigationItem.rightBarButtonItems = [buttonHistory]
     }
 
     func setupTableView() {
@@ -458,6 +471,10 @@ extension WalletViewController: WalletDisplayDataDelegate {
 
     func showSearchVC(fromStartPosition: CGFloat) {
         sendEvent.accept(.presentSearch(startPoint: fromStartPosition))
+    }
+    
+    func sortButtonTapped() {
+        sendEvent.accept(.tapSortButton)
     }
 
     func tableViewDidSelect(indexPath: IndexPath) {

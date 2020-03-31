@@ -109,15 +109,18 @@ final class WalletInteractor: WalletInteractorProtocol {
     func leasing() -> Observable<WalletTypes.DTO.Leasing> {
         return Observable.merge(leasing(isNeedUpdate: true))
     }
-    
+        
     func staking() -> Observable<WalletTypes.DTO.Staking> {
         let obtainNeutrinoAsset = Observable.zip(authorizationInteractor.authorizedWallet(), enviroment.developmentConfigs())
-            .flatMap { [weak self] signedWallet, config -> Observable<[DomainLayer.DTO.Asset]> in
+            .flatMap { [weak self] signedWallet, config -> Observable<(assets: [DomainLayer.DTO.Asset], accountAddress: String)> in
                 guard let strongSelf = self else { return Observable.never() }
                 
                 let neutrinoId = config.staking.first?.neutrinoAssetId ?? ""
                 let addressWallet = signedWallet.wallet.address
-                return strongSelf.assetUseCase.assets(by: [neutrinoId], accountAddress: addressWallet)
+                return strongSelf
+                    .assetUseCase
+                    .assets(by: [neutrinoId], accountAddress: addressWallet)
+                    .map { (assets: $0, accountAddress: addressWallet) }
             }
         
         return Observable
@@ -128,7 +131,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                  stakingBalanceService.totalStakingBalance(),
                  obtainNeutrinoAsset)
             .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance, neutrinoAsset -> WalletTypes.DTO.Staking in
-                
+                                
                 let walletAddress = lastPayoutsTransactions.walletAddress
                 
                 let profitPercent = WalletInteractor.getTotalProfitPercent(transactions: yearPercentMassTransfer.data,
@@ -161,17 +164,21 @@ final class WalletInteractor: WalletInteractorProtocol {
                                                               available: availableStakingBalance,
                                                               inStaking: inStakingBalance)
                 
-                let showLandingIfNeeded = WalletLandingSetting.value
+                
+                let isShowedLanding = WalletLandingSetting.value[neutrinoAsset.accountAddress] ?? false
+                
+                let showLandingIfNeeded = isShowedLanding == false
                 
                 let minimumDeposit = DomainLayer.DTO.Balance(currency: totalBalanceCurrency,
                                                              money: Money(10000, stakingBalance.precision))
                 let landing = WalletTypes.DTO.Staking.Landing(percent: profitPercent,
                                                               minimumDeposit: minimumDeposit)
                 
-                return WalletTypes.DTO.Staking(profit: profit,
+                return WalletTypes.DTO.Staking(accountAddress: neutrinoAsset.accountAddress,
+                                               profit: profit,
                                                balance: balance,
                                                lastPayouts: lastPayoutsTransactions,
-                                               neutrinoAsset: neutrinoAsset.first,
+                                               neutrinoAsset: neutrinoAsset.assets.first,
                                                landing: showLandingIfNeeded ? landing : nil)
             }
     }

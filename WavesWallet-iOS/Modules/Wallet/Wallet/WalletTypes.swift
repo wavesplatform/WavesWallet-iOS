@@ -91,6 +91,7 @@ extension WalletTypes {
         case tapRow(IndexPath)
         case tapSection(Int)
         case tapSortButton
+        case tapHistory
         case tapAddressButton
         case changeDisplay(DisplayState.Kind)
         case showStartLease(Money)

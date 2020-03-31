@@ -69,8 +69,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        createMenuButton()
+        
         setupNavigationItem()
         
         subscribeLanguageNotification()
