@@ -276,6 +276,7 @@
 		7B4FA71B242BEA7A00A2FB25 /* DomainLayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */; };
 		7B4FA71E242C17D000A2FB25 /* StakingTransactionCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */; };
 		7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B537E2423E08B43002A3976 /* Date+Helper.swift */; };
+		7B5D784024339C2500D665CC /* AnalyticManagerEventStaking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5D783F24339C2500D665CC /* AnalyticManagerEventStaking.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
 		7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */; };
@@ -1655,6 +1656,7 @@
 		7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLayerConstants.swift; sourceTree = "<group>"; };
 		7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransactionCompletedVC.swift; sourceTree = "<group>"; };
 		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
+		7B5D783F24339C2500D665CC /* AnalyticManagerEventStaking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticManagerEventStaking.swift; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
@@ -3879,6 +3881,7 @@
 				7BDC6D6C22C398E100614E6B /* AnalyticManagerEvent+AddressBook.swift */,
 				7BDC6D6F22C3A03400614E6B /* AnalyticManagerEvent+Menu.swift */,
 				7BDC6D7122C3A03E00614E6B /* AnalyticManagerEvent+Widgets.swift */,
+				7B5D783F24339C2500D665CC /* AnalyticManagerEventStaking.swift */,
 			);
 			path = AnalyticManager;
 			sourceTree = "<group>";
@@ -7491,6 +7494,7 @@
 				7B5FAADB22BCEA4200621A44 /* AccountBalanceUseCaseProtocol.swift in Sources */,
 				7B9542C423FB2CF50079AB18 /* Balance.swift in Sources */,
 				7B5FAA7B22BBE3EC00621A44 /* TransactionsRepositoryProtocol.swift in Sources */,
+				7B5D784024339C2500D665CC /* AnalyticManagerEventStaking.swift in Sources */,
 				7B5FAA8E22BBE3EC00621A44 /* InvokeScriptTransactionDomainDTO.swift in Sources */,
 				7B5FAAAB22BBE3EC00621A44 /* AnalyticManager+Dex.swift in Sources */,
 				7B5FAA7422BBE3EC00621A44 /* DexRealmRepositoryProtocol.swift in Sources */,

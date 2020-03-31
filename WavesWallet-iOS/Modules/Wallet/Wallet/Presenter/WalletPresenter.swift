@@ -122,7 +122,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
             guard let self = self else { return Signal.empty() }
-            return self.assetListener?.skip(1) ?? Signal.never()
+            return self.assetListener?.skip(1).debug("ALLL", trimOutput: false) ?? Signal.never()
         })
     }
 
