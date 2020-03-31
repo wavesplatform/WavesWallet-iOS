@@ -95,7 +95,9 @@ fileprivate extension ProfilePresenter {
              .showFeedback,
              .showSupport,
              .setEnabledBiometric,
-             .showAlertForEnabledBiometric:
+             .showAlertForEnabledBiometric,
+             .openFaq,
+             .openTermOfCondition:
             
             return query
         default:

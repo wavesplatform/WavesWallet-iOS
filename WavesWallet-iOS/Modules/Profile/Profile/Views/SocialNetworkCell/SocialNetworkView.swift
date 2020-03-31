@@ -23,6 +23,10 @@ final class SocialNetworkCell: UITableViewXibContainerCell<SocialNetworkView> {
         super.prepareForReuse()
         view.resetToEmptyState()
     }
+    
+    static func cellHeight() -> CGFloat {
+        115
+    }
 }
 
 final class SocialNetworkView: UIView, NibLoadable, ResetableView {

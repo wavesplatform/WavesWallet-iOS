@@ -21,6 +21,10 @@ final class ExchangeTitleCell: UITableViewXibContainerCell<ExchangeTitleView> {
         super.prepareForReuse()
         view.resetToEmptyState()
     }
+    
+    static func cellHeight() -> CGFloat {
+        170
+    }
 }
 
 final class ExchangeTitleView: UIView, NibLoadable, ResetableView {
