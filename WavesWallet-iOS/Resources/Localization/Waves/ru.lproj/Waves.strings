@@ -785,7 +785,7 @@
 "wallet.stakingbalance.button.trade" = "Торговать";
 "wallet.stakingbalance.button.buy" = "Покупка";
 "wallet.stakingheader.estimatedInterest" = "Расчетная доходность";
-"wallet.stakingheader.perYear" = "% в год";
+"wallet.stakingheader.perYear" = "%% в год";
 "wallet.stakingheader.howItWorks" = "Как это работает?";
 "wallet.stakingheader.totalProfit" = "Всего получено";
 "wallet.stakingheader.share" = "Поделиться";
