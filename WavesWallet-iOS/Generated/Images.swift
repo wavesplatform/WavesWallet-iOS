@@ -81,6 +81,8 @@ internal enum Images {
   internal static let chartarrow22Accent100 = ImageAsset(name: "chartarrow22Accent100")
   internal static let chartarrow22Error500 = ImageAsset(name: "chartarrow22Error500")
   internal static let chartarrow22Success400 = ImageAsset(name: "chartarrow22Success400")
+  internal static let chat26 = ImageAsset(name: "chat26")
+  internal static let chatActive26 = ImageAsset(name: "chatActive26")
   internal static let check18Success400 = ImageAsset(name: "check18Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
@@ -407,6 +409,8 @@ internal enum Images {
     chartarrow22Accent100,
     chartarrow22Error500,
     chartarrow22Success400,
+    chat26,
+    chatActive26,
     check18Success400,
     checkMark,
     checkSuccess,

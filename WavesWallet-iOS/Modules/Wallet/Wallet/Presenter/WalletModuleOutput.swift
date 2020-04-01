@@ -26,6 +26,7 @@ protocol WalletModuleOutput: AnyObject {
     func openBuy(neutrinoAsset: DomainLayer.DTO.Asset)
     func openDeposit(neutrinoAsset: DomainLayer.DTO.Asset)
     func openWithdraw(neutrinoAsset: DomainLayer.DTO.Asset)
+    func openActionMenu()
     func openTw(sharedText: String)
     func openVk(sharedText: String)
     func openFb(sharedText: String)

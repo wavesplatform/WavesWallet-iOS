@@ -456,6 +456,10 @@ final class WalletPresenter: WalletPresenterProtocol {
             moduleOutput?.openWithdraw(neutrinoAsset: neutrinoAsset)
             state.action = .none
             
+        case .tapActionMenuButton:
+            moduleOutput?.openActionMenu()
+            state.action = .none
+            
         case .openFb(let text):
             moduleOutput?.openFb(sharedText: text)
             state.action = .none

@@ -93,6 +93,7 @@ extension WalletTypes {
         case tapSortButton
         case tapHistory
         case tapAddressButton
+        case tapActionMenuButton
         case changeDisplay(DisplayState.Kind)
         case showStartLease(Money)
         case presentSearch(startPoint: CGFloat)
