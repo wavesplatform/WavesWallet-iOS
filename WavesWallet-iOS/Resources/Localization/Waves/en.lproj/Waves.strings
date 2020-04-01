@@ -804,8 +804,8 @@
 "staking.landing.slide.depositusdn.subtitle" = "to smart contract";
 "staking.landing.slide.passiveincome.title" = "Enjoy your passive income";
 "staking.landing.slide.passiveincome.subtitle" = "every day";
-"staking.landing.faq.part.one" = "Still have questions? Please visit %@\"";
+"staking.landing.faq.part.one" = "Still have questions? Please visit %@";
 "staking.landing.faq.part.two" = "FAQ";
 "transactioncompleted.card.title" = "Buy Crypto";
 "investment.navigationbar.title" = "Investment";
-"profile.cell.joinTheWavesCommunity" = "Join the Waves Community";
+"profile.cell.joinTheWavesCommunity" = "Social Network";
