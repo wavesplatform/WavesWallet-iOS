@@ -6,46 +6,53 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
+import DomainLayer
+import Extensions
+import RxCocoa
 import RxFeedback
 import RxSwift
-import RxCocoa
-import Extensions
-import DomainLayer
+import UIKit
 
 private enum Constants {
-    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 24, right: 0)
+    static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
 }
 
 final class ProfileViewController: UIViewController {
-
     fileprivate typealias Types = ProfileTypes
 
     @IBOutlet private var tableView: UITableView!
-    private lazy var logoutItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self, action: #selector(logoutTapped))
+    private lazy var logoutItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self,
+                                                  action: #selector(logoutTapped))
     private var sections: [Types.ViewModel.Section] = [Types.ViewModel.Section]()
 
     var presenter: ProfilePresenterProtocol!
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
-        
+
+    private let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupBigNavigationBar()
         setupSystem()
         setupLanguages()
         setupTableview()
-        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changedLanguage),
+                                               name: .changedLanguage,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
 
     @objc private func logoutTapped() {
-        
         UseCasesFactory
             .instance
             .analyticManager
             .trackEvent(.profile(.profileLogoutUp))
-        
+
         eventInput.onNext(.tapLogout)
     }
 
@@ -53,13 +60,14 @@ final class ProfileViewController: UIViewController {
         setupLanguages()
         tableView.reloadData()
     }
-    
+
     @objc private func appDidBecomeActive() {
         eventInput.onNext(.updatePushNotificationsSettings)
     }
 }
 
 // MARK: - MainTabBarControllerProtocol
+
 extension ProfileViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
@@ -70,25 +78,25 @@ extension ProfileViewController: MainTabBarControllerProtocol {
 // MARK: Setup Methods
 
 private extension ProfileViewController {
-
     private func setupLanguages() {
         navigationItem.title = Localizable.Waves.Profile.Navigation.title
     }
 
     private func setupTableview() {
-        self.tableView.contentInset = Constants.contentInset
-        self.tableView.scrollIndicatorInsets = Constants.contentInset
+        tableView.registerCell(type: SocialNetworkCell.self)
+        tableView.registerCell(type: ExchangeTitleCell.self)
+
+        tableView.contentInset = Constants.contentInset
+        tableView.scrollIndicatorInsets = Constants.contentInset
     }
 }
 
 // MARK: RxFeedback
 
 private extension ProfileViewController {
-
     func setupSystem() {
-
         let uiFeedback: ProfilePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
         let readyViewFeedback: ProfilePresenterProtocol.Feedback = { [weak self] _ in
@@ -117,7 +125,6 @@ private extension ProfileViewController {
     }
 
     func subscriptions(state: Driver<Types.State>) -> [Disposable] {
-
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
@@ -129,8 +136,7 @@ private extension ProfileViewController {
     }
 
     func updateView(with state: Types.DisplayState) {
-
-        self.sections = state.sections
+        sections = state.sections
         if let action = state.action {
             switch action {
             case .update:
@@ -146,9 +152,7 @@ private extension ProfileViewController {
 // MARK: UITableViewDataSource
 
 extension ProfileViewController: UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let row = sections[indexPath]
 
         switch row {
@@ -162,17 +166,17 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Addressbook.title))
             return cell
 
-        case .pushNotifications(let isActive):
+        case let .pushNotifications(isActive):
             let cell: ProfileBackupPhraseCell = tableView.dequeueCell()
             cell.update(with: .init(isBackedUp: isActive, title: Localizable.Waves.Profile.Cell.Pushnotifications.title))
             return cell
 
-        case .language(let language):
+        case let .language(language):
             let cell: ProfileLanguageCell = tableView.dequeueCell()
             cell.update(with: .init(languageIcon: UIImage(named: language.icon) ?? UIImage()))
             return cell
 
-        case .backupPhrase(let isBackedUp):
+        case let .backupPhrase(isBackedUp):
             let cell: ProfileBackupPhraseCell = tableView.dequeueCell()
             cell.update(with: .init(isBackedUp: isBackedUp, title: Localizable.Waves.Profile.Cell.Backupphrase.title))
             return cell
@@ -192,7 +196,7 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: BiometricType.biometricByDevice.title ?? "")
             return cell
 
-        case .biometric(let isOn):
+        case let .biometric(isOn):
             let cell: ProfileBiometricCell = tableView.dequeueCell()
             cell.update(with: .init(isOnBiometric: isOn))
             cell.switchChangedValue = { [weak self] isOn in
@@ -205,6 +209,14 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Network.title))
             return cell
 
+        case .exchangeTitle:
+            let cell: ExchangeTitleCell = tableView.dequeueCell()
+            let didTapDebug: VoidClosure = { [weak self] in
+                self?.eventInput.onNext(.didTapDebug)
+            }
+            cell.view.setTitleText(Localizable.Waves.Menu.Label.description, didTapDebug: didTapDebug)
+            return cell
+
         case .rateApp:
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Rateapp.title))
@@ -215,17 +227,54 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Feedback.title))
             return cell
 
+        case .faq:
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Waves.Menu.Button.faq))
+            return cell
+
+        case .termOfConditions:
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Waves.Menu.Button.termsandconditions))
+            return cell
+
         case .supportWavesplatform:
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Supportwavesplatform.title))
             return cell
-            
-        case .info(let version, let height, let isBackedUp):
+
+        case .socialNetwork:
+            let cell: SocialNetworkCell = tableView.dequeueCell()
+
+            let didTapTelegram: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.telegram) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+
+            let didTapMediun: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.medium) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+
+            let didTapTwitter: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.twitter) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+
+            cell.view.setTitle(Localizable.Waves.Profile.Cell.joinTheWavesCommunity,
+                               didTapTelegram: didTapTelegram,
+                               didTapMedium: didTapMediun,
+                               didTapTwitter: didTapTwitter)
+            return cell
+
+        case let .info(version, height, isBackedUp):
             let cell: ProfileInfoCell = tableView.dequeueCell()
 
-            cell.update(with: ProfileInfoCell.Model.init(version: version,
-                                                         height: height,
-                                                         isLoadingHeight: height == nil))
+            cell.update(with: ProfileInfoCell.Model(version: version,
+                                                    height: height,
+                                                    isLoadingHeight: height == nil))
             cell.deleteButtonDidTap = { [weak self] in
                 if isBackedUp {
                     self?.showAlertDeleteAccount()
@@ -234,25 +283,23 @@ extension ProfileViewController: UITableViewDataSource {
                 }
             }
             cell.logoutButtonDidTap = { [weak self] in
-                
+
                 UseCasesFactory
                     .instance
                     .analyticManager
                     .trackEvent(.profile(.profileLogoutDown))
-                
-                
+
                 self?.eventInput.onNext(.tapLogout)
             }
             return cell
         }
-
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in _: UITableView) -> Int {
         return sections.count
     }
 }
@@ -260,19 +307,23 @@ extension ProfileViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension ProfileViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = sections[indexPath]
         eventInput.onNext(.tapRow(row))
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return ProfileHeaderView.viewHeight()
+    func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let row = sections[safe: section] {
+            switch row.kind {
+            case .other: return 0
+            default: return ProfileHeaderView.viewHeight()
+            }
+        } else {
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
         let view: ProfileHeaderView = tableView.dequeueAndRegisterHeaderFooter()
 
         let section = sections[section]
@@ -283,18 +334,14 @@ extension ProfileViewController: UITableViewDelegate {
 
         case .security:
             view.update(with: Localizable.Waves.Profile.Header.Security.title)
-
-        case .other:
-            view.update(with: Localizable.Waves.Profile.Header.Other.title)
-
+            
+        case .other: return nil
         }
-       
+
         return view
     }
 
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+    func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let row = sections[indexPath]
 
         switch row {
@@ -306,6 +353,8 @@ extension ProfileViewController: UITableViewDelegate {
              .network,
              .rateApp,
              .feedback,
+             .faq,
+             .termOfConditions,
              .supportWavesplatform:
             return ProfileValueCell.cellHeight()
 
@@ -320,6 +369,10 @@ extension ProfileViewController: UITableViewDelegate {
 
         case .info:
             return ProfileInfoCell.cellHeight()
+
+        case .exchangeTitle: return ExchangeTitleCell.cellHeight()
+
+        case .socialNetwork: return SocialNetworkCell.cellHeight()
         }
     }
 }
@@ -327,18 +380,15 @@ extension ProfileViewController: UITableViewDelegate {
 // MARK: UIScrollViewDelegate
 
 extension ProfileViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_: UIScrollView) {
         setupTopBarLine()
     }
 }
 
 // MARK: Private
 
-private extension ProfileViewController{
-
+private extension ProfileViewController {
     func showAlertDeleteAccountWithNeedBackup() {
-
         let vc = StoryboardScene.Profile.alertDeleteAccountViewController.instantiate()
         vc.deleteBlock = { [weak self] in
             self?.eventInput.onNext(.tapDelete)
@@ -347,7 +397,6 @@ private extension ProfileViewController{
     }
 
     func showAlertDeleteAccount() {
-
         let alert = UIAlertController(title: Localizable.Waves.Profile.Alert.Deleteaccount.title,
                                       message: Localizable.Waves.Profile.Alert.Deleteaccount.Withoutbackup.message,
                                       preferredStyle: .alert)
@@ -355,18 +404,17 @@ private extension ProfileViewController{
         let delete = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.delete,
                                    style: UIAlertAction.Style.default,
                                    handler: { [weak self] _ in
-                                    self?.eventInput.onNext(.tapDelete)
+                                       self?.eventInput.onNext(.tapDelete)
         })
 
         let cancel = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.cancel,
                                    style: UIAlertAction.Style.cancel,
                                    handler: { [weak alert] _ in
-                                    alert?.dismiss(animated: true, completion: nil)
+                                       alert?.dismiss(animated: true, completion: nil)
         })
 
         alert.addAction(delete)
         alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
-
 }

@@ -809,3 +809,5 @@
 "staking.landing.faq.part.two" = "FAQ";
 "transactioncompleted.card.title" = "Купить валюту";
 "investment.navigationbar.title" = "Инвестиции";
+"staking.sharingText" = "Я заработал %@USDN пассивного дохода со средней годовой доходностью %@%%, лежа на диване!";
+"profile.cell.joinTheWavesCommunity" = "Присоединиться к Waves сообществу";

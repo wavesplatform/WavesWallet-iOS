@@ -731,6 +731,10 @@
 		7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FA22FC742F002B19F8 /* BiometricManager+String.swift */; };
 		7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */; };
 		7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */; };
+		87105698243340DD005022DD /* SocialNetworkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87105697243340DD005022DD /* SocialNetworkView.xib */; };
+		8710569A243340F7005022DD /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87105699243340F7005022DD /* SocialNetworkView.swift */; };
+		8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8710569C24336992005022DD /* ExchangeTitleView.xib */; };
+		8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8710569E2433699D005022DD /* ExchangeTitleView.swift */; };
 		871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* Wallet+TSUD.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
@@ -2107,6 +2111,10 @@
 		7BFB47FC22FC742F002B19F8 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeParser.swift; sourceTree = "<group>"; };
 		7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserWithoutBackupStorageTrack.swift; sourceTree = "<group>"; };
+		87105697243340DD005022DD /* SocialNetworkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialNetworkView.xib; sourceTree = "<group>"; };
+		87105699243340F7005022DD /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
+		8710569C24336992005022DD /* ExchangeTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExchangeTitleView.xib; sourceTree = "<group>"; };
+		8710569E2433699D005022DD /* ExchangeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTitleView.swift; sourceTree = "<group>"; };
 		871D7262242CC94100F89403 /* Wallet+TSUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+TSUD.swift"; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
@@ -3028,6 +3036,8 @@
 		0A762DA621661A810019D447 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8710569B2433697B005022DD /* ExchangeTitleCell */,
+				87105696243340B6005022DD /* SocialNetworkCell */,
 				0ADD6C812167948400B06917 /* ProfileHeaderView.swift */,
 				0ADD6C802167948400B06917 /* ProfileHeaderView.xib */,
 				0AAB15C221655BDB00F1F7BC /* ProfileInfoCell.swift */,
@@ -4800,6 +4810,24 @@
 				7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		87105696243340B6005022DD /* SocialNetworkCell */ = {
+			isa = PBXGroup;
+			children = (
+				87105699243340F7005022DD /* SocialNetworkView.swift */,
+				87105697243340DD005022DD /* SocialNetworkView.xib */,
+			);
+			path = SocialNetworkCell;
+			sourceTree = "<group>";
+		};
+		8710569B2433697B005022DD /* ExchangeTitleCell */ = {
+			isa = PBXGroup;
+			children = (
+				8710569E2433699D005022DD /* ExchangeTitleView.swift */,
+				8710569C24336992005022DD /* ExchangeTitleView.xib */,
+			);
+			path = ExchangeTitleCell;
 			sourceTree = "<group>";
 		};
 		8752A25E2412797700B968C7 /* PayoutsHistory */ = {
@@ -6924,6 +6952,7 @@
 				7B0D1B7D2401C84300442B7B /* StakingTransferErrorCell.xib in Resources */,
 				E97A283A23D058AB00C4C8C4 /* TradeSkeletonCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
+				87105698243340DD005022DD /* SocialNetworkView.xib in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				7B9DC32A2382C04700DCCA75 /* Amplitude-Info.plist in Resources */,
 				7B2AE4B82402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib in Resources */,
@@ -7066,6 +7095,7 @@
 				0AB63C2C2170EBF00056B17E /* Language.storyboard in Resources */,
 				7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */,
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
+				8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */,
 				0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */,
@@ -8341,12 +8371,14 @@
 				E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */,
 				0ADD803221F22FFB0075FC59 /* AddressesKeysCoordinator.swift in Sources */,
 				0AC1251221A758BD00357C93 /* LongInfoPageView.swift in Sources */,
+				8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */,
 				0A96F1D32151BD46005E148F /* PasscodeTopBarView.swift in Sources */,
 				0AF9222C212E0F1F003BA067 /* WalletQuickNoteCell.swift in Sources */,
 				87FA5D1C24223BCE002F282D /* ChooseAccountViewController.swift in Sources */,
 				E9B1C3AA2382E07000B01B38 /* DexCreateOrderInfoViewController.swift in Sources */,
 				E9D36DD42175C755001E6DF0 /* ReceiveCardPresenterProtocol.swift in Sources */,
 				E9D36DEB2175C755001E6DF0 /* ReceiveInvoiceViewController.swift in Sources */,
+				8710569A243340F7005022DD /* SocialNetworkView.swift in Sources */,
 				E9B087AD2163886800937644 /* DexOrderBookLastPriceCell.swift in Sources */,
 				7B49912822F87C7A005B7123 /* AssetsSearchSystem.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
