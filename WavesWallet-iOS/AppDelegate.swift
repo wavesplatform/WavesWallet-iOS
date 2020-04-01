@@ -62,7 +62,7 @@ enum UITest {
         if let url = url {
             deepLink = DeepLink(url: url)
         }
-        
+                
         guard setupLayers() else { return false }
         
         setupUI()
@@ -116,6 +116,14 @@ enum UITest {
         Messaging.messaging().apnsToken = deviceToken
         Intercom.setDeviceToken(deviceToken)
     }
+    
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        appCoordinator.application(application,
+                                   didReceiveRemoteNotification: userInfo,
+                                   fetchCompletionHandler: completionHandler)
+    }
 }
 
 extension AppDelegate {
@@ -168,6 +176,7 @@ extension AppDelegate {
         let storages = StoragesFactory()
         
         Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId:"ibdxiwmt")
+        Intercom.setInAppMessagesVisible(true)
         
         UseCasesFactory.initialization(repositories: repositories,
                                        authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp(),
