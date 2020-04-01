@@ -102,11 +102,11 @@ extension BrowserViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView,
-                        decidePolicyFor navigationAction: WKNavigationAction,
+                        decidePolicyFor navigationAction:   WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
-        
-        if(navigationAction.navigationType == .other) {
-            if navigationAction.request.url != nil {
+                        
+        if (navigationAction.navigationType == .other || navigationAction.navigationType == .linkActivated) {
+            if let url = navigationAction.request.url {
                 self.delegate?.browserViewRedirect(url: url)
             }
             decisionHandler(.allow)
@@ -123,9 +123,9 @@ extension BrowserViewController {
         }
     }
     
-    static func openURL(_ url: URL,
-                        toViewController: UIViewController,
-                        delegate: BrowserViewControllerDelegate? = nil) {
+    @discardableResult static func openURL(_ url: URL,
+                                           toViewController: UIViewController,
+                                           delegate: BrowserViewControllerDelegate? = nil) -> BrowserViewController {
         let vc = BrowserViewController(url: url)
         vc.delegate = delegate
         let nav = UINavigationController(rootViewController: vc)
@@ -141,5 +141,7 @@ extension BrowserViewController {
          }()
                 
         newToViewController.present(nav, animated: true, completion: nil)
+        
+        return vc
     }
 }

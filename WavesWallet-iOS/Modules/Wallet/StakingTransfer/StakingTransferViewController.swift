@@ -155,7 +155,7 @@ final class StakingTransferViewController: ModalScrollViewController {
             return cell is StakingTransferInputFieldCell
         }) as? StakingTransferInputFieldCell else { return }
                         
-        let cellFrame = cell.convert(cell.frame, to: window)
+        let cellFrame = cell.frame
         
         guard keyboardRectangle.intersects(cellFrame) == true else { return }
                         
