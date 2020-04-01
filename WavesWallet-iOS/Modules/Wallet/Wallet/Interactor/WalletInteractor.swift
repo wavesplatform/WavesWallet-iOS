@@ -125,7 +125,7 @@ final class WalletInteractor: WalletInteractorProtocol {
         
         return Observable
             .zip(enviroment.developmentConfigs(),
-                 obtainYearPercent(),
+                 obtainProfitInPercents(),
                  obtainTotalProfit(),
                  obtainLastPayoutsTransactions(),
                  stakingBalanceService.totalStakingBalance(),
@@ -285,10 +285,9 @@ private extension WalletInteractor {
         return Calendar.current.date(from: dateComponents)
     }
     
-    /// Общий профит в процентах за год
+    /// Средний профит за последние 14 транзакций
     /// Расчитывается по следующей формуле:  % = (арифметическое из транзикций) * количество транзакций / 100
-    /// Если транзакций меньше чем 14 берем количество того сколько есть (про ноль пока узнают)
-    private func obtainYearPercent() -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
+    private func obtainProfitInPercents() -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
         enviroment
             .developmentConfigs()
             .map { config -> DataService.Query.MassTransferDataQuery in
@@ -296,7 +295,7 @@ private extension WalletInteractor {
                 let calendar = Calendar.current
                 let dateNow = Date()
                 
-                let startDate = calendar.date(byAdding: .year, value: -1, to: dateNow).map { "\($0.millisecondsSince1970)" }
+                let startDate = calendar.date(byAdding: .day, value: -14, to: dateNow).map { "\($0.millisecondsSince1970)" }
                 let endDate = "\(dateNow.millisecondsSince1970)"
                 
                 let query: DataService.Query.MassTransferDataQuery
@@ -404,13 +403,13 @@ extension WalletInteractor {
     private static func getTotalProfitPercent(transactions: [DataService.DTO.MassTransferTransaction],
                                               walletAddress: String) -> Double {
         // (ариф.сред. из транзакций) * 365
-        let finalCountLastProfit = transactions.count
+        let finalCountLastProfit = transactions.reduce(0, { $0 + $1.transfers.filter { $0.recipient == walletAddress }.count })
         
         let allProfit = getTotalProfit(transactions: transactions, walletAddress: walletAddress)
         
         let average = allProfit / Double(finalCountLastProfit)
         
-        return (average * 365)
+        return average * 365
     }
     
     private static func getTotalProfit(transactions: [DataService.DTO.MassTransferTransaction],
