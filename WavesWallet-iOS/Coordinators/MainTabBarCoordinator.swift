@@ -191,7 +191,7 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
-        if viewController is ActionButtonViewController {
+        if viewController is ActionButtonViewController {                        
             Intercom.presentMessenger()
             return false
         }

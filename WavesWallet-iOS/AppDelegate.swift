@@ -176,7 +176,7 @@ extension AppDelegate {
         let storages = StoragesFactory()
         
         Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId:"ibdxiwmt")
-        Intercom.setInAppMessagesVisible(true)
+                
         
         UseCasesFactory.initialization(repositories: repositories,
                                        authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp(),

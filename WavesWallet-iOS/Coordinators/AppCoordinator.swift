@@ -316,6 +316,7 @@ extension AppCoordinator {
     private func showNotificationDisplayIfNeed() {
         if let userInfo = notificationUserInfo {
             Intercom.handlePushNotification(userInfo)
+            Intercom.presentMessenger()
         }
     }
 
