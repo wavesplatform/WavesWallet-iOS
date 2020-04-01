@@ -10,12 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 import DomainLayer
+import Intercom
 
 private enum Constants {
     static let tabBarItemImageInset = UIEdgeInsets.init(top: 0, left: 0, bottom: -8, right: 0)
 }
 
-private class PopoperButtonViewController: UIViewController {}
+private class ActionButtonViewController: UIViewController {}
 
 protocol MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab()
@@ -90,11 +91,11 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         return NavigationRouter(navigationController: navigation)
     }()
 
-    private let popoperButton: PopoperButtonViewController = {
+    private let popoperButton: ActionButtonViewController = {
 
-        let navigation = PopoperButtonViewController()
-        navigation.tabBarItem.image = Images.fastHange26.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.fastHangeActive26.image.withRenderingMode(.alwaysOriginal)
+        let navigation = ActionButtonViewController()
+        navigation.tabBarItem.image = Images.chat26.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.chatActive26.image.withRenderingMode(.alwaysOriginal)
         
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
@@ -190,19 +191,8 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
-        if viewController is PopoperButtonViewController {
-            
-            UseCasesFactory
-                .instance
-                .analyticManager
-                .trackEvent(.wavesQuickAction(.wavesActionPanel))
-            
-            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
-            vc.moduleOutput = self
-            let popup = PopupViewController()
-            popup.contentHeight = 204
-            popup.present(contentViewController: vc)
-
+        if viewController is ActionButtonViewController {
+            Intercom.presentMessenger()
             return false
         }
 
@@ -218,43 +208,6 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
         }
         return true
     }
-}
-
-// MARK: - WavesPopupModuleOutput
-
-extension MainTabBarCoordinator: WavesPopupModuleOutput {
-
-    private var selectedViewController: UIViewController? {
-        return tabBarRouter.tabBarController.selectedViewController
-    }
-
-    func showSend() {
-        
-        if let nav = selectedViewController as? CustomNavigationController {
-            
-            UseCasesFactory
-                .instance
-                .analyticManager
-                .trackEvent(.wavesQuickAction(.wavesActionSend))
-            
-            let vc = SendModuleBuilder().build(input: .empty)
-            nav.pushViewController(vc, animated: true)
-        }
-    }
-
-    func showReceive() {
-
-        if let nav = selectedViewController as? CustomNavigationController {
-            
-            UseCasesFactory
-                .instance
-                .analyticManager
-                .trackEvent(.wavesQuickAction(.wavesActionReceive))
-            
-            let vc = ReceiveContainerModuleBuilder().build(input: nil)
-            nav.pushViewController(vc, animated: true)
-        }
-    }    
 }
 
 // Helper function inserted by Swift 4.2 migrator.

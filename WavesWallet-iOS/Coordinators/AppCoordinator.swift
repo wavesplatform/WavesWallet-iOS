@@ -15,6 +15,7 @@ import RxSwift
 import UIKit
 import WavesSDK
 import WavesSDKExtensions
+import Intercom
 
 private enum Contants {
     #if DEBUG
@@ -451,6 +452,8 @@ extension AppCoordinator: DebugWindowRouterDelegate {
             .logout()
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
+                
+                Intercom.logout()
                 self.showDisplay(.enter)
             })
             .disposed(by: disposeBag)

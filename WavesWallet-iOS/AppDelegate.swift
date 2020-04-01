@@ -20,6 +20,7 @@ import DomainLayer
 import Extensions
 import Firebase
 import FirebaseMessaging
+import Intercom
 
 #if DEBUG
 import SwiftMonkeyPaws
@@ -113,6 +114,7 @@ enum UITest {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
+        Intercom.setDeviceToken(deviceToken)
     }
 }
 
@@ -165,10 +167,12 @@ extension AppDelegate {
         
         let storages = StoragesFactory()
         
+        Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId:"ibdxiwmt")
+        
         UseCasesFactory.initialization(repositories: repositories,
                                        authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp(),
                                        storages: storages)
-
+        
         UNUserNotificationCenter.current().delegate = self
         return true
     }

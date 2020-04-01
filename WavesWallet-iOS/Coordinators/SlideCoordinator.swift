@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import DomainLayer
+import Intercom
 
 final class SlideCoordinator: Coordinator {
 
@@ -77,6 +78,7 @@ extension SlideCoordinator: PresentationCoordinator {
 // MARK: ApplicationCoordinatorProtocol
 extension SlideCoordinator: ApplicationCoordinatorProtocol {
     func showEnterDisplay() {
+        Intercom.logout()
         showDisplay(.enter)
     }
 }

@@ -6744,6 +6744,7 @@
 				E9B190BB22E7CD9A008220B7 /* Embed App Extensions */,
 				5FAF4597FE7F72DBCD62054E /* [CP] Embed Pods Frameworks */,
 				8752A27E2412809C00B968C7 /* SwiftLint */,
+				5AE3F11DF00A3AFBA886E665 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -7221,6 +7222,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DataLayer/Pods-DataLayer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5AE3F11DF00A3AFBA886E665 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5FAF4597FE7F72DBCD62054E /* [CP] Embed Pods Frameworks */ = {

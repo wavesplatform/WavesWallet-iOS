@@ -212,6 +212,21 @@ extension WalletCoordinator: WalletModuleOutput {
             .trackEvent(.staking(.mainDepositTap))
     }
     
+    func openActionMenu() {
+
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.wavesQuickAction(.wavesActionPanel))
+        
+        let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
+        vc.moduleOutput = self
+        let popup = PopupViewController()
+        popup.contentHeight = 204
+        popup.present(contentViewController: vc)
+
+    }
+    
     func openWithdraw(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
         addChildCoordinator(childCoordinator: coordinator)
@@ -489,5 +504,32 @@ extension WalletCoordinator: CreateAliasModuleOutput {
         if let myAddressVC = self.myAddressVC {
             navigationRouter.popToViewController(myAddressVC)
         }
+    }
+}
+
+// MARK: - WavesPopupModuleOutput
+
+extension WalletCoordinator: WavesPopupModuleOutput {
+
+    func showSend() {
+                        
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.wavesQuickAction(.wavesActionSend))
+        
+        let vc = SendModuleBuilder().build(input: .empty)
+        navigationRouter.pushViewController(vc)
+    }
+
+    func showReceive() {
+
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.wavesQuickAction(.wavesActionReceive))
+        
+        let vc = ReceiveContainerModuleBuilder().build(input: nil)
+        navigationRouter.pushViewController(vc, animated: true)    
     }
 }

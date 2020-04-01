@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import DomainLayer
+import Intercom
 
 protocol PasscodeInteractorProtocol {
 
@@ -38,7 +39,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
         return authorizationInteractor
             .changePassword(wallet: wallet, passcode: passcode, oldPassword: oldPassword, newPassword: newPassword)
             .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -48,7 +49,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
         return authorizationInteractor
             .changePasscode(wallet: wallet, oldPasscode: oldPasscode, passcode: passcode)
             .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })            
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -58,7 +59,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
         return authorizationInteractor
             .changePasscodeByPassword(wallet: wallet, passcode: passcode, password: password)
             .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -73,33 +74,33 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
                                                password: account.password,
                                                passcode: passcode)
 
-        return authorizationInteractor.registerWallet(query)
+        return authorizationInteractor
+            .registerWallet(query)
             .flatMap({ [weak self] wallet -> Observable<AuthorizationAuthStatus> in
                 guard let self = self else {  return Observable.empty() }
-                return self.authorizationInteractor.auth(type: .passcode(passcode), wallet: wallet)
+                return self.auth(type: .passcode(passcode),
+                                 wallet: wallet)
             })
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationAuthStatus> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
     }
 
     func logInBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus> {
-        return authorizationInteractor
-            .auth(type: .biometric, wallet: wallet)
+        auth(type: .biometric, wallet: wallet)
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationAuthStatus> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
     }
 
     func logIn(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationAuthStatus> {
-        return authorizationInteractor
-            .auth(type: .passcode(passcode), wallet: wallet)
+        auth(type: .passcode(passcode), wallet: wallet)
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationAuthStatus> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -109,7 +110,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
         return authorizationInteractor
             .verifyAccess(type: .biometric, wallet: wallet)
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationVerifyAccessStatus> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -119,7 +120,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
         return authorizationInteractor
             .verifyAccess(type: .passcode(passcode), wallet: wallet)
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationVerifyAccessStatus> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -129,7 +130,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
         return authorizationInteractor
             .unregisterBiometricUsingBiometric(wallet: wallet)
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationAuthStatus> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -147,7 +148,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
 
         return biometric
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationAuthStatus> in
-                return Observable.error(owner.handlerError(error))
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
@@ -159,8 +160,20 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()
     }
-
-    private func handlerError(_ error: Error) -> Error {
-        return error
+    
+    private func auth(type: AuthorizationType,
+                      wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus> {
+        self
+            .authorizationInteractor.auth(type: type,
+            wallet: wallet)
+            .do(onNext: { (status) in
+                switch status {
+                case .completed(let wallet):
+                    Intercom.registerUser(withUserId: wallet.address)
+                default:
+                    break
+                }
+            })
     }
 }
+    
