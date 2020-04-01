@@ -2320,7 +2320,7 @@ internal enum Localizable {
       }
 
       internal enum Cell {
-        /// Join the Waves Community
+        /// Social Network
         internal static var joinTheWavesCommunity: String { return Localizable.tr("Waves", "profile.cell.joinTheWavesCommunity") }
         internal static var joinTheWavesCommunityKey: String { return "profile.cell.joinTheWavesCommunity" }
 
@@ -2995,7 +2995,7 @@ internal enum Localizable {
         internal enum Faq {
 
           internal enum Part {
-            /// Still have questions? Please visit %@"
+            /// Still have questions? Please visit %@
             internal static func one(_ p1: String) -> String {
               return Localizable.tr("Waves", "staking.landing.faq.part.one", p1)
             }
