@@ -23,7 +23,7 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func tradeTapped()
     func buyTapped()
     func sortButtonTapped()
-    func openStakingFaq()
+    func openStakingFaq(fromLanding: Bool)
     func openTw(_ sharedText: String)
     func openFb(_ sharedText: String)
     func openVk(_ sharedText: String)
@@ -238,6 +238,10 @@ extension WalletDisplayData: UITableViewDataSource {
             cell.startStaking = { [weak self] in
                 self?.delegate?.startStakingTapped()
             }
+            
+            cell.didSelectLinkWith = { [weak self] url in
+                self?.delegate?.openStakingFaq(fromLanding: true)
+            }
             return cell
         }
     }
@@ -289,7 +293,7 @@ extension WalletDisplayData: UITableViewDelegate {
             let view = tableView.dequeueAndRegisterHeaderFooter() as StakingHeaderView
             view.update(with: header)
             view.howWorksAction = { [weak self] in
-                self?.delegate?.openStakingFaq()
+                self?.delegate?.openStakingFaq(fromLanding: false)
             }
             view.twAction = { [weak self] in
                 

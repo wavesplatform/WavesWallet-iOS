@@ -122,7 +122,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
             guard let self = self else { return Signal.empty() }
-            return self.assetListener?.skip(1) ?? Signal.never()
+            return self.assetListener?.skip(1).debug("ALLL", trimOutput: false) ?? Signal.never()
         })
     }
 
@@ -432,8 +432,8 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.isHasAppUpdate = isHasAppUpdate
             state.action = .none
         
-        case .openStakingFaq:
-            moduleOutput?.openStakingFaq()
+        case let .openStakingFaq(fromLanding):
+            moduleOutput?.openStakingFaq(fromLanding: fromLanding)
             state.action = .none
             
         case .openTrade:
@@ -477,6 +477,11 @@ final class WalletPresenter: WalletPresenterProtocol {
                 value[staking.accountAddress] = true
                 WalletLandingSetting.set(value)
             }
+            
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.landingStart))
             
             state.hasSkipLanding = true
             state.action = .update

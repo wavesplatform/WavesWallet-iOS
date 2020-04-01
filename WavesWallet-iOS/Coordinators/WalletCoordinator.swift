@@ -118,7 +118,7 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
-
+    
     func showAccountHistory() {
         let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .all)
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
@@ -129,6 +129,11 @@ extension WalletCoordinator: WalletModuleOutput {
         let payoutsHistoryVC = payoutsBuilder.build()
         
         navigationRouter.pushViewController(payoutsHistoryVC)
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainPayoutsHistoryTap))
     }
     
     func showPayout(payout: PayoutTransactionVM) {
@@ -140,6 +145,11 @@ extension WalletCoordinator: WalletModuleOutput {
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainShareTap(.twitter)))
     }
     
     func openVk(sharedText: String) {
@@ -147,6 +157,11 @@ extension WalletCoordinator: WalletModuleOutput {
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainShareTap(.vk)))
     }
     
     func openFb(sharedText: String) {
@@ -154,6 +169,11 @@ extension WalletCoordinator: WalletModuleOutput {
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainShareTap(.facebok)))
     }
     
     func openTrade(neutrinoAsset: DomainLayer.DTO.Asset) {
@@ -163,27 +183,61 @@ extension WalletCoordinator: WalletModuleOutput {
         
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainTradeTap))
     }
     
     func openBuy(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .card)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainBuyTap))
     }
     
     func openDeposit(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .deposit)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainDepositTap))
     }
     
     func openWithdraw(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainWithdrawTap))
     }
     
-    func openStakingFaq() {
+    func openStakingFaq(fromLanding: Bool) {
+        
+        
+        if fromLanding {
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.landingFAQTap))
+        } else {
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.mainFAQTap))
+        }
+        
         BrowserViewController.openURL(URL(string: UIGlobalConstants.URL.stakingFaq)!)
     }
     

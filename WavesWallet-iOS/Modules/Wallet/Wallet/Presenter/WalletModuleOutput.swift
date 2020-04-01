@@ -21,7 +21,7 @@ protocol WalletModuleOutput: AnyObject {
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
     func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance])
     func openAppStore()
-    func openStakingFaq()
+    func openStakingFaq(fromLanding: Bool)
     func openTrade(neutrinoAsset: DomainLayer.DTO.Asset)
     func openBuy(neutrinoAsset: DomainLayer.DTO.Asset)
     func openDeposit(neutrinoAsset: DomainLayer.DTO.Asset)
