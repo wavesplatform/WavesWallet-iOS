@@ -3036,6 +3036,12 @@ internal enum Localizable {
         }
       }
 
+      internal enum Refillerror {
+        /// You've canceled the payment procedure at Advanced Cash. You won't be charged. USDN won't be credited to your account. Use Try Again to start all over.~
+        internal static var refillByAdvancedCashCancelled: String { return Localizable.tr("Waves", "staking.refillError.refillByAdvancedCashCancelled") }
+        internal static var refillByAdvancedCashCancelledKey: String { return "staking.refillError.refillByAdvancedCashCancelled" }
+      }
+
       internal enum Transfer {
 
         internal enum Card {
