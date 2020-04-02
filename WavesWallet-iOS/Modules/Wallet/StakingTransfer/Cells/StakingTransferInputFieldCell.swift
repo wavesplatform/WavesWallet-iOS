@@ -42,6 +42,7 @@ final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
         titleLabel.linkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.delegate = self
         balanceInputField.didChangeInput = didChangeInput
+        balanceInputField.setKeyboardType(.numberPad)
     }
     
     override func becomeFirstResponder() -> Bool {
