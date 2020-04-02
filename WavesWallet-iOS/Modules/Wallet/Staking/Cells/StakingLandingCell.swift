@@ -149,6 +149,8 @@ extension StakingLandingCell: ViewConfiguration {
         setupLocalization()
         ifNeedUpdateNextButton()
         
+        totalProfitValue = (Double(model.minimumDeposit.money.amount) * (model.percent / 100))
+        
         Observable<Int>
             .timer(0, period: 0.1, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in self?.update() })
