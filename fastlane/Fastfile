@@ -1,6 +1,8 @@
 # $:.unshift File.dirname(__FILE__)
 
 require 'fastlane_core/helper'
+require 'fastlane' # to import the Action super class
+# require 'fastlane/plugin/firebase_app_distribution' # import the actual plugin
 
 fastlane_require 'open-uri'
 fastlane_require 'credentials_manager'
@@ -11,38 +13,7 @@ fastlane_require 'uri'
 fastlane_require "versionomy"
 fastlane_require "spaceship"
 
-
-def highest_app_version_number(username, password, bundle_id)
-  puts "fetching highest version on iTunes Connect..."
-
-  Spaceship::Tunes.login(username, password)  
-  # Spaceship::Tunes.select_team("#{ENV['FASTLANE_ITC_TEAM_ID']}", "#{ENV['FASTLANE_ITC_TEAM_NAME']}")
-
-  app = Spaceship::Tunes::Application.find(bundle_id)
-
-  # Spaceship::AppVersion.find(app, username, true, platform: "ios")
-  puts(app.live_version("ios"))
-end
-
 default_platform(:ios)
-
-def get_version_and_build   
-  ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
-  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj", target: "WavesWallet-iOS")      
-end
-
-def download_gitlab(url, path_to_save)   
-  
-    correct_url = "#{url}/raw?ref=master"    
-    sh("rm -rf #{path_to_save}")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{correct_url} >> #{path_to_save}")
-end
-
-def download_file(url, path_to_save)   
-    
-  sh("rm -rf #{path_to_save}")
-  sh("curl --request GET #{url} >> #{path_to_save}")
-end
 
 before_all do
     
@@ -110,10 +81,7 @@ platform :ios do
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
     ENV['CHANGELOG_BETWEEN_BRANCH']="master"
-
-    # ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-    # ENV['MATCH_TYPE'] = "appstore" 
-    # ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
+    ENV['FIREBASEAPPDISTRO_APP'] = "1:233086447937:ios:41c150c39c0482255231c0"
   end
 
   lane :prod_enviroment do
@@ -123,6 +91,7 @@ platform :ios do
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
     ENV['MATCH_TYPE'] = "appstore"    
     ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
+    
   end
 
   lane :prod_adhoc_enviroment do
@@ -131,7 +100,7 @@ platform :ios do
     
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
     ENV['MATCH_TYPE'] = "adhoc"
-    ENV['SCHEME_PROJECT'] ="WavesWallet-Release-Adhoc"
+    ENV['SCHEME_PROJECT'] ="WavesWallet-Release-Adhoc"    
   end
 
   lane :test_enviroment do
@@ -189,6 +158,11 @@ platform :ios do
     upload_testflight 
   end
 
+  lane :prod_adhoc_upload_firebase do
+    prod_adhoc_enviroment
+    upload_firebase
+  end
+  
   # Instal Enviroment
   lane :dev_install do
     dev_enviroment
@@ -208,8 +182,6 @@ platform :ios do
     download_resources
   end
 
-
-
   lane :dev_download_resources do
     dev_enviroment    
     download_resources
@@ -226,6 +198,39 @@ platform :ios do
     prod_upload_testflight
   end
 
+
+  def get_version_and_build   
+    ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
+    ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj", target: "WavesWallet-iOS")      
+  end
+  
+  def download_gitlab(url, path_to_save)   
+    
+      correct_url = "#{url}/raw?ref=master"    
+      sh("rm -rf #{path_to_save}")
+      sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{correct_url} >> #{path_to_save}")
+  end
+  
+  def download_file(url, path_to_save)   
+      
+    sh("rm -rf #{path_to_save}")
+    sh("curl --request GET #{url} >> #{path_to_save}")
+  end
+  
+  def highest_app_version_number(username, password, bundle_id)
+    puts "fetching highest version on iTunes Connect..."
+  
+    Spaceship::Tunes.login(username, password)  
+    # Spaceship::Tunes.select_team("#{ENV['FASTLANE_ITC_TEAM_ID']}", "#{ENV['FASTLANE_ITC_TEAM_NAME']}")
+  
+    app = Spaceship::Tunes::Application.find(bundle_id)
+  
+    # Spaceship::AppVersion.find(app, username, true, platform: "ios")
+    puts(app.live_version("ios"))
+  end
+
+
+  # Собирает сборку и скачиваем ресурсы и сертификаты
   lane :build_projet do
 
     download_certificates
@@ -380,8 +385,6 @@ platform :ios do
     PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
     PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
     
-    ENV['PROJECT_IPA'] = PROJECT_IPA
-
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
                apple_id: "#{ENV['APPSTORECONNECT_APP_APPLE_ID']}",
@@ -395,6 +398,22 @@ platform :ios do
                skip_waiting_for_build_processing: true)
      
     refresh_dsyms    
+  end
+
+  lane :upload_firebase do
+    
+    rootNpm = sh("npm bin -g")
+  
+    ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH'] =  "#{rootNpm}".strip + "/firebase"
+    
+    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
+    PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
+    
+    firebase_app_distribution(
+      app: "#{ENV['FIREBASEAPPDISTRO_APP']}",
+      ipa_path: "#{PROJECT_IPA}",
+      firebase_cli_path: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH']}",
+      firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}")
   end
 
   lane :refresh_dsyms do

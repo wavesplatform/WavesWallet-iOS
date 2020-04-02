@@ -91,3 +91,5 @@ Output/
 \.idea/
 
 CommonResources/GoogleService-Info-Waves\.plist
+
+firebase-debug\.log
