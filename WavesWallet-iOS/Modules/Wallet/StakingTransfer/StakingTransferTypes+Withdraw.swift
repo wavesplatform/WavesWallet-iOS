@@ -25,7 +25,7 @@ extension StakingTransfer.DTO.Data.Transfer {
         
     func buttonForWithdraw(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
         
-        let buttonTitle = Localizable.Waves.Staking.Transfer.Deposit.title
+        let buttonTitle = Localizable.Waves.Staking.Transfer.Withdraw.title
         
         return StakingTransfer
             .ViewModel

@@ -24,6 +24,8 @@ final class StakingTransferCoordinator: Coordinator {
     
     private var hasNeedRemoveCoordinatorAfterDissmiss: Bool = true
     
+    private var adCashBrowserViewController: BrowserViewController?
+    
     private var amountByBuyCard: DomainLayer.DTO.Balance?
     
     private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
@@ -135,7 +137,7 @@ final class StakingTransferCoordinator: Coordinator {
                 .analyticManager
                 .trackEvent(.staking(event))
         }
-        
+            
         vc.didSelectLinkWith = { url -> Void in
             
             BrowserViewController.openURL(url,
@@ -188,9 +190,9 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
             .trackEvent(.staking(event))
         
         
-        BrowserViewController.openURL(url,
-                                      toViewController: modalRouter.viewController,
-                                      delegate: self)
+        self.adCashBrowserViewController = BrowserViewController.openURL(url,
+                                                                         toViewController: modalRouter.viewController,
+                                                                         delegate: self)
     }
 }
 
@@ -209,7 +211,7 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
     
     func browserViewDissmiss() {}
     
-    func browserViewRedirect(url: URL) {
+        func browserViewRedirect(url: URL) {
         
         let link = url.absoluteStringByTrimmingQuery() ?? ""
         
@@ -221,7 +223,11 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
             })
             
         } else if link.contains(DomainLayerConstants.URL.fiatDepositFail)  {
-            modalRouter.viewController.showErrorNotFoundSnackWithoutAction()
+            adCashBrowserViewController?.dismiss(animated: true, completion: { [weak self] in
+                let title = Localizable.Waves.Coinomat.tryAgain
+                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title,
+                                                                             duration: 0.24)
+            })
         }
     }
 }
