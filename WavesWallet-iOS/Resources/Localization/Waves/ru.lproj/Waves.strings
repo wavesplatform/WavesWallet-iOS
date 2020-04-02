@@ -810,3 +810,4 @@
 "transactioncompleted.card.title" = "Купить валюту";
 "investment.navigationbar.title" = "Инвестиции";
 "profile.cell.joinTheWavesCommunity" = "Соц. Cети";
+"staking.refillError.refillByAdvancedCashCancelled" = "Вы отменили процедуру оплаты на сайте Advanced Cash. Оплата не произведена. USDN не будут зачислены на ваш аккаунт. Попробуйте снова, чтобы повторить попытку.";
