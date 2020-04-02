@@ -6660,6 +6660,7 @@
 				7B66871F22B7E68B0029E6F1 /* Sources */,
 				7B66872022B7E68B0029E6F1 /* Frameworks */,
 				7B66872122B7E68B0029E6F1 /* Resources */,
+				665868C4BE0C8FDC61BF1A40 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -7236,6 +7237,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		665868C4BE0C8FDC61BF1A40 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DataLayer/Pods-DataLayer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6C1AE68B16E222EEBEDE7F95 /* [CP] Check Pods Manifest.lock */ = {
