@@ -9,7 +9,6 @@ fastlane_require 'dotenv'
 fastlane_require 'json'
 fastlane_require 'uri'
 fastlane_require "versionomy"
-
 fastlane_require "spaceship"
 
 
@@ -22,17 +21,7 @@ def highest_app_version_number(username, password, bundle_id)
   app = Spaceship::Tunes::Application.find(bundle_id)
 
   # Spaceship::AppVersion.find(app, username, true, platform: "ios")
-
   puts(app.live_version("ios"))
-  # puts(app.name())
-  # liveVersion = Versionomy.parse(app.live_version.version)
-
-  # if app.edit_version
-  # editVersion = Versionomy.parse(app.edit_version.version)
-    # return editVersion.to_s
-  # else
-    # return liveVersion.to_s
-  # end
 end
 
 default_platform(:ios)
@@ -104,9 +93,8 @@ platform :ios do
     ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
   end
 
-  lane :prod_enviroment do
-
-    ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
+  lane :general_prod_enviroment do
+    
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet,com.wavesplatform.WavesWallet.widgetmarketpulse"
@@ -121,11 +109,29 @@ platform :ios do
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+    ENV['CHANGELOG_BETWEEN_BRANCH']="master"
+
+    # ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+    # ENV['MATCH_TYPE'] = "appstore" 
+    # ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
+  end
+
+  lane :prod_enviroment do
+    
+    general_prod_enviroment
 
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+    ENV['MATCH_TYPE'] = "appstore"    
+    ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
+  end
 
-    ENV['MATCH_TYPE'] = "appstore"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="master"
+  lane :prod_adhoc_enviroment do
+    
+    general_prod_enviroment
+    
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
+    ENV['MATCH_TYPE'] = "adhoc"
+    ENV['SCHEME_PROJECT'] ="WavesWallet-Release-Adhoc"
   end
 
   lane :test_enviroment do
@@ -153,20 +159,14 @@ platform :ios do
     ENV['CHANGELOG_BETWEEN_BRANCH']="master"    
   end
 
+  lane :dev_build_projet do
+    dev_enviroment    
+    build_projet
+  end
+
   lane :test_build_projet do
     test_enviroment    
     build_projet    
-  end
-
-  lane :prod_go do
-    prod_install
-    prod_build_projet
-    prod_upload_testflight
-  end
-
-  lane :test_upload_testflight do
-    test_enviroment
-    upload_testflight
   end
 
   lane :prod_build_projet do
@@ -174,21 +174,22 @@ platform :ios do
     build_projet    
   end
 
+  lane :prod_adhoc_build_projet do
+    prod_adhoc_enviroment    
+    build_projet    
+  end
+
+  lane :test_upload_testflight do
+    test_enviroment
+    upload_testflight
+  end
+  
   lane :prod_upload_testflight do
     prod_enviroment
     upload_testflight 
   end
 
-  lane :dev_build_projet do
-    dev_enviroment    
-    build_projet
-  end
-
-  lane :dev_add_new_devices do
-    dev_enviroment
-    updateMatch
-  end
-
+  # Instal Enviroment
   lane :dev_install do
     dev_enviroment
     download_certificates
@@ -207,9 +208,22 @@ platform :ios do
     download_resources
   end
 
+
+
   lane :dev_download_resources do
     dev_enviroment    
     download_resources
+  end
+
+  lane :dev_add_new_devices do
+    dev_enviroment
+    updateMatch
+  end
+
+  lane :prod_go do
+    prod_install
+    prod_build_projet
+    prod_upload_testflight
   end
 
   lane :build_projet do
@@ -270,20 +284,7 @@ platform :ios do
 
   end
 
-  lane :download_certificates do
-    
-    sh("echo CI #{ENV['URL_CERTIFICATES_GIT']}")
-    sh("echo CI #{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
-
-    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
-      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      type: "#{ENV['MATCH_TYPE']}",
-      readonly: true,
-      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
-  end
-
-
+# Загружаем ресурсы
   lane :download_resources do
 
     download_gitlab("#{ENV['URL_FABRIC']}", "#{Dir.pwd}/../CommonResources/Fabric-Info.plist")
@@ -312,11 +313,15 @@ platform :ios do
     
   end
 
+  # Загружаем файл с ключами и паролями :) 
   lane :download_bundle_enviroments do    
     sh("rm -rf #{Dir.pwd}/../.env")
     sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
     sh("cat #{Dir.pwd}/../.env")
   end
+
+
+  # Загружает все сертификаты и провижины для всех сборок и обновляет
 
   lane :updateProvision do
 
@@ -334,9 +339,25 @@ platform :ios do
     updateMatch
           
     ENV['MATCH_TYPE'] = "development"
-    updateMatch
-          
+    updateMatch          
   end
+
+
+  # Загружает сертификат и провижин для текущий сборки
+
+  lane :download_certificates do
+    
+    sh("echo CI #{ENV['URL_CERTIFICATES_GIT']}")
+    sh("echo CI #{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
+
+    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
+      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
+      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+      type: "#{ENV['MATCH_TYPE']}",
+      readonly: true,
+      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+  end
+
 
   lane :updateMatch do        
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
