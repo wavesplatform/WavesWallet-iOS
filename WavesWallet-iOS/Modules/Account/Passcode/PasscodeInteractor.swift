@@ -9,7 +9,9 @@
 import Foundation
 import RxSwift
 import DomainLayer
+import WavesSDKExtensions
 import Intercom
+import DeviceKit
 
 protocol PasscodeInteractorProtocol {
 
@@ -170,6 +172,16 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
                 switch status {
                 case .completed(let wallet):
                     Intercom.registerUser(withUserId: wallet.address)
+                    
+                    let attributes = ICMUserAttributes()
+                    attributes.userId = wallet.address
+                    attributes.customAttributes = ["platform": "iOS",
+                                                   "version": Bundle.main.versionAndBuild,
+                                                   "device": Device.current.model ?? "",
+                                                   "carrierName": UIDevice.current.carrierName,
+                                                   "os": UIDevice.current.osVersion,
+                                                   "deviceId": UIDevice.uuid]
+                    Intercom.updateUser(attributes)
                 default:
                     break
                 }
