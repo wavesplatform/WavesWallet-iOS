@@ -793,7 +793,7 @@
 "wallet.stakingPayouts.profit" = "Получено";
 "wallet.stakingPayouts.payoutsHistory" = "История выплат";
 "wallet.stakingPayouts.youDontHavePayouts" = "Выплат еще не было.";
-"staking.landing.earn" = "Зарабатывайте ";
+"staking.landing.earn" = "Зарабатывайте %@ годовых";
 "staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
 "staking.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
 "staking.landing.howItWorks" = "Как это работает?";

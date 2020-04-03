@@ -2974,7 +2974,7 @@ internal enum Localizable {
         /// Annual Interest by doing NOTHING.
         internal static var annualInterest: String { return Localizable.tr("Waves", "staking.landing.annualInterest") }
         internal static var annualInterestKey: String { return "staking.landing.annualInterest" }
-        /// Earn %@
+        /// Earn %@ annual revenues
         internal static func earn(_ p1: String) -> String {
           return Localizable.tr("Waves", "staking.landing.earn", p1)
         }
