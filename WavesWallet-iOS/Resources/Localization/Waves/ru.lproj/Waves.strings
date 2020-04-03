@@ -765,7 +765,7 @@
 "staking.transfer.error.minamount" = "Минимальное количество %@.";
 "payoutsHistory.title" = "История выплат";
 "payoutsHistory.profit" = "Получено";
-"staking.sharingText" = "Я заработал %@ USDN пассивного дохода со средней годовой доходностью %@%, лежа на диване! #Neutrino #WavesBlockchain";
+"staking.sharingText" = "Я заработал %@ пассивного дохода со средней годовой доходностью %@%, лежа на диване! #Neutrino #WavesBlockchain";
 "transactioncompleted.deposit.subtitle" = "Вы внесли %@";
 "transactioncompleted.withdraw.subtitle" = "Вы сняли %@";
 "transactioncompleted.card.subtitle.url" = "Advanced Cash";

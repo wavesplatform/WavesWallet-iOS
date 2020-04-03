@@ -2965,7 +2965,7 @@ internal enum Localizable {
     }
 
     internal enum Staking {
-      /// I earned %@USDN passive income, with an average annual yield of %@%%, lying on the couch! #Neutrino #WavesBlockchain
+      /// I earned %@ passive income, with an average annual yield of %@%%, lying on the couch! #Neutrino #WavesBlockchain
       internal static func sharingText(_ p1: String, _ p2: String) -> String {
         return Localizable.tr("Waves", "staking.sharingText", p1, p2)
       }
