@@ -236,7 +236,7 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
         } else if link.contains(DomainLayerConstants.URL.fiatDepositFail)  {
             adCashBrowserViewController?.dismiss(animated: true, completion: { [weak self] in
                 let title = Localizable.Waves.Staking.Refillerror.refillByAdvancedCashCancelled
-                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 0.24)
+                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 3.24)
             })
         }
     }
