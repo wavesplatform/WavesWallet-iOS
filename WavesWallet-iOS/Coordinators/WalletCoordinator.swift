@@ -22,7 +22,7 @@ final class WalletCoordinator: Coordinator {
 
     weak var parent: Coordinator?
 
-    private lazy var walletViewContoller: UIViewController = {
+    private lazy var walletViewContoller: WalletViewController = {
         return WalletModuleBuilder(output: self).build(input: self.isDisplayInvesting)
     }()
 
@@ -180,7 +180,6 @@ extension WalletCoordinator: WalletModuleOutput {
         
         let coordinator = TradeCoordinator(navigationRouter: self.navigationRouter,
                                            selectedAsset: neutrinoAsset)
-        
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
         
@@ -192,6 +191,7 @@ extension WalletCoordinator: WalletModuleOutput {
     
     func openBuy(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .card)
+        coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
         
@@ -203,6 +203,7 @@ extension WalletCoordinator: WalletModuleOutput {
     
     func openDeposit(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .deposit)
+        coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
         
@@ -229,6 +230,7 @@ extension WalletCoordinator: WalletModuleOutput {
     
     func openWithdraw(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
+        coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
         
@@ -531,5 +533,23 @@ extension WalletCoordinator: WavesPopupModuleOutput {
         
         let vc = ReceiveContainerModuleBuilder().build(input: nil)
         navigationRouter.pushViewController(vc, animated: true)    
+    }
+}
+
+
+// MARK: StakingTransferCoordinatorDelegate
+
+extension WalletCoordinator: StakingTransferCoordinatorDelegate {
+        
+    func stakingTransferSendDepositCompled() {
+        walletViewContoller.refreshData()
+    }
+    
+    func stakingTransferSendWithdrawCompled() {
+        walletViewContoller.refreshData()
+    }
+    
+    func stakingTransferSendCardCompled() {
+        walletViewContoller.refreshData()
     }
 }
