@@ -775,8 +775,8 @@
 "transactioncompleted.button.success.title" = "Хорошо";
 "staking.transfer.error.insufficientfunds" = "Недостаточно средств.";
 "staking.transfer.error.insufficientFundsOnTax" = "У вас недостаточно средств для оплаты комиссии.";
-"wallet.segmentedControl.staking" = "Staking";
-"wallet.segmentedControl.new" = "new";
+"wallet.segmentedControl.staking" = "Стейкинг";
+"wallet.segmentedControl.new" = "Новое";
 "wallet.stakingbalance.label.totalBalance" = "Общий баланс";
 "wallet.stakingbalance.label.staking" = "Сейчас в стейкинге";
 "wallet.stakingbalance.label.available" = "Доступно для стейкинга";
@@ -795,7 +795,7 @@
 "wallet.stakingPayouts.youDontHavePayouts" = "Выплат еще не было.";
 "staking.landing.earn" = "Зарабатывайте %@ годовых";
 "staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
-"staking.landing.profitWhenStaking" = "the profit you earn when you start staking %@";
+"staking.landing.profitWhenStaking" = "ваш примерный годовой доход, если вы инвестируете %@. 1 USDN = 1 USD.";
 "staking.landing.howItWorks" = "Как это работает?";
 "staking.landing.next" = "Дальше";
 "staking.landing.startStaking" = "Начать стейкинг";
