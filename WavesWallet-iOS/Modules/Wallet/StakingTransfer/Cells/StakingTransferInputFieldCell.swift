@@ -17,6 +17,7 @@ final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
                 
         let title: NSAttributedString        
         let balance: BalanceInputField.Model
+        let hasDecimal: Bool
     }
     
     @IBOutlet private weak var balanceInputField: BalanceInputField!
@@ -42,9 +43,8 @@ final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
         titleLabel.linkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.delegate = self
         balanceInputField.didChangeInput = didChangeInput
-        balanceInputField.setKeyboardType(.numberPad)
     }
-    
+        
     override func becomeFirstResponder() -> Bool {
         return balanceInputField.becomeFirstResponder()
     }
@@ -55,7 +55,12 @@ final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
 extension StakingTransferInputFieldCell: ViewConfiguration {
     
     func update(with model: StakingTransferInputFieldCell.Model) {
-                
+        
+        if model.hasDecimal {
+            balanceInputField.setKeyboardType(.decimalPad)
+        } else {
+            balanceInputField.setKeyboardType(.numberPad)
+        }
         titleLabel.text = model.title
         titleLabel.addLinks(from: model.title)
         balanceInputField.update(with: model.balance)

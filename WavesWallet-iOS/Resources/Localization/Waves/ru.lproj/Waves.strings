@@ -781,7 +781,7 @@
 "wallet.stakingbalance.label.staking" = "Сейчас в стейкинге";
 "wallet.stakingbalance.label.available" = "Доступно для стейкинга";
 "wallet.stakingbalance.button.deposit" = "Пополнить";
-"wallet.stakingbalance.button.withdraw" = "Торговать";
+"wallet.stakingbalance.button.withdraw" = "Снять";
 "wallet.stakingbalance.button.trade" = "Торговать";
 "wallet.stakingbalance.button.buy" = "Покупка";
 "wallet.stakingheader.estimatedInterest" = "Расчетная доходность";

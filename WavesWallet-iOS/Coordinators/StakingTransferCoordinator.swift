@@ -71,8 +71,6 @@ final class StakingTransferCoordinator: Coordinator {
         let vc = StakingTransactionCompletedBuilder().build(input: .init(kind: kind))
         
         vc.didTapSuccessButton = { [weak self] in
-            vc.dismiss(animated: true, completion: nil)
-            self?.removeFromParentCoordinator()
             
             switch kind {
             case .card: break
@@ -86,6 +84,8 @@ final class StakingTransferCoordinator: Coordinator {
                     .analyticManager
                     .trackEvent(.staking(event))
                 
+                self?.delegate?.stakingTransferSendDepositCompled()
+                
             case .withdraw( let balance):
                 
                 let event: AnalyticManagerEventStaking = .withdrawSuccess(amount: balance.money.amount,
@@ -95,8 +95,11 @@ final class StakingTransferCoordinator: Coordinator {
                     .instance
                     .analyticManager
                     .trackEvent(.staking(event))
+                
+                self?.delegate?.stakingTransferSendWithdrawCompled()
             }
-            
+            vc.dismiss(animated: true, completion: nil)
+            self?.removeFromParentCoordinator()
         }
         
         vc.didTapDetailButton = { [weak self] in
@@ -135,8 +138,6 @@ final class StakingTransferCoordinator: Coordinator {
         let vc = StakingTransactionCompletedBuilder().build(input: .init(kind: .card))
         
         vc.didTapSuccessButton = { [weak self] in
-            vc.dismiss(animated: true, completion: nil)
-            self?.removeFromParentCoordinator()
             
             let event: AnalyticManagerEventStaking = .cardSuccess(amount: amount.money.amount,
                                                                   assetTicker: amount.currency.displayText)
@@ -145,6 +146,10 @@ final class StakingTransferCoordinator: Coordinator {
                 .instance
                 .analyticManager
                 .trackEvent(.staking(event))
+            
+            self?.delegate?.stakingTransferSendCardCompled()
+            vc.dismiss(animated: true, completion: nil)
+            self?.removeFromParentCoordinator()
         }
             
         vc.didSelectLinkWith = { url -> Void in
@@ -171,7 +176,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
     func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction,
                                        amount: DomainLayer.DTO.Balance) {
         removeModalFromCoordinator(completion: { [weak self] in
-            self?.delegate?.stakingTransferSendDepositCompled()
+        
             self?.showTransactionCompleted(transaction: transaction,
                                            kind:  .deposit(balance: amount))
         })
@@ -181,7 +186,6 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
                                         amount: DomainLayer.DTO.Balance) {
         
         removeModalFromCoordinator(completion: { [weak self] in
-            self?.delegate?.stakingTransferSendWithdrawCompled()
             self?.showTransactionCompleted(transaction: transaction,
                                            kind:  .withdraw(balance: amount))
         })
@@ -229,14 +233,13 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
             
             removeModalFromCoordinator(completion: { [weak self] in
                 guard let amount = self?.amountByBuyCard else { return }
-                self?.delegate?.stakingTransferSendCardCompled()
                 self?.showCardCompleted(amount: amount)
             })
             
         } else if link.contains(DomainLayerConstants.URL.fiatDepositFail)  {
             adCashBrowserViewController?.dismiss(animated: true, completion: { [weak self] in
                 let title = Localizable.Waves.Staking.Refillerror.refillByAdvancedCashCancelled
-                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 0.24)
+                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 3.24)
             })
         }
     }
