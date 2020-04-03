@@ -21,7 +21,8 @@ extension StakingTransfer.DTO.Data.Transfer {
             .inputField(title: title,
                         hasError: input?.error != nil,
                         asset: asset,
-                        amount: input?.amount)
+                        amount: input?.amount,
+                        hasDecimal: true)
     }
     
     func buttonForDeposit(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {

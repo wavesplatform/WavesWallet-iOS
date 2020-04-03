@@ -15,7 +15,8 @@ extension StakingTransfer.ViewModel {
     static func inputField(title: String,
                            hasError: Bool,
                            asset: DomainLayer.DTO.Asset,
-                           amount: Money?) -> StakingTransfer.ViewModel.Row {
+                           amount: Money?,
+                           hasDecimal: Bool) -> StakingTransfer.ViewModel.Row {
         
         let inputState: BalanceInputField.State = {
             
@@ -41,7 +42,8 @@ extension StakingTransfer.ViewModel {
         
         let inputField: StakingTransferInputFieldCell.Model =
                 .init(title: title,
-                      balance: input)
+                      balance: input,
+                      hasDecimal: hasDecimal)
         
         return .inputField(inputField)
     }

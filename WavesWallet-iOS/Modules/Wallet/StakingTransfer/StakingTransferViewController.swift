@@ -147,7 +147,6 @@ final class StakingTransferViewController: ModalScrollViewController {
         guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
-        guard let window = self.view.window else { return }
         let keyboardRectangle = keyboardFrame.cgRectValue
         let options = UIView.AnimationOptions(rawValue: UInt(curve) << 16 | UIView.AnimationOptions.beginFromCurrentState.rawValue)
         
@@ -222,11 +221,6 @@ extension StakingTransferViewController {
             
             if updateRows == nil {
                 tableView.reloadData()
-                tableView.visibleCells.forEach { cell in
-                    if cell is StakingTransferInputFieldCell {
-                        cell.becomeFirstResponder()
-                    }
-                }
             }
         }
                     
