@@ -74,7 +74,7 @@ final class StakingTransferCoordinator: Coordinator {
             
             switch kind {
             case .card: break
-                        
+                
             case .deposit(let balance):
                 
                 let event: AnalyticManagerEventStaking = .depositSuccess(amount: balance.money.amount,
@@ -151,7 +151,7 @@ final class StakingTransferCoordinator: Coordinator {
             vc.dismiss(animated: true, completion: nil)
             self?.removeFromParentCoordinator()
         }
-            
+        
         vc.didSelectLinkWith = { url -> Void in
             
             BrowserViewController.openURL(url,
@@ -176,7 +176,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
     func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction,
                                        amount: DomainLayer.DTO.Balance) {
         removeModalFromCoordinator(completion: { [weak self] in
-        
+            
             self?.showTransactionCompleted(transaction: transaction,
                                            kind:  .deposit(balance: amount))
         })
@@ -197,7 +197,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
         
         let event: AnalyticManagerEventStaking = .cardSendTap(amount: amount.money.amount,
                                                               assetTicker: amount.currency.displayText)
-            
+        
         UseCasesFactory
             .instance
             .analyticManager
@@ -223,9 +223,16 @@ extension StakingTransferCoordinator: TransactionCardCoordinatorDelegate {
 
 extension StakingTransferCoordinator: BrowserViewControllerDelegate {
     
-    func browserViewDissmiss() {}
+    private func showErrorCashCancelled() {
+        let title = Localizable.Waves.Staking.Refillerror.refillByAdvancedCashCancelled
+        modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 3.24)
+    }
     
-        func browserViewRedirect(url: URL) {
+    func browserViewDissmiss() {
+        showErrorCashCancelled()
+    }
+    
+    func browserViewRedirect(url: URL) {
         
         let link = url.absoluteStringByTrimmingQuery() ?? ""
         
@@ -238,8 +245,7 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
             
         } else if link.contains(DomainLayerConstants.URL.fiatDepositFail)  {
             adCashBrowserViewController?.dismiss(animated: true, completion: { [weak self] in
-                let title = Localizable.Waves.Staking.Refillerror.refillByAdvancedCashCancelled
-                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 3.24)
+                self?.showErrorCashCancelled()
             })
         }
     }
