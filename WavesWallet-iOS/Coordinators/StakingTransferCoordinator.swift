@@ -10,6 +10,13 @@ import UIKit
 import Extensions
 import DomainLayer
 
+protocol StakingTransferCoordinatorDelegate: AnyObject {
+    
+    func stakingTransferSendDepositCompled()
+    func stakingTransferSendWithdrawCompled()
+    func stakingTransferSendCardCompled()
+}
+
 final class StakingTransferCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
@@ -27,6 +34,8 @@ final class StakingTransferCoordinator: Coordinator {
     private var adCashBrowserViewController: BrowserViewController?
     
     private var amountByBuyCard: DomainLayer.DTO.Balance?
+    
+    weak var delegate: StakingTransferCoordinatorDelegate?
     
     private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
         
@@ -162,7 +171,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
     func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction,
                                        amount: DomainLayer.DTO.Balance) {
         removeModalFromCoordinator(completion: { [weak self] in
-            
+            self?.delegate?.stakingTransferSendDepositCompled()
             self?.showTransactionCompleted(transaction: transaction,
                                            kind:  .deposit(balance: amount))
         })
@@ -172,6 +181,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
                                         amount: DomainLayer.DTO.Balance) {
         
         removeModalFromCoordinator(completion: { [weak self] in
+            self?.delegate?.stakingTransferSendWithdrawCompled()
             self?.showTransactionCompleted(transaction: transaction,
                                            kind:  .withdraw(balance: amount))
         })
@@ -219,14 +229,14 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
             
             removeModalFromCoordinator(completion: { [weak self] in
                 guard let amount = self?.amountByBuyCard else { return }
+                self?.delegate?.stakingTransferSendCardCompled()
                 self?.showCardCompleted(amount: amount)
             })
             
         } else if link.contains(DomainLayerConstants.URL.fiatDepositFail)  {
             adCashBrowserViewController?.dismiss(animated: true, completion: { [weak self] in
-                let title = Localizable.Waves.Coinomat.tryAgain
-                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title,
-                                                                             duration: 0.24)
+                let title = Localizable.Waves.Staking.Refillerror.refillByAdvancedCashCancelled
+                self?.modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 0.24)
             })
         }
     }

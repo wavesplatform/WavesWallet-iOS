@@ -16,6 +16,7 @@ import UIKit
 import WavesSDK
 import WavesSDKExtensions
 import Intercom
+import IQKeyboardManagerSwift
 
 private enum Contants {
     #if DEBUG
@@ -92,8 +93,16 @@ final class AppCoordinator: Coordinator {
         checkAndRunForceUpdate()
 
         checkAndRunServerMaintenance()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(intercomWindowWillShow),
+                                               name: NSNotification.Name.IntercomWindowWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(intercomWindowDidHide),
+                                               name: NSNotification.Name.IntercomWindowDidHide,
+                                               object: nil)
     }
-
+    
     private func launchApplication() {
         removeCoordinators()
         isLockChangeDisplay = false
@@ -122,6 +131,18 @@ final class AppCoordinator: Coordinator {
         completionHandler(.noData);
     }
     
+}
+
+
+extension AppCoordinator {
+    
+    @objc func intercomWindowWillShow() {
+        IQKeyboardManager.shared.enable = false
+    }
+    
+    @objc func intercomWindowDidHide() {
+        IQKeyboardManager.shared.enable = true
+    }
 }
 
 // MARK: Methods for showing differnt displays
