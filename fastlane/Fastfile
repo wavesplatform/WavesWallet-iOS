@@ -412,7 +412,7 @@ platform :ios do
     firebase_app_distribution(
       app: "#{ENV['FIREBASEAPPDISTRO_APP']}",
       ipa_path: "#{PROJECT_IPA}",
-      groups: "QA.Team, Waves.Exchange",
+      groups: "QA.Team, Waves.Exchange.iOS",
       firebase_cli_path: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH']}",
       firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}")
   end
