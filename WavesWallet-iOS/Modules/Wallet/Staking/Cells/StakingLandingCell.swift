@@ -84,6 +84,9 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
         
         let totalValue = Money(value: Decimal(totalProfitValue), minimumDeposit.decimals)
         labelMoney.attributedText = NSMutableAttributedString.stakingProfit(totalValue: totalValue)
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     override func prepareForReuse() {
