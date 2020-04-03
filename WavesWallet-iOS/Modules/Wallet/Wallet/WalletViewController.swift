@@ -57,7 +57,7 @@ final class WalletViewController: UIViewController {
     private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
     
     var presenter: WalletPresenterProtocol!
-    
+            
     var isDisplayInvesting: Bool = false {
         didSet {
             if isDisplayInvesting {
@@ -66,6 +66,10 @@ final class WalletViewController: UIViewController {
                 displays = [.assets]
             }
         }
+    }
+    
+    public func refreshData() {
+        sendEvent.accept(.refresh)
     }
     
     override func viewDidLoad() {
@@ -470,6 +474,7 @@ extension WalletViewController: WalletDisplayDataDelegate {
     }
     
     func depositTapped() {
+        
         sendEvent.accept(.openDeposit)
     }
     
