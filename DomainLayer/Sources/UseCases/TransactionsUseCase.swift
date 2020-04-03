@@ -751,12 +751,13 @@ fileprivate extension TransactionsUseCase {
             let factorFee =  (wavesAsset.precision - assetDecimal)
             let correctFee: Int64 = {
                
-                let assetFee64 = Int64(ceil(assetFee))
+                let assetFeeDouble = ceil(assetFee)
+                
                 if factorFee == 0 {
-                    return assetFee64
+                    return Int64(assetFeeDouble)
                 }
                 
-                return assetFee64 / pow(10, factorFee).int64Value
+                return Int64(ceil(assetFeeDouble / pow(10.0, Double(factorFee))))
             }()
             
             
