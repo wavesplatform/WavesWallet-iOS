@@ -38,7 +38,7 @@ enum DexOrderBook {
         var isNeedRefreshing: Bool
         var availablePriceAssetBalance: Money
         var availableAmountAssetBalance: Money
-        var availableWavesBalance: Money
+        var availableBalances: [DomainLayer.DTO.SmartAssetBalance]
         var scriptedAssets: [DomainLayer.DTO.Asset]
 
     }
@@ -87,7 +87,7 @@ extension DexOrderBook.DTO {
         let header: DexOrderBook.ViewModel.Header
         let availablePriceAssetBalance: Money
         let availableAmountAssetBalance: Money
-        let availableWavesBalance: Money
+        let availableBalances: [DomainLayer.DTO.SmartAssetBalance]
         let scriptedAssets: [DomainLayer.DTO.Asset]
     }
     
@@ -141,10 +141,14 @@ extension DexOrderBook.State {
   
     static var initialState: DexOrderBook.State {
         let header = DexOrderBook.ViewModel.Header(amountName: "", priceName: "", sumName: "")
-        return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false,
+        return DexOrderBook.State(action: .none,
+                                  sections: [],
+                                  header: header,
+                                  hasFirstTimeLoad: false,
+                                  isNeedRefreshing: false,
                                   availablePriceAssetBalance: Money(0, 0),
                                   availableAmountAssetBalance: Money(0, 0),
-                                  availableWavesBalance: Money (0, 0),
+                                  availableBalances: [],
                                   scriptedAssets: [])
     }
     

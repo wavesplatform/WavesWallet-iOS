@@ -17,17 +17,21 @@ public extension DomainLayer.DTO {
         public let matcherSwapAddress: String
         public let exchangeClientSecret: String
         public let staking: [Staking]
+        // List assetId when lock
+        public let lockedPairs: [String]
 
         public init(serviceAvailable: Bool,
                     matcherSwapTimestamp: Date,
                     matcherSwapAddress: String,
                     exchangeClientSecret: String,
-                    staking: [Staking]) {
+                    staking: [Staking],
+                    lockedPairs: [String]) {
             self.serviceAvailable = serviceAvailable
             self.matcherSwapAddress = matcherSwapAddress
             self.matcherSwapTimestamp = matcherSwapTimestamp
             self.exchangeClientSecret = exchangeClientSecret
             self.staking = staking
+            self.lockedPairs = lockedPairs
         }
     }
 }

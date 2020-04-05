@@ -260,7 +260,8 @@ extension ProfileCoordinator: DebugViewControllerDelegate {
             relaunchApplication()
         }
 
-        navigationRouter.dismiss(animated: true, completion: nil)
+        let vc = navigationRouter.navigationController.topViewController
+        vc?.dismiss(animated: true, completion: nil)
     }
     
     func relaunchApplication() {

@@ -213,6 +213,7 @@ private extension CandlesRepositoryRemote {
            }
     }
     
+    //TODO: Refactor
     func getMatcherSwapConfigs() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
         
         if let data = matcherSwapConfigs {
@@ -233,7 +234,8 @@ private extension CandlesRepositoryRemote {
                                                              matcherSwapTimestamp: Date(timeIntervalSince1970: Constants.matcherSwapTimestamp),
                                                              matcherSwapAddress: Constants.matcherSwapAddress,
                                                              exchangeClientSecret: "",
-                                                             staking: [])
+                                                             staking: [],
+                                                             lockedPairs: [])
             
             return Observable.just(confing)
         }

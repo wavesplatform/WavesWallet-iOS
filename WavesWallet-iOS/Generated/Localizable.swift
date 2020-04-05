@@ -3331,6 +3331,19 @@ internal enum Localizable {
       /// Trade
       internal static var title: String { return Localizable.tr("Waves", "trade.title") }
       internal static var titleKey: String { return "trade.title" }
+
+      internal enum Message {
+
+        internal enum Pairlocked {
+          /// Trading for the selected pair is temporarily unavailable. You can still cancel orders if you wish.
+          internal static var subtitle: String { return Localizable.tr("Waves", "trade.message.pairlocked.subtitle") }
+          internal static var subtitleKey: String { return "trade.message.pairlocked.subtitle" }
+          /// Trading in %@ / %@ is currently unavailable.
+          internal static func title(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "trade.message.pairlocked.title", p1, p2)
+          }
+        }
+      }
     }
 
     internal enum Transaction {

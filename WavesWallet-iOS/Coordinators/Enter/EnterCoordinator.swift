@@ -100,6 +100,15 @@ extension EnterCoordinator: PresentationCoordinator {
 
 extension EnterCoordinator: EnterStartViewControllerDelegate {
 
+    func showDebug() {
+        let vc = StoryboardScene.Support.debugViewController.instantiate()
+        vc.delegate = self
+        let nv = CustomNavigationController()
+        nv.viewControllers = [vc]
+        nv.modalPresentationStyle = .fullScreen
+        navigationRouter.present(nv, animated: true, completion: nil)
+    }
+    
     func showSignInAccount() {
 
         guard let applicationCoordinator = self.applicationCoordinator else { return }
@@ -133,7 +142,8 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     }
 }
 
-// MARK: PasscodeNewAccountCoordinatorDelegate
+// MARK: PasscodeCoordinatorDelegate
+
 extension EnterCoordinator: PasscodeCoordinatorDelegate {
     
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
@@ -149,6 +159,7 @@ extension EnterCoordinator: PasscodeCoordinatorDelegate {
 }
 
 // MARK: PasscodeCoordinatorDelegate
+
 extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
 
     func userChooseCompleted(wallet: DomainLayer.DTO.Wallet) {
@@ -159,5 +170,16 @@ extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
     
     func userDidTapBackButton() {
         self.navigationRouter.popViewController()
+    }               
+}
+
+// MARK: DebugViewControllerDelegate
+
+extension EnterCoordinator: DebugViewControllerDelegate {
+    
+    func relaunchApplication() {}
+        
+    func dissmissDebugVC(isNeedRelaunchApp: Bool) {
+        navigationRouter.dismiss(animated: true, completion: nil)
     }
 }

@@ -810,3 +810,7 @@
 "investment.navigationbar.title" = "Investment";
 "profile.cell.joinTheWavesCommunity" = "Social Network";
 "staking.refillError.refillByAdvancedCashCancelled" = "You've canceled the payment procedure at Advanced Cash. You won't be charged. USDN won't be credited to your account. Use Try Again to start all over.";
+
+
+"trade.message.pairlocked.title" = "Trading in %@ / %@ is currently unavailable.";
+"trade.message.pairlocked.subtitle" = "Trading for the selected pair is temporarily unavailable. You can still cancel orders if you wish.";

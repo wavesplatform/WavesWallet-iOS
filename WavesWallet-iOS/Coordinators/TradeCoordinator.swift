@@ -111,6 +111,22 @@ class TradeCoordinator: Coordinator {
 // MARK: - TradeModuleOutput
 
 extension TradeCoordinator: TradeModuleOutput {
+    
+    func showPairLocked(pair: DexTraderContainer.DTO.Pair) {
+        
+        let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.name,
+                                                                          pair.priceAsset.name)
+        let subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
+        let image = Images.bigwarning48.image
+        
+        let news = AppNewsView.show(model: AppNewsView.Model(title: titleValue,
+                                                             subtitle: subTitleValue,
+                                                             image: image))
+        news.tapDismiss = { [weak news] in
+            news?.dismiss()
+        }
+    }
+    
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
         let vc = DexTraderContainerModuleBuilder(output: self,
                                                  orderBookOutput: self,
@@ -154,13 +170,19 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                         priceAsset: DomainLayer.DTO.Dex.Asset,
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
-                        availableWavesBalance: Money,
+                        availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                         scriptedAssets: [DomainLayer.DTO.Asset]) {
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: trade.type,
-                                  price: trade.price, ask: nil, bid: nil, last: nil,
+        
+        showCreateOrderController(amountAsset: amountAsset,
+                                  priceAsset: priceAsset,
+                                  type: trade.type,
+                                  price: trade.price,
+                                  ask: nil,
+                                  bid: nil,
+                                  last: nil,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance,
+                                  availableBalances: availableBalances,
                                   scriptedAssets: scriptedAssets,
                                   sum: nil)
     }
@@ -170,13 +192,19 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
-                             availableWavesBalance: Money,
+                             availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [DomainLayer.DTO.Asset]) {
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: orderType,
-                                  price: nil, ask: nil, bid: nil, last: nil,
+        
+        showCreateOrderController(amountAsset: amountAsset,
+                                  priceAsset: priceAsset,
+                                  type: orderType,
+                                  price: nil,
+                                  ask: nil,
+                                  bid: nil,
+                                  last: nil,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance,
+                                  availableBalances: availableBalances,
                                   scriptedAssets: scriptedAssets,
                                   sum: nil)
     }
@@ -193,15 +221,21 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                         last: Money?,
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
-                        availableWavesBalance: Money,
+                        availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                         inputMaxSum: Bool,
                         scriptedAssets: [DomainLayer.DTO.Asset]) {
         let sum = inputMaxSum ? bidAsk.sum : nil
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: bidAsk.orderType,
-                                  price: bidAsk.price, ask: ask, bid: bid, last: last,
+        
+        showCreateOrderController(amountAsset: amountAsset,
+                                  priceAsset: priceAsset,
+                                  type: bidAsk.orderType,
+                                  price: bidAsk.price,
+                                  ask: ask,
+                                  bid: bid,
+                                  last: last,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance,
+                                  availableBalances: availableBalances,
                                   scriptedAssets: scriptedAssets,
                                   sum: sum)
     }
@@ -214,13 +248,19 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                              last: Money?,
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
-                             availableWavesBalance: Money,
+                             availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [DomainLayer.DTO.Asset]) {
-        showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: orderType,
-                                  price: nil, ask: ask, bid: bid, last: last,
+        
+        showCreateOrderController(amountAsset: amountAsset,
+                                  priceAsset: priceAsset,
+                                  type: orderType,
+                                  price: nil,
+                                  ask: ask,
+                                  bid: bid,
+                                  last: last,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
-                                  availableWavesBalance: availableWavesBalance,
+                                  availableBalances: availableBalances,
                                   scriptedAssets: scriptedAssets,
                                   sum: nil)
     }
@@ -235,7 +275,7 @@ private extension TradeCoordinator {
                                    price: Money?, ask: Money?, bid: Money?, last: Money?,
                                    availableAmountAssetBalance: Money,
                                    availablePriceAssetBalance: Money,
-                                   availableWavesBalance: Money,
+                                   availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                                    scriptedAssets: [DomainLayer.DTO.Asset],
                                    sum: Money?) {
         var lastPrice: Money?
@@ -247,7 +287,7 @@ private extension TradeCoordinator {
                                              price: price, sum: sum, ask: ask, bid: bid, last: lastPrice,
                                              availableAmountAssetBalance: availableAmountAssetBalance,
                                              availablePriceAssetBalance: availablePriceAssetBalance,
-                                             availableWavesBalance: availableWavesBalance)
+                                             availableBalances: availableBalances)
         auth.authorizedWallet()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] wallet in

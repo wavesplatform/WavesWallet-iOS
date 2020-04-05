@@ -20,6 +20,7 @@ protocol TradeModuleOutput: AnyObject {
     func searchTapped(selectedAsset: DomainLayer.DTO.Dex.Asset?, delegate: TradeRefreshOutput)
     func tradeDidDissapear()
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair)
+    func showPairLocked(pair: DexTraderContainer.DTO.Pair)
 }
 
 struct TradeModuleBuilder: ModuleBuilderOutput {

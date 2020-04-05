@@ -26,10 +26,10 @@ private enum Constants {
 }
 
 final class DexCreateOrderViewController: UIViewController {
-
+    
     var input: DexCreateOrder.DTO.Input! {
         didSet {
-               
+            
             order = DexCreateOrder.DTO.Order(amountAsset: input.amountAsset, priceAsset: input.priceAsset,
                                              type: input.type,
                                              amount: Money(0, input.amountAsset.decimals),
@@ -61,7 +61,7 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var labelExpiration: UILabel!
     @IBOutlet private weak var labelExpirationDays: UILabel!
     @IBOutlet private weak var buttonSellBuy: HighlightedButton!
-
+    
     @IBOutlet private weak var segmentedTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var inputAmountTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var inputPriceTopOffset: NSLayoutConstraint!
@@ -83,13 +83,14 @@ final class DexCreateOrderViewController: UIViewController {
     private var isDisabledBuySellButton: Bool = false
     private var errorSnackKey: String?
     private var feeAssets: [DomainLayer.DTO.Dex.Asset] = []
+    private var feeSettings: DexCreateOrder.DTO.FeeSettings?
     private var timer: Timer?
     
     var presenter: DexCreateOrderPresenterProtocol!
     weak var moduleOutput: DexCreateOrderModuleOutput?
     
     private let sendEvent: PublishRelay<DexCreateOrder.Event> = PublishRelay<DexCreateOrder.Event>()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -111,17 +112,17 @@ final class DexCreateOrderViewController: UIViewController {
         
         let elements: [ActionSheet.DTO.Element] = [.init(title: DexCreateOrder.DTO.CreateOrderType.limit.alertTitle),
                                                    .init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle)]
-                              
+        
         let selectedElement = elements.first(where: { $0.title == createOrderType.alertTitle })
         
         let data = ActionSheet.DTO.Data(title: Localizable.Waves.Dexcreateorder.Alert.orderType,
                                         elements: elements,
                                         selectedElement: selectedElement)
-  
+        
         let vc = ActionSheetViewBuilder { [weak self] element in
             guard let self = self else { return }
             self.moduleOutput?.dexCreateOrderDidDismisAlert()
-
+            
             let marketAlertTitle = DexCreateOrder.DTO.CreateOrderType.market.alertTitle
             let type: DexCreateOrder.DTO.CreateOrderType = element.title == marketAlertTitle ? .market : .limit
             if type != self.createOrderType {
@@ -131,7 +132,7 @@ final class DexCreateOrderViewController: UIViewController {
         }.build(input: data)
         moduleOutput?.dexCreateOrderDidPresentAlert(vc)
     }
-
+    
     @IBAction private func infoTapped(_ sender: Any) {
         view.endEditing(false)
         moduleOutput?.dexCreatOrderDidTapMarketTypeInfo()
@@ -160,7 +161,7 @@ final class DexCreateOrderViewController: UIViewController {
 
 // MARK: - UI State
 private extension DexCreateOrderViewController {
- 
+    
     func showFee(fee: Money) {
         activityIndicatorViewFee.stopAnimating()
         labelFee.isHidden = false
@@ -215,7 +216,7 @@ private extension DexCreateOrderViewController {
     }
     
     func updateState(_ state: DexCreateOrder.State) {
-    
+        
         self.isDisabledBuySellButton = state.isDisabledSellBuyButton
         self.setupFeeError(error: state.displayFeeErrorState)
         
@@ -230,7 +231,7 @@ private extension DexCreateOrderViewController {
         case .showCreatingOrderState:
             self.setupCreatingOrderState()
             removeTimer()
-
+            
         case .orderDidFailCreate(let error):
             self.setupUpdateMarketOrderPriceTimer()
             self.showNetworkErrorSnack(error: error)
@@ -238,7 +239,7 @@ private extension DexCreateOrderViewController {
             
         case .orderDidCreate(let output):
             moduleOutput?.dexCreateOrderDidCreate(output: output)
-
+            
         case .orderNotValid(let error):
             
             let callback: ((_ isSuccess: Bool) -> Void) = { [weak self] isSuccess in
@@ -262,6 +263,7 @@ private extension DexCreateOrderViewController {
             
         case .didGetFee(let feeSettings):
             
+            self.feeSettings = feeSettings
             self.feeAssets = feeSettings.feeAssets.map{ $0.asset }
             self.showFee(fee: feeSettings.fee)
             self.order.fee = feeSettings.fee.amount
@@ -271,10 +273,10 @@ private extension DexCreateOrderViewController {
             self.setupButtonSellBuy()
             self.setupInputAmountData()
             self.setupInputTotalData()
-           
+            
         case .showDeffaultOrderState:
             setupDefaultState()
-        
+            
         case .updateCreateOrderType(let type):
             self.createOrderType = type
             self.setupCreateOrderType()
@@ -299,7 +301,7 @@ private extension DexCreateOrderViewController {
             self.order.total = marketOrder.total
             self.setupButtonSellBuy()
             self.setupValidationErrors()
-                        
+            
         case .none:
             break
         }
@@ -311,25 +313,24 @@ private extension DexCreateOrderViewController {
 
 private extension DexCreateOrderViewController {
     
-    var isValidWavesFee: Bool {
-        if input.availableWavesBalance.amount >= order.fee {
-            return true
-        }
+    var isValidFee: Bool {
+                
+        guard let feeAssetBalance = input
+            .availableBalances
+            .first(where: { $0.assetId == self.order.feeAssetId }) else { return false }
         
-        if order.amountAsset.id == WavesSDKConstants.wavesAssetId && order.type == .buy {
+//        If fee assetId is equal price/amount assetId, then need the fee  subtract at balance for fee assetID
+        
+        if feeAssetBalance.assetId == order.priceAsset.id  && order.type == .buy {
             
-            if order.amount.isZero {
-                return isValidPriceAssetBalance
-            }
-            return order.amount.amount > order.fee
+            return (feeAssetBalance.availableBalance - order.total.amount) >= order.fee
+            
+        } else if feeAssetBalance.assetId == order.amountAsset.id && order.type == .sell {
+            
+            return (feeAssetBalance.availableBalance - order.amount.amount)  >= order.fee
         }
-        else if order.priceAsset.id == WavesSDKConstants.wavesAssetId && order.type == .sell {
-            if order.total.isZero {
-                return isValidAmountAssetBalance
-            }
-            return order.total.amount > order.fee
-        }
-        return false
+                 
+        return feeAssetBalance.availableBalance >= order.fee
     }
     
     var isValidOrder: Bool {
@@ -339,7 +340,7 @@ private extension DexCreateOrderViewController {
             isValidAmountAssetBalance &&
             isValidPriceAssetBalance &&
             !isCreatingOrderState &&
-            isValidWavesFee &&
+            isValidFee &&
             order.fee > 0 && isDisabledBuySellButton == false
     }
     
@@ -377,9 +378,9 @@ private extension DexCreateOrderViewController {
 
 // MARK: - Actions
 private extension DexCreateOrderViewController {
-
+    
     @IBAction func customFeeTapped(_ sender: Any) {
-
+        
         guard feeAssets.count > 1 else { return }
         
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -389,7 +390,7 @@ private extension DexCreateOrderViewController {
                 if self.order.feeAssetId != asset.id {
                     self.order.feeAssetId = asset.id
                     self.sendEvent.accept(.feeAssetNeedUpdate(asset.id))
-                
+                    
                     self.feeAssets = []
                     self.order.fee = 0
                     self.activityIndicatorViewFee.isHidden = false
@@ -413,7 +414,7 @@ private extension DexCreateOrderViewController {
             parent.dismissPopup()
         }
     }
-   
+    
     @IBAction func buttonSellBuyTapped(_ sender: UIButton) {
         sendEvent.accept(.createOrder)
     }
@@ -465,14 +466,14 @@ extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
 
 // MARK: - DexCreateOrderInputViewDelegate
 extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
-
+    
     func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Money) {
         
         if inputView == inputAmount {
             order.amount = value
             
             if !order.price.isZero && !order.amount.isZero && createOrderType == .limit {
-
+                
                 let total = order.price.decimalValue * order.amount.decimalValue
                 order.total = Money(value: total, order.total.decimals)
                 inputTotal.setupValue(order.total)
@@ -490,7 +491,7 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
         }
         else if inputView == inputTotal {
             order.total = value
-        
+            
             if !order.total.isZero && !order.price.isZero {
                 
                 let amount = order.total.decimalValue / order.price.decimalValue
@@ -498,7 +499,7 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
                 inputAmount.setupValue(order.amount)
             }
         }
-     
+        
         setupButtonSellBuy()
         setupValidationErrors()
         sendEvent.accept(.updateInputOrder(order))
@@ -519,18 +520,15 @@ private extension DexCreateOrderViewController {
                 if order.type == .buy {
                     if sum.decimalValue > availablePriceAssetBalance.decimalValue {
                         inputTotal.updateAmount(availablePriceAssetBalance)
-                    }
-                    else {
+                    } else {
                         inputTotal.updateAmount(sum)
                     }
-                }
-                else {
+                } else {
                     
                     let amount = sum.decimalValue / price.decimalValue
                     if amount > availableAmountAssetBalance.decimalValue {
                         inputAmount.updateAmount(availableAmountAssetBalance)
-                    }
-                    else {
+                    } else {
                         inputTotal.updateAmount(sum)
                     }
                 }
@@ -560,7 +558,7 @@ private extension DexCreateOrderViewController {
         setupInputPriceData()
         
         inputAmount.input = { [weak self] in
-
+            
             guard let self = self else { return [] }
             return self.amountValues
         }
@@ -668,19 +666,19 @@ private extension DexCreateOrderViewController {
         if let last = input.last {
             values.append(last)
         }
-
+        
         return values
     }
     
     var totalValues: [Money] {
         
         var values: [Money] = []
-
+        
         if order.type == .buy && !availablePriceAssetBalance.isZero {
             
             let decimals = availablePriceAssetBalance.decimals
             let totalAmount: Int64 = availablePriceAssetBalance.amount
-
+            
             let totalAmountMoney = Money(totalAmount, decimals)
             
             let n5 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent5) / 100.0)
@@ -703,7 +701,7 @@ private extension DexCreateOrderViewController {
 
 // MARK: - UI
 private extension DexCreateOrderViewController {
-   
+    
     func setupCreateOrderType() {
         buttonCreateOrderType.setTitle(createOrderType.title, for: .normal)
         inputPrice.inputType = createOrderType == .limit ? .default : .market
@@ -729,8 +727,7 @@ private extension DexCreateOrderViewController {
             buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.sell + " " + input.amountAsset.shortName, for: .normal)
             buttonSellBuy.backgroundColor = isValidOrder ? .error400 : .error100
             buttonSellBuy.highlightedBackground = .error200
-        }
-        else {
+        } else {
             buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy + " " + input.amountAsset.shortName, for: .normal)
             buttonSellBuy.backgroundColor = isValidOrder ? .submit400 : .submit200
             buttonSellBuy.highlightedBackground = .submit300
@@ -740,28 +737,26 @@ private extension DexCreateOrderViewController {
     func setupValidationErrors() {
         if order.type == .sell {
             
-            inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.amountAsset.shortName,
+            let inputMessage = Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.amountAsset.shortName
+            inputAmount.showErrorMessage(message: inputMessage,
                                          isShow: !isValidAmountAssetBalance)
             
             
             var message = ""
             if order.total.isBigAmount {
                 message = Localizable.Waves.Dexcreateorder.Label.bigValue
-            }
-            else if order.total.isSmallAmount {
+            } else if order.total.isSmallAmount {
                 message = Localizable.Waves.Dexcreateorder.Label.smallValue
             }
             
             inputTotal.showErrorMessage(message: message,
                                         isShow: order.total.isBigAmount || order.total.isSmallAmount)
-        }
-        else {
+        } else {
             
             var amountError = ""
             if order.total.isBigAmount {
                 amountError = Localizable.Waves.Dexcreateorder.Label.bigValue
-            }
-            else if order.total.isSmallAmount {
+            } else if order.total.isSmallAmount {
                 amountError = Localizable.Waves.Dexcreateorder.Label.smallValue
             }
             
@@ -771,11 +766,9 @@ private extension DexCreateOrderViewController {
             var totalError = ""
             if order.total.isBigAmount {
                 totalError = Localizable.Waves.Dexcreateorder.Label.bigValue
-            }
-            else if order.total.isSmallAmount {
+            } else if order.total.isSmallAmount {
                 totalError = Localizable.Waves.Dexcreateorder.Label.smallValue
-            }
-            else if !isValidPriceAssetBalance {
+            } else if !isValidPriceAssetBalance {
                 totalError = Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.priceAsset.shortName
             }
             
@@ -783,7 +776,7 @@ private extension DexCreateOrderViewController {
                                         isShow: !isValidPriceAssetBalance || order.total.isBigAmount || order.total.isSmallAmount)
         }
         
-        viewErrorFee.isHidden = isValidWavesFee
+        viewErrorFee.isHidden = isValidFee
     }
     
     func setupFeeError(error: DisplayErrorState) {
@@ -840,7 +833,7 @@ private extension DexCreateOrderViewController {
 private extension DexCreateOrderViewController {
     
     func setupUIForIPhone5IfNeed() {
-
+        
         if Platform.isIphone5 {
             segmentedTopOffset.constant = 0
             inputAmountTopOffset.constant -= Constants.minusTopOffsetForIPhone5
