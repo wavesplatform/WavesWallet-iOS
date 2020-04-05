@@ -2974,7 +2974,7 @@ internal enum Localizable {
         /// Annual Interest by doing NOTHING.
         internal static var annualInterest: String { return Localizable.tr("Waves", "staking.landing.annualInterest") }
         internal static var annualInterestKey: String { return "staking.landing.annualInterest" }
-        /// Earn %@
+        /// Earn %@ annual revenues
         internal static func earn(_ p1: String) -> String {
           return Localizable.tr("Waves", "staking.landing.earn", p1)
         }
@@ -2984,7 +2984,7 @@ internal enum Localizable {
         /// Next
         internal static var next: String { return Localizable.tr("Waves", "staking.landing.next") }
         internal static var nextKey: String { return "staking.landing.next" }
-        /// the profit you earn when you start staking %@
+        /// is your rough annual income, if you invest %@. 1 USDN = 1 USD.
         internal static func profitWhenStaking(_ p1: String) -> String {
           return Localizable.tr("Waves", "staking.landing.profitWhenStaking", p1)
         }

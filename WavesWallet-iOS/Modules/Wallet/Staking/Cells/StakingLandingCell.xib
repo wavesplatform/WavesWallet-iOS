@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,7 +91,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myn-kx-9vF" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="16" y="810.5" width="595" height="48"/>
+                        <rect key="frame" x="16" y="810" width="595" height="48"/>
                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="gkN-3Y-jL8"/>
@@ -126,13 +126,13 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Still have questions? Please visit FAQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dQ-RM-bIg" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="10" y="878.5" width="607" height="14.5"/>
+                        <rect key="frame" x="10" y="878" width="607" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0T6-dJ-fDG">
-                        <rect key="frame" x="0.0" y="529" width="627" height="195.5"/>
+                        <rect key="frame" x="0.0" y="528.5" width="627" height="195.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="v9F-QR-ETd">
                                 <rect key="frame" x="0.0" y="0.0" width="1881" height="195.5"/>
@@ -391,13 +391,13 @@
                         </connections>
                     </scrollView>
                     <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="6" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="vhe-Yg-ni3" customClass="PageControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="213.5" y="764.5" width="200" height="6"/>
+                        <rect key="frame" x="213.5" y="764" width="200" height="6"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="6" id="Ltp-AM-jMG"/>
                         </constraints>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="How it works?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RX-Eb-jy5">
-                        <rect key="frame" x="258" y="197.5" width="111.5" height="297.5"/>
+                        <rect key="frame" x="258" y="197.5" width="111.5" height="297"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
