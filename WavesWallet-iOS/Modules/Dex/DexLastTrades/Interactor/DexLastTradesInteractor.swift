@@ -34,10 +34,10 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
 
     func displayInfo() -> Observable<DexLastTrades.DTO.DisplayData> {
 
-        return Observable.zip(getLastTrades(),
-                              getLastSellBuy(),
-                              account.balances(),
-                              getScriptedAssets())
+        Observable.zip(getLastTrades(),
+                       getLastSellBuy(),
+                       account.balances(),
+                       getScriptedAssets())
             .flatMap({ [weak self] (lastTrades, lastSellBuy, balances, scriptedAssets) -> Observable<(DexLastTrades.DTO.DisplayData)> in
                 guard let self = self else { return Observable.empty() }
                 

@@ -27,7 +27,7 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                     priceAsset: DomainLayer.DTO.Dex.Asset,
                     limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
-        return Observable.zip(environmentRepository.servicesEnvironment(),
+        Observable.zip(environmentRepository.servicesEnvironment(),
                               matcherRepository.matcherPublicKey())
             .flatMap({ (servicesEnvironment, publicKeyAccount) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
                 
