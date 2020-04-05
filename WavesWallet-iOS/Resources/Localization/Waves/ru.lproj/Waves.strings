@@ -811,3 +811,7 @@
 "investment.navigationbar.title" = "Инвестиции";
 "profile.cell.joinTheWavesCommunity" = "Соц. Cети";
 "staking.refillError.refillByAdvancedCashCancelled" = "Вы отменили процедуру оплаты на сайте Advanced Cash. Оплата не произведена. USDN не будут зачислены на ваш аккаунт. Попробуйте снова, чтобы повторить попытку.";
+
+
+"trade.message.pairlocked.title" = "Торговля парой %@ / %@ недоступна.";
+"trade.message.pairlocked.subtitle" = "Торговля этой парой временно нодоступна. Вы можете отменить свои ордера.";

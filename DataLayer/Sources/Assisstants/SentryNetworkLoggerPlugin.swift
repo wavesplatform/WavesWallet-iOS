@@ -49,6 +49,7 @@ public final class SentryNetworkLoggerPlugin: PluginType {
         if let statusCode = statusCode {
             event.tags = ["http.error": "\(statusCode)"]
         }
+        
 
         event.message = unwrapMessage
         SentryManager.send(event: event)

@@ -55,12 +55,12 @@ class PopupActionView<Model>: UIView, NibLoadable, ViewConfiguration {
     }
     
     func dismiss() {
-        
-        bottomOffset.constant = initialViewPosition
+                
+        self.bottomOffset.constant = self.initialViewPosition
         
         UIView.animate(withDuration: Constants.animationDuration, animations: {
-            self.layoutIfNeeded()
             self.viewBackground.alpha = 0
+            self.layoutIfNeeded()
         }) { (complete) in
             self.removeFromSuperview()
         }
