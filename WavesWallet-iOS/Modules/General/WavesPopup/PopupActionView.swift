@@ -58,7 +58,8 @@ class PopupActionView<Model>: UIView, NibLoadable, ViewConfiguration {
                 
         self.bottomOffset.constant = self.initialViewPosition
         
-        UIView.animate(withDuration: Constants.animationDuration, animations: {
+        UIView.animate(withDuration: Constants.animationDuration,
+                       animations: {
             self.viewBackground.alpha = 0
             self.layoutIfNeeded()
         }) { (complete) in

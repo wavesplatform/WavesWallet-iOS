@@ -117,11 +117,13 @@ extension TradeCoordinator: TradeModuleOutput {
         let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.name,
                                                                           pair.priceAsset.name)
         let subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
+        let buttonTitle = Localizable.Waves.Trade.Message.Pairlocked.Button.ok
         let image = Images.bigwarning48.image
         
         let news = AppNewsView.show(model: AppNewsView.Model(title: titleValue,
                                                              subtitle: subTitleValue,
-                                                             image: image))
+                                                             image: image,
+                                                             buttonTitle: buttonTitle))
         news.tapDismiss = { [weak news] in
             news?.dismiss()
         }
