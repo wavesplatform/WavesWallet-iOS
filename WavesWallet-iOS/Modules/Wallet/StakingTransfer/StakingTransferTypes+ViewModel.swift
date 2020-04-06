@@ -19,17 +19,13 @@ extension StakingTransfer.ViewModel {
                            hasDecimal: Bool) -> StakingTransfer.ViewModel.Row {
         
         let inputState: BalanceInputField.State = {
-            
-            let currency: DomainLayer.DTO.Balance.Currency = .init(title: asset.name,
-                                                                   ticker: asset.ticker)
+            let currency: DomainLayer.DTO.Balance.Currency = .init(title: asset.name, ticker: asset.ticker)
             
             if let amount = amount, amount.amount >= 0 {
-                return .balance(DomainLayer.DTO.Balance.init(currency: currency,
-                                                             money: amount))
+                return .balance(DomainLayer.DTO.Balance(currency: currency, money: amount))
             } else {
                 return .empty(asset.precision,
-                              .init(title: asset.name,
-                                    ticker: asset.ticker))
+                              .init(title: asset.name, ticker: asset.ticker))
             }
         }()
         
@@ -49,14 +45,11 @@ extension StakingTransfer.ViewModel {
     }
     
     static func error(title: String) -> StakingTransfer.ViewModel.Row {
-        return .error(StakingTransferErrorCell.Model(title: title))
+        .error(StakingTransferErrorCell.Model(title: title))
     }
     
-    static func button(title: String,
-                       status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
-        
-        let button = StakingTransferButtonCell.Model(title: title,
-                                                     status: status)
+    static func button(title: String, status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
+        let button = StakingTransferButtonCell.Model(title: title, status: status)
 
         return .button(button)
     }
@@ -65,7 +58,6 @@ extension StakingTransfer.ViewModel {
 private extension NSAttributedString {
  
     static func amountAttributedString(title: String) -> NSAttributedString {
-        
         let string: NSMutableAttributedString = NSMutableAttributedString(string: title)
         
         string.addAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),

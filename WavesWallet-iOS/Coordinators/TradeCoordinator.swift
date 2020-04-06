@@ -110,7 +110,7 @@ class TradeCoordinator: Coordinator {
 
 // MARK: - TradeModuleOutput
 
-extension TradeCoordinator: TradeModuleOutput {
+extension TradeCoordinator: TradeModuleOutput { 
     
     func showPairLocked(pair: DexTraderContainer.DTO.Pair) {
         
