@@ -399,15 +399,13 @@ private extension StakingTransferSystem {
         let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
         
         
-        let button = transfer.button(status: isActiveButton ? .active : .disabled,
-                                     kind: kind)
+        let button = transfer.button(status: isActiveButton ? .active : .disabled, kind: kind)
         
-        state.ui.replace(row: button,
-                         indexPath: indexPathButton)
+        state.ui.replace(row: button, indexPath: indexPathButton)
         
-        var insertRows: [IndexPath] = .init()
-        var deleteRows: [IndexPath] = .init()
-        var reloadRows: [IndexPath] = .init()
+        var insertRows: [IndexPath] = []
+        var deleteRows: [IndexPath] = []
+        var reloadRows: [IndexPath] = []
         
         if reloadError {
             reloadRows.append(nextIndexPath)

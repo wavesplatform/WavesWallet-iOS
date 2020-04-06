@@ -296,11 +296,11 @@ extension StakingTransferViewController {
 extension StakingTransferViewController: ModalRootViewDelegate {
     
     func modalHeaderView() -> UIView {
-        return stakingTransferHeaderView
+        stakingTransferHeaderView
     }
     
     func modalHeaderHeight() -> CGFloat {
-        return Constants.headerHeight
+        Constants.headerHeight
     }
 }
 
