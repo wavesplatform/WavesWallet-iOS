@@ -22,7 +22,7 @@ private enum Constants {
 
 
 class PopupActionView<Model>: UIView, NibLoadable, ViewConfiguration {
-    
+        
     @IBOutlet private weak var viewBackground: UIView!
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var bottomOffset: NSLayoutConstraint!

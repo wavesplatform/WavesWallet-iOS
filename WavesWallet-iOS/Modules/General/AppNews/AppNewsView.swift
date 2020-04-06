@@ -34,24 +34,25 @@ private struct AppNewsColorCollection: ColorCollection {
     var codeBlockBackground = DownColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1)
 }
 
-final class AppNewsView: PopupActionView<AppNewsView.Model> {
-    struct Model {
-        let title: String
-        let subtitle: String
-        let image: UIImage
-        let buttonTitle: String
+struct AppNewsModel {
+    let title: String
+    let subtitle: String
+    let image: UIImage
+    let buttonTitle: String
 
-        public init(title: String,
-                    subtitle: String,
-                    image: UIImage,
-                    buttonTitle: String = Localizable.Waves.Appnews.Button.okey) {
-            self.title = title
-            self.subtitle = subtitle
-            self.image = image
-            self.buttonTitle = buttonTitle
-        }
+    public init(title: String,
+                subtitle: String,
+                image: UIImage,
+                buttonTitle: String = Localizable.Waves.Appnews.Button.okey) {
+        self.title = title
+        self.subtitle = subtitle
+        self.image = image
+        self.buttonTitle = buttonTitle
     }
+}
 
+final class AppNewsView: PopupActionView<AppNewsModel> {
+    
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: TTTAttributedLabel!
@@ -70,7 +71,7 @@ final class AppNewsView: PopupActionView<AppNewsView.Model> {
         dismiss()
     }
 
-    override func update(with model: Model) {
+    override func update(with model: AppNewsModel) {
         labelTitle.text = model.title
 
         buttonOkey.setTitle(model.buttonTitle,

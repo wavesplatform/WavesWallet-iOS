@@ -3122,11 +3122,11 @@ internal enum Localizable {
           /// You don't have enough funds to pay the fee.
           internal static var insufficientFundsOnTax: String { return Localizable.tr("Waves", "staking.transfer.error.insufficientFundsOnTax") }
           internal static var insufficientFundsOnTaxKey: String { return "staking.transfer.error.insufficientFundsOnTax" }
-          /// Max amount is %@.
+          /// Max value is %@.
           internal static func maxamount(_ p1: String) -> String {
             return Localizable.tr("Waves", "staking.transfer.error.maxamount", p1)
           }
-          /// Min amount is %@.
+          /// Min value is %@.
           internal static func minamount(_ p1: String) -> String {
             return Localizable.tr("Waves", "staking.transfer.error.minamount", p1)
           }
