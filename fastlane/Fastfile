@@ -363,7 +363,6 @@ platform :ios do
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
   end
 
-
   lane :updateMatch do        
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
@@ -420,8 +419,12 @@ platform :ios do
   end
 
   lane :refresh_dsyms do
+  
+    PROJECT_DSYM = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
+    PROJECT_DSYM = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_DSYM}.app.dSYM.zip"
 
-    
+    sh("#{ROOT_PROJECT}/Pods/Fabric/upload-symbols -a #{FIREBASEAPP_FABRIC_TOKEN} -p ios #{PROJECT_DSYM}")
+
     # download_dsyms(username: "#{ENV['ITUNES_CONNECT_ACCOUNT']}",
                   #  app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
                   #  output_directory: "#{ENV['OUTPUT_PROJECT']}",
