@@ -760,8 +760,8 @@
 "staking.transfer.card.cell.description.title.part3" = "• The minimum amount is %@. The maximum amount is %@.";
 "staking.transfer.card.cell.description.title.part4" = "• If you have problems with your payment, please create a ticket on the %@ website.";
 "staking.transfer.card.cell.description.title.part4.url" = "support";
-"staking.transfer.error.maxamount" = "Max amount is %@.";
-"staking.transfer.error.minamount" = "Min amount is %@.";
+"staking.transfer.error.maxamount" = "Max value is %@.";
+"staking.transfer.error.minamount" = "Min value is %@.";
 "payoutsHistory.title" = "Payouts History";
 "payoutsHistory.profit" = "Profit";
 "staking.sharingText" = "I earned %@ passive income, with an average annual yield of %@%%, lying on the couch! #Neutrino #WavesBlockchain";
