@@ -182,6 +182,11 @@ platform :ios do
     download_resources
   end
 
+  lane :add_new_devices do
+    prod_install
+    updateMatch
+  end
+
   lane :dev_download_resources do
     dev_enviroment    
     download_resources
@@ -248,26 +253,29 @@ platform :ios do
   end
 
   lane :create_changelog do    
-    puts "create_changelog"
-    
+    puts "create_changelog"    
+        
     ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"
     build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
     version = ENV['VERSION'] 
     commit = last_git_commit
+    branch = git_branch
     author = commit[:author] # author of the commit
     author_email = commit[:author_email] # email of the author of the commit
     hash = commit[:commit_hash] # long sha of commit
     short_hash = commit[:abbreviated_commit_hash] # short sha of commit
 
-    changelog = changelog_from_git_commits(
-      between: [ENV['CHANGELOG_BETWEEN_BRANCH'], hash],  # Optional, lets you specify a revision/tag range between which to collect commit info
+    # between: [ENV['CHANGELOG_BETWEEN_BRANCH'], hash],  # Optional, lets you specify a revision/tag range between which to collect commit info
+
+    changelog = changelog_from_git_commits(      
       pretty: "- %ad %s \n",# Optional, lets you provide a custom format to apply to each commit when generating the changelog text
       date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
       match_lightweight_tag: false,  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
-      merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits
+      merge_commit_filtering: "exclude_merges", # Optional, lets you filter out merge commits
+      commits_count: 30
     )
 
-    ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
+    ENV['CHANGELOG']="Version: #{version} #{build_number}\nBranch: #{branch}\n#{changelog}"
   end
 
   lane :upload_crashlytics do
@@ -363,12 +371,12 @@ platform :ios do
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
   end
 
-
   lane :updateMatch do        
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
           type: "#{ENV['MATCH_TYPE']}",
+          force: true,
           force_for_new_devices: true,
           keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}",
           git_basic_authorization: "#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
@@ -411,17 +419,29 @@ platform :ios do
     PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
     PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
     
+
+    create_changelog
+
+    if ENV['CHANGELOG'].to_s.empty?
+      ENV['CHANGELOG'] = "Not Found"
+    end
+
     firebase_app_distribution(
       app: "#{ENV['FIREBASEAPPDISTRO_APP']}",
       ipa_path: "#{PROJECT_IPA}",
       groups: "QA.Team, Waves.Exchange.iOS",
       firebase_cli_path: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH']}",
-      firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}")
+      firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}",
+      create_changelog: ENV['CHANGELOG'])
   end
 
   lane :refresh_dsyms do
+  
+    PROJECT_DSYM = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
+    PROJECT_DSYM = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_DSYM}.app.dSYM.zip"
 
-    
+    sh("#{ROOT_PROJECT}/Pods/Fabric/upload-symbols -a #{FIREBASEAPP_FABRIC_TOKEN} -p ios #{PROJECT_DSYM}")
+
     # download_dsyms(username: "#{ENV['ITUNES_CONNECT_ACCOUNT']}",
                   #  app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
                   #  output_directory: "#{ENV['OUTPUT_PROJECT']}",
