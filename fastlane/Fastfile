@@ -182,6 +182,11 @@ platform :ios do
     download_resources
   end
 
+  lane :add_new_devices do
+    prod_install
+    updateMatch
+  end
+
   lane :dev_download_resources do
     dev_enviroment    
     download_resources
@@ -368,6 +373,7 @@ platform :ios do
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
           type: "#{ENV['MATCH_TYPE']}",
+          force: true,
           force_for_new_devices: true,
           keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}",
           git_basic_authorization: "#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
