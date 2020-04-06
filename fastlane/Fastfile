@@ -404,6 +404,8 @@ platform :ios do
     
     rootNpm = sh("npm bin -g")
   
+    puts("rootNPM #{rootNpm}")
+
     ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH'] =  "#{rootNpm}".strip + "/firebase"
     
     PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
