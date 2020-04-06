@@ -64,7 +64,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3993</string>
+	<string>4013</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -81,6 +81,8 @@
 	</dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>IntercomAutoIntegratePushNotifications</key>
+	<string>NO</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -92,6 +94,8 @@
 	<string>The camera is needed to scan QR codes</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>The camera is needed to scan QR codes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The photo is needed to scan QR codes</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoCondensed-Regular.ttf</string>

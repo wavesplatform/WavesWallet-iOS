@@ -16,7 +16,7 @@ protocol DexLastTradesModuleOutput: AnyObject {
                         priceAsset: DomainLayer.DTO.Dex.Asset,
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
-                        availableWavesBalance: Money,
+                        availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                         scriptedAssets: [DomainLayer.DTO.Asset])
     
     func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset,
@@ -24,7 +24,7 @@ protocol DexLastTradesModuleOutput: AnyObject {
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
-                             availableWavesBalance: Money,
+                             availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [DomainLayer.DTO.Asset])
     
 }

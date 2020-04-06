@@ -28,16 +28,7 @@ final class StakingTransferInteractor {
     let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
     let adCashDepositsUseCase: AdCashDepositsUseCaseProtocol = UseCasesFactory.instance.adCashDepositsUseCase
     
-    //    init(accountBalanceUseCase: AccountBalanceUseCaseProtocol,
-    //         transactionUseCase: TransactionsUseCaseProtocol,
-    //         authorizationUseCase: AuthorizationUseCaseProtocol) {
-    //
-    //        self.authorizationUseCase = authorizationUseCase
-    //        self.accountBalanceUseCase = accountBalanceUseCase
-    //        self.transactionUseCase = transactionUseCase
-    //    }
-    
-    
+    let stakingBalanceService: StakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
     
     func withdraw(assetId: String) -> Observable<StakingTransfer.DTO.Data.Transfer> {
         
@@ -47,7 +38,8 @@ final class StakingTransferInteractor {
                 
                 guard let self = self else { return Observable.never() }
                 
-                let stakingBalance = self.stakingBalance()
+                let depositeStakingBalance = self.stakingBalanceService
+                    .getDepositeStakingBalance().map { $0.value }
                 
                 let wavesBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId,
                                                                  wallet: wallet)
@@ -55,18 +47,19 @@ final class StakingTransferInteractor {
                 let asset = self.assetsUseCase.assets(by: [assetId],
                                                       accountAddress: wallet.address)
                 
-                return Observable.zip(stakingBalance, wavesBalance, asset)
-                    .flatMap { stakingBalance, wavesBalance, assets -> Observable<StakingTransfer.DTO.Data.Transfer> in
+                return Observable.zip(depositeStakingBalance, wavesBalance, asset)
+                    .flatMap { depositeStakingBalance, wavesBalance, assets -> Observable<StakingTransfer.DTO.Data.Transfer> in
                                                                         
                         guard let asset = assets.first(where: { $0.id == assetId }) else { return Observable.error(NetworkError.notFound) }
                         let wavesAsset = wavesBalance.asset
                         
+                        let balance = asset.balance(depositeStakingBalance)
                         let fee: DomainLayer.DTO.Balance = wavesAsset.balance(Constanst.transferFee)
                         
                         let avaliableBalanceForFee = wavesBalance.availableBalance()
                         
                         let deposit: StakingTransfer.DTO.Data.Transfer = .init(asset: asset,
-                                                                               balance: stakingBalance,
+                                                                               balance: balance,
                                                                                transactionFeeBalance: fee,
                                                                                avaliableBalanceForFee: avaliableBalanceForFee)
                         
@@ -173,17 +166,7 @@ final class StakingTransferInteractor {
                                   assetId: assetId,
                                   isDeposit: false)
     }
-    
-    //TODO: Staking balance
-    private func stakingBalance() -> Observable<DomainLayer.DTO.Balance> {
-        
-        let balance: DomainLayer.DTO.Balance = DomainLayer.DTO.Balance.init(currency: .init(title: "USDN",
-                                                                                            ticker: "USDN"),
-                                                                            money: Money.init(10000000,
-                                                                                              6))
-        return Observable.just(balance)
-    }
-    
+            
     private func sendInvokeTrasnfer(amount: Money, assetId: String, isDeposit: Bool) -> Observable<DomainLayer.DTO.SmartTransaction> {
         
         let developmentConfigs = self.developmentConfigsRepository.developmentConfigs()

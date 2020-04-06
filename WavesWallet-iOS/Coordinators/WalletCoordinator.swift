@@ -22,8 +22,8 @@ final class WalletCoordinator: Coordinator {
 
     weak var parent: Coordinator?
 
-    private lazy var walletViewContoller: UIViewController = {
-        return WalletModuleBuilder(output: self).build()
+    private lazy var walletViewContoller: WalletViewController = {
+        return WalletModuleBuilder(output: self).build(input: self.isDisplayInvesting)
     }()
 
     private var navigationRouter: NavigationRouter
@@ -37,9 +37,11 @@ final class WalletCoordinator: Coordinator {
     private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
     
     private var hasSendedNewUserWithoutBackupStorageTrack: Bool = false
+    private let isDisplayInvesting: Bool
     
-    init(navigationRouter: NavigationRouter){
+    init(navigationRouter: NavigationRouter, isDisplayInvesting: Bool) {
         self.navigationRouter = navigationRouter
+        self.isDisplayInvesting = isDisplayInvesting
     }
 
     func start() {
@@ -93,7 +95,7 @@ final class WalletCoordinator: Coordinator {
         let coordinator = PushNotificationsCoordinator()
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
-    
+            
     private func showNewsAndBackupTost() {
         showBackupTost()
         showNews()
@@ -116,12 +118,22 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
-
+    
+    func showAccountHistory() {
+        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .all)
+        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
+    }
+    
     func showPayoutsHistory() {
         let payoutsBuilder = PayoutsHistoryBuilder()
         let payoutsHistoryVC = payoutsBuilder.build()
         
         navigationRouter.pushViewController(payoutsHistoryVC)
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainPayoutsHistoryTap))
     }
     
     func showPayout(payout: PayoutTransactionVM) {
@@ -133,6 +145,11 @@ extension WalletCoordinator: WalletModuleOutput {
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainShareTap(.twitter)))
     }
     
     func openVk(sharedText: String) {
@@ -140,6 +157,11 @@ extension WalletCoordinator: WalletModuleOutput {
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainShareTap(.vk)))
     }
     
     func openFb(sharedText: String) {
@@ -147,32 +169,92 @@ extension WalletCoordinator: WalletModuleOutput {
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainShareTap(.facebok)))
     }
     
-    func openTrade() {
-        print("openTrade")
-//        TradeCoordinator
+    func openTrade(neutrinoAsset: DomainLayer.DTO.Asset) {
+        
+        let coordinator = TradeCoordinator(navigationRouter: self.navigationRouter,
+                                           selectedAsset: neutrinoAsset)
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainTradeTap))
     }
     
-    func openBuy() {
+    func openBuy(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .card)
+        coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainBuyTap))
     }
     
-    func openDeposit() {
+    func openDeposit(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .deposit)
+        coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainDepositTap))
     }
     
-    func openWithdraw() {
+    func openActionMenu() {
+
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.wavesQuickAction(.wavesActionPanel))
+        
+        let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
+        vc.moduleOutput = self
+        let popup = PopupViewController()
+        popup.contentHeight = 204
+        popup.present(contentViewController: vc)
+
+    }
+    
+    func openWithdraw(neutrinoAsset: DomainLayer.DTO.Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
+        coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
+        
+        UseCasesFactory
+        .instance
+        .analyticManager
+            .trackEvent(.staking(.mainWithdrawTap))
     }
     
-    func openStakingFaq() {
+    func openStakingFaq(fromLanding: Bool) {
+        
+        
+        if fromLanding {
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.landingFAQTap))
+        } else {
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.mainFAQTap))
+        }
+        
         BrowserViewController.openURL(URL(string: UIGlobalConstants.URL.stakingFaq)!)
     }
     
@@ -424,5 +506,50 @@ extension WalletCoordinator: CreateAliasModuleOutput {
         if let myAddressVC = self.myAddressVC {
             navigationRouter.popToViewController(myAddressVC)
         }
+    }
+}
+
+// MARK: - WavesPopupModuleOutput
+
+extension WalletCoordinator: WavesPopupModuleOutput {
+
+    func showSend() {
+                        
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.wavesQuickAction(.wavesActionSend))
+        
+        let vc = SendModuleBuilder().build(input: .empty)
+        navigationRouter.pushViewController(vc)
+    }
+
+    func showReceive() {
+
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.wavesQuickAction(.wavesActionReceive))
+        
+        let vc = ReceiveContainerModuleBuilder().build(input: nil)
+        navigationRouter.pushViewController(vc, animated: true)    
+    }
+}
+
+
+// MARK: StakingTransferCoordinatorDelegate
+
+extension WalletCoordinator: StakingTransferCoordinatorDelegate {
+        
+    func stakingTransferSendDepositCompled() {
+        walletViewContoller.refreshData()
+    }
+    
+    func stakingTransferSendWithdrawCompled() {
+        walletViewContoller.refreshData()
+    }
+    
+    func stakingTransferSendCardCompled() {
+        walletViewContoller.refreshData()
     }
 }

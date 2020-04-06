@@ -26,6 +26,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     private let pairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
+    private let developmentConfigsRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
+    
     private let selectedAsset: DomainLayer.DTO.Dex.Asset?
 
     init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
@@ -38,7 +40,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                          core: .init(pairsPrice: [],
                                      pairsRate: [],
                                      favoritePairs: [],
-                                     categories: []),
+                                     categories: [],
+                                     lockedPairs: []),
                          categories: [],
                          selectedFilters: [],
                          selectedAsset: selectedAsset)
@@ -385,15 +388,23 @@ private extension TradeSystem {
 
                             return .init(name: category.name, filters: category.filters, pairs: pairs)
                         }
-
-                        return Observable.zip(pairsPrice, pairsRate)
-                            .map { arg -> TradeTypes.DTO.Core in
-
-                                let (pairsPrice, pairsRate) = arg
+                        
+                        let developmentConfigs = self
+                            .developmentConfigsRepository
+                            .developmentConfigs()
+                        
+                        return Observable.zip(pairsPrice,
+                                              pairsRate,
+                                              developmentConfigs)
+                            .map { pairsPrice, pairsRate, developmentConfigs -> TradeTypes.DTO.Core in
+                                                          
+                                let lockedPairs = developmentConfigs.lockedPairs
+                                
                                 return .init(pairsPrice: pairsPrice,
                                              pairsRate: pairsRate,
                                              favoritePairs: favoritePairs,
-                                             categories: tradeCategories)
+                                             categories: tradeCategories,
+                                             lockedPairs: lockedPairs)
                             }
                     }
             }

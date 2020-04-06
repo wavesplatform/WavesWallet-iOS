@@ -14,6 +14,8 @@ import RxSwift
 import UIKit
 import WavesSDK
 import WavesSDKExtensions
+import Intercom
+import IQKeyboardManagerSwift
 
 private enum Contants {
     #if DEBUG
@@ -41,6 +43,8 @@ protocol ApplicationCoordinatorProtocol: AnyObject {
     func showEnterDisplay()
 }
 
+private typealias NotificationUserInfo = [AnyHashable : Any]
+
 final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
@@ -57,6 +61,7 @@ final class AppCoordinator: Coordinator {
 
     private let disposeBag = DisposeBag()
     private var deepLink: DeepLink?
+    private var notificationUserInfo: NotificationUserInfo?
     private var isActiveApp = false
     private var snackError: String?
 
@@ -89,8 +94,16 @@ final class AppCoordinator: Coordinator {
         checkAndRunForceUpdate()
 
         checkAndRunServerMaintenance()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(intercomWindowWillShow),
+                                               name: NSNotification.Name.IntercomWindowWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(intercomWindowDidHide),
+                                               name: NSNotification.Name.IntercomWindowDidHide,
+                                               object: nil)
     }
-
+    
     private func launchApplication() {
         removeCoordinators()
         isLockChangeDisplay = false
@@ -107,6 +120,30 @@ final class AppCoordinator: Coordinator {
     }
 
     private var isMainTabDisplayed: Bool { childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil }
+    
+    
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        if (Intercom.isIntercomPushNotification(userInfo)) {
+            self.notificationUserInfo = userInfo
+        }
+        completionHandler(.noData);
+    }
+    
+}
+
+
+extension AppCoordinator {
+    
+    @objc func intercomWindowWillShow() {
+        IQKeyboardManager.shared.enable = false
+    }
+    
+    @objc func intercomWindowDidHide() {
+        IQKeyboardManager.shared.enable = true
+    }
 }
 
 // MARK: Methods for showing differnt displays
@@ -141,6 +178,7 @@ extension AppCoordinator: PresentationCoordinator {
         }
 
         guard isLockChangeDisplay == false else { return }
+        
 
         switch display {
         case let .hello(isNewUser):
@@ -164,11 +202,12 @@ extension AppCoordinator: PresentationCoordinator {
                 showDeepLinkVcIfNeed()
                 return
             }
-
+            
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
             slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
             showDeepLinkVcIfNeed()
+            showNotificationDisplayIfNeed()
 
         case .enter:
 
@@ -295,19 +334,26 @@ extension AppCoordinator {
             addChildCoordinatorAndStart(childCoordinator: coordinator)
         }
     }
+    
+    private func showNotificationDisplayIfNeed() {
+        if let userInfo = notificationUserInfo {
+            Intercom.handlePushNotification(userInfo)
+            Intercom.presentMessenger()
+        }
+    }
 
     private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
         let settings = Application.get()
 
         if let wallet = wallet {
-            if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
+            if settings.isAlreadyShowMigrationWavesExchangeDisplay {
                 return display(by: wallet)
             } else {
                 return Observable.just(Display.hello(false))
             }
         } else {
             if settings.isAlreadyShowHelloDisplay {
-                if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
+                if settings.isAlreadyShowMigrationWavesExchangeDisplay {
                     return Observable.just(Display.enter)
                 } else {
                     return Observable.just(Display.hello(false))
@@ -454,6 +500,8 @@ extension AppCoordinator: DebugWindowRouterDelegate {
             .logout()
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
+                
+                Intercom.logout()
                 self.showDisplay(.enter)
             })
             .disposed(by: disposeBag)

@@ -10,12 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 import DomainLayer
+import Intercom
 
 private enum Constants {
     static let tabBarItemImageInset = UIEdgeInsets.init(top: 0, left: 0, bottom: -8, right: 0)
 }
 
-private class PopoperButtonViewController: UIViewController {}
+private class ActionButtonViewController: UIViewController {}
 
 protocol MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab()
@@ -57,12 +58,12 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         return NavigationRouter(navigationController: navigation)
     }()
 
-    private let navigationRouterHistory: NavigationRouter = {
+    private let navigationRouterInvest: NavigationRouter = {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.tabbarHistoryDefault.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.tabbarHistoryActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.invest26.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.investActive26.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -90,14 +91,15 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         return NavigationRouter(navigationController: navigation)
     }()
 
-    private let popoperButton: PopoperButtonViewController = {
+    private let popoperButton: ActionButtonViewController = {
 
-        let popoperButton = PopoperButtonViewController()
-        popoperButton.tabBarItem.image = Images.tabbarActionDefalt.image.withRenderingMode(.alwaysOriginal)
-        popoperButton.tabBarItem.selectedImage = Images.tabbarActionActive.image.withRenderingMode(.alwaysOriginal)
-        popoperButton.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+        let navigation = ActionButtonViewController()
+        navigation.tabBarItem.image = Images.chat26.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.chatActive26.image.withRenderingMode(.alwaysOriginal)
+        
+        navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        return popoperButton
+        return navigation
     }()
 
     init(slideMenuRouter: SlideMenuRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
@@ -107,16 +109,20 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         tabBarRouter.setViewControllers([navigationRouterWallet.navigationController,
                                          navigationRouterDex.navigationController,
+                                         navigationRouterInvest.navigationController,
                                          popoperButton,
-                                         navigationRouterHistory.navigationController,
                                          navigationRouterProfile.navigationController])
 
-        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet)
+        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet,
+                                                  isDisplayInvesting: false)
         addChildCoordinatorAndStart(childCoordinator: walletCoordinator)
 
-        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouterHistory, historyType: .all)
-        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
-
+        let investingCoordinator = WalletCoordinator(navigationRouter: navigationRouterInvest,
+                                                     isDisplayInvesting: true)
+        
+        addChildCoordinatorAndStart(childCoordinator: investingCoordinator)
+        
+        
         let tradeCoordinator = TradeCoordinator(navigationRouter: navigationRouterDex)
         addChildCoordinatorAndStart(childCoordinator: tradeCoordinator)
 
@@ -185,19 +191,8 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
-        if viewController is PopoperButtonViewController {
-            
-            UseCasesFactory
-                .instance
-                .analyticManager
-                .trackEvent(.wavesQuickAction(.wavesActionPanel))
-            
-            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
-            vc.moduleOutput = self
-            let popup = PopupViewController()
-            popup.contentHeight = 204
-            popup.present(contentViewController: vc)
-
+        if viewController is ActionButtonViewController {                        
+            Intercom.presentMessenger()
             return false
         }
 
@@ -213,43 +208,6 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
         }
         return true
     }
-}
-
-// MARK: - WavesPopupModuleOutput
-
-extension MainTabBarCoordinator: WavesPopupModuleOutput {
-
-    private var selectedViewController: UIViewController? {
-        return tabBarRouter.tabBarController.selectedViewController
-    }
-
-    func showSend() {
-        
-        if let nav = selectedViewController as? CustomNavigationController {
-            
-            UseCasesFactory
-                .instance
-                .analyticManager
-                .trackEvent(.wavesQuickAction(.wavesActionSend))
-            
-            let vc = SendModuleBuilder().build(input: .empty)
-            nav.pushViewController(vc, animated: true)
-        }
-    }
-
-    func showReceive() {
-
-        if let nav = selectedViewController as? CustomNavigationController {
-            
-            UseCasesFactory
-                .instance
-                .analyticManager
-                .trackEvent(.wavesQuickAction(.wavesActionReceive))
-            
-            let vc = ReceiveContainerModuleBuilder().build(input: nil)
-            nav.pushViewController(vc, animated: true)
-        }
-    }    
 }
 
 // Helper function inserted by Swift 4.2 migrator.

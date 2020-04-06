@@ -6,15 +6,27 @@
     "spamUrl": "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
     "matcherUrl": "https://matcher.waves.exchange",
     "gatewayUrl": "https://gw.waves.exchange/api",
-    "authUrl": "https://testnet.waves.exchange/oauth",
+    "authUrl": "https://stagenet.waves.exchange/oauth",
     "gateways": {
       "v0": "https://coinomat.com/api",
       "v1": "https://gw.waves.exchange/api",
-      "v2": "https://testnet.waves.exchange/gateways"
+      "v2": "https://stagenet.waves.exchange/gateways"
     }
   },
   "scheme": "W",
   "generalAssets": [
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/logo_neutrino.png"
+      },
+      "assetId": "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p",
+      "displayName": "Neutrino",
+      "isFiat": false,
+      "isGateway": false,
+      "wavesId": "USD-N",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
     {
       "iconUrls": {
         "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/waves.png"
@@ -206,8 +218,8 @@
       "isFiat": false,
       "isGateway": true,
       "wavesId": "ERG",
-      "gatewayId": "Ergo",
-      "gatewayType": "gateway",
+      "gatewayId": "ERGO",
+      "gatewayType": "exchange",
       "addressRegEx": "^9[a-km-zA-HJ-NP-Z1-9]{5,}$"
     },
     {
@@ -224,18 +236,6 @@
     }
   ],
   "assets": [
-    {
-      "iconUrls": {
-        "default": "https://configs.waves.exchange/icons/logo_neutrino.png"
-      },
-      "assetId": "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p",
-      "displayName": "Neutrino",
-      "isFiat": false,
-      "isGateway": false,
-      "wavesId": "USD-N",
-      "gatewayId": "",
-      "addressRegEx": ""
-    },
     {
       "iconUrls": {
         "default": "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/mtn.png"

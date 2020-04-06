@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,8 +56,8 @@
                 <constraint firstAttribute="bottom" secondItem="36G-p0-TTR" secondAttribute="bottom" constant="14" id="ICo-1y-m5J"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="q76-IW-m1h" secondAttribute="trailing" constant="14" id="Oeg-uW-cCX"/>
                 <constraint firstItem="q76-IW-m1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="36G-p0-TTR" secondAttribute="trailing" constant="12" id="TFb-Fu-sbM"/>
-                <constraint firstItem="0Ng-xf-rVy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" constant="10" id="aQr-6C-l38"/>
-                <constraint firstAttribute="bottom" secondItem="0Ng-xf-rVy" secondAttribute="bottom" priority="999" constant="10" id="g7y-sD-VCK"/>
+                <constraint firstItem="0Ng-xf-rVy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" constant="10" id="aQr-6C-l38"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0Ng-xf-rVy" secondAttribute="bottom" priority="999" constant="10" id="g7y-sD-VCK"/>
                 <constraint firstItem="maJ-8b-DWI" firstAttribute="leading" secondItem="0Ng-xf-rVy" secondAttribute="trailing" constant="8" id="gwB-cU-QLj"/>
                 <constraint firstItem="36G-p0-TTR" firstAttribute="leading" secondItem="0Ng-xf-rVy" secondAttribute="trailing" constant="8" id="vm3-m8-DrK"/>
                 <constraint firstItem="36G-p0-TTR" firstAttribute="top" secondItem="maJ-8b-DWI" secondAttribute="bottom" constant="6" id="vzQ-Th-mVV"/>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" interfaceStyle="light" id="WcB-Jw-sBj" customClass="SocialNetworkView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="154"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVh-tE-Vvo">
+                    <rect key="frame" x="16" y="26" width="396" height="52"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="ilQ-WY-eHo">
+                    <rect key="frame" x="143" y="94" width="142" height="34"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWC-sm-EWP">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="34"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3I-ed-fZL">
+                            <rect key="frame" x="56" y="0.0" width="30" height="34"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drE-oc-3Qg">
+                            <rect key="frame" x="112" y="0.0" width="30" height="34"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="dqJ-wP-CpR"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="WVh-tE-Vvo" firstAttribute="top" secondItem="WcB-Jw-sBj" secondAttribute="top" constant="26" id="02b-VA-Ek1"/>
+                <constraint firstAttribute="trailing" secondItem="WVh-tE-Vvo" secondAttribute="trailing" constant="16" id="0fJ-so-luK"/>
+                <constraint firstAttribute="bottom" secondItem="ilQ-WY-eHo" secondAttribute="bottom" constant="26" id="SNj-Pr-gOc"/>
+                <constraint firstItem="WVh-tE-Vvo" firstAttribute="leading" secondItem="WcB-Jw-sBj" secondAttribute="leading" constant="16" id="hef-s7-lQ1"/>
+                <constraint firstItem="ilQ-WY-eHo" firstAttribute="centerX" secondItem="WcB-Jw-sBj" secondAttribute="centerX" id="knH-32-glU"/>
+                <constraint firstItem="ilQ-WY-eHo" firstAttribute="top" secondItem="WVh-tE-Vvo" secondAttribute="bottom" constant="16" id="mi1-kZ-SE2"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ilQ-WY-eHo" secondAttribute="trailing" constant="16" id="qsW-cm-Dbq"/>
+                <constraint firstItem="ilQ-WY-eHo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WcB-Jw-sBj" secondAttribute="leading" constant="16" id="sEx-lj-ov4"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="sOg-Vx-eVq"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="mediumButton" destination="n3I-ed-fZL" id="dgt-5d-1fJ"/>
+                <outlet property="telegramButton" destination="BWC-sm-EWP" id="wIs-Ah-rf2"/>
+                <outlet property="titleLabel" destination="WVh-tE-Vvo" id="t8j-Rf-e0D"/>
+                <outlet property="twitterButton" destination="drE-oc-3Qg" id="Tiy-Dr-8Th"/>
+            </connections>
+            <point key="canvasLocation" x="31.884057971014496" y="-176.78571428571428"/>
+        </view>
+    </objects>
+</document>

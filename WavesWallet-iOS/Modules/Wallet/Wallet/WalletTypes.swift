@@ -91,7 +91,9 @@ extension WalletTypes {
         case tapRow(IndexPath)
         case tapSection(Int)
         case tapSortButton
+        case tapHistory
         case tapAddressButton
+        case tapActionMenuButton
         case changeDisplay(DisplayState.Kind)
         case showStartLease(Money)
         case presentSearch(startPoint: CGFloat)
@@ -100,7 +102,7 @@ extension WalletTypes {
         case isShowCleanWalletBanner(Bool)
         case completeCleanWalletBanner(Bool)
         case isHasAppUpdate(Bool)
-        case openStakingFaq
+        case openStakingFaq(fromLanding: Bool)
         case openWithdraw
         case openBuy
         case openDeposit

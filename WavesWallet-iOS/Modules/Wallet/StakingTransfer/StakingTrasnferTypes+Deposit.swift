@@ -8,38 +8,21 @@
 
 import UIKit
 import DomainLayer
+import Extensions
 
 extension StakingTransfer.DTO.Data.Transfer {
     
     func inputFieldForDeposit(input: StakingTransfer.DTO.InputData.Transfer?) -> StakingTransfer.ViewModel.Row {
 
-        let title = Localizable.Waves.Staking.Transfer.Deposit.Cell.Input.title
+        let title = Localizable.Waves.Staking.Transfer.Deposit.title
         
         return StakingTransfer
             .ViewModel
             .inputField(title: title,
                         hasError: input?.error != nil,
                         asset: asset,
-                        amount: input?.amount)
-    }
-
-    func errorForDeposit(by error: StakingTransfer.DTO.InputData.Transfer.Error) -> StakingTransfer.ViewModel.Row {
-
-        let error: String = {
-
-            switch error {
-                
-            case .insufficientFunds:
-                return "insufficientFunds 666"
-                
-            case .insufficientFundsOnTax:
-                return "insufficientFunds on tax 777"
-            }
-        }()
-
-        return StakingTransfer
-            .ViewModel
-            .error(title: error)
+                        amount: input?.amount,
+                        hasDecimal: true)
     }
     
     func buttonForDeposit(status: BlueButton.Model.Status) -> StakingTransfer.ViewModel.Row {
@@ -57,7 +40,7 @@ extension StakingTransfer.DTO.Data.Transfer {
         var rows: [StakingTransfer.ViewModel.Row] = .init()
         
         let balance = StakingTransferBalanceCell.Model(assetURL: self.asset.iconLogo,
-                                                       title: Localizable.Waves.Staking.Transfer.Deposit.title,
+                                                       title: Localizable.Waves.Staking.Transfer.Deposit.Cell.Input.title,
                                                        money: self.balance.money)
         rows.append(.balance(balance))
         
@@ -65,7 +48,7 @@ extension StakingTransfer.DTO.Data.Transfer {
         rows.append(inputField)
 
         if let error = input?.error {
-            let error = self.errorForDeposit(by: error)
+            let error = self.error(by: error)
             rows.append(error)
         }
         
@@ -77,8 +60,16 @@ extension StakingTransfer.DTO.Data.Transfer {
                                          
         let fee = StakingTransferFeeInfoCell.Model(balance: self.transactionFeeBalance)
         rows.append(.feeInfo(fee))
+        
+        let isActive: Bool = {
+            
+            if let amount = input?.amount {
+                return self.errorKind(amount: amount)  == nil
+            }
+            return false
+        }()
                 
-        let button = self.buttonForDeposit(status: .disabled)
+        let button = self.buttonForDeposit(status: isActive ? .active : .disabled)
         rows.append(button)
         
         let section: StakingTransfer.ViewModel.Section =

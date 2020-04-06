@@ -32,6 +32,7 @@ protocol EnterStartViewControllerDelegate: AnyObject {
     func showImportCoordinator()
     func showNewAccount()
     func showLanguageCoordinator()
+    func showDebug()
 }
 
 final class EnterStartViewController: UIViewController, UICollectionViewDelegate {
@@ -61,6 +62,12 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     private var currentPage = 0
     private let blocks: [Block] = [.blockchain, .wallet, .dex]
 
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handlerTapGesture(gesture:)))
+        gesture.numberOfTapsRequired = 5
+        return gesture
+    }()
+    
     weak var delegate: EnterStartViewControllerDelegate?
 
     deinit {
@@ -69,8 +76,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        createMenuButton()
+        
         setupNavigationItem()
         
         subscribeLanguageNotification()
@@ -78,6 +84,8 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         
         setupCollectionView()
         setupTopOffsetConstraint()
+        
+        collectionView.addGestureRecognizer(tapGesture)
     }
 
     // MARK: - Setup
@@ -176,6 +184,10 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
 
     @objc func changeLanguage(_ sender: Any) {
         delegate?.showLanguageCoordinator()
+    }
+    
+    @objc func handlerTapGesture(gesture: UITapGestureRecognizer) {
+        delegate?.showDebug()
     }
     
     @IBAction private func signIn(_ sender: Any) {

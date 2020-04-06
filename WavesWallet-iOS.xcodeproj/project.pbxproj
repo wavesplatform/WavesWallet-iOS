@@ -276,6 +276,7 @@
 		7B4FA71B242BEA7A00A2FB25 /* DomainLayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */; };
 		7B4FA71E242C17D000A2FB25 /* StakingTransactionCompletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */; };
 		7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B537E2423E08B43002A3976 /* Date+Helper.swift */; };
+		7B5D784024339C2500D665CC /* AnalyticManagerEventStaking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5D783F24339C2500D665CC /* AnalyticManagerEventStaking.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
 		7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */; };
@@ -731,6 +732,10 @@
 		7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FA22FC742F002B19F8 /* BiometricManager+String.swift */; };
 		7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */; };
 		7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */; };
+		87105698243340DD005022DD /* SocialNetworkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87105697243340DD005022DD /* SocialNetworkView.xib */; };
+		8710569A243340F7005022DD /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87105699243340F7005022DD /* SocialNetworkView.swift */; };
+		8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8710569C24336992005022DD /* ExchangeTitleView.xib */; };
+		8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8710569E2433699D005022DD /* ExchangeTitleView.swift */; };
 		871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* Wallet+TSUD.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
@@ -1036,8 +1041,6 @@
 		E988EDEB23F2666E00B742C1 /* StakingLastPayoutsTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDE923F2666E00B742C1 /* StakingLastPayoutsTitleCell.xib */; };
 		E988EDEE23F26D2900B742C1 /* StakingLastPayoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDEC23F26D2900B742C1 /* StakingLastPayoutsCell.swift */; };
 		E988EDEF23F26D2900B742C1 /* StakingLastPayoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDED23F26D2900B742C1 /* StakingLastPayoutsCell.xib */; };
-		E988EDF323F26E3F00B742C1 /* StakingPayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDF223F26E3F00B742C1 /* StakingPayoutView.swift */; };
-		E988EDF523F26E5100B742C1 /* StakingPayoutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDF423F26E5100B742C1 /* StakingPayoutView.xib */; };
 		E988EDFE23F2BD8600B742C1 /* StakingLandingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDFC23F2BD8500B742C1 /* StakingLandingCell.swift */; };
 		E988EDFF23F2BD8600B742C1 /* StakingLandingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E988EDFD23F2BD8500B742C1 /* StakingLandingCell.xib */; };
 		E98F0589236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F0588236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift */; };
@@ -1358,6 +1361,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03C7B1C70CF7EE9D24883662 /* Pods-MarketPulseWidget.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPulseWidget.release-adhoc.xcconfig"; path = "Target Support Files/Pods-MarketPulseWidget/Pods-MarketPulseWidget.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		0444E7B1212C8057004C7DF2 /* HistoryTransactionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionView.xib; sourceTree = "<group>"; };
 		0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionView.swift; sourceTree = "<group>"; };
 		044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
@@ -1548,6 +1552,7 @@
 		0AFBCA872113188B00285BCB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0AFBCA892113254100285BCB /* WalletModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModuleBuilder.swift; sourceTree = "<group>"; };
 		0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDModuleBuilder.swift; sourceTree = "<group>"; };
+		0B11DC2705FA786A7E5EDC90 /* Pods-DomainLayer.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayer.release-adhoc.xcconfig"; path = "Target Support Files/Pods-DomainLayer/Pods-DomainLayer.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		0F5A04DF94D5267FF54BF4A9 /* Pods-MonkeyTest.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-prod.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-prod.xcconfig"; sourceTree = "<group>"; };
 		14D96B733AE3D2EDCB81A40F /* Pods-DataLayerTests.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayerTests.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-DataLayerTests/Pods-DataLayerTests.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
 		15AE893AD1EB53FBCDA161D5 /* Pods-Extensions.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.release-prod.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.release-prod.xcconfig"; sourceTree = "<group>"; };
@@ -1560,12 +1565,15 @@
 		344A99254C39E6D45BA6BFEE /* Pods-WavesWallet-iOS.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release-prod.xcconfig"; path = "Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release-prod.xcconfig"; sourceTree = "<group>"; };
 		358F7A355EB990FE9BE8A2BE /* Pods-DomainLayer.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayer.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-DomainLayer/Pods-DomainLayer.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
 		39D072CCF146C6CC2C64586F /* Pods-MarketPulseWidget.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPulseWidget.dev-debug.xcconfig"; path = "Target Support Files/Pods-MarketPulseWidget/Pods-MarketPulseWidget.dev-debug.xcconfig"; sourceTree = "<group>"; };
+		3D9A0DAE5AC9EDE1905DFB8E /* Pods-DataLayerTests.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayerTests.release-adhoc.xcconfig"; path = "Target Support Files/Pods-DataLayerTests/Pods-DataLayerTests.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		4002342AE27E8283A7330127 /* Pods-DataLayer.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
 		41C4770FECD0D0B762C47A43 /* Pods_DomainLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DomainLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42540834023E32A59FAD0948 /* Pods-MonkeyTest.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release-prod.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release-prod.xcconfig"; sourceTree = "<group>"; };
 		42BA6C1489543A7B9FBD6970 /* Pods-WavesWallet-iOS.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test-prod.xcconfig"; path = "Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test-prod.xcconfig"; sourceTree = "<group>"; };
+		447AAC05142BC369CDC2593D /* Pods-MonkeyTest.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release-adhoc.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		45AA58BA32AC1AF6D19F9EEF /* Pods-DomainLayer.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayer.dev-debug.xcconfig"; path = "Target Support Files/Pods-DomainLayer/Pods-DomainLayer.dev-debug.xcconfig"; sourceTree = "<group>"; };
 		4A5FEAF1E09BD85095F7190B /* Pods-MarketPulseWidget.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPulseWidget.test-prod.xcconfig"; path = "Target Support Files/Pods-MarketPulseWidget/Pods-MarketPulseWidget.test-prod.xcconfig"; sourceTree = "<group>"; };
+		4D7A6A90883B1192FF198B0C /* Pods-DomainLayerTests.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.release-adhoc.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		4F48C7630D481FB8B18C7CDD /* Pods_Extensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Extensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B93090B2CB93A36B3FC8D0F /* Pods-Extensions.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.test-prod.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.test-prod.xcconfig"; sourceTree = "<group>"; };
 		5BB158FA7ECE6E5227A7AF0B /* Pods_DataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1657,6 +1665,7 @@
 		7B4FA71A242BEA7A00A2FB25 /* DomainLayerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainLayerConstants.swift; sourceTree = "<group>"; };
 		7B4FA71D242C17D000A2FB25 /* StakingTransactionCompletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransactionCompletedVC.swift; sourceTree = "<group>"; };
 		7B537E2423E08B43002A3976 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
+		7B5D783F24339C2500D665CC /* AnalyticManagerEventStaking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticManagerEventStaking.swift; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
@@ -2109,6 +2118,10 @@
 		7BFB47FC22FC742F002B19F8 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeParser.swift; sourceTree = "<group>"; };
 		7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserWithoutBackupStorageTrack.swift; sourceTree = "<group>"; };
+		87105697243340DD005022DD /* SocialNetworkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialNetworkView.xib; sourceTree = "<group>"; };
+		87105699243340F7005022DD /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
+		8710569C24336992005022DD /* ExchangeTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExchangeTitleView.xib; sourceTree = "<group>"; };
+		8710569E2433699D005022DD /* ExchangeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTitleView.swift; sourceTree = "<group>"; };
 		871D7262242CC94100F89403 /* Wallet+TSUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+TSUD.swift"; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
@@ -2266,7 +2279,9 @@
 		8B03F78A9DF177D8D9723E8D /* Pods-MonkeyTest.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release-dev.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release-dev.xcconfig"; sourceTree = "<group>"; };
 		8C9A1159470FED7057790330 /* Pods-DataLayer.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.release-prod.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.release-prod.xcconfig"; sourceTree = "<group>"; };
 		8E83213560285F82F0869981 /* Pods-Extensions.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
+		9552BFB0C80608032246AEC2 /* Pods-DataLayer.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.release-adhoc.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		95576FFA8929D9E05D7BF2BE /* Pods-DataLayer.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.test-prod.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.test-prod.xcconfig"; sourceTree = "<group>"; };
+		98E530CF9A3725335D480C67 /* Pods-WavesWallet-iOS.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release-adhoc.xcconfig"; path = "Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		A79335F0C0282C9BC73BC68E /* Pods-DataLayerTests.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayerTests.dev-debug.xcconfig"; path = "Target Support Files/Pods-DataLayerTests/Pods-DataLayerTests.dev-debug.xcconfig"; sourceTree = "<group>"; };
 		A9E634B5E087D00A1F31D61E /* Pods-MonkeyTest.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
 		AAE0DD42A072FF6782D8699E /* Pods-DomainLayerTests.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.test-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.test-prod.xcconfig"; sourceTree = "<group>"; };
@@ -2283,6 +2298,7 @@
 		DAD260D2DDC7E839EDD12EA6 /* Pods-DomainLayerTests.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
 		DD32EC8514D2E93CE1593C7F /* Pods-DataLayerTests.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayerTests.test-dev.xcconfig"; path = "Target Support Files/Pods-DataLayerTests/Pods-DataLayerTests.test-dev.xcconfig"; sourceTree = "<group>"; };
 		DF56F95985E2EA4D53A570EC /* Pods-DomainLayerTests.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.test-dev.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.test-dev.xcconfig"; sourceTree = "<group>"; };
+		E14D897AF5575C8904BF3876 /* Pods-Extensions.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.release-adhoc.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		E750B898EC2D32D49A39F690 /* Pods-DomainLayerTests.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.release-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.release-prod.xcconfig"; sourceTree = "<group>"; };
 		E902BBCF236A664300141CF4 /* DexDeepLinkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexDeepLinkCoordinator.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -2432,8 +2448,6 @@
 		E988EDE923F2666E00B742C1 /* StakingLastPayoutsTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingLastPayoutsTitleCell.xib; sourceTree = "<group>"; };
 		E988EDEC23F26D2900B742C1 /* StakingLastPayoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingLastPayoutsCell.swift; sourceTree = "<group>"; };
 		E988EDED23F26D2900B742C1 /* StakingLastPayoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingLastPayoutsCell.xib; sourceTree = "<group>"; };
-		E988EDF223F26E3F00B742C1 /* StakingPayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingPayoutView.swift; sourceTree = "<group>"; };
-		E988EDF423F26E5100B742C1 /* StakingPayoutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingPayoutView.xib; sourceTree = "<group>"; };
 		E988EDFC23F2BD8500B742C1 /* StakingLandingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingLandingCell.swift; sourceTree = "<group>"; };
 		E988EDFD23F2BD8500B742C1 /* StakingLandingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingLandingCell.xib; sourceTree = "<group>"; };
 		E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryLocal.swift; sourceTree = "<group>"; };
@@ -3032,6 +3046,8 @@
 		0A762DA621661A810019D447 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8710569B2433697B005022DD /* ExchangeTitleCell */,
+				87105696243340B6005022DD /* SocialNetworkCell */,
 				0ADD6C812167948400B06917 /* ProfileHeaderView.swift */,
 				0ADD6C802167948400B06917 /* ProfileHeaderView.xib */,
 				0AAB15C221655BDB00F1F7BC /* ProfileInfoCell.swift */,
@@ -3539,6 +3555,14 @@
 				7A79F97385011A8CE0363A70 /* Pods-WavesWallet-iOS.release-dev.xcconfig */,
 				5E9E95698304826A9178CFEB /* Pods-WavesWallet-iOS.test-dev.xcconfig */,
 				42BA6C1489543A7B9FBD6970 /* Pods-WavesWallet-iOS.test-prod.xcconfig */,
+				9552BFB0C80608032246AEC2 /* Pods-DataLayer.release-adhoc.xcconfig */,
+				3D9A0DAE5AC9EDE1905DFB8E /* Pods-DataLayerTests.release-adhoc.xcconfig */,
+				0B11DC2705FA786A7E5EDC90 /* Pods-DomainLayer.release-adhoc.xcconfig */,
+				4D7A6A90883B1192FF198B0C /* Pods-DomainLayerTests.release-adhoc.xcconfig */,
+				E14D897AF5575C8904BF3876 /* Pods-Extensions.release-adhoc.xcconfig */,
+				03C7B1C70CF7EE9D24883662 /* Pods-MarketPulseWidget.release-adhoc.xcconfig */,
+				447AAC05142BC369CDC2593D /* Pods-MonkeyTest.release-adhoc.xcconfig */,
+				98E530CF9A3725335D480C67 /* Pods-WavesWallet-iOS.release-adhoc.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -3883,6 +3907,7 @@
 				7BDC6D6C22C398E100614E6B /* AnalyticManagerEvent+AddressBook.swift */,
 				7BDC6D6F22C3A03400614E6B /* AnalyticManagerEvent+Menu.swift */,
 				7BDC6D7122C3A03E00614E6B /* AnalyticManagerEvent+Widgets.swift */,
+				7B5D783F24339C2500D665CC /* AnalyticManagerEventStaking.swift */,
 			);
 			path = AnalyticManager;
 			sourceTree = "<group>";
@@ -4210,8 +4235,6 @@
 		7B9542C323FAC7A30079AB18 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E988EDF223F26E3F00B742C1 /* StakingPayoutView.swift */,
-				E988EDF423F26E5100B742C1 /* StakingPayoutView.xib */,
 				E9DC661F23ECA96600889AA3 /* StakingHeaderView.swift */,
 				E9DC662123ECA99800889AA3 /* StakingHeaderView.xib */,
 				7BF74C5B23FBF85E005F10FC /* StakingLadingInfoView.swift */,
@@ -4806,6 +4829,24 @@
 				7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		87105696243340B6005022DD /* SocialNetworkCell */ = {
+			isa = PBXGroup;
+			children = (
+				87105699243340F7005022DD /* SocialNetworkView.swift */,
+				87105697243340DD005022DD /* SocialNetworkView.xib */,
+			);
+			path = SocialNetworkCell;
+			sourceTree = "<group>";
+		};
+		8710569B2433697B005022DD /* ExchangeTitleCell */ = {
+			isa = PBXGroup;
+			children = (
+				8710569E2433699D005022DD /* ExchangeTitleView.swift */,
+				8710569C24336992005022DD /* ExchangeTitleView.xib */,
+			);
+			path = ExchangeTitleCell;
 			sourceTree = "<group>";
 		};
 		8752A25E2412797700B968C7 /* PayoutsHistory */ = {
@@ -6635,7 +6676,7 @@
 				7B66871F22B7E68B0029E6F1 /* Sources */,
 				7B66872022B7E68B0029E6F1 /* Frameworks */,
 				7B66872122B7E68B0029E6F1 /* Resources */,
-				509DEBEE3F43E2E11ED0E0A0 /* [CP] Copy Pods Resources */,
+				665868C4BE0C8FDC61BF1A40 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -6719,6 +6760,7 @@
 				E9B190BB22E7CD9A008220B7 /* Embed App Extensions */,
 				5FAF4597FE7F72DBCD62054E /* [CP] Embed Pods Frameworks */,
 				8752A27E2412809C00B968C7 /* SwiftLint */,
+				5AE3F11DF00A3AFBA886E665 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -6930,6 +6972,7 @@
 				7B0D1B7D2401C84300442B7B /* StakingTransferErrorCell.xib in Resources */,
 				E97A283A23D058AB00C4C8C4 /* TradeSkeletonCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
+				87105698243340DD005022DD /* SocialNetworkView.xib in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				7B9DC32A2382C04700DCCA75 /* Amplitude-Info.plist in Resources */,
 				7B2AE4B82402F3CA0034B892 /* StakingTransferSkeletonBalanceCell.xib in Resources */,
@@ -7059,7 +7102,6 @@
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
-				E988EDF523F26E5100B742C1 /* StakingPayoutView.xib in Resources */,
 				E9DC661E23ECA06600889AA3 /* StakingBalanceCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
 				E955AF2423ABEC1200165B5E /* RobotoCondensed-Regular.ttf in Resources */,
@@ -7073,6 +7115,7 @@
 				0AB63C2C2170EBF00056B17E /* Language.storyboard in Resources */,
 				7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */,
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
+				8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */,
 				0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */,
@@ -7182,7 +7225,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		509DEBEE3F43E2E11ED0E0A0 /* [CP] Copy Pods Resources */ = {
+		5AE3F11DF00A3AFBA886E665 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -7194,7 +7237,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DataLayer/Pods-DataLayer-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5FAF4597FE7F72DBCD62054E /* [CP] Embed Pods Frameworks */ = {
@@ -7210,6 +7253,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		665868C4BE0C8FDC61BF1A40 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DataLayer/Pods-DataLayer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6C1AE68B16E222EEBEDE7F95 /* [CP] Check Pods Manifest.lock */ = {
@@ -7498,6 +7556,7 @@
 				7B5FAADB22BCEA4200621A44 /* AccountBalanceUseCaseProtocol.swift in Sources */,
 				7B9542C423FB2CF50079AB18 /* Balance.swift in Sources */,
 				7B5FAA7B22BBE3EC00621A44 /* TransactionsRepositoryProtocol.swift in Sources */,
+				7B5D784024339C2500D665CC /* AnalyticManagerEventStaking.swift in Sources */,
 				7B5FAA8E22BBE3EC00621A44 /* InvokeScriptTransactionDomainDTO.swift in Sources */,
 				7B5FAAAB22BBE3EC00621A44 /* AnalyticManager+Dex.swift in Sources */,
 				7B5FAA7422BBE3EC00621A44 /* DexRealmRepositoryProtocol.swift in Sources */,
@@ -7802,7 +7861,6 @@
 				E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */,
 				E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */,
 				7B49912C22F99B76005B7123 /* AssetsSearchEmptyCell.swift in Sources */,
-				E988EDF323F26E3F00B742C1 /* StakingPayoutView.swift in Sources */,
 				E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */,
 				E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */,
 				E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */,
@@ -8349,12 +8407,14 @@
 				E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */,
 				0ADD803221F22FFB0075FC59 /* AddressesKeysCoordinator.swift in Sources */,
 				0AC1251221A758BD00357C93 /* LongInfoPageView.swift in Sources */,
+				8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */,
 				0A96F1D32151BD46005E148F /* PasscodeTopBarView.swift in Sources */,
 				0AF9222C212E0F1F003BA067 /* WalletQuickNoteCell.swift in Sources */,
 				87FA5D1C24223BCE002F282D /* ChooseAccountViewController.swift in Sources */,
 				E9B1C3AA2382E07000B01B38 /* DexCreateOrderInfoViewController.swift in Sources */,
 				E9D36DD42175C755001E6DF0 /* ReceiveCardPresenterProtocol.swift in Sources */,
 				E9D36DEB2175C755001E6DF0 /* ReceiveInvoiceViewController.swift in Sources */,
+				8710569A243340F7005022DD /* SocialNetworkView.swift in Sources */,
 				E9B087AD2163886800937644 /* DexOrderBookLastPriceCell.swift in Sources */,
 				7B49912822F87C7A005B7123 /* AssetsSearchSystem.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
@@ -8630,7 +8690,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8639,7 +8699,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.2;
+				MARKETING_VERSION = 2.10;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
@@ -8723,7 +8783,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8732,7 +8792,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.2;
+				MARKETING_VERSION = 2.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
@@ -8980,11 +9040,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9019,11 +9079,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -9053,11 +9113,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -9087,11 +9147,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -9121,11 +9181,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9163,11 +9223,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9200,11 +9260,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9237,11 +9297,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9274,11 +9334,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9313,11 +9373,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -9347,11 +9407,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -9381,11 +9441,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -9790,6 +9850,407 @@
 			};
 			name = "Test-Prod";
 		};
+		7BF3375D2435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-Adhoc";
+		};
+		7BF3375E2435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98E530CF9A3725335D480C67 /* Pods-WavesWallet-iOS.release-adhoc.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = "WavesWallet-iOS/WavesWallet-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4013;
+				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 2.10;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
+				PRODUCT_MODULE_NAME = WavesWallet_iOS;
+				PRODUCT_NAME = Exchange;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.WavesWallet";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
+				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/Resources/ObjCBridgingHeader.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "";
+			};
+			name = "Release-Adhoc";
+		};
+		7BF3375F2435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03C7B1C70CF7EE9D24883662 /* Pods-MarketPulseWidget.release-adhoc.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MarketPulseWidget/MarketPulseWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4013;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = MarketPulseWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet.widgetmarketpulse;
+				PRODUCT_NAME = "Waves Exchange Market";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.WavesWallet.widgetmarketpulse";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-Adhoc";
+		};
+		7BF337602435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B11DC2705FA786A7E5EDC90 /* Pods-DomainLayer.release-adhoc.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4013;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 4013;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DomainLayer/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.domainlayer;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = "Release-Adhoc";
+		};
+		7BF337612435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9552BFB0C80608032246AEC2 /* Pods-DataLayer.release-adhoc.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4013;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 4013;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DataLayer/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.datalayer;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = "Release-Adhoc";
+		};
+		7BF337622435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E14D897AF5575C8904BF3876 /* Pods-Extensions.release-adhoc.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4013;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 4013;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Extensions/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.extensions;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = "Release-Adhoc";
+		};
+		7BF337632435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 447AAC05142BC369CDC2593D /* Pods-MonkeyTest.release-adhoc.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MonkeyTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = WV.MonkeyTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WavesWallet-iOS";
+			};
+			name = "Release-Adhoc";
+		};
+		7BF337642435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D7A6A90883B1192FF198B0C /* Pods-DomainLayerTests.release-adhoc.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DomainLayerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
+				PRODUCT_BUNDLE_IDENTIFIER = WV.DomainLayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DummyForTest.app/DummyForTest";
+			};
+			name = "Release-Adhoc";
+		};
+		7BF337652435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D9A0DAE5AC9EDE1905DFB8E /* Pods-DataLayerTests.release-adhoc.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DataLayerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = WV.DataLayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DummyForTest.app/DummyForTest";
+			};
+			name = "Release-Adhoc";
+		};
+		7BF337662435F6E800F88306 /* Release-Adhoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 96SW78M3KJ;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = DummyForTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = WV.DummyForTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-Adhoc";
+		};
 		7BF509DE22D89DDF00582783 /* Dev-Adhoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9862,7 +10323,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -9872,7 +10333,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.2;
+				MARKETING_VERSION = 2.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=500 -Xfrontend -warn-long-expression-type-checking=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
@@ -9927,11 +10388,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9966,11 +10427,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -10008,11 +10469,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -10165,16 +10626,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.2;
+				MARKETING_VERSION = 2.10;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
@@ -10183,9 +10645,10 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.WavesWallet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/Resources/ObjCBridgingHeader.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "";
 			};
@@ -10223,11 +10686,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -10257,11 +10720,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -10294,11 +10757,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3986;
+				DYLIB_CURRENT_VERSION = 4013;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -10642,7 +11105,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -10999,7 +11462,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -11009,7 +11472,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.2;
+				MARKETING_VERSION = 2.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=500 -Xfrontend -warn-long-expression-type-checking=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
@@ -11037,7 +11500,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3986;
+				CURRENT_PROJECT_VERSION = 4013;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -11046,7 +11509,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.9.2;
+				MARKETING_VERSION = 2.10;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
@@ -11071,6 +11534,7 @@
 				7B431A9322BD176D00DE73B9 /* Dev-Debug */,
 				7BF509E422D89DDF00582783 /* Dev-Adhoc */,
 				7B431A9422BD176D00DE73B9 /* Release-Prod */,
+				7BF337642435F6E800F88306 /* Release-Adhoc */,
 				7BF509EC22D89FA200582783 /* Release-Dev */,
 				7B431A9522BD176D00DE73B9 /* Test-Dev */,
 				7B431A9622BD176D00DE73B9 /* Test-Prod */,
@@ -11084,6 +11548,7 @@
 				7B431AA422BD185B00DE73B9 /* Dev-Debug */,
 				7BF509E522D89DDF00582783 /* Dev-Adhoc */,
 				7B431AA522BD185B00DE73B9 /* Release-Prod */,
+				7BF337652435F6E800F88306 /* Release-Adhoc */,
 				7BF509ED22D89FA200582783 /* Release-Dev */,
 				7B431AA622BD185B00DE73B9 /* Test-Dev */,
 				7B431AA722BD185B00DE73B9 /* Test-Prod */,
@@ -11097,6 +11562,7 @@
 				7B66860922B3F70E0029E6F1 /* Dev-Debug */,
 				7BF509E122D89DDF00582783 /* Dev-Adhoc */,
 				7B66860A22B3F70E0029E6F1 /* Release-Prod */,
+				7BF337602435F6E800F88306 /* Release-Adhoc */,
 				7BF509E922D89FA200582783 /* Release-Dev */,
 				7B66860B22B3F70E0029E6F1 /* Test-Dev */,
 				7B66860C22B3F70E0029E6F1 /* Test-Prod */,
@@ -11110,6 +11576,7 @@
 				7B6686F822B7C5120029E6F1 /* Dev-Debug */,
 				7BF509E222D89DDF00582783 /* Dev-Adhoc */,
 				7B6686F922B7C5120029E6F1 /* Release-Prod */,
+				7BF337622435F6E800F88306 /* Release-Adhoc */,
 				7BF509EA22D89FA200582783 /* Release-Dev */,
 				7B6686FA22B7C5120029E6F1 /* Test-Dev */,
 				7B6686FB22B7C5120029E6F1 /* Test-Prod */,
@@ -11123,6 +11590,7 @@
 				7B66872D22B7E68B0029E6F1 /* Dev-Debug */,
 				7BF509E322D89DDF00582783 /* Dev-Adhoc */,
 				7B66872E22B7E68B0029E6F1 /* Release-Prod */,
+				7BF337612435F6E800F88306 /* Release-Adhoc */,
 				7BF509EB22D89FA200582783 /* Release-Dev */,
 				7B66872F22B7E68B0029E6F1 /* Test-Dev */,
 				7B66873022B7E68B0029E6F1 /* Test-Prod */,
@@ -11136,6 +11604,7 @@
 				7B83A7E022D8C7500038180D /* Dev-Debug */,
 				7B83A7E122D8C7500038180D /* Dev-Adhoc */,
 				7B83A7E222D8C7500038180D /* Release-Prod */,
+				7BF337662435F6E800F88306 /* Release-Adhoc */,
 				7B83A7E322D8C7500038180D /* Release-Dev */,
 				7B83A7E422D8C7500038180D /* Test-Dev */,
 				7B83A7E522D8C7500038180D /* Test-Prod */,
@@ -11149,6 +11618,7 @@
 				7BF89E9E22272A5E00853F9D /* Dev-Debug */,
 				7BF509E022D89DDF00582783 /* Dev-Adhoc */,
 				7BF89E9F22272A5E00853F9D /* Release-Prod */,
+				7BF337632435F6E800F88306 /* Release-Adhoc */,
 				7BF509E822D89FA200582783 /* Release-Dev */,
 				7BF89EA022272A5E00853F9D /* Test-Dev */,
 				7BF89EA122272A5E00853F9D /* Test-Prod */,
@@ -11162,6 +11632,7 @@
 				E9B190B422E7CD9A008220B7 /* Dev-Debug */,
 				E9B190B522E7CD9A008220B7 /* Dev-Adhoc */,
 				E9B190B622E7CD9A008220B7 /* Release-Prod */,
+				7BF3375F2435F6E800F88306 /* Release-Adhoc */,
 				E9B190B722E7CD9A008220B7 /* Release-Dev */,
 				E9B190B822E7CD9A008220B7 /* Test-Dev */,
 				E9B190B922E7CD9A008220B7 /* Test-Prod */,
@@ -11175,6 +11646,7 @@
 				F7E954F61EA8FE0700A804DE /* Dev-Debug */,
 				7BF509DE22D89DDF00582783 /* Dev-Adhoc */,
 				F7E954F71EA8FE0700A804DE /* Release-Prod */,
+				7BF3375D2435F6E800F88306 /* Release-Adhoc */,
 				7BF509E622D89FA200582783 /* Release-Dev */,
 				0A15081F219B04DF00516037 /* Test-Dev */,
 				0A762DA4216512420019D447 /* Test-Prod */,
@@ -11188,6 +11660,7 @@
 				F7E954F91EA8FE0700A804DE /* Dev-Debug */,
 				7BF509DF22D89DDF00582783 /* Dev-Adhoc */,
 				F7E954FA1EA8FE0700A804DE /* Release-Prod */,
+				7BF3375E2435F6E800F88306 /* Release-Adhoc */,
 				7BF509E722D89FA200582783 /* Release-Dev */,
 				0A150820219B04DF00516037 /* Test-Dev */,
 				0A762DA5216512420019D447 /* Test-Prod */,

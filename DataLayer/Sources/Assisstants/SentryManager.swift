@@ -61,12 +61,9 @@ public class SentryManager {
         event.user = currentUser
         
         if let client = SentryManager.shared.client {
-            client.send(event: event, completion: { error in
-            
+            client.send(event: event, completion: { error in            
                 if let error = error {
                     print("SweetLogger :( \(String(describing: error))")
-                } else {
-                    print("SweetLogger :) event")
                 }
             })
         } else {

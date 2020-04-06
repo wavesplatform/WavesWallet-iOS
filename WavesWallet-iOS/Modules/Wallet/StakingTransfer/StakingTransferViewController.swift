@@ -8,8 +8,10 @@
 
 import UIKit
 import Extensions
+import WavesSDKExtensions
 import DomainLayer
 import RxSwift
+import IQKeyboardManagerSwift
 
 private typealias Types = StakingTransfer
 
@@ -31,7 +33,7 @@ extension UIViewController {
 
 protocol StakingTransferModuleOutput: AnyObject {
     func stakingTransferOpenURL(_ url: URL)
-    func stakingTransferDidSendCard(url: URL)
+    func stakingTransferDidSendCard(url: URL, amount: DomainLayer.DTO.Balance)
     func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
     func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
 }
@@ -39,7 +41,7 @@ protocol StakingTransferModuleOutput: AnyObject {
 private enum Constants {
     static let headerHeight: CGFloat = 82
     static let cardContentHight: CGFloat = 480
-    static let transferContentHeght: CGFloat = 425
+    static let transferContentHeght: CGFloat = 450
 }
 
 final class StakingTransferViewController: ModalScrollViewController {
@@ -66,6 +68,9 @@ final class StakingTransferViewController: ModalScrollViewController {
     
     private var snackBarKey: String? = nil
     
+    private var saveOldContentInset: UIEdgeInsets?
+    private var saveOldContentOffset: CGPoint?
+    
     weak var moduleOutput: StakingTransferModuleOutput?
     
     override func viewDidLoad() {
@@ -77,6 +82,12 @@ final class StakingTransferViewController: ModalScrollViewController {
         
         self.navigationItem.isNavigationBarHidden = true
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+                        
         setupUI()
         
         system
@@ -92,12 +103,21 @@ final class StakingTransferViewController: ModalScrollViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         system.send(.viewDidDisappear)
+        
+        IQKeyboardManager.shared.enable = true
+        
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         system.send(.viewDidAppear)        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared.enable = false
+        IQKeyboardManager.shared.disabledDistanceHandlingClasses.append(StakingTransferViewController.self)
     }
     
     private func setupUI() {
@@ -112,6 +132,7 @@ final class StakingTransferViewController: ModalScrollViewController {
         switch kind {
         case .card:
             return Constants.cardContentHight
+            
         case .deposit, .withdraw:
             return Constants.transferContentHeght
         }
@@ -120,8 +141,60 @@ final class StakingTransferViewController: ModalScrollViewController {
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
         return 0
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let options = UIView.AnimationOptions(rawValue: UInt(curve) << 16 | UIView.AnimationOptions.beginFromCurrentState.rawValue)
+        
+        guard let cell = tableView.visibleCells.first(where: { (cell) -> Bool in
+            return cell is StakingTransferInputFieldCell
+        }) as? StakingTransferInputFieldCell else { return }
+                        
+        let cellFrame = cell.frame
+        
+        guard keyboardRectangle.intersects(cellFrame) == true else { return }
+                        
+        // I calculate distance between keyboard and cell and shift table to top
+        let offSetY = keyboardRectangle.maxY - cellFrame.midY
+
+        
+        self.saveOldContentInset = self.tableView.contentInset
+        self.saveOldContentOffset = self.tableView.contentOffset
+        
+        SweetLogger.debug("save contentInset \(self.tableView.contentInset)")
+                                    
+        self.tableView.contentInset.bottom = offSetY
+        
+        UIView.animate(withDuration: duration, delay: 0, options: options, animations: {
+                        
+            self.tableView.contentOffset.y = self.tableView.contentOffset.y + offSetY
+        }) { (animated) in }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+                
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
+        let options = UIView.AnimationOptions(rawValue: UInt(curve) << 16 | UIView.AnimationOptions.beginFromCurrentState.rawValue)
+                                
+        self.tableView.contentInset.bottom = self.saveOldContentInset?.bottom ?? self.tableView.contentInset.bottom
+                
+        SweetLogger.debug("restore contentInset \(self.saveOldContentInset ?? UIEdgeInsets.zero)")
+        
+        UIView.animate(withDuration: duration, delay: 0, options: options, animations: {
+            self.tableView.contentOffset.y = self.saveOldContentOffset?.y ?? self.tableView.contentOffset.y
+        }) { (animated) in }
+        
+        self.saveOldContentOffset = nil
+        self.saveOldContentInset = nil
+    }
 }
 
+// MARK: Private
 extension StakingTransferViewController {
     
     private func update(state: StakingTransfer.State.UI) {
@@ -130,7 +203,7 @@ extension StakingTransferViewController {
         self.kind = state.kind
         
         stakingTransferHeaderView.update(with: .init(title: state.title))
-                        
+        
         switch state.action {
         case .none:
             break
@@ -141,8 +214,8 @@ extension StakingTransferViewController {
         case .completedWithdraw(_, let tx, let amount):
             self.moduleOutput?.stakingTransferDidSendWithdraw(transaction: tx, amount: amount)
             
-        case .completedCard(_, let url):
-            self.moduleOutput?.stakingTransferDidSendCard(url: url)
+        case .completedCard(_, let url, let amount):
+            self.moduleOutput?.stakingTransferDidSendCard(url: url, amount: amount)
             
         case .update(let updateRows, _):
             
@@ -223,11 +296,11 @@ extension StakingTransferViewController {
 extension StakingTransferViewController: ModalRootViewDelegate {
     
     func modalHeaderView() -> UIView {
-        return stakingTransferHeaderView
+        stakingTransferHeaderView
     }
     
     func modalHeaderHeight() -> CGFloat {
-        return Constants.headerHeight
+        Constants.headerHeight
     }
 }
 
@@ -337,6 +410,10 @@ extension StakingTransferViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let row = sections[indexPath]
@@ -345,6 +422,7 @@ extension StakingTransferViewController: UITableViewDelegate {
             
             let cell = cell as? StakingTransferSkeletonBalanceCell
             cell?.startAnimation()
+            
         default:
             break
         }

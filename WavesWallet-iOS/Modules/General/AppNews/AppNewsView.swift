@@ -39,6 +39,17 @@ final class AppNewsView: PopupActionView<AppNewsView.Model> {
         let title: String
         let subtitle: String
         let image: UIImage
+        let buttonTitle: String
+
+        public init(title: String,
+                    subtitle: String,
+                    image: UIImage,
+                    buttonTitle: String = Localizable.Waves.Appnews.Button.okey) {
+            self.title = title
+            self.subtitle = subtitle
+            self.image = image
+            self.buttonTitle = buttonTitle
+        }
     }
 
     @IBOutlet private weak var imageView: UIImageView!
@@ -52,7 +63,6 @@ final class AppNewsView: PopupActionView<AppNewsView.Model> {
     override func awakeFromNib() {
         super.awakeFromNib()
         labelSubtitle.delegate = self
-        buttonOkey.setTitle(Localizable.Waves.Appnews.Button.okey, for: .normal)
     }
 
     @IBAction private func okeyTapped(_ sender: Any) {
@@ -63,6 +73,9 @@ final class AppNewsView: PopupActionView<AppNewsView.Model> {
     override func update(with model: Model) {
         labelTitle.text = model.title
 
+        buttonOkey.setTitle(model.buttonTitle,
+                            for: .normal)
+        
         var downStylerConfigurator = DownStylerConfiguration()
         downStylerConfigurator.colors = AppNewsColorCollection()
         downStylerConfigurator.fonts = AppNewsFontCollection()

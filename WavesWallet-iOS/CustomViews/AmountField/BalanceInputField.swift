@@ -54,6 +54,10 @@ final class BalanceInputField: UIView, NibOwnerLoadable {
     override func becomeFirstResponder() -> Bool {
         return numberTextField.becomeFirstResponder()
     }
+    
+    func setKeyboardType(_ type: UIKeyboardType) {
+        numberTextField.keyboardType = type
+    }
 }
 
 // MARK: - Private Methods

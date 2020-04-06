@@ -721,8 +721,21 @@ private extension TransactionsUseCase {
             let assetRate = settingsOrderFee.feeAssets.first(where: { $0.asset.id == feeAssetId })?.rate ?? 0
             let assetDecimal = settingsOrderFee.feeAssets.first(where: { $0.asset.id == feeAssetId })?.asset.decimals ?? 0
             let assetFee = assetRate * Double(settingsOrderFee.baseFee + Constants.rateSmart * n)
-
-            return Money(Int64(ceil(assetFee)), assetDecimal)
+            
+            let factorFee =  (wavesAsset.precision - assetDecimal)
+            let correctFee: Int64 = {
+               
+                let assetFeeDouble = ceil(assetFee)
+                
+                if factorFee == 0 {
+                    return Int64(assetFeeDouble)
+                }
+                
+                return Int64(ceil(assetFeeDouble / pow(10.0, Double(factorFee))))
+            }()
+            
+            
+            return Money(correctFee, assetDecimal)
         }
 
         return Money(fee, wavesAsset.precision)

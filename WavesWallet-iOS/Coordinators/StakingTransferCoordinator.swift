@@ -10,12 +10,19 @@ import UIKit
 import Extensions
 import DomainLayer
 
+protocol StakingTransferCoordinatorDelegate: AnyObject {
+    
+    func stakingTransferSendDepositCompled()
+    func stakingTransferSendWithdrawCompled()
+    func stakingTransferSendCardCompled()
+}
+
 final class StakingTransferCoordinator: Coordinator {
-
+    
     var childCoordinators: [Coordinator] = []
-
+    
     weak var parent: Coordinator?
-
+    
     private var router: Router
     
     private let kind: StakingTransfer.DTO.Kind
@@ -24,19 +31,25 @@ final class StakingTransferCoordinator: Coordinator {
     
     private var hasNeedRemoveCoordinatorAfterDissmiss: Bool = true
     
+    private var adCashBrowserViewController: BrowserViewController?
+    
+    private var amountByBuyCard: DomainLayer.DTO.Balance?
+    
+    weak var delegate: StakingTransferCoordinatorDelegate?
+    
     private lazy var modalRouter: ModalRouter = ModalRouter(navigationController: CustomNavigationController()) { [weak self] in
         
         if self?.hasNeedRemoveCoordinatorAfterDissmiss == true {
             self?.removeCoordinators()
         }
     }
-            
+    
     init(router: Router, kind: StakingTransfer.DTO.Kind, assetId: String = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p") {
         self.router = router
         self.kind = kind
         self.assetId = assetId
     }
-
+    
     func start() {
         let vc = StakingTransferModuleBuilder(output: self)
             .build(input: .init(assetId: assetId,
@@ -54,10 +67,37 @@ final class StakingTransferCoordinator: Coordinator {
     
     private func showTransactionCompleted(transaction: DomainLayer.DTO.SmartTransaction,
                                           kind: StakingTransactionCompletedVC.Model.Kind) {
-                        
+        
         let vc = StakingTransactionCompletedBuilder().build(input: .init(kind: kind))
         
         vc.didTapSuccessButton = { [weak self] in
+            
+            switch kind {
+            case .card: break
+                
+            case .deposit(let balance):
+                
+                let event: AnalyticManagerEventStaking = .depositSuccess(amount: balance.money.amount,
+                                                                         assetTicker: balance.currency.displayText)
+                UseCasesFactory
+                    .instance
+                    .analyticManager
+                    .trackEvent(.staking(event))
+                
+                self?.delegate?.stakingTransferSendDepositCompled()
+                
+            case .withdraw( let balance):
+                
+                let event: AnalyticManagerEventStaking = .withdrawSuccess(amount: balance.money.amount,
+                                                                          assetTicker: balance.currency.displayText)
+                
+                UseCasesFactory
+                    .instance
+                    .analyticManager
+                    .trackEvent(.staking(event))
+                
+                self?.delegate?.stakingTransferSendWithdrawCompled()
+            }
             vc.dismiss(animated: true, completion: nil)
             self?.removeFromParentCoordinator()
         }
@@ -71,22 +111,47 @@ final class StakingTransferCoordinator: Coordinator {
             cordinator.delegate = self
             
             self.addChildCoordinatorAndStart(childCoordinator: cordinator)
+            
+            switch kind {
+            case .card: break
+                
+            case .deposit:
+                UseCasesFactory
+                    .instance
+                    .analyticManager
+                    .trackEvent(.staking(.depositSuccessViewDetails))
+                
+            case .withdraw:
+                UseCasesFactory
+                    .instance
+                    .analyticManager
+                    .trackEvent(.staking(.withdrawSuccessViewDetails))
+            }
         }
-        
         
         vc.modalPresentationStyle = .overFullScreen
         router.present(vc, animated: true, completion: nil)
     }
     
-    private func showCardCompleted() {
-                
+    private func showCardCompleted(amount: DomainLayer.DTO.Balance) {
+        
         let vc = StakingTransactionCompletedBuilder().build(input: .init(kind: .card))
-
+        
         vc.didTapSuccessButton = { [weak self] in
+            
+            let event: AnalyticManagerEventStaking = .cardSuccess(amount: amount.money.amount,
+                                                                  assetTicker: amount.currency.displayText)
+            
+            UseCasesFactory
+                .instance
+                .analyticManager
+                .trackEvent(.staking(event))
+            
+            self?.delegate?.stakingTransferSendCardCompled()
             vc.dismiss(animated: true, completion: nil)
             self?.removeFromParentCoordinator()
         }
-
+        
         vc.didSelectLinkWith = { url -> Void in
             
             BrowserViewController.openURL(url,
@@ -103,7 +168,7 @@ final class StakingTransferCoordinator: Coordinator {
 extension StakingTransferCoordinator: StakingTransferModuleOutput {
     
     func stakingTransferOpenURL(_ url: URL) {
-                 
+        
         BrowserViewController.openURL(url,
                                       toViewController: self.router.viewController)
     }
@@ -111,7 +176,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
     func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction,
                                        amount: DomainLayer.DTO.Balance) {
         removeModalFromCoordinator(completion: { [weak self] in
-                                    
+            
             self?.showTransactionCompleted(transaction: transaction,
                                            kind:  .deposit(balance: amount))
         })
@@ -126,11 +191,22 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
         })
     }
     
-    func stakingTransferDidSendCard(url: URL) {        
+    func stakingTransferDidSendCard(url: URL, amount: DomainLayer.DTO.Balance) {        
         
-        BrowserViewController.openURL(url,
-                                      toViewController: modalRouter.viewController,
-                                        delegate: self)
+        self.amountByBuyCard = amount
+        
+        let event: AnalyticManagerEventStaking = .cardSendTap(amount: amount.money.amount,
+                                                              assetTicker: amount.currency.displayText)
+        
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(event))
+        
+        
+        self.adCashBrowserViewController = BrowserViewController.openURL(url,
+                                                                         toViewController: modalRouter.viewController,
+                                                                         delegate: self)
     }
 }
 
@@ -146,21 +222,31 @@ extension StakingTransferCoordinator: TransactionCardCoordinatorDelegate {
 // MARK: BrowserViewControllerDelegate
 
 extension StakingTransferCoordinator: BrowserViewControllerDelegate {
-
-    func browserViewDissmiss() {}
+    
+    private func showErrorCashCancelled() {
+        let title = Localizable.Waves.Staking.Refillerror.refillByAdvancedCashCancelled
+        modalRouter.viewController.showErrorSnackWithoutAction(tille: title, duration: 3.24)
+    }
+    
+    func browserViewDissmiss() {
+        showErrorCashCancelled()
+    }
     
     func browserViewRedirect(url: URL) {
-               
+        
         let link = url.absoluteStringByTrimmingQuery() ?? ""
         
         if link.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
             
             removeModalFromCoordinator(completion: { [weak self] in
-                self?.showCardCompleted()
+                guard let amount = self?.amountByBuyCard else { return }
+                self?.showCardCompleted(amount: amount)
             })
-
+            
         } else if link.contains(DomainLayerConstants.URL.fiatDepositFail)  {
-            modalRouter.viewController.showErrorNotFoundSnackWithoutAction()
+            adCashBrowserViewController?.dismiss(animated: true, completion: { [weak self] in
+                self?.showErrorCashCancelled()
+            })
         }
     }
 }

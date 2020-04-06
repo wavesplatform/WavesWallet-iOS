@@ -20,7 +20,6 @@ private enum Constants {
 final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
     @IBOutlet private weak var blueTopView: UIView!
     @IBOutlet private weak var labelEarnPercent: UILabel!
-    @IBOutlet private weak var labelAnnualInterests: UILabel!
     @IBOutlet private weak var labelMoney: UILabel!
     @IBOutlet private weak var labelProfitStaking: UILabel!
     @IBOutlet private weak var buttonNext: HighlightedButton!
@@ -38,8 +37,6 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
     private var model: Model?
     
     private var totalProfitValue: Double = 0
-    private var profitValue: Double = 0
-    private var deffaultProfitValue: Double?
     
     public var startStaking: (() -> Void)?
     
@@ -66,12 +63,19 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
         shapeLayer.path = maskPath.cgPath
     }
     
+    private func initialSetup() {
+        if Platform.isSmallDevices {
+            labelEarnPercent.font = UIFont.systemFont(ofSize: 18, weight: .black)
+            labelMoney.font = UIFont.systemFont(ofSize: 18, weight: .black)
+        }
+    }
+    
     private func update() {
         guard let model = self.model else { return }
         
         // 10000k * percent / 365 in seconds
-        // секунды в году = 365 дней * 24 часа * 60 минут * 60 секунд
-        let yearInSeconds: Double = 365 * 24 * 60 * 60
+        // секунды в году = 365 дней * 24 часа * 60 минут * 60 секунд * 1000
+        let yearInSeconds: Double = 365 * 24 * 60 * 60 * 1000
         
         let total = (Double(model.minimumDeposit.money.amount) * model.percent) / yearInSeconds
         totalProfitValue += total
@@ -80,6 +84,9 @@ final class StakingLandingCell: MinHeightTableViewCell, NibReusable {
         
         let totalValue = Money(value: Decimal(totalProfitValue), minimumDeposit.decimals)
         labelMoney.attributedText = NSMutableAttributedString.stakingProfit(totalValue: totalValue)
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     override func prepareForReuse() {
@@ -125,14 +132,9 @@ extension StakingLandingCell: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Staking.Landing) {
         self.model = model
         
-        let minimumDeposit = model.minimumDeposit.money
-        let deffaultProfitValue = minimumDeposit.doubleValue * (model.percent / 100)
-        
-        self.deffaultProfitValue = deffaultProfitValue
-        profitValue = (deffaultProfitValue / Constants.secondYear) / 10
+        let minimumDeposit = Money(model.minimumDeposit.money.amount, 0)
         
         labelEarnPercent.attributedText = NSMutableAttributedString.stakingEarnPercent(percent: model.percent)
-        labelAnnualInterests.text = Localizable.Waves.Staking.Landing.annualInterest
         
         labelProfitStaking.attributedText = NSMutableAttributedString.stakingProfitInfo(minimumDeposit: minimumDeposit)
         labelHowItWorks.text = Localizable.Waves.Staking.Landing.howItWorks
@@ -149,6 +151,8 @@ extension StakingLandingCell: ViewConfiguration {
         
         setupLocalization()
         ifNeedUpdateNextButton()
+        
+        totalProfitValue = (Double(model.minimumDeposit.money.amount) * (model.percent / 100))
         
         Observable<Int>
             .timer(0, period: 0.1, scheduler: MainScheduler.instance)

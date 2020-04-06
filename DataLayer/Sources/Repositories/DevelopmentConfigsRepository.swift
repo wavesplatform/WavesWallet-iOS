@@ -17,6 +17,7 @@ private struct DevelopmentConfigs: Decodable {
     let matcherSwapAddress: String
     let exchangeClientSecret: String
     let staking: [Staking]
+    let lockedPairs: [String]?
     
     enum CodingKeys: String, CodingKey {
         case serviceAvailable = "service_available"
@@ -24,6 +25,7 @@ private struct DevelopmentConfigs: Decodable {
         case matcherSwapAddress = "matcher_swap_address"
         case exchangeClientSecret = "exchange_client_secret"
         case staking
+        case lockedPairs = "locked_pairs"
     }
 }
 
@@ -74,7 +76,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                           matcherSwapTimestamp: config.matcherSwapTimestamp,
                                                           matcherSwapAddress: config.matcherSwapAddress,
                                                           exchangeClientSecret: config.exchangeClientSecret,
-                                                          staking: staking)
+                                                          staking: staking,
+                                                          lockedPairs: config.lockedPairs ?? [] )
             }
     }
 }

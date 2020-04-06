@@ -16,7 +16,7 @@ protocol DexOrderBookModuleOutput: AnyObject {
                         ask: Money?, bid: Money?, last: Money?,
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
-                        availableWavesBalance: Money,
+                        availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                         inputMaxSum: Bool,
                         scriptedAssets: [DomainLayer.DTO.Asset])
 
@@ -25,6 +25,6 @@ protocol DexOrderBookModuleOutput: AnyObject {
                              ask: Money?, bid: Money?, last: Money?,
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
-                             availableWavesBalance: Money,
+                             availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [DomainLayer.DTO.Asset])
 }

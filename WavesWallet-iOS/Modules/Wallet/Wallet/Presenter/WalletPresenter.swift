@@ -257,6 +257,10 @@ final class WalletPresenter: WalletPresenterProtocol {
         case .tapSortButton:
             moduleOutput?.showWalletSort(balances: state.assets)
             state.action = .none
+            
+        case .tapHistory:
+            moduleOutput?.showAccountHistory()
+            state.action = .none
 
         case .tapAddressButton:
             moduleOutput?.showMyAddress()
@@ -428,24 +432,32 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.isHasAppUpdate = isHasAppUpdate
             state.action = .none
         
-        case .openStakingFaq:
-            moduleOutput?.openStakingFaq()
+        case let .openStakingFaq(fromLanding):
+            moduleOutput?.openStakingFaq(fromLanding: fromLanding)
             state.action = .none
             
         case .openTrade:
-            moduleOutput?.openTrade()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openTrade(neutrinoAsset: neutrinoAsset)
             state.action = .none
 
         case .openBuy:
-            moduleOutput?.openBuy()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openBuy(neutrinoAsset: neutrinoAsset)
             state.action = .none
 
         case .openDeposit:
-            moduleOutput?.openDeposit()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openDeposit(neutrinoAsset: neutrinoAsset)
             state.action = .none
 
         case .openWithdraw:
-            moduleOutput?.openWithdraw()
+            guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
+            moduleOutput?.openWithdraw(neutrinoAsset: neutrinoAsset)
+            state.action = .none
+            
+        case .tapActionMenuButton:
+            moduleOutput?.openActionMenu()
             state.action = .none
             
         case .openFb(let text):
@@ -465,8 +477,15 @@ final class WalletPresenter: WalletPresenterProtocol {
                 let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: true)
                 state.displayState = state.displayState.updateDisplay(kind: .staking, sections: sections)
                 
-                WalletLandingSetting.set(false)
+                var value = WalletLandingSetting.value
+                value[staking.accountAddress] = true
+                WalletLandingSetting.set(value)
             }
+            
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.landingStart))
             
             state.hasSkipLanding = true
             state.action = .update

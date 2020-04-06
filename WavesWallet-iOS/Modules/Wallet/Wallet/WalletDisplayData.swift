@@ -22,7 +22,8 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func depositTapped()
     func tradeTapped()
     func buyTapped()
-    func openStakingFaq()
+    func sortButtonTapped()
+    func openStakingFaq(fromLanding: Bool)
     func openTw(_ sharedText: String)
     func openFb(_ sharedText: String)
     func openVk(_ sharedText: String)
@@ -37,6 +38,7 @@ final class WalletDisplayData: NSObject {
     private var stakingSections: [Section] = []
     
     private weak var scrolledTablesComponent: ScrolledContainerView!
+    private let displays: [WalletTypes.DisplayState.Kind]
     
     weak var delegate: WalletDisplayDataDelegate?
     weak var balanceCellDelegate: WalletLeasingBalanceCellDelegate?
@@ -44,7 +46,11 @@ final class WalletDisplayData: NSObject {
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
     
-    init(scrolledTablesComponent: ScrolledContainerView) {
+    internal var isDisplayInvesting: Bool = false
+    
+    init(scrolledTablesComponent: ScrolledContainerView,
+         displays: [WalletTypes.DisplayState.Kind]) {
+        self.displays = displays
         super.init()
         self.scrolledTablesComponent = scrolledTablesComponent
     }
@@ -110,13 +116,19 @@ final class WalletDisplayData: NSObject {
 
 private extension WalletDisplayData {
     private func sections(by tableView: UITableView) -> [Section] {
-        if tableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue {
-            return assetsSections
-        } else if tableView.tag == WalletTypes.DisplayState.Kind.leasing.rawValue {
-            return leasingSections
-        } else if tableView.tag == WalletTypes.DisplayState.Kind.staking.rawValue {
-            return stakingSections
+                        
+        if isDisplayInvesting {
+            if tableView.tag == 0 {
+                return stakingSections
+            } else if tableView.tag == 1 {
+                return leasingSections
+            }
+        } else {
+            if tableView.tag == 0 {
+                return assetsSections
+            }
         }
+                    
         return []
     }
     
@@ -142,6 +154,10 @@ extension WalletDisplayData: UITableViewDataSource {
             cell.update(with: ())
             cell.searchTapped = { [weak self] in
                 self?.searchTapped(cell)
+            }
+            
+            cell.sortTapped = { [weak self] in
+                self?.delegate?.sortButtonTapped()
             }
             return cell
             
@@ -222,6 +238,10 @@ extension WalletDisplayData: UITableViewDataSource {
             cell.startStaking = { [weak self] in
                 self?.delegate?.startStakingTapped()
             }
+            
+            cell.didSelectLinkWith = { [weak self] url in
+                self?.delegate?.openStakingFaq(fromLanding: true)
+            }
             return cell
         }
     }
@@ -273,7 +293,7 @@ extension WalletDisplayData: UITableViewDelegate {
             let view = tableView.dequeueAndRegisterHeaderFooter() as StakingHeaderView
             view.update(with: header)
             view.howWorksAction = { [weak self] in
-                self?.delegate?.openStakingFaq()
+                self?.delegate?.openStakingFaq(fromLanding: false)
             }
             view.twAction = { [weak self] in
                 
@@ -372,7 +392,7 @@ extension WalletDisplayData: UITableViewDelegate {
             return UITableView.automaticDimension
             
         case .stakingLastPayouts:
-            return 78
+            return 76
             
         case .emptyHistoryPayouts:
             return AssetEmptyHistoryCell.cellHeight()

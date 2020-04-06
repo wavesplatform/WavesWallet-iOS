@@ -58,6 +58,9 @@ target 'WavesWallet-iOS' do
     # Code Gen
     pod 'SwiftGen', '~> 5.3.0'
 
+   # Service
+   pod 'Intercom'
+
     # Debug
     pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
     pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']        

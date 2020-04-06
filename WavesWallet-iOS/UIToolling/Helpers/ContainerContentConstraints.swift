@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias VoidClosure = () -> Void
+
 public final class ContainerContentConstraints {
     
     /// Ссылка на верхний констрейнт

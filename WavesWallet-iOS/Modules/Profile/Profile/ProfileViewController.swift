@@ -28,18 +28,23 @@ final class ProfileViewController: UIViewController {
     var presenter: ProfilePresenterProtocol!
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
+    private let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        createMenuButton()
         setupBigNavigationBar()
         setupSystem()
         setupLanguages()
         setupTableview()
-        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
-        NotificationCenter.default
-            .addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification,
-                         object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changedLanguage),
+                                               name: .changedLanguage,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
 
     @objc private func logoutTapped() {
@@ -78,6 +83,9 @@ private extension ProfileViewController {
     }
 
     private func setupTableview() {
+        tableView.registerCell(type: SocialNetworkCell.self)
+        tableView.registerCell(type: ExchangeTitleCell.self)
+
         tableView.contentInset = Constants.contentInset
         tableView.scrollIndicatorInsets = Constants.contentInset
     }
@@ -201,6 +209,14 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Network.title))
             return cell
 
+        case .exchangeTitle:
+            let cell: ExchangeTitleCell = tableView.dequeueCell()
+            let didTapDebug: VoidClosure = { [weak self] in
+                self?.eventInput.onNext(.didTapDebug)
+            }
+            cell.view.setTitleText(Localizable.Waves.Menu.Label.description, didTapDebug: didTapDebug)
+            return cell
+
         case .rateApp:
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Rateapp.title))
@@ -211,9 +227,46 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Feedback.title))
             return cell
 
+        case .faq:
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Waves.Menu.Button.faq))
+            return cell
+
+        case .termOfConditions:
+            let cell: ProfileValueCell = tableView.dequeueCell()
+            cell.update(with: .init(title: Localizable.Waves.Menu.Button.termsandconditions))
+            return cell
+
         case .supportWavesplatform:
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Supportwavesplatform.title))
+            return cell
+
+        case .socialNetwork:
+            let cell: SocialNetworkCell = tableView.dequeueCell()
+
+            let didTapTelegram: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.telegram) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+
+            let didTapMediun: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.medium) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+
+            let didTapTwitter: VoidClosure = {
+                if let url = URL(string: UIGlobalConstants.URL.twitter) {
+                    UIApplication.shared.openURLAsync(url)
+                }
+            }
+
+            cell.view.setTitle(Localizable.Waves.Profile.Cell.joinTheWavesCommunity,
+                               didTapTelegram: didTapTelegram,
+                               didTapMedium: didTapMediun,
+                               didTapTwitter: didTapTwitter)
             return cell
 
         case let .info(version, height, isBackedUp):
@@ -259,8 +312,15 @@ extension ProfileViewController: UITableViewDelegate {
         eventInput.onNext(.tapRow(row))
     }
 
-    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
-        return ProfileHeaderView.viewHeight()
+    func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let row = sections[safe: section] {
+            switch row.kind {
+            case .other: return 0
+            default: return ProfileHeaderView.viewHeight()
+            }
+        } else {
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -274,9 +334,8 @@ extension ProfileViewController: UITableViewDelegate {
 
         case .security:
             view.update(with: Localizable.Waves.Profile.Header.Security.title)
-
-        case .other:
-            view.update(with: Localizable.Waves.Profile.Header.Other.title)
+            
+        case .other: return nil
         }
 
         return view
@@ -294,6 +353,8 @@ extension ProfileViewController: UITableViewDelegate {
              .network,
              .rateApp,
              .feedback,
+             .faq,
+             .termOfConditions,
              .supportWavesplatform:
             return ProfileValueCell.cellHeight()
 
@@ -308,6 +369,10 @@ extension ProfileViewController: UITableViewDelegate {
 
         case .info:
             return ProfileInfoCell.cellHeight()
+
+        case .exchangeTitle: return ExchangeTitleCell.cellHeight()
+
+        case .socialNetwork: return SocialNetworkCell.cellHeight()
         }
     }
 }

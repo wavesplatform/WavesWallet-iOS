@@ -20,15 +20,15 @@ public extension DateFormatter {
                 if date.isThisYear {
                     if date.isThisMonth {
                         if date.isToday {
-                            return "hh:mm"
+                            return "HH:mm"
                         } else {
-                            return "MMM dd hh:mm"
+                            return "MMM dd HH:mm"
                         }
                     } else {
-                        return "MMM dd, yyyy\nhh:mm"
+                        return "MMM dd, yyyy\nHH:mm"
                     }
                 } else {
-                    return "MMM dd, yyyy\nhh:mm"
+                    return "MMM dd, yyyy\nHH:mm"
                 }            
             }
         }

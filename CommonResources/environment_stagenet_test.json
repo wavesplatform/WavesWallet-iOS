@@ -4,7 +4,7 @@
     "nodeUrl": "https://nodes-stagenet.wavesnodes.com",
     "dataUrl": "https://api-stagenet.wavesplatform.com",
     "spamUrl": "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
-    "matcherUrl": "https://matcher-stagenet.wavesplatform.com",
+    "matcherUrl": "https://matcher-stagenet.wavesplatform.com/",
     "gatewayUrl": "https://gw-stagenet.wavesplatform.com",
     "authUrl": "https://stagenet.waves.exchange/oauth",
     "gateways": {

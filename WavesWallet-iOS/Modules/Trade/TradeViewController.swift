@@ -307,9 +307,17 @@ extension TradeViewController: UITableViewDelegate {
         guard tableView != tableViewSkeleton else { return }
         
         if let pair = categories.category(tableView).rows[indexPath.row].pair {
-            output?.showTradePairInfo(pair: .init(amountAsset: pair.amountAsset,
-                                                  priceAsset: pair.priceAsset,
-                                                  isGeneral: pair.isGeneral))
+            
+            let dexTradePair :DexTraderContainer.DTO.Pair =
+                .init(amountAsset: pair.amountAsset,
+                      priceAsset: pair.priceAsset,
+                      isGeneral: pair.isGeneral)
+             
+            if pair.isLocked {
+                output?.showPairLocked(pair: dexTradePair)
+            } else {
+                output?.showTradePairInfo(pair: dexTradePair)
+            }
         }
     }
 }
