@@ -13,7 +13,7 @@ extension StakingTransfer.DTO.Data.Transfer {
     
     func inputFieldForWithdraw(input: StakingTransfer.DTO.InputData.Transfer?) -> StakingTransfer.ViewModel.Row {
         
-        let title = Localizable.Waves.Staking.Transfer.Withdraw.Cell.Input.title
+        let title = Localizable.Waves.Staking.Transfer.Withdraw.title
         
         return StakingTransfer
             .ViewModel
@@ -39,7 +39,7 @@ extension StakingTransfer.DTO.Data.Transfer {
         var rows: [StakingTransfer.ViewModel.Row] = .init()
         
         let balance = StakingTransferBalanceCell.Model(assetURL: self.asset.iconLogo,
-                                                       title: Localizable.Waves.Staking.Transfer.Withdraw.title,
+                                                       title: Localizable.Waves.Staking.Transfer.Withdraw.Cell.Input.title,
                                                        money: self.balance.money)
         rows.append(.balance(balance))
         
