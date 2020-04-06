@@ -254,11 +254,12 @@ platform :ios do
 
   lane :create_changelog do    
     puts "create_changelog"    
-    
+        
     ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"
     build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
     version = ENV['VERSION'] 
     commit = last_git_commit
+    branch = git_branch
     author = commit[:author] # author of the commit
     author_email = commit[:author_email] # email of the author of the commit
     hash = commit[:commit_hash] # long sha of commit
@@ -274,7 +275,7 @@ platform :ios do
       commits_count: 30
     )
 
-    ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
+    ENV['CHANGELOG']="Version: #{version} #{build_number}\nBranch: #{branch}\n#{changelog}"
   end
 
   lane :upload_crashlytics do
@@ -418,12 +419,20 @@ platform :ios do
     PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
     PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
     
+
+    create_changelog
+
+    if ENV['CHANGELOG'].to_s.empty?
+      ENV['CHANGELOG'] = "Not Found"
+    end
+
     firebase_app_distribution(
       app: "#{ENV['FIREBASEAPPDISTRO_APP']}",
       ipa_path: "#{PROJECT_IPA}",
       groups: "QA.Team, Waves.Exchange.iOS",
       firebase_cli_path: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH']}",
-      firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}")
+      firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}",
+      create_changelog: ENV['CHANGELOG'])
   end
 
   lane :refresh_dsyms do
