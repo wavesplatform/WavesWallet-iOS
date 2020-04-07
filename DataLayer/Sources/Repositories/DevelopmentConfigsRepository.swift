@@ -77,7 +77,7 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                           matcherSwapAddress: config.matcherSwapAddress,
                                                           exchangeClientSecret: config.exchangeClientSecret,
                                                           staking: staking,
-                                                          lockedPairs: config.lockedPairs ?? [] )
+                                                          lockedPairs: config.lockedPairs ?? [])
             }
     }
 }
