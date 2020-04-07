@@ -240,7 +240,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             var total = staking.balance.total
             
             available = DomainLayer.DTO.Balance(currency: available.currency,
-                                                money: Money(available.money.amount - balance.money.amount,
+                                                money: Money(min(0, available.money.amount - balance.money.amount),
                                                              available.money.decimals))
             
             inStaking = DomainLayer.DTO.Balance(currency: inStaking.currency,
@@ -289,7 +289,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                                                              available.money.decimals))
             
             inStaking = DomainLayer.DTO.Balance(currency: inStaking.currency,
-                                                money: Money(inStaking.money.amount - balance.money.amount,
+                                                money: Money(min(0,inStaking.money.amount - balance.money.amount),
                                                              inStaking.money.decimals))
             
             total = DomainLayer.DTO.Balance(currency: total.currency,
