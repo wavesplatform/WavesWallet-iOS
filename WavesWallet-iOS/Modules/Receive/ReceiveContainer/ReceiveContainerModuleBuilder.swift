@@ -29,7 +29,7 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
                                                                         showAllList: showAllList)), state: .invoice)
             } else {
                 
-                if input?.asset.isGeneral == true {
+                if input?.asset.isGateway == true {
                     vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [],
                                                                                    selectedAsset: asset,
                                                                                    showAllList: showAllList)), state: .cryptoCurrency)
