@@ -384,7 +384,8 @@ platform :ios do
                wait_for_uploaded_build: "false",
                changelog: "#{ENV['CHANGELOG']}",
                ipa: PROJECT_IPA,
-               skip_waiting_for_build_processing: true)
+               skip_waiting_for_build_processing: true,
+               skip_submission: true)
      
     refresh_dsyms    
   end
