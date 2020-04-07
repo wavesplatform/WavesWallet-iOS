@@ -11,10 +11,6 @@ import DomainLayer
 import Extensions
 import TTTAttributedLabel
 
-protocol StakingTransactionCompletedVCDelegate: AnyObject {
-    
-}
-
 final class StakingTransactionCompletedVC: UIViewController {
     
     struct Model {
@@ -39,7 +35,6 @@ final class StakingTransactionCompletedVC: UIViewController {
     var didTapSuccessButton: (() -> Void)?
     var didTapDetailButton: (() -> Void)?
     var didSelectLinkWith: ((URL) -> Void)?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
