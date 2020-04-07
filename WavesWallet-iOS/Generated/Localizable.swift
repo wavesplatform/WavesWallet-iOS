@@ -2974,7 +2974,7 @@ internal enum Localizable {
         /// Annual Interest by doing NOTHING.
         internal static var annualInterest: String { return Localizable.tr("Waves", "staking.landing.annualInterest") }
         internal static var annualInterestKey: String { return "staking.landing.annualInterest" }
-        /// Earn %@ annual interest
+        /// Earn %@ annual revenues
         internal static func earn(_ p1: String) -> String {
           return Localizable.tr("Waves", "staking.landing.earn", p1)
         }
@@ -3122,11 +3122,11 @@ internal enum Localizable {
           /// You don't have enough funds to pay the fee.
           internal static var insufficientFundsOnTax: String { return Localizable.tr("Waves", "staking.transfer.error.insufficientFundsOnTax") }
           internal static var insufficientFundsOnTaxKey: String { return "staking.transfer.error.insufficientFundsOnTax" }
-          /// Max value is %@.
+          /// Max amount is %@.
           internal static func maxamount(_ p1: String) -> String {
             return Localizable.tr("Waves", "staking.transfer.error.maxamount", p1)
           }
-          /// Min value is %@.
+          /// Min amount is %@.
           internal static func minamount(_ p1: String) -> String {
             return Localizable.tr("Waves", "staking.transfer.error.minamount", p1)
           }

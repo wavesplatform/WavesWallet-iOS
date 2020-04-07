@@ -183,7 +183,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             
             let timer = Observable<Int>
-                .timer(0, period: 8.0, scheduler: MainScheduler.instance)
+                .timer(0, period: 1.0, scheduler: MainScheduler.instance)
                 .asSignal(onErrorSignalWith: Signal.just(1))
                 .flatMap { map -> Signal<WalletTypes.Event> in
                     return self.interactor
@@ -255,7 +255,8 @@ final class WalletPresenter: WalletPresenterProtocol {
             staking.balance.inStaking = inStaking
             staking.balance.total = total
             
-            SweetLogger.debug("Depost\n Available: \(staking.balance.available.money.amount)")
+            SweetLogger.debug("Depost")
+            SweetLogger.debug("Available: \(staking.balance.available.money.amount)")
             SweetLogger.debug("\n InStaking: \(staking.balance.inStaking.money.amount)")
             SweetLogger.debug("\n Total: \(staking.balance.total.money.amount)")
             
@@ -299,9 +300,10 @@ final class WalletPresenter: WalletPresenterProtocol {
             staking.balance.inStaking = inStaking
             staking.balance.total = total
             
-            SweetLogger.debug("Withdrawt\n Available: \(staking.balance.available.money.amount)")
-            SweetLogger.debug("\n InStaking: \(staking.balance.inStaking.money.amount)")
-            SweetLogger.debug("\n Total: \(staking.balance.total.money.amount)")
+            SweetLogger.debug("Withdrawt")
+            SweetLogger.debug("Available: \(staking.balance.available.money.amount)")
+            SweetLogger.debug("InStaking: \(staking.balance.inStaking.money.amount)")
+            SweetLogger.debug("Total: \(staking.balance.total.money.amount)")
             
             let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
             state.displayState = state.displayState.updateDisplay(kind: .staking,
