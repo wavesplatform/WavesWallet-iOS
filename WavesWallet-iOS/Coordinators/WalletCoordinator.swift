@@ -541,12 +541,12 @@ extension WalletCoordinator: WavesPopupModuleOutput {
 
 extension WalletCoordinator: StakingTransferCoordinatorDelegate {
         
-    func stakingTransferSendDepositCompled() {
-        walletViewContoller.refreshData()
+    func stakingTransferSendDepositCompled(balance: DomainLayer.DTO.Balance) {
+        walletViewContoller.completedDepositBalance(balance: balance)
     }
     
-    func stakingTransferSendWithdrawCompled() {
-        walletViewContoller.refreshData()
+    func stakingTransferSendWithdrawCompled(balance: DomainLayer.DTO.Balance) {
+        walletViewContoller.completedWithdrawBalance(balance: balance)
     }
     
     func stakingTransferSendCardCompled() {

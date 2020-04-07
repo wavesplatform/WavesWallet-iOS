@@ -10,8 +10,10 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import Extensions
+import RxSwift
 import DomainLayer
 import WavesSDK
+import WavesSDKExtensions
 
 final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer.Event> {
     
@@ -226,7 +228,7 @@ private extension StakingTransferSystem {
             
         case .showDeposit(let deposit):
             
-            state.core.action = .none
+            state.core.action = .loadDeposit
             state.core.data = .deposit(deposit)
             let kind = state.core.kind
             
@@ -236,7 +238,7 @@ private extension StakingTransferSystem {
             
         case .showWithdraw(let withdraw):
             
-            state.core.action = .none
+            state.core.action = .loadWithdraw
             state.core.data = .withdraw(withdraw)
             
             state.ui.sections = withdraw.sections(input: state.core.input?.withdraw,
@@ -560,11 +562,18 @@ private extension StakingTransferSystem {
             
             guard let self = self else { return Signal.empty() }
             
-            return self
-                .stakingTransferInteractor
-                .deposit(assetId: self.assetId)
-                .map { .showDeposit($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            return Observable<Int>
+                .timer(0, period: 3.0, scheduler: MainScheduler.instance)
+                .asSignal(onErrorSignalWith: Signal.just(1))
+                .flatMap { [weak self] map -> Signal<StakingTransferSystem.Event> in
+                    
+                    guard let self = self else { return Signal.empty() }
+                    return self
+                        .stakingTransferInteractor
+                        .deposit(assetId: self.assetId)
+                        .map { .showDeposit($0) }
+                        .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            }
         })
     }
     
@@ -578,11 +587,18 @@ private extension StakingTransferSystem {
             
             guard let self = self else { return Signal.empty() }
             
-            return self
-                .stakingTransferInteractor
-                .withdraw(assetId: self.assetId)
-                .map {  .showWithdraw($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            return Observable<Int>
+                .timer(0, period: 3.0, scheduler: MainScheduler.instance)
+                .asSignal(onErrorSignalWith: Signal.just(1))            
+                .flatMap { [weak self] map -> Signal<StakingTransferSystem.Event> in
+                    
+                    guard let self = self else { return Signal.empty() }
+                    return self
+                        .stakingTransferInteractor
+                        .withdraw(assetId: self.assetId)
+                        .map {  .showWithdraw($0) }
+                        .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            }
         })
     }
     

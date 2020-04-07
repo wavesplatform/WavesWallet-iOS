@@ -334,7 +334,8 @@ private extension TradeSystem {
                         var pairsSet: [DomainLayer.DTO.CorrectionPairs.Pair] = []
 
                         let simpleFavoritePairs = favoritePairs.map {
-                            DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAssetId, priceAsset: $0.priceAssetId)
+                            DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAssetId,
+                                                                 priceAsset: $0.priceAssetId)
                         }
 
                         let simplePairs = dataCategories.map {
@@ -378,9 +379,11 @@ private extension TradeSystem {
                             let pairs = category.pairs.map { pair -> DomainLayer.DTO.Dex.Pair? in
 
                                 if mapPairs[pair.keyPair] != nil {
-                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset)
+                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.amountAsset,
+                                                                    priceAsset: pair.priceAsset)
                                 } else if mapPairs[pair.inversionKeyPair] != nil {
-                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.priceAsset, priceAsset: pair.amountAsset)
+                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.priceAsset,
+                                                                    priceAsset: pair.amountAsset)
                                 }
                                 return nil
                             }
@@ -406,7 +409,11 @@ private extension TradeSystem {
                                              categories: tradeCategories,
                                              lockedPairs: lockedPairs)
                             }
-                    }
+                }
+                .catchError { (error) -> Observable<TradeTypes.DTO.Core> in
+                    print("error \(error)")
+                    return Observable.error(error)
+                }
             }
     }
 }

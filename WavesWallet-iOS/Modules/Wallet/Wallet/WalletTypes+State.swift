@@ -11,10 +11,10 @@ import Foundation
 
 extension WalletTypes.State {
 
-    static func initialState() -> WalletTypes.State {
+    static func initialState(kind: WalletTypes.DisplayState.Kind) -> WalletTypes.State {
         return WalletTypes.State(assets: [],
                                  leasing: nil,
-                                 displayState: .initialState(kind: .staking),
+                                 displayState: .initialState(kind: kind),
                                  isShowCleanWalletBanner: false,
                                  isNeedCleanWalletBanner: false,
                                  isHasAppUpdate: false,

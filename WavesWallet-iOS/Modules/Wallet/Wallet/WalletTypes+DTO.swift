@@ -40,14 +40,14 @@ extension WalletTypes.DTO {
         }
         
         struct Balance {
-            let total: DomainLayer.DTO.Balance
-            let available: DomainLayer.DTO.Balance
-            let inStaking: DomainLayer.DTO.Balance
+            var total: DomainLayer.DTO.Balance
+            var available: DomainLayer.DTO.Balance
+            var inStaking: DomainLayer.DTO.Balance
         }
         
         let accountAddress: String
         let profit: Profit
-        let balance: Balance
+        var balance: Balance
         let lastPayouts: PayoutsHistoryState.MassTransferTrait
         let neutrinoAsset: DomainLayer.DTO.Asset?
         var landing: Landing?

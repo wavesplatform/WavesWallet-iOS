@@ -68,6 +68,14 @@ final class WalletViewController: UIViewController {
         }
     }
     
+    public func completedDepositBalance(balance: DomainLayer.DTO.Balance) {
+        sendEvent.accept(.completedDepositBalance(balance: balance))
+    }
+    
+    public func completedWithdrawBalance(balance: DomainLayer.DTO.Balance) {
+        sendEvent.accept(.completedWithdrawBalance(balance: balance))
+    }
+    
     public func refreshData() {
         sendEvent.accept(.refresh)
     }

@@ -110,16 +110,16 @@ class TradeCoordinator: Coordinator {
 
 // MARK: - TradeModuleOutput
 
-extension TradeCoordinator: TradeModuleOutput {
+extension TradeCoordinator: TradeModuleOutput { 
     
     func showPairLocked(pair: DexTraderContainer.DTO.Pair) {
         
-        let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.name,
-                                                                          pair.priceAsset.name)
+        let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.shortName,
+                                                                          pair.priceAsset.shortName)
         let subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
         let buttonTitle = Localizable.Waves.Trade.Message.Pairlocked.Button.ok
         let image = Images.bigwarning48.image
-        
+                
         let news = AppNewsView.show(model: AppNewsView.Model(title: titleValue,
                                                              subtitle: subTitleValue,
                                                              image: image,

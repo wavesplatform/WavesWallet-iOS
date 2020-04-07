@@ -12,8 +12,8 @@ import DomainLayer
 
 protocol StakingTransferCoordinatorDelegate: AnyObject {
     
-    func stakingTransferSendDepositCompled()
-    func stakingTransferSendWithdrawCompled()
+    func stakingTransferSendDepositCompled(balance: DomainLayer.DTO.Balance)
+    func stakingTransferSendWithdrawCompled(balance: DomainLayer.DTO.Balance)
     func stakingTransferSendCardCompled()
 }
 
@@ -84,7 +84,7 @@ final class StakingTransferCoordinator: Coordinator {
                     .analyticManager
                     .trackEvent(.staking(event))
                 
-                self?.delegate?.stakingTransferSendDepositCompled()
+                self?.delegate?.stakingTransferSendDepositCompled(balance: balance)
                 
             case .withdraw( let balance):
                 
@@ -96,7 +96,7 @@ final class StakingTransferCoordinator: Coordinator {
                     .analyticManager
                     .trackEvent(.staking(event))
                 
-                self?.delegate?.stakingTransferSendWithdrawCompled()
+                self?.delegate?.stakingTransferSendWithdrawCompled(balance: balance)
             }
             vc.dismiss(animated: true, completion: nil)
             self?.removeFromParentCoordinator()

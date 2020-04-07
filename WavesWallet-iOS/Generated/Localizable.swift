@@ -3020,7 +3020,7 @@ internal enum Localizable {
             /// to smart contract
             internal static var subtitle: String { Localizable.tr("Waves", "staking.landing.slide.depositusdn.subtitle") }
             internal static var subtitleKey: String { "staking.landing.slide.depositusdn.subtitle" }
-            /// Deposit USD-N
+            /// Deposit USDN
             internal static var title: String { Localizable.tr("Waves", "staking.landing.slide.depositusdn.title") }
             internal static var titleKey: String { "staking.landing.slide.depositusdn.title" }
           }
@@ -3122,11 +3122,11 @@ internal enum Localizable {
           /// You don't have enough funds to pay the fee.
           internal static var insufficientFundsOnTax: String { Localizable.tr("Waves", "staking.transfer.error.insufficientFundsOnTax") }
           internal static var insufficientFundsOnTaxKey: String { "staking.transfer.error.insufficientFundsOnTax" }
-          /// Max value is %@.
+          /// Max amount is %@.
           internal static func maxamount(_ p1: String) -> String {
             Localizable.tr("Waves", "staking.transfer.error.maxamount", p1)
           }
-          /// Min value is %@.
+          /// Min amount is %@.
           internal static func minamount(_ p1: String) -> String {
             Localizable.tr("Waves", "staking.transfer.error.minamount", p1)
           }
@@ -3594,7 +3594,7 @@ internal enum Localizable {
         internal static func subtitle(_ p1: String) -> String {
           Localizable.tr("Waves", "transactioncompleted.card.subtitle", p1)
         }
-        /// Buy Crypto
+        /// Purchase completed!
         internal static var title: String { Localizable.tr("Waves", "transactioncompleted.card.title") }
         internal static var titleKey: String { "transactioncompleted.card.title" }
 

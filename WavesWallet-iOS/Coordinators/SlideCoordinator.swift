@@ -34,11 +34,12 @@ final class SlideCoordinator: Coordinator {
 
     func start() {
 
-        let menuController = StoryboardScene.Main.menuViewController.instantiate()
-        slideMenuRouter.setLeftMenuViewController(menuController)
-        menuController.delegate = menuViewControllerDelegate
+//        let menuController = StoryboardScene.Main.menuViewController.instantiate()
+//        slideMenuRouter.setLeftMenuViewController(menuController)
+//        menuController.delegate = menuViewControllerDelegate
         self.windowRouter.setRootViewController(slideMenuRouter.slideMenu, animated: .crossDissolve)
-
+    
+        
         if let wallet = wallet {
             showDisplay(.wallet(wallet))
         } else {
