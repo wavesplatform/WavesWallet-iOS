@@ -760,8 +760,8 @@
 "staking.transfer.card.cell.description.title.part3" = "• The minimum amount is %@. The maximum amount is %@.";
 "staking.transfer.card.cell.description.title.part4" = "• If you have problems with your payment, please create a ticket on the %@ website.";
 "staking.transfer.card.cell.description.title.part4.url" = "support";
-"staking.transfer.error.maxamount" = "Max value is %@.";
-"staking.transfer.error.minamount" = "Min value is %@.";
+"staking.transfer.error.maxamount" = "Max amount is %@.";
+"staking.transfer.error.minamount" = "Min amount is %@.";
 "payoutsHistory.title" = "Payouts History";
 "payoutsHistory.profit" = "Profit";
 "staking.sharingText" = "I earned %@ passive income, with an average annual yield of %@%%, lying on the couch! #Neutrino #WavesBlockchain";
@@ -800,13 +800,13 @@
 "staking.landing.startStaking" = "Start Now";
 "staking.landing.slide.buyusdn.title" = "Buy USDN";
 "staking.landing.slide.buyusdn.subtitle" = "with fiat or crypto";
-"staking.landing.slide.depositusdn.title" = "Deposit USD-N";
+"staking.landing.slide.depositusdn.title" = "Deposit USDN";
 "staking.landing.slide.depositusdn.subtitle" = "to smart contract";
 "staking.landing.slide.passiveincome.title" = "Enjoy your passive income";
 "staking.landing.slide.passiveincome.subtitle" = "every day";
 "staking.landing.faq.part.one" = "Still have questions? Please visit %@";
 "staking.landing.faq.part.two" = "FAQ";
-"transactioncompleted.card.title" = "Buy Crypto";
+"transactioncompleted.card.title" = "Purchase completed!";
 "investment.navigationbar.title" = "Investment";
 "profile.cell.joinTheWavesCommunity" = "Social Network";
 "staking.refillError.refillByAdvancedCashCancelled" = "You've canceled the payment procedure at Advanced Cash. You won't be charged. USDN won't be credited to your account. Use Try Again to start all over.";

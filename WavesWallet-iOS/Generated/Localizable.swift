@@ -2974,7 +2974,7 @@ internal enum Localizable {
         /// Annual Interest by doing NOTHING.
         internal static var annualInterest: String { return Localizable.tr("Waves", "staking.landing.annualInterest") }
         internal static var annualInterestKey: String { return "staking.landing.annualInterest" }
-        /// Earn %@ annual revenues
+        /// Earn %@ annual interest
         internal static func earn(_ p1: String) -> String {
           return Localizable.tr("Waves", "staking.landing.earn", p1)
         }
@@ -3020,7 +3020,7 @@ internal enum Localizable {
             /// to smart contract
             internal static var subtitle: String { return Localizable.tr("Waves", "staking.landing.slide.depositusdn.subtitle") }
             internal static var subtitleKey: String { return "staking.landing.slide.depositusdn.subtitle" }
-            /// Deposit USD-N
+            /// Deposit USDN
             internal static var title: String { return Localizable.tr("Waves", "staking.landing.slide.depositusdn.title") }
             internal static var titleKey: String { return "staking.landing.slide.depositusdn.title" }
           }
@@ -3594,7 +3594,7 @@ internal enum Localizable {
         internal static func subtitle(_ p1: String) -> String {
           return Localizable.tr("Waves", "transactioncompleted.card.subtitle", p1)
         }
-        /// Buy Crypto
+        /// Purchase completed!
         internal static var title: String { return Localizable.tr("Waves", "transactioncompleted.card.title") }
         internal static var titleKey: String { return "transactioncompleted.card.title" }
 
