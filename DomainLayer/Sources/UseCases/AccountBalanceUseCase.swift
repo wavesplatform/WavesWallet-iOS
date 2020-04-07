@@ -221,7 +221,7 @@ private extension AccountBalanceUseCase {
     
     private func mappingBalancesToSmartBalances(by wallet: DomainLayer.DTO.SignedWallet,
                                                 query: MappingQuery) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
-        
+                        
         let newBalances = query.balances.map { (balance) -> DomainLayer.DTO.SmartAssetBalance? in
             
             guard let settings = query.settings[balance.assetId] else {
@@ -232,6 +232,8 @@ private extension AccountBalanceUseCase {
             guard var asset = query.assets[balance.assetId] else {
                 return nil
             }
+            
+            
             
             //TODO: Remove line when fixing bug 
             asset.minSponsoredFee = balance.minSponsoredAssetFee
@@ -246,7 +248,7 @@ private extension AccountBalanceUseCase {
         }
         .compactMap { $0 }
         .sorted(by: { $0.settings.sortLevel < $1.settings.sortLevel })
-        
+                
         return Observable.just(newBalances)
     }
     

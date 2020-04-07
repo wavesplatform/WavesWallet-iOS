@@ -154,10 +154,10 @@ final class StakingTransferViewController: ModalScrollViewController {
             return cell is StakingTransferInputFieldCell
         }) as? StakingTransferInputFieldCell else { return }
                         
-        let cellFrame = cell.frame
+        let cellFrame = self.view.convert(cell.frame, from: tableView)
         
         guard keyboardRectangle.intersects(cellFrame) == true else { return }
-                        
+        
         // I calculate distance between keyboard and cell and shift table to top
         let offSetY = keyboardRectangle.maxY - cellFrame.midY
 

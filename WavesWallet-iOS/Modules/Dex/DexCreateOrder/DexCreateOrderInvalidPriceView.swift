@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-final class DexCreateOrderInvalidPriceView: PopupActionView<DexCreateOrderInvalidPriceView.Model> {
-    
-    struct Model {
-        let pricePercent: Int
-        let isPriceHigherMarket: Bool
-    }
-    
+struct DexCreateOrderInvalidPriceViewModel {
+    let pricePercent: Int
+    let isPriceHigherMarket: Bool
+}
+
+final class DexCreateOrderInvalidPriceView: PopupActionView<DexCreateOrderInvalidPriceViewModel> {
+   
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var subtitleTitleLabel:  UILabel!
     @IBOutlet private weak var placeOrderButton: HighlightedButton!
@@ -48,7 +48,7 @@ final class DexCreateOrderInvalidPriceView: PopupActionView<DexCreateOrderInvali
                               for: .normal)
     }
     
-    override func update(with model: Model) {
+    override func update(with model: DexCreateOrderInvalidPriceViewModel) {
         
         if model.isPriceHigherMarket == true {
             titleLabel.text = Localizable.Waves.Dexcreateorder.Invalidpricepopup.Title.higherPrice(model.pricePercent)

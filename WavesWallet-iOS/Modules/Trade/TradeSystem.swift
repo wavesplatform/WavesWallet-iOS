@@ -408,7 +408,11 @@ private extension TradeSystem {
                                              categories: tradeCategories,
                                              lockedPairs: lockedPairs)
                             }
-                    }
+                }
+                .catchError { (error) -> Observable<TradeTypes.DTO.Core> in
+                    print("error \(error)")
+                    return Observable.error(error)
+                }
             }
     }
 }

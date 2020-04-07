@@ -86,6 +86,8 @@ extension WalletTypes {
         case setStaking(DTO.Staking)
         case handlerError(Error)
         case refresh
+        case completedDepositBalance(balance: DomainLayer.DTO.Balance)
+        case completedWithdrawBalance(balance: DomainLayer.DTO.Balance)
         case viewWillAppear
         case viewDidDisappear
         case tapRow(IndexPath)
