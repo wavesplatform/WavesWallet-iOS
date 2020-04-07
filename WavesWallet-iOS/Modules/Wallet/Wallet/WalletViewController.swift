@@ -83,6 +83,9 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
         displayData = WalletDisplayData(scrolledTablesComponent: scrolledTablesComponent,
                                         displays: displays)
         displayData.isDisplayInvesting = isDisplayInvesting
