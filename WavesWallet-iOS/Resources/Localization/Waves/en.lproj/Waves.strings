@@ -792,7 +792,7 @@
 "wallet.stakingPayouts.profit" = "Profit";
 "wallet.stakingPayouts.payoutsHistory" = "Payouts History";
 "wallet.stakingPayouts.youDontHavePayouts" = "You don't have any payouts yet";
-"staking.landing.earn" = "Earn %@ annual revenues";
+"staking.landing.earn" = "Earn %@ annual interest";
 "staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
 "staking.landing.profitWhenStaking" = "is your rough annual income, if you invest %@. 1 USDN = 1 USD.";
 "staking.landing.howItWorks" = "How does it work?";
@@ -800,7 +800,7 @@
 "staking.landing.startStaking" = "Start Now";
 "staking.landing.slide.buyusdn.title" = "Buy USDN";
 "staking.landing.slide.buyusdn.subtitle" = "with fiat or crypto";
-"staking.landing.slide.depositusdn.title" = "Deposit USD-N";
+"staking.landing.slide.depositusdn.title" = "Deposit USDN";
 "staking.landing.slide.depositusdn.subtitle" = "to smart contract";
 "staking.landing.slide.passiveincome.title" = "Enjoy your passive income";
 "staking.landing.slide.passiveincome.subtitle" = "every day";
