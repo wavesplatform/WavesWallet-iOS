@@ -223,7 +223,6 @@ private extension AssetsBalanceSettingsUseCase {
         return favoriteAssets + sorted
     }
     
-    // Y
     func createDeffaultSettings(accountAddress: String, enviroment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
         
         let ids = enviroment.generalAssets.map { $0.assetId }

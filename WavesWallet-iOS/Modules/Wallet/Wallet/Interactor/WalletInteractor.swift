@@ -111,7 +111,8 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
         
     func staking() -> Observable<WalletTypes.DTO.Staking> {
-        let obtainNeutrinoAsset = Observable.zip(authorizationInteractor.authorizedWallet(), enviroment.developmentConfigs())
+        let obtainNeutrinoAsset = Observable.zip(authorizationInteractor.authorizedWallet(),
+                                                 enviroment.developmentConfigs())
             .flatMap { [weak self] signedWallet, config -> Observable<(assets: [DomainLayer.DTO.Asset], accountAddress: String)> in
                 guard let strongSelf = self else { return Observable.never() }
                 
