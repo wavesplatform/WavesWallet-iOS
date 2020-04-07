@@ -183,7 +183,8 @@ final class WalletPresenter: WalletPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             
             let timer = Observable<Int>
-                .timer(0, period: 1.0, scheduler: MainScheduler.instance)
+                .timer(0, period: 3.0, scheduler: MainScheduler.instance)
+                .take(30)
                 .asSignal(onErrorSignalWith: Signal.just(1))
                 .flatMap { map -> Signal<WalletTypes.Event> in
                     return self.interactor
@@ -235,6 +236,8 @@ final class WalletPresenter: WalletPresenterProtocol {
                 return
             }
             
+            state.prevStaking = staking
+            
             var available = staking.balance.available
             var inStaking = staking.balance.inStaking
             var total = staking.balance.total
@@ -270,6 +273,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
             state.displayState = state.displayState.updateDisplay(kind: .staking,
                                                                   sections: sections)
+            
             state.staking = staking
             
             state.action = .update
@@ -286,6 +290,8 @@ final class WalletPresenter: WalletPresenterProtocol {
                 state.action = .none
                 return
             }
+            
+            state.prevStaking = staking
             
             var available = staking.balance.available
             var inStaking = staking.balance.inStaking
@@ -324,7 +330,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState = state.displayState.updateDisplay(kind: .staking,
                                                                   sections: sections)
             state.staking = staking
-            
             
             state.action = .update
             
@@ -491,12 +496,35 @@ final class WalletPresenter: WalletPresenterProtocol {
             SweetLogger.debug("\n InStaking: \(staking.balance.inStaking.money.amount)")
             SweetLogger.debug("\n Total: \(staking.balance.total.money.amount)")
             
+            if let oldStaking = state.staking, oldStaking.balance == staking.balance {
+            
+                state.action = .none
+                var currentDisplay = state.displayState.currentDisplay
+                currentDisplay.errorState = .none
+                currentDisplay.isRefreshing = false
+                currentDisplay.animateType = .none
+                state.displayState.currentDisplay = currentDisplay
+                return
+            }
+            
+            if let prevStaking = state.prevStaking, prevStaking.balance == staking.balance {
+            
+                state.action = .none
+                var currentDisplay = state.displayState.currentDisplay
+                currentDisplay.errorState = .none
+                currentDisplay.isRefreshing = false
+                currentDisplay.animateType = .none
+                state.displayState.currentDisplay = currentDisplay
+                return
+            }
+            
             state.action = .update
             
             let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
             state.displayState = state.displayState.updateDisplay(kind: .staking,
                                                                   sections: sections)
             state.staking = staking
+            state.prevStaking = nil
             
             var currentDisplay = state.displayState.currentDisplay
             currentDisplay.errorState = .none
