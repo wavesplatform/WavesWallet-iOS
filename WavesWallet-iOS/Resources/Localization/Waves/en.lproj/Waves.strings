@@ -806,7 +806,7 @@
 "staking.landing.slide.passiveincome.subtitle" = "every day";
 "staking.landing.faq.part.one" = "Still have questions? Please visit %@";
 "staking.landing.faq.part.two" = "FAQ";
-"transactioncompleted.card.title" = "Buy Crypto";
+"transactioncompleted.card.title" = "Purchase completed!";
 "investment.navigationbar.title" = "Investment";
 "profile.cell.joinTheWavesCommunity" = "Social Network";
 "staking.refillError.refillByAdvancedCashCancelled" = "You've canceled the payment procedure at Advanced Cash. You won't be charged. USDN won't be credited to your account. Use Try Again to start all over.";
