@@ -165,22 +165,10 @@ private extension AssetsBalanceSettingsUseCase {
                                                                     isFavorite: asset.isInitialFavorite)
                 }
                 
-                var settings = [DomainLayer.DTO.AssetBalanceSettings]()
+                let settings = [DomainLayer.DTO.AssetBalanceSettings]()
                 settings.append(contentsOf: sortedSettings)
                 settings.append(contentsOf: withoutSettingsAssetsSorted)
-                
-                settings = settings
-                    .enumerated()
-                    .map { (element) -> DomainLayer.DTO.AssetBalanceSettings in
-                        let settings = element.element
-                        let level = Float(element.offset)
-                        let isFavorite = settings.isFavorite && spamIds[settings.assetId] == false
-                        return DomainLayer.DTO.AssetBalanceSettings(assetId: settings.assetId,
-                                                                    sortLevel: level,
-                                                                    isHidden: settings.isHidden,
-                                                                    isFavorite: isFavorite)
-                }
-                
+                                
                 return Observable.just(settings)
             })
     }
@@ -233,10 +221,11 @@ private extension AssetsBalanceSettingsUseCase {
             .flatMap { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                 
                 guard let self = self else { return Observable.never() }
+                                                
                 if settings.count > 0 {
                     return Observable.just([])
                 }
-                
+                                                
                 let assets = enviroment
                     .generalAssets
                     .enumerated()
@@ -244,7 +233,7 @@ private extension AssetsBalanceSettingsUseCase {
                                                                sortLevel: Float($0.offset),
                                                                isHidden: false,
                                                                isFavorite: $0.element.assetId ==  WavesSDKConstants.wavesAssetId) }
-                
+                                
                 return self.assetsBalanceSettingsRepository
                     .saveSettings(by: accountAddress,
                                   settings: assets)
