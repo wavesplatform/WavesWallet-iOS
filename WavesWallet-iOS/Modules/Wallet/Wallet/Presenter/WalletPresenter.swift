@@ -392,6 +392,8 @@ final class WalletPresenter: WalletPresenterProtocol {
             currentDisplay.isRefreshing = true
             //скидываем модель текущую так как обновляем ui если он изменился
             state.staking = nil
+            state.prevStaking = nil
+            
             state.displayState.currentDisplay = currentDisplay
             
         case .tapRow(let indexPath):
@@ -515,9 +517,9 @@ final class WalletPresenter: WalletPresenterProtocol {
             }
             
             if let prevStaking = state.prevStaking, prevStaking.balance == staking.balance {
-            
+
                 SweetLogger.debug("Prev Staking dismiss")
-                
+
                 state.action = .refreshError
                 var currentDisplay = state.displayState.currentDisplay
                 currentDisplay.errorState = .none
@@ -527,7 +529,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 state.staking = staking
                 return
             }
-            
+//
             state.action = .update
             
             let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
