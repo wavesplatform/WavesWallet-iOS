@@ -220,7 +220,7 @@ extension StakingTransferViewController {
         case .update(let updateRows, _):
             
             if updateRows == nil {
-                tableView.reloadData()
+                tableView.reloadData()                
             }
         }
                     
