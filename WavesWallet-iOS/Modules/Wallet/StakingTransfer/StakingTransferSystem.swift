@@ -228,6 +228,11 @@ private extension StakingTransferSystem {
             
         case .showDeposit(let deposit):
             
+            if let prevDeposit = state.core.data?.deposit, prevDeposit == deposit {
+                state.ui.action = .none
+                return
+            }
+            
             state.core.action = .loadDeposit
             state.core.data = .deposit(deposit)
             let kind = state.core.kind
@@ -238,6 +243,11 @@ private extension StakingTransferSystem {
             
         case .showWithdraw(let withdraw):
             
+            if let prevWithdraw = state.core.data?.withdraw, prevWithdraw == withdraw {
+                state.ui.action = .none
+                return
+            }
+                                
             state.core.action = .loadWithdraw
             state.core.data = .withdraw(withdraw)
             
