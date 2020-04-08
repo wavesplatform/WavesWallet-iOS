@@ -165,7 +165,7 @@ private extension AssetsBalanceSettingsUseCase {
                                                                     isFavorite: asset.isInitialFavorite)
                 }
                 
-                let settings = [DomainLayer.DTO.AssetBalanceSettings]()
+                var settings = [DomainLayer.DTO.AssetBalanceSettings]()
                 settings.append(contentsOf: sortedSettings)
                 settings.append(contentsOf: withoutSettingsAssetsSorted)
                                 
