@@ -66,6 +66,7 @@ extension WalletTypes {
 
         enum Action {
             case none
+            case refreshError
             case update
         }
         

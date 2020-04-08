@@ -286,6 +286,11 @@ extension WalletViewController {
                 return
             }
             
+            if state.action == .refreshError {
+                self.updateErrorView(with: state.displayState.currentDisplay.errorState)
+                return
+            }
+            
             self.addTopViewBanners(hasData: state.hasData,
                                    isShowCleanWalletBanner: state.isShowCleanWalletBanner,
                                    isHasAppUpdate: state.isHasAppUpdate)
