@@ -39,7 +39,7 @@ extension WalletTypes.DTO {
             let minimumDeposit: DomainLayer.DTO.Balance
         }
         
-        struct Balance {
+        struct Balance: Hashable {
             var total: DomainLayer.DTO.Balance
             var available: DomainLayer.DTO.Balance
             var inStaking: DomainLayer.DTO.Balance

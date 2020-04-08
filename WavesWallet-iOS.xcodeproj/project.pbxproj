@@ -446,7 +446,6 @@
 		7B896FE823F3502A00F45A70 /* WidgetSettingsRepositoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */; };
 		7B896FEF23F3F97100F45A70 /* StorageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B896FEE23F3F97100F45A70 /* StorageFactory.swift */; };
 		7B896FF123F3FA3B00F45A70 /* StoragesFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B896FF023F3FA3B00F45A70 /* StoragesFactoryProtocol.swift */; };
-		7B8AEE0D243CDDB500E01772 /* CachePolicyPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8AEE0C243CDDB500E01772 /* CachePolicyPlugin.swift */; };
 		7B8D5D7024093608008D013F /* StakingTrasnferTypes+Deposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D5D6F24093608008D013F /* StakingTrasnferTypes+Deposit.swift */; };
 		7B8D5D7224093984008D013F /* StakingTransferTypes+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D5D7124093984008D013F /* StakingTransferTypes+ViewModel.swift */; };
 		7B8FA1F023FEA05300C4C3EF /* BalanceInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8FA1EF23FEA05300C4C3EF /* BalanceInputField.swift */; };
@@ -1829,7 +1828,6 @@
 		7B8818772305926E00AB0549 /* WidgetSettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSettingsCoordinator.swift; sourceTree = "<group>"; };
 		7B896FEE23F3F97100F45A70 /* StorageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFactory.swift; sourceTree = "<group>"; };
 		7B896FF023F3FA3B00F45A70 /* StoragesFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoragesFactoryProtocol.swift; path = DataLayer/Sources/Factory/StoragesFactoryProtocol.swift; sourceTree = SOURCE_ROOT; };
-		7B8AEE0C243CDDB500E01772 /* CachePolicyPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePolicyPlugin.swift; sourceTree = "<group>"; };
 		7B8D5D6F24093608008D013F /* StakingTrasnferTypes+Deposit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTrasnferTypes+Deposit.swift"; sourceTree = "<group>"; };
 		7B8D5D7124093984008D013F /* StakingTransferTypes+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+ViewModel.swift"; sourceTree = "<group>"; };
 		7B8FA1EF23FEA05300C4C3EF /* BalanceInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceInputField.swift; sourceTree = "<group>"; };
@@ -4752,7 +4750,6 @@
 				7BF50A6A22D8B95400582783 /* SweetLoggerSentry.swift */,
 				7BF50A5F22D8B95400582783 /* TransactionSenderAssistant.swift */,
 				7BF50A6022D8B95400582783 /* Types */,
-				7B8AEE0C243CDDB500E01772 /* CachePolicyPlugin.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -7693,7 +7690,6 @@
 				7BF50A7722D8B95400582783 /* TransferTransaction.swift in Sources */,
 				7BF50ACB22D8B95400582783 /* String+NormalizeAssetId.swift in Sources */,
 				7BF50AA122D8B95400582783 /* ApplicationVersionRepository.swift in Sources */,
-				7B8AEE0D243CDDB500E01772 /* CachePolicyPlugin.swift in Sources */,
 				7BF50AB022D8B95400582783 /* CandlesRepositoryRemote.swift in Sources */,
 				7BF50AB422D8B95400582783 /* AliasesRepository.swift in Sources */,
 				7BF50ABB22D8B95400582783 /* AssetsSpamService.swift in Sources */,
@@ -10969,6 +10965,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4015;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -11043,6 +11040,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4015;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11177,6 +11175,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4015;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11244,6 +11243,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4015;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11311,6 +11311,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4015;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;

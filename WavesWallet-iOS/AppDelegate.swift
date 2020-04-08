@@ -99,6 +99,8 @@ enum UITest {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         appCoordinator.applicationDidEnterBackground()
+        
+        Intercom.hideMessenger()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {}

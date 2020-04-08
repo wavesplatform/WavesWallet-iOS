@@ -66,12 +66,14 @@ extension WalletTypes {
 
         enum Action {
             case none
+            case refreshError
             case update
         }
         
         var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
         var staking: DTO.Staking?
+        var prevStaking: DTO.Staking? = nil
         var displayState: DisplayState
         var isShowCleanWalletBanner: Bool
         var isNeedCleanWalletBanner: Bool

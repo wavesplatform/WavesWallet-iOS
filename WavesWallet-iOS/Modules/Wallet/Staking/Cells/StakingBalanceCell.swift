@@ -103,7 +103,7 @@ extension StakingBalanceCell: ViewConfiguration {
         setupLocalization()
 
         let inStakingBalance = model.inStaking.money
-        let availableBalance = model.available.money
+        let totalBalance = model.total.money
 
         labelAvailable.attributedText = .styleForBalance(text: model.available.displayText,
                                                          font: labelAvailable.font)
@@ -115,14 +115,14 @@ extension StakingBalanceCell: ViewConfiguration {
                                              sign: nil,
                                              style: .large))
 
-        stakingPercent = CGFloat(inStakingBalance.amount) / CGFloat(availableBalance.amount) * 100
-
-        if stakingPercent.isNaN {
-            stakingPercent = 0
-        }
+        stakingPercent = CGFloat(inStakingBalance.amount) / CGFloat(totalBalance.amount) * 100
 
         if stakingPercent < Constants.progressBarMinSmallPercent {
             stakingPercent = Constants.progressBarMinSmallPercent
+        }
+        
+        if stakingPercent.isNaN {
+            stakingPercent = 0
         }
 
         stakingPercent = min(stakingPercent, 100)

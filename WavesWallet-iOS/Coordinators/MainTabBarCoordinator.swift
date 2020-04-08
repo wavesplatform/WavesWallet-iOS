@@ -113,6 +113,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
                                          popoperButton,
                                          navigationRouterProfile.navigationController])
 
+        tabBarRouter.setSelectedIndex(2)
+        
         let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet,
                                                   isDisplayInvesting: false)
         addChildCoordinatorAndStart(childCoordinator: walletCoordinator)
@@ -129,6 +131,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         let profileCoordinator = ProfileCoordinator(navigationRouter: navigationRouterProfile,
                                                     applicationCoordinator: applicationCoordinator)
         addChildCoordinatorAndStart(childCoordinator: profileCoordinator)
+        
     }
 
     func start() {

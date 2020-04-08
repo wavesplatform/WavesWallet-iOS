@@ -83,6 +83,9 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
         displayData = WalletDisplayData(scrolledTablesComponent: scrolledTablesComponent,
                                         displays: displays)
         displayData.isDisplayInvesting = isDisplayInvesting
@@ -280,6 +283,11 @@ extension WalletViewController {
             
             guard let self = self else { return }
             if state.action == .none {
+                return
+            }
+            
+            if state.action == .refreshError {
+                self.updateErrorView(with: state.displayState.currentDisplay.errorState)
                 return
             }
             

@@ -183,7 +183,9 @@ final class WalletPresenter: WalletPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             
             let timer = Observable<Int>
-                .timer(0, period: 1.0, scheduler: MainScheduler.instance)
+                .timer(0, period: 3.0, scheduler: MainScheduler.instance)
+                .take(30)
+                .sweetDebug("Test")
                 .asSignal(onErrorSignalWith: Signal.just(1))
                 .flatMap { map -> Signal<WalletTypes.Event> in
                     return self.interactor
@@ -191,6 +193,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                         .map { .setStaking($0) }
                         .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
             }
+            
             
             return timer
         })
@@ -235,12 +238,21 @@ final class WalletPresenter: WalletPresenterProtocol {
                 return
             }
             
+            state.prevStaking = staking
+            
             var available = staking.balance.available
             var inStaking = staking.balance.inStaking
             var total = staking.balance.total
             
+            SweetLogger.debug("Depost before")
+            SweetLogger.debug("Available: \(staking.balance.available.money.amount)")
+            SweetLogger.debug("\n InStaking: \(staking.balance.inStaking.money.amount)")
+            SweetLogger.debug("\n Total: \(staking.balance.total.money.amount)")
+            
+            let availableAmount: Int64 = Int64(max(0, available.money.amount - balance.money.amount))
+            
             available = DomainLayer.DTO.Balance(currency: available.currency,
-                                                money: Money(available.money.amount - balance.money.amount,
+                                                money: Money(availableAmount,
                                                              available.money.decimals))
             
             inStaking = DomainLayer.DTO.Balance(currency: inStaking.currency,
@@ -255,7 +267,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             staking.balance.inStaking = inStaking
             staking.balance.total = total
             
-            SweetLogger.debug("Depost")
+            SweetLogger.debug("Depost after")
             SweetLogger.debug("Available: \(staking.balance.available.money.amount)")
             SweetLogger.debug("\n InStaking: \(staking.balance.inStaking.money.amount)")
             SweetLogger.debug("\n Total: \(staking.balance.total.money.amount)")
@@ -263,6 +275,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
             state.displayState = state.displayState.updateDisplay(kind: .staking,
                                                                   sections: sections)
+            
             state.staking = staking
             
             state.action = .update
@@ -280,16 +293,26 @@ final class WalletPresenter: WalletPresenterProtocol {
                 return
             }
             
+            state.prevStaking = staking
+            
             var available = staking.balance.available
             var inStaking = staking.balance.inStaking
             var total = staking.balance.total
+            
+            SweetLogger.debug("Withdraw before")
+            SweetLogger.debug("Available: \(staking.balance.available.money.amount)")
+            SweetLogger.debug("InStaking: \(staking.balance.inStaking.money.amount)")
+            SweetLogger.debug("Total: \(staking.balance.total.money.amount)")
             
             available = DomainLayer.DTO.Balance(currency: available.currency,
                                                 money: Money(available.money.amount + balance.money.amount,
                                                              available.money.decimals))
             
+            
+            let inStakingAmount: Int64 = Int64(max(0, (inStaking.money.amount - balance.money.amount)))
+            
             inStaking = DomainLayer.DTO.Balance(currency: inStaking.currency,
-                                                money: Money(inStaking.money.amount - balance.money.amount,
+                                                money: Money(inStakingAmount,
                                                              inStaking.money.decimals))
             
             total = DomainLayer.DTO.Balance(currency: total.currency,
@@ -300,7 +323,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             staking.balance.inStaking = inStaking
             staking.balance.total = total
             
-            SweetLogger.debug("Withdrawt")
+            SweetLogger.debug("Withdraw after")
             SweetLogger.debug("Available: \(staking.balance.available.money.amount)")
             SweetLogger.debug("InStaking: \(staking.balance.inStaking.money.amount)")
             SweetLogger.debug("Total: \(staking.balance.total.money.amount)")
@@ -362,11 +385,15 @@ final class WalletPresenter: WalletPresenterProtocol {
                 currentDisplay.errorState = .none
                 currentDisplay.animateType = .refresh(animated: false)
                 state.action = .update
-            }
-            else {
+            } else {
                 state.action = .none
             }
+            
             currentDisplay.isRefreshing = true
+            //скидываем модель текущую так как обновляем ui если он изменился
+            state.staking = nil
+            state.prevStaking = nil
+            
             state.displayState.currentDisplay = currentDisplay
             
         case .tapRow(let indexPath):
@@ -471,27 +498,51 @@ final class WalletPresenter: WalletPresenterProtocol {
             
         case .setStaking(let staking):
                         
-            SweetLogger.debug("Update \n Available: \(staking.balance.available.money.amount)")
-            SweetLogger.debug("\n InStaking: \(staking.balance.inStaking.money.amount)")
-            SweetLogger.debug("\n Total: \(staking.balance.total.money.amount)")
+            SweetLogger.debug("Update Available: \(staking.balance.available.money.amount)")
+            SweetLogger.debug("InStaking: \(staking.balance.inStaking.money.amount)")
+            SweetLogger.debug("Total: \(staking.balance.total.money.amount)")
             
+            if let oldStaking = state.staking, oldStaking.balance == staking.balance {
+            
+                SweetLogger.debug("Old Staking dismiss")
+                
+                state.action = .refreshError
+                var currentDisplay = state.displayState.currentDisplay
+                currentDisplay.errorState = .none
+                currentDisplay.isRefreshing = false
+                currentDisplay.animateType = .none
+                state.displayState.currentDisplay = currentDisplay
+                state.staking = staking
+                return
+            }
+            
+            if let prevStaking = state.prevStaking, prevStaking.balance == staking.balance {
+
+                SweetLogger.debug("Prev Staking dismiss")
+
+                state.action = .refreshError
+                var currentDisplay = state.displayState.currentDisplay
+                currentDisplay.errorState = .none
+                currentDisplay.isRefreshing = false
+                currentDisplay.animateType = .none
+                state.displayState.currentDisplay = currentDisplay
+                state.staking = staking
+                return
+            }
+//
             state.action = .update
             
             let sections = WalletTypes.ViewModel.Section.map(from: staking, hasSkingLanding: state.hasSkipLanding)
             state.displayState = state.displayState.updateDisplay(kind: .staking,
                                                                   sections: sections)
             state.staking = staking
+            state.prevStaking = nil
             
             var currentDisplay = state.displayState.currentDisplay
             currentDisplay.errorState = .none
             currentDisplay.isRefreshing = false
             state.displayState.currentDisplay = currentDisplay
-            
-            if state.displayState.refreshData != .none {
-                state.displayState.listenerRefreshData = state.displayState.refreshData
-                state.displayState.refreshData = .none
-            }
-            
+                                    
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
             state.action = .none

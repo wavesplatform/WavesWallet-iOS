@@ -32,16 +32,25 @@ extension StakingTransfer.DTO {
         case card
     }
     
-    enum Data {
+    enum Data: Hashable {
         
-        struct Transfer {
+        struct Transfer: Hashable {
             let asset: DomainLayer.DTO.Asset
             let balance: DomainLayer.DTO.Balance
             let transactionFeeBalance: DomainLayer.DTO.Balance
             let avaliableBalanceForFee: DomainLayer.DTO.Balance
+            
+            
+            static func == (lhs: Transfer, rhs: Transfer) -> Bool {
+                
+                return lhs.asset.id == rhs.asset.id
+                    && lhs.balance == rhs.balance
+                    && lhs.transactionFeeBalance == rhs.transactionFeeBalance
+                    && lhs.avaliableBalanceForFee == rhs.avaliableBalanceForFee
+            }
         }
         
-        struct Card {
+        struct Card: Hashable {
             let asset: DomainLayer.DTO.Asset
             let minAmount: DomainLayer.DTO.Balance
             let maxAmount: DomainLayer.DTO.Balance
