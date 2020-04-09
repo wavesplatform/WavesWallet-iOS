@@ -794,7 +794,7 @@
 "wallet.stakingPayouts.youDontHavePayouts" = "You don't have any payouts yet";
 "staking.landing.earn" = "Earn %@ annual revenues";
 "staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
-"staking.landing.profitWhenStaking" = "is your rough annual income, if you invest %@. 1 USDN = 1 USD.";
+"staking.landing.profitWhenStaking" = "is your rough annual income, if you invest %@ \n1 USDN = 1 USD.";
 "staking.landing.howItWorks" = "How does it work?";
 "staking.landing.next" = "Next";
 "staking.landing.startStaking" = "Start Now";
