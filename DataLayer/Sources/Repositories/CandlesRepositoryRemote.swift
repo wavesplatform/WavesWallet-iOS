@@ -235,7 +235,8 @@ private extension CandlesRepositoryRemote {
                                                              matcherSwapAddress: Constants.matcherSwapAddress,
                                                              exchangeClientSecret: "",
                                                              staking: [],
-                                                             lockedPairs: [])
+                                                             lockedPairs: [],
+                                                             gatewayMinFee: [:])
             
             return Observable.just(confing)
         }
