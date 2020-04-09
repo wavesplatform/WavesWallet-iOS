@@ -34,7 +34,11 @@ final class ReceiveInvoiceViewController: UIViewController {
             viewAsset.isSelectedAssetMode = false
             setupInfo(asset: asset)
         }
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // обновление нужно делать каждый раз,когда возвращаемся на экран, тк на нем завязана активность кнопки "продолжить"
         updateDisplayInfo()
     }
     
@@ -101,14 +105,11 @@ extension ReceiveInvoiceViewController: MoneyTextFieldDelegate {
 
 // MARK: - UI
 private extension ReceiveInvoiceViewController {
-    
-    
     func setupButtonState() {
         let canContinueAction = displayInfo != nil
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
     }
-    
     
     func setupLocalication() {        
         buttonContinue.setTitle(Localizable.Waves.Receive.Button.continue, for: .normal)
