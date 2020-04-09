@@ -795,7 +795,7 @@
 "wallet.stakingPayouts.youDontHavePayouts" = "Выплат еще не было.";
 "staking.landing.earn" = "Зарабатывайте %@ годовых";
 "staking.landing.annualInterest" = "Annual Interest by doing NOTHING.";
-"staking.landing.profitWhenStaking" = "ваш примерный годовой доход, если вы инвестируете %@. 1 USDN = 1 USD.";
+"staking.landing.profitWhenStaking" = "ваш примерный годовой доход, если вы инвестируете %@ \n1 USDN = 1 USD.";
 "staking.landing.howItWorks" = "Как это работает?";
 "staking.landing.next" = "Дальше";
 "staking.landing.startStaking" = "Начать стейкинг";

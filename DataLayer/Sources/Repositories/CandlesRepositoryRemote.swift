@@ -226,13 +226,14 @@ private extension CandlesRepositoryRemote {
             }
             .catchError { _ -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
 
-                let matcherSwapTimestamp = Date(timeIntervalSince1970: Constants.matcherSwapTimestamp)
                 let confing = DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: true,
-                                                                 matcherSwapTimestamp: matcherSwapTimestamp,
+                                                                 matcherSwapTimestamp: Date(timeIntervalSince1970: Constants
+                                                                     .matcherSwapTimestamp),
                                                                  matcherSwapAddress: Constants.matcherSwapAddress,
                                                                  exchangeClientSecret: "",
                                                                  staking: [],
-                                                                 lockedPairs: [])
+                                                                 lockedPairs: [],
+                                                                 gatewayMinFee: [:])
 
                 return Observable.just(confing)
             }

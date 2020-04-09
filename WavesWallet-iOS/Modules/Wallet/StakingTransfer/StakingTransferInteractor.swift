@@ -122,16 +122,25 @@ final class StakingTransferInteractor {
             let requirementsOrder = self
                 .adCashDepositsUseCase
                 .requirementsOrder(assetId: assetId)
+            
+            let developmentConfigs = self
+                .developmentConfigsRepository
+                .developmentConfigs()
                         
-            return Observable.zip(assets, requirementsOrder)
-                .flatMap({ (assets, requirementsOrder) -> Observable<StakingTransfer.DTO.Data.Card> in
+            return Observable.zip(assets, requirementsOrder, developmentConfigs)
+                .flatMap({ (assets, requirementsOrder, developmentConfigs) -> Observable<StakingTransfer.DTO.Data.Card> in
                     
                     guard let asset = assets.first(where: { $0.id == assetId }) else { return Observable.error(NetworkError.notFound) }
-                    
-                    let minAmount = 
-                        asset
-                            .balance(requirementsOrder.amountMin.amount)
-                    
+                                        
+                    let gatewayMinFee = developmentConfigs.gatewayMinFee[assetId]?["usd"]
+                    let rate = Decimal(gatewayMinFee?.rate ?? 1)
+                    let flat = Decimal(gatewayMinFee?.flat ?? 0)
+                    let amountMin = Decimal(requirementsOrder.amountMin.amount)
+                                        
+                    let minAmountBase = (amountMin * rate + flat).int64Value
+                                                            
+                    let minAmount = asset.balance(minAmountBase)
+                        
                     let maxAmount = asset
                         .balance(requirementsOrder.amountMax.amount)
                     
