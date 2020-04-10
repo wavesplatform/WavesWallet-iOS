@@ -65,6 +65,7 @@ target 'WavesWallet-iOS' do
     pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
     pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
     pod 'SwiftGRPC'
+    pod 'SwiftProtobuf'
 end
 
 

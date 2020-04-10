@@ -233,6 +233,7 @@ DEPENDENCIES:
   - SwiftLint
   - SwiftMonkey
   - SwiftMonkeyPaws
+  - SwiftProtobuf
   - TPKeyboardAvoiding
   - TTTAttributedLabel
   - UPCarouselFlowLayout
@@ -387,6 +388,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: a32f8cc55c3ba639fabfda2958fd662e1430d37e
+PODFILE CHECKSUM: 6835c0e6774498523f9ef8107c66073ebe7659eb
 
 COCOAPODS: 1.9.1
