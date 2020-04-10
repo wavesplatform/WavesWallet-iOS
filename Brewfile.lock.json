@@ -1,0 +1,60 @@
+{
+  "entries": {
+    "brew": {
+      "protobuf": {
+        "version": "3.11.4",
+        "bottle": {
+          "cellar": ":any",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/protobuf-3.11.4.catalina.bottle.tar.gz",
+              "sha256": "b6eca888405b4998b1a5be7c7425d94f9ef2db76fcd9355ac920deaee3e2d15d"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/protobuf-3.11.4.mojave.bottle.tar.gz",
+              "sha256": "809461047f541cfc72d836ea7c7af95ad18f0900ea9bd163f478abf53d3fafaf"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/protobuf-3.11.4.high_sierra.bottle.tar.gz",
+              "sha256": "ae2dd1abf649a9a9c313caa958bd08d175b5a8a88828b44770526e29c83c807e"
+            }
+          }
+        }
+      },
+      "swift-protobuf": {
+        "version": "1.8.0",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/swift-protobuf-1.8.0.catalina.bottle.tar.gz",
+              "sha256": "3a14c2a73a4fe5e7ee6d630dcaa1d45b991d33a617024b5c11c9dc5cb4e4e8cc"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/swift-protobuf-1.8.0.mojave.bottle.tar.gz",
+              "sha256": "2b77ee4ea2337d20fa940cc73947439d779dfd8e5e43a4c0dfb8485693def68f"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/swift-protobuf-1.8.0.high_sierra.bottle.tar.gz",
+              "sha256": "e1511be6caeed3f9a63d831216170fff5f7685c83815f8d3481a2e32ffea2bb2"
+            }
+          }
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.2.10",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "624b37c0e0e1d958056cf133f7c5ccf92abd82c7",
+        "CLT": "",
+        "Xcode": "11.3.1",
+        "macOS": "10.15.3"
+      }
+    }
+  }
+}

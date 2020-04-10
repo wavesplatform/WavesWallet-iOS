@@ -15,5 +15,6 @@ gem 'fastlane-plugin-sentry'
 gem 'fastlane-plugin-buddybuild'
 gem 'fastlane-plugin-firebase_app_distribution'
 gem 'google-protobuf'
+gem 'fileutils'
 # plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
 # eval_gemfile(plugins_path) if File.exist?(plugins_path)

@@ -139,6 +139,7 @@ GEM
     fastlane-plugin-firebase_app_distribution (0.1.4)
     fastlane-plugin-sentry (1.6.0)
     ffi (1.12.2)
+    fileutils (1.4.1)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
     gh_inspector (1.1.3)
@@ -269,6 +270,7 @@ DEPENDENCIES
   fastlane-plugin-buddybuild
   fastlane-plugin-firebase_app_distribution
   fastlane-plugin-sentry
+  fileutils
   google-protobuf
   json
   mini_magick (>= 4.9.4)

@@ -66,6 +66,7 @@ target 'WavesWallet-iOS' do
     pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
     pod 'SwiftGRPC'
     pod 'SwiftProtobuf'
+    pod 'WEProtobuf', :path => 'Vendors/WEProtobuf'
 end
 
 
