@@ -54,7 +54,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                 .zip(accountBalance,
                      matcherBalances)
                 .map({ (accountBalance, matcher) -> DomainLayer.DTO.AssetBalance in
-                    let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[assetId] ?? 0
                     return DomainLayer.DTO.AssetBalance(accountBalance: accountBalance, inOrderBalance: inOrderBalance)
                 })
         } else {
@@ -66,7 +66,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                      matcherBalances,
                      sponsorBalance)
                 .map({ (assetBalance, matcher, sponsorBalance) -> DomainLayer.DTO.AssetBalance in
-                    let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[assetId] ?? 0
                     return DomainLayer.DTO.AssetBalance(model: assetBalance,
                                                         inOrderBalance: inOrderBalance,
                                                         sponsoredAssetDetail: sponsorBalance)
