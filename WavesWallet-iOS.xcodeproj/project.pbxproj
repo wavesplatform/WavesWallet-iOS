@@ -739,6 +739,20 @@
 		8710569A243340F7005022DD /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87105699243340F7005022DD /* SocialNetworkView.swift */; };
 		8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8710569C24336992005022DD /* ExchangeTitleView.xib */; };
 		8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8710569E2433699D005022DD /* ExchangeTitleView.swift */; };
+		87124438243F7BE5003FC7CB /* gateways_waves_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87124431243F7BE4003FC7CB /* gateways_waves_api.pb.swift */; };
+		87124439243F7BE5003FC7CB /* adcash_deposits.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87124432243F7BE4003FC7CB /* adcash_deposits.pb.swift */; };
+		8712443A243F7BE5003FC7CB /* adcash_withdrawals.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87124433243F7BE4003FC7CB /* adcash_withdrawals.pb.swift */; };
+		8712443B243F7BE5003FC7CB /* adcash_managing.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87124434243F7BE4003FC7CB /* adcash_managing.pb.swift */; };
+		8712443C243F7BE5003FC7CB /* gateways_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87124435243F7BE4003FC7CB /* gateways_api.pb.swift */; };
+		8712443D243F7BE5003FC7CB /* adcash_exchange.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87124436243F7BE5003FC7CB /* adcash_exchange.pb.swift */; };
+		8712443E243F7BE5003FC7CB /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87124437243F7BE5003FC7CB /* messages.pb.swift */; };
+		87124448243F80EF003FC7CB /* adcash_exchange.proto in Sources */ = {isa = PBXBuildFile; fileRef = 87124441243F80ED003FC7CB /* adcash_exchange.proto */; };
+		87124449243F80EF003FC7CB /* gateways_api.proto in Sources */ = {isa = PBXBuildFile; fileRef = 87124442243F80EE003FC7CB /* gateways_api.proto */; };
+		8712444A243F80EF003FC7CB /* adcash_managing.proto in Sources */ = {isa = PBXBuildFile; fileRef = 87124443243F80EE003FC7CB /* adcash_managing.proto */; };
+		8712444B243F80EF003FC7CB /* gateways_waves_api.proto in Sources */ = {isa = PBXBuildFile; fileRef = 87124444243F80EE003FC7CB /* gateways_waves_api.proto */; };
+		8712444C243F80EF003FC7CB /* adcash_deposits.proto in Sources */ = {isa = PBXBuildFile; fileRef = 87124445243F80EE003FC7CB /* adcash_deposits.proto */; };
+		8712444D243F80EF003FC7CB /* adcash_withdrawals.proto in Sources */ = {isa = PBXBuildFile; fileRef = 87124446243F80EE003FC7CB /* adcash_withdrawals.proto */; };
+		8712444E243F80EF003FC7CB /* messages.proto in Sources */ = {isa = PBXBuildFile; fileRef = 87124447243F80EE003FC7CB /* messages.proto */; };
 		871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* Wallet+TSUD.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
@@ -2124,6 +2138,20 @@
 		87105699243340F7005022DD /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
 		8710569C24336992005022DD /* ExchangeTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExchangeTitleView.xib; sourceTree = "<group>"; };
 		8710569E2433699D005022DD /* ExchangeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTitleView.swift; sourceTree = "<group>"; };
+		87124431243F7BE4003FC7CB /* gateways_waves_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.pb.swift; sourceTree = "<group>"; };
+		87124432243F7BE4003FC7CB /* adcash_deposits.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_deposits.pb.swift; sourceTree = "<group>"; };
+		87124433243F7BE4003FC7CB /* adcash_withdrawals.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_withdrawals.pb.swift; sourceTree = "<group>"; };
+		87124434243F7BE4003FC7CB /* adcash_managing.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_managing.pb.swift; sourceTree = "<group>"; };
+		87124435243F7BE4003FC7CB /* gateways_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.pb.swift; sourceTree = "<group>"; };
+		87124436243F7BE5003FC7CB /* adcash_exchange.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_exchange.pb.swift; sourceTree = "<group>"; };
+		87124437243F7BE5003FC7CB /* messages.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messages.pb.swift; sourceTree = "<group>"; };
+		87124441243F80ED003FC7CB /* adcash_exchange.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = adcash_exchange.proto; sourceTree = "<group>"; };
+		87124442243F80EE003FC7CB /* gateways_api.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = gateways_api.proto; sourceTree = "<group>"; };
+		87124443243F80EE003FC7CB /* adcash_managing.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = adcash_managing.proto; sourceTree = "<group>"; };
+		87124444243F80EE003FC7CB /* gateways_waves_api.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = gateways_waves_api.proto; sourceTree = "<group>"; };
+		87124445243F80EE003FC7CB /* adcash_deposits.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = adcash_deposits.proto; sourceTree = "<group>"; };
+		87124446243F80EE003FC7CB /* adcash_withdrawals.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = adcash_withdrawals.proto; sourceTree = "<group>"; };
+		87124447243F80EE003FC7CB /* messages.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = messages.proto; sourceTree = "<group>"; };
 		871D7262242CC94100F89403 /* Wallet+TSUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+TSUD.swift"; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
@@ -3108,6 +3136,8 @@
 		0A97974F2108805100407F67 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				87124440243F80DB003FC7CB /* Protos */,
+				87124430243F7AE3003FC7CB /* GeneratedProto */,
 				7B5EDEC522536268009C2B3B /* AccessibilityIdentifiers.swift */,
 				0A97975B210888B600407F67 /* Localizable.swift */,
 				0A979757210886EA00407F67 /* Storyboards.swift */,
@@ -4847,6 +4877,34 @@
 				8710569C24336992005022DD /* ExchangeTitleView.xib */,
 			);
 			path = ExchangeTitleCell;
+			sourceTree = "<group>";
+		};
+		87124430243F7AE3003FC7CB /* GeneratedProto */ = {
+			isa = PBXGroup;
+			children = (
+				87124432243F7BE4003FC7CB /* adcash_deposits.pb.swift */,
+				87124436243F7BE5003FC7CB /* adcash_exchange.pb.swift */,
+				87124434243F7BE4003FC7CB /* adcash_managing.pb.swift */,
+				87124433243F7BE4003FC7CB /* adcash_withdrawals.pb.swift */,
+				87124435243F7BE4003FC7CB /* gateways_api.pb.swift */,
+				87124431243F7BE4003FC7CB /* gateways_waves_api.pb.swift */,
+				87124437243F7BE5003FC7CB /* messages.pb.swift */,
+			);
+			path = GeneratedProto;
+			sourceTree = "<group>";
+		};
+		87124440243F80DB003FC7CB /* Protos */ = {
+			isa = PBXGroup;
+			children = (
+				87124445243F80EE003FC7CB /* adcash_deposits.proto */,
+				87124441243F80ED003FC7CB /* adcash_exchange.proto */,
+				87124443243F80EE003FC7CB /* adcash_managing.proto */,
+				87124446243F80EE003FC7CB /* adcash_withdrawals.proto */,
+				87124442243F80EE003FC7CB /* gateways_api.proto */,
+				87124444243F80EE003FC7CB /* gateways_waves_api.proto */,
+				87124447243F80EE003FC7CB /* messages.proto */,
+			);
+			path = Protos;
 			sourceTree = "<group>";
 		};
 		8752A25E2412797700B968C7 /* PayoutsHistory */ = {
@@ -6761,6 +6819,7 @@
 				8752A27E2412809C00B968C7 /* SwiftLint */,
 				D6C31D5E81E1793123D0FEB1 /* [CP] Embed Pods Frameworks */,
 				55A58BE1B874DAEF23169880 /* [CP] Copy Pods Resources */,
+				8712443F243F80B4003FC7CB /* gRPC Generating */,
 			);
 			buildRules = (
 			);
@@ -7324,6 +7383,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8712443F243F80B4003FC7CB /* gRPC Generating */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "gRPC Generating";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"-----------------\"\nPATH_TO_PROTO_FILE=$PROJECT_DIR\"/WavesWallet-iOS/Generated/Protos/gateways_api.proto\"\nPATH_TO_OUT_FILE=$PROJECT_DIR\"/WavesWallet-iOS/Generated/Protos\"\n\necho $PATH_TO_PROTO_FILE\n\nprotoc $PATH_TO_PROTO_FILE --swift_out=$PATH_TO_OUT_FILE --swiftgrpc_out=Client=true,Server=false:.\n\necho \"-----------------\"\n";
+		};
 		8752A27E2412809C00B968C7 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -7857,6 +7934,7 @@
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
 				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
 				E944300E226E645300EB6257 /* WalletSortPresenterProtocol.swift in Sources */,
+				8712444C243F80EF003FC7CB /* adcash_deposits.proto in Sources */,
 				87FA5D5124223C31002F282D /* PasscodeEnableBiometricPresenter.swift in Sources */,
 				E95B47F821638B11004D4E39 /* StartLeasingInteractor.swift in Sources */,
 				E95B47F021638B11004D4E39 /* StartLeasingViewController.swift in Sources */,
@@ -7907,6 +7985,7 @@
 				0ADD803A21F22FFB0075FC59 /* MainTabBarCoordinator.swift in Sources */,
 				0ADD802421F22FFA0075FC59 /* TabBarRouter.swift in Sources */,
 				87FA5D8B24223E32002F282D /* AddressBookCell.swift in Sources */,
+				8712443C243F7BE5003FC7CB /* gateways_api.pb.swift in Sources */,
 				7B3902A32237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift in Sources */,
 				E9B087E62163886800937644 /* DexCreateOrderAmountButton.swift in Sources */,
 				E9F78A3D229E98B40065324B /* NewSegmentedControl.swift in Sources */,
@@ -7983,6 +8062,7 @@
 				7B3A9AB6231D66B80025CDCA /* NetworkError+Title.swift in Sources */,
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
 				0A14E3E62187185700EA7E91 /* AliasesViewModuleBuilder.swift in Sources */,
+				87124449243F80EF003FC7CB /* gateways_api.proto in Sources */,
 				7BDA6ADD222E95C8001DE71C /* TransactionCardView.swift in Sources */,
 				E9B087EE2163886800937644 /* DexLastTradesPresenter.swift in Sources */,
 				E9D36DDC2175C755001E6DF0 /* ReceiveCardCompleteViewController.swift in Sources */,
@@ -7994,6 +8074,7 @@
 				0A20606821822C3A0048CF83 /* AddressesKeysViewController.swift in Sources */,
 				87FA5DC024223FBE002F282D /* AssetDetailCell.swift in Sources */,
 				E9B087FE2163886800937644 /* DexMyOrdersCell.swift in Sources */,
+				8712443B243F7BE5003FC7CB /* adcash_managing.pb.swift in Sources */,
 				7BC17E7923F5908100F76B7B /* DeviceLayoutConstraint.swift in Sources */,
 				E9939B4522302E3800B50E67 /* InfoPageConfirmView.swift in Sources */,
 				E944300C226E643B00EB6257 /* WalletSortModuleBuilder.swift in Sources */,
@@ -8039,6 +8120,7 @@
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
 				875393392423BE8000394762 /* ReceiveAddressModuleBuilder.swift in Sources */,
 				7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */,
+				87124448243F80EF003FC7CB /* adcash_exchange.proto in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				0AF922FE212E1234003BA067 /* GradientView.swift in Sources */,
 				0AF922F3212E1234003BA067 /* SeparatorView.swift in Sources */,
@@ -8064,6 +8146,7 @@
 				87FA5D5D24223CF4002F282D /* ActionSheetViewController.swift in Sources */,
 				04831F8421697A4F006D1ED6 /* CustomGradientView.swift in Sources */,
 				87FA5D2F24223BE6002F282D /* ImportTypes.swift in Sources */,
+				8712443E243F7BE5003FC7CB /* messages.pb.swift in Sources */,
 				E9B087E02163886800937644 /* DexCreateOrderPresenter.swift in Sources */,
 				875393402423BE9100394762 /* ReceiveAddressCardView.swift in Sources */,
 				E9B087A22163886800937644 /* DexChartInteractor.swift in Sources */,
@@ -8072,11 +8155,13 @@
 				0A14E3F321875B3C00EA7E91 /* CreateAliasTypes.swift in Sources */,
 				E9D36DEE2175C755001E6DF0 /* ReceiveInvoiceInteractorProtocol.swift in Sources */,
 				E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */,
+				8712444D243F80EF003FC7CB /* adcash_withdrawals.proto in Sources */,
 				0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */,
 				0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */,
 				E92703C6226FDD0C0022D5F0 /* WalletSortPresenter.swift in Sources */,
 				E9B087DE2163886800937644 /* DexCreateOrderViewController.swift in Sources */,
 				0A14E3F721875F5600EA7E91 /* CreateAliasInputCell.swift in Sources */,
+				8712444A243F80EF003FC7CB /* adcash_managing.proto in Sources */,
 				E95B6B13219C345B00A85B5D /* TokenBurnConfirmationIDView.swift in Sources */,
 				0A7CCDAC218A138D005D372B /* MyAddressPresenter.swift in Sources */,
 				E988EDFE23F2BD8600B742C1 /* StakingLandingCell.swift in Sources */,
@@ -8122,6 +8207,7 @@
 				0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */,
 				7BCFC36824092AB000B8AF1C /* StakingTransferTypes+Card.swift in Sources */,
 				7BC17E7523F569F400F76B7B /* PageControl.swift in Sources */,
+				8712444E243F80EF003FC7CB /* messages.proto in Sources */,
 				E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */,
 				E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */,
 				875393412423BE9100394762 /* ReceiveAddressView.swift in Sources */,
@@ -8177,6 +8263,7 @@
 				0ADD803921F22FFB0075FC59 /* BackupTostCoordinator.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,
 				E9B08822216388B100937644 /* HighlightedButton.swift in Sources */,
+				8712443D243F7BE5003FC7CB /* adcash_exchange.pb.swift in Sources */,
 				E9B087C52163886800937644 /* DexTraderContainerInputProtocol.swift in Sources */,
 				0AF922F1212E1234003BA067 /* SkeletonTableCell.swift in Sources */,
 				8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */,
@@ -8191,6 +8278,7 @@
 				E9B087AE2163886800937644 /* DexOrderBookCell.swift in Sources */,
 				0A7CCDAE218A138D005D372B /* MyAddressViewController.swift in Sources */,
 				0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */,
+				87124438243F7BE5003FC7CB /* gateways_waves_api.pb.swift in Sources */,
 				0AF0C67B21AACA4F00602197 /* GlobalErrorView.swift in Sources */,
 				E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */,
 				E9D36DD62175C755001E6DF0 /* ReceiveCardModuleBuilder.swift in Sources */,
@@ -8214,6 +8302,7 @@
 				7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */,
 				7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */,
 				875393482423BECB00394762 /* TooltipTypes.swift in Sources */,
+				87124439243F7BE5003FC7CB /* adcash_deposits.pb.swift in Sources */,
 				7B3902A122379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift in Sources */,
 				7B537E2523E08B43002A3976 /* Date+Helper.swift in Sources */,
 				7B49911722F874B0005B7123 /* AssetsSearchViewController.swift in Sources */,
@@ -8226,6 +8315,7 @@
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
 				E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */,
 				0ADD802A21F22FFA0075FC59 /* EnterLanguageCoordinator.swift in Sources */,
+				8712443A243F7BE5003FC7CB /* adcash_withdrawals.pb.swift in Sources */,
 				8752A27924127ABE00B968C7 /* ResetableView.swift in Sources */,
 				E921ED04222DDA4600DE286D /* DexScriptAssetMessageViewController.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
@@ -8471,6 +8561,7 @@
 				7B88186223044B7F00AB0549 /* Language+List.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
 				E9B087ED2163886800937644 /* DexLastTradesPresenterProtocol.swift in Sources */,
+				8712444B243F80EF003FC7CB /* gateways_waves_api.proto in Sources */,
 				0AF922F5212E1234003BA067 /* SegmentedControlScrollView.swift in Sources */,
 				0AACD59C21A59E7100B30815 /* SweetSnackView.swift in Sources */,
 				7BFB481522FC742F002B19F8 /* ModalPresentationAnimatorContext.swift in Sources */,

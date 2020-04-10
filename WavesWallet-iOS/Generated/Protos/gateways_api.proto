@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+import "messages.proto";
+
+package gateways;
+
+service Api {
+    // --- Asset Bindings:
+    rpc GetAssetBinding (GetAssetBindingRequest) returns (GetAssetBindingResponse);
+    rpc GetAssetBindings (GetAssetBindingsRequest) returns (GetAssetBindingsResponse);
+
+    // --- Transfer Bindings:
+    rpc GetTransferBinding (TransferBindingRequest) returns (TransferBindingResponse);
+    rpc CreateTransferBinding (TransferBindingRequest) returns (TransferBindingResponse);
+}
+
+// ---
+// GetAssetBinding
+// ---
+message GetAssetBindingRequest {
+    string sender_asset = 1;
+    string recipient_asset = 2;
+}
+
+message GetAssetBindingResponse {
+    AssetBinding asset_binding = 1;
+}
+
+// ---
+// GetAssetBindings
+// ---
+message GetAssetBindingsRequest {
+    CursorRequest cursor = 1;
+}
+
+message GetAssetBindingsResponse {
+    repeated AssetBinding asset_bindings = 1;
+    CursorResponse cursor = 2;
+}
+
+// ---
+// TransferBinding
+// ---
+message TransferBindingRequest {
+    string sender_asset = 1;
+    string recipient_asset = 2;
+    string recipient_address = 3;
+}
+
+message TransferBindingResponse {
+    TransferBinding transfer_binding = 1;
+}
