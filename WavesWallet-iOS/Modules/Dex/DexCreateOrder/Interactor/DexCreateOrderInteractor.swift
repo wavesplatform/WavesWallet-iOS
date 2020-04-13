@@ -44,7 +44,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         self.environmentRepository = environmentRepository
         self.developmentConfig = developmentConfig
     }
-    
+
     func getDevConfig() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
         developmentConfig.developmentConfigs()
     }
@@ -158,9 +158,12 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 }
 
 private extension DexCreateOrderInteractor {
-    func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order, updatedPrice: Money?, priceAvg: Money?, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
-        
-        return auth.authorizedWallet()
+
+    func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order,
+                                    updatedPrice: Money?,
+                                    priceAvg: Money?,
+                                    type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+        auth.authorizedWallet()
                .flatMap{ [weak self] wallet -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                
                guard let self = self else { return Observable.empty() }
@@ -173,7 +176,6 @@ private extension DexCreateOrderInteractor {
                    .flatMap{ [weak self] (matcherPublicKey, environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                        guard let self = self else { return Observable.empty() }
                        
-                    
                        let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
                        let orderPrice = updatedPrice ?? order.price
                        let price = (orderPrice.decimalValue * pow(10, precisionDifference)).int64Value

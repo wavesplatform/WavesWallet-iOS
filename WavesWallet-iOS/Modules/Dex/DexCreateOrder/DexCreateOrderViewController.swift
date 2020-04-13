@@ -53,9 +53,9 @@ final class DexCreateOrderViewController: UIViewController {
         }
     }
     
+    @IBOutlet private weak var orderTypeContainer: UIView!
     @IBOutlet private weak var segmentedControl: DexCreateOrderSegmentedControl!
 
-    @IBOutlet private weak var orderTypeContainer: UIView!
     @IBOutlet private weak var inputAmount: DexCreateOrderInputView!
     @IBOutlet private weak var inputPrice: DexCreateOrderInputView!
     @IBOutlet private weak var inputTotal: DexCreateOrderInputView!

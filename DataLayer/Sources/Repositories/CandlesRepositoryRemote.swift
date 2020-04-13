@@ -223,20 +223,22 @@ private extension CandlesRepositoryRemote {
 
                 self.matcherSwapConfigs = configs
                 return Observable.just(configs)
-            }
-            .catchError { _ -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
-                let matcherSwapTimestamp = Date(timeIntervalSince1970: Constants.matcherSwapTimestamp)
-                let confing = DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: true,
-                                                                 matcherSwapTimestamp: matcherSwapTimestamp,
-                                                                 matcherSwapAddress: Constants.matcherSwapAddress,
-                                                                 exchangeClientSecret: "",
-                                                                 staking: [],
-                                                                 lockedPairs: [],
-                                                                 gatewayMinFee: [:],
-                                                                 marketPairs: [])
-
-                return Observable.just(confing)
-            }
+        }
+        .catchError { (_) -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
+                                    
+            let matcherSwapTimestamp = Date(timeIntervalSince1970: Constants.matcherSwapTimestamp)
+            
+            let confing = DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: true,
+                                                             matcherSwapTimestamp: matcherSwapTimestamp,
+                                                             matcherSwapAddress: Constants.matcherSwapAddress,
+                                                             exchangeClientSecret: "",
+                                                             staking: [],
+                                                             lockedPairs: [],
+                                                             gatewayMinFee: [:],
+                                                             marketPairs: [])
+            
+            return Observable.just(confing)
+        }
     }
 }
 
