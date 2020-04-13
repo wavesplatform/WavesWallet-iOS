@@ -13,6 +13,8 @@ import Extensions
 
 protocol DexCreateOrderInteractorProtocol {
     
+    func getDevConfig() -> Observable<DomainLayer.DTO.DevelopmentConfigs>
+    
     func createOrder(order: DexCreateOrder.DTO.Order, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>>
 
     func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings>    

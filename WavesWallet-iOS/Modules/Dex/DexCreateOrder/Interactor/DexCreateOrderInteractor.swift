@@ -19,16 +19,39 @@ private enum Constants {
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
-    private let auth = UseCasesFactory.instance.authorization
-    private let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
-    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
-    private let transactionInteractor = UseCasesFactory.instance.transactions
-    private let assetsInteractor = UseCasesFactory.instance.assets
-    private let orderBookInteractor = UseCasesFactory.instance.oderbook
-    private let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
+    private let auth: AuthorizationUseCaseProtocol
+    private let matcherRepository: MatcherRepositoryProtocol
+    private let orderBookRepository: DexOrderBookRepositoryProtocol
+    private let transactionInteractor: TransactionsUseCaseProtocol
+    private let assetsInteractor: AssetsUseCaseProtocol
+    private let orderBookInteractor: OrderBookUseCaseProtocol
+    private let environmentRepository: EnvironmentRepositoryProtocol
+    private let developmentConfig: DevelopmentConfigsRepositoryProtocol
     
+    init(authorization: AuthorizationUseCaseProtocol,
+         matcherRepository: MatcherRepositoryProtocol,
+         dexOrderBookRepository: DexOrderBookRepositoryProtocol,
+         transactionInteractor: TransactionsUseCaseProtocol,
+         assetsInteractor: AssetsUseCaseProtocol,
+         orderBookInteractor: OrderBookUseCaseProtocol,
+         environmentRepository: EnvironmentRepositoryProtocol,
+         developmentConfig: DevelopmentConfigsRepositoryProtocol) {
+        self.auth = authorization
+        self.matcherRepository = matcherRepository
+        self.orderBookRepository = dexOrderBookRepository
+        self.transactionInteractor = transactionInteractor
+        self.assetsInteractor = assetsInteractor
+        self.orderBookInteractor = orderBookInteractor
+        self.environmentRepository = environmentRepository
+        self.developmentConfig = developmentConfig
+    }
+    
+    func getDevConfig() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
+        developmentConfig.developmentConfigs()
+    }
   
-    func createOrder(order: DexCreateOrder.DTO.Order, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+    func createOrder(order: DexCreateOrder.DTO.Order,
+                     type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
         return calculateMarketOrderPriceIfNeed(order: order, createType: type)
             .flatMap { [weak self] marketOrder -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
@@ -139,7 +162,10 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 
 private extension DexCreateOrderInteractor {
 
-    func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order, updatedPrice: Money?, priceAvg: Money?, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+    func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order,
+                                    updatedPrice: Money?,
+                                    priceAvg: Money?,
+                                    type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
         return auth.authorizedWallet()
                .flatMap{ [weak self] wallet -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
@@ -154,7 +180,6 @@ private extension DexCreateOrderInteractor {
                    .flatMap{ [weak self] (matcherPublicKey, environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                        guard let self = self else { return Observable.empty() }
                        
-                    
                        let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
                        let orderPrice = updatedPrice ?? order.price
                        let price = (orderPrice.decimalValue * pow(10, precisionDifference)).int64Value
