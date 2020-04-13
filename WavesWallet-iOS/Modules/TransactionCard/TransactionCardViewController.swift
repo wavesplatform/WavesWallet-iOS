@@ -6,11 +6,11 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
-import RxSwift
-import Extensions
 import DomainLayer
+import Extensions
+import Foundation
+import RxSwift
+import UIKit
 
 private typealias Types = TransactionCard
 
@@ -24,7 +24,6 @@ private struct Constants {
 }
 
 protocol TransactionCardModuleOutput: AnyObject {
-
     func transactionCardAddContact(address: String)
     func transactionCardEditContact(contact: DomainLayer.DTO.Contact)
 
@@ -37,15 +36,12 @@ protocol TransactionCardModuleOutput: AnyObject {
 }
 
 protocol TransactionCardModuleInput: AnyObject {
-
     func addedContact(address: String, contact: DomainLayer.DTO.Contact)
     func editedContact(address: String, contact: DomainLayer.DTO.Contact)
     func deleteContact(address: String, contact: DomainLayer.DTO.Contact)
 }
 
-
 final class TransactionCardScroll: ModalTableView {
-
     fileprivate var arrowButton: UIButton = {
         let arrowButton = ArrowButton(type: .custom)
         arrowButton.translatesAutoresizingMaskIntoConstraints = true
@@ -71,20 +67,18 @@ final class TransactionCardScroll: ModalTableView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let screenHeight = self.frame.height - self.adjustedContentInset.top
+        let screenHeight = frame.height - adjustedContentInset.top
 
         let contentHeight = contentSize.height
 
         var arrowFrame = arrowButton.frame
         arrowFrame.size = Constants.sizeArrowButton
 
-        let xArrow = self.frame.width - arrowFrame.width - Constants.rightPaddingArrowButton
+        let xArrow = frame.width - arrowFrame.width - Constants.rightPaddingArrowButton
         if contentHeight > screenHeight {
-
             arrowFrame.origin = .init(x: xArrow,
                                       y: contentHeight)
         } else {
-
             let offset = screenHeight - contentHeight
 
             if offset > (arrowFrame.height + Constants.bottomPaddingArrowButton) {
@@ -114,7 +108,6 @@ final class TransactionCardScroll: ModalTableView {
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-
         if arrowButton.frame.contains(point) {
             return arrowButton
         }
@@ -123,22 +116,21 @@ final class TransactionCardScroll: ModalTableView {
     }
 }
 
-final private class ArrowButton: UIButton { }
+private final class ArrowButton: UIButton {}
 
 final class TransactionCardViewController: ModalScrollViewController, DataSourceProtocol {
-
     @IBOutlet var tableView: TransactionCardScroll!
 
     override var scrollView: UIScrollView {
         return tableView!
     }
-    
+
     private var rootView: TransactionCardView {
         return view as! TransactionCardView
     }
 
     fileprivate var arrowButton: UIButton {
-        return self.tableView.arrowButton
+        return tableView.arrowButton
     }
 
     fileprivate let cardHeaderView: TransactionCardHeaderView = TransactionCardHeaderView.loadView() as! TransactionCardHeaderView
@@ -152,7 +144,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     var sections: [TransactionCard.Section] = .init()
 
     weak var delegate: TransactionCardModuleOutput?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         rootView.delegate = self
@@ -163,7 +155,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 
         system
             .start()
-            .drive(onNext: { [weak self] (state) in
+            .drive(onNext: { [weak self] state in
                 guard let self = self else { return }
                 self.update(state: state.core)
                 self.update(state: state.ui)
@@ -172,31 +164,28 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     }
 
     // MARK: ModalScrollViewContext
+
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
         return size.height
     }
 
-    override func bottomScrollInset(for size: CGSize) -> CGFloat {
+    override func bottomScrollInset(for _: CGSize) -> CGFloat {
         return Constants.sizeArrowButton.height + Constants.bottomPaddingArrowButton
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.tableView.controllerLayoutInsets = UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.controllerLayoutInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
-    
 
     private func layoutInsetsTop() -> CGFloat {
-        
-        let localInset = self.layoutInsets.top
+        let localInset = layoutInsets.top
         var inset: CGFloat = 0
-        
+
         if let vc = presentingViewController as? SlideMenuProtocol {
-            
             if let tabBarVc = vc.mainViewController as? UITabBarController,
                 let selectedViewController = tabBarVc.selectedViewController as? UINavigationController,
                 let topVc = selectedViewController.topViewController {
-                
                 inset = topVc.layoutInsets.top - localInset
             } else {
                 inset = vc.mainViewController.layoutInsets.top - localInset
@@ -212,45 +201,43 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 // MARK: Private
 
 extension TransactionCardViewController {
-
-    @IBAction func handlerTapOnArrowButton(sender: UIButton) {
+    @IBAction func handlerTapOnArrowButton(sender _: UIButton) {
         ImpactFeedbackGenerator.impactOccurred()
-        self.delegate?.transactionCardViewDismissCard()
+        delegate?.transactionCardViewDismissCard()
     }
 
     private func update(state: Types.State.Core) {
-        self.kind = state.kind
+        kind = state.kind
     }
 
     private func update(state: Types.State.UI) {
-
         switch state.action {
         case .update:
 
-            self.sections = state.sections
+            sections = state.sections
             tableView.reloadData()
 
         case .insertRows:
-            
-            self.sections = state.sections
 
-            UIView.transition(with: self.tableView,
+            sections = state.sections
+
+            UIView.transition(with: tableView,
                               duration: Constants.animationDurationReloadTable,
                               options: .transitionCrossDissolve,
                               animations: {
-                self.tableView.reloadData()
-            }, completion: { (_) in
+                                  self.tableView.reloadData()
+                              }, completion: { _ in
 
             })
 
         case .didCancelOrder:
-            self.sections = state.sections
+            sections = state.sections
             tableView.reloadData()
 
-            guard let order = self.kind?.order else { return }
-            self.delegate?.transactionCardCanceledOrder(order)
+            guard let order = kind?.order else { return }
+            delegate?.transactionCardCanceledOrder(order)
 
-        case .error(let error):
+        case let .error(error):
             showNetworkErrorSnack(error: error)
 
         default:
@@ -259,48 +246,46 @@ extension TransactionCardViewController {
     }
 
     private func updateContact(address: String, contact: DomainLayer.DTO.Contact?, isAdd: Bool) {
-
         if isAdd {
-            self.delegate?.transactionCardAddContact(address: address)
+            delegate?.transactionCardAddContact(address: address)
         } else {
             if let contact = contact {
-                self.delegate?.transactionCardEditContact(contact: contact)
+                delegate?.transactionCardEditContact(contact: contact)
             }
         }
     }
 
     private func handlerTapActionButton(_ button: TransactionCardActionsCell.Model.Button) {
-
         switch button {
         case .cancelLeasing:
-            guard let transaction = self.kind?.transaction else { return }
-            self.delegate?.transactionCardCancelLeasing(transaction)
+            guard let transaction = kind?.transaction else { return }
+            delegate?.transactionCardCancelLeasing(transaction)
 
         case .sendAgain:
-            guard let transaction = self.kind?.transaction else { return }
-            self.delegate?.transactionCardResendTransaction(transaction)
+            guard let transaction = kind?.transaction else { return }
+            delegate?.transactionCardResendTransaction(transaction)
 
         case .cancelOrder:
-            self.system.send(.cancelOrder)
-            
+            system.send(.cancelOrder)
+
         case .copyAllData:
 
-            guard let transaction = self.kind?.transaction else { return }
+            guard let transaction = kind?.transaction else { return }
             DispatchQueue.main.async {
                 UIPasteboard.general.string = transaction.allData
             }
 
         case .copyTxID:
 
-            guard let transaction = self.kind?.transaction else { return }
+            guard let transaction = kind?.transaction else { return }
 
             DispatchQueue.main.async {
                 UIPasteboard.general.string = transaction.id
             }
 
         case .viewOnExplorer:
-            guard let transaction = self.kind?.transaction else { return }
-            self.delegate?.transactionCardViewOnExplorer(transaction)
+            guard let transaction = kind?.transaction else { return }
+            delegate?.transactionCardViewOnExplorer(transaction)
         }
     }
 }
@@ -308,11 +293,10 @@ extension TransactionCardViewController {
 // MARK: ModalRootViewDelegate
 
 extension TransactionCardViewController: ModalRootViewDelegate {
-    
     func modalHeaderView() -> UIView {
         return cardHeaderView
     }
-    
+
     func modalHeaderHeight() -> CGFloat {
         return Constants.cardHeaderViewHeight
     }
@@ -321,123 +305,116 @@ extension TransactionCardViewController: ModalRootViewDelegate {
 // MARK: TransactionCardViewControllerInput
 
 extension TransactionCardViewController: TransactionCardModuleInput {
-
-    func deleteContact(address: String, contact: DomainLayer.DTO.Contact) {
-        self.system?.send(.deleteContact(contact: contact))
+    func deleteContact(address _: String, contact: DomainLayer.DTO.Contact) {
+        system?.send(.deleteContact(contact: contact))
     }
 
-    func addedContact(address: String, contact: DomainLayer.DTO.Contact) {
-        self.system?.send(.addContact(contact: contact))
+    func addedContact(address _: String, contact: DomainLayer.DTO.Contact) {
+        system?.send(.addContact(contact: contact))
     }
 
-    func editedContact(address: String, contact: DomainLayer.DTO.Contact) {
-        self.system?.send(.editContact(contact: contact))
+    func editedContact(address _: String, contact: DomainLayer.DTO.Contact) {
+        system?.send(.editContact(contact: contact))
     }
 }
 
 // MARK: UITableViewDataSource
 
 extension TransactionCardViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+    func numberOfSections(in _: UITableView) -> Int {
+        sections.count
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rows.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sections[section].rows.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = self[indexPath]
 
         switch row {
-        case .general(let model):
+        case let .general(model):
             let cell: TransactionCardGeneralCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .address(let model):
-            let cell:TransactionCardAddressCell = tableView.dequeueCell()
+        case let .address(model):
+            let cell: TransactionCardAddressCell = tableView.dequeueCell()
             cell.update(with: model)
-            cell.tapAddressBookButton = { [weak self] (isAdd) in
-
+            cell.tapAddressBookButton = { [weak self] isAdd in
                 guard let self = self else { return }
 
-                self.updateContact(address: model.contactDetail.address,
-                                    contact: model.contact,
-                                    isAdd: isAdd)
+                self.updateContact(address: model.contactDetail.address, contact: model.contact, isAdd: isAdd)
             }
 
             return cell
 
-        case .keyValue(let model):
+        case let .keyValue(model):
             let cell: TransactionCardKeyValueCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .keyBalance(let model):
+        case let .keyBalance(model):
             let cell: TransactionCardKeyBalanceCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .status(let model):
+        case let .status(model):
             let cell: TransactionCardStatusCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .massSentRecipient(let model):
+        case let .massSentRecipient(model):
             let cell: TransactionCardMassSentRecipientCell = tableView.dequeueCell()
             cell.update(with: model)
-            cell.tapAddressBookButton = { [weak self] (isAdd) in
-
+            cell.tapAddressBookButton = { [weak self] isAdd in
                 guard let self = self else { return }
                 self.updateContact(address: model.contactDetail.address,
-                                    contact: model.contact,
-                                    isAdd: isAdd)
+                                   contact: model.contact,
+                                   isAdd: isAdd)
             }
 
             return cell
 
-        case .dashedLine(let model):
+        case let .dashedLine(model):
             let cell: TransactionCardDashedLineCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .actions(let model):
+        case let .actions(model):
             let cell: TransactionCardActionsCell = tableView.dequeueCell()
             cell.update(with: model)
-            cell.tapOnButton = { [weak self] (button)  in
+            cell.tapOnButton = { [weak self] button in
                 guard let self = self else { return }
                 self.handlerTapActionButton(button)
             }
 
             return cell
 
-        case .description(let model):
+        case let .description(model):
             let cell: TransactionCardDescriptionCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .exchange(let model):
+        case let .exchange(model):
             let cell: TransactionCardExchangeCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .assetDetail(let model):
+        case let .assetDetail(model):
             let cell: TransactionCardAssetDetailCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .showAll(let model):
+        case let .showAll(model):
             let cell: TransactionCardShowAllCell = tableView.dequeueCell()
             cell.update(with: model)
 
@@ -448,42 +425,42 @@ extension TransactionCardViewController: UITableViewDataSource {
 
             return cell
 
-        case .asset(let model):
+        case let .asset(model):
             let cell: TransactionCardAssetCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .sponsorshipDetail(let model):
+        case let .sponsorshipDetail(model):
             let cell: TransactionCardSponsorshipDetailCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .order(let model):
+        case let .order(model):
 
             let cell: TransactionCardOrderCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
 
-        case .keyLoading(let model):
+        case let .keyLoading(model):
             let cell: TransactionCardKeyLoadingCell = tableView.dequeueCell()
             cell.update(with: model)
 
             return cell
-            
-        case .invokeScript(let model):
+
+        case let .invokeScript(model):
             let cell: TransactionCardInvokeScriptCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
-            
-        case .orderFilled(let model):
+
+        case let .orderFilled(model):
             let cell: TransactionCardOrderFilledCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
-            
-        case .exchangeFee(let model):
+
+        case let .exchangeFee(model):
             let cell: TransactionCardExchangeFeeCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
@@ -494,21 +471,20 @@ extension TransactionCardViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension TransactionCardViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 
-    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.minValue
+    func tableView(_: UITableView, estimatedHeightForFooterInSection _: Int) -> CGFloat {
+        CGFloat.minValue
     }
 
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.minValue
+    func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
+        CGFloat.minValue
     }
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

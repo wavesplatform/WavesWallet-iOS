@@ -6,12 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import WavesSDK
-import DomainLayer
 
 extension AliasTransaction {
-
     convenience init(transaction: DomainLayer.DTO.AliasTransaction) {
         self.init()
         type = transaction.type
@@ -33,9 +32,9 @@ extension AliasTransaction {
 }
 
 extension DomainLayer.DTO.AliasTransaction {
-
-    init(transaction: NodeService.DTO.AliasTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-
+    init(transaction: NodeService.DTO.AliasTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -52,7 +51,6 @@ extension DomainLayer.DTO.AliasTransaction {
     }
 
     init(transaction: AliasTransaction) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,

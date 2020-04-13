@@ -46,7 +46,12 @@ extension ReceiveAddressCoordinator: ReceiveAddressViewControllerModuleOutput {
     
     func receiveAddressDidTapClose() {
         // TODO: Need refactor
-        if let assetVc = navigationRouter.navigationController.viewControllers.first(where: {$0.classForCoder == AssetDetailViewController.classForCoder()}) {
+        
+        let maybeAssetVC = navigationRouter.navigationController.viewControllers.first {
+            $0.classForCoder == AssetDetailViewController.classForCoder()
+        }
+        
+        if let assetVc = maybeAssetVC {
             navigationRouter.navigationController.popToViewController(assetVc, animated: true)
         } else {
             navigationRouter.popToRootViewController(animated: true)

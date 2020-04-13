@@ -6,11 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
 final class AssetBalanceMoneyInfoView: UIView, NibOwnerLoadable, ViewConfiguration {
-
     struct Model {
         let name: String
         let money: Money
@@ -27,6 +26,7 @@ final class AssetBalanceMoneyInfoView: UIView, NibOwnerLoadable, ViewConfigurati
 
     func update(with model: Model) {
         namelabel.text = model.name
-        balanceLabel.attributedText = NSAttributedString.styleForBalance(text: model.money.displayTextFull(isFiat: model.isFiat), font: balanceLabel.font)
+        balanceLabel.attributedText = NSAttributedString
+            .styleForBalance(text: model.money.displayTextFull(isFiat: model.isFiat), font: balanceLabel.font)
     }
 }

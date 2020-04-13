@@ -6,14 +6,13 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
 import Extensions
+import Foundation
+import WavesSDK
+import WavesSDKExtensions
 
 extension DataTransaction {
-
     convenience init(transaction: DomainLayer.DTO.DataTransaction) {
         self.init()
         type = transaction.type
@@ -30,14 +29,13 @@ extension DataTransaction {
             self.proofs.append(objectsIn: proofs)
         }
 
-
         let dataList = transaction.data.map { data -> DataTransactionData in
             let txData = DataTransactionData()
             switch data.value {
             case .bool(let value):
                 txData.boolean.value = value
             case .integer(let value):
-                //TODO: Change bd
+                // TODO: Change bd
                 txData.integer.value = (value as? Int) ?? 0
             case .string(let value):
                 txData.string = value
@@ -55,11 +53,9 @@ extension DataTransaction {
 }
 
 extension DomainLayer.DTO.DataTransaction {
-
-    init(transaction: NodeService.DTO.DataTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-
-    
-
+    init(transaction: NodeService.DTO.DataTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         let dataList = transaction.data.map { data -> DomainLayer.DTO.DataTransaction.Data in
 
             var dataValue: DomainLayer.DTO.DataTransaction.Data.Value!
@@ -94,7 +90,6 @@ extension DomainLayer.DTO.DataTransaction {
     }
 
     init(transaction: DataTransaction) {
-    
         let dataList = transaction.data.toArray().map { data -> DomainLayer.DTO.DataTransaction.Data in
 
             var dataValue: DomainLayer.DTO.DataTransaction.Data.Value!
@@ -111,8 +106,8 @@ extension DomainLayer.DTO.DataTransaction {
 
             return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
         }
-        
-        //TODO: Chain id
+
+        // TODO: Chain id
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,

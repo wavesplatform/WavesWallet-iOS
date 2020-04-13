@@ -10,7 +10,6 @@ import DomainLayer
 import Extensions
 import Foundation
 import RESideMenu
-import RxOptional
 import RxSwift
 import UIKit
 import WavesSDK
@@ -36,7 +35,7 @@ struct Application: TSUD {
     private static let key: String = "com.waves.application.settings"
 
     static let defaultValue = Settings(isAlreadyShowHelloDisplay: false, isAlreadyShowMigrationWavesExchangeDisplay: false)
-    
+
     static let stringKey = Application.key
 }
 
@@ -53,10 +52,12 @@ final class AppCoordinator: Coordinator {
     private let windowRouter: WindowRouter
 
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
+    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol =
+        UseCasesFactory.instance.repositories.mobileKeeperRepository
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol = UseCasesFactory.instance.applicationVersionUseCase
 
-    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol =
+        UseCasesFactory.instance.repositories.developmentConfigsRepository
 
     private let disposeBag = DisposeBag()
     private var deepLink: DeepLink?
@@ -69,7 +70,7 @@ final class AppCoordinator: Coordinator {
 
     #if DEBUG || TEST
         init(_ debugWindowRouter: DebugWindowRouter, deepLink: DeepLink?) {
-            self.windowRouter = debugWindowRouter
+            windowRouter = debugWindowRouter
             debugWindowRouter.delegate = self
             self.deepLink = deepLink
         }
@@ -180,13 +181,13 @@ extension AppCoordinator: PresentationCoordinator {
         
 
         switch display {
-        case .hello(let isNewUser):
+        case let .hello(isNewUser):
 
             let helloCoordinator = HelloCoordinator(windowRouter: windowRouter, isNewUser: isNewUser)
             helloCoordinator.delegate = self
             addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
 
-        case .passcode(let wallet):
+        case let .passcode(wallet):
 
             guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
 
@@ -195,7 +196,7 @@ extension AppCoordinator: PresentationCoordinator {
 
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
-        case .slide(let wallet):
+        case let .slide(wallet):
 
             guard isHasCoordinator(type: SlideCoordinator.self) != true else {
                 showDeepLinkVcIfNeed()
@@ -229,19 +230,19 @@ extension AppCoordinator: PresentationCoordinator {
             let coordinator = WidgetSettingsCoordinator(windowRouter: windowRouter)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
 
-        case .mobileKeeper(let request):
+        case let .mobileKeeper(request):
             let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, request: request)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
 
-        case .send(let link):
+        case let .send(link):
 
             deepLink = link
 
-        case .dex(let link):
+        case let .dex(link):
 
             deepLink = link
 
-        case .forceUpdate(let data):
+        case let .forceUpdate(data):
 
             isLockChangeDisplay = true
 
@@ -385,7 +386,9 @@ extension AppCoordinator {
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
             .flatMap(weak: self, selector: { $0.display })
-            .subscribe(weak: self, onNext: { $0.showDisplay })
+            .subscribe(onNext: { [weak self] display in
+                self?.showDisplay(display)
+            })
             .disposed(by: disposeBag)
     }
 

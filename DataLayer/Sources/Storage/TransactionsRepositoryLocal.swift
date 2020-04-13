@@ -6,15 +6,14 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
+import Extensions
 import Foundation
 import RealmSwift
 import RxRealm
 import RxSwift
-import RxOptional
 import WavesSDK
 import WavesSDKExtensions
-import DomainLayer
-import Extensions
 
 extension Realm {
     func filter<ParentType: Object>(parentType: ParentType.Type,
@@ -27,7 +26,7 @@ extension Realm {
     }
 }
 
-fileprivate extension TransactionType {
+private extension TransactionType {
     // The types using only waves assetId
     static var waves: [TransactionType] {
         return [.createLease,
@@ -38,7 +37,6 @@ fileprivate extension TransactionType {
     }
 
     func predicate(from specifications: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
         switch self {
         case .createAlias:
             return AliasTransaction.predicate(specifications, myAddress: myAddress)
@@ -85,7 +83,6 @@ fileprivate extension TransactionType {
     }
 
     func anyTransaction(from transaction: AnyTransaction) -> DomainLayer.DTO.AnyTransaction? {
-
         switch self {
         case .createAlias:
             guard let aliasTransaction = transaction.aliasTransaction else { return nil }
@@ -147,15 +144,19 @@ fileprivate extension TransactionType {
 }
 
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
-
-    func transactions(by address: DomainLayer.DTO.Address, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-        return self.transactions(by: address, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: TransactionType.all))
+    func transactions(by address: DomainLayer.DTO.Address,
+                      offset: Int,
+                      limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+        let specifications = TransactionsSpecifications(page: .init(offset: offset, limit: limit),
+                                                        assets: [],
+                                                        senders: [],
+                                                        types: TransactionType.all)
+        return transactions(by: address, specifications: specifications)
     }
 
     func transactions(by address: DomainLayer.DTO.Address,
                       specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-
-        return Observable.create { [weak self] (observer) -> Disposable in
+        Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
                 observer.onError(AccountBalanceRepositoryError.fail)
@@ -167,10 +168,9 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-
             let result = self.transactionsResultFromRealm(by: address,
-                                                           specifications: specifications,
-                                                           realm: realm)
+                                                          specifications: specifications,
+                                                          realm: realm)
 
             let transactions = self.mapping(result: result, by: specifications)
 
@@ -183,21 +183,22 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     private func transactionsResultFromRealm(by address: DomainLayer.DTO.Address,
                                              specifications: TransactionsSpecifications,
                                              realm: Realm) -> Results<AnyTransaction> {
-
         let wavesAssetId = WavesSDKConstants.wavesAssetId
 
         let hasWaves = specifications.assets.contains(wavesAssetId)
 
         var types = specifications.types
-        if specifications.assets.count > 0 && hasWaves == false {
-            types = types.filter { TransactionType.waves.contains($0) == false }
+        if !specifications.assets.isEmpty, !hasWaves {
+            types = types.filter { !TransactionType.waves.contains($0) }
         }
 
-        var predicatesFromTypes: [NSPredicate] = .init()
-        types.forEach { predicatesFromTypes.append($0.predicate(from: specifications, myAddress: address)) }
+        var predicatesFromTypes: [NSPredicate] = []
+        types.forEach {
+            predicatesFromTypes.append($0.predicate(from: specifications, myAddress: address))
+        }
 
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
-        
+
         let txsResult = realm
             .objects(AnyTransaction.self)
             .sorted(byKeyPath: "timestamp", ascending: false)
@@ -207,10 +208,10 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         return txsResult
     }
 
-    private func mapping(result: Results<AnyTransaction>, by specifications: TransactionsSpecifications) -> [DomainLayer.DTO.AnyTransaction] {
-
+    private func mapping(result: Results<AnyTransaction>,
+                         by specifications: TransactionsSpecifications) -> [DomainLayer.DTO.AnyTransaction] {
         var txs: [AnyTransaction] = []
-        if let page = specifications.page {        
+        if let page = specifications.page {
             txs = result.get(offset: page.offset, limit: page.limit)
         } else {
             txs = result.toArray()
@@ -219,8 +220,8 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         return mapping(txs: txs, by: specifications)
     }
 
-    private func mapping(txs: [AnyTransaction], by specifications: TransactionsSpecifications) -> [DomainLayer.DTO.AnyTransaction] {
-
+    private func mapping(txs: [AnyTransaction],
+                         by _: TransactionsSpecifications) -> [DomainLayer.DTO.AnyTransaction] {
         var transactions = [DomainLayer.DTO.AnyTransaction]()
 
         for any in txs {
@@ -234,8 +235,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     func newTransactions(by address: DomainLayer.DTO.Address,
                          specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-
-        return Observable.create { [weak self] (observer) -> Disposable in
+        Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
                 observer.onError(AccountBalanceRepositoryError.fail)
@@ -248,25 +248,25 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             }
 
             let txsResult = self.transactionsResultFromRealm(by: address,
-                                                        specifications: specifications,
-                                                        realm: realm)
+                                                             specifications: specifications,
+                                                             realm: realm)
 
             // TODO: - .bind(to: observer) странное поведение
             let dispose = Observable
                 .arrayWithChangeset(from: txsResult)
-                .flatMap({ [weak self] (list, changeSet) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+                .flatMap { [weak self] list, changeSet -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
                     guard let self = self else {
                         return Observable.never()
                     }
 
                     guard let changeset = changeSet else { return Observable.just([]) }
-                    let txs = changeset.inserted.reduce(into: [AnyTransaction](), { (result, index) in
+                    let txs = changeset.inserted.reduce(into: [AnyTransaction]()) { result, index in
                         result.append(list[index])
-                    })
+                    }
                     let transactions = self.mapping(txs: txs, by: specifications)
                     return Observable.just(transactions)
-                })
+                }
                 .bind(to: observer)
 
             return Disposables.create([dispose])
@@ -275,49 +275,48 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
-        return self.transactions(by: DomainLayer.DTO.Address(address: accountAddress,
-                                                             contact: nil,
-                                                             isMyAccount: true,
-                                                             aliases: []),
-                                 specifications: TransactionsSpecifications(page: nil,
-                                                                            assets: .init(),
-                                                                            senders: .init(),
-                                                                            types: [TransactionType.createLease]))
-            .map({ txs -> [DomainLayer.DTO.LeaseTransaction] in
-                return txs.map({ tx -> DomainLayer.DTO.LeaseTransaction? in
-                    if case .lease(let leaseTx) = tx {
+        transactions(by: DomainLayer.DTO.Address(address: accountAddress,
+                                                 contact: nil,
+                                                 isMyAccount: true,
+                                                 aliases: []),
+                     specifications: TransactionsSpecifications(page: nil,
+                                                                assets: .init(),
+                                                                senders: .init(),
+                                                                types: [TransactionType.createLease]))
+            .map { txs -> [DomainLayer.DTO.LeaseTransaction] in
+                txs.map { tx -> DomainLayer.DTO.LeaseTransaction? in
+                    if case let .lease(leaseTx) = tx {
                         return leaseTx
                     } else {
                         return nil
                     }
-                })
+                }
                 .compactMap { $0 }
-            })
+            }
     }
 
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
+    func send(by _: TransactionSenderSpecifications,
+              wallet _: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
     func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
-
-        return Observable.create { observer -> Disposable in
-
+        Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
 
             let result = realm.objects(AnyTransaction.self)
-                .filter({ tx -> Bool in
+                .filter { tx -> Bool in
                     if ignoreUnconfirmed {
                         return tx.status != TransactionStatus.unconfirmed.rawValue
                     }
                     return true
-                })
+                }
 
-            observer.onNext(result.count != 0)
+            observer.onNext(!result.isEmpty)
             observer.onCompleted()
 
             return Disposables.create()
@@ -325,9 +324,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     }
 
     func isHasTransaction(by id: String, accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
-
-        return Observable.create { observer -> Disposable in
-
+        Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
@@ -336,7 +333,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
             var result: Bool = false
 
-            if let object = object  {
+            if let object = object {
                 if ignoreUnconfirmed {
                     result = object.status != TransactionStatus.unconfirmed.rawValue
                 } else {
@@ -353,20 +350,19 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
     func isHasTransactions(by ids: [String], accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
-
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
 
             let result = realm.objects(AnyTransaction.self)
-                            .filter("id IN %@", ids)
-                            .filter({ tx -> Bool in
-                                if ignoreUnconfirmed {
-                                    return tx.status != TransactionStatus.unconfirmed.rawValue
-                                }
-                                return true
-                            })
+                .filter("id IN %@", ids)
+                .filter { tx -> Bool in
+                    if ignoreUnconfirmed {
+                        return tx.status != TransactionStatus.unconfirmed.rawValue
+                    }
+                    return true
+                }
             observer.onNext(result.count == ids.count)
             observer.onCompleted()
 
@@ -375,8 +371,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     }
 
     func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool> {
-
-        return Observable.create { observer -> Disposable in
+        Observable.create { observer -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
@@ -412,23 +407,22 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     }
 }
 
-fileprivate protocol TransactionsSpecificationsConverter {
+private protocol TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate
 }
 
 extension UnrecognisedTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-        return NSPredicate(format: "unrecognisedTransaction != NULL")
+    static func predicate(_: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        NSPredicate(format: "unrecognisedTransaction != NULL")
     }
 }
 
 extension IssueTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
-        var predicates: [NSPredicate] = .init()
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        var predicates: [NSPredicate] = []
         predicates.append(NSPredicate(format: "issueTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "issueTransaction.assetId IN %@", from.assets))
         }
 
@@ -438,31 +432,38 @@ extension IssueTransaction: TransactionsSpecificationsConverter {
 
 extension TransferTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
-        var predicates: [NSPredicate] = .init()
+        var predicates: [NSPredicate] = []
         predicates.append(NSPredicate(format: "transferTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             let aliases = myAddress.aliases.map { $0.name }
-            let myTx = NSPredicate(format: "transferTransaction.assetId IN %@ AND ((transferTransaction.sender == %@ ||  transferTransaction.sender IN %@) OR ((transferTransaction.recipient == %@ || transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
+            let predicateFormat = "transferTransaction.assetId IN %@ AND ((transferTransaction.sender == %@" +
+                " ||  transferTransaction.sender IN %@) OR" +
+                " ((transferTransaction.recipient == %@ || transferTransaction.recipient IN %@)))"
+            let myTx = NSPredicate(format: predicateFormat, from.assets, myAddress.address, aliases, myAddress.address, aliases)
 
-            let sponsoredTx = NSPredicate(format: "transferTransaction.feeAssetId IN %@ AND ((transferTransaction.sender != %@ && !(transferTransaction.sender IN %@)) AND (transferTransaction.recipient != %@ && !(transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
+            let sponsoredTxPredicateFormat = "transferTransaction.feeAssetId IN %@" +
+                " AND ((transferTransaction.sender != %@ && !(transferTransaction.sender IN %@))" +
+                " AND (transferTransaction.recipient != %@ && !(transferTransaction.recipient IN %@)))"
+            let sponsoredTx = NSPredicate(format: sponsoredTxPredicateFormat,
+                                          from.assets,
+                                          myAddress.address,
+                                          aliases,
+                                          myAddress.address,
+                                          aliases)
 
             predicates.append(NSCompoundPredicate(orPredicateWithSubpredicates: [myTx, sponsoredTx]))
         }
-
-
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension ReissueTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "reissueTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "reissueTransaction.assetId IN %@", from.assets))
         }
 
@@ -471,30 +472,29 @@ extension ReissueTransaction: TransactionsSpecificationsConverter {
 }
 
 extension LeaseTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-        return NSPredicate(format: "leaseTransaction != NULL")
+    static func predicate(_: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        NSPredicate(format: "leaseTransaction != NULL")
     }
 }
 
 extension LeaseCancelTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-        return NSPredicate(format: "leaseCancelTransaction != NULL")
+    static func predicate(_: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        NSPredicate(format: "leaseCancelTransaction != NULL")
     }
 }
 
 extension AliasTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-        return NSPredicate(format: "aliasTransaction != NULL")
+    static func predicate(_: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        NSPredicate(format: "aliasTransaction != NULL")
     }
 }
 
 extension MassTransferTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
-        var predicates: [NSPredicate] = .init()
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        var predicates: [NSPredicate] = []
         predicates.append(NSPredicate(format: "massTransferTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "massTransferTransaction.assetId IN %@", from.assets))
         }
 
@@ -503,12 +503,11 @@ extension MassTransferTransaction: TransactionsSpecificationsConverter {
 }
 
 extension BurnTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "burnTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "burnTransaction.assetId IN %@", from.assets))
         }
 
@@ -517,13 +516,11 @@ extension BurnTransaction: TransactionsSpecificationsConverter {
 }
 
 extension ExchangeTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "exchangeTransaction != NULL"))
 
-        if from.assets.count > 0 {
-
+        if !from.assets.isEmpty {
             let format = "exchangeTransaction.order1.assetPair.amountAsset IN %@"
                 + " OR exchangeTransaction.order1.assetPair.priceAsset IN %@"
                 + " OR exchangeTransaction.order2.assetPair.amountAsset IN %@"
@@ -541,18 +538,17 @@ extension ExchangeTransaction: TransactionsSpecificationsConverter {
 }
 
 extension DataTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-        return NSPredicate(format: "dataTransaction != NULL")
+    static func predicate(_: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        NSPredicate(format: "dataTransaction != NULL")
     }
 }
 
 extension AssetScriptTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "assetScriptTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "assetScriptTransaction.assetId IN %@", from.assets))
         }
 
@@ -561,18 +557,17 @@ extension AssetScriptTransaction: TransactionsSpecificationsConverter {
 }
 
 extension ScriptTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-        return NSPredicate(format: "scriptTransaction != NULL")
+    static func predicate(_: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
+        NSPredicate(format: "scriptTransaction != NULL")
     }
 }
 
 extension SponsorshipTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "sponsorshipTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "sponsorshipTransaction.assetId IN %@", from.assets))
         }
 
@@ -581,15 +576,14 @@ extension SponsorshipTransaction: TransactionsSpecificationsConverter {
 }
 
 extension InvokeScriptTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
-        
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: DomainLayer.DTO.Address) -> NSPredicate {
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "invokeScriptTransaction != NULL"))
 
-        if from.assets.count > 0 {
+        if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "invokeScriptTransaction.payment.assetId IN %@", from.assets))
         }
-        
+
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }

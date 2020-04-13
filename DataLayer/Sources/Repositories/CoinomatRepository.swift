@@ -6,15 +6,14 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import Moya
-import WavesSDK
 import DomainLayer
 import Extensions
+import Foundation
+import Moya
+import RxSwift
+import WavesSDK
 
 private enum Response {
-    
     struct CreateTunnel: Decodable {
         let k1: String
         let k2: String
@@ -22,7 +21,6 @@ private enum Response {
     }
     
     struct GetTunnel: Decodable {
-        
         struct Tunnel: Decodable {
             let wallet_from: String
             let attachment: String
@@ -46,42 +44,42 @@ private enum Response {
 }
 
 final class CoinomatRepository: CoinomatRepositoryProtocol {
-    
     private let coinomatProvider: MoyaProvider<Coinomat.Service> = .anyMoyaProvider()
-
-    func tunnelInfo(asset: DomainLayer.DTO.Asset, currencyFrom: String, currencyTo: String, walletTo: String) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
-        
+    
+    func tunnelInfo(asset: DomainLayer.DTO.Asset,
+                    currencyFrom: String,
+                    currencyTo: String,
+                    walletTo: String) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
         let tunnel = Coinomat.Service.CreateTunnel(currency_from: currencyFrom,
                                                    currency_to: currencyTo,
                                                    wallet_to: walletTo)
-
+        
         return coinomatProvider.rx
-        .request(.createTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
-        .filterSuccessfulStatusAndRedirectCodes()
-        .map(Response.CreateTunnel.self)
-        .asObservable()
-        .flatMap({ [weak self] (model) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> in
-            guard let self = self else { return Observable.empty() }
-
-            let tunnel = Coinomat.Service.GetTunnel(xt_id: model.tunnel_id,
-                                                    k1: model.k1,
-                                                    k2: model.k2)
-            return self.coinomatProvider.rx
-            .request(.getTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
+            .request(.createTunnel(tunnel), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
-            .map(Response.GetTunnel.self)
+            .map(Response.CreateTunnel.self)
             .asObservable()
-            .map({ (model) -> DomainLayer.DTO.Coinomat.TunnelInfo in
-                let min = Money(value: Decimal(model.tunnel.in_min), asset.precision)
-                return DomainLayer.DTO.Coinomat.TunnelInfo(address: model.tunnel.wallet_from,
-                                                           attachment: model.tunnel.attachment,
-                                                           min: min)
-            })
-        })
+            .flatMap { [weak self] model -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> in
+                guard let self = self else { return Observable.empty() }
+                
+                let tunnel = Coinomat.Service.GetTunnel(xt_id: model.tunnel_id,
+                                                        k1: model.k1,
+                                                        k2: model.k2)
+                return self.coinomatProvider.rx
+                    .request(.getTunnel(tunnel), callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .map(Response.GetTunnel.self)
+                    .asObservable()
+                    .map { model -> DomainLayer.DTO.Coinomat.TunnelInfo in
+                        let min = Money(value: Decimal(model.tunnel.in_min), asset.precision)
+                        return DomainLayer.DTO.Coinomat.TunnelInfo(address: model.tunnel.wallet_from,
+                                                                   attachment: model.tunnel.attachment,
+                                                                   min: min)
+                    }
+            }
     }
     
     func getRate(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Coinomat.Rate> {
-                
         let rate = Coinomat.Service.Rate(from: asset.wavesId ?? "",
                                          to: asset.gatewayId ?? "")
         
@@ -90,17 +88,16 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.Rate.self)
             .asObservable()
-            .map({ (model) -> DomainLayer.DTO.Coinomat.Rate in
+            .map { model -> DomainLayer.DTO.Coinomat.Rate in
                 
                 let fee = Money(value: Decimal(model.fee_out), asset.precision)
                 let min = Money(value: Decimal(model.in_min), asset.precision)
                 let max = Money(value: Decimal(model.in_max), asset.precision)
                 return DomainLayer.DTO.Coinomat.Rate(fee: fee, min: min, max: max)
-            })
+            }
     }
     
     func cardLimits(address: String, fiat: String) -> Observable<DomainLayer.DTO.Coinomat.CardLimit> {
-        
         let cardLimit = Coinomat.Service.CardLimit(crypto: WavesSDKConstants.wavesAssetId,
                                                    address: address,
                                                    fiat: fiat)
@@ -109,35 +106,33 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.CardLimit.self)
             .asObservable()
-            .map({ (limit) -> DomainLayer.DTO.Coinomat.CardLimit in
+            .map { limit -> DomainLayer.DTO.Coinomat.CardLimit in
                 let min = Money(value: Decimal(limit.min), WavesSDKConstants.FiatDecimals)
                 let max = Money(value: Decimal(limit.max), WavesSDKConstants.FiatDecimals)
                 return DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max)
-            })
+            }
     }
     
     func getPrice(address: String, amount: Money, type: String) -> Observable<Money> {
-        
         let price = Coinomat.Service.Price(fiat: type,
                                            address: address,
                                            amount: amount.doubleValue)
         return coinomatProvider.rx
-        .request(.getPrice(price), callbackQueue: DispatchQueue.global(qos: .userInteractive))
-        .filterSuccessfulStatusAndRedirectCodes()
-        .asObservable()
-        .map({ (response) -> Money in
-            
-            let string = String(data: response.data, encoding: .utf8) ?? ""
-            return Money(value: Decimal((string as NSString).doubleValue), WavesSDKConstants.WavesDecimals)
-        })
+            .request(.getPrice(price), callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .filterSuccessfulStatusAndRedirectCodes()
+            .asObservable()
+            .map { response -> Money in
+                
+                let string = String(data: response.data, encoding: .utf8) ?? ""
+                return Money(value: Decimal((string as NSString).doubleValue), WavesSDKConstants.WavesDecimals)
+            }
     }
     
     func generateBuyLink(address: String, amount: Double, fiat: String) -> Observable<String> {
-
-        let params = ["crypto" : WavesSDKConstants.wavesAssetId,
-                      "address" : address,
-                      "amount" : String(amount),
-                      "fiat" : fiat]
+        let params = ["crypto": WavesSDKConstants.wavesAssetId,
+                      "address": address,
+                      "amount": String(amount),
+                      "fiat": fiat]
         
         return Observable.just(Coinomat.buyURL.urlByAdding(params: params))
     }

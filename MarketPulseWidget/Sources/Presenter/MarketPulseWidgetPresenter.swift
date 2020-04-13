@@ -8,8 +8,8 @@
 
 import Foundation
 import RxCocoa
-import RxSwift
 import RxFeedback
+import RxSwift
 import WavesSDK
 
 protocol MarketPulseWidgetPresenterProtocol {
@@ -20,52 +20,47 @@ protocol MarketPulseWidgetPresenterProtocol {
 }
 
 final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
-    
     var interactor: MarketPulseWidgetInteractorProtocol!
     private let disposeBag = DisposeBag()
-        
+    
     func system(feedbacks: [MarketPulseWidgetPresenter.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
         newFeedbacks.append(querySettings())
         newFeedbacks.append(queryChachedAsset())
-
+        
         Driver.system(initialState: MarketPulse.State.initialState,
                       reduce: MarketPulseWidgetPresenter.reduce,
                       feedback: newFeedbacks)
-        .drive()
-        .disposed(by: disposeBag)
+            .drive()
+            .disposed(by: disposeBag)
     }
     
     private func queryAssets() -> Feedback {
-        return react(request: { state -> MarketPulse.State? in
-            return state.isNeedRefreshing ? state : nil
-        }, effects: { [weak self] _ -> Signal<MarketPulse.Event> in
-            guard let self = self else { return Signal.empty() }
-            return self.interactor.assets().map {.setAssets($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        react(request: { state -> MarketPulse.State? in state.isNeedRefreshing ? state : nil },
+              effects: { [weak self] _ -> Signal<MarketPulse.Event> in
+                  guard let self = self else { return Signal.empty() }
+                  return self.interactor.assets().map { .setAssets($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
     private func querySettings() -> Feedback {
-        return react(request: { state -> MarketPulse.State? in
-            return state.hasLoadSettings == false ? state : nil
-        }, effects: { [weak self] _ -> Signal<MarketPulse.Event> in
-            guard let self = self else { return Signal.empty() }
-            return self.interactor.settings().map {.setSettings($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        react(request: { state -> MarketPulse.State? in state.hasLoadSettings == false ? state : nil },
+              effects: { [weak self] _ -> Signal<MarketPulse.Event> in
+                  guard let self = self else { return Signal.empty() }
+                  return self.interactor.settings().map { .setSettings($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
     private func queryChachedAsset() -> Feedback {
-        return react(request: { state -> MarketPulse.State? in
-            return state.hasLoadChachedAsset == false ? state : nil
-        }, effects: { [weak self] _ -> Signal<MarketPulse.Event> in
-            guard let self = self else { return Signal.empty() }
-            return self.interactor.chachedAssets().map {.setChachedAssets($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        react(request: { state -> MarketPulse.State? in state.hasLoadChachedAsset == false ? state : nil },
+              effects: { [weak self] _ -> Signal<MarketPulse.Event> in
+                  guard let self = self else { return Signal.empty() }
+                  return self.interactor.chachedAssets().map { .setChachedAssets($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
     private static func reduce(state: MarketPulse.State, event: MarketPulse.Event) -> MarketPulse.State {
-        
         var newState = state
         reduce(state: &newState, event: event)
         return newState
@@ -94,8 +89,8 @@ final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
             
             state.assets = assets
             state.models = mapAssetModels(assets: assets, settings: .init(currency: state.currency,
-                                                                                    isDarkMode: state.isDarkMode,
-                                                                                    inverval: state.updateInterval))
+                                                                          isDarkMode: state.isDarkMode,
+                                                                          inverval: state.updateInterval))
             state.action = .update
             
         case .setSettings(let settings):
@@ -108,19 +103,18 @@ final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
             state.assets = chachedAssets
             state.hasLoadChachedAsset = true
             state.models = mapAssetModels(assets: chachedAssets, settings: .init(currency: state.currency,
-                                                                          isDarkMode: state.isDarkMode,
-                                                                          inverval: state.updateInterval))
+                                                                                 isDarkMode: state.isDarkMode,
+                                                                                 inverval: state.updateInterval))
             state.action = .update
         }
     }
 }
 
 private extension MarketPulseWidgetPresenter {
-    
-    static func mapAssetModels(assets: [MarketPulse.DTO.Asset], settings: MarketPulse.DTO.Settings) -> [MarketPulse.ViewModel.Row] {
-
+    static func mapAssetModels(assets: [MarketPulse.DTO.Asset],
+                               settings: MarketPulse.DTO.Settings) -> [MarketPulse.ViewModel.Row] {
         let wavesCurrency = settings.currency == .usd ? MarketPulse.usdAssetId : MarketPulse.eurAssetId
-
+        
         return assets.map { asset in
             
             let firstPrice = asset.firstPrice[wavesCurrency] ?? 0
@@ -128,7 +122,7 @@ private extension MarketPulseWidgetPresenter {
             
             let deltaPercent = (lastPrice - firstPrice) * 100
             let percent = firstPrice != 0 ? deltaPercent / firstPrice : 0
-
+            
             return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(icon: asset.icon,
                                                                            name: asset.name,
                                                                            price: asset.rates[wavesCurrency] ?? 0,
@@ -139,16 +133,16 @@ private extension MarketPulseWidgetPresenter {
     }
 }
 
-fileprivate extension MarketPulse.State {
+private extension MarketPulse.State {
     static var initialState: MarketPulse.State {
-        return MarketPulse.State(hasLoadSettings: false,
-                                 hasLoadChachedAsset: false,
-                                 isNeedRefreshing: false,
-                                 action: .none,
-                                 models: [],
-                                 assets: [],
-                                 currency: .usd,
-                                 isDarkMode: false,
-                                 updateInterval: .m1)
+        MarketPulse.State(hasLoadSettings: false,
+                          hasLoadChachedAsset: false,
+                          isNeedRefreshing: false,
+                          action: .none,
+                          models: [],
+                          assets: [],
+                          currency: .usd,
+                          isDarkMode: false,
+                          updateInterval: .m1)
     }
 }

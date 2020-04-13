@@ -6,14 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
+import RxCocoa
 import RxFeedback
 import RxSwift
-import RxCocoa
-import DomainLayer
 
 protocol AddressesKeysModuleOutput: AnyObject {
-    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet?) -> Void))
+    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet,
+                                     callback: @escaping ((DomainLayer.DTO.SignedWallet?) -> Void))
     func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias])
 }
 
@@ -22,7 +23,6 @@ protocol AddressesKeysModuleInput {
 }
 
 protocol AddressesKeysPresenterProtocol {
-
     typealias Feedback = (Driver<AddressesKeysTypes.State>) -> Signal<AddressesKeysTypes.Event>
 
     var moduleOutput: AddressesKeysModuleOutput? { get set }
@@ -31,10 +31,9 @@ protocol AddressesKeysPresenterProtocol {
 }
 
 final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
-
     fileprivate typealias Types = AddressesKeysTypes
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
 
@@ -42,12 +41,10 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
     weak var moduleOutput: AddressesKeysModuleOutput?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(getAliasesQuery())
         newFeedbacks.append(getPrivateKeyQuery())
         newFeedbacks.append(externalQuery())
-
 
         let initialState = self.initialState(moduleInput: moduleInput)
 
@@ -63,9 +60,7 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
 // MARK: - Feedbacks
 
 fileprivate extension AddressesKeysPresenter {
-
     func getAliasesQuery() -> Feedback {
-
         return react(request: { state -> String? in
 
             if state.displayState.isAppeared == true {
@@ -84,13 +79,12 @@ fileprivate extension AddressesKeysPresenter {
                 .map { Types.Event.setAliases($0) }
                 .sweetDebug("getAliasesQuery")
                 .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                    Signal.empty()
                 })
         })
     }
 
     func getPrivateKeyQuery() -> Feedback {
-
         return react(request: { state -> DomainLayer.DTO.Wallet? in
 
             if case .getPrivateKey? = state.query {
@@ -101,7 +95,7 @@ fileprivate extension AddressesKeysPresenter {
 
         }, effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return Observable.create({ [weak self] (observer) -> Disposable in
+            Observable.create { [weak self] (observer) -> Disposable in
 
                 guard let self = self else { return Disposables.create() }
 
@@ -118,17 +112,15 @@ fileprivate extension AddressesKeysPresenter {
                         }
                     })
                 return Disposables.create()
-            })
+            }
             .asSignal(onErrorRecover: { _ in
-                return Signal.empty()
+                Signal.empty()
             })
         })
     }
 
     func externalQuery() -> Feedback {
-
         return react(request: { state -> Types.Query? in
-
 
             if case .showInfo? = state.query {
                 return state.query
@@ -138,7 +130,7 @@ fileprivate extension AddressesKeysPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            if case .showInfo(let aliases) = query {
+            if case let .showInfo(aliases) = query {
                 self?.moduleOutput?.addressesKeysShowAliases(aliases)
             }
 
@@ -150,7 +142,6 @@ fileprivate extension AddressesKeysPresenter {
 // MARK: Core State
 
 private extension AddressesKeysPresenter {
-
     static func reduce(state: Types.State, event: Types.Event) -> Types.State {
         var newState = state
         reduce(state: &newState, event: event)
@@ -158,7 +149,6 @@ private extension AddressesKeysPresenter {
     }
 
     static func reduce(state: inout Types.State, event: Types.Event) {
-
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
@@ -166,7 +156,7 @@ private extension AddressesKeysPresenter {
         case .viewDidDisappear:
             state.displayState.isAppeared = false
 
-        case .setAliases(let aliaces):
+        case let .setAliases(aliaces):
             state.aliases = aliaces
 
             var sections = state.displayState.sections
@@ -188,14 +178,14 @@ private extension AddressesKeysPresenter {
         case .tapShowInfo:
             state.query = .showInfo(aliases: state.aliases)
 
-        case .setPrivateKey(let signedWallet):
+        case let .setPrivateKey(signedWallet):
 
             var sections = state.displayState.sections
             guard var section = sections.first else { return }
             var rows = section.rows
 
             guard rows.first != nil else { return }
-            
+
             rows[3] = .privateKey(signedWallet.privateKey.privateKeyStr)
 
             section.rows = rows
@@ -213,7 +203,6 @@ private extension AddressesKeysPresenter {
 // MARK: UI State
 
 private extension AddressesKeysPresenter {
-
     func initialState(moduleInput: AddressesKeysModuleInput) -> Types.State {
         return Types.State(wallet: moduleInput.wallet,
                            aliases: [],
@@ -222,7 +211,6 @@ private extension AddressesKeysPresenter {
     }
 
     func initialDisplayState(moduleInput: AddressesKeysModuleInput) -> Types.DisplayState {
-
         let section = Types.ViewModel.Section(rows: [.skeleton,
                                                      .address(moduleInput.wallet.address),
                                                      .publicKey(moduleInput.wallet.publicKey),

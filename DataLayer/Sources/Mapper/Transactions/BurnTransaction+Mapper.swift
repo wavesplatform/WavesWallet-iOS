@@ -6,12 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import WavesSDK
-import DomainLayer
 
 extension BurnTransaction {
-
     convenience init(transaction: DomainLayer.DTO.BurnTransaction) {
         self.init()
         type = transaction.type
@@ -36,9 +35,7 @@ extension BurnTransaction {
 }
 
 extension DomainLayer.DTO.BurnTransaction {
-
     init(transaction: NodeService.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -57,7 +54,6 @@ extension DomainLayer.DTO.BurnTransaction {
     }
 
     init(transaction: BurnTransaction) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -72,6 +68,6 @@ extension DomainLayer.DTO.BurnTransaction {
                   assetId: transaction.assetId,
                   amount: transaction.amount,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)        
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

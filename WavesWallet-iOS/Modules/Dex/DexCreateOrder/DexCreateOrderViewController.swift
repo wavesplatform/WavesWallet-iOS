@@ -54,6 +54,8 @@ final class DexCreateOrderViewController: UIViewController {
     }
     
     @IBOutlet private weak var segmentedControl: DexCreateOrderSegmentedControl!
+
+    @IBOutlet private weak var orderTypeContainer: UIView!
     @IBOutlet private weak var inputAmount: DexCreateOrderInputView!
     @IBOutlet private weak var inputPrice: DexCreateOrderInputView!
     @IBOutlet private weak var inputTotal: DexCreateOrderInputView!
@@ -62,6 +64,7 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var labelExpirationDays: UILabel!
     @IBOutlet private weak var buttonSellBuy: HighlightedButton!
     
+    @IBOutlet private weak var orderTypeContainerHeight: NSLayoutConstraint!
     @IBOutlet private weak var segmentedTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var inputAmountTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var inputPriceTopOffset: NSLayoutConstraint!
@@ -104,8 +107,16 @@ final class DexCreateOrderViewController: UIViewController {
         labelFee.isHidden = true
         iconArrowCustomFee.isHidden = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(removeTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(setupUpdateMarketOrderPriceTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
+        orderTypeContainer.isHidden = true
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(removeTimer),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setupUpdateMarketOrderPriceTimer),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
     
     @IBAction private func changeOrderMarketType(_ sender: Any) {
@@ -207,7 +218,6 @@ private extension DexCreateOrderViewController {
     func subscriptions(state: Driver<DexCreateOrder.State>) -> [Disposable] {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
-                
                 guard let self = self else { return }
                 self.updateState(state)
             })
@@ -216,6 +226,9 @@ private extension DexCreateOrderViewController {
     }
     
     func updateState(_ state: DexCreateOrder.State) {
+        
+        orderTypeContainer.isHidden = !state.isVisibleOrderTypesContainer
+        orderTypeContainerHeight.constant = state.isVisibleOrderTypesContainer ? 36 : 0
         
         self.isDisabledBuySellButton = state.isDisabledSellBuyButton
         self.setupFeeError(error: state.displayFeeErrorState)

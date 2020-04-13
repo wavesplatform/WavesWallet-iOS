@@ -6,12 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import WavesSDK
-import DomainLayer
 
 extension ExchangeTransaction {
-
     convenience init(transaction: DomainLayer.DTO.ExchangeTransaction) {
         self.init()
         type = transaction.type
@@ -41,12 +40,12 @@ extension ExchangeTransaction {
 }
 
 extension DomainLayer.DTO.ExchangeTransaction {
-
-    init(transaction: NodeService.DTO.ExchangeTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-
+    init(transaction: NodeService.DTO.ExchangeTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         let order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1, environment: environment)
         let order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2, environment: environment)
-        
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -68,10 +67,9 @@ extension DomainLayer.DTO.ExchangeTransaction {
     }
 
     init(transaction: ExchangeTransaction) {
-        
         let order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1!)
         let order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2!)
-        
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -93,8 +91,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
     }
 }
 
-fileprivate extension DomainLayer.DTO.ExchangeTransaction.Order.Kind {
-
+private extension DomainLayer.DTO.ExchangeTransaction.Order.Kind {
     init(key: String) {
         if key == "sell" {
             self = .sell
@@ -114,7 +111,6 @@ fileprivate extension DomainLayer.DTO.ExchangeTransaction.Order.Kind {
 }
 
 extension ExchangeTransactionOrder {
-
     convenience init(order: DomainLayer.DTO.ExchangeTransaction.Order) {
         self.init()
 
@@ -139,9 +135,7 @@ extension ExchangeTransactionOrder {
 }
 
 extension DomainLayer.DTO.ExchangeTransaction.Order {
-
     init(order: NodeService.DTO.ExchangeTransaction.Order, environment: WalletEnvironment) {
-
         let assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: order.assetPair.amountAsset.normalizeAssetId,
                                                                       priceAsset: order.assetPair.priceAsset.normalizeAssetId)
         self.init(id: order.id,
@@ -160,13 +154,12 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
     }
 
     init(order: ExchangeTransactionOrder) {
-        
         let amountAssetId = order.assetPair?.amountAsset
         let priceAssetId = order.assetPair?.priceAsset
-        
+
         let assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: amountAssetId.normalizeAssetId,
-                                                                  priceAsset: priceAssetId.normalizeAssetId)
-        
+                                                                      priceAsset: priceAssetId.normalizeAssetId)
+
         self.init(id: order.id,
                   sender: order.sender,
                   senderPublicKey: order.senderPublicKey,
@@ -180,7 +173,5 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
                   matcherFee: order.matcherFee,
                   signature: order.signature,
                   matcherFeeAssetId: order.matcherFeeAssetId)
-
     }
 }
-

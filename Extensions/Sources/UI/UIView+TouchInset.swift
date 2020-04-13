@@ -10,13 +10,11 @@ import UIKit
 import WavesSDKExtensions
 
 public extension UIView {
-
-    private struct AssociatedKeys {
+    private enum AssociatedKeys {
         static var touchInsets = "touchInsets"
     }
 
     @IBInspectable var touchInsets: CGFloat {
-
         get {
             return associatedObject(for: &AssociatedKeys.touchInsets) ?? 0
         }
@@ -33,11 +31,11 @@ public extension UIView {
     }
 
     @objc func swizzledPoint(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return contains(point, with: UIEdgeInsets.init(top: -touchInsets, left: -touchInsets, bottom: -touchInsets, right: -touchInsets)) ? true : swizzledPoint(inside: point, with: event)
+        let insets = UIEdgeInsets(top: -touchInsets, left: -touchInsets, bottom: -touchInsets, right: -touchInsets)
+        return contains(point, with: insets) ? true : swizzledPoint(inside: point, with: event)
     }
 
     private func contains(_ point: CGPoint, with insets: UIEdgeInsets) -> Bool {
-        return bounds.inset(by: insets).contains(point)
+        bounds.inset(by: insets).contains(point)
     }
 }
-

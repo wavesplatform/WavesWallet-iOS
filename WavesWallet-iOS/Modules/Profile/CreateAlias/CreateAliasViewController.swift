@@ -6,13 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
+import RxCocoa
 import RxFeedback
 import RxSwift
-import RxCocoa
+import UIKit
 
 final class CreateAliasViewController: UIViewController {
-
     typealias Types = CreateAliasTypes
 
     @IBOutlet private var footerView: UIView!
@@ -24,7 +23,7 @@ final class CreateAliasViewController: UIViewController {
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     private var errorSnackKey: String?
     private var isValidFee: Bool = true
-    
+
     var presenter: CreateAliasPresenterProtocol!
 
     override func viewDidLoad() {
@@ -49,7 +48,6 @@ final class CreateAliasViewController: UIViewController {
         layoutFooterView()
         updateContentInset()
     }
-
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -76,14 +74,14 @@ final class CreateAliasViewController: UIViewController {
     private func layoutFooterView() {
         let size = footerView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
         let y = max(tableView.contentSize.height, tableView.frame.height) - size.height
-        footerView.frame = CGRect.init(x: 0, y: y, width: tableView.frame.width, height: size.height)
+        footerView.frame = CGRect(x: 0, y: y, width: tableView.frame.width, height: size.height)
     }
 
     private var inputCell: CreateAliasInputCell? {
         guard let visibleCells = tableView?.visibleCells else { return nil }
-        let anyCell = visibleCells.map({ cell -> CreateAliasInputCell? in
-            return cell as? CreateAliasInputCell
-        }).compactMap { $0 }.first
+        let anyCell = visibleCells.map { cell -> CreateAliasInputCell? in
+            cell as? CreateAliasInputCell
+        }.compactMap { $0 }.first
         return anyCell
     }
 }
@@ -91,11 +89,9 @@ final class CreateAliasViewController: UIViewController {
 // MARK: RxFeedback
 
 private extension CreateAliasViewController {
-
     func setupSystem() {
-
         let uiFeedback: CreateAliasPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
         let readyViewFeedback: CreateAliasPresenterProtocol.Feedback = { [weak self] _ in
@@ -124,7 +120,6 @@ private extension CreateAliasViewController {
     }
 
     func subscriptions(state: Driver<Types.State>) -> [Disposable] {
-
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
@@ -136,8 +131,7 @@ private extension CreateAliasViewController {
     }
 
     func updateView(with state: Types.DisplayState) {
-
-        self.sections = state.sections
+        sections = state.sections
 
         if state.isLoading {
             indicatorView.startAnimating()
@@ -148,10 +142,10 @@ private extension CreateAliasViewController {
         saveButton.isEnabled = state.isEnabledSaveButton
 
         switch state.errorState {
-        case .error(let error):
+        case let .error(error):
 
             switch error {
-            case .globalError(let isInternetNotWorking):
+            case let .globalError(isInternetNotWorking):
 
                 if isInternetNotWorking {
                     errorSnackKey = showWithoutInternetSnackWithoutAction()
@@ -161,7 +155,7 @@ private extension CreateAliasViewController {
             case .internetNotWorking:
                 errorSnackKey = showWithoutInternetSnackWithoutAction()
 
-            case .message(let text):
+            case let .message(text):
                 errorSnackKey = showMessageSnack(title: text)
 
             case .none:
@@ -190,7 +184,7 @@ private extension CreateAliasViewController {
                 guard let inputCell = self.inputCell else { return }
                 guard let indexPath = tableView.indexPath(for: inputCell) else { return }
 
-                if case .input(let text, let error) = sections[indexPath] {
+                if case let .input(text, error) = sections[indexPath] {
                     inputCell.update(with: .init(text: text, error: error, isValidFee: isValidFee))
                     if self.isValidFee != isValidFee {
                         tableView.reloadData()
@@ -199,8 +193,8 @@ private extension CreateAliasViewController {
 
             case .none:
                 break
-                
-            case .updateValidationFeeBalance(let isValidFee):
+
+            case let .updateValidationFeeBalance(isValidFee):
                 self.isValidFee = isValidFee
                 tableView.reloadData()
             }
@@ -208,39 +202,36 @@ private extension CreateAliasViewController {
     }
 }
 
-
 // MARK: UITableViewDataSource
 
 extension CreateAliasViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in _: UITableView) -> Int {
         return sections.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let row = sections[indexPath]
         switch row {
-        case .input(let text, let error):
+        case let .input(text, error):
             let cell: CreateAliasInputCell = tableView.dequeueCell()
             cell.update(with: .init(text: text, error: error, isValidFee: isValidFee))
 
             cell
                 .textFieldChangedValue
                 .map { Types.Event.input($0) }
-                .bind(to: self.eventInput)
+                .bind(to: eventInput)
                 .disposed(by: cell.disposeBag)
 
             cell.textFieldShouldReturn
-                .subscribe(weak: self, onNext: { (owner, _) in
+                .subscribe(weak: self, onNext: { owner, _ in
                     owner.continueCreateAlias()
                 })
                 .disposed(by: cell.disposeBag)
-            
+
             return cell
         }
     }
@@ -249,17 +240,16 @@ extension CreateAliasViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension CreateAliasViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
         let row = sections[indexPath]
         switch row {
-        case .input(let text, let error):
-            return CreateAliasInputCell.viewHeight(model: .init(text: text, error: error, isValidFee: isValidFee), width: tableView.frame.width)
+        case let .input(text, error):
+            return CreateAliasInputCell
+                .viewHeight(model: .init(text: text, error: error, isValidFee: isValidFee), width: tableView.frame.width)
         }
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt _: IndexPath) {
         cell.becomeFirstResponder()
     }
 }
@@ -267,8 +257,7 @@ extension CreateAliasViewController: UITableViewDelegate {
 // MARK: UIScrollViewDelegate
 
 extension CreateAliasViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_: UIScrollView) {
         setupTopBarLine()
         layoutFooterView()
     }

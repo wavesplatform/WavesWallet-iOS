@@ -6,12 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
-import WavesSDK
-import Extensions
-import DomainLayer
 import DataLayer
+import DomainLayer
+import Extensions
+import RxSwift
+import UIKit
+import WavesSDK
 
 private enum Constants {
     static let borderRadius: CGFloat = 2
@@ -21,14 +21,11 @@ private enum Constants {
 }
 
 protocol AssetSelectViewDelegate: AnyObject {
-    
     func assetViewDidTapChangeAsset()
 }
 
 // TODO: Move files to CustomViews
 final class AssetSelectView: UIView, NibOwnerLoadable {
-    
-    
     @IBOutlet private weak var viewContainer: UIView!
 
     @IBOutlet private weak var labelAssetLocalization: UILabel!
@@ -42,7 +39,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var assetRightOffset: NSLayoutConstraint!
     @IBOutlet private weak var buttonTap: UIButton!
     @IBOutlet private weak var skeletonView: AssetSelectSkeletonView!
-    
+
     private var disposeBag: DisposeBag = DisposeBag()
 
     weak var delegate: AssetSelectViewDelegate?
@@ -51,8 +48,9 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
             updateViewStyle()
         }
     }
+
     private(set) var isOnlyBlockMode: Bool = false
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         labelAssetLocalization.text = Localizable.Waves.Receive.Label.asset
@@ -60,52 +58,50 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         viewAsset.isHidden = true
         updateViewStyle()
     }
-    
-    @IBAction private func buttonTapped(_ sender: Any) {
+
+    @IBAction private func buttonTapped(_: Any) {
         delegate?.assetViewDidTapChangeAsset()
     }
-  
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     func setupReveiceWavesLoadingState() {
         viewAsset.isHidden = false
         labelSelectAsset.isHidden = true
-        
+
         labelAssetName.text = "Waves"
         labelAmount.isHidden = true
 
-        //TODO: mb get url from enviromnets
+        // TODO: mb get url from enviromnets
         loadIcon(icon: .init(assetId: WavesSDKConstants.wavesAssetId,
                              name: WavesSDKConstants.wavesAssetId,
                              url: nil,
                              isSponsored: false,
                              hasScript: false), isSponsored: false, hasScript: false)
     }
-    
+
     func showLoadingState() {
         viewAsset.isHidden = true
         labelSelectAsset.isHidden = true
-        skeletonView.startAnimation(showArrows: !self.isOnlyBlockMode)
+        skeletonView.startAnimation(showArrows: !isOnlyBlockMode)
         addBorderShadow()
     }
-    
-    func hideLoadingState(isLoadAsset: Bool) {
 
+    func hideLoadingState(isLoadAsset: Bool) {
         skeletonView.hide()
-        
+
         if isLoadAsset {
             viewAsset.isHidden = false
-        }
-        else {
+        } else {
             isSelectedAssetMode = true
             labelSelectAsset.isHidden = false
         }
         updateViewStyle()
     }
-    
+
     func removeSelectedAssetState() {
         viewAsset.isHidden = true
         labelSelectAsset.isHidden = false
@@ -114,18 +110,17 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
 }
 
 // MARK: - ViewConfiguration
+
 extension AssetSelectView: ViewConfiguration {
-    
     struct Model {
         let assetBalance: DomainLayer.DTO.SmartAssetBalance
         let isOnlyBlockMode: Bool
     }
-    
+
     func update(with model: Model) {
-        
         isOnlyBlockMode = model.isOnlyBlockMode
         let asset = model.assetBalance.asset
-        
+
         viewAsset.isHidden = false
         labelAmount.isHidden = false
         labelSelectAsset.isHidden = true
@@ -133,13 +128,13 @@ extension AssetSelectView: ViewConfiguration {
         labelAssetName.text = asset.displayName
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
 
-        loadIcon(icon: asset.iconLogo, isSponsored: model.assetBalance.asset.isSponsored, hasScript: model.assetBalance.asset.hasScript)
+        loadIcon(icon: asset.iconLogo, isSponsored: model.assetBalance.asset.isSponsored,
+                 hasScript: model.assetBalance.asset.hasScript)
         let money = Money(model.assetBalance.availableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
-    
-    private func loadIcon(icon: AssetLogo.Icon, isSponsored: Bool, hasScript: Bool) {
 
+    private func loadIcon(icon: AssetLogo.Icon, isSponsored _: Bool, hasScript _: Bool) {
         disposeBag = DisposeBag()
 
         AssetLogo.logo(icon: icon,
@@ -151,8 +146,8 @@ extension AssetSelectView: ViewConfiguration {
 }
 
 // MARK: - Setup UI
+
 private extension AssetSelectView {
-    
     func addBorderShadow() {
         viewContainer.backgroundColor = .white
         viewContainer.layer.cornerRadius = 0
@@ -160,7 +155,7 @@ private extension AssetSelectView {
         viewContainer.layer.borderColor = nil
         viewContainer.addTableCellShadowStyle()
     }
-    
+
     func removeBorderShadow() {
         viewContainer.layer.removeShadow()
         viewContainer.backgroundColor = .clear
@@ -168,17 +163,15 @@ private extension AssetSelectView {
         viewContainer.layer.borderWidth = Constants.borderWidth
         viewContainer.layer.borderColor = UIColor.overlayDark.cgColor
     }
-    
+
     func updateViewStyle() {
-        
         iconArrows.isHidden = !isSelectedAssetMode
-        
+
         if isSelectedAssetMode {
             buttonTap.isUserInteractionEnabled = true
             assetRightOffset.constant = Constants.assetRightOffsetSelectedMode
             addBorderShadow()
-        }
-        else {
+        } else {
             buttonTap.isUserInteractionEnabled = false
             assetRightOffset.constant = Constants.assetRightOffsetNotSelectedMode
             removeBorderShadow()

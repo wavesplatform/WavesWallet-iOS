@@ -6,20 +6,19 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
 
 private enum Constants {
     static let height: CGFloat = 174
 }
 
 final class AssetBalanceSpamCell: UITableViewCell, NibReusable {
-
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelPerformAction: UILabel!
     @IBOutlet private weak var labelBalance: UILabel!
     @IBOutlet private weak var labelBalanceTitle: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
@@ -29,17 +28,14 @@ final class AssetBalanceSpamCell: UITableViewCell, NibReusable {
 }
 
 extension AssetBalanceSpamCell: ViewConfiguration {
-    
     func update(with model: AssetDetailTypes.DTO.Asset.Balance) {
-        
-        labelBalance.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull(isFiat: model.isFiat),
-                                                                         font: labelBalance.font)
+        labelBalance.attributedText = NSAttributedString
+            .styleForBalance(text: model.avaliableMoney.displayTextFull(isFiat: model.isFiat),
+                             font: labelBalance.font)
     }
 }
 
-
 extension AssetBalanceSpamCell: ViewHeight {
-   
     static func viewHeight() -> CGFloat {
         return Constants.height
     }
