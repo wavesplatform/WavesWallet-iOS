@@ -29,6 +29,7 @@ enum DexCreateOrder {
         case changeCreateOrderType(DexCreateOrder.DTO.CreateOrderType)
         case updateMarketOrderPrice
         case didGetMarketOrderPrice(DexCreateOrder.DTO.MarketOrder)
+        case updateVisibleOrderTypesContainer(Bool)
     }
     
     enum CreateOrderError: Error {
@@ -60,6 +61,7 @@ enum DexCreateOrder {
         var feeAssetId: String
         var createOrderType: DTO.CreateOrderType
         var isNeedCalculateMarketOrderPrice: Bool
+        var isVisibleOrderTypesContainer: Bool
     }
 }
 

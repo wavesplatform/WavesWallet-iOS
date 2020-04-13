@@ -16,7 +16,22 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
 
     func build(input: DexCreateOrder.DTO.Input) -> UIViewController {
         
-        let interactor: DexCreateOrderInteractorProtocol = DexCreateOrderInteractor()
+        let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+        let matcherRepository: MatcherRepositoryProtocol = UseCasesFactory.instance.repositories.matcherRepository
+        let orderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
+        let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+        let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
+        let orderBookInteractor: OrderBookUseCaseProtocol = UseCasesFactory.instance.oderbook
+        let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
+        let developmentConfig = UseCasesFactory.instance.repositories.developmentConfigsRepository
+        let interactor: DexCreateOrderInteractorProtocol = DexCreateOrderInteractor(authorization: auth,
+                                                                                    matcherRepository: matcherRepository,
+                                                                                    dexOrderBookRepository: orderBookRepository,
+                                                                                    transactionInteractor: transactionInteractor,
+                                                                                    assetsInteractor: assetsInteractor,
+                                                                                    orderBookInteractor: orderBookInteractor,
+                                                                                    environmentRepository: environmentRepository,
+                                                                                    developmentConfig: developmentConfig)
         
         var presenter: DexCreateOrderPresenterProtocol = DexCreateOrderPresenter()
         presenter.interactor = interactor

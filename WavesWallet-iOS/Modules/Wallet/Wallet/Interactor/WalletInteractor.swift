@@ -95,7 +95,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                 let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address)
                 
                 return Observable.zip(assets, settings)
-                    .map { (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
+                    .map { assets, settings -> [DomainLayer.DTO.SmartAssetBalance] in
                         
                         if let settings = settings, settings.isEnabledSpam {
                             return assets.filter { $0.asset.isSpam == false }
