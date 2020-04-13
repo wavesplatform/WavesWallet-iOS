@@ -73,7 +73,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(request: { state -> DexCreateOrder.State? in return state },
+        return react(request: { state -> DexCreateOrder.State? in state.isNeedCreateOrder ? state : nil },
                      effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
                         
                         guard let self = self else { return Signal.empty() }
@@ -108,7 +108,9 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     }
     
     private func getDevelopmentConfig() -> Feedback {
-        return react(request: { state -> DexCreateOrder.State? in return state },
+        return react(request: { state -> DexCreateOrder.State? in
+            return state
+        },
                      effects: { [weak self] _ -> Signal<DexCreateOrder.Event> in
                         guard let self = self else { return Signal.never() }
 
@@ -132,7 +134,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     }
     
     private func reduce(state: DexCreateOrder.State, event: DexCreateOrder.Event) -> DexCreateOrder.State {
-        
         switch event {
         case .refreshFee:
 
