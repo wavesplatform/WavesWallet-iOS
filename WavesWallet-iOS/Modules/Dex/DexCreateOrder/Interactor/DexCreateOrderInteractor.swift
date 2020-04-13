@@ -18,36 +18,58 @@ private enum Constants {
 }
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
+    private let auth: AuthorizationUseCaseProtocol
+    private let matcherRepository: MatcherRepositoryProtocol
+    private let orderBookRepository: DexOrderBookRepositoryProtocol
+    private let transactionInteractor: TransactionsUseCaseProtocol
+    private let assetsInteractor: AssetsUseCaseProtocol
+    private let orderBookInteractor: OrderBookUseCaseProtocol
+    private let environmentRepository: EnvironmentRepositoryProtocol
+    private let developmentConfig: DevelopmentConfigsRepositoryProtocol
     
-    private let auth = UseCasesFactory.instance.authorization
-    private let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
-    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
-    private let transactionInteractor = UseCasesFactory.instance.transactions
-    private let assetsInteractor = UseCasesFactory.instance.assets
-    private let orderBookInteractor = UseCasesFactory.instance.oderbook
-    private let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
+    init(authorization: AuthorizationUseCaseProtocol,
+         matcherRepository: MatcherRepositoryProtocol,
+         dexOrderBookRepository: DexOrderBookRepositoryProtocol,
+         transactionInteractor: TransactionsUseCaseProtocol,
+         assetsInteractor: AssetsUseCaseProtocol,
+         orderBookInteractor: OrderBookUseCaseProtocol,
+         environmentRepository: EnvironmentRepositoryProtocol,
+         developmentConfig: DevelopmentConfigsRepositoryProtocol) {
+        self.auth = authorization
+        self.matcherRepository = matcherRepository
+        self.orderBookRepository = dexOrderBookRepository
+        self.transactionInteractor = transactionInteractor
+        self.assetsInteractor = assetsInteractor
+        self.orderBookInteractor = orderBookInteractor
+        self.environmentRepository = environmentRepository
+        self.developmentConfig = developmentConfig
+    }
     
+    func getDevConfig() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
+        developmentConfig.developmentConfigs()
+    }
   
-    func createOrder(order: DexCreateOrder.DTO.Order, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
-        
-        return calculateMarketOrderPriceIfNeed(order: order, createType: type)
+    func createOrder(order: DexCreateOrder.DTO.Order,
+                     type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+        calculateMarketOrderPriceIfNeed(order: order, createType: type)
             .flatMap { [weak self] marketOrder -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                 guard let self = self else { return Observable.empty() }
-                return self.performeCreateOrderRequest(order: order, updatedPrice: marketOrder?.price, priceAvg: marketOrder?.priceAvg, type: type)
+                return self.performeCreateOrderRequest(order: order,
+                                                       updatedPrice: marketOrder?.price,
+                                                       priceAvg: marketOrder?.priceAvg,
+                                                       type: type)
         }
         .catchError { error -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
-            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+            Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
         }
     }
     
     func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings> {
-        
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexCreateOrder.DTO.FeeSettings>  in
+        auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexCreateOrder.DTO.FeeSettings>  in
             guard let self = self else { return Observable.empty() }
             
             return self.orderBookInteractor.orderSettingsFee()
                 .flatMap({ [weak self] (smartSettings) -> Observable<DexCreateOrder.DTO.FeeSettings> in
-                    
                     guard let self = self else { return Observable.empty() }
                                                                       
                     return self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
@@ -63,10 +85,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     }
     
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool> {
-        
-        return auth
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+        auth.authorizedWallet()
+            .flatMap({ [weak self] wallet -> Observable<Bool> in
             
                 guard let self = self else { return Observable.empty() }
                 
@@ -138,7 +158,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 }
 
 private extension DexCreateOrderInteractor {
-
     func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order, updatedPrice: Money?, priceAvg: Money?, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
         return auth.authorizedWallet()
