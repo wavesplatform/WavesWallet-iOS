@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1067,26 +1067,26 @@ You do not have any orders</string>
                         <viewControllerLayoutGuide type="bottom" id="Jvl-QC-S70"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="e8z-EF-Vr6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="information22Multy" translatesAutoresizingMaskIntoConstraints="NO" id="tsW-gp-0Zb">
-                                <rect key="frame" x="163.5" y="15" width="48" height="48"/>
+                                <rect key="frame" x="175.5" y="15" width="24" height="24"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BCC / WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lo2-xT-OcO">
-                                <rect key="frame" x="5" y="77" width="365" height="21"/>
+                                <rect key="frame" x="5" y="53" width="365" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMX-0Q-5ve">
-                                <rect key="frame" x="164.5" y="106" width="46.5" height="16"/>
+                                <rect key="frame" x="164.5" y="82" width="46.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omR-nU-AFb">
-                                <rect key="frame" x="0.0" y="166" width="375" height="155"/>
+                                <rect key="frame" x="0.0" y="142" width="375" height="155"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu2-d2-UUP">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
@@ -1763,6 +1763,8 @@ We do not recommend you perform operations with smart assets if you are an inexp
                         <outlet property="labelExpirationDays" destination="3Ie-0S-Kpq" id="Gzq-fN-eEX"/>
                         <outlet property="labelFee" destination="KzZ-Ku-aDF" id="sSd-0B-v1x"/>
                         <outlet property="labelFeeLocalization" destination="NGu-X7-Wxc" id="ZF4-1Q-7vd"/>
+                        <outlet property="orderTypeContainer" destination="O9r-Fe-xQI" id="By7-T6-iPR"/>
+                        <outlet property="orderTypeContainerHeight" destination="cUU-VL-Muk" id="Uba-Vu-5qE"/>
                         <outlet property="segmentedControl" destination="PG3-20-Dd2" id="ayw-oZ-Rpg"/>
                         <outlet property="segmentedTopOffset" destination="TAE-Gg-1Za" id="UGz-vq-nSf"/>
                         <outlet property="viewErrorFee" destination="Chn-Dd-Ush" id="NbR-bB-ABe"/>

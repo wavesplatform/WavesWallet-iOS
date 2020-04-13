@@ -22,8 +22,17 @@ public extension DomainLayer.DTO {
                 self.flat = flat
             }
         }
-
         
+        public struct MarketPair {
+            public let amount: String
+            public let price: String
+            
+            public init(amount: String, price: String) {
+                self.amount = amount
+                self.price = price
+            }
+        }
+
         public let serviceAvailable: Bool
         public let matcherSwapTimestamp: Date
         public let matcherSwapAddress: String
@@ -36,13 +45,17 @@ public extension DomainLayer.DTO {
         // For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
         public let gatewayMinFee: [String: [String: Rate]]
         
+        /// Список пар, обмен на которые возможен
+        public let marketPairs: [MarketPair]
+        
         public init(serviceAvailable: Bool,
                     matcherSwapTimestamp: Date,
                     matcherSwapAddress: String,
                     exchangeClientSecret: String,
                     staking: [Staking],
                     lockedPairs: [String],
-                    gatewayMinFee: [String: [String: Rate]]) {
+                    gatewayMinFee: [String: [String: Rate]],
+                    marketPairs: [MarketPair]) {
             self.serviceAvailable = serviceAvailable
             self.matcherSwapAddress = matcherSwapAddress
             self.matcherSwapTimestamp = matcherSwapTimestamp
@@ -50,6 +63,7 @@ public extension DomainLayer.DTO {
             self.staking = staking
             self.lockedPairs = lockedPairs
             self.gatewayMinFee = gatewayMinFee
+            self.marketPairs = marketPairs
         }
     }
 }
