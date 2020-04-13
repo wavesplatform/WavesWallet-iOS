@@ -38,7 +38,7 @@ enum DexLastTrades {
         var isNeedRefreshing: Bool
         var availableAmountAssetBalance: Money
         var availablePriceAssetBalance: Money
-        var availableWavesBalance: Money
+        var availableBalances: [DomainLayer.DTO.SmartAssetBalance]
         var scriptedAssets: [DomainLayer.DTO.Asset]
     }
 }
@@ -75,7 +75,7 @@ extension DexLastTrades.DTO {
         let lastBuy: SellBuyTrade?
         let availableAmountAssetBalance: Money
         let availablePriceAssetBalance: Money
-        let availableWavesBalance: Money
+        let availableBalances: [DomainLayer.DTO.SmartAssetBalance]
         let scriptedAssets: [DomainLayer.DTO.Asset]
     }
 }
@@ -91,7 +91,7 @@ extension DexLastTrades.State {
                                    isNeedRefreshing: false,
                                    availableAmountAssetBalance: Money(0, 0),
                                    availablePriceAssetBalance: Money(0, 0),
-                                   availableWavesBalance: Money(0, 0),
+                                   availableBalances: [],
                                    scriptedAssets: [])
     }
     

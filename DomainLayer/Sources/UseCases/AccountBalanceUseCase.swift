@@ -220,8 +220,6 @@ private extension AccountBalanceUseCase {
             guard var asset = query.assets[balance.assetId] else {
                 return nil
             }
-
-            // TODO: Remove line when fixing bug
             asset.minSponsoredFee = balance.minSponsoredAssetFee
             return DomainLayer.DTO.SmartAssetBalance(assetId: balance.assetId,
                                                      totalBalance: balance.totalBalance,
@@ -234,7 +232,6 @@ private extension AccountBalanceUseCase {
         }
         .compactMap { $0 }
         .sorted(by: { $0.settings.sortLevel < $1.settings.sortLevel })
-
         return Observable.just(newBalances)
     }
 

@@ -253,8 +253,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             initComponents(segmentedItems: segmentedItems,
                            tableDataSource: tableDataSource,
                            tableDelegate: tableDelegate)
-        }
-        else {
+        } else {
             updateComponents(segmentedItems: segmentedItems)
         }
     }

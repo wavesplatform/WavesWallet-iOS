@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import WavesSDK
 
 //TODO: Rename
 enum ResourceAPI {}
@@ -356,4 +357,10 @@ extension ResourceAPI.Service.TradeCategoriesConfig: TargetType {
             return .requestPlain
         }
     }
+}
+
+// MARK: CachePolicyTarget
+
+extension ResourceAPI.Service.Environment: CachePolicyTarget {
+    var cachePolicy: URLRequest.CachePolicy { .reloadIgnoringLocalAndRemoteCacheData }
 }

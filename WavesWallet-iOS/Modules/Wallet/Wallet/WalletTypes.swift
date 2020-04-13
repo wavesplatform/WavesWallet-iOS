@@ -66,12 +66,14 @@ extension WalletTypes {
 
         enum Action {
             case none
+            case refreshError
             case update
         }
         
         var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
         var staking: DTO.Staking?
+        var prevStaking: DTO.Staking? = nil
         var displayState: DisplayState
         var isShowCleanWalletBanner: Bool
         var isNeedCleanWalletBanner: Bool
@@ -86,12 +88,16 @@ extension WalletTypes {
         case setStaking(DTO.Staking)
         case handlerError(Error)
         case refresh
+        case completedDepositBalance(balance: DomainLayer.DTO.Balance)
+        case completedWithdrawBalance(balance: DomainLayer.DTO.Balance)
         case viewWillAppear
         case viewDidDisappear
         case tapRow(IndexPath)
         case tapSection(Int)
         case tapSortButton
+        case tapHistory
         case tapAddressButton
+        case tapActionMenuButton
         case changeDisplay(DisplayState.Kind)
         case showStartLease(Money)
         case presentSearch(startPoint: CGFloat)
@@ -100,7 +106,7 @@ extension WalletTypes {
         case isShowCleanWalletBanner(Bool)
         case completeCleanWalletBanner(Bool)
         case isHasAppUpdate(Bool)
-        case openStakingFaq
+        case openStakingFaq(fromLanding: Bool)
         case openWithdraw
         case openBuy
         case openDeposit

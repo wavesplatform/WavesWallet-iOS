@@ -15,8 +15,8 @@ import WavesSDK
 
 private enum Constants {
     static let matcherSwapAddress = "3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3"
-    static let matcherSwapTimestamp: TimeInterval = 1575288000
-    static let matcherSwapTimestamp1M: TimeInterval = 1575158400
+    static let matcherSwapTimestamp: TimeInterval = 1_575_288_000
+    static let matcherSwapTimestamp1M: TimeInterval = 1_575_158_400
     static let minute: Int64 = 1000 * 60
     static let maxResolutionCandles: Int64 = 1440
 }
@@ -26,37 +26,37 @@ private extension DomainLayer.DTO.Candle.TimeFrameType {
         switch self {
         case .m5:
             return "5m"
-            
+
         case .m15:
             return "15m"
-            
+
         case .m30:
             return "30m"
-            
+
         case .h1:
             return "1h"
-            
+
         case .h2:
             return "2h"
-            
+
         case .h3:
             return "3h"
-            
+
         case .h4:
             return "4h"
-            
+
         case .h6:
             return "6h"
-            
+
         case .h12:
             return "12h"
-            
+
         case .h24:
             return "1d"
-            
+
         case .W1:
             return "1w"
-            
+
         case .M1:
             return "1M"
         }
@@ -67,7 +67,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
-    
+
     private var internalMatcherSwapConfigs: DomainLayer.DTO.DevelopmentConfigs?
     private var matcherSwapConfigs: DomainLayer.DTO.DevelopmentConfigs? {
         get {
@@ -75,14 +75,14 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
             defer { objc_sync_exit(self) }
             return internalMatcherSwapConfigs
         }
-        
+
         set {
             objc_sync_enter(self)
             defer { objc_sync_exit(self) }
             internalMatcherSwapConfigs = newValue
         }
     }
-    
+
     init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
          matcherRepository: MatcherRepositoryProtocol,
          developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
@@ -90,7 +90,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
         self.matcherRepository = matcherRepository
         self.developmentConfigsRepository = developmentConfigsRepository
     }
-    
+
     func candles(amountAsset: String,
                  priceAsset: String,
                  timeStart: Date,
@@ -101,15 +101,15 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                        getMatcherSwapConfigs())
             .flatMap { servicesEnvironment, publicKeyAccount, swapConfigs
                 -> Observable<(queries: [DataService.Query.CandleFilters], servicesEnvironment: ApplicationEnviroment)> in
-                
+
                 let swapDate = swapConfigs.matcherSwapTimestamp
                 let swapMatcherAddress = swapConfigs.matcherSwapAddress
                 let timestampServerDiff = servicesEnvironment.timestampServerDiff
-                
+
                 if timeStart.compare(swapDate) == .orderedAscending, timeEnd.compare(swapDate) == .orderedAscending {
                     let queryTimeStart = timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff)
                     let queryTimeEnd = timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff)
-                    
+
                     let queries = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                                   priceAsset: priceAsset,
                                                                   timeStart: queryTimeStart,
@@ -117,13 +117,12 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                   interval: timeFrame.value,
                                                                   matcher: swapMatcherAddress)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
-                    
+
                     return Observable.just((queries: queries, servicesEnvironment: servicesEnvironment))
                 } else if timeStart.compare(swapDate) == .orderedDescending, timeEnd.compare(swapDate) == .orderedDescending {
-                    
                     let queryTimeStart = timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff)
                     let queryTimeEnd = timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff)
-                    
+
                     let queries = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                                   priceAsset: priceAsset,
                                                                   timeStart: queryTimeStart,
@@ -131,13 +130,13 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                   interval: timeFrame.value,
                                                                   matcher: publicKeyAccount.address)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
-                    
+
                     return Observable.just((queries: queries, servicesEnvironment: servicesEnvironment))
                 } else if timeStart.compare(swapDate) == .orderedAscending, timeEnd.compare(swapDate) == .orderedDescending {
                     // query 1 query 2 ?????
                     let matcherSwapTimestamp1M = Date(timeIntervalSince1970: Constants.matcherSwapTimestamp1M)
                     let monthSwapDate = timeFrame == .M1 ? matcherSwapTimestamp1M : swapDate
-                    
+
                     let query1TimeStart = timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff)
                     let query1TimeEnd = monthSwapDate.millisecondsSince1970(timestampDiff: timestampServerDiff)
                     let query1 = DataService.Query.CandleFilters(amountAsset: amountAsset,
@@ -147,7 +146,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                  interval: timeFrame.value,
                                                                  matcher: swapMatcherAddress)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
-                    
+
                     let monthTimeStart = monthSwapDate.millisecondsSince1970(timestampDiff: timestampServerDiff)
                     let monthTimeEnd = timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff)
                     let query2 = DataService.Query.CandleFilters(amountAsset: amountAsset,
@@ -157,19 +156,19 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                  interval: timeFrame.value,
                                                                  matcher: publicKeyAccount.address)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
-                    
+
                     return Observable.just((queries: query1 + query2, servicesEnvironment: servicesEnvironment))
                 }
-                
+
                 return Observable.just((queries: [], servicesEnvironment: servicesEnvironment))
             }
             .flatMap { [weak self] data -> Observable<[DomainLayer.DTO.Candle]> in
                 guard let self = self else { return Observable.never() }
-                
+
                 let obsQueries = data.queries.map {
                     self.candlesQuery(servicesEnvironment: data.servicesEnvironment, query: $0, timeFrame: timeFrame)
                 }
-                
+
                 return Observable.zip(obsQueries).map { $0.flatMap { $0 } }
             }
     }
@@ -178,7 +177,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
 private extension CandlesRepositoryRemote {
     func candlesQuery(servicesEnvironment: ApplicationEnviroment,
                       query: DataService.Query.CandleFilters,
-                      timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
+                      timeFrame _: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
         servicesEnvironment
             .wavesServices
             .dataServices
@@ -186,7 +185,7 @@ private extension CandlesRepositoryRemote {
             .candles(query: query)
             .map { chart -> [DomainLayer.DTO.Candle] in
                 var models: [DomainLayer.DTO.Candle] = []
-                
+
                 for model in chart.candles {
                     guard let volume = model.volume,
                         let high = model.high,
@@ -195,7 +194,7 @@ private extension CandlesRepositoryRemote {
                         let close = model.close else {
                         continue
                     }
-                    
+
                     if volume > 0 {
                         let model = DomainLayer.DTO.Candle(close: close,
                                                            high: high,
@@ -206,33 +205,36 @@ private extension CandlesRepositoryRemote {
                         models.append(model)
                     }
                 }
-                
+
                 return models
             }
     }
-    
+
+    // TODO: Refactor
     func getMatcherSwapConfigs() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
         if let data = matcherSwapConfigs {
             return Observable.just(data)
         }
-        
+
         return developmentConfigsRepository.developmentConfigs()
             .share(replay: 1, scope: .whileConnected)
             .flatMap { [weak self] configs -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
                 guard let self = self else { return Observable.empty() }
-                
+
                 self.matcherSwapConfigs = configs
                 return Observable.just(configs)
             }
             .catchError { _ -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
-                
-                let matcherSwapTimestamp = Date(timeIntervalSince1970: Constants.matcherSwapTimestamp)
+
                 let confing = DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: true,
-                                                                 matcherSwapTimestamp: matcherSwapTimestamp,
+                                                                 matcherSwapTimestamp: Date(timeIntervalSince1970: Constants
+                                                                     .matcherSwapTimestamp),
                                                                  matcherSwapAddress: Constants.matcherSwapAddress,
                                                                  exchangeClientSecret: "",
-                                                                 staking: [])
-                
+                                                                 staking: [],
+                                                                 lockedPairs: [],
+                                                                 gatewayMinFee: [:])
+
                 return Observable.just(confing)
             }
     }
@@ -244,30 +246,30 @@ extension DataService.Query.CandleFilters {
         let minute: Int64 = 60 * 1000
         var timeStartMinute = Int64(floor(Double(timeStart) / Double(minute)))
         let timeEndMinute = Int64(ceil(Double(timeEnd) / Double(minute)))
-        
+
         if (timeEndMinute - timeStartMinute) < timeFrame {
             timeStartMinute = timeEndMinute - timeFrame
         }
-        
+
         var newTimeStartMinute = timeStartMinute
         var newTimeEndMinute = timeEndMinute
-        
+
         var queries: [DataService.Query.CandleFilters] = .init()
-        
+
         while newTimeStartMinute <= newTimeEndMinute {
             newTimeEndMinute = min(timeEndMinute, newTimeStartMinute + timeFrame * Constants.maxResolutionCandles)
-            
+
             let normolizedQuery: DataService.Query.CandleFilters = .init(amountAsset: amountAsset,
                                                                          priceAsset: priceAsset,
                                                                          timeStart: newTimeStartMinute * minute,
                                                                          timeEnd: newTimeEndMinute * minute,
                                                                          interval: interval,
                                                                          matcher: matcher)
-            
+
             queries.append(normolizedQuery)
             newTimeStartMinute = newTimeEndMinute + timeFrame
         }
-        
+
         return queries
     }
 }

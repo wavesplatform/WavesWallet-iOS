@@ -56,7 +56,7 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
                                     precision: availableBalance.precision,
                                     logoUrl: availableBalance.logoUrl,
                                     assetLogo: availableBalance.assetLogo)
-            }
+        }
     }
     
     public func getDepositeStakingBalance() -> Observable<NodeService.DTO.AddressesData> {
@@ -74,6 +74,7 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
                     .addressesNodeService
                     .getAddressData(addressSmartContract: addressSmartContract, key: key)
             }
+            .catchErrorJustReturn(NodeService.DTO.AddressesData(type: "", value: 0, key: ""))
     }
 }
 

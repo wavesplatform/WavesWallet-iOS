@@ -9,11 +9,13 @@
 import Foundation
 import Result
 import Moya
+import WavesSDK
 
-extension MoyaProvider {    
+extension MoyaProvider {
+    
     final class func anyMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
         
         return MoyaProvider<Target>(callbackQueue: nil,
-                                    plugins: [SentryNetworkLoggerPlugin()])
+                                    plugins: [SentryNetworkLoggerPlugin(), CachePolicyPlugin()])
     }
 }

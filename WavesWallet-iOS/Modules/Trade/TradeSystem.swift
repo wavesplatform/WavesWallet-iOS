@@ -26,6 +26,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     private let pairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
+    private let developmentConfigsRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
+    
     private let selectedAsset: DomainLayer.DTO.Dex.Asset?
 
     init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
@@ -38,7 +40,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                          core: .init(pairsPrice: [],
                                      pairsRate: [],
                                      favoritePairs: [],
-                                     categories: []),
+                                     categories: [],
+                                     lockedPairs: []),
                          categories: [],
                          selectedFilters: [],
                          selectedAsset: selectedAsset)
@@ -331,7 +334,8 @@ private extension TradeSystem {
                         var pairsSet: [DomainLayer.DTO.CorrectionPairs.Pair] = []
 
                         let simpleFavoritePairs = favoritePairs.map {
-                            DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAssetId, priceAsset: $0.priceAssetId)
+                            DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAssetId,
+                                                                 priceAsset: $0.priceAssetId)
                         }
 
                         let simplePairs = dataCategories.map {
@@ -375,9 +379,11 @@ private extension TradeSystem {
                             let pairs = category.pairs.map { pair -> DomainLayer.DTO.Dex.Pair? in
 
                                 if mapPairs[pair.keyPair] != nil {
-                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset)
+                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.amountAsset,
+                                                                    priceAsset: pair.priceAsset)
                                 } else if mapPairs[pair.inversionKeyPair] != nil {
-                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.priceAsset, priceAsset: pair.amountAsset)
+                                    return DomainLayer.DTO.Dex.Pair(amountAsset: pair.priceAsset,
+                                                                    priceAsset: pair.amountAsset)
                                 }
                                 return nil
                             }
@@ -385,17 +391,29 @@ private extension TradeSystem {
 
                             return .init(name: category.name, filters: category.filters, pairs: pairs)
                         }
-
-                        return Observable.zip(pairsPrice, pairsRate)
-                            .map { arg -> TradeTypes.DTO.Core in
-
-                                let (pairsPrice, pairsRate) = arg
+                        
+                        let developmentConfigs = self
+                            .developmentConfigsRepository
+                            .developmentConfigs()
+                        
+                        return Observable.zip(pairsPrice,
+                                              pairsRate,
+                                              developmentConfigs)
+                            .map { pairsPrice, pairsRate, developmentConfigs -> TradeTypes.DTO.Core in
+                                                          
+                                let lockedPairs = developmentConfigs.lockedPairs
+                                
                                 return .init(pairsPrice: pairsPrice,
                                              pairsRate: pairsRate,
                                              favoritePairs: favoritePairs,
-                                             categories: tradeCategories)
+                                             categories: tradeCategories,
+                                             lockedPairs: lockedPairs)
                             }
-                    }
+                }
+                .catchError { (error) -> Observable<TradeTypes.DTO.Core> in
+                    print("error \(error)")
+                    return Observable.error(error)
+                }
             }
     }
 }

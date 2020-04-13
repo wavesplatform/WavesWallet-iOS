@@ -1,10 +1,10 @@
 {
   "name": "Testnet",
   "servers": {
-    "nodeUrl": "https://pool.testnet.wavesnodes.com",
+    "nodeUrl": "https://nodes-testnet.wavesnodes.com",
     "dataUrl": "https://api.testnet.wavesplatform.com",
     "spamUrl": "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
-    "matcherUrl": "https://matcher-testnet.wavesplatform.com",
+    "matcherUrl": "https://matcher-testnet.wavesnodes.com",
     "gatewayUrl": "https://gateways-dev.wvservices.com/api",
     "authUrl": "https://testnet.waves.exchange/oauth",
         "gateways": {
@@ -13,7 +13,6 @@
             "v2": "https://testnet.waves.exchange/gateways"
         }
   },
-  "exchangeClientSecret":"Basic dGVzdC1jbGllbnQ6c2VjcmV0",
   "scheme": "T",
   "generalAssets": [
     {
@@ -45,6 +44,16 @@
       "gatewayId": "ETH",
       "gatewayType": "coinomat",
       "addressRegEx": "^0x[a-fA-F0-9]{40}$"
+    },
+    {
+      "assetId": "AvxDjVat8ErppBRxM56KewbQq3RMv8QibBNssqn6P7Fd",
+      "displayName": "Ergo",
+      "isFiat": false,
+      "isGateway": true,
+      "wavesId": "ERG",
+      "gatewayId": "ERGO",
+      "gatewayType": "exchange",
+      "addressRegEx": "(9|3)[a-km-zA-HJ-NP-Z1-9]{5,}"
     },
     {
       "assetId": "D6N2rAqWN6ZCWnCeNFWLGqqjS6nJLeK4m19XiuhdDenr",

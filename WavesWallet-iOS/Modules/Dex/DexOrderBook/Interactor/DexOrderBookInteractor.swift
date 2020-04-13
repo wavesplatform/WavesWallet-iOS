@@ -40,7 +40,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               header: header,
                                               availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
                                               availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
-                                              availableWavesBalance: Money(0, WavesSDKConstants.WavesDecimals),
+                                              availableBalances: [],
                                               scriptedAssets: [])
         
 
@@ -149,7 +149,6 @@ private extension DexOrderBookInteractor {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
-        var wavesBalance = Money(0, WavesSDKConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)
@@ -159,14 +158,13 @@ private extension DexOrderBookInteractor {
             priceAssetBalance = Money(priceAsset.availableBalance, priceAsset.asset.precision)
         }
         
-        if let wavesAsset = balances.first(where: {$0.asset.isWaves == true}) {
-            wavesBalance = Money(wavesAsset.availableBalance, wavesAsset.asset.precision)
-        }
-        
-        let data = DexOrderBook.DTO.Data(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,
+        let data = DexOrderBook.DTO.Data(asks: asks.reversed(),
+                                         lastPrice: lastPrice,
+                                         bids: bids,
+                                         header: header,
                                          availablePriceAssetBalance: priceAssetBalance,
                                          availableAmountAssetBalance: amountAssetBalance,
-                                         availableWavesBalance: wavesBalance,
+                                         availableBalances: balances,
                                          scriptedAssets: scriptedAssets)
         
         return DexOrderBook.DTO.DisplayData(data: data, authWalletError: false)

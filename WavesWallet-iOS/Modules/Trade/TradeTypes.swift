@@ -78,6 +78,7 @@ extension TradeTypes.DTO {
     
     struct Pair: Equatable {
         let id: String
+        let isLocked: Bool
         let isGeneral: Bool
         let amountAsset: DomainLayer.DTO.Dex.Asset
         let priceAsset: DomainLayer.DTO.Dex.Asset
@@ -94,6 +95,7 @@ extension TradeTypes.DTO {
         var pairsRate: [DomainLayer.DTO.Dex.PairRate]
         var favoritePairs: [DomainLayer.DTO.Dex.FavoritePair]
         var categories: [TradeTypes.DTO.Category]
+        var lockedPairs: [String]
     }
          
     struct Category {

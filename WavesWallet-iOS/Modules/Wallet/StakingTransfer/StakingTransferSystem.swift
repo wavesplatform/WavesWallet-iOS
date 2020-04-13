@@ -10,8 +10,10 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import Extensions
+import RxSwift
 import DomainLayer
 import WavesSDK
+import WavesSDKExtensions
 
 final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer.Event> {
     
@@ -71,7 +73,7 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
 private extension StakingTransferSystem {
     
     func reduceForCard(event: Event, state: inout State) {
-                        
+        
         switch event {
         case .viewDidAppear:
             
@@ -102,13 +104,24 @@ private extension StakingTransferSystem {
                                       state: &state)
             
         case .completedSendCard(let url):
-
+            
             state.core.action = .none
             let updateRows = updateCardButton(state: &state,
                                               status: .active)
             
-            state.ui.action = .completedCard(updateRows, url)
+            guard let asset = state.core.data?.card?.asset else {
+                state.ui.action = .none
+                return
+            }
             
+            guard let amount = state.core.input?.card?.amount else {
+                state.ui.action = .none
+                return
+            }
+            
+            let balance: DomainLayer.DTO.Balance = asset.balance(amount.amount)
+            
+            state.ui.action = .completedCard(updateRows, url: url, amount: balance)
             
         case .handlerError(let error):
             state.core.action = .none
@@ -175,7 +188,7 @@ private extension StakingTransferSystem {
                                           inputIndexPath: indexPath,
                                           state: &state)
         case .completedSendWithdraw(let tx):
-
+            
             guard let asset = state.core.data?.transfer?.asset else {
                 state.ui.action = .none
                 state.core.action = .none
@@ -208,14 +221,19 @@ private extension StakingTransferSystem {
             }
             
             let balance: DomainLayer.DTO.Balance = asset.balance(amount.amount)
-                        
+            
             let updateRows = updateTransferButton(state: &state,
                                                   status: .active)
             state.ui.action = .completedDeposit(updateRows, transactions: tx, amount: balance)
             
         case .showDeposit(let deposit):
             
-            state.core.action = .none
+            if let prevDeposit = state.core.data?.deposit, prevDeposit == deposit {
+                state.ui.action = .none
+                return
+            }
+            
+            state.core.action = .loadDeposit
             state.core.data = .deposit(deposit)
             let kind = state.core.kind
             
@@ -225,7 +243,12 @@ private extension StakingTransferSystem {
             
         case .showWithdraw(let withdraw):
             
-            state.core.action = .none
+            if let prevWithdraw = state.core.data?.withdraw, prevWithdraw == withdraw {
+                state.ui.action = .none
+                return
+            }
+                                
+            state.core.action = .loadWithdraw
             state.core.data = .withdraw(withdraw)
             
             state.ui.sections = withdraw.sections(input: state.core.input?.withdraw,
@@ -234,6 +257,18 @@ private extension StakingTransferSystem {
             
         case .tapSendButton:
             
+            guard let asset = state.core.data?.transfer?.asset else {
+                state.ui.action = .none
+                state.core.action = .none
+                return
+            }
+            
+            guard let amount = state.core.input?.transfer?.amount else {
+                state.ui.action = .none
+                state.core.action = .none
+                return
+            }
+            
             let updateRows = updateTransferButton(state: &state, status: .loading)
             
             state.ui.action = .update(updateRows, error: nil)
@@ -241,8 +276,25 @@ private extension StakingTransferSystem {
             switch state.core.kind {
             case .deposit:
                 state.core.action = .sendDeposit
+                
+                let event: AnalyticManagerEventStaking = .depositSendTap(amount: amount.amount,
+                                                                         assetTicker: asset.displayName)
+                UseCasesFactory
+                    .instance
+                    .analyticManager
+                    .trackEvent(.staking(event))
+                
+                
             case .withdraw:
                 state.core.action = .sendWithdraw
+                
+                let event: AnalyticManagerEventStaking = .withdrawSendTap(amount: amount.amount,
+                                                                          assetTicker: asset.displayName)
+                
+                UseCasesFactory
+                    .instance
+                    .analyticManager
+                    .trackEvent(.staking(event))
             default:
                 state.core.action = .none
             }
@@ -288,7 +340,7 @@ private extension StakingTransferSystem {
         
         let rowsCount = state.ui.sections[0].rows.count
         let indexPath = IndexPath(row: max(rowsCount - 1, 0), section: 0)
-            
+        
         let button = card.button(status: status)
         
         state.ui.replace(row: button,
@@ -312,23 +364,12 @@ private extension StakingTransferSystem {
         
         let kind = state.core.kind
         
-        let balance = transfer.balance.money
-        
-        let avaliableBalanceForFee = transfer.avaliableBalanceForFee.money
-        
-        let transactionFeeBalance = transfer.transactionFeeBalance.money
-        
         let prevInputTransfer = state.core.input?.transfer
         
         var error: StakingTransfer.DTO.InputData.Transfer.Error? = nil
         
-        if let input = input {
-            
-            if input.amount > balance.amount {
-                error = .insufficientFunds
-            } else if avaliableBalanceForFee.amount < transactionFeeBalance.amount {
-                error = .insufficientFundsOnTax
-            }
+        if let input = input {            
+            error = transfer.errorKind(amount: input)
         }
         
         let newInputTrasnfer: StakingTransfer.DTO.InputData.Transfer = .init(amount: input, error: error)
@@ -347,6 +388,7 @@ private extension StakingTransferSystem {
         let hasPrevError = prevInputTransfer?.error != nil
         let hasError = error != nil
         let reloadError = hasPrevError && hasError
+        let isActiveButton = hasError != true && input != nil
         
         let inputField = transfer.inputField(input: newInputTrasnfer,
                                              kind: kind)
@@ -360,24 +402,22 @@ private extension StakingTransferSystem {
             state.ui.remove(indexPath: nextIndexPath)
         }
         
-        let rowsCount = state.ui.sections[0].rows.count
-        let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
-        
-        if let error = newInputTrasnfer.error, hasError == true {
-            
-            let errorRow = transfer.error(by: error, kind: kind)
+        if let error = newInputTrasnfer.error, hasError == true {            
+            let errorRow = transfer.error(by: error)
             state.ui.add(row: errorRow, indexPath: nextIndexPath)
         }
         
-        let button = transfer.button(status: hasError == true ? .disabled : .active,
-                                     kind: kind)
+        let rowsCount = state.ui.sections[0].rows.count
+        let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
         
-        state.ui.replace(row: button,
-                         indexPath: indexPathButton)
         
-        var insertRows: [IndexPath] = .init()
-        var deleteRows: [IndexPath] = .init()
-        var reloadRows: [IndexPath] = .init()
+        let button = transfer.button(status: isActiveButton ? .active : .disabled, kind: kind)
+        
+        state.ui.replace(row: button, indexPath: indexPathButton)
+        
+        var insertRows: [IndexPath] = []
+        var deleteRows: [IndexPath] = []
+        var reloadRows: [IndexPath] = []
         
         if reloadError {
             reloadRows.append(nextIndexPath)
@@ -405,8 +445,6 @@ private extension StakingTransferSystem {
         guard let card = state.core.data?.card else { return }
         
         let prevInputCard = state.core.input?.card
-        let minAmount = card.minAmount
-        let maxAmount = card.maxAmount
         
         var error: StakingTransfer.DTO.InputData.Card.Error? = nil
         
@@ -422,6 +460,8 @@ private extension StakingTransferSystem {
         let hasPrevError = prevInputCard?.error != nil
         let hasError = error != nil
         let reloadError = hasPrevError && hasError
+        
+        let isActiveButton = hasError != true && input != nil
         
         let inputField = card.inputField(input: newInputCard)
         
@@ -441,7 +481,7 @@ private extension StakingTransferSystem {
         let rowsCount = state.ui.sections[0].rows.count
         let indexPathButton = IndexPath(row: max(rowsCount - 1, 0), section: 0)
         
-        state.ui.replace(row: card.button(status: hasError == true ? .disabled : .active), indexPath: indexPathButton)
+        state.ui.replace(row: card.button(status: isActiveButton ? .active : .disabled), indexPath: indexPathButton)
         
         var insertRows: [IndexPath] = .init()
         var deleteRows: [IndexPath] = .init()
@@ -532,11 +572,18 @@ private extension StakingTransferSystem {
             
             guard let self = self else { return Signal.empty() }
             
-            return self
-                .stakingTransferInteractor
-                .deposit(assetId: self.assetId)
-                .map { .showDeposit($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            return Observable<Int>
+                .timer(0, period: 3.0, scheduler: MainScheduler.instance)
+                .asSignal(onErrorSignalWith: Signal.just(1))
+                .flatMap { [weak self] map -> Signal<StakingTransferSystem.Event> in
+                    
+                    guard let self = self else { return Signal.empty() }
+                    return self
+                        .stakingTransferInteractor
+                        .deposit(assetId: self.assetId)
+                        .map { .showDeposit($0) }
+                        .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            }
         })
     }
     
@@ -550,11 +597,18 @@ private extension StakingTransferSystem {
             
             guard let self = self else { return Signal.empty() }
             
-            return self
-                .stakingTransferInteractor
-                .withdraw(assetId: self.assetId)
-                .map {  .showWithdraw($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            return Observable<Int>
+                .timer(0, period: 3.0, scheduler: MainScheduler.instance)
+                .asSignal(onErrorSignalWith: Signal.just(1))            
+                .flatMap { [weak self] map -> Signal<StakingTransferSystem.Event> in
+                    
+                    guard let self = self else { return Signal.empty() }
+                    return self
+                        .stakingTransferInteractor
+                        .withdraw(assetId: self.assetId)
+                        .map {  .showWithdraw($0) }
+                        .asSignal(onErrorRecover: { Signal.just(.handlerError(NetworkError.error(by: $0))) })
+            }
         })
     }
     

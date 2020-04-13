@@ -34,7 +34,10 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
 
     func displayInfo() -> Observable<DexLastTrades.DTO.DisplayData> {
 
-        return Observable.zip(getLastTrades(), getLastSellBuy(), account.balances(), getScriptedAssets())
+        Observable.zip(getLastTrades(),
+                       getLastSellBuy(),
+                       account.balances(),
+                       getScriptedAssets())
             .flatMap({ [weak self] (lastTrades, lastSellBuy, balances, scriptedAssets) -> Observable<(DexLastTrades.DTO.DisplayData)> in
                 guard let self = self else { return Observable.empty() }
                 
@@ -51,7 +54,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
                                                             lastBuy:  nil,
                                                             availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
                                                             availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
-                                                            availableWavesBalance: Money(0, WavesSDKConstants.WavesDecimals),
+                                                            availableBalances: [],
                                                             scriptedAssets: [])
                 return Observable.just(display)
             })
@@ -68,8 +71,7 @@ extension DexLastTradesInteractor {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
-        var wavesBalance = Money(0, WavesSDKConstants.WavesDecimals)
-        
+                
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)
         }
@@ -77,17 +79,13 @@ extension DexLastTradesInteractor {
         if let priceAsset = balances.first(where: {$0.assetId == pair.priceAsset.id}) {
             priceAssetBalance = Money(priceAsset.availableBalance, priceAsset.asset.precision)
         }
-        
-        if let wavesAsset = balances.first(where: { $0.asset.isWaves == true }) {
-            wavesBalance = Money(wavesAsset.availableBalance, wavesAsset.asset.precision)
-        }
-        
+                
         let display = DexLastTrades.DTO.DisplayData(trades: lastTrades,
                                                     lastSell: lastSellBuy.sell,
                                                     lastBuy: lastSellBuy.buy,
                                                     availableAmountAssetBalance: amountAssetBalance,
                                                     availablePriceAssetBalance: priceAssetBalance,
-                                                    availableWavesBalance: wavesBalance,
+                                                    availableBalances: balances,
                                                     scriptedAssets: scriptedAssets)
         return Observable.just(display)
     }

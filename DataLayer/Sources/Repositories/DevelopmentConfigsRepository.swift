@@ -17,6 +17,10 @@ private struct DevelopmentConfigs: Decodable {
     let matcherSwapAddress: String
     let exchangeClientSecret: String
     let staking: [Staking]
+    let lockedPairs: [String]?
+//  First key is assetId and second key is fiat
+//  For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
+    let gatewayMinFee: [String: [String: Rate]]
     
     enum CodingKeys: String, CodingKey {
         case serviceAvailable = "service_available"
@@ -24,7 +28,14 @@ private struct DevelopmentConfigs: Decodable {
         case matcherSwapAddress = "matcher_swap_address"
         case exchangeClientSecret = "exchange_client_secret"
         case staking
+        case lockedPairs = "locked_pairs"
+        case gatewayMinFee = "gateway_min_fee"
     }
+}
+
+private struct Rate: Decodable {
+    let rate: Double
+    let flat: Int64
 }
 
 private struct Staking: Decodable {
@@ -70,11 +81,24 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                             addressByCalculateProfit: $0.addressByCalculateProfit)
                 }
                 
+                
+                let gatewayMinFee = config
+                    .gatewayMinFee
+                    .mapValues { (value) -> [String: DomainLayer.DTO.DevelopmentConfigs.Rate] in
+                                    
+                    return value.mapValues { value -> DomainLayer.DTO.DevelopmentConfigs.Rate in
+                        return DomainLayer.DTO.DevelopmentConfigs.Rate(rate: value.rate,
+                                                                       flat: value.flat)
+                    }
+                }
+                                
                 return DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
                                                           matcherSwapTimestamp: config.matcherSwapTimestamp,
                                                           matcherSwapAddress: config.matcherSwapAddress,
                                                           exchangeClientSecret: config.exchangeClientSecret,
-                                                          staking: staking)
+                                                          staking: staking,
+                                                          lockedPairs: config.lockedPairs ?? [],
+                                                          gatewayMinFee: gatewayMinFee)
             }
     }
 }

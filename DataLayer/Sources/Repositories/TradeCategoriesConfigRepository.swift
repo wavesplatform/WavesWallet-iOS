@@ -71,7 +71,6 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                         }
                     }
                 }
-                
                                 
                 return self
                     .assetsRepoitory
@@ -103,7 +102,10 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                             }
                             .compactMap { $0 }
                                                         
-                            let matchingAassets = $0.matching_assets.map { assetsMap[$0] }.compactMap { $0 }.map { $0.dexAsset }
+                            let matchingAassets = $0.matching_assets
+                                .map { assetsMap[$0] }
+                                .compactMap { $0 }
+                                .map { $0.dexAsset }
                                                         
                             return DomainLayer.DTO.TradeCategory(name: name,
                                                                  filters: filters,

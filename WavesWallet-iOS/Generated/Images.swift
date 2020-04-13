@@ -81,6 +81,8 @@ internal enum Images {
   internal static let chartarrow22Accent100 = ImageAsset(name: "chartarrow22Accent100")
   internal static let chartarrow22Error500 = ImageAsset(name: "chartarrow22Error500")
   internal static let chartarrow22Success400 = ImageAsset(name: "chartarrow22Success400")
+  internal static let chat26 = ImageAsset(name: "chat26")
+  internal static let chatActive26 = ImageAsset(name: "chatActive26")
   internal static let check18Success400 = ImageAsset(name: "check18Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
@@ -98,6 +100,7 @@ internal enum Images {
   internal static let delete = ImageAsset(name: "delete")
   internal static let delete22Error500 = ImageAsset(name: "delete22Error500")
   internal static let deleteAllCopy = ImageAsset(name: "deleteAllCopy")
+  internal static let deleteAllOrders22 = ImageAsset(name: "deleteAllOrders22")
   internal static let dex = ImageAsset(name: "dex")
   internal static let dex80 = ImageAsset(name: "dex80")
   internal static let disableBg = ImageAsset(name: "disableBg")
@@ -116,6 +119,8 @@ internal enum Images {
   internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
   internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
+  internal static let fastHange26 = ImageAsset(name: "fastHange26")
+  internal static let fastHangeActive26 = ImageAsset(name: "fastHangeActive26")
   internal static let favorite14Submit300 = ImageAsset(name: "favorite14Submit300")
   internal static let favoriteMini14Submit300 = ImageAsset(name: "favoriteMini14Submit300")
   internal static let fb20White = ImageAsset(name: "fb20White")
@@ -143,6 +148,7 @@ internal enum Images {
   internal static let hide = ImageAsset(name: "hide")
   internal static let hidekeyboard24Multy = ImageAsset(name: "hidekeyboard24Multy")
   internal static let history = ImageAsset(name: "history")
+  internal static let history21122 = ImageAsset(name: "history21122")
   internal static let iAnonim42Submit400 = ImageAsset(name: "iAnonim42Submit400")
   internal static let iBackup42Submit400 = ImageAsset(name: "iBackup42Submit400")
   internal static let iMailopen42Submit400 = ImageAsset(name: "iMailopen42Submit400")
@@ -171,6 +177,8 @@ internal enum Images {
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
   internal static let information22Multy = ImageAsset(name: "information22Multy")
   internal static let information24Multy = ImageAsset(name: "information24Multy")
+  internal static let invest26 = ImageAsset(name: "invest26")
+  internal static let investActive26 = ImageAsset(name: "investActive26")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
   internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
   internal static let logoDash48 = ImageAsset(name: "logoDash48")
@@ -226,6 +234,7 @@ internal enum Images {
   internal static let search24Black = ImageAsset(name: "search24Black")
   internal static let send = ImageAsset(name: "send")
   internal static let send48 = ImageAsset(name: "send48")
+  internal static let sendReceive22 = ImageAsset(name: "sendReceive22")
   internal static let sendBtn = ImageAsset(name: "send_btn")
   internal static let settings = ImageAsset(name: "settings")
   internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
@@ -236,6 +245,7 @@ internal enum Images {
   internal static let slide3 = ImageAsset(name: "slide3")
   internal static let slidePointDot = ImageAsset(name: "slide_point_dot")
   internal static let slidePointLine = ImageAsset(name: "slide_point_line")
+  internal static let sort18 = ImageAsset(name: "sort18")
   internal static let sponsoritem18White = ImageAsset(name: "sponsoritem18White")
   internal static let star = ImageAsset(name: "star")
   internal static let starSearchSmall = ImageAsset(name: "starSearchSmall")
@@ -399,6 +409,8 @@ internal enum Images {
     chartarrow22Accent100,
     chartarrow22Error500,
     chartarrow22Success400,
+    chat26,
+    chatActive26,
     check18Success400,
     checkMark,
     checkSuccess,
@@ -416,6 +428,7 @@ internal enum Images {
     delete,
     delete22Error500,
     deleteAllCopy,
+    deleteAllOrders22,
     dex,
     dex80,
     disableBg,
@@ -434,6 +447,8 @@ internal enum Images {
     eyeclsoe24Basic500,
     eyeopen24Basic500,
     faceid48Submit300,
+    fastHange26,
+    fastHangeActive26,
     favorite14Submit300,
     favoriteMini14Submit300,
     fb20White,
@@ -461,6 +476,7 @@ internal enum Images {
     hide,
     hidekeyboard24Multy,
     history,
+    history21122,
     iAnonim42Submit400,
     iBackup42Submit400,
     iMailopen42Submit400,
@@ -489,6 +505,8 @@ internal enum Images {
     info18Warning600,
     information22Multy,
     information24Multy,
+    invest26,
+    investActive26,
     logoBitcoin48,
     logoBitcoincash48,
     logoDash48,
@@ -544,6 +562,7 @@ internal enum Images {
     search24Black,
     send,
     send48,
+    sendReceive22,
     sendBtn,
     settings,
     share18Submit400,
@@ -554,6 +573,7 @@ internal enum Images {
     slide3,
     slidePointDot,
     slidePointLine,
+    sort18,
     sponsoritem18White,
     star,
     starSearchSmall,

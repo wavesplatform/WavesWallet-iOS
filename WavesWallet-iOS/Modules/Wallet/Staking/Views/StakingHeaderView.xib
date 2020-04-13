@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,14 +26,14 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="21.23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-aC-6iN">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="752" text="21.23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIs-aC-6iN">
                                     <rect key="frame" x="16" y="32" width="45.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="% per year" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfc-ZX-bqZ">
-                                    <rect key="frame" x="63.5" y="35.5" width="56" height="13.5"/>
+                                    <rect key="frame" x="63.5" y="32" width="56" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -63,9 +63,11 @@
                             <constraints>
                                 <constraint firstItem="MyM-Ja-dqZ" firstAttribute="trailing" secondItem="a3D-an-RuV" secondAttribute="trailing" id="4Je-vj-yrg"/>
                                 <constraint firstItem="DIs-aC-6iN" firstAttribute="top" secondItem="KQq-wN-vUg" secondAttribute="bottom" constant="4" id="D0U-5u-zhI"/>
+                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="top" secondItem="DIs-aC-6iN" secondAttribute="top" id="E8A-2o-bNG"/>
+                                <constraint firstItem="wfc-ZX-bqZ" firstAttribute="bottom" secondItem="DIs-aC-6iN" secondAttribute="bottom" id="KRU-N4-Bqk"/>
                                 <constraint firstItem="wfc-ZX-bqZ" firstAttribute="centerY" secondItem="DIs-aC-6iN" secondAttribute="centerY" id="Mup-Iu-5f5"/>
                                 <constraint firstItem="a3D-an-RuV" firstAttribute="top" secondItem="DIs-aC-6iN" secondAttribute="bottom" constant="12" id="PlK-rx-4bD" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target"/>
-                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="a3D-an-RuV" secondAttribute="bottom" constant="28" id="QDL-Ry-2Yi"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="a3D-an-RuV" secondAttribute="bottom" constant="20" id="QDL-Ry-2Yi"/>
                                 <constraint firstItem="KQq-wN-vUg" firstAttribute="top" secondItem="OHB-BM-Y7z" secondAttribute="top" constant="12" id="Qzm-WU-A3z"/>
                                 <constraint firstAttribute="trailing" secondItem="KQq-wN-vUg" secondAttribute="trailing" constant="10" id="XzN-h7-bLH"/>
                                 <constraint firstItem="MyM-Ja-dqZ" firstAttribute="leading" secondItem="a3D-an-RuV" secondAttribute="leading" id="Zf9-Im-1zo"/>
@@ -204,7 +206,19 @@
                                 <constraint firstItem="Lt2-t2-3rc" firstAttribute="leading" secondItem="ws0-BJ-OWm" secondAttribute="leading" id="fX8-ij-NNU"/>
                                 <constraint firstAttribute="bottom" secondItem="Lt2-t2-3rc" secondAttribute="bottom" constant="14" id="fnw-LX-TT5"/>
                                 <constraint firstItem="ws0-BJ-OWm" firstAttribute="leading" secondItem="Nwn-9U-WM3" secondAttribute="leading" id="ftb-7K-bd4"/>
-                                <constraint firstItem="Nwn-9U-WM3" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="jN8-r0-mR7"/>
+                                <constraint firstItem="Nwn-9U-WM3" firstAttribute="leading" secondItem="ZoD-eL-eeR" secondAttribute="leading" constant="16" id="jN8-r0-mR7" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch3_5">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="inch4_7">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
                                 <constraint firstItem="Lt2-t2-3rc" firstAttribute="top" secondItem="ws0-BJ-OWm" secondAttribute="bottom" constant="4" id="kqP-s1-8v6"/>
                                 <constraint firstItem="Nwn-9U-WM3" firstAttribute="top" secondItem="TZl-19-EVs" secondAttribute="bottom" constant="4" id="p2D-AZ-tym"/>
                                 <constraint firstItem="kkE-R1-tEe" firstAttribute="centerY" secondItem="Lt2-t2-3rc" secondAttribute="centerY" id="qhf-7J-61a"/>
@@ -239,14 +253,17 @@
             <connections>
                 <outlet property="balanceLabel" destination="Nwn-9U-WM3" id="vZp-sM-LQu"/>
                 <outlet property="buttonHowWorkds" destination="a3D-an-RuV" id="tdR-Bm-KvE"/>
+                <outlet property="fbButton" destination="kkE-R1-tEe" id="wne-Qd-KdN"/>
                 <outlet property="labelEstimatedInterest" destination="KQq-wN-vUg" id="zI0-6y-huz"/>
                 <outlet property="labelPercent" destination="DIs-aC-6iN" id="U0v-Wp-B9M"/>
                 <outlet property="labelPercentTitle" destination="wfc-ZX-bqZ" id="PFP-6Q-n5d"/>
                 <outlet property="labelShare" destination="ws0-BJ-OWm" id="PTP-58-emY"/>
                 <outlet property="labelTotalProfit" destination="TZl-19-EVs" id="RTz-Bp-jJI"/>
+                <outlet property="twitterButton" destination="Lt2-t2-3rc" id="J9F-PG-Vdt"/>
                 <outlet property="viewContainer" destination="rNa-mA-iCM" id="YK3-zc-BSj"/>
                 <outlet property="viewEstimetedInterest" destination="OHB-BM-Y7z" id="ib0-4D-sHz"/>
                 <outlet property="viewProfit" destination="ZoD-eL-eeR" id="0Jl-me-zD6"/>
+                <outlet property="vkButton" destination="viz-O7-ZeU" id="166-V5-tK6"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="129.98500749625188"/>
         </view>

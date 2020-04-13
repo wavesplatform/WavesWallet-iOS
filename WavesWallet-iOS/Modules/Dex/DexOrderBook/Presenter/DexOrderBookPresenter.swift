@@ -80,7 +80,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 $0.isNeedRefreshing = false
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
-                $0.availableWavesBalance = displayData.availableWavesBalance
+                $0.availableBalances = displayData.availableBalances
                 $0.scriptedAssets = displayData.scriptedAssets
                 
                 let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
@@ -117,7 +117,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance,
+                                         availableBalances: state.availableBalances,
                                          inputMaxSum: inputMaxSum,
                                          scriptedAssets: state.scriptedAssets)
 
@@ -133,7 +133,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance,
+                                              availableBalances: state.availableBalances,
                                               scriptedAssets: state.scriptedAssets)
          
             return state.changeAction(.none)
@@ -150,7 +150,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          last: state.lastPrice?.price,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance,
+                                         availableBalances: state.availableBalances,
                                          inputMaxSum: inputMaxSum,
                                          scriptedAssets: state.scriptedAssets)
 
@@ -166,7 +166,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance,
+                                              availableBalances: state.availableBalances,
                                               scriptedAssets: state.scriptedAssets)
 
             return state.changeAction(.none)

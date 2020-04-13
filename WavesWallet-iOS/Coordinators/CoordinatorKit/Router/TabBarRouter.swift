@@ -21,6 +21,10 @@ final class TabBarRouter: NSObject {
     func setViewControllers(_ viewControllers: [UIViewController]) {
         tabBarController.viewControllers = viewControllers
     }
+    
+    func setSelectedIndex(_ selectedIndex: Int) {
+        tabBarController.selectedIndex = selectedIndex
+    }
 }
 
 extension TabBarRouter: Router {

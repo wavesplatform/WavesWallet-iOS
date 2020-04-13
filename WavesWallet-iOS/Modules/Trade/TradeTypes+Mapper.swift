@@ -55,8 +55,11 @@ extension TradeTypes.DTO.Core {
                     }
 
                     let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-
+                    
+                    let isLocked = self.lockedPairs.contains(pair.amountAsset.id) || self.lockedPairs.contains(pair.priceAsset.id)
+                    
                     categoryPairs.append(.init(id: pairPrice.id,
+                                               isLocked: isLocked,
                                                isGeneral: pairPrice.isGeneral,
                                                amountAsset: pairPrice.amountAsset,
                                                priceAsset: pairPrice.priceAsset,
@@ -115,8 +118,11 @@ private extension TradeTypes.DTO.Core {
                 }
 
                 let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-
+                
+                let isLocked = self.lockedPairs.contains(pair.priceAssetId) || self.lockedPairs.contains(pair.amountAssetId)
+                
                 favoritePairsPrice.append(.init(id: pairPrice.id,
+                                                isLocked: isLocked,
                                                 isGeneral: pairPrice.isGeneral,
                                                 amountAsset: pairPrice.amountAsset,
                                                 priceAsset: pairPrice.priceAsset,

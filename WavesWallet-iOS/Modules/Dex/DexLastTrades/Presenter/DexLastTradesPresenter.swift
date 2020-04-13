@@ -75,7 +75,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
                 $0.lastSell = displayData.lastSell
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
-                $0.availableWavesBalance = displayData.availableWavesBalance
+                $0.availableBalances = displayData.availableBalances
                 $0.scriptedAssets = displayData.scriptedAssets
                 
                 let items = displayData.trades.map {DexLastTrades.ViewModel.Row.trade($0)}
@@ -88,7 +88,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             moduleOutput?.didCreateOrder(buy, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance,
+                                         availableBalances: state.availableBalances,
                                          scriptedAssets: state.scriptedAssets)
             return state.changeAction(.none)
         
@@ -99,7 +99,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
                                               orderType: .buy,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance,
+                                              availableBalances: state.availableBalances,
                                               scriptedAssets: state.scriptedAssets)
             return state.changeAction(.none)
             
@@ -109,7 +109,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             moduleOutput?.didCreateOrder(sell, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance,
+                                         availableBalances: state.availableBalances,
                                          scriptedAssets: state.scriptedAssets)
 
             return state.changeAction(.none)
@@ -121,7 +121,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
                                               orderType: .sell,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance,
+                                              availableBalances: state.availableBalances,
                                               scriptedAssets: state.scriptedAssets)
 
             return state.changeAction(.none)

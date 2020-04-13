@@ -12,22 +12,44 @@ import RxSwift
 public extension DomainLayer.DTO {
     
     struct DevelopmentConfigs {
+        
+        public struct Rate: Decodable {
+            public let rate: Double
+            public let flat: Int64
+
+            public init(rate: Double, flat: Int64) {
+                self.rate = rate
+                self.flat = flat
+            }
+        }
+
+        
         public let serviceAvailable: Bool
         public let matcherSwapTimestamp: Date
         public let matcherSwapAddress: String
         public let exchangeClientSecret: String
         public let staking: [Staking]
+        // List assetId when lock
+        public let lockedPairs: [String]
 
+        // First key is assetId and second key is fiat
+        // For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
+        public let gatewayMinFee: [String: [String: Rate]]
+        
         public init(serviceAvailable: Bool,
                     matcherSwapTimestamp: Date,
                     matcherSwapAddress: String,
                     exchangeClientSecret: String,
-                    staking: [Staking]) {
+                    staking: [Staking],
+                    lockedPairs: [String],
+                    gatewayMinFee: [String: [String: Rate]]) {
             self.serviceAvailable = serviceAvailable
             self.matcherSwapAddress = matcherSwapAddress
             self.matcherSwapTimestamp = matcherSwapTimestamp
             self.exchangeClientSecret = exchangeClientSecret
             self.staking = staking
+            self.lockedPairs = lockedPairs
+            self.gatewayMinFee = gatewayMinFee
         }
     }
 }

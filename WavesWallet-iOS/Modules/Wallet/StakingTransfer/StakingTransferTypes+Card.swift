@@ -21,7 +21,8 @@ extension StakingTransfer.DTO.Data.Card {
              .inputField(title: title,
                          hasError: input?.error != nil,
                          asset: asset,
-                         amount: input?.amount)
+                         amount: input?.amount,
+                         hasDecimal: false)
     }
     
     func error(by error: StakingTransfer.DTO.InputData.Card.Error) -> StakingTransfer.ViewModel.Row {

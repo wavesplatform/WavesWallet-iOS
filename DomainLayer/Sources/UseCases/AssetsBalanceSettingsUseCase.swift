@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDKExtensions
+import WavesSDK
 
 private enum Constants {
     static let sortLevelNotFound: Float = -1
@@ -16,11 +17,11 @@ private enum Constants {
 
 final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
     
-
+    
     private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let authorizationInteractor: AuthorizationUseCaseProtocol
-
+    
     init(assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol,
          environmentRepository: EnvironmentRepositoryProtocol,
          authorizationInteractor: AuthorizationUseCaseProtocol) {
@@ -29,26 +30,38 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
         self.environmentRepository = environmentRepository
         self.authorizationInteractor = authorizationInteractor
     }
-
+    
     func settings(by accountAddress: String, assets: [DomainLayer.DTO.Asset]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
-
-        return authorizationInteractor.authorizedWallet()
+        
+        return authorizationInteractor
+            .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-               
+                
                 guard let self = self else { return Observable.empty() }
                 
-                return self.environmentRepository.walletEnvironment()
+                return self
+                    .environmentRepository
+                    .walletEnvironment()
                     .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-                       
+                        
                         guard let self = self else { return Observable.empty() }
+                        
                         let ids = assets.map { $0.id }
-
-                        let settings = self.assetSettings(assets: assets,
-                                                           ids: ids,
-                                                           accountAddress: accountAddress,
-                                                           environment: environment)
+                        
+                        let settings =  self
+                            .createDeffaultSettings(accountAddress: accountAddress,
+                                                    enviroment: environment)
+                            .flatMapLatest { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
+                                
+                                guard let self = self else { return Observable.never() }
+                                
+                                return self.assetSettings(assets: assets,
+                                                          ids: ids,
+                                                          accountAddress: accountAddress,
+                                                          environment: environment)
+                        }
                         .flatMapLatest { [weak self] (settings) -> Observable<Bool> in
-                                                                                    
+                            
                             guard let self = self else { return Observable.never() }
                             return self
                                 .assetsBalanceSettingsRepository
@@ -56,6 +69,7 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
                         }
                         .flatMapLatest { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                             
+                            //TODO: Remove listenerSettings from code and move to Intercator display
                             guard let self = self else { return Observable.never() }
                             return self
                                 .assetsBalanceSettingsRepository
@@ -66,21 +80,21 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
                         return settings
                         
                     })
-        })
+            })
     }
     
     func setFavorite(by accountAddress: String, assetId: String, isFavorite: Bool) -> Observable<Bool> {
-
+        
         return assetsBalanceSettingsRepository
             .settings(by: accountAddress)
             .flatMap { [weak self] (settings) -> Observable<Bool> in
-
+                
                 guard let self = self else { return Observable.never() }
-
+                
                 let sortedSettings = settings.sorted(by: { $0.sortLevel < $1.sortLevel })
-
+                
                 guard var asset = settings.first(where: { $0.assetId == assetId }) else { return Observable.never() }
-
+                
                 if asset.isFavorite == isFavorite {
                     return Observable.just(true)
                 }
@@ -93,13 +107,13 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
                 
                 newSettings.append(asset)
                 newSettings.append(contentsOf: otherList)
-
+                
                 for index in 0..<newSettings.count {
                     newSettings[index].sortLevel = Float(index)
                 }
                 
                 return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
-                                                                          settings: newSettings)
+                                                                         settings: newSettings)
         }
     }
     
@@ -110,15 +124,16 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
 }
 
 private extension AssetsBalanceSettingsUseCase {
-        
+    
     func assetSettings(assets: [DomainLayer.DTO.Asset],
                        ids: [String],
                        accountAddress: String,
                        environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
         
         let spamIds = assets.reduce(into: [String: Bool](), {$0[$1.id] = $1.isSpam })
-
-        return assetsBalanceSettingsRepository.settings(by: accountAddress, ids: ids)
+        
+        return assetsBalanceSettingsRepository
+            .settings(by: accountAddress, ids: ids)
             .flatMapLatest({ [weak self] (mapSettings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                 guard let self = self else { return Observable.empty() }
                 
@@ -153,30 +168,19 @@ private extension AssetsBalanceSettingsUseCase {
                 var settings = [DomainLayer.DTO.AssetBalanceSettings]()
                 settings.append(contentsOf: sortedSettings)
                 settings.append(contentsOf: withoutSettingsAssetsSorted)
-                
-                settings = settings
-                    .enumerated()
-                    .map { (element) -> DomainLayer.DTO.AssetBalanceSettings in
-                        let settings = element.element
-                        let level = Float(element.offset)
-                        let isFavorite = settings.isFavorite && spamIds[settings.assetId] == false
-                        return DomainLayer.DTO.AssetBalanceSettings(assetId: settings.assetId,
-                                                                    sortLevel: level,
-                                                                    isHidden: settings.isHidden,
-                                                                    isFavorite: isFavorite)
-                }
-                
+                                
                 return Observable.just(settings)
             })
     }
     
+    
     func sortAssets(assets: [DomainLayer.DTO.Asset], enviroment: WalletEnvironment) -> [DomainLayer.DTO.Asset] {
-
+        
         let favoriteAssets = assets.filter { $0.isInitialFavorite }.sorted(by: { $0.isWaves && !$1.isWaves })
         let secondsAssets = assets.filter { !$0.isInitialFavorite }
-    
+        
         let generalBalances = enviroment.generalAssets
-
+        
         let sorted = secondsAssets.sorted { (assetFirst, assetSecond) -> Bool in
             
             let isGeneralFirst = assetFirst.isGeneral
@@ -205,6 +209,36 @@ private extension AssetsBalanceSettingsUseCase {
             return false
         }
         return favoriteAssets + sorted
+    }
+    
+    func createDeffaultSettings(accountAddress: String, enviroment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
+        
+        let ids = enviroment.generalAssets.map { $0.assetId }
+        
+        return assetsBalanceSettingsRepository
+            .settings(by: accountAddress,
+                      ids: ids)
+            .flatMap { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
+                
+                guard let self = self else { return Observable.never() }
+                                                
+                if settings.count > 0 {
+                    return Observable.just([])
+                }
+                                                
+                let assets = enviroment
+                    .generalAssets
+                    .enumerated()
+                    .map {DomainLayer.DTO.AssetBalanceSettings(assetId: $0.element.assetId,
+                                                               sortLevel: Float($0.offset),
+                                                               isHidden: false,
+                                                               isFavorite: $0.element.assetId ==  WavesSDKConstants.wavesAssetId) }
+                                
+                return self.assetsBalanceSettingsRepository
+                    .saveSettings(by: accountAddress,
+                                  settings: assets)
+                    .map { _ in assets }
+        }
     }
 }
 

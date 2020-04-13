@@ -49,6 +49,7 @@ extension Reactive where Base == PushNotificationsManager {
             }
             return Disposables.create()
         }
+        .observeOn(MainScheduler.asyncInstance)
     }
     static func getNotificationsStatus() -> Observable<UNAuthorizationStatus> {
           

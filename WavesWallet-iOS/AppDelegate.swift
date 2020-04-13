@@ -20,6 +20,7 @@ import DomainLayer
 import Extensions
 import Firebase
 import FirebaseMessaging
+import Intercom
 
 #if DEBUG
 import SwiftMonkeyPaws
@@ -61,7 +62,7 @@ enum UITest {
         if let url = url {
             deepLink = DeepLink(url: url)
         }
-        
+                
         guard setupLayers() else { return false }
         
         setupUI()
@@ -98,6 +99,8 @@ enum UITest {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         appCoordinator.applicationDidEnterBackground()
+        
+        Intercom.hideMessenger()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {}
@@ -113,6 +116,15 @@ enum UITest {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
+        Intercom.setDeviceToken(deviceToken)
+    }
+    
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        appCoordinator.application(application,
+                                   didReceiveRemoteNotification: userInfo,
+                                   fetchCompletionHandler: completionHandler)
     }
 }
 
@@ -165,10 +177,13 @@ extension AppDelegate {
         
         let storages = StoragesFactory()
         
+        Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId:"ibdxiwmt")
+                    
+        
         UseCasesFactory.initialization(repositories: repositories,
                                        authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp(),
                                        storages: storages)
-
+        
         UNUserNotificationCenter.current().delegate = self
         return true
     }

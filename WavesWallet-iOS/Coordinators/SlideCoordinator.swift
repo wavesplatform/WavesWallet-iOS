@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import DomainLayer
+import Intercom
 
 final class SlideCoordinator: Coordinator {
 
@@ -33,11 +34,12 @@ final class SlideCoordinator: Coordinator {
 
     func start() {
 
-        let menuController = StoryboardScene.Main.menuViewController.instantiate()
-        slideMenuRouter.setLeftMenuViewController(menuController)
-        menuController.delegate = menuViewControllerDelegate
+//        let menuController = StoryboardScene.Main.menuViewController.instantiate()
+//        slideMenuRouter.setLeftMenuViewController(menuController)
+//        menuController.delegate = menuViewControllerDelegate
         self.windowRouter.setRootViewController(slideMenuRouter.slideMenu, animated: .crossDissolve)
-
+    
+        
         if let wallet = wallet {
             showDisplay(.wallet(wallet))
         } else {
@@ -77,6 +79,7 @@ extension SlideCoordinator: PresentationCoordinator {
 // MARK: ApplicationCoordinatorProtocol
 extension SlideCoordinator: ApplicationCoordinatorProtocol {
     func showEnterDisplay() {
+        Intercom.logout()
         showDisplay(.enter)
     }
 }

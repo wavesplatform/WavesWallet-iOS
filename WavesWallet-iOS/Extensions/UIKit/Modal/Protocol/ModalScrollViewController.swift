@@ -40,7 +40,6 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupScrollView()
-                
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,25 +73,24 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
 extension ModalScrollViewController  {
 
-    private func setNeedUpdateInset(animated: Bool = false) {
+    func setNeedUpdateInset(animated: Bool = false) {
         
         setupInsets(animated: animated)
-//        view.layoutIfNeeded()
+        view.layoutIfNeeded()
     }
 
     private func setupInsets(animated: Bool) {
 
         let bottom = bottomScrollInset(for: scrollView.frame.size)
-        let top = scrollView.frame.height - visibleScrollViewHeight(for: scrollView.frame.size)
-                
+        let top: CGFloat = scrollView.frame.height - visibleScrollViewHeight(for: scrollView.frame.size)
+        
         let contentOffset = top
         scrollView.contentInset.bottom = bottom
         scrollView.contentInset.top = top
-        scrollView.scrollIndicatorInsets.top = contentOffset
-                
+                        
         var content = scrollView.contentOffset
         content.y = -(contentOffset)
-        scrollView.setContentOffset(content, animated: animated)
+        scrollView.setContentOffset(content, animated: false)
         scrollView.scrollIndicatorInsets.top = max(0, -(scrollView.contentOffset.y))
     }
 
@@ -118,8 +116,9 @@ extension ModalScrollViewController: ModalPresentationAnimatorContext {
             height: layoutInsets.top + scrollView.contentInset.top - (scrollView.contentOffset.y + scrollView.contentInset.top))
     }
 
-    func appearingContentHeight(for size: CGSize) -> CGFloat {
-        0
+    func appearingContentHeight(for size:  CGSize) -> CGFloat {
+        let contentHeight = self.contentHeight(for: size)
+        return size.height - contentHeight
     }
 
     func disappearingContentHeight(for size: CGSize) -> CGFloat {
@@ -162,8 +161,8 @@ extension ModalScrollViewController: UIScrollViewDelegate {
         if let view = self.view as? ModalScrollViewRootView {
             view.scrollViewDidScroll(scrollView)
         }
-
-        //TODO: Check speed
+//
+//        //TODO: Check speed
         setupScrollView()
     }
 }
