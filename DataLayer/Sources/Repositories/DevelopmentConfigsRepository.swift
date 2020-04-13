@@ -22,7 +22,7 @@ private struct DevelopmentConfigs: Decodable {
     //  For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
     let gatewayMinFee: [String: [String: Rate]]
     let marketPairs: [String]
-
+    
     enum CodingKeys: String, CodingKey {
         case serviceAvailable = "service_available"
         case matcherSwapTimestamp = "matcher_swap_timestamp"
@@ -33,10 +33,10 @@ private struct DevelopmentConfigs: Decodable {
         case gatewayMinFee = "gateway_min_fee"
         case marketPairs = "DEX.MARKET_PAIRS"
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
+        
         serviceAvailable = try container.decode(Bool.self, forKey: .serviceAvailable)
         matcherSwapTimestamp = try container.decode(Date.self, forKey: .matcherSwapTimestamp)
         matcherSwapAddress = try container.decode(String.self, forKey: .matcherSwapAddress)
@@ -115,7 +115,7 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                                              price: String(splitedPair[1]))
                     }
                 }
-
+                
                 return DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
                                                           matcherSwapTimestamp: config.matcherSwapTimestamp,
                                                           matcherSwapAddress: config.matcherSwapAddress,
