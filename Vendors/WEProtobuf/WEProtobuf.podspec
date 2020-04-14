@@ -12,20 +12,20 @@ Pod::Spec.new do |spec|
   spec.summary      = 'Extensions are helping for developer fast write code'  
 
   spec.source_files =  'Sources/**/*.{swift}'
-  spec.source =  {  :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git'}
+  spec.source =  {  :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/ios.git'}
   
   spec.ios.framework = 'Foundation'
   spec.ios.framework = 'UIKit'
 
   spec.dependency 'SwiftProtobuf'  
 
-  spec.prepare_command = 'sh make.sh'
+  spec.prepare_command = 'ruby make.ruby'
 
   # spec.script_phases = [
   #   { :name => 'Hello Ruby World',
   #     :script => '${PODS_TARGET_SRCROOT}/make.ruby',
   #     :shell_path => '/usr/bin/ruby',
   #     :execution_position => :before_compile
-  #   }
+  #zzzzzz    }
   # ]
 end

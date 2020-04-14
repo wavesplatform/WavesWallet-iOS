@@ -396,7 +396,7 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: 6dd3fe3268b8f2627beb7ff3d82a3cacbdf66a36
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WEProtobuf: 6d6f414b90a3cb0b1266b815d74966f580e6bd59
+  WEProtobuf: d8bac116d35bcbd8c00244248adf8596b285f4b5
 
 PODFILE CHECKSUM: d253c42cb0ff6ae586dffd743a5f3b8554403f44
 
