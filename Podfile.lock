@@ -241,7 +241,7 @@ DEPENDENCIES:
   - TPKeyboardAvoiding
   - TTTAttributedLabel
   - UPCarouselFlowLayout
-  - WEProtobuf (from `Vendors/WEProtobuf`)
+  - "WEProtobuf (from `git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git`)"
 
 SPEC REPOS:
   trunk:
@@ -317,7 +317,7 @@ EXTERNAL SOURCES:
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   WEProtobuf:
-    :path: Vendors/WEProtobuf
+    :git: "git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git"
 
 CHECKOUT OPTIONS:
   IdentityImg:
@@ -329,6 +329,9 @@ CHECKOUT OPTIONS:
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
+  WEProtobuf:
+    :commit: 8cd15bada51c343338a003d7ce6726104d8c480a
+    :git: "git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git"
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
@@ -396,8 +399,8 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: 6dd3fe3268b8f2627beb7ff3d82a3cacbdf66a36
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WEProtobuf: d8bac116d35bcbd8c00244248adf8596b285f4b5
+  WEProtobuf: 6cc7a18d77d4a3232e95596a84bc2719a559877f
 
-PODFILE CHECKSUM: d253c42cb0ff6ae586dffd743a5f3b8554403f44
+PODFILE CHECKSUM: 486630a67fd1516e97c599f7dc8703047687aaac
 
 COCOAPODS: 1.9.1
