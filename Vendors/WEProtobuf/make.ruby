@@ -49,6 +49,7 @@ class Main
             FileUtils.rm_rf("#{__dir__}/Sources")
         end
 
+        debug=""
         protos_file_paths.each do |protos|
             
             absolute_path = File.dirname(protos)
@@ -58,14 +59,21 @@ class Main
             file_path = "#{__dir__}/#{absolute_path}"
             swift_out = "#{__dir__}/Sources/#{absolute_path}"
         
+            debug = debug + "absolute_path - #{absolute_path} \n"
+            debug = debug + "file_name - #{file_name} \n"
+            debug = debug + "file_path - #{file_path} \n"
+            debug = debug + "swift_out - #{swift_out} \n"
+
             unless File.directory?(swift_out)
                 FileUtils.mkdir_p(swift_out)
             end
 
-            puts("SCRIIIPT54")
-            puts(swift_out)
-            puts(file_path)
-            puts(file_name)
+            # puts("SCRIIIPT54")
+            # puts(swift_out)
+            # puts(file_path)
+            puts(debug)
+
+            puts `echo #{debug} >> #{{__dir__}/log.txt`
 
             puts `protoc  --swift_opt=Visibility=Public --swift_out=#{swift_out} --proto_path #{file_path} #{file_name}`            
         end    
