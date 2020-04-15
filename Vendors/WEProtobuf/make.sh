@@ -1,6 +1,5 @@
 files=$(find . -type f -name "*.proto")
 echo $files
-
 for file in $files
 do
 filename="${file##*/}"

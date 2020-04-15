@@ -17,13 +17,11 @@ Pod::Spec.new do |spec|
   spec.ios.framework = 'Foundation'
   spec.ios.framework = 'UIKit'
 
-  # spec.dependency 'SwiftProtobuf'  
+  spec.dependency 'SwiftProtobuf'  
 
   spec.prepare_command = 
     <<-CMD        
-        TEST=`pwd`        
-        echo `env`
-        echo "$TEST"        
-        sh make.sh
+        git submodule sync && git submodule update --init
+        sh make.sh        
     CMD
 end
