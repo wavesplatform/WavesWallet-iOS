@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   
   spec.name         = 'WEProtobuf'
-  spec.version      = '0.0.1'
+  spec.version      = '0.0.18'
   spec.ios.deployment_target = '11.0'
   spec.requires_arc = true
   spec.swift_version = '5.0'
@@ -12,20 +12,18 @@ Pod::Spec.new do |spec|
   spec.summary      = 'Extensions are helping for developer fast write code'  
 
   spec.source_files =  'Sources/**/*.{swift}'
-  spec.source =  {  :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/ios.git'}
+  spec.source =  {  :git =>   'git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git'}
   
   spec.ios.framework = 'Foundation'
   spec.ios.framework = 'UIKit'
 
-  spec.dependency 'SwiftProtobuf'  
+  # spec.dependency 'SwiftProtobuf'  
 
-  spec.prepare_command = 'ruby make.ruby'
-
-  # spec.script_phases = [
-  #   { :name => 'Hello Ruby World',
-  #     :script => '${PODS_TARGET_SRCROOT}/make.ruby',
-  #     :shell_path => '/usr/bin/ruby',
-  #     :execution_position => :before_compile
-  #zzzzzz    }
-  # ]
+  spec.prepare_command = 
+    <<-CMD        
+        TEST=`pwd`        
+        echo `env`
+        echo "$TEST"        
+        sh make.sh
+    CMD
 end
