@@ -236,7 +236,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                     ($0.order?.amount.decimalValue != order.amount.decimalValue || $0.order?.type != order.type) {
                     $0.isNeedCalculateMarketOrderPrice = true
                 }
-                
+
                 $0.order = order
             }.changeAction(.none)
             
