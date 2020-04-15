@@ -80,7 +80,9 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             guard let order = state.order else { return Signal.empty() }
 
-            return self.interactor.createOrder(order: order, type: state.createOrderType).map { .orderDidCreate($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.createOrder(order: order, type: state.createOrderType)
+                .map { .orderDidCreate($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -107,26 +109,28 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     }
     
     private func getDevelopmentConfig() -> Feedback {
-        return react(request: { state -> DexCreateOrder.State? in return state },
-                     effects: { [weak self] _ -> Signal<DexCreateOrder.Event> in
-                        guard let self = self else { return Signal.never() }
-
-                        return self.interactor.getDevConfig()
-                            .map { [weak self] config -> DexCreateOrder.Event in
-                                
-                                let amountName = self?.pair.amountAsset.shortName ?? ""
-                                let priceName = self?.pair.priceAsset.shortName ?? ""
-                                
-                                let checkPair = "\(amountName)/\(priceName)"
-                                
-                                let pairs = Set(config.marketPairs.map { "\($0.amount)/\($0.price)" })
-                                
-                                let isVisible = pairs.contains(checkPair)
-                                
-                                return .updateVisibleOrderTypesContainer(isVisible)
-                                
-                        }
-                            .asSignal(onErrorJustReturn: .updateVisibleOrderTypesContainer(true))
+        react(request: { state -> DexCreateOrder.State? in
+            return state.isNeedCheckPairs ? state : nil
+        },
+              effects: { [weak self] _ -> Signal<DexCreateOrder.Event> in
+                guard let self = self else { return Signal.never() }
+                
+                return self.interactor.getDevConfig()
+                    .map { [weak self] config -> DexCreateOrder.Event in
+                        
+                        let amountName = self?.pair.amountAsset.shortName ?? ""
+                        let priceName = self?.pair.priceAsset.shortName ?? ""
+                        
+                        let checkPair = "\(amountName)/\(priceName)"
+                        
+                        let pairs = Set(config.marketPairs.map { "\($0.amount)/\($0.price)" })
+                        
+                        let isVisible = pairs.contains(checkPair)
+                        
+                        return .updateVisibleOrderTypesContainer(isVisible)
+                        
+                }
+                .asSignal(onErrorJustReturn: .updateVisibleOrderTypesContainer(true))
         })
     }
     
@@ -211,7 +215,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             .changeAction(.orderNotValid(error))
             
         case .orderDidCreate(let responce):
-            
             return state.mutate {
                 
                 $0.isNeedCreateOrder = false
@@ -219,7 +222,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 switch responce.result {
                     case .error(let error):
                         $0.action = .orderDidFailCreate(error)
-                    
                     case .success(let output):
                         $0.action = .orderDidCreate(output)
                 }
@@ -258,6 +260,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             
         case .updateVisibleOrderTypesContainer(let isVisible):
             return state.mutate { state in
+                state.isNeedCheckPairs = false
                 state.isVisibleOrderTypesContainer = isVisible
             }
 
@@ -276,7 +279,8 @@ fileprivate extension DexCreateOrder.State {
     
 fileprivate extension DexCreateOrder.State {
     static func initialState(feeAssetId: String) -> DexCreateOrder.State {
-        DexCreateOrder.State(isVisibleOrderTypesContainer: true,
+        DexCreateOrder.State(isNeedCheckPairs: true,
+                             isVisibleOrderTypesContainer: true,
                              isNeedCreateOrder: false,
                              isNeedCheckValidOrder: false,
                              isNeedGetFee: true,

@@ -51,6 +51,8 @@ enum DexCreateOrder {
             case updateMarketOrderPrice(DexCreateOrder.DTO.MarketOrder)
         }
         
+        // флаг необходим для проверки пар (можно ли оформить ордер на эти пары)
+        var isNeedCheckPairs: Bool
         var isVisibleOrderTypesContainer: Bool
         var isNeedCreateOrder: Bool
         var isNeedCheckValidOrder: Bool
