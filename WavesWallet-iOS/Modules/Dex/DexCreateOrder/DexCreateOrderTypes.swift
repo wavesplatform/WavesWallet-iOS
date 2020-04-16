@@ -51,6 +51,9 @@ enum DexCreateOrder {
             case updateMarketOrderPrice(DexCreateOrder.DTO.MarketOrder)
         }
         
+        // флаг необходим для проверки пар (можно ли оформить ордер на эти пары)
+        var isNeedCheckPairs: Bool
+        var isVisibleOrderTypesContainer: Bool
         var isNeedCreateOrder: Bool
         var isNeedCheckValidOrder: Bool
         var isNeedGetFee: Bool
@@ -61,7 +64,6 @@ enum DexCreateOrder {
         var feeAssetId: String
         var createOrderType: DTO.CreateOrderType
         var isNeedCalculateMarketOrderPrice: Bool
-        var isVisibleOrderTypesContainer: Bool
     }
 }
 
@@ -121,7 +123,7 @@ extension DexCreateOrder.DTO {
         let availableBalances: [DomainLayer.DTO.SmartAssetBalance]
     }
     
-    struct Order {
+    struct Order: Equatable {
         let amountAsset: DomainLayer.DTO.Dex.Asset
         let priceAsset: DomainLayer.DTO.Dex.Asset
         var type: DomainLayer.DTO.Dex.OrderType
@@ -132,7 +134,15 @@ extension DexCreateOrder.DTO {
         var fee: Int64
         var feeAssetId: String
         
-        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration, fee: Int64, feeAssetId: String) {
+        init(amountAsset: DomainLayer.DTO.Dex.Asset,
+             priceAsset: DomainLayer.DTO.Dex.Asset,
+             type: DomainLayer.DTO.Dex.OrderType,
+             amount: Money,
+             price: Money,
+             total: Money,
+             expiration: Expiration,
+             fee: Int64,
+             feeAssetId: String) {
             
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset

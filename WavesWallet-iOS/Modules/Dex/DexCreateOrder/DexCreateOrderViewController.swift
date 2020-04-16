@@ -107,8 +107,6 @@ final class DexCreateOrderViewController: UIViewController {
         labelFee.isHidden = true
         iconArrowCustomFee.isHidden = true
         
-        orderTypeContainer.isHidden = true
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(removeTimer),
                                                name: UIApplication.didEnterBackgroundNotification,
@@ -151,7 +149,11 @@ final class DexCreateOrderViewController: UIViewController {
     
     @objc private func setupUpdateMarketOrderPriceTimer() {
         if createOrderType == .market && timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: Constants.marketOrderUpdateInterval, target: self, selector: #selector(updateMarketOrderPrice), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: Constants.marketOrderUpdateInterval,
+                                         target: self,
+                                         selector: #selector(updateMarketOrderPrice),
+                                         userInfo: nil,
+                                         repeats: true)
         }
         else if createOrderType == .limit {
             removeTimer()
@@ -280,7 +282,6 @@ private extension DexCreateOrderViewController {
             self.feeAssets = feeSettings.feeAssets.map{ $0.asset }
             self.showFee(fee: feeSettings.fee)
             self.order.fee = feeSettings.fee.amount
-            self.updateInputDataFields()
             self.sendEvent.accept(.updateInputOrder(self.order))
             self.setupValidationErrors()
             self.setupButtonSellBuy()
@@ -582,7 +583,7 @@ private extension DexCreateOrderViewController {
         }
         
         inputTotal.input = { [weak self] in
-            guard let self = self else { return []}
+            guard let self = self else { return [] }
             return self.totalValues
         }
         

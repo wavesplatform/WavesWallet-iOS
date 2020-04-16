@@ -300,12 +300,15 @@ private extension StakingTransferSystem {
             }
             
         case .handlerError(let error):
-            
             state.core.action = .none
-            let updateRows = updateTransferButton(state: &state,
-                                                  status: .active)
+            let updateRows = updateTransferButton(state: &state, status: .active)
             
-            state.ui.action = .update(updateRows, error: DisplayError(error: error))
+            if case .none = error {
+                state.ui.action = .update(updateRows, error: nil)
+            } else {
+                state.ui.action = .update(updateRows, error: DisplayError(error: error))
+            }
+            
         default:
             state.core.action = .none
             state.ui.action = .none
