@@ -1,7 +1,7 @@
-load 'enviroments.ruby' 
-load 'resources.ruby'
-load 'certificates.ruby'
-load 'upload_build.ruby'
+load 'Sources/enviroments.rb' 
+load 'Sources/resources.rb'
+load 'Sources/certificates.rb'
+load 'Sources/upload_build.rb'
 
 require 'fastlane_core/helper'
 require 'fastlane' 
@@ -40,22 +40,30 @@ end
 platform :ios do
 
   lane :dev_build_projet do
-    dev_enviroment    
+    dev_enviroment  
+    download_certificates
+    download_resources  
     build_projet
   end
 
   lane :test_build_projet do
-    test_enviroment    
+    test_enviroment
+    download_certificates
+    download_resources    
     build_projet    
   end
 
   lane :prod_build_projet do
-    prod_enviroment    
+    prod_enviroment 
+    download_certificates
+    download_resources   
     build_projet    
   end
 
   lane :prod_adhoc_build_projet do
-    prod_adhoc_enviroment    
+    prod_adhoc_enviroment
+    download_certificates
+    download_resources    
     build_projet    
   end
 
@@ -130,12 +138,9 @@ platform :ios do
   end
 
   # Собирает сборку и скачиваем ресурсы и сертификаты
-  def build_projet
 
-    download_certificates
-    download_resources
-
-    name = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
+  def build_projet(name = name_build)
+        
 		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
@@ -143,8 +148,11 @@ platform :ios do
         export_options: "#{ENV['EXPORT_OPTIONS']}",
         output_directory: "#{ENV['OUTPUT_PROJECT']}",
         output_name: name
-    )
+    ) 
   end
 
+  def name_build 
+    return "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
+  end 
 end
 

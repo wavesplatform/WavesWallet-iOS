@@ -1,3 +1,4 @@
+# Загружает файлы из гита
 def download_gitlab(url, path_to_save)   
     
   correct_url = "#{url}/raw?ref=master"    
@@ -5,6 +6,7 @@ def download_gitlab(url, path_to_save)
   sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS_PRIVATE_RESOURCES']}' #{correct_url} >> #{path_to_save}")
 end
 
+# Загружает файлы по урлу
 def download_file(url, path_to_save)   
   
 sh("rm -rf #{path_to_save}")
