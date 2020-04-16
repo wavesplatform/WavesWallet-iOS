@@ -6,13 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import RxCocoa
 import UIKit
-import Extensions
 
 fileprivate enum Constants {
     static let segmentedControlHeight: CGFloat = 100
@@ -22,20 +21,27 @@ fileprivate enum Constants {
 }
 
 final class AssetDetailViewController: UIViewController {
-
     @IBOutlet private var tableView: UITableView!
     @IBOutlet var segmentedControl: WrapperAssetsSegmentedControl!
 
     private var refreshControl: UIRefreshControl!
     private var isHiddenSegmentedControl = false
-    private lazy var favoriteOffBarButton = UIBarButtonItem(image: Images.topbarFavoriteOff.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(tapFavoriteButton(sender:)))
-    private lazy var favoriteOnBarButton = UIBarButtonItem(image: Images.topbarFavoriteOn.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(tapFavoriteButton(sender:)))
+    private lazy var favoriteOffBarButton = UIBarButtonItem(
+        image: Images.topbarFavoriteOff.image.withRenderingMode(.alwaysOriginal),
+        style: .plain,
+        target: self,
+        action: #selector(tapFavoriteButton(sender:)))
+    private lazy var favoriteOnBarButton = UIBarButtonItem(
+        image: Images.topbarFavoriteOn.image
+            .withRenderingMode(.alwaysOriginal),
+        style: .plain, target: self,
+        action: #selector(tapFavoriteButton(sender:)))
 
     var presenter: AssetDetailPresenterProtocol!
     private var eventInput: PublishSubject<AssetDetailTypes.Event> = PublishSubject<AssetDetailTypes.Event>()
 
     private var sections: [AssetDetailTypes.ViewModel.Section] = .init()
-    private var currentAssetName: String? = nil
+    private var currentAssetName: String?
     private var isRefreshing: Bool = false
     private var invalidNavigationHeight: Bool = true
     private var savedNavigationHeight: CGFloat = 0
@@ -48,8 +54,8 @@ final class AssetDetailViewController: UIViewController {
         setupSegmentedControl()
         tableView.backgroundColor = .basic50
         setupSystem()
-        
-        //TODO: need to fix constraints which show in debug
+
+        // TODO: need to fix constraints which show in debug
     }
 
     override func viewDidLayoutSubviews() {
@@ -70,31 +76,30 @@ final class AssetDetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         resetSetupNavigationBar()
     }
-    
-    private func showSendController()  {
-        if let section = sections.first(where: {$0.assetBalance != nil}),
+
+    private func showSendController() {
+        if let section = sections.first(where: { $0.assetBalance != nil }),
             let asset = section.assetBalance {
             eventInput.onNext(.showSend(asset))
         }
     }
-    
+
     private func showReceiveController() {
-        
-        if let section = sections.first(where: {$0.assetBalance != nil}),
+        if let section = sections.first(where: { $0.assetBalance != nil }),
             let asset = section.assetBalance {
             eventInput.onNext(.showReceive(asset))
         }
     }
-    
+
     private func showBurnController() {
-        if let section = sections.first(where: {$0.assetBalance != nil}),
+        if let section = sections.first(where: { $0.assetBalance != nil }),
             let asset = section.assetBalance {
             eventInput.onNext(.tapBurn(asset: asset, delegate: self))
         }
     }
-    
+
     private func showTradeController() {
-        if let section = sections.first(where: {$0.assetBalance != nil}),
+        if let section = sections.first(where: { $0.assetBalance != nil }),
             let asset = section.assetBalance {
             eventInput.onNext(.showTrade(asset.asset))
         }
@@ -104,12 +109,11 @@ final class AssetDetailViewController: UIViewController {
 // MARK: RxFeedback
 
 private extension AssetDetailViewController {
-
     func setupSystem() {
-
-        let uiFeedback: AssetDetailPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetDetailTypes.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
-        }
+        let uiFeedback: AssetDetailPresenterProtocol
+            .Feedback = bind(self) { (owner, state) -> (Bindings<AssetDetailTypes.Event>) in
+                Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            }
 
         let readyViewFeedback: AssetDetailPresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
@@ -120,23 +124,25 @@ private extension AssetDetailViewController {
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in AssetDetailTypes.Event.readyView }
         }
-        
+
         presenter.system(feedbacks: [uiFeedback, readyViewFeedback])
     }
 
     func events() -> [Signal<AssetDetailTypes.Event>] {
-
-        let eventChangedAsset = segmentedControl.currentAssetId().filterNil().map { AssetDetailTypes.Event.changedAsset(id: $0) }
+        let eventChangedAsset = segmentedControl.currentAssetId()
+            .filter { $0 != nil }
+            .map { $0! }
+            .map { AssetDetailTypes.Event.changedAsset(id: $0) }
+        
         let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: false) }
         let favoriteOff = favoriteOffBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: true) }
-        let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal().map { _ in AssetDetailTypes.Event.refreshing }
-
+        let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal()
+            .map { _ in AssetDetailTypes.Event.refreshing }
 
         return [eventChangedAsset, favoriteOn, favoriteOff, refreshEvent, eventInput.asSignal(onErrorSignalWith: Signal.empty())]
     }
 
     func subscriptions(state: Driver<AssetDetailTypes.State>) -> [Disposable] {
-
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
@@ -147,15 +153,13 @@ private extension AssetDetailViewController {
         return [subscriptionSections]
     }
 
-
     func updateView(with state: AssetDetailTypes.DisplayState) {
-
-        self.segmentedControl.isUserInteractionEnabled = state.isUserInteractionEnabled
-        self.refreshControl.isUserInteractionEnabled = state.isUserInteractionEnabled
-        self.refreshControl.isEnabled = state.isUserInteractionEnabled
+        segmentedControl.isUserInteractionEnabled = state.isUserInteractionEnabled
+        refreshControl.isUserInteractionEnabled = state.isUserInteractionEnabled
+        refreshControl.isEnabled = state.isUserInteractionEnabled
 
         isRefreshing = state.isRefreshing
-        
+
         switch state.action {
         case .changedCurrentAsset:
 
@@ -186,23 +190,21 @@ private extension AssetDetailViewController {
     }
 
     func updateNavigationItem(with state: AssetDetailTypes.DisplayState) {
-
         guard state.isUserInteractionEnabled else {
-            self.navigationItem.rightBarButtonItem = nil
+            navigationItem.rightBarButtonItem = nil
             return
         }
 
         if state.isDisabledFavoriteButton {
-            self.navigationItem.rightBarButtonItem = nil
-        }
-        else {
+            navigationItem.rightBarButtonItem = nil
+        } else {
             favoriteOnBarButton.isEnabled = true
             favoriteOffBarButton.isEnabled = true
-            
+
             if state.isFavorite {
-                self.navigationItem.rightBarButtonItem = favoriteOnBarButton
+                navigationItem.rightBarButtonItem = favoriteOnBarButton
             } else {
-                self.navigationItem.rightBarButtonItem = favoriteOffBarButton
+                navigationItem.rightBarButtonItem = favoriteOffBarButton
             }
         }
     }
@@ -211,7 +213,7 @@ private extension AssetDetailViewController {
         sections = state.sections
         tableView.beginUpdates()
         let count = max(0, sections.count - 1)
-        tableView.reloadSections(IndexSet(0...count), with: .fade)
+        tableView.reloadSections(IndexSet(0 ... count), with: .fade)
         tableView.endUpdates()
     }
 
@@ -222,14 +224,14 @@ private extension AssetDetailViewController {
 
     func reloadSegmentedControl(assets: [AssetDetailTypes.DTO.Asset.Info], currentAsset: AssetDetailTypes.DTO.Asset.Info) {
         let assets = assets.map { $0.map() }
-        segmentedControl.update(with: .init(assets: assets, currentAsset: currentAsset.map() ))
+        segmentedControl.update(with: .init(assets: assets, currentAsset: currentAsset.map()))
     }
 
-    func changeCurrentAssetForSegmentedControl(info : AssetDetailTypes.DTO.Asset.Info) {
+    func changeCurrentAssetForSegmentedControl(info: AssetDetailTypes.DTO.Asset.Info) {
         segmentedControl.setCurrentAsset(id: info.id)
     }
 
-    func changeCurrentAsset(info : AssetDetailTypes.DTO.Asset.Info) {
+    func changeCurrentAsset(info: AssetDetailTypes.DTO.Asset.Info) {
         currentAssetName = info.name
         layoutSegmentedControl(scrollView: tableView)
     }
@@ -238,8 +240,7 @@ private extension AssetDetailViewController {
 // MARK: - Actions
 
 extension AssetDetailViewController {
-
-    @objc func tapFavoriteButton(sender: Any) {
+    @objc func tapFavoriteButton(sender _: Any) {
         ImpactFeedbackGenerator.impactOccurred()
     }
 }
@@ -247,7 +248,6 @@ extension AssetDetailViewController {
 // MARK: Setup Methods
 
 extension AssetDetailViewController {
-
     private func setupSegmentedControl() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = true
         view.addSubview(segmentedControl)
@@ -274,19 +274,17 @@ extension AssetDetailViewController {
     }
 
     private func updateContentInsetForTableView() {
-
-        let top = heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants.segmentedControlTopPading
-        tableView.contentInset = UIEdgeInsets.init(top: top, left: 0, bottom: Constants.contentBottomInset, right: 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsets.init(top: top, left: 0, bottom: Constants.contentBottomInset, right: 0)
+        let top = heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants
+            .segmentedControlTopPading
+        tableView.contentInset = UIEdgeInsets(top: top, left: 0, bottom: Constants.contentBottomInset, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: top, left: 0, bottom: Constants.contentBottomInset, right: 0)
     }
 }
 
 // MARK: Private Methods
 
 private extension AssetDetailViewController {
-
     var navigationBarHeight: CGFloat {
-
         if invalidNavigationHeight {
             invalidNavigationHeight = false
             savedNavigationHeight = navigationController?.navigationBar.frame.height ?? 0
@@ -303,11 +301,10 @@ private extension AssetDetailViewController {
     }
 
     private var heightDifferenceSegmentedControlBetweenNavigationBar: CGFloat {
-        return -(navigationBarHeight) + segmentedControl.frame.height
+        return -navigationBarHeight + segmentedControl.frame.height
     }
 
-    func layoutSegmentedControl(scrollView: UIScrollView, animated: Bool = true) {
-
+    func layoutSegmentedControl(scrollView: UIScrollView, animated _: Bool = true) {
         let yContent = scrollView.contentOffset.y + scrollView.adjustedContentInsetAdapter.top
 
         let navigationBarY = (navigationController?.navigationBar.frame.origin.y ?? 0) + Constants.segmentedControlTopPading
@@ -320,10 +317,9 @@ private extension AssetDetailViewController {
     }
 
     func hiddenSegmentedIfNeeded() {
-
         guard let navigationController = self.navigationController else { return }
         let navigationBar = navigationController.navigationBar
-        guard let assetsSegmentedControl = self.segmentedControl.assetsSegmentedControl else { return }
+        guard let assetsSegmentedControl = segmentedControl.assetsSegmentedControl else { return }
         guard let titleLabel = assetsSegmentedControl.titleLabel else { return }
 
         let titleFrame = assetsSegmentedControl.convert(titleLabel.frame, to: view)
@@ -342,15 +338,12 @@ private extension AssetDetailViewController {
     }
 
     func showNavigationTitle() {
-
         navigationItem.backgroundImage = nil
         navigationItem.shadowImage = nil
         title = currentAssetName
     }
 
     func showSegmentedControl() {
-
-
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
         title = nil
@@ -358,8 +351,7 @@ private extension AssetDetailViewController {
 }
 
 extension AssetDetailViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         layoutSegmentedControl(scrollView: scrollView)
     }
 }
@@ -367,21 +359,19 @@ extension AssetDetailViewController: UIScrollViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension AssetDetailViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in _: UITableView) -> Int {
         return sections.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let row = sections[indexPath]
 
         switch row {
-        case .balance(let priceAsset):
+        case let .balance(priceAsset):
             let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
             cell.update(with: priceAsset)
             cell.receiveAction = { [weak self] in
@@ -393,18 +383,18 @@ extension AssetDetailViewController: UITableViewDataSource {
                 guard let self = self else { return }
                 self.showSendController()
             }
-            
+
             cell.exchangeAction = { [weak self] in
                 guard let self = self else { return }
                 self.showTradeController()
             }
             return cell
 
-        case .spamBalance(let balance):
+        case let .spamBalance(balance):
             let cell: AssetBalanceSpamCell = tableView.dequeueAndRegisterCell()
             cell.update(with: balance)
             return cell
-            
+
         case .balanceSkeleton:
             let cell: AssetBalanceSkeletonCell = tableView.dequeueAndRegisterCell()
             return cell
@@ -417,7 +407,7 @@ extension AssetDetailViewController: UITableViewDataSource {
             let cell: AssetHistorySkeletonCell = tableView.dequeueAndRegisterCell()
             return cell
 
-        case .lastTransactions(let transactions):
+        case let .lastTransactions(transactions):
             let cell: AssetTransactionsCell = tableView.dequeueAndRegisterCell()
             cell.transactionDidSelect = { [weak self] tx in
 
@@ -437,12 +427,12 @@ extension AssetDetailViewController: UITableViewDataSource {
             cell.update(with: Localizable.Waves.Asset.Cell.viewHistory)
             return cell
 
-        case .assetInfo(let info):
+        case let .assetInfo(info):
             let cell: AssetDetailCell = tableView.dequeueAndRegisterCell()
             cell.update(with: info)
             return cell
-            
-        case .tokenBurn(let info):
+
+        case let .tokenBurn(info):
             let cell: AssetBurnCell = tableView.dequeueAndRegisterCell()
             cell.update(with: .init(isSpam: info.isSpam))
             cell.burnAction = { [weak self] in
@@ -459,36 +449,33 @@ extension AssetDetailViewController: UITableViewDataSource {
 // MARK: - TokenBurnTransactionDelegate
 
 extension AssetDetailViewController: TokenBurnTransactionDelegate {
-    func tokenBurnDidSuccessBurn(amount: Money) {
-        //TODO: need update balance after token burned
+    func tokenBurnDidSuccessBurn(amount _: Money) {
+        // TODO: need update balance after token burned
     }
 }
 
 // MARK: - UITableViewDelegate
 
 extension AssetDetailViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = sections[indexPath]
 
         switch row {
         case .viewHistory:
             eventInput.onNext(.tapHistory)
-            
+
         default:
             break
         }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-
         let model = sections[section]
 
         switch model.kind {
         case .skeletonTitle:
             return AssetHistorySkeletonCell.cellHeight()
-        case .title(let title):
+        case let .title(title):
             return AssetHeaderView.viewHeight(model: title, width: tableView.frame.width)
         default:
             return CGFloat.minValue
@@ -500,14 +487,13 @@ extension AssetDetailViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
         let model = sections[section]
 
         switch model.kind {
         case .skeletonTitle:
             return tableView.dequeueAndRegisterHeaderFooter() as AssetHeaderSkeletonView
 
-        case .title(let title):
+        case let .title(title):
             let header = tableView.dequeueAndRegisterHeaderFooter() as AssetHeaderView
             header.update(with: title)
             return header
@@ -522,27 +508,25 @@ extension AssetDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
         return self.tableView(tableView, heightForFooterInSection: section)
     }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+
+    func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
         return CGFloat.minValue
     }
-
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tableView(tableView, heightForRowAt: indexPath)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
         let row = sections[indexPath]
 
         switch row {
-        case .balance(let priceAsset):
+        case let .balance(priceAsset):
             return AssetBalanceCell.viewHeight(model: priceAsset, width: tableView.frame.width)
 
         case .spamBalance:
             return AssetBalanceSpamCell.viewHeight()
-            
+
         case .balanceSkeleton:
             return AssetBalanceSkeletonCell.cellHeight()
 
@@ -561,17 +545,15 @@ extension AssetDetailViewController: UITableViewDelegate {
         case .transactionSkeleton:
             return AssetTransactionSkeletonCell.cellHeight()
 
-        case .assetInfo(let info):
+        case let .assetInfo(info):
             return AssetDetailCell.viewHeight(model: info, width: tableView.frame.width)
-            
-        case .tokenBurn(let info):
+
+        case let .tokenBurn(info):
             return AssetBurnCell.viewHeight(model: .init(isSpam: info.isSpam), width: tableView.frame.width)
-            
         }
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
+    func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let row = sections[indexPath]
 
         switch row {
@@ -591,8 +573,7 @@ extension AssetDetailViewController: UITableViewDelegate {
         }
     }
 
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-
+    func tableView(_: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let model = sections[section]
 
         switch model.kind {
@@ -606,10 +587,9 @@ extension AssetDetailViewController: UITableViewDelegate {
 }
 
 // MARK: Assisstants
+
 extension AssetDetailTypes.DTO.Asset.Info {
-
     func map() -> AssetsSegmentedControl.Model.Asset {
-
         var kind: AssetsSegmentedControl.Model.Asset.Kind = .spam
 
         if isSpam {

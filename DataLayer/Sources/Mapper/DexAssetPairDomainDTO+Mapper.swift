@@ -6,16 +6,17 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RealmSwift
 import WavesSDK
-import DomainLayer
-
 
 public extension DomainLayer.DTO.Dex.SmartPair {
-    
-    init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, isChecked: Bool, isGeneral: Bool, sortLevel: Int) {
-        
+    init(amountAsset: DomainLayer.DTO.Dex.Asset,
+         priceAsset: DomainLayer.DTO.Dex.Asset,
+         isChecked: Bool,
+         isGeneral: Bool,
+         sortLevel: Int) {
         let id = amountAsset.id + priceAsset.id
 
         self.init(id: id,
@@ -25,17 +26,14 @@ public extension DomainLayer.DTO.Dex.SmartPair {
                   isGeneral: isGeneral,
                   sortLevel: sortLevel)
     }
-    
 }
 
 extension DomainLayer.DTO.Dex.SmartPair {
-    
     init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, realm: Realm) {
-        
         let id = amountAsset.id + priceAsset.id
         let isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id) != nil
         let sortLevel = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)?.sortLevel ?? 0
-        
+
         let isGeneralAmount = realm.objects(Asset.self)
             .filter(NSPredicate(format: "id == %@ AND isGeneral == true", amountAsset.id)).count > 0
         let isGeneralPrice = realm.objects(Asset.self)

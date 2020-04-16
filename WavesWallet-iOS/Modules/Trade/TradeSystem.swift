@@ -25,14 +25,15 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     private let dexRealmRepository = UseCasesFactory.instance.repositories.dexRealmRepository
     private let pairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+
     private let developmentConfigsRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
     
     private let selectedAsset: DomainLayer.DTO.Dex.Asset?
-    
+
     init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
         self.selectedAsset = selectedAsset
     }
-    
+
     override func initialState() -> TradeTypes.State! {
         TradeTypes.State(uiAction: .none,
                          coreAction: .none,
@@ -45,37 +46,37 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                          selectedFilters: [],
                          selectedAsset: selectedAsset)
     }
-    
+
     override func internalFeedbacks() -> [Feedback] {
         [loadDataQuery(), removeFromFavoriteQuery(), saveToFavoriteQuery(), favoritePairsQuery()]
     }
-    
+
     override func reduce(event: TradeTypes.Event, state: inout TradeTypes.State) {
         switch event {
         case .readyView:
-            
+
             state.coreAction = .loadData(state.selectedAsset)
             state.uiAction = .updateSkeleton(skeletonSection)
-            
-        case .dataDidLoad(let data):
-            
+
+        case let .dataDidLoad(data):
+
             var isEmptyFavorites: Bool {
                 if let asset = state.selectedAsset {
                     return data.favoritePairs.assetsIds.contains(asset.id) == false
                 }
                 return data.favoritePairs.isEmpty
             }
-            
-            let initialCurrentIndex: Int = state.core.categories.isEmpty && data.categories.isNotEmpty && isEmptyFavorites ? 1 : 0
+
+            let initialCurrentIndex: Int = state.core.categories.isEmpty && !data.categories.isEmpty && isEmptyFavorites ? 1 : 0
             state.core = data
             state.categories = data.mapCategories(selectedFilters: state.selectedFilters, selectedAsset: state.selectedAsset)
             state.coreAction = .none
             state.uiAction = .update(initialCurrentIndex: initialCurrentIndex)
-            
-        case .didFailGetCategories(let error):
+
+        case let .didFailGetCategories(error):
             state.coreAction = .none
             state.uiAction = .didFailGetError(error)
-            
+
         case .refresh:
             if state.categories.isEmpty {
                 state.uiAction = .updateSkeleton(skeletonSection)
@@ -83,27 +84,27 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                 state.uiAction = .none
             }
             state.coreAction = .loadData(state.selectedAsset)
-            
+
         case .refresIfNeed:
-            if state.categories.isNotEmpty {
+            if !state.categories.isEmpty {
                 state.coreAction = .loadFavoritePairs
             }
-            
+
             state.uiAction = .none
-            
-        case .favoritePairsDidLoad(let pairs):
-            
+
+        case let .favoritePairsDidLoad(pairs):
+
             if state.core.favoritePairs != pairs {
                 state.coreAction = .loadData(state.selectedAsset)
             } else {
                 state.coreAction = .none
             }
-            
+
             state.uiAction = .none
-            
-        case .favoriteTapped(let pair):
+
+        case let .favoriteTapped(pair):
             let isFavorite = !pair.isFavorite
-            
+
             if isFavorite {
                 state.coreAction = .saveToToFavorite(pair)
                 state.uiAction = .none
@@ -118,46 +119,46 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                 } else {
                     state.uiAction = .update(initialCurrentIndex: nil)
                 }
-                
+
                 state.core.favoritePairs.removeAll(where: { $0.id == pair.id })
                 state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters,
                                                             selectedAsset: state.selectedAsset)
                 state.coreAction = .removeFromFavorite(pair.id)
             }
-            
+
         case .favoriteDidSuccessRemove:
             state.uiAction = .none
             state.coreAction = .none
-            
-        case .favoriteDidSuccessSave(let favoritePairs):
+
+        case let .favoriteDidSuccessSave(favoritePairs):
             state.core.favoritePairs = favoritePairs
             state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters,
                                                         selectedAsset: state.selectedAsset)
             state.uiAction = .update(initialCurrentIndex: nil)
             state.coreAction = .none
-            
+
         case let .filterTapped(filter, categoryIndex):
-            
+
             if let index = state.selectedFilters.firstIndex(where: { $0.categoryIndex == categoryIndex }) {
                 var selectedFilter = state.selectedFilters[index]
-                
+
                 if selectedFilter.filters.contains(filter) {
                     selectedFilter.filters.removeAll(where: { $0 == filter })
                 } else {
                     selectedFilter.filters.append(filter)
                 }
-                
+
                 state.selectedFilters[index] = selectedFilter
             } else {
                 state.selectedFilters.append(.init(categoryIndex: categoryIndex, filters: [filter]))
             }
-            
+
             state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters,
                                                         selectedAsset: state.selectedAsset)
             state.coreAction = .none
             state.uiAction = .update(initialCurrentIndex: nil)
-            
-        case .deleteFilter(let categoryIndex):
+
+        case let .deleteFilter(categoryIndex):
             if let index = state.selectedFilters.firstIndex(where: { $0.categoryIndex == categoryIndex }) {
                 state.selectedFilters.remove(at: index)
                 state.categories = state.core.mapCategories(selectedFilters: state.selectedFilters,
@@ -167,7 +168,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
             }
         }
     }
-    
+
     private var skeletonSection: TradeTypes.ViewModel.SectionSkeleton {
         .init(rows: [.headerCell,
                      .defaultCell,
@@ -197,7 +198,7 @@ private extension TradeSystem {
                 .asSignal(onErrorSignalWith: Signal.empty())
        })
     }
-    
+
     func loadDataQuery() -> Feedback {
         react(request: { state -> TradeTypes.State? in
             switch state.coreAction {
@@ -207,7 +208,7 @@ private extension TradeSystem {
                 return nil
             }
         }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
-            
+
             guard let self = self else { return Signal.empty() }
             return self
                 .loadData(selectedAsset: state.selectedAsset)
@@ -216,12 +217,12 @@ private extension TradeSystem {
                     if let error = error as? NetworkError {
                         return Signal.just(.didFailGetCategories(error))
                     }
-                    
+
                     return Signal.just(.didFailGetCategories(NetworkError.error(by: error)))
                 })
         })
     }
-    
+
     func removeFromFavoriteQuery() -> Feedback {
         react(request: { state -> TradeTypes.State? in
             switch state.coreAction {
@@ -232,16 +233,16 @@ private extension TradeSystem {
             }
         }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
             guard let self = self else { return Signal.empty() }
-            if case .removeFromFavorite(let id) = state.coreAction {
+            if case let .removeFromFavorite(id) = state.coreAction {
                 return self.removeFromFavorite(id: id)
                     .map { _ in .favoriteDidSuccessRemove }
                     .asSignal(onErrorSignalWith: Signal.empty())
             }
-            
+
             return Signal.empty()
         })
     }
-    
+
     func saveToFavoriteQuery() -> Feedback {
         react(request: { state -> TradeTypes.State? in
             switch state.coreAction {
@@ -252,12 +253,12 @@ private extension TradeSystem {
             }
         }, effects: { [weak self] state -> Signal<TradeTypes.Event> in
             guard let self = self else { return Signal.empty() }
-            if case .saveToToFavorite(let pair) = state.coreAction {
+            if case let .saveToToFavorite(pair) = state.coreAction {
                 return self.saveToFavorite(pair: pair)
                     .map { .favoriteDidSuccessSave($0) }
                     .asSignal(onErrorSignalWith: Signal.empty())
             }
-            
+
             return Signal.empty()
           })
     }
@@ -271,7 +272,7 @@ private extension TradeSystem {
                 return self.dexRealmRepository.list(by: wallet.address)
             }
     }
-    
+
     func saveToFavorite(pair: TradeTypes.DTO.Pair) -> Observable<[DomainLayer.DTO.Dex.FavoritePair]> {
         auth.authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.Dex.FavoritePair]> in
@@ -287,7 +288,7 @@ private extension TradeSystem {
                     }
             }
     }
-    
+
     func removeFromFavorite(id: String) -> Observable<Bool> {
         auth.authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<Bool> in
@@ -295,58 +296,58 @@ private extension TradeSystem {
                 return self.dexRealmRepository.delete(by: id, accountAddress: wallet.address)
             }
     }
-    
+
     func loadData(selectedAsset: DomainLayer.DTO.Dex.Asset?) -> Observable<TradeTypes.DTO.Core> {
         auth.authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<TradeTypes.DTO.Core> in
                 guard let self = self else { return Observable.empty() }
-                
+
                 let tradeCagegories = self.tradeCategoriesRepository.tradeCagegories(accountAddress: wallet.address)
                 let favoritePairs = self.dexRealmRepository.list(by: wallet.address)
-                
+
                 return Observable.zip(tradeCagegories, favoritePairs)
                     .flatMap { [weak self] categories, favoritePairs
                         -> Observable<(pairs: [DomainLayer.DTO.CorrectionPairs.Pair],
                                        categories: [TradeTypes.DTO.Category],
                                        favoritePairs: [DomainLayer.DTO.Dex.FavoritePair])> in
                         guard let self = self else { return Observable.empty() }
-                        
+
                         let dataCategories = categories.map { category -> TradeTypes.DTO.Category in
-                            
+
                             let filters = category.filters.map { TradeTypes.DTO.Category.Filter(name: $0.name, ids: $0.ids) }
-                            
+
                             var pairs = category.pairs
-                            
+
                             if let asset = selectedAsset {
                                 pairs = pairs.filterByAsset(asset.id)
-                                
+
                                 if pairs.isEmpty {
                                     pairs = category.matchingAssets.map {
                                         DomainLayer.DTO.Dex.Pair(amountAsset: asset, priceAsset: $0)
                                     }
                                 }
                             }
-                            
+
                             return TradeTypes.DTO.Category(name: category.name, filters: filters, pairs: pairs)
                         }
-                        
+
                         var pairsSet: [DomainLayer.DTO.CorrectionPairs.Pair] = []
-                        
+
                         let simpleFavoritePairs = favoritePairs.map {
                             DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAssetId,
                                                                  priceAsset: $0.priceAssetId)
                         }
-                        
+
                         let simplePairs = dataCategories.map {
                             $0.pairs.map { DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.amountAsset.id,
                                                                                 priceAsset: $0.priceAsset.id)
                             }
                         }
                         .flatMap { $0 }
-                        
+
                         pairsSet.append(contentsOf: simpleFavoritePairs)
                         pairsSet.append(contentsOf: simplePairs)
-                        
+
                         return self
                             .correctionPairsUseCase
                             .correction(pairs: Array(pairsSet))
@@ -356,27 +357,27 @@ private extension TradeSystem {
                             }
                     }
                     .flatMap { [weak self] pairs, categories, favoritePairs -> Observable<TradeTypes.DTO.Core> in
-                        
+
                         guard let self = self else { return Observable.empty() }
-                        
+
                         let simplePairs = pairs.map {
                             DomainLayer.DTO.Dex.SimplePair(amountAsset: $0.amountAsset, priceAsset: $0.priceAsset)
                         }
                         let pairsPrice = self.pairsPriceRepository.pairs(accountAddress: wallet.address, pairs: simplePairs)
-                        
+
                         let queryPairs: [DomainLayer.DTO.Dex.SimplePair] = pairs.map {
                             .init(amountAsset: $0.amountAsset, priceAsset: Constants.usdAssetId)
                         }
                         let query = DomainLayer.Query.Dex.PairsRate(pairs: queryPairs, timestamp: nil)
                         let pairsRate = self.pairsPriceRepository.pairsRate(query: query)
-                        
+
                         let mapPairs = pairs
                             .reduce(into: [String: DomainLayer.DTO.CorrectionPairs.Pair]()) { $0[$1.keyPair] = $1 }
-                        
+
                         let tradeCategories = categories.map { category -> TradeTypes.DTO.Category in
-                            
+
                             let pairs = category.pairs.map { pair -> DomainLayer.DTO.Dex.Pair? in
-                                
+
                                 if mapPairs[pair.keyPair] != nil {
                                     return DomainLayer.DTO.Dex.Pair(amountAsset: pair.amountAsset,
                                                                     priceAsset: pair.priceAsset)
@@ -387,7 +388,7 @@ private extension TradeSystem {
                                 return nil
                             }
                             .compactMap { $0 }
-                            
+
                             return .init(name: category.name, filters: category.filters, pairs: pairs)
                         }
                         
@@ -419,9 +420,9 @@ private extension TradeSystem {
 
 private extension Array where Element == DomainLayer.DTO.CorrectionPairs.Pair {
     func hasAsset(_ assetId: String) -> Bool {
-        filterByAsset(assetId).isNotEmpty
+        !filterByAsset(assetId).isEmpty
     }
-    
+
     func filterByAsset(_ assetId: String) -> [DomainLayer.DTO.CorrectionPairs.Pair] {
         filter { $0.amountAsset == assetId || $0.priceAsset == assetId }
     }
@@ -429,9 +430,9 @@ private extension Array where Element == DomainLayer.DTO.CorrectionPairs.Pair {
 
 private extension Array where Element == DomainLayer.DTO.Dex.Pair {
     func hasAsset(_ assetId: String) -> Bool {
-        filterByAsset(assetId).isNotEmpty
+        !filterByAsset(assetId).isEmpty
     }
-    
+
     func filterByAsset(_ assetId: String) -> [DomainLayer.DTO.Dex.Pair] {
         filter { $0.amountAsset.id == assetId || $0.priceAsset.id == assetId }
     }
@@ -443,6 +444,6 @@ private extension DomainLayer.DTO.CorrectionPairs.Pair {
 
 private extension DomainLayer.DTO.Dex.Pair {
     var keyPair: String { "\(amountAsset.id)/\(priceAsset.id)" }
-    
+
     var inversionKeyPair: String { "\(priceAsset.id)/\(amountAsset.id)" }
 }

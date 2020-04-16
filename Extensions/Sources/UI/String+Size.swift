@@ -13,7 +13,10 @@ public extension String {
 
     func maxHeight(font: UIFont, forWidth: CGFloat) -> CGFloat {
         let text = self as NSString
-        return ceil(text.boundingRect(with: CGSize(width: forWidth, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.height)
+        return ceil(text.boundingRect(with: CGSize(width: forWidth, height: CGFloat.greatestFiniteMagnitude),
+                                      options: .usesLineFragmentOrigin,
+                                      attributes: [.font: font],
+                                      context: nil).size.height)
     }
     
     func maxHeightMultiline(font: UIFont, forWidth: CGFloat) -> CGFloat {
@@ -22,8 +25,7 @@ public extension String {
         
         let rect = NSAttributedString(string: self, attributes: [.font: font,
                                                                  .paragraphStyle: style])
-            .boundingRect(with: CGSize(width: forWidth,
-                                       height: CGFloat.greatestFiniteMagnitude),
+            .boundingRect(with: CGSize(width: forWidth, height: CGFloat.greatestFiniteMagnitude),
                           options: [.usesLineFragmentOrigin, .usesFontLeading],
                           context: nil)
         
@@ -32,13 +34,18 @@ public extension String {
     
     func maxWidth(font: UIFont) -> CGFloat {
         let text = self as NSString
-        return ceil(text.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.width)
+        let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        
+        return ceil(text.boundingRect(with: size,
+                                      options: .usesLineFragmentOrigin,
+                                      attributes: [.font: font],
+                                      context: nil).size.width)
     }        
 }
 
 public extension NSAttributedString {
     
     func boundingRect(with size: CGSize) -> CGRect {
-        return boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+        boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
     }
 }

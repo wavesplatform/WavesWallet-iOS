@@ -11,7 +11,6 @@ import Extensions
 import DomainLayer
 import RxSwift
 import RxFeedback
-import RxSwiftExt
 import RxCocoa
 import WavesSDK
 

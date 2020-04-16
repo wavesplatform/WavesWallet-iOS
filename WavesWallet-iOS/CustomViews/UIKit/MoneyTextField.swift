@@ -151,7 +151,7 @@ private extension MoneyTextField {
     }
     
     private func setNeedUpdateTextField(isNeedNotify: Bool = true) {
-        if textString.isNotEmpty {
+        if !textString.isEmpty {
             setupAttributedText(text: textNSString.replacingOccurrences(of: ",", with: "."))
             checkCorrectInputAfterRemoveText()
         } else {
@@ -280,7 +280,7 @@ private extension MoneyTextField {
         
         if isExistDot {
             let substring = textNSString.substring(from: dotRange.location + 1)
-            decimals = substring.isNotEmpty ? substring.count : 1
+            decimals = !substring.isEmpty ? substring.count : 1
         }
         
         return decimals
@@ -337,9 +337,9 @@ private extension MoneyTextField {
 
         var isMaximumInputDecimals = false
         if hasSetDecimals {
-            isMaximumInputDecimals = countInputDecimals >= decimals && input.isNotEmpty
+            isMaximumInputDecimals = countInputDecimals >= decimals && !input.isEmpty
         } else {
-            isMaximumInputDecimals = countInputDecimals >= decimals && decimals > 0 && input.isNotEmpty
+            isMaximumInputDecimals = countInputDecimals >= decimals && decimals > 0 && !input.isEmpty
         }
 
         if isMaximumInputDecimals {

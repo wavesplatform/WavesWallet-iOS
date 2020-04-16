@@ -109,11 +109,11 @@ extension ModalScrollViewController  {
 extension ModalScrollViewController: ModalPresentationAnimatorContext {
 
     func hideBoundaries(for size: CGSize) -> CGRect {
-
-        return CGRect(x: 0,
-                      y: 0,
-                      width: size.width,
-                      height: self.layoutInsets.top + scrollView.contentInset.top - (scrollView.contentOffset.y + scrollView.contentInset.top))
+        CGRect(
+            x: 0,
+            y: 0,
+            width: size.width,
+            height: layoutInsets.top + scrollView.contentInset.top - (scrollView.contentOffset.y + scrollView.contentInset.top))
     }
 
     func appearingContentHeight(for size:  CGSize) -> CGFloat {
@@ -121,8 +121,7 @@ extension ModalScrollViewController: ModalPresentationAnimatorContext {
         return size.height - contentHeight
     }
 
-    func disappearingContentHeight(for size:  CGSize) -> CGFloat {
-
+    func disappearingContentHeight(for size: CGSize) -> CGFloat {
         if scrollView.contentOffset.y < 0 {
             return scrollView.bounds.height + scrollView.contentOffset.y + scrollView.contentInset.top
         } else {
@@ -131,7 +130,7 @@ extension ModalScrollViewController: ModalPresentationAnimatorContext {
     }
 
     func contentHeight(for size: CGSize) -> CGFloat {
-        return size.height
+        size.height
     }
 }
 

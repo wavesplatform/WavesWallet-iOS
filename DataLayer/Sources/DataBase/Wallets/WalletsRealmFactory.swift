@@ -6,22 +6,19 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RealmSwift
 import WavesSDK
 import WavesSDKExtensions
-import DomainLayer
 
-fileprivate enum SchemaVersions: UInt64 {
-    case version_2_5 = 7    
+private enum SchemaVersions: UInt64 {
+    case version_2_5 = 7
     static let currentVersion: SchemaVersions = .version_2_5
 }
 
-
 enum WalletsRealmFactory {
-    
     static func walletsConfig(scheme: String) -> Realm.Configuration? {
-        
         var config = Realm.Configuration()
         config.objectTypes = [WalletEncryption.self, WalletItem.self]
         config.schemaVersion = UInt64(SchemaVersions.currentVersion.rawValue)
@@ -37,7 +34,7 @@ enum WalletsRealmFactory {
         
         config.migrationBlock = { migration, oldSchemaVersion in
             
-            migration.enumerateObjects(ofType: WalletItem.className()) { _ , newObject in
+            migration.enumerateObjects(ofType: WalletItem.className()) { _, newObject in
                 
                 newObject?[WalletItem.isNeedShowWalletCleanBannerKey] = true
             }

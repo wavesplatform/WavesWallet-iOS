@@ -6,13 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import DomainLayer
 import Extensions
+import Foundation
+import UIKit
 
 final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
-
     struct Model {
         let contact: DomainLayer.DTO.Contact?
         let contactDetail: ContactDetailView.Model
@@ -36,7 +35,7 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         copyButton.copiedText = { [weak self] in
             guard let self = self else { return nil }
             return self.address
@@ -51,10 +50,8 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardMassSentRecipientCell: ViewConfiguration {
-
     func update(with model: Model) {
-
-        self.isEditName = model.isEditName
+        isEditName = model.isEditName
         address = model.contactDetail.address
         balanceLabel.update(with: model.balance)
         contactDetailView.update(with: model.contactDetail)

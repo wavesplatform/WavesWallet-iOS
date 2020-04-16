@@ -1763,8 +1763,8 @@ We do not recommend you perform operations with smart assets if you are an inexp
                         <outlet property="labelExpirationDays" destination="3Ie-0S-Kpq" id="Gzq-fN-eEX"/>
                         <outlet property="labelFee" destination="KzZ-Ku-aDF" id="sSd-0B-v1x"/>
                         <outlet property="labelFeeLocalization" destination="NGu-X7-Wxc" id="ZF4-1Q-7vd"/>
-                        <outlet property="orderTypeContainer" destination="O9r-Fe-xQI" id="By7-T6-iPR"/>
-                        <outlet property="orderTypeContainerHeight" destination="cUU-VL-Muk" id="Uba-Vu-5qE"/>
+                        <outlet property="orderTypeContainer" destination="O9r-Fe-xQI" id="7vs-xM-N2H"/>
+                        <outlet property="orderTypeContainerHeight" destination="cUU-VL-Muk" id="Z09-52-q7P"/>
                         <outlet property="segmentedControl" destination="PG3-20-Dd2" id="ayw-oZ-Rpg"/>
                         <outlet property="segmentedTopOffset" destination="TAE-Gg-1Za" id="UGz-vq-nSf"/>
                         <outlet property="viewErrorFee" destination="Chn-Dd-Ush" id="NbR-bB-ABe"/>

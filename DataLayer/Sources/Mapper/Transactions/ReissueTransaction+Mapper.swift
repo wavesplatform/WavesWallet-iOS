@@ -6,12 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import WavesSDK
-import DomainLayer
 
 extension ReissueTransaction {
-
     convenience init(transaction: DomainLayer.DTO.ReissueTransaction) {
         self.init()
         type = transaction.type
@@ -36,9 +35,9 @@ extension ReissueTransaction {
 }
 
 extension DomainLayer.DTO.ReissueTransaction {
-
-    init(transaction: NodeService.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-        
+    init(transaction: NodeService.DTO.ReissueTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -58,7 +57,6 @@ extension DomainLayer.DTO.ReissueTransaction {
     }
 
     init(transaction: ReissueTransaction) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,

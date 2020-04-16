@@ -55,6 +55,7 @@ final class DexCreateOrderViewController: UIViewController {
     
     @IBOutlet private weak var orderTypeContainer: UIView!
     @IBOutlet private weak var segmentedControl: DexCreateOrderSegmentedControl!
+
     @IBOutlet private weak var inputAmount: DexCreateOrderInputView!
     @IBOutlet private weak var inputPrice: DexCreateOrderInputView!
     @IBOutlet private weak var inputTotal: DexCreateOrderInputView!
@@ -219,7 +220,6 @@ private extension DexCreateOrderViewController {
     func subscriptions(state: Driver<DexCreateOrder.State>) -> [Disposable] {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
-                
                 guard let self = self else { return }
                 self.updateState(state)
             })

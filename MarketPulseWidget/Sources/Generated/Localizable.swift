@@ -15,8 +15,8 @@ internal enum Localizable {
 
       internal enum Update {
         /// Update
-        internal static var title: String { return Localizable.tr("WavesMarketPulse", "marketpulsewidget.button.update.title") }
-        internal static var titleKey: String { return "marketpulsewidget.button.update.title" }
+        internal static var title: String { Localizable.tr("WavesMarketPulse", "marketpulsewidget.button.update.title") }
+        internal static var titleKey: String { "marketpulsewidget.button.update.title" }
       }
     }
   }
@@ -30,10 +30,10 @@ extension Localizable: LocalizableProtocol {
         var bundle: Bundle
     }
 
-    private static let english: Localizable.Current = Localizable.Current(locale: Locale(identifier: "en"), bundle: Bundle(for: BundleToken.self))
+    private static let english = Localizable.Current(locale: Locale(identifier: "en"), bundle: Bundle(for: BundleToken.self))
 
-    static var locale: Locale = Locale.current
-    static var bundle: Bundle = Bundle(for: BundleToken.self)
+    static var locale = Locale.current
+    static var bundle = Bundle(for: BundleToken.self)
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: bundle, comment: "")

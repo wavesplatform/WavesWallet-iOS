@@ -146,7 +146,10 @@ final class EditAccountNameViewController: UIViewController {
         wallet.name = newName
         authorization
             .changeWallet(wallet)
-            .subscribeNext(weak: self, { $0.save })
+            .subscribe(onNext: { [weak self] wallet in
+                guard let self = self else { return }
+                self.save(wallet)
+            })
             .disposed(by: disposeBag)
     }
     

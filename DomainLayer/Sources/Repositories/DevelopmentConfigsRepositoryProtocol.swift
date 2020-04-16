@@ -10,9 +10,7 @@ import Foundation
 import RxSwift
 
 public extension DomainLayer.DTO {
-    
     struct DevelopmentConfigs {
-        
         public struct Rate: Decodable {
             public let rate: Double
             public let flat: Int64

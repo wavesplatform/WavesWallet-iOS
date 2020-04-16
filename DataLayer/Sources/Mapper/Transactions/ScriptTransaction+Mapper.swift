@@ -6,13 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
+import Foundation
+import WavesSDK
+import WavesSDKExtensions
 
 extension ScriptTransaction {
-
     convenience init(transaction: DomainLayer.DTO.ScriptTransaction) {
         self.init()
         type = transaction.type
@@ -35,9 +34,9 @@ extension ScriptTransaction {
 }
 
 extension DomainLayer.DTO.ScriptTransaction {
-
-    init(transaction: NodeService.DTO.SetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-        
+    init(transaction: NodeService.DTO.SetScriptTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(environment: environment),
@@ -55,7 +54,6 @@ extension DomainLayer.DTO.ScriptTransaction {
     }
 
     init(transaction: ScriptTransaction) {
-        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,

@@ -18,7 +18,6 @@ private enum Constants {
 }
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
-    
     private let auth: AuthorizationUseCaseProtocol
     private let matcherRepository: MatcherRepositoryProtocol
     private let orderBookRepository: DexOrderBookRepositoryProtocol
@@ -45,32 +44,32 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         self.environmentRepository = environmentRepository
         self.developmentConfig = developmentConfig
     }
-    
+
     func getDevConfig() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
         developmentConfig.developmentConfigs()
     }
   
     func createOrder(order: DexCreateOrder.DTO.Order,
                      type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
-        
-        return calculateMarketOrderPriceIfNeed(order: order, createType: type)
+        calculateMarketOrderPriceIfNeed(order: order, createType: type)
             .flatMap { [weak self] marketOrder -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                 guard let self = self else { return Observable.empty() }
-                return self.performeCreateOrderRequest(order: order, updatedPrice: marketOrder?.price, priceAvg: marketOrder?.priceAvg, type: type)
+                return self.performeCreateOrderRequest(order: order,
+                                                       updatedPrice: marketOrder?.price,
+                                                       priceAvg: marketOrder?.priceAvg,
+                                                       type: type)
         }
         .catchError { error -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
-            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+            Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
         }
     }
     
     func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings> {
-        
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexCreateOrder.DTO.FeeSettings>  in
+        auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexCreateOrder.DTO.FeeSettings>  in
             guard let self = self else { return Observable.empty() }
             
             return self.orderBookInteractor.orderSettingsFee()
                 .flatMap({ [weak self] (smartSettings) -> Observable<DexCreateOrder.DTO.FeeSettings> in
-                    
                     guard let self = self else { return Observable.empty() }
                                                                       
                     return self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
@@ -86,10 +85,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     }
     
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool> {
-        
-        return auth
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+        auth.authorizedWallet()
+            .flatMap({ [weak self] wallet -> Observable<Bool> in
             
                 guard let self = self else { return Observable.empty() }
                 
@@ -166,8 +163,7 @@ private extension DexCreateOrderInteractor {
                                     updatedPrice: Money?,
                                     priceAvg: Money?,
                                     type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
-        
-        return auth.authorizedWallet()
+        auth.authorizedWallet()
                .flatMap{ [weak self] wallet -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                
                guard let self = self else { return Observable.empty() }

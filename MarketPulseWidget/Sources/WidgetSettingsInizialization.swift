@@ -15,13 +15,13 @@ import WavesSDKCrypto
 class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol {
     
     private let widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
-    private let matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
+    private let matcherRepository: MatcherRepositoryProtocol =
+        MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
     private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
     private let assetsRepository: WidgetAssetsRepositoryProtocol = WidgetAssetsRepositoryRemote()
     
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings> {
-        
-        return widgetSettingsStorage
+        widgetSettingsStorage
             .settings()
             .flatMap { [weak self] settings -> Observable<DomainLayer.DTO.MarketPulseSettings> in
                 
@@ -48,10 +48,11 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
                 let pairs = assets.map {
                     DomainLayer.DTO.CorrectionPairs.Pair(amountAsset: $0.id, priceAsset: WavesSDKConstants.wavesAssetId)
                 }
+                
                 return self
                     .correction(pairs: pairs)
                     .flatMap { pairsAfterCorrection -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
-                        //TODO: Remove
+                        // TODO: Remove
                         self.pairsPriceRepository
                             .searchPairs(.init(kind: .pairs(pairsAfterCorrection.map { .init(amountAsset: $0.amountAsset,
                                                                                              priceAsset: $0.priceAsset) })))

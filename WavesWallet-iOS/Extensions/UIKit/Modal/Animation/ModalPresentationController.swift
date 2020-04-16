@@ -133,7 +133,7 @@ extension ModalPresentationController: UIGestureRecognizerDelegate {
         guard let vcUnwrapper = vc else { return false }
 
         var location = gestureRecognizer.location(in: containerView)
-        location.y = location.y - containerView.layoutInsets.top
+        location.y -= containerView.layoutInsets.top
         
         let rect = contextUnwrapper.hideBoundaries(for: vcUnwrapper.view.frame.size)
 

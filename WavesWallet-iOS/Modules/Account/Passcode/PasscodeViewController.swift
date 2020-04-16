@@ -83,7 +83,7 @@ private extension PasscodeViewController {
         let readyViewFeedback: PasscodePresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
 
-            let applicationWillEnterForeground =  NotificationCenter
+            let applicationWillEnterForeground = NotificationCenter
                 .default
                 .rx
                 .notification(UIApplication.willEnterForegroundNotification, object: nil)
@@ -92,7 +92,7 @@ private extension PasscodeViewController {
                     let isAppeared = (try? self.isAppeared.value()) ?? false
                     return Observable.just(isAppeared)
                 })
-                .ignoreWhen({ $0 == false })                
+                .filter { !$0 }
 
             return Observable<Bool>.merge([self.rx.viewDidAppear.asObservable(),
                                            applicationWillEnterForeground])

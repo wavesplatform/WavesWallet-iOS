@@ -6,21 +6,19 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import RxFeedback
-import RxCocoa
-import Extensions
 import DomainLayer
+import Extensions
+import Foundation
+import RxCocoa
+import RxFeedback
+import RxSwift
 
 final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
-
-    
     var interactor: DexCreateOrderInteractorProtocol!
     private let disposeBag = DisposeBag()
-    
+
     var pair: DomainLayer.DTO.Dex.Pair!
-    
+
     func system(feedbacks: [DexCreateOrderPresenter.Feedback], feeAssetId: String) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
@@ -32,34 +30,34 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
         Driver.system(initialState: DexCreateOrder.State.initialState(feeAssetId: feeAssetId),
                       reduce: { [weak self] state, event -> DexCreateOrder.State in
 
-                        guard let self = self else { return state }
-                        return self.reduce(state: state, event: event)
-                    }, feedback: newFeedbacks)
+                          guard let self = self else { return state }
+                          return self.reduce(state: state, event: event)
+                      },
+                      feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
-        
     }
 
     private func feeQuery() -> Feedback {
         react(request: { state -> DexCreateOrder.State? in
             state.isNeedGetFee ? state : nil
         }, effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
-            
+
             guard let self = self else { return Signal.empty() }
-            
+
             return self
                 .interactor
                 .getFee(amountAsset: self.pair.amountAsset.id, priceAsset: self.pair.priceAsset.id, feeAssetId: state.feeAssetId)
-                .map {.didGetFee($0)}
-                .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) } )
+                .map { .didGetFee($0) }
+                .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) })
         })
     }
-    
+
     private func calculateMarketPriceQuery() -> Feedback {
         react(request: { state -> DexCreateOrder.State? in
             state.isNeedCalculateMarketOrderPrice ? state : nil
         }, effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
-            
+
             guard let self = self else { return Signal.empty() }
             guard let order = state.order else { return Signal.empty() }
 
@@ -67,33 +65,32 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                                                              priceAsset: order.priceAsset,
                                                              orderAmount: order.amount,
                                                              type: order.type)
-                .map { .didGetMarketOrderPrice($0)}
+                .map { .didGetMarketOrderPrice($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
-    
-    private func modelsQuery() -> Feedback {
-        react(request: { state -> DexCreateOrder.State? in
-            state.isNeedCreateOrder ? state : nil
-        }, effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
-            
-            guard let self = self else { return Signal.empty() }
-            guard let order = state.order else { return Signal.empty() }
 
-            return self.interactor.createOrder(order: order, type: state.createOrderType)
-                .map { .orderDidCreate($0) }
-                .asSignal(onErrorSignalWith: Signal.empty())
+    private func modelsQuery() -> Feedback {
+        return react(request: { state -> DexCreateOrder.State? in state.isNeedCreateOrder ? state : nil },
+                     effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
+
+                         guard let self = self else { return Signal.empty() }
+                         guard let order = state.order else { return Signal.empty() }
+
+                         return self.interactor.createOrder(order: order,
+                                                            type: state.createOrderType)
+                             .map { .orderDidCreate($0) }
+                             .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
-    
+
     private func isValidOrderQuery() -> Feedback {
         react(request: { state -> DexCreateOrder.State? in
             state.isNeedCheckValidOrder ? state : nil
         }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
-            
             guard let self = self else { return Signal.empty() }
             guard let order = ss.order else { return Signal.empty() }
-            
+
             return self
                 .interactor
                 .isValidOrder(order: order)
@@ -107,7 +104,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 })
         })
     }
-    
+
     private func getDevelopmentConfig() -> Feedback {
         react(request: { state -> DexCreateOrder.State? in
             return state.isNeedCheckPairs ? state : nil
@@ -133,9 +130,8 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 .asSignal(onErrorJustReturn: .updateVisibleOrderTypesContainer(true))
         })
     }
-    
+
     private func reduce(state: DexCreateOrder.State, event: DexCreateOrder.Event) -> DexCreateOrder.State {
-        
         switch event {
         case .refreshFee:
 
@@ -144,27 +140,29 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             }
             .changeAction(.none)
 
-        case .feeAssetNeedUpdate(let feeAssetId):
-            
+        case let .feeAssetNeedUpdate(feeAssetId):
+
             return state.mutate {
                 $0.feeAssetId = feeAssetId
                 $0.isNeedGetFee = true
             }.changeAction(.none)
-            
-        case .handlerFeeError(let error):
+
+        case let .handlerFeeError(error):
 
             return state.mutate {
                 $0.isNeedGetFee = false
                 $0.isDisabledSellBuyButton = true
                 if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
-                    $0.displayFeeErrorState = .error(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+                    $0
+                        .displayFeeErrorState = .error(DisplayError
+                            .message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     $0.displayFeeErrorState = .error(DisplayError(error: error))
                 }
             }
             .changeAction(.none)
 
-        case .didGetFee(let feeSettings):
+        case let .didGetFee(feeSettings):
             return state.mutate {
                 $0.isNeedGetFee = false
                 $0.isDisabledSellBuyButton = false
@@ -172,42 +170,41 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 $0.order?.fee = feeSettings.fee.amount
             }
             .changeAction(.didGetFee(feeSettings))
-            
+
         case .createOrder:
-            
+
             if state.order?.type == .buy {
                 UseCasesFactory.instance.analyticManager.trackEvent(.dex(.buyOrderSuccess(amountAsset: pair.amountAsset.name,
-                                                                 priceAsset: pair.priceAsset.name)))
-            }
-            else {
+                                                                                          priceAsset: pair.priceAsset.name)))
+            } else {
                 UseCasesFactory.instance.analyticManager.trackEvent(.dex(.sellOrderSuccess(amountAsset: pair.amountAsset.name,
-                                                                 priceAsset: pair.priceAsset.name)))
+                                                                                           priceAsset: pair.priceAsset.name)))
             }
-            
+
             return state.mutate {
                 $0.isNeedCreateOrder = false
                 $0.isNeedCheckValidOrder = true
             }
             .changeAction(.showCreatingOrderState)
-            
+
         case .cancelCreateOrder:
-           
+
             return state.mutate {
                 $0.isNeedCreateOrder = false
                 $0.isNeedCheckValidOrder = false
             }
             .changeAction(.showDeffaultOrderState)
-        
+
         case .sendOrder:
-            
+
             return state.mutate {
                 $0.isNeedCreateOrder = true
                 $0.isNeedCheckValidOrder = false
             }
             .changeAction(.showCreatingOrderState)
-            
-        case .orderNotValid(let error):
-            
+
+        case let .orderNotValid(error):
+
             return state.mutate {
                 $0.isNeedCreateOrder = false
                 $0.isNeedCheckValidOrder = false
@@ -216,9 +213,8 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             
         case .orderDidCreate(let responce):
             return state.mutate {
-                
                 $0.isNeedCreateOrder = false
-                
+
                 switch responce.result {
                     case .error(let error):
                         $0.action = .orderDidFailCreate(error)
@@ -227,11 +223,10 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 }
             }
 
-            
-        case .updateInputOrder(let order):
+        case let .updateInputOrder(order):
             return state.mutate {
                 $0.isNeedCreateOrder = false
-                
+
                 if $0.createOrderType == .market &&
                     ($0.order?.amount.decimalValue != order.amount.decimalValue || $0.order?.type != order.type) {
                     $0.isNeedCalculateMarketOrderPrice = true
@@ -239,44 +234,42 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
 
                 $0.order = order
             }.changeAction(.none)
-            
-        case .changeCreateOrderType(let type):
+
+        case let .changeCreateOrderType(type):
             return state.mutate {
                 $0.createOrderType = type
                 $0.isNeedCalculateMarketOrderPrice = type == .market
             }.changeAction(.updateCreateOrderType(type))
-            
+
         case .updateMarketOrderPrice:
             return state.mutate {
                 $0.isNeedCalculateMarketOrderPrice = true
             }.changeAction(.none)
-            
-        case .didGetMarketOrderPrice(let marketOrder):
+
+        case let .didGetMarketOrderPrice(marketOrder):
             return state.mutate {
                 $0.isNeedCalculateMarketOrderPrice = false
                 $0.order?.price = marketOrder.price
                 $0.order?.total = marketOrder.total
             }.changeAction(.updateMarketOrderPrice(marketOrder))
-            
-        case .updateVisibleOrderTypesContainer(let isVisible):
+
+        case let .updateVisibleOrderTypesContainer(isVisible):
             return state.mutate { state in
                 state.isNeedCheckPairs = false
                 state.isVisibleOrderTypesContainer = isVisible
             }
-
         }
     }
 }
 
 fileprivate extension DexCreateOrder.State {
-    
     func changeAction(_ action: DexCreateOrder.State.Action) -> DexCreateOrder.State {
         return mutate { state in
             state.action = action
         }
     }
 }
-    
+
 fileprivate extension DexCreateOrder.State {
     static func initialState(feeAssetId: String) -> DexCreateOrder.State {
         DexCreateOrder.State(isNeedCheckPairs: true,

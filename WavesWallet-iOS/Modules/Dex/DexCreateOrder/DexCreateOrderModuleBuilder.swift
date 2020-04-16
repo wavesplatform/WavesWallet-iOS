@@ -24,7 +24,7 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
         let orderBookInteractor: OrderBookUseCaseProtocol = UseCasesFactory.instance.oderbook
         let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
         let developmentConfig = UseCasesFactory.instance.repositories.developmentConfigsRepository
-        
+
         let interactor: DexCreateOrderInteractorProtocol = DexCreateOrderInteractor(authorization: auth,
                                                                                     matcherRepository: matcherRepository,
                                                                                     dexOrderBookRepository: orderBookRepository,
