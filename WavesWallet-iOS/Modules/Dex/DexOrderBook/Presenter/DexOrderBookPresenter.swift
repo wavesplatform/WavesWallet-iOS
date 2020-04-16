@@ -76,6 +76,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             return state.mutate {
                 
                 let displayData = data.data
+                let wasEmpty = $0.sections.count == 0 ? true : $0.sections.map{ $0.items.count }.reduce(0, +) == 1
                 
                 $0.isNeedRefreshing = false
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
@@ -98,11 +99,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 
                 if !state.hasFirstTimeLoad {
                     $0.hasFirstTimeLoad = true
-                    $0.action = $0.sections.count > 0 ? .scrollTableToCenter : .update
                 }
-                else {
-                    $0.action = .update
-                }
+               
+                $0.action = wasEmpty ? .scrollTableToCenter : .update
             }
             
         case .didTapBid(let bid, let inputMaxSum):
