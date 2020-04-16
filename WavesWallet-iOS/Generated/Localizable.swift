@@ -1707,7 +1707,7 @@ internal enum Localizable {
             internal enum Step {
 
               internal enum One {
-                /// Settings — General — Export account
+                /// Settings - Security - Export account to app
                 internal static var detail: String { Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
                 internal static var detailKey: String { "import.account.label.info.step.one.detail" }
                 /// Log in to your Waves Client via your PC or Mac at https://waves.exchange
@@ -1822,7 +1822,7 @@ internal enum Localizable {
             }
 
             internal enum Two {
-              /// Settings — General — Export account
+              /// Settings - Security - Export account to app
               internal static var detail: String { Localizable.tr("Waves", "import.scan.label.step.two.detail") }
               internal static var detailKey: String { "import.scan.label.step.two.detail" }
               /// Click «Show Pairing Code» to reveal a QR Code
