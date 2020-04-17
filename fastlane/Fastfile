@@ -88,6 +88,12 @@ platform :ios do
     download_resources
   end
 
+  lane :prod_adhoc_install do
+    prod_adhoc_enviroment
+    download_certificates
+    download_resources
+  end
+
   lane :prod_install do
     prod_enviroment
     download_certificates
@@ -100,19 +106,9 @@ platform :ios do
     download_resources
   end
 
-  lane :dev_download_resources do
-    dev_enviroment    
-    download_resources
-  end
-  
-  lane :dev_add_new_devices do
-    dev_enviroment
-    force_update_certificates_and_provisions
-  end
-
   lane :add_new_devices do
-    prod_install
-    force_update_certificates_and_provisionss 
+    dev_enviroment
+    all_app_force_update_certificates_and_provisions
   end
 
   lane :prod_go do
