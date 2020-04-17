@@ -117,6 +117,10 @@ platform :ios do
     prod_upload_testflight
   end
 
+  lane :download_bundle_enviroments do
+    download_bundle_enviroments
+  end
+
   lane :increment_build_number_and_commit_push do      
       
       increment_build_number
