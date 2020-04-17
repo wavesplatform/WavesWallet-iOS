@@ -118,7 +118,9 @@ platform :ios do
   end
 
   lane :download_bundle_enviroments do
-    download_bundle_enviroments
+    sh("rm -rf #{Dir.pwd}/../.env")
+    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS_PRIVATE_RESOURCES']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
+    sh("cat #{Dir.pwd}/../.env")
   end
 
   lane :increment_build_number_and_commit_push do      
