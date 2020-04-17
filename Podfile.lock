@@ -119,7 +119,7 @@ PODS:
   - InfiniteCollectionView (1.3.2)
   - Intercom (6.1.0)
   - IQKeyboardManagerSwift (6.5.5)
-  - KeychainAccess (3.2.0)
+  - KeychainAccess (4.1.0)
   - Kingfisher (5.7.0)
   - leveldb-library (1.22)
   - MGSwipeTableCell (1.6.8)
@@ -330,7 +330,7 @@ SPEC CHECKSUMS:
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
   Intercom: b168156c4eb1b51352974cdfa47d4f3241a3df8b
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
-  KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
+  KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
@@ -360,6 +360,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 12a89aa56d4f92c7c93fa2f6d68b115ab5d5a6c7
+PODFILE CHECKSUM: e664754c39b6dc1e2c308a6f43d8bcd7b36c4cdb
 
 COCOAPODS: 1.9.1

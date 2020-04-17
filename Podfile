@@ -1,36 +1,34 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 
-# Ignore all warnings from all pods
-inhibit_all_warnings!
-
-install! 'cocoapods', :disable_input_output_paths => true
-
-use_frameworks!(true)
-
-# Enable the stricter search paths and module map generation for all pods
-# use_modular_headers!
-
-# Pods for MonkeyTest
-target 'MonkeyTest' do
-    pod 'SwiftMonkey'
-end 
+use_frameworks! :linkage => :dynamic
 
 workspace 'WavesWallet-iOS.xcworkspace'
-project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
-project 'WavesWallet-iOS.xcodeproj'
 
-# Pods for WavesWallet-iOS
+# 
+# 
+
+def firebase_dependencies
+    pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    pod 'Firebase/Auth'
+    pod 'Firebase'
+    pod 'Firebase/InAppMessagingDisplay'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Messaging'
+end
+
+# 
+# 
+
 target 'WavesWallet-iOS' do
-    # inherit! :search_paths
-
     project 'WavesWallet-iOS.xcodeproj'
 
     pod 'SwiftLint'
-    
+
     # UI
     pod 'RxCocoa'
-    
+
     pod 'TTTAttributedLabel'
     pod 'Down'
 
@@ -45,7 +43,7 @@ target 'WavesWallet-iOS' do
 
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
-    
+
     # Assisstant
     pod 'RxSwift'
     pod 'RxFeedback'
@@ -58,50 +56,39 @@ target 'WavesWallet-iOS' do
     # Code Gen
     pod 'SwiftGen', '~> 5.3.0'
 
-   # Service
-   pod 'Intercom'
+    # Service
+    pod 'Intercom'
 
     # Debug
     pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
-    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']        
+    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
 end
 
+target 'DomainLayer' do
+    project 'WavesWallet-iOS.xcodeproj'
 
-target 'MarketPulseWidget' do
-  project 'WavesWallet-iOS.xcodeproj'
-  pod 'SwiftLint'
-  
-  pod 'RxSwift'
-  pod 'RxFeedback'
-  pod 'RxCocoa'
-  pod 'Moya'
-  pod 'Moya/RxSwift'
-  pod 'RealmSwift'
-  pod 'RxRealm'
-  
-  pod 'Kingfisher'
-  
-  pod 'Amplitude-iOS'
-  
+    # DB
+    pod 'RealmSwift'
+    pod 'RxRealm'
+
+    # Assisstant
+    pod 'RxCocoa'
+    pod 'RxSwift'
+    pod 'RxReachability'
+
+    pod 'KeychainAccess'
+
+    pod 'CryptoSwift'
 end
 
 target 'DataLayer' do
-    inherit! :search_paths  
     project 'WavesWallet-iOS.xcodeproj'
-    pod 'SwiftLint'
-    
-    # External Service
-    pod 'Firebase/Core'
-    pod 'Firebase/Database'
-    pod 'Firebase/Auth'
-    pod 'Firebase'
-    pod 'Firebase/InAppMessagingDisplay'
-    pod 'Firebase/Analytics'
-    pod 'Firebase/Messaging'
-    
+
+    firebase_dependencies
+
     pod 'Fabric'
     pod 'Crashlytics'
-    pod 'Amplitude-iOS'            
+    pod 'Amplitude-iOS'
     pod 'Sentry'
 
     # DB
@@ -118,70 +105,75 @@ target 'DataLayer' do
     pod 'KeychainAccess'
 
     pod 'Moya'
-    pod 'Moya/RxSwift'    
-end
-
-target 'DomainLayer' do
-    # inherit! :search_paths
-    project 'WavesWallet-iOS.xcodeproj'
-
-    pod 'SwiftLint'
-
-    # DB
-    pod 'RealmSwift'
-    pod 'RxRealm'
-
-    # Assisstant
-    pod 'RxCocoa'
-    pod 'RxSwift'        
-    pod 'RxReachability'
-  
-    pod 'KeychainAccess'        
-    
-    pod 'CryptoSwift'
+    pod 'Moya/RxSwift'
 end
 
 target 'Extensions' do
-    # inherit! :search_paths
     project 'WavesWallet-iOS.xcodeproj'
-
-    pod 'SwiftLint'    
 
     # Assisstant
     pod 'RxCocoa'
     pod 'RxSwift'
     pod 'DeviceKit'
     pod 'RxFeedback'
-    pod 'RxReachability'    
+    pod 'RxReachability'
     pod 'Kingfisher'
-
 end
+
+target 'MarketPulseWidget' do
+    project 'WavesWallet-iOS.xcodeproj'
+  
+    pod 'RxSwift'
+    pod 'RxFeedback'
+    pod 'RxCocoa'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RealmSwift'
+    pod 'RxRealm'
+  
+    pod 'Kingfisher'
+  
+    pod 'Amplitude-iOS'
+end
+
+#
+#
 
 target 'DomainLayerTests' do
     project 'WavesWallet-iOS.xcodeproj'
-        
 end
 
 target 'DataLayerTests' do
-    project 'WavesWallet-iOS.xcodeproj'    
+    project 'WavesWallet-iOS.xcodeproj'
 end
 
-target 'WavesSDK' do    
+target 'MonkeyTest' do
+    project 'WavesWallet-iOS.xcodeproj'
+    pod 'SwiftMonkey'
+end
+
+#
+#
+
+target 'WavesSDK' do
     project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+
     pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
 end
 
-target 'WavesSDKExtensions' do    
+target 'WavesSDKExtensions' do
     project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+
     pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
 end
 
-target 'WavesSDKCrypto' do    
+target 'WavesSDKCrypto' do
     project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+
     pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
@@ -199,7 +191,9 @@ post_install do |installer|
     end 
 
     remove_static_framework_duplicate_linkage({
-        'DataLayer' => ['Fabric', 'Crashlytics',
+        'DataLayer' => [
+            'Fabric', 
+            'Crashlytics',
             'AppsFlyerFramework',
             'Amplitude-iOS',
             'Amplitude_iOS',
@@ -213,7 +207,8 @@ post_install do |installer|
             'FirebaseInAppMessaging',
             'GoogleAppMeasurement',
             'GTMSessionFetcher',
-            'GoogleUtilities']
+            'GoogleUtilities'
+        ]
     })
 
 end
