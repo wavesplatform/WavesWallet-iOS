@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 import Moya
 import WavesSDKExtensions
 
@@ -43,11 +42,10 @@ struct NodePlugin: PluginType {
     
     func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
         
-        guard let response = result.value?.response else { return }
+        guard let response = try? result.get() else { return }
         
-        guard let allHeaderFields = response.allHeaderFields as? [String : String] else { return }
-        guard let url = response.url else { return }
-        
+        guard let allHeaderFields = response.request?.allHTTPHeaderFields else { return }
+        guard let url = response.request?.url else { return }
         
         let cookies = HTTPCookie.cookies(withResponseHeaderFields: allHeaderFields, for: url)
         var cflb: String? = nil

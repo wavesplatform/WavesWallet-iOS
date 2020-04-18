@@ -15,7 +15,7 @@ import UIKit
 import WavesSDK
 
 private enum Constants {
-    static let updateTime: RxTimeInterval = 30
+    static let updateTime = 30
 }
 
 final class TradeViewController: UIViewController {
@@ -84,7 +84,7 @@ final class TradeViewController: UIViewController {
         tableViewSkeleton.startSkeleton()
         
         Observable<Int>
-            .interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance)
+            .interval(.seconds(Constants.updateTime), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.system.send(.refresh)

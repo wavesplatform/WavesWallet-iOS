@@ -15,7 +15,7 @@ import Extensions
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"
     static let loadingButtonsTitle: String = "—"
-    static let updateTime: RxTimeInterval = 5
+    static let updateTime = 5
 }
 
 final class DexOrderBookViewController: UIViewController {
@@ -49,11 +49,10 @@ final class DexOrderBookViewController: UIViewController {
 extension DexOrderBookViewController: DexTraderContainerProcotol {
     
     func controllerWillAppear() {
-
         sendEvent.accept(.updateData)
 
         Observable<Int>
-            .interval(Constansts.updateTime,
+            .interval(.seconds(Constansts.updateTime),
                       scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (value) in
                 guard let self = self else { return }
