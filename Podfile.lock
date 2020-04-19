@@ -11,6 +11,7 @@ PODS:
   - DeviceKit (3.1.0)
   - Down (0.9.2)
   - Fabric (1.10.2)
+  - Fakery (4.1.1)
   - Firebase (6.21.0):
     - Firebase/Core (= 6.21.0)
   - Firebase/Analytics (6.21.0):
@@ -135,6 +136,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - Nimble (8.0.7)
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
   - QRCode (2.0)
@@ -184,6 +186,7 @@ DEPENDENCIES:
   - DeviceKit
   - Down
   - Fabric
+  - Fakery
   - Firebase
   - Firebase/Analytics
   - Firebase/Auth
@@ -200,6 +203,7 @@ DEPENDENCIES:
   - MGSwipeTableCell
   - Moya
   - Moya/RxSwift
+  - Nimble
   - QRCode
   - QRCodeReader.swift (~> 9.0.1)
   - RealmSwift
@@ -231,6 +235,7 @@ SPEC REPOS:
     - DeviceKit
     - Down
     - Fabric
+    - Fakery
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -257,6 +262,7 @@ SPEC REPOS:
     - MGSwipeTableCell
     - Moya
     - nanopb
+    - Nimble
     - PromisesObjC
     - Protobuf
     - QRCode
@@ -311,6 +317,7 @@ SPEC CHECKSUMS:
   DeviceKit: b9a28acbad6b8dbccf456814b6f95bef17a6654f
   Down: 1f6a14846dff45ae8e7e4334b4e386a5fd3b2412
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  Fakery: d3380c4aa1efe7631c0831d7e26aa9db4491f014
   Firebase: f378c80340dd41c0ad0914af740c021eb282a04b
   FirebaseAnalytics: a1a0b3327ceb5cd5b4bacffdb293f6c909aa087d
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
@@ -339,6 +346,7 @@ SPEC CHECKSUMS:
   MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  Nimble: a73af6ecd4c9106f434f3d55fc54570be3739e0b
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
@@ -364,6 +372,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: e664754c39b6dc1e2c308a6f43d8bcd7b36c4cdb
+PODFILE CHECKSUM: cc5f47abc01fd106ee27af1c7a0729ffea09a494
 
 COCOAPODS: 1.9.1

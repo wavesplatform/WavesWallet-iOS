@@ -179,6 +179,14 @@ target 'WavesSDKCrypto' do
     pod 'Moya/RxSwift'
 end
 
+target 'WavesSDKTests' do
+    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+
+    pod 'RxSwift'
+    pod 'Nimble'
+    pod 'Fakery'
+end
+
 post_install do |installer|
     
     installer.pods_project.targets.each do |target|        
