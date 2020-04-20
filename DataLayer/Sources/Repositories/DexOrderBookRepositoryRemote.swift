@@ -232,7 +232,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 
                 let expirationTimestamp = timestamp + order.expiration * 60 * 1000
                 
-                let isWavesFee = order.matcherFeeAsset == WavesSDKConstants.wavesAssetId
+                let fee = order.matcherFeeAsset.normalizeWavesAssetId
                 
                 let createOrderSignature = CreateOrderSignature(signedWallet: wallet,
                                                                 timestamp: timestamp,
@@ -245,7 +245,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                 expiration: expirationTimestamp,
                                                                 matcherFee: order.matcherFee,
                                                                 matcherFeeAsset: order.matcherFeeAsset,
-                                                                version: isWavesFee ? .V2 : .V3)
+                                                                version: .V3)
                 
                 let order = MatcherService.Query.CreateOrder(matcherPublicKey: order.matcherPublicKey.getPublicKeyStr(),
                                                              senderPublicKey: wallet.publicKey.getPublicKeyStr(),
@@ -258,7 +258,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                              timestamp: timestamp,
                                                              expirationTimestamp: expirationTimestamp,
                                                              proofs: [createOrderSignature.signature()],
-                                                             matcherFeeAsset: order.matcherFeeAsset)
+                                                             matcherFeeAsset: order.matcherFeeAsset.normalizeWavesAssetId)
                 
                 switch type {
                 case .limit:
