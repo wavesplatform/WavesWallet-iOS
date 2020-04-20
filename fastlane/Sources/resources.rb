@@ -41,10 +41,3 @@ def download_resources
   download_file("#{ENV['URL_SPAM']}", "#{Dir.pwd}/../CommonResources/spam.csv")
   
 end
-
-# Загружаем файл с ключами и паролями :) 
-def download_bundle_enviroments
-  sh("rm -rf #{Dir.pwd}/../.env")
-  sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS_PRIVATE_RESOURCES']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
-  sh("cat #{Dir.pwd}/../.env")
-end
