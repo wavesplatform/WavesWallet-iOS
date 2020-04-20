@@ -1,3 +1,6 @@
 [submodule "Vendors/WavesSDK"]
 	path = Vendors/WavesSDK
 	url = git@github.com:wavesplatform/WavesSDK-iOS.git
+[submodule "Vendors/weprotobuf-ios"]
+	path = Vendors/weprotobuf-ios
+	url = git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git

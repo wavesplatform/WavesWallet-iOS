@@ -15,7 +15,7 @@ import UIKit
 import WavesSDK
 
 private enum Constants {
-    static let updateTime: RxTimeInterval = 30
+    static let updateTime: RxTimeInterval = DispatchTimeInterval.seconds(30)
 }
 
 final class TradeViewController: UIViewController {

@@ -329,7 +329,7 @@ CHECKOUT OPTIONS:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
   WEProtobuf:
-    :commit: 4e58133ba8a31df67ac9684c380e6c9497525c13
+    :commit: bdbd6307d4dfac4ee1db614a1bdb8f36ca8e1a7f
     :git: "git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git"
 
 SPEC CHECKSUMS:
@@ -400,6 +400,6 @@ SPEC CHECKSUMS:
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
   WEProtobuf: 18a6e2dfd8e8886fe2cee349e8456fbcb6aa2f7a
 
-PODFILE CHECKSUM: 486630a67fd1516e97c599f7dc8703047687aaac
+PODFILE CHECKSUM: 8e49912e0ff372e07371f81590c73b9020d9add6
 
 COCOAPODS: 1.9.1

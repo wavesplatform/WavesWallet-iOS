@@ -1,3 +1,0 @@
-[submodule "api-specs"]
-	path = api-specs
-	url = git@gitlab.waves.exchange:we-private/api-specs.git

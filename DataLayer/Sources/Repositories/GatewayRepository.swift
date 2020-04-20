@@ -12,6 +12,7 @@ import Foundation
 import Moya
 import RxSwift
 import WavesSDK
+//import swift
 
 final class GatewayRepository: GatewayRepositoryProtocol {
     private let gatewayProvider: MoyaProvider<Gateway.Service> = .anyMoyaProvider()
@@ -95,5 +96,11 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                     .asObservable()
                     .map { _ in true }
             }
+    }
+    
+    
+    func test() -> Observable<Bool> {
+        
+        return Observable.never()
     }
 }

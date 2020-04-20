@@ -15,7 +15,7 @@ import Extensions
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"
     static let loadingButtonsTitle: String = "—"
-    static let updateTime: RxTimeInterval = 5
+    static let updateTime: RxTimeInterval = DispatchTimeInterval.seconds(5)
 }
 
 final class DexOrderBookViewController: UIViewController {

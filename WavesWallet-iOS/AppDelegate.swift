@@ -22,6 +22,7 @@ import Firebase
 import FirebaseMessaging
 import Intercom
 
+
 #if DEBUG
 import SwiftMonkeyPaws
 #endif
@@ -81,6 +82,15 @@ enum UITest {
             .disposed(by: disposeBag)
         
         application.registerForRemoteNotifications()
+        
+        
+        UseCasesFactory
+            .instance
+            .repositories
+            .gatewayRepository
+            .test()
+            .subscribe()
+            .disposed(by: disposeBag)
         
         return true
     }

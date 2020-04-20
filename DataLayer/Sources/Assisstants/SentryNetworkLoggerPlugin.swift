@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 import Foundation
-import Result
 import Moya
 
 private struct Cosntants {
