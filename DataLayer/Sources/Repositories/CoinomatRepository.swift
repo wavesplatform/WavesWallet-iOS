@@ -43,6 +43,7 @@ private enum Response {
     }
 }
 
+//TODO: Rename to services
 final class CoinomatRepository: CoinomatRepositoryProtocol {
     private let coinomatProvider: MoyaProvider<Coinomat.Service> = .anyMoyaProvider()
     

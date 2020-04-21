@@ -21,7 +21,6 @@ private struct Constants {
     static let firebaseAppWavesPlatform: String = "WavesPlatform"
 }
 
-// TODO: Rename Local Repository and protocol
 typealias ExtensionsEnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
 
 public final class RepositoriesFactory: RepositoriesFactoryProtocol {

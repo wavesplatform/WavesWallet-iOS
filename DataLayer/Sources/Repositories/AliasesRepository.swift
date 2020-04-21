@@ -13,6 +13,9 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
+//TODO: Rename to Services
+//TODO: Protocol Split beetwin bd and api
+
 final class AliasesRepository: AliasesRepositoryProtocol {
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
 

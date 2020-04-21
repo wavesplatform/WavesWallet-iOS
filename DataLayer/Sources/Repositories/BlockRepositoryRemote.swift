@@ -12,6 +12,7 @@ import Moya
 import WavesSDK
 import DomainLayer
 
+// TODO: Rename to Services
 final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols

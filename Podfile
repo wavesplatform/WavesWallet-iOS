@@ -120,9 +120,10 @@ target 'DataLayer' do
     pod 'Moya'
     pod 'Moya/RxSwift'    
 
-    pod 'SwiftGRPC'
-    pod 'SwiftProtobuf'
-    pod 'WEProtobuf', :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git'
+    # pod 'SwiftGRPC'
+    pod 'gRPC-Swift', '1.0.0-alpha.11'
+    # pod 'SwiftProtobuf'
+    # pod 'WEProtobuf', :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git'
 end
 
 target 'DomainLayer' do

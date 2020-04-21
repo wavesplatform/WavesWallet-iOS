@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package acash;
+
+service ACashManaging {
+    rpc ChangeApiCredentials(ChangeApiCredentialsRequest) returns (google.protobuf.Empty);
+    rpc ChangeSciCredentials(ChangeSciCredentialsRequest) returns (google.protobuf.Empty);
+}
+
+message ChangeApiCredentialsRequest {
+    ApiCredentials old = 1;
+    ApiCredentials new = 2;
+}
+
+message ChangeSciCredentialsRequest {
+    SciCredentials old = 1;
+    SciCredentials new = 2;
+}
+
+message ApiCredentials {
+    string api_name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message SciCredentials {
+    string sci_name = 1;
+    string email = 2;
+    string secret = 3;
+}

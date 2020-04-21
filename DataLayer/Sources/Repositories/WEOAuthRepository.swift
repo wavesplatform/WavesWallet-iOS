@@ -23,6 +23,7 @@ private struct Token: Codable {
     let access_token: String
 }
 
+//TODO: Split Usecase and services
 final class WEOAuthRepository: WEOAuthRepositoryProtocol {
     
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols

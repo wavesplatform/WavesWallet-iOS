@@ -1,15 +1,18 @@
 PODS:
   - Alamofire (5.1.0)
   - Amplitude-iOS (4.10.0)
-  - BoringSSL-GRPC (0.0.3):
-    - BoringSSL-GRPC/Implementation (= 0.0.3)
-    - BoringSSL-GRPC/Interface (= 0.0.3)
-  - BoringSSL-GRPC/Implementation (0.0.3):
-    - BoringSSL-GRPC/Interface (= 0.0.3)
-  - BoringSSL-GRPC/Interface (0.0.3)
+  - CGRPCZlib (1.0.0-alpha.11)
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
+  - CNIOAtomics (2.15.0)
+  - CNIOBoringSSL (2.7.1)
+  - CNIOBoringSSLShims (2.7.1):
+    - CNIOBoringSSL (= 2.7.1)
+  - CNIODarwin (2.15.0)
+  - CNIOHTTPParser (2.15.0)
+  - CNIOLinux (2.15.0)
+  - CNIOSHA1 (2.15.0)
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - CryptoSwift (1.3.0)
@@ -118,14 +121,14 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
-  - gRPC-Core (1.23.1):
-    - gRPC-Core/Implementation (= 1.23.1)
-    - gRPC-Core/Interface (= 1.23.1)
-  - gRPC-Core/Implementation (1.23.1):
-    - BoringSSL-GRPC (= 0.0.3)
-    - gRPC-Core/Interface (= 1.23.1)
-    - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.23.1)
+  - gRPC-Swift (1.0.0-alpha.11):
+    - CGRPCZlib (= 1.0.0-alpha.11)
+    - Logging (= 1.2.0)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOHTTP2 (= 1.11.0)
+    - SwiftNIOSSL (= 2.7.1)
+    - SwiftNIOTransportServices (= 1.3.0)
+    - SwiftProtobuf (= 1.8.0)
   - GTMSessionFetcher/Core (1.3.1)
   - IdentityImg (0.2)
   - InfiniteCollectionView (1.3.2)
@@ -136,6 +139,7 @@ PODS:
     - Kingfisher/Core (= 5.13.3)
   - Kingfisher/Core (5.13.3)
   - leveldb-library (1.22)
+  - Logging (1.2.0)
   - MGSwipeTableCell (1.6.11)
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
@@ -182,13 +186,47 @@ PODS:
   - Sentry/Core (4.5.0)
   - Skeleton (0.4.0)
   - SwiftGen (5.3.0)
-  - SwiftGRPC (0.10.0):
-    - gRPC-Core (~> 1.23.0)
-    - SwiftProtobuf (~> 1.7.0)
   - SwiftLint (0.39.2)
   - SwiftMonkey (2.1.1)
   - SwiftMonkeyPaws (2.1.1)
-  - SwiftProtobuf (1.7.0)
+  - SwiftNIO (2.15.0):
+    - CNIOAtomics (= 2.15.0)
+    - CNIODarwin (= 2.15.0)
+    - CNIOLinux (= 2.15.0)
+    - CNIOSHA1 (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+  - SwiftNIOConcurrencyHelpers (2.15.0):
+    - CNIOAtomics (= 2.15.0)
+  - SwiftNIOFoundationCompat (2.15.0):
+    - SwiftNIO (= 2.15.0)
+  - SwiftNIOHPACK (1.11.0):
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOHTTP1 (= 2.15.0)
+  - SwiftNIOHTTP1 (2.15.0):
+    - CNIOHTTPParser (= 2.15.0)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+  - SwiftNIOHTTP2 (1.11.0):
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOHPACK (= 1.11.0)
+    - SwiftNIOHTTP1 (= 2.15.0)
+    - SwiftNIOTLS (= 2.15.0)
+  - SwiftNIOSSL (2.7.1):
+    - CNIOBoringSSL (= 2.7.1)
+    - CNIOBoringSSLShims (= 2.7.1)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOTLS (= 2.15.0)
+  - SwiftNIOTLS (2.15.0):
+    - SwiftNIO (= 2.15.0)
+  - SwiftNIOTransportServices (1.3.0):
+    - SwiftNIO (~> 2.0)
+    - SwiftNIOConcurrencyHelpers (~> 2.0)
+    - SwiftNIOFoundationCompat (~> 2.0)
+    - SwiftNIOTLS (~> 2.0)
+  - SwiftProtobuf (1.8.0)
   - TPKeyboardAvoiding (1.3.3)
   - TTTAttributedLabel (2.0.0)
   - UPCarouselFlowLayout (1.1.2)
@@ -210,6 +248,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/InAppMessagingDisplay
   - Firebase/Messaging
+  - gRPC-Swift (= 1.0.0-alpha.11)
   - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
   - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - Intercom
@@ -232,7 +271,6 @@ DEPENDENCIES:
   - Sentry
   - Skeleton
   - SwiftGen (~> 5.3.0)
-  - SwiftGRPC
   - SwiftLint
   - SwiftMonkey
   - SwiftMonkeyPaws
@@ -246,8 +284,15 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Amplitude-iOS
-    - BoringSSL-GRPC
+    - CGRPCZlib
     - Charts
+    - CNIOAtomics
+    - CNIOBoringSSL
+    - CNIOBoringSSLShims
+    - CNIODarwin
+    - CNIOHTTPParser
+    - CNIOLinux
+    - CNIOSHA1
     - Crashlytics
     - CryptoSwift
     - CSV.swift
@@ -271,13 +316,14 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
-    - gRPC-Core
+    - gRPC-Swift
     - GTMSessionFetcher
     - Intercom
     - IQKeyboardManagerSwift
     - KeychainAccess
     - Kingfisher
     - leveldb-library
+    - Logging
     - MGSwipeTableCell
     - Moya
     - nanopb
@@ -298,10 +344,18 @@ SPEC REPOS:
     - Sentry
     - Skeleton
     - SwiftGen
-    - SwiftGRPC
     - SwiftLint
     - SwiftMonkey
     - SwiftMonkeyPaws
+    - SwiftNIO
+    - SwiftNIOConcurrencyHelpers
+    - SwiftNIOFoundationCompat
+    - SwiftNIOHPACK
+    - SwiftNIOHTTP1
+    - SwiftNIOHTTP2
+    - SwiftNIOSSL
+    - SwiftNIOTLS
+    - SwiftNIOTransportServices
     - SwiftProtobuf
     - TPKeyboardAvoiding
     - TTTAttributedLabel
@@ -329,14 +383,21 @@ CHECKOUT OPTIONS:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
   WEProtobuf:
-    :commit: bdbd6307d4dfac4ee1db614a1bdb8f36ca8e1a7f
+    :commit: a93465a391a428301be7f2127ded9ccd3b1033c8
     :git: "git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git"
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   Amplitude-iOS: 7d8cdc3408ba35c2e68368fc7c692cd104606b94
-  BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  CGRPCZlib: e595387378d0601be796e858dd30c505458c4b1f
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
+  CNIOAtomics: ba49b1c86f281e1ecfd84c9205fbc27a81826847
+  CNIOBoringSSL: e4766830ab6d7c7fcd3618331f05fcb11638314d
+  CNIOBoringSSLShims: c3f3c6f05b7ce9b576521328a5b1b566d8f4665b
+  CNIODarwin: 2e341dd283fa3972706568b12925366145a8e2cd
+  CNIOHTTPParser: 25e1d1bc84c0612cbbbd6baedc4be05d77a17e01
+  CNIOLinux: 61598a8e49510207acb74c87f8fc11f762f76b5a
+  CNIOSHA1: 7b1dcceef9682aef4c6578b9fc67f87a03f0c48e
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   CryptoSwift: 1283821600233bdbeb96d7b389c3288c3bf77211
   CSV.swift: d38741b349c067b4a6db42237cb0e2974d21ccac
@@ -360,7 +421,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: b29a21d813e906014ca16c00897827e40e4a24ab
   GoogleDataTransportCCTSupport: 6f15a89b0ca35d6fa523e1f752ef818588885988
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
-  gRPC-Core: 4b1148eb8596225178e5a154e40e35141a3cdf0f
+  gRPC-Swift: 79f04da038f9a62005271d5b638611ce1bb31304
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   IdentityImg: 4c81857fc8a80294e6c480b4f72cb3e22cd360c2
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
@@ -369,6 +430,7 @@ SPEC CHECKSUMS:
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   Kingfisher: d2b3d6a7200c93b34de9afcdf25c8dd9282ec277
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
   MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
@@ -390,16 +452,24 @@ SPEC CHECKSUMS:
   Sentry: ab6c209f23700d1460691dbc90e19ed0a05d496b
   Skeleton: ef0f1d1b62250ee93e3a805efd268e5fd2979b32
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
-  SwiftGRPC: f8fcfecb547c96cc6913de619f95fa3cd09838ee
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   SwiftMonkey: aea6f2707a4b7ab5277b4d2fd2f0723a083997b1
   SwiftMonkeyPaws: 655524bb402df5ac2be836f9f604aca1068fbde6
-  SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
+  SwiftNIO: c9889dcd8aed2655af9163b42fc11ebd4ce94252
+  SwiftNIOConcurrencyHelpers: 2357037a16e9c51880c01b896a5ac3cd41066044
+  SwiftNIOFoundationCompat: f09ee499a8a9c636ec9007f73c5a1cedc23dcad3
+  SwiftNIOHPACK: 906596511ff9d1e095b7a72a0011351591bcae03
+  SwiftNIOHTTP1: b05f4061ba18482006a264a5aa087bbcd35d153c
+  SwiftNIOHTTP2: 3a52499594c6ec073af2a2801cf3c5d3d1c8700f
+  SwiftNIOSSL: 7c82b8393a6b69a3ef9b12fe74240e92c2bd7add
+  SwiftNIOTLS: 51580e51240d1a4d51efb2d317e92cf243181042
+  SwiftNIOTransportServices: 26d40c589fc8fe667af51b06ef0aa49fbc9ae7f2
+  SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
   TPKeyboardAvoiding: 6dd3fe3268b8f2627beb7ff3d82a3cacbdf66a36
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
   WEProtobuf: 18a6e2dfd8e8886fe2cee349e8456fbcb6aa2f7a
 
-PODFILE CHECKSUM: 8e49912e0ff372e07371f81590c73b9020d9add6
+PODFILE CHECKSUM: dd3c5e3e317b16b43d1187487e10f86f39676d2f
 
 COCOAPODS: 1.9.1

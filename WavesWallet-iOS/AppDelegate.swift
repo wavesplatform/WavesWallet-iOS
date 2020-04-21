@@ -82,16 +82,7 @@ enum UITest {
             .disposed(by: disposeBag)
         
         application.registerForRemoteNotifications()
-        
-        
-        UseCasesFactory
-            .instance
-            .repositories
-            .gatewayRepository
-            .test()
-            .subscribe()
-            .disposed(by: disposeBag)
-        
+                
         return true
     }
     

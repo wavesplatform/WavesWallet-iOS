@@ -565,6 +565,20 @@
 		7BCFAB37242CF416002850B1 /* URL+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFAB36242CF416002850B1 /* URL+Encoding.swift */; };
 		7BCFC36824092AB000B8AF1C /* StakingTransferTypes+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
+		7BD2A42F244F4CC000CB3008 /* Temp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A42E244F4CC000CB3008 /* Temp.swift */; };
+		7BD2A443244F526300CB3008 /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A435244F526200CB3008 /* messages.pb.swift */; };
+		7BD2A444244F526300CB3008 /* gateways_waves_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A436244F526200CB3008 /* gateways_waves_api.pb.swift */; };
+		7BD2A445244F526300CB3008 /* gateways_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A437244F526200CB3008 /* gateways_api.pb.swift */; };
+		7BD2A446244F526300CB3008 /* adcash_withdrawals.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A438244F526200CB3008 /* adcash_withdrawals.pb.swift */; };
+		7BD2A447244F526300CB3008 /* adcash_managing.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A439244F526200CB3008 /* adcash_managing.pb.swift */; };
+		7BD2A448244F526300CB3008 /* adcash_deposits.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A43A244F526200CB3008 /* adcash_deposits.pb.swift */; };
+		7BD2A449244F526300CB3008 /* adcash_exchange.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A43B244F526200CB3008 /* adcash_exchange.pb.swift */; };
+		7BD2A44A244F526300CB3008 /* gateways_waves_api.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A43D244F526300CB3008 /* gateways_waves_api.grpc.swift */; };
+		7BD2A44B244F526300CB3008 /* adcash_exchange.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A43E244F526300CB3008 /* adcash_exchange.grpc.swift */; };
+		7BD2A44C244F526300CB3008 /* adcash_managing.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A43F244F526300CB3008 /* adcash_managing.grpc.swift */; };
+		7BD2A44D244F526300CB3008 /* adcash_withdrawals.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A440244F526300CB3008 /* adcash_withdrawals.grpc.swift */; };
+		7BD2A44E244F526300CB3008 /* adcash_deposits.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A441244F526300CB3008 /* adcash_deposits.grpc.swift */; };
+		7BD2A44F244F526300CB3008 /* gateways_api.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A442244F526300CB3008 /* gateways_api.grpc.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BD3605B240EC51C006F3A77 /* UIScreen+SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */; };
 		7BD3605D240EF3AE006F3A77 /* StakingTransferInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605C240EF3AD006F3A77 /* StakingTransferInteractor.swift */; };
@@ -1919,6 +1933,20 @@
 		7BCFAB36242CF416002850B1 /* URL+Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Encoding.swift"; sourceTree = "<group>"; };
 		7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Card.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
+		7BD2A42E244F4CC000CB3008 /* Temp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temp.swift; sourceTree = "<group>"; };
+		7BD2A435244F526200CB3008 /* messages.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messages.pb.swift; sourceTree = "<group>"; };
+		7BD2A436244F526200CB3008 /* gateways_waves_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.pb.swift; sourceTree = "<group>"; };
+		7BD2A437244F526200CB3008 /* gateways_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.pb.swift; sourceTree = "<group>"; };
+		7BD2A438244F526200CB3008 /* adcash_withdrawals.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_withdrawals.pb.swift; sourceTree = "<group>"; };
+		7BD2A439244F526200CB3008 /* adcash_managing.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_managing.pb.swift; sourceTree = "<group>"; };
+		7BD2A43A244F526200CB3008 /* adcash_deposits.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_deposits.pb.swift; sourceTree = "<group>"; };
+		7BD2A43B244F526200CB3008 /* adcash_exchange.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_exchange.pb.swift; sourceTree = "<group>"; };
+		7BD2A43D244F526300CB3008 /* gateways_waves_api.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.grpc.swift; sourceTree = "<group>"; };
+		7BD2A43E244F526300CB3008 /* adcash_exchange.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_exchange.grpc.swift; sourceTree = "<group>"; };
+		7BD2A43F244F526300CB3008 /* adcash_managing.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_managing.grpc.swift; sourceTree = "<group>"; };
+		7BD2A440244F526300CB3008 /* adcash_withdrawals.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_withdrawals.grpc.swift; sourceTree = "<group>"; };
+		7BD2A441244F526300CB3008 /* adcash_deposits.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_deposits.grpc.swift; sourceTree = "<group>"; };
+		7BD2A442244F526300CB3008 /* gateways_api.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.grpc.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+SafeArea.swift"; sourceTree = "<group>"; };
 		7BD3605C240EF3AD006F3A77 /* StakingTransferInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferInteractor.swift; sourceTree = "<group>"; };
@@ -4457,6 +4485,44 @@
 			path = ActionsControl;
 			sourceTree = "<group>";
 		};
+		7BD2A354244E189E00CB3008 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				7BD2A434244F526200CB3008 /* Model */,
+				7BD2A43C244F526300CB3008 /* Services */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		7BD2A434244F526200CB3008 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7BD2A435244F526200CB3008 /* messages.pb.swift */,
+				7BD2A436244F526200CB3008 /* gateways_waves_api.pb.swift */,
+				7BD2A437244F526200CB3008 /* gateways_api.pb.swift */,
+				7BD2A438244F526200CB3008 /* adcash_withdrawals.pb.swift */,
+				7BD2A439244F526200CB3008 /* adcash_managing.pb.swift */,
+				7BD2A43A244F526200CB3008 /* adcash_deposits.pb.swift */,
+				7BD2A43B244F526200CB3008 /* adcash_exchange.pb.swift */,
+			);
+			name = Model;
+			path = "Vendors/weprotobuf-ios/Sources/Model";
+			sourceTree = SOURCE_ROOT;
+		};
+		7BD2A43C244F526300CB3008 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7BD2A43D244F526300CB3008 /* gateways_waves_api.grpc.swift */,
+				7BD2A43E244F526300CB3008 /* adcash_exchange.grpc.swift */,
+				7BD2A43F244F526300CB3008 /* adcash_managing.grpc.swift */,
+				7BD2A440244F526300CB3008 /* adcash_withdrawals.grpc.swift */,
+				7BD2A441244F526300CB3008 /* adcash_deposits.grpc.swift */,
+				7BD2A442244F526300CB3008 /* gateways_api.grpc.swift */,
+			);
+			name = Services;
+			path = "Vendors/weprotobuf-ios/Sources/Services";
+			sourceTree = SOURCE_ROOT;
+		};
 		7BD579A523F413640001C601 /* Staking */ = {
 			isa = PBXGroup;
 			children = (
@@ -4523,6 +4589,7 @@
 		7BF509F022D8B95300582783 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7BD2A354244E189E00CB3008 /* Generated */,
 				7B896FED23F3F95800F45A70 /* Factory */,
 				7B896FDA23F34D7100F45A70 /* Storage */,
 				7BF50A5C22D8B95400582783 /* Assisstants */,
@@ -4682,6 +4749,7 @@
 				7BF50A3722D8B95400582783 /* TransactionsRepositoryRemote.swift */,
 				875393252423BB2F00394762 /* WEGatewayRepository.swift */,
 				875393262423BB2F00394762 /* WEOAuthRepository.swift */,
+				7BD2A42E244F4CC000CB3008 /* Temp.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -7678,6 +7746,7 @@
 				7BF50AB422D8B95400582783 /* AliasesRepository.swift in Sources */,
 				7BF50ABB22D8B95400582783 /* AssetsSpamService.swift in Sources */,
 				7BF50AB922D8B95400582783 /* EnvironmentRepository.swift in Sources */,
+				7BD2A444244F526300CB3008 /* gateways_waves_api.pb.swift in Sources */,
 				7B848A742301AD0D0092AD18 /* WalletsRealmFactory.swift in Sources */,
 				8753932E2423BC2600394762 /* String+Int64BinaryBase64.swift in Sources */,
 				7B896FE323F34FA000F45A70 /* AliasesRepositoryLocal.swift in Sources */,
@@ -7694,15 +7763,19 @@
 				7B896FE523F34FA000F45A70 /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */,
 				7BF50A7922D8B95400582783 /* AliasTransaction.swift in Sources */,
 				7BF50AC122D8B95400582783 /* AnalyticManager.swift in Sources */,
+				7BD2A445244F526300CB3008 /* gateways_api.pb.swift in Sources */,
 				7B896FDD23F34FA000F45A70 /* TransactionsRepositoryLocal.swift in Sources */,
 				7BF50A8422D8B95400582783 /* AccountEnvironment.swift in Sources */,
 				7BF50A9322D8B95400582783 /* SponsorshipTransaction+Mapper.swift in Sources */,
 				7BF50A7122D8B95400582783 /* UnrecognisedTransaction.swift in Sources */,
+				7BD2A446244F526300CB3008 /* adcash_withdrawals.pb.swift in Sources */,
 				875393272423BB2F00394762 /* WEGatewayRepository.swift in Sources */,
+				7BD2A448244F526300CB3008 /* adcash_deposits.pb.swift in Sources */,
 				7BF50AC222D8B95400582783 /* TransactionSenderAssistant.swift in Sources */,
 				7BF50ABD22D8B95400582783 /* TransactionFeeRulesResourceAPI.swift in Sources */,
 				7BF50A8022D8B95400582783 /* AssetBalance.swift in Sources */,
 				7BF50A8D22D8B95400582783 /* AssetScriptTransaction+Mapper.swift in Sources */,
+				7BD2A443244F526300CB3008 /* messages.pb.swift in Sources */,
 				7B896FDE23F34FA000F45A70 /* DexRealmRepositoryLocal.swift in Sources */,
 				7BF50A8B22D8B95400582783 /* ReissueTransaction+Mapper.swift in Sources */,
 				7BF50A9422D8B95400582783 /* IssueTransaction+Mapper.swift in Sources */,
@@ -7711,6 +7784,7 @@
 				7BF50A9C22D8B95400582783 /* Asset+Mapper.swift in Sources */,
 				7BF50AA022D8B95400582783 /* GatewayRepository.swift in Sources */,
 				7BF50A9E22D8B95400582783 /* NotificationNewsRepository.swift in Sources */,
+				7BD2A42F244F4CC000CB3008 /* Temp.swift in Sources */,
 				7BF50A7522D8B95400582783 /* BurnTransaction.swift in Sources */,
 				7BF50AC422D8B95400582783 /* Signature.swift in Sources */,
 				7BF50A7F22D8B95400582783 /* Alias.swift in Sources */,
@@ -7727,12 +7801,14 @@
 				7BF50A8622D8B95400582783 /* WalletItem.swift in Sources */,
 				7BF50A9722D8B95400582783 /* BurnTransaction+Mapper.swift in Sources */,
 				7BF50A8A22D8B95400582783 /* AnyTransaction+Mapper.swift in Sources */,
+				7BD2A44C244F526300CB3008 /* adcash_managing.grpc.swift in Sources */,
 				875393282423BB2F00394762 /* WEOAuthRepository.swift in Sources */,
 				7BF50ACC22D8B95400582783 /* SweetLoggerSentry.swift in Sources */,
 				7BF50AA622D8B95400582783 /* TransactionsRepositoryRemote.swift in Sources */,
 				7BF50A9F22D8B95400582783 /* BlockRepositoryRemote.swift in Sources */,
 				7BF50A8E22D8B95400582783 /* AliasTransaction+Mapper.swift in Sources */,
 				7BF50A9D22D8B95400582783 /* SpamAssetsRepository.swift in Sources */,
+				7BD2A44B244F526300CB3008 /* adcash_exchange.grpc.swift in Sources */,
 				7BF50A8322D8B95400582783 /* Asset.swift in Sources */,
 				7BF50A9B22D8B95400582783 /* AccountSettings+Mapper.swift in Sources */,
 				7BF50AA522D8B95400582783 /* AddressRepositoryRemote.swift in Sources */,
@@ -7748,7 +7824,10 @@
 				7BF50A8922D8B95400582783 /* DexMyOrders+Mapper.swift in Sources */,
 				7BF50ACA22D8B95400582783 /* DatabaseReference+Rx.swift in Sources */,
 				8753932C2423BB9800394762 /* WEGatewayService.swift in Sources */,
+				7BD2A44A244F526300CB3008 /* gateways_waves_api.grpc.swift in Sources */,
 				7BF50A7222D8B95400582783 /* SponsorshipTransaction.swift in Sources */,
+				7BD2A44E244F526300CB3008 /* adcash_deposits.grpc.swift in Sources */,
+				7BD2A449244F526300CB3008 /* adcash_exchange.pb.swift in Sources */,
 				7BF50AC522D8B95400582783 /* Results+Limit.swift in Sources */,
 				7BF50A7022D8B95400582783 /* AssetScriptTransaction.swift in Sources */,
 				7BF50A9922D8B95400582783 /* LeaseTransaction+Mapper.swift in Sources */,
@@ -7759,12 +7838,15 @@
 				7BF50A8F22D8B95400582783 /* UnrecognisedTransaction+Mapper.swift in Sources */,
 				7BF50AAA22D8B95400582783 /* AccountBalanceRepositoryRemote.swift in Sources */,
 				87F09D512417CD6E001E2394 /* MassTransferRepositoryRemote.swift in Sources */,
+				7BD2A44D244F526300CB3008 /* adcash_withdrawals.grpc.swift in Sources */,
 				7BF50AC022D8B95400582783 /* SpamCSV+Assisstants.swift in Sources */,
 				7BF50AAC22D8B95400582783 /* MatcherRepositoryRemote.swift in Sources */,
+				7BD2A447244F526300CB3008 /* adcash_managing.pb.swift in Sources */,
 				7B896FE123F34FA000F45A70 /* AddressBookRepository.swift in Sources */,
 				7BF50AB822D8B95400582783 /* AssetsRepositoryRemote.swift in Sources */,
 				7BF50ABA22D8B95400582783 /* SpamService.swift in Sources */,
 				7BF50A8822D8B95400582783 /* DexAssetPairDomainDTO+Mapper.swift in Sources */,
+				7BD2A44F244F526300CB3008 /* gateways_api.grpc.swift in Sources */,
 				7BF50ABE22D8B95400582783 /* CoinomatService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
