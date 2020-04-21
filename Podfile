@@ -3,188 +3,218 @@ platform :ios, '11.0'
 
 use_frameworks! :linkage => :dynamic
 
-workspace 'WavesWallet-iOS.xcworkspace'
+install! 'cocoapods', :disable_input_output_paths => true
+
+# install! 'cocoapods', :generate_multiple_pod_projects => true
+
+workspace 'WavesWallet-iOS'
+# project 'StandartTools/StandartTools'
+project 'WavesWallet-iOS'
 
 # 
 # 
 
 def firebase_dependencies
+    pod 'Firebase'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Auth'
     pod 'Firebase/Core'
     pod 'Firebase/Database'
-    pod 'Firebase/Auth'
-    pod 'Firebase'
     pod 'Firebase/InAppMessagingDisplay'
-    pod 'Firebase/Analytics'
     pod 'Firebase/Messaging'
 end
 
 # 
 # 
 
+
+# target 'StandartTools' do
+#     workspace 'WavesWallet-iOS.xcworkspace'
+#     project 'StandartTools/StandartTools.xcodeproj'
+#     # данный таргет не должен содержать никаких зависимостей.
+# end
+
+# target 'AppTools' do
+#     workspace 'WavesWallet-iOS'
+#     project 'AppTools/AppTools'
+
+#     use_frameworks! :linkage => :dynamic
+
+#     pod 'RxCocoa'
+#     pod 'RxSwift'
+# end
+
+# target 'WavesUIKit' do
+#     workspace 'WavesWallet-iOS'
+#     project 'WavesUIKit/WavesUIKit'
+
+#     pod 'RxCocoa'
+#     pod 'RxSwift'
+# end
+
 target 'WavesWallet-iOS' do
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 
-    pod 'SwiftLint'
+    use_frameworks! :linkage => :dynamic
 
-    # UI
-    pod 'RxCocoa'
-
-    pod 'TTTAttributedLabel'
-    pod 'Down'
-
-    pod 'MGSwipeTableCell'
-
-    pod 'UPCarouselFlowLayout'
-    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
-    pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
-
-    pod 'Skeleton'
     pod 'Charts'
-
-    pod 'IQKeyboardManagerSwift'
-    pod 'TPKeyboardAvoiding'
-
-    # Assisstant
-    pod 'RxSwift'
-    pod 'RxFeedback'
-
+    pod 'Down'
     pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
+    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
+    pod 'Intercom'
+    pod 'IQKeyboardManagerSwift'
+    pod 'Kingfisher'
+    pod 'MGSwipeTableCell'
     pod 'QRCode'
     pod 'QRCodeReader.swift', '~> 9.0.1'
-    pod 'Kingfisher'
-
-    # Code Gen
-    pod 'SwiftGen', '~> 5.3.0'
-
-    # Service
-    pod 'Intercom'
-
-    # Debug
+    pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
     pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
+    pod 'RxCocoa'
+    pod 'RxFeedback'
+    pod 'RxSwift'
+    pod 'Skeleton'
+    pod 'SwiftGen', '~> 5.3.0'
+    pod 'SwiftLint'
     pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
+    pod 'TPKeyboardAvoiding'
+    pod 'TTTAttributedLabel'
+    pod 'UPCarouselFlowLayout'
 end
 
 target 'DomainLayer' do
-    project 'WavesWallet-iOS.xcodeproj'
-
-    # DB
-    pod 'RealmSwift'
-    pod 'RxRealm'
-
-    # Assisstant
-    pod 'RxCocoa'
-    pod 'RxSwift'
-    pod 'RxReachability'
-
-    pod 'KeychainAccess'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 
     pod 'CryptoSwift'
+    pod 'KeychainAccess'
+    pod 'RealmSwift'
+    pod 'RxCocoa'
+    pod 'RxReachability'
+    pod 'RxRealm'
+    pod 'RxSwift'
 end
 
 target 'DataLayer' do
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 
     firebase_dependencies
 
-    pod 'Fabric'
-    pod 'Crashlytics'
     pod 'Amplitude-iOS'
-    pod 'Sentry'
-
-    # DB
-    pod 'RealmSwift'
-    pod 'RxRealm'
-
-    # Assisstant
-    pod 'RxCocoa'
-    pod 'RxSwift'
-    pod 'CSV.swift'
-
+    pod 'Crashlytics'
     pod 'CryptoSwift'
+    pod 'CSV.swift'
     pod 'DeviceKit'
+    pod 'Fabric'
     pod 'KeychainAccess'
-
     pod 'Moya'
     pod 'Moya/RxSwift'
+    pod 'RealmSwift'
+    pod 'RxCocoa'
+    pod 'RxRealm'
+    pod 'RxSwift'
+    pod 'Sentry'
 end
 
 target 'Extensions' do
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 
-    # Assisstant
-    pod 'RxCocoa'
-    pod 'RxSwift'
     pod 'DeviceKit'
+    pod 'Kingfisher'
+    pod 'RxCocoa'
     pod 'RxFeedback'
     pod 'RxReachability'
-    pod 'Kingfisher'
+    pod 'RxSwift'
 end
 
 target 'MarketPulseWidget' do
-    project 'WavesWallet-iOS.xcodeproj'
-  
-    pod 'RxSwift'
-    pod 'RxFeedback'
-    pod 'RxCocoa'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
+
+    pod 'Amplitude-iOS'
+    pod 'Kingfisher'
     pod 'Moya'
     pod 'Moya/RxSwift'
     pod 'RealmSwift'
+    pod 'RxCocoa'
+    pod 'RxFeedback'
     pod 'RxRealm'
-  
-    pod 'Kingfisher'
-  
-    pod 'Amplitude-iOS'
+    pod 'RxSwift'
 end
 
 #
 #
 
+
+
 target 'DomainLayerTests' do
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 end
 
 target 'DataLayerTests' do
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 end
 
 target 'MonkeyTest' do
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
     pod 'SwiftMonkey'
+end
+
+target 'DummyForTest' do 
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
+
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RxSwift'
 end
 
 #
 #
 
 target 'WavesSDK' do
-    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+    project 'Vendors/WavesSDK/WavesSDK'
 
-    pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
+    pod 'RxSwift'
 end
 
 target 'WavesSDKExtensions' do
-    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+    project 'Vendors/WavesSDK/WavesSDK'
 
-    pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
+    pod 'RxSwift'
 end
 
 target 'WavesSDKCrypto' do
-    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+    project 'Vendors/WavesSDK/WavesSDK'
 
-    pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
+    pod 'RxSwift'
+end
+
+target 'StubTest' do 
+    project 'Vendors/WavesSDK/WavesSDK'
+
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RxSwift'
 end
 
 target 'WavesSDKTests' do
-    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+    project 'Vendors/WavesSDK/WavesSDK'
 
-    pod 'RxSwift'
-    pod 'Nimble'
     pod 'Fakery'
+    pod 'Nimble'
+    pod 'RxSwift'
 end
 
 post_install do |installer|
