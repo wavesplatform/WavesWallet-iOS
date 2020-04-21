@@ -565,7 +565,6 @@
 		7BCFAB37242CF416002850B1 /* URL+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFAB36242CF416002850B1 /* URL+Encoding.swift */; };
 		7BCFC36824092AB000B8AF1C /* StakingTransferTypes+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
-		7BD2A42F244F4CC000CB3008 /* Temp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A42E244F4CC000CB3008 /* Temp.swift */; };
 		7BD2A443244F526300CB3008 /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A435244F526200CB3008 /* messages.pb.swift */; };
 		7BD2A444244F526300CB3008 /* gateways_waves_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A436244F526200CB3008 /* gateways_waves_api.pb.swift */; };
 		7BD2A445244F526300CB3008 /* gateways_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A437244F526200CB3008 /* gateways_api.pb.swift */; };
@@ -1933,7 +1932,6 @@
 		7BCFAB36242CF416002850B1 /* URL+Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Encoding.swift"; sourceTree = "<group>"; };
 		7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Card.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
-		7BD2A42E244F4CC000CB3008 /* Temp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temp.swift; sourceTree = "<group>"; };
 		7BD2A435244F526200CB3008 /* messages.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messages.pb.swift; sourceTree = "<group>"; };
 		7BD2A436244F526200CB3008 /* gateways_waves_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.pb.swift; sourceTree = "<group>"; };
 		7BD2A437244F526200CB3008 /* gateways_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.pb.swift; sourceTree = "<group>"; };
@@ -4749,7 +4747,6 @@
 				7BF50A3722D8B95400582783 /* TransactionsRepositoryRemote.swift */,
 				875393252423BB2F00394762 /* WEGatewayRepository.swift */,
 				875393262423BB2F00394762 /* WEOAuthRepository.swift */,
-				7BD2A42E244F4CC000CB3008 /* Temp.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -7784,7 +7781,6 @@
 				7BF50A9C22D8B95400582783 /* Asset+Mapper.swift in Sources */,
 				7BF50AA022D8B95400582783 /* GatewayRepository.swift in Sources */,
 				7BF50A9E22D8B95400582783 /* NotificationNewsRepository.swift in Sources */,
-				7BD2A42F244F4CC000CB3008 /* Temp.swift in Sources */,
 				7BF50A7522D8B95400582783 /* BurnTransaction.swift in Sources */,
 				7BF50AC422D8B95400582783 /* Signature.swift in Sources */,
 				7BF50A7F22D8B95400582783 /* Alias.swift in Sources */,
