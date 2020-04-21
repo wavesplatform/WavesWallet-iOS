@@ -12,6 +12,7 @@ import RxFeedback
 import RxSwift
 import DomainLayer
 import Extensions
+import WavesSDK
 import WavesSDKExtensions
 
 private enum ReactQuery {
@@ -349,12 +350,20 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.action = .none
             
         case .handlerError(let error):
+            
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
             state.displayState.refreshData = .none
-            
-            let errorStatus = DisplayErrorState.displayErrorState(hasData: state.hasData, error: error)
+                                                
             var currentDisplay = state.displayState.currentDisplay
-            currentDisplay.errorState = errorStatus
+            
+            if error is NetworkError {
+                // Приходит ошибки из авторизации что доступ запрещен, когда пользователь сворачивает приложение
+                let errorStatus = DisplayErrorState.displayErrorState(hasData: state.hasData, error: error)
+                currentDisplay.errorState = errorStatus
+            } else {
+                currentDisplay.errorState = .none
+            }
+            
             currentDisplay.animateType = .refreshOnlyError
             state.displayState.currentDisplay = currentDisplay
             state.action = .update

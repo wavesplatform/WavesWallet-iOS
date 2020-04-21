@@ -110,7 +110,12 @@ struct CreateOrderSignature: SignatureProtocol {
         var result = s1 + s2 + s3 + s4
         
         if version == .V3 {
-            result += [UInt8(1)] + (WavesCrypto.shared.base58decode(input: matcherFeeAsset) ?? [])
+            
+            if matcherFeeAsset == WavesSDKConstants.wavesAssetId {
+                result += [UInt8(0)]
+            } else {
+                result += [UInt8(1)] + (WavesCrypto.shared.base58decode(input: matcherFeeAsset) ?? [])
+            }
         }
         
         return result

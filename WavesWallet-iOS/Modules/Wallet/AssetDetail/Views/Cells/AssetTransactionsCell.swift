@@ -12,7 +12,8 @@ import UIKit
 
 fileprivate enum Constants {
     static let collectionViewSpacing: CGFloat = 16
-    static let contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+    static let contentInsetHorizontal = Constants.contentInset.left + Constants.contentInset.right
     static let height: CGFloat = 76
 }
 
@@ -66,7 +67,7 @@ extension AssetTransactionsCell: UICollectionViewDelegate {
 extension AssetTransactionsCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout,
                         sizeForItemAt _: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 32, height: AssetTransactionsCell.cellHeight())
+        return CGSize(width: collectionView.frame.width - Constants.contentInsetHorizontal, height: AssetTransactionsCell.cellHeight())
     }
 }
 
@@ -100,7 +101,7 @@ extension AssetTransactionsCell: UIScrollViewDelegate {
         if abs(velocity.x) < abs(velocity.y) { return }
 
         targetContentOffset.pointee = scrollView.contentOffset
-        let pageWidth: CGFloat = bounds.width - 32
+        let pageWidth: CGFloat = bounds.width - Constants.contentInsetHorizontal
         let minSpace: CGFloat = Constants.collectionViewSpacing
         var cellToSwipe: Double = Double(CGFloat(scrollView.contentOffset.x) / CGFloat(pageWidth + minSpace))
 

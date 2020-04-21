@@ -1,9 +1,12 @@
-# $:.unshift File.dirname(__FILE__)
+load 'Sources/enviroments.rb' 
+load 'Sources/resources.rb'
+load 'Sources/certificates.rb'
+load 'Sources/upload_build.rb'
 
 require 'fastlane_core/helper'
-require 'fastlane' # to import the Action super class
-# require 'fastlane/plugin/firebase_app_distribution' # import the actual plugin
+require 'fastlane' 
 
+# import the actual plugin
 fastlane_require 'open-uri'
 fastlane_require 'credentials_manager'
 fastlane_require 'dotenv/load'
@@ -23,15 +26,12 @@ before_all do
   ENV['OUTPUT_PROJECT']= "#{Dir.pwd}/../Output"
 
   ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-
   
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
-  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
-  # sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
-  # sh("ssh-keyscan -H gitlab.wvservices.com >> ~/.ssh/known_hosts")  
+  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
 
   if Dir["#{ENV['OUTPUT_PROJECT']}"].empty? 
-    sh("mkdir #{ENV['OUTPUT_PROJECT']}")  
+    sh("mkdir #{ENV['OUTPUT_PROJECT']}")
   end
   
   get_version_and_build  
@@ -39,112 +39,31 @@ end
 
 platform :ios do
 
-  # MARK Enviroments
-  lane :dev_enviroment do
-
-    ENV['SCHEME_PROJECT'] ="WavesWallet-Dev"
-    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev,com.wavesplatform.waveswallet.dev.widgetmarketpulse"
-    ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
-
-    ENV['APPSTORECONNECT_APP_APPLE_ID'] = ""
-
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
-    ENV['URL_FIREBASE_WAVESPLATFORM'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test-Waves.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
-    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Test.plist"
-    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-  
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
-
-    ENV['MATCH_TYPE'] = "adhoc"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
-  end
-
-  lane :general_prod_enviroment do
-    
-    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet,com.wavesplatform.WavesWallet.widgetmarketpulse"
-    ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
-
-    ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1233158971"
-
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
-    ENV['URL_FIREBASE_WAVESPLATFORM'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod-Waves.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
-    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
-    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="master"
-    ENV['FIREBASEAPPDISTRO_APP'] = "1:233086447937:ios:41c150c39c0482255231c0"
-  end
-
-  lane :prod_enviroment do
-    
-    general_prod_enviroment
-
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-    ENV['MATCH_TYPE'] = "appstore"    
-    ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
-    
-  end
-
-  lane :prod_adhoc_enviroment do
-    
-    general_prod_enviroment
-    
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
-    ENV['MATCH_TYPE'] = "adhoc"
-    ENV['SCHEME_PROJECT'] ="WavesWallet-Release-Adhoc"    
-  end
-
-  lane :test_enviroment do
-
-    ENV['SCHEME_PROJECT'] ="WavesWallet-Test"
-    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test,com.wavesplatform.waveswallet.test.widgetmarketpulse"    
-    ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
-
-    ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1438015790"
-
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
-    ENV['URL_FIREBASE_WAVESPLATFORM'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test-Waves.plist"
-    
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
-    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
-    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-
-    ENV['MATCH_TYPE'] = "appstore"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="master"    
-  end
-
   lane :dev_build_projet do
-    dev_enviroment    
+    dev_enviroment  
+    download_certificates
+    download_resources  
     build_projet
   end
 
   lane :test_build_projet do
-    test_enviroment    
+    test_enviroment
+    download_certificates
+    download_resources    
     build_projet    
   end
 
   lane :prod_build_projet do
-    prod_enviroment    
+    prod_enviroment 
+    download_certificates
+    download_resources   
     build_projet    
   end
 
   lane :prod_adhoc_build_projet do
-    prod_adhoc_enviroment    
+    prod_adhoc_enviroment
+    download_certificates
+    download_resources    
     build_projet    
   end
 
@@ -163,9 +82,14 @@ platform :ios do
     upload_firebase
   end
   
-  # Instal Enviroment
   lane :dev_install do
     dev_enviroment
+    download_certificates
+    download_resources
+  end
+
+  lane :prod_adhoc_install do
+    prod_adhoc_enviroment
     download_certificates
     download_resources
   end
@@ -183,18 +107,8 @@ platform :ios do
   end
 
   lane :add_new_devices do
-    prod_install
-    updateMatch
-  end
-
-  lane :dev_download_resources do
-    dev_enviroment    
-    download_resources
-  end
-
-  lane :dev_add_new_devices do
     dev_enviroment
-    updateMatch
+    all_app_force_update_certificates_and_provisions
   end
 
   lane :prod_go do
@@ -203,315 +117,10 @@ platform :ios do
     prod_upload_testflight
   end
 
-
-  def get_version_and_build   
-    ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
-    ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj", target: "WavesWallet-iOS")      
-  end
-  
-  def download_gitlab(url, path_to_save)   
-    
-      correct_url = "#{url}/raw?ref=master"    
-      sh("rm -rf #{path_to_save}")
-      sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{correct_url} >> #{path_to_save}")
-  end
-  
-  def download_file(url, path_to_save)   
-      
-    sh("rm -rf #{path_to_save}")
-    sh("curl --request GET #{url} >> #{path_to_save}")
-  end
-  
-  def highest_app_version_number(username, password, bundle_id)
-    puts "fetching highest version on iTunes Connect..."
-  
-    Spaceship::Tunes.login(username, password)  
-    # Spaceship::Tunes.select_team("#{ENV['FASTLANE_ITC_TEAM_ID']}", "#{ENV['FASTLANE_ITC_TEAM_NAME']}")
-  
-    app = Spaceship::Tunes::Application.find(bundle_id)
-  
-    # Spaceship::AppVersion.find(app, username, true, platform: "ios")
-    puts(app.live_version("ios"))
-  end
-
-
-  # Собирает сборку и скачиваем ресурсы и сертификаты
-  lane :build_projet do
-
-    download_certificates
-    download_resources
-
-    name = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
-		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
-        workspace: "WavesWallet-iOS.xcworkspace",
-        include_bitcode: true,
-        include_symbols: true,
-        export_options: "#{ENV['EXPORT_OPTIONS']}",
-        output_directory: "#{ENV['OUTPUT_PROJECT']}",
-        output_name: name
-    )
-  end
-
-  lane :upload_crashlytics do
-
-    update_changelog
-
-    ENV['CRASHLYTICS_API_TOKEN']=sh("/usr/libexec/PlistBuddy -c 'Print :Fabric:APIKey' '#{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist'")
-    ENV['CRASHLYTICS_API_TOKEN']="#{ENV['CRASHLYTICS_API_TOKEN']}"
-    ENV['CRASHLYTICS_BUILD_SECRET']=sh("/usr/libexec/PlistBuddy -c 'Print :Fabric:BuildSecret' '#{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist'")
-    ENV['CRASHLYTICS_BUILD_SECRET']="#{ENV['CRASHLYTICS_BUILD_SECRET']}"
-    ROOT=File.expand_path("..", Dir.pwd)
-    ENV['SUMBIT_PAPTH']="#{ROOT}/Pods/Crashlytics/submit"
-    ENV['IPA_PATH']="#{GYM_OUTPUT_DIRECTORY}/#{GYM_OUTPUT_NAME}"
-    
-    puts "upload_crashlytics"
-    sh("bash #{Dir.pwd}/run_fabric.sh")
-
-    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
-
-  end
-
-# Загружаем ресурсы
-  lane :download_resources do
-
-    download_gitlab("#{ENV['URL_FABRIC']}", "#{Dir.pwd}/../CommonResources/Fabric-Info.plist")
-
-    download_gitlab("#{ENV['URL_FIREBASE']}", "#{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
-
-    download_gitlab("#{ENV['URL_APPSFLYER']}", "#{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
-
-    download_gitlab("#{ENV['URL_APPSPECTOR']}", "#{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
-
-    download_gitlab("#{ENV['URL_SENTRY_IO']}", "#{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
-
-    download_gitlab("#{ENV['URL_AMPLITUDE']}", "#{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
-    
-    download_gitlab("#{ENV['URL_FIREBASE_WAVESPLATFORM']}", "#{Dir.pwd}/../CommonResources/GoogleService-Info-Waves.plist")
-    
-    download_file("#{ENV['URL_ENVIROMENT_STAGENET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_stagenet.json")
-    download_file("#{ENV['URL_ENVIROMENT_MAINNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_mainnet.json")
-    download_file("#{ENV['URL_ENVIROMENT_TESTNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_testnet.json")
-
-    download_file("#{ENV['URL_ENVIROMENT_STAGENET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_stagenet_test.json")
-    download_file("#{ENV['URL_ENVIROMENT_MAINNET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_mainnet_test.json")
-    download_file("#{ENV['URL_ENVIROMENT_TESTNET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_testnet_test.json")
-    download_file("#{ENV['URL_FEE']}", "#{Dir.pwd}/../CommonResources/fee.json")
-    download_file("#{ENV['URL_SPAM']}", "#{Dir.pwd}/../CommonResources/spam.csv")
-    
-  end
-
-  # Загружаем файл с ключами и паролями :) 
-  lane :download_bundle_enviroments do    
+  lane :download_bundle_enviroments do
     sh("rm -rf #{Dir.pwd}/../.env")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
+    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS_PRIVATE_RESOURCES']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
     sh("cat #{Dir.pwd}/../.env")
-  end
-
-
-  # Загружает все сертификаты и провижины для всех сборок и обновляет
-
-  lane :updateProvision do
-
-    ENV['MATCH_APP_IDENTIFIERS'] = ["com.wavesplatform.waveswallet.test",
-      "com.wavesplatform.WavesWallet",
-      "com.wavesplatform.waveswallet.dev",
-      "com.wavesplatform.WavesWallet.widgetmarketpulse",
-      "com.wavesplatform.waveswallet.dev.widgetmarketpulse",
-      "com.wavesplatform.waveswallet.test.widgetmarketpulse"].join(",")
-    
-    ENV['MATCH_TYPE'] = "adhoc"
-    updateMatch
-
-    ENV['MATCH_TYPE'] = "appstore"
-    updateMatch
-          
-    ENV['MATCH_TYPE'] = "development"
-    updateMatch          
-  end
-
-
-  # Загружает сертификат и провижин для текущий сборки
-
-  lane :download_certificates do
-    
-    sh("echo CI #{ENV['URL_CERTIFICATES_GIT']}")
-    sh("echo CI #{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
-
-    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
-      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      type: "#{ENV['MATCH_TYPE']}",
-      readonly: true,
-      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
-  end
-
-  lane :updateMatch do        
-    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
-          git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-          username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-          type: "#{ENV['MATCH_TYPE']}",
-          force: true,
-          force_for_new_devices: true,
-          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}",
-          git_basic_authorization: "#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
-  end
-
-  lane :upload_testflight do
-
-    update_changelog
-
-    if ENV['CHANGELOG'].to_s.empty?
-      ENV['CHANGELOG'] = "Not Found"
-    end
-
-    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
-    PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
-    
-    puts("#{ENV['APPLE_DEV_PORTAL_ID']}")
-    puts("#{ENV['TESTFLIGHT_APP_IDENTITIFER']}")
-    puts("#{ENV['APPSTORECONNECT_APP_APPLE_ID']}")
-    puts("#{ENV['FASTLANE_ITC_TEAM_ID']}")
-    puts("#{ENV['FASTLANE_TEAM_ID']}")
-    puts("#{ENV['CHANGELOG']}")
-
-    testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-               app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
-               apple_id: "#{ENV['APPSTORECONNECT_APP_APPLE_ID']}",
-               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
-               team_id: "#{ENV['FASTLANE_TEAM_ID']}",
-               team_name: "#{ENV['FASTLANE_ITC_TEAM_NAME']}",
-               dev_portal_team_id: "#{ENV['FASTLANE_TEAM_ID']}",
-               wait_for_uploaded_build: "false",
-               changelog: "#{ENV['CHANGELOG']}",
-               ipa: PROJECT_IPA,
-               skip_waiting_for_build_processing: true,
-               skip_submission: true)
-     
-    refresh_dsyms    
-  end
-
-  lane :upload_firebase do
-    
-    rootNpm = sh("npm bin -g")
-  
-    puts("rootNPM #{rootNpm}")
-
-    ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH'] =  "#{rootNpm}".strip + "/firebase"
-    
-    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
-    PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
-    
-    update_changelog
-
-    if ENV['CHANGELOG'].to_s.empty?
-      ENV['CHANGELOG'] = "Not Found"
-    end
-
-    firebase_app_distribution(
-      app: "#{ENV['FIREBASEAPPDISTRO_APP']}",
-      ipa_path: "#{PROJECT_IPA}",
-      groups: "QA.Team, Waves.Exchange.iOS",
-      firebase_cli_path: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_PATH']}",
-      firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}",
-      release_notes: ENV['CHANGELOG'])
-  end
-
-  lane :refresh_dsyms do
-  
-    PROJECT_DSYM = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
-    PROJECT_DSYM = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_DSYM}.app.dSYM.zip"
-
-    sh("#{ROOT_PROJECT}/Pods/Fabric/upload-symbols -a #{FIREBASEAPP_FABRIC_TOKEN} -p ios #{PROJECT_DSYM}")
-
-    # download_dsyms(username: "#{ENV['ITUNES_CONNECT_ACCOUNT']}",
-                  #  app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
-                  #  output_directory: "#{ENV['OUTPUT_PROJECT']}",
-                  #  version: "#{ENV['VERSION']}",
-                  #  build_number: "#{ENV['BUILD_NUMBER']}")
-    # upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../CommonResources/GoogleService-Info.plist")    
-
-    # sentry_upload_dsym(
-    #   auth_token: "#{ENV['SENTRY_AUTH_TOKEN']}",
-    #   org_slug: "#{ENV['SENTRY_ORG_SLUG']}",
-    #   project_slug: "#{ENV['SENTRY_PROJECT_SLUG']}"
-    # )
-  end
-
-  lane :update_changelog do    
-    puts "update_changelog"
-        
-    ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"
-    build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
-    version = ENV['VERSION'] 
-    commit = last_git_commit
-    branch = git_branch
-    author = commit[:author] # author of the commit
-    author_email = commit[:author_email] # email of the author of the commit
-    hash = commit[:commit_hash] # long sha of commit
-    short_hash = commit[:abbreviated_commit_hash] # short sha of commit
-
-    # between: [ENV['CHANGELOG_BETWEEN_BRANCH'], hash],  # Optional, lets you specify a revision/tag range between which to collect commit info
-
-    changelog = changelog_from_git_commits(      
-      pretty: "- %ad %s \n",# Optional, lets you provide a custom format to apply to each commit when generating the changelog text
-      date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
-      match_lightweight_tag: false,  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
-      merge_commit_filtering: "exclude_merges", # Optional, lets you filter out merge commits
-      commits_count: 30
-    )
-
-    ENV['CHANGELOG']="Version: #{version} #{build_number}\nBranch: #{branch}\n#{changelog}"
-  end
-
-  lane :send_to_slack_ipa do      
-    sh("curl https://slack.com/api/files.upload -F token='#{ENV['SLACK_BOT_API_TOKEN']}' -F channels='#{ENV['SLACK_CHANNEL']}' -F title='#{ENV['SLACK_CHANNEL']}' -F filename='#{ENV['SLACK_CHANNEL']}' -F file=@'#{ENV['PROJECT_IPA']}'")    
-  end
-
-  lane :send_to_slack_artifacts  do
-      
-    URL_ARTIFACTS = "https://circleci.com/api/v1.1/project/github/wavesplatform/WavesWallet-iOS/#{ENV['CIRCLE_BUILD_NUM']}/artifacts?circle-token=#{ENV['CIRCLE_CI_TOKEN']}"
-    JSON_ARTIFACTS = "#{ENV['OUTPUT_PROJECT']}/artifacts.json"
-
-    sh("rm -rf #{JSON_ARTIFACTS}")    
-    sh('curl -X GET "' + URL_ARTIFACTS + '" >> "' + JSON_ARTIFACTS + '"')
-
-    file = File.read("#{JSON_ARTIFACTS}")
-    artifacts = JSON.parse(file)
-
-    if artifacts.count > 0
-      fields = []
-
-      artifacts.each { |artifact|
-        
-        name = URI(artifact["path"]).path.split('/').last
-        url = artifact["url"]
-  
-        field_artifact = []
-  
-        fields.push({
-          "title": name,
-          "value": url          
-        })      
-      }
-    
-      slack(message: "🤖 CI Build #{ENV['CIRCLE_BUILD_NUM']}",
-            pretext: "Artifacts Version iOS #{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}",
-            username: "BurningMan",
-            icon_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2IOUZkkfdAaYMVpGkzNZr-cEv855jpVuI79UaHE2dE8SLACJW",          
-            default_payloads: [],
-            attachment_properties: {
-              fields: fields
-            } 
-         )
-    else
-      slack(message: "🤖 CI Build #{ENV['CIRCLE_BUILD_NUM']}",
-        pretext: "Artifacts not founds Version iOS #{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}",
-        username: "BurningMan",
-        icon_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2IOUZkkfdAaYMVpGkzNZr-cEv855jpVuI79UaHE2dE8SLACJW",          
-        default_payloads: [],
-        success: false
-     )
-    end
   end
 
   lane :increment_build_number_and_commit_push do      
@@ -524,4 +133,28 @@ platform :ios do
                   message: "Increment build number [ci skip]")
       push_to_git_remote
   end
+
+  def get_version_and_build   
+    ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
+    ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj", target: "WavesWallet-iOS")      
+  end
+
+  # Собирает сборку и скачиваем ресурсы и сертификаты
+
+  def build_projet(name = name_build)
+        
+		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
+        workspace: "WavesWallet-iOS.xcworkspace",
+        include_bitcode: true,
+        include_symbols: true,
+        export_options: "#{ENV['EXPORT_OPTIONS']}",
+        output_directory: "#{ENV['OUTPUT_PROJECT']}",
+        output_name: name
+    ) 
+  end
+
+  def name_build 
+    return "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
+  end 
 end
+

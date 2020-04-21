@@ -81,6 +81,8 @@ final class TradeViewController: UIViewController {
         
         system.send(.refresIfNeed)
         
+        tableViewSkeleton.startSkeleton()
+        
         Observable<Int>
             .interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
