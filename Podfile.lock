@@ -1,6 +1,10 @@
 PODS:
   - Alamofire (5.0.5)
   - Amplitude-iOS (4.10.0)
+  - AppTools (0.0.1):
+    - RxCocoa
+    - RxSwift
+    - StandartTools
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
@@ -169,16 +173,17 @@ PODS:
     - Sentry/Core (= 4.5.0)
   - Sentry/Core (4.5.0)
   - Skeleton (0.4.0)
+  - StandartTools (0.0.1)
   - SwiftGen (5.3.0)
   - SwiftLint (0.39.1)
   - SwiftMonkey (2.1.1)
   - SwiftMonkeyPaws (2.1.1)
-  - TPKeyboardAvoiding (1.3.3)
   - TTTAttributedLabel (2.0.0)
   - UPCarouselFlowLayout (1.1.2)
 
 DEPENDENCIES:
   - Amplitude-iOS
+  - AppTools (from `AppTools/`)
   - Charts
   - Crashlytics
   - CryptoSwift
@@ -216,11 +221,11 @@ DEPENDENCIES:
   - RxSwift
   - Sentry
   - Skeleton
+  - StandartTools (from `StandartTools/`)
   - SwiftGen (~> 5.3.0)
   - SwiftLint
   - SwiftMonkey
   - SwiftMonkeyPaws
-  - TPKeyboardAvoiding
   - TTTAttributedLabel
   - UPCarouselFlowLayout
 
@@ -283,11 +288,12 @@ SPEC REPOS:
     - SwiftLint
     - SwiftMonkey
     - SwiftMonkeyPaws
-    - TPKeyboardAvoiding
     - TTTAttributedLabel
     - UPCarouselFlowLayout
 
 EXTERNAL SOURCES:
+  AppTools:
+    :path: AppTools/
   IdentityImg:
     :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
@@ -295,6 +301,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
+  StandartTools:
+    :path: StandartTools/
 
 CHECKOUT OPTIONS:
   IdentityImg:
@@ -310,6 +318,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   Amplitude-iOS: 7d8cdc3408ba35c2e68368fc7c692cd104606b94
+  AppTools: 927e91de08c6cc2137a91555b3dba8d78039ae1c
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   CryptoSwift: 1283821600233bdbeb96d7b389c3288c3bf77211
@@ -364,14 +373,14 @@ SPEC CHECKSUMS:
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   Sentry: ab6c209f23700d1460691dbc90e19ed0a05d496b
   Skeleton: ef0f1d1b62250ee93e3a805efd268e5fd2979b32
+  StandartTools: c49e8eb153850cf1c6e017603dc0c65ea280bf7d
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   SwiftMonkey: aea6f2707a4b7ab5277b4d2fd2f0723a083997b1
   SwiftMonkeyPaws: 655524bb402df5ac2be836f9f604aca1068fbde6
-  TPKeyboardAvoiding: 6dd3fe3268b8f2627beb7ff3d82a3cacbdf66a36
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 91effb4b8c15f7117887b8e0fd0363542f558236
+PODFILE CHECKSUM: e2b3630280c0050c0575aa4fd2c558f558aca38d
 
 COCOAPODS: 1.9.1

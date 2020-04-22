@@ -7,13 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CAA3771F7A0BC20D534B93B /* Pods_AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 025446167C49490B7955D51E /* Pods_AppTools.framework */; };
+		874784CF24507DCA0046D550 /* AppTools2Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874784CE24507DCA0046D550 /* AppTools2Test.swift */; };
 		8796A60F244F214900027E9C /* AppTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8796A60D244F214900027E9C /* AppTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8796A62D244F34F100027E9C /* AppToolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8796A62C244F34F100027E9C /* AppToolsTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		025446167C49490B7955D51E /* Pods_AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C5BC3B083B913B1DD02B083 /* Pods-AppTools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTools.debug.xcconfig"; path = "Target Support Files/Pods-AppTools/Pods-AppTools.debug.xcconfig"; sourceTree = "<group>"; };
+		6192408D8756211A2AD02522 /* Pods-AppTools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTools.release.xcconfig"; path = "Target Support Files/Pods-AppTools/Pods-AppTools.release.xcconfig"; sourceTree = "<group>"; };
+		874784CE24507DCA0046D550 /* AppTools2Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTools2Test.swift; sourceTree = "<group>"; };
 		8796A60A244F214900027E9C /* AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796A60D244F214900027E9C /* AppTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTools.h; sourceTree = "<group>"; };
 		8796A60E244F214900027E9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8796A62C244F34F100027E9C /* AppToolsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppToolsTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,17 +29,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CAA3771F7A0BC20D534B93B /* Pods_AppTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40919F6A7C8DD6CE381EB6A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0C5BC3B083B913B1DD02B083 /* Pods-AppTools.debug.xcconfig */,
+				6192408D8756211A2AD02522 /* Pods-AppTools.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
 		8796A600244F214900027E9C = {
 			isa = PBXGroup;
 			children = (
 				8796A60C244F214900027E9C /* AppTools */,
 				8796A60B244F214900027E9C /* Products */,
+				40919F6A7C8DD6CE381EB6A1 /* Pods */,
+				9259296D35EBF62018B543BB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -48,8 +69,18 @@
 			children = (
 				8796A60D244F214900027E9C /* AppTools.h */,
 				8796A60E244F214900027E9C /* Info.plist */,
+				8796A62C244F34F100027E9C /* AppToolsTest.swift */,
+				874784CE24507DCA0046D550 /* AppTools2Test.swift */,
 			);
 			path = AppTools;
+			sourceTree = "<group>";
+		};
+		9259296D35EBF62018B543BB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				025446167C49490B7955D51E /* Pods_AppTools.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -70,6 +101,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8796A612244F214900027E9C /* Build configuration list for PBXNativeTarget "AppTools" */;
 			buildPhases = (
+				BBAD2276D7C798C40C562731 /* [CP] Check Pods Manifest.lock */,
 				8796A605244F214900027E9C /* Headers */,
 				8796A606244F214900027E9C /* Sources */,
 				8796A607244F214900027E9C /* Frameworks */,
@@ -95,6 +127,7 @@
 				TargetAttributes = {
 					8796A609244F214900027E9C = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -126,11 +159,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BBAD2276D7C798C40C562731 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AppTools-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8796A606244F214900027E9C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				874784CF24507DCA0046D550 /* AppTools2Test.swift in Sources */,
+				8796A62D244F34F100027E9C /* AppToolsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +319,10 @@
 		};
 		8796A613244F214900027E9C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C5BC3B083B913B1DD02B083 /* Pods-AppTools.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -279,6 +341,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -286,8 +349,10 @@
 		};
 		8796A614244F214900027E9C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6192408D8756211A2AD02522 /* Pods-AppTools.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;

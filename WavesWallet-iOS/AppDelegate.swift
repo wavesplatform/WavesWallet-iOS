@@ -22,6 +22,9 @@ import Firebase
 import FirebaseMessaging
 import Intercom
 
+import StandartTools
+import AppTools
+
 #if DEBUG
 import SwiftMonkeyPaws
 #endif
@@ -81,6 +84,12 @@ enum UITest {
             .disposed(by: disposeBag)
         
         application.registerForRemoteNotifications()
+        
+        let a = StandartTools.Test(string: "321")
+        
+        let b = AppToolsTest(string: "123")
+        
+        let c = AppTools2Test(string: "333")
         
         return true
     }

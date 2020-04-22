@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		8796A624244F216900027E9C /* StandartTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8796A622244F216900027E9C /* StandartTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8796A62B244F265E00027E9C /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8796A62A244F265E00027E9C /* Test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8796A61F244F216900027E9C /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796A622244F216900027E9C /* StandartTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StandartTools.h; sourceTree = "<group>"; };
 		8796A623244F216900027E9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8796A62A244F265E00027E9C /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 			children = (
 				8796A622244F216900027E9C /* StandartTools.h */,
 				8796A623244F216900027E9C /* Info.plist */,
+				8796A62A244F265E00027E9C /* Test.swift */,
 			);
 			path = StandartTools;
 			sourceTree = "<group>";
@@ -95,6 +98,7 @@
 				TargetAttributes = {
 					8796A61E244F216900027E9C = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -131,6 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8796A62B244F265E00027E9C /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +266,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -279,6 +285,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -288,6 +295,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;

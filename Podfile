@@ -27,22 +27,24 @@ end
 # 
 # 
 
-
 # target 'StandartTools' do
 #     workspace 'WavesWallet-iOS.xcworkspace'
 #     project 'StandartTools/StandartTools.xcodeproj'
 #     # данный таргет не должен содержать никаких зависимостей.
 # end
 
-# target 'AppTools' do
-#     workspace 'WavesWallet-iOS'
-#     project 'AppTools/AppTools'
+project 'AppTools/AppTools.xcodeproj' do 
+    target 'AppTools' do
+        inherit! :search_paths
+        workspace 'WavesWallet-iOS'
+        project 'AppTools/AppTools'
 
-#     use_frameworks! :linkage => :dynamic
+        use_frameworks! :linkage => :dynamic
 
-#     pod 'RxCocoa'
-#     pod 'RxSwift'
-# end
+        pod 'RxCocoa'
+        pod 'RxSwift'
+    end
+end
 
 # target 'WavesUIKit' do
 #     workspace 'WavesWallet-iOS'
@@ -57,6 +59,9 @@ target 'WavesWallet-iOS' do
     project 'WavesWallet-iOS'
 
     use_frameworks! :linkage => :dynamic
+
+    pod 'StandartTools', path: 'StandartTools/'
+    pod 'AppTools', path: 'AppTools/'
 
     pod 'Charts'
     pod 'Down'
@@ -77,7 +82,7 @@ target 'WavesWallet-iOS' do
     pod 'SwiftGen', '~> 5.3.0'
     pod 'SwiftLint'
     pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
-    pod 'TPKeyboardAvoiding'
+    # pod 'TPKeyboardAvoiding'
     pod 'TTTAttributedLabel'
     pod 'UPCarouselFlowLayout'
 end
