@@ -30,6 +30,8 @@ import SwiftProtobuf
 /// Usage: instantiate Acash_ACashDepositsClient, then call methods of this protocol to make API calls.
 public protocol Acash_ACashDepositsClientProtocol {
   func registerOrder(_ request: Acash_RegisterOrderRequest, callOptions: CallOptions?) -> UnaryCall<Acash_RegisterOrderRequest, Acash_RegisterOrderResponse>
+  func getACashAssets(_ request: Acash_GetACashAssetsRequest, callOptions: CallOptions?) -> UnaryCall<Acash_GetACashAssetsRequest, Acash_GetACashAssetsResponse>
+  func getACashAssetsExchangeRate(_ request: Acash_GetACashAssetsExchangeRateRequest, callOptions: CallOptions?) -> UnaryCall<Acash_GetACashAssetsExchangeRateRequest, Acash_GetACashAssetsExchangeRateResponse>
 }
 
 public final class Acash_ACashDepositsClient: GRPCClient, Acash_ACashDepositsClientProtocol {
@@ -58,10 +60,38 @@ public final class Acash_ACashDepositsClient: GRPCClient, Acash_ACashDepositsCli
                               callOptions: callOptions ?? self.defaultCallOptions)
   }
 
+  /// Unary call to GetACashAssets
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetACashAssets.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func getACashAssets(_ request: Acash_GetACashAssetsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Acash_GetACashAssetsRequest, Acash_GetACashAssetsResponse> {
+    return self.makeUnaryCall(path: "/acash.ACashDeposits/GetACashAssets",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Unary call to GetACashAssetsExchangeRate
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetACashAssetsExchangeRate.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func getACashAssetsExchangeRate(_ request: Acash_GetACashAssetsExchangeRateRequest, callOptions: CallOptions? = nil) -> UnaryCall<Acash_GetACashAssetsExchangeRateRequest, Acash_GetACashAssetsExchangeRateResponse> {
+    return self.makeUnaryCall(path: "/acash.ACashDeposits/GetACashAssetsExchangeRate",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
 }
 
 
 // Provides conformance to `GRPCPayload` for request and response messages
 extension Acash_RegisterOrderRequest: GRPCProtobufPayload {}
 extension Acash_RegisterOrderResponse: GRPCProtobufPayload {}
+extension Acash_GetACashAssetsRequest: GRPCProtobufPayload {}
+extension Acash_GetACashAssetsResponse: GRPCProtobufPayload {}
+extension Acash_GetACashAssetsExchangeRateRequest: GRPCProtobufPayload {}
+extension Acash_GetACashAssetsExchangeRateResponse: GRPCProtobufPayload {}
 
