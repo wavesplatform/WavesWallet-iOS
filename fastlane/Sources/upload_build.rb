@@ -1,80 +1,5 @@
 
-# TODO: надо селать нормальный класс и выдернуть ENV
-class UploadBuildFirebase
-    
-    def initialize(ipa_path,
-                   firebaseapp_distro_app,
-                   groups,
-                   firebase_cli_path,
-                   firebase_cli_token,
-                   changelog)
-        @ipa_path = ipa_path
-        @firebaseapp_distro_app = firebaseapp_distro_app
-        @groups = groups
-        @firebase_cli_path = firebase_cli_path
-        @firebase_cli_token = firebase_cli_token
-        @changelog = changelog
-    end
-    
-    def firebase_cli_path
-        rootNpm = sh("npm bin -g")
-        return "#{rootNpm}".strip + "/firebase"
-    end
-    
-    def upload
-        firebase_app_distribution(app: firebaseapp_distro_app,
-                                  ipa_path: project_ipa,
-                                  groups: groups,
-                                  firebase_cli_path: firebase_cli_path,
-                                  firebase_cli_token: firebase_cli_token,
-                                  release_notes: changelog)
-    end
-end
-
-class UploadTestflight
-  def initialize(ipa_path,
-                 changelog,
-                 username,
-                 app_identifier,
-                 apple_id,
-                 itc_provider,
-                 team_id,
-                 team_name,
-                 dev_portal_team_id,
-                 wait_for_uploaded_build = false,
-                 skip_waiting_for_build_processing = true,
-                 skip_submission = true)
-    @ipa_path = ipa_path
-    @changelog = changelog
-    @username = username
-    @app_identifier = app_identifier
-    @apple_id = apple_id
-    @itc_provider = itc_provider
-    @team_id = team_id
-    @team_name = team_name
-    @dev_portal_team_id = dev_portal_team_id
-    @wait_for_uploaded_build = wait_for_uploaded_build
-    @skip_waiting_for_build_processing = skip_waiting_for_build_processing
-    @skip_submission = skip_submission
-  end
-  
-  def upload
-      testflight(username: username,
-                 app_identifier: app_identifier,
-                 apple_id: apple_id,
-                 itc_provider: itc_provider,
-                 team_id: team_id,
-                 team_name: team_name,
-                 dev_portal_team_id: dev_portal_team_id,
-                 wait_for_uploaded_build: wait_for_uploaded_build,
-                 changelog: changelog,
-                 ipa: ipa_path,
-                 skip_waiting_for_build_processing: skip_waiting_for_build_processing,
-                 skip_submission: skip_submission)
-  end
-end
-
-def upload_testflight(ipa_path = create_changelog, changelog = create_changelog)
+def upload_testflight(ipa_path = create_ipa_path, changelog = create_changelog)
     
   testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
              app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
@@ -90,14 +15,14 @@ def upload_testflight(ipa_path = create_changelog, changelog = create_changelog)
              skip_submission: true)
 end
 
-def upload_firebase(ipa_path = create_changelog, changelog = create_changelog)
+def upload_firebase(ipa_path = create_ipa_path, changelog = create_changelog)
     
   rootNpm = sh("npm bin -g")  
   firebase_cli_path = "#{rootNpm}".strip + "/firebase"
     
   firebase_app_distribution(
     app: "#{ENV['FIREBASEAPPDISTRO_APP']}",
-    ipa_path: project_ipa,
+    ipa_path: ipa_path,
     groups: "QA.Team, Waves.Exchange.iOS",
     firebase_cli_path: firebase_cli_path,
     firebase_cli_token: "#{ENV['FIREBASEAPPDISTRO_FIREBASE_CLI_TOKEN']}",
