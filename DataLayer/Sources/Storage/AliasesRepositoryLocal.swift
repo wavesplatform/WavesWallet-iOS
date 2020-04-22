@@ -16,7 +16,8 @@ private enum Constants {
 }
 final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
 
-    func aliases(accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
+    func aliases(serverEnvironment: ServerEnvironment,
+                 accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
 
         return Observable.create({ (observer) -> Disposable in
 
@@ -36,12 +37,14 @@ final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
         })
     }
 
-    func alias(by name: String, accountAddress: String) -> Observable<String> {
+    func alias(serverEnvironment: ServerEnvironment,
+               name: String,
+               accountAddress: String) -> Observable<String> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func saveAliases(by accountAddress: String, aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool> {
+    func saveAliases(accountAddress: String, aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool> {
         return Observable.create({ (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {

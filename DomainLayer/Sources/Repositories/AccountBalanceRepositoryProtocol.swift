@@ -9,14 +9,20 @@
 import Foundation
 import RxSwift
 
+
 public enum AccountBalanceRepositoryError: Error {
     case fail
 }
 
 public protocol AccountBalanceRepositoryProtocol {
+
+    //TODO: Deprecated
+    func balances(by serverEnviroment: ServerEnvironment,
+                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]>
     
-    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]>
-    func balance(by assetId: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance>
+    func balance(by serverEnviroment: ServerEnvironment,
+                 assetId: String,
+                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance>
 
     func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool>
     func saveBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool>

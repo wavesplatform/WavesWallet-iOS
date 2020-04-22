@@ -54,6 +54,7 @@ protocol ServicesEnvironmentRepositoryProtocol {
     func servicesEnvironment() -> Observable<ApplicationEnviroment>
 }
 
+//Wallet
 final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnvironmentRepositoryProtocol {
     private var internalServerTimestampDiff: Int64?
     

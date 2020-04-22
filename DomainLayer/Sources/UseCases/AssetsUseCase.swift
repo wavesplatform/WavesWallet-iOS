@@ -14,11 +14,14 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
 
     private let repositoryLocal: AssetsRepositoryProtocol
     private let repositoryRemote: AssetsRepositoryProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
 
     init(assetsRepositoryLocal: AssetsRepositoryProtocol,
-         assetsRepositoryRemote: AssetsRepositoryProtocol) {
+         assetsRepositoryRemote: AssetsRepositoryProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.repositoryLocal = assetsRepositoryLocal
         self.repositoryRemote = assetsRepositoryRemote
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
     func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]> {
@@ -49,27 +52,50 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
     }
 
     private func remoteAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
-        return repositoryRemote
-        .assets(by: ids, accountAddress: accountAddress)
-        .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
+        
+        return serverEnvironmentUseCase
+            .serverEnviroment()
+            .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Asset]> in
+                
                 guard let self = self else { return Observable.never() }
-            return self
-                .repositoryLocal
-                .saveAssets(assets, by: accountAddress)
-                .map({ _ -> [DomainLayer.DTO.Asset] in
-                    return assets
-                })
-        })
+                
+                return self
+                    .repositoryRemote
+                    .assets(serverEnvironment: serverEnvironment,
+                            ids: ids,
+                            accountAddress: accountAddress)
+            }
+            .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
+                guard let self = self else { return Observable.never() }
+                return self
+                    .repositoryLocal
+                    .saveAssets(assets, by: accountAddress)
+                    .map({ _ -> [DomainLayer.DTO.Asset] in
+                        return assets
+                    })
+            })
     }
 
     private func localeAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
-        return repositoryLocal
-            .assets(by: ids, accountAddress: accountAddress)
+        
+        return serverEnvironmentUseCase
+            .serverEnviroment()
+            .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Asset]> in
+            
+                guard let self = self else { return Observable.never() }
+                
+                return self
+                    .repositoryLocal
+                    .assets(serverEnvironment: serverEnvironment,
+                            ids: ids,
+                            accountAddress: accountAddress)
+            }
     }
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        return assetsSync(by: ids, accountAddress: accountAddress)
+        return assetsSync(by: ids,
+                          accountAddress: accountAddress)
             .flatMap({ (sync) -> Observable<[DomainLayer.DTO.Asset]> in
 
                 if let remote = sync.resultIngoreError {

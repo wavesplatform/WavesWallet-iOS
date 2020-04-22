@@ -31,4 +31,6 @@ public protocol UseCasesFactoryProtocol {
     var weGatewayUseCase: WEGatewayUseCaseProtocol { get }
     
     var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol { get }
+    
+    var serverEnvironmentUseCase: ServerEnvironmentUseCase { get }
 }

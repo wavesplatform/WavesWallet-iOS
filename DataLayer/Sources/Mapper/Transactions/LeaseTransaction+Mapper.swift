@@ -37,7 +37,7 @@ extension DomainLayer.DTO.LeaseTransaction {
     init(transaction: NodeService.DTO.LeaseTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
@@ -47,7 +47,7 @@ extension DomainLayer.DTO.LeaseTransaction {
                   signature: transaction.signature,
                   proofs: transaction.proofs,
                   amount: transaction.amount,
-                  recipient: transaction.recipient.normalizeAddress(environment: environment),
+                  recipient: transaction.recipient.normalizeAddress(aliasScheme: environment.aliasScheme),
                   modified: Date(),
                   status: status)
     }

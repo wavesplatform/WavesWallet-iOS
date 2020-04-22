@@ -14,12 +14,14 @@ import RxSwift
 import WavesSDKExtensions
 
 final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
-    func searchAssets(search: String, accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func searchAssets(serverEnvironment: ServerEnvironment,
+                      search: String,
+                      accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func assets(serverEnvironment: ServerEnvironment, ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AssetsRepositoryError.fail)
@@ -72,7 +74,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
         saveAssets([asset], by: accountAddress)
     }
 
-    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
+    func isSmartAsset(serverEnvironment: ServerEnvironment, assetId: String, by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }

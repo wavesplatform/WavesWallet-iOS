@@ -24,6 +24,9 @@ private struct Constants {
 typealias ExtensionsEnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
 
 public final class RepositoriesFactory: RepositoriesFactoryProtocol {
+    
+    private lazy var wavesSDKServices: WavesSDKServices = WavesSDKServicesImp()
+    
     private lazy var environmentRepositoryInternal: EnvironmentRepository = EnvironmentRepository()
     
     public private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = environmentRepositoryInternal
@@ -31,14 +34,15 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
     
     public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol =
-        AssetsRepositoryRemote(environmentRepository: environmentRepositoryInternal,
-                               spamAssetsRepository: spamAssets,
-                               accountSettingsRepository: accountSettingsRepository)
+        AssetsRepositoryRemote(spamAssetsRepository: spamAssets,
+                               accountSettingsRepository: accountSettingsRepository,
+                               environmentRepository: environmentRepository,
+                               wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
     
     public private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol =
-        AccountBalanceRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+        AccountBalanceRepositoryRemote(wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var transactionsRepositoryLocal: TransactionsRepositoryProtocol = TransactionsRepositoryLocal()
     
@@ -46,7 +50,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         TransactionsRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
     public private(set) lazy var blockRemote: BlockRepositoryProtocol =
-        BlockRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+        BlockRepositoryRemote(wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var walletsRepositoryLocal: WalletsRepositoryProtocol =
         WalletsRepositoryLocal(environmentRepository: environmentRepositoryInternal)
@@ -74,7 +78,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                      assetsRepository: assetsRepositoryRemote)
     
     public private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol =
-        AliasesRepository(environmentRepository: environmentRepositoryInternal)
+        AliasesRepository(wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var aliasesRepositoryLocal: AliasesRepositoryProtocol = AliasesRepositoryLocal()
     
@@ -82,9 +86,9 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         AssetsBalanceSettingsRepositoryLocal()
     
     public private(set) lazy var candlesRepository: CandlesRepositoryProtocol =
-        CandlesRepositoryRemote(environmentRepository: environmentRepositoryInternal,
-                                matcherRepository: matcherRepository,
-                                developmentConfigsRepository: developmentConfigsRepository)
+        CandlesRepositoryRemote(matcherRepository: matcherRepository,
+                                developmentConfigsRepository: developmentConfigsRepository,
+                                wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol =
         LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepository)
@@ -92,7 +96,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
     
     public private(set) lazy var addressRepository: AddressRepositoryProtocol =
-        AddressRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+        AddressRepositoryRemote(wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var notificationNewsRepository: NotificationNewsRepositoryProtocol = NotificationNewsRepository()
     

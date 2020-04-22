@@ -80,7 +80,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     
     public private(set) lazy var aliases: AliasesUseCaseProtocol = {
         let interactor = AliasesUseCase(aliasesRepositoryRemote: repositories.aliasesRepositoryRemote,
-                                        aliasesRepositoryLocal: repositories.aliasesRepositoryLocal)
+                                        aliasesRepositoryLocal: repositories.aliasesRepositoryLocal,
+                                        serverEnvironmentUseCase: ServerEnvironmentUseCaseImp())
         
         return interactor
     }()
@@ -101,7 +102,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     
     public private(set) lazy var assets: AssetsUseCaseProtocol = {
         let interactor = AssetsUseCase(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
-                                       assetsRepositoryRemote: repositories.assetsRepositoryRemote)
+                                       assetsRepositoryRemote: repositories.assetsRepositoryRemote,
+                                       serverEnvironmentUseCase: ServerEnvironmentUseCaseImp())
         
         return interactor
     }()
@@ -143,6 +145,13 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                            oAuthRepository: repositories.weOAuthRepositoryProtocol,
                                            authorizationUseCase: self.authorization,
                                            assetsUseCase: self.assets)
+        return useCase
+    }()
+    
+    public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentUseCase = {
+
+        let useCase = ServerEnvironmentUseCaseImp()
+        
         return useCase
     }()
 }

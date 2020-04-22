@@ -556,6 +556,9 @@
 		7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */; };
 		7B9DC35E2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */; };
 		7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */; };
+		7BA6826124506A42000B5747 /* EnvironmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA6826024506A42000B5747 /* EnvironmentUseCase.swift */; };
+		7BA6826524507042000B5747 /* ServerEnviromentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA6826424507042000B5747 /* ServerEnviromentUseCase.swift */; };
+		7BA682672450747B000B5747 /* WavesServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA682662450747B000B5747 /* WavesServices.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BC17E7523F569F400F76B7B /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7423F569F400F76B7B /* PageControl.swift */; };
@@ -1921,6 +1924,9 @@
 		7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServerMaintenance.storyboard; sourceTree = "<group>"; };
 		7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepository.swift; sourceTree = "<group>"; };
+		7BA6826024506A42000B5747 /* EnvironmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentUseCase.swift; sourceTree = "<group>"; };
+		7BA6826424507042000B5747 /* ServerEnviromentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnviromentUseCase.swift; sourceTree = "<group>"; };
+		7BA682662450747B000B5747 /* WavesServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesServices.swift; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BC17E7423F569F400F76B7B /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
@@ -3937,6 +3943,7 @@
 		7B5FAA4F22BBE3EC00621A44 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				7B431A8722BD037C00DE73B9 /* Protocol */,
 				7B5FAA5022BBE3EC00621A44 /* AccountBalanceUseCase.swift */,
 				7B5FAA5522BBE3EC00621A44 /* AddressUseCase.swift */,
 				7B5FAA5322BBE3EC00621A44 /* AliasesUseCase.swift */,
@@ -3947,12 +3954,13 @@
 				7B848A7D2301CB0F0092AD18 /* CorrectionPairsUseCase.swift */,
 				7B5FAA5422BBE3EC00621A44 /* MigrationUseCase.swift */,
 				E97A74A622D3BAD400777C39 /* OrderBookUseCase.swift */,
-				7B431A8722BD037C00DE73B9 /* Protocol */,
 				7B5FAA5822BBE3EC00621A44 /* TransactionsUseCase.swift */,
 				875393212423BA8D00394762 /* WEGatewayUseCase.swift */,
 				7B848A792301C0950092AD18 /* WidgetSettingsInizializationUseCase.swift */,
 				7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */,
 				7B4FA716242B585E00A2FB25 /* AdCashDepositsUseCase.swift */,
+				7BA6826024506A42000B5747 /* EnvironmentUseCase.swift */,
+				7BA6826424507042000B5747 /* ServerEnviromentUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -4732,8 +4740,8 @@
 				7BF50A4F22D8B95400582783 /* AssetsRepositoryRemote.swift */,
 				7BF50A3422D8B95400582783 /* AuthenticationRepositoryRemote.swift */,
 				7BF50A2F22D8B95400582783 /* BlockRepositoryRemote.swift */,
-				7BF50A4422D8B95400582783 /* CandlesRepositoryRemote.swift */,
 				7BF50A3322D8B95400582783 /* CoinomatRepository.swift */,
+				7BF50A4422D8B95400582783 /* CandlesRepositoryRemote.swift */,
 				7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */,
 				7BF50A4222D8B95400582783 /* DexOrderBookRepositoryRemote.swift */,
 				7BF50A4522D8B95400582783 /* DexPairsPriceRepositoryRemote.swift */,
@@ -4763,6 +4771,7 @@
 				87566695242A67E100E9F177 /* StakingBalanceServiceImpl.swift */,
 				8753932A2423BB9700394762 /* WEGatewayService.swift */,
 				875393292423BB9700394762 /* WEOAuthService.swift */,
+				7BA682662450747B000B5747 /* WavesServices.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -7577,6 +7586,7 @@
 				7B5FAA7A22BBE3EC00621A44 /* CandlesRepositoryProtocol.swift in Sources */,
 				7B5FAA8422BBE3EC00621A44 /* UtilsRepositoryProtocol.swift in Sources */,
 				7B5FAA9122BBE3EC00621A44 /* SmartTransactionDomainDTO.swift in Sources */,
+				7BA6826124506A42000B5747 /* EnvironmentUseCase.swift in Sources */,
 				7B5FAA9922BBE3EC00621A44 /* ExchangeTransactionDomainDTO.swift in Sources */,
 				7B5FAA6C22BBE3EC00621A44 /* Asset+Assistants.swift in Sources */,
 				7B5FAAAC22BBE3EC00621A44 /* AccountBalanceUseCase.swift in Sources */,
@@ -7637,6 +7647,7 @@
 				E97A74A722D3BAD400777C39 /* OrderBookUseCase.swift in Sources */,
 				7BDC6D5622C3975D00614E6B /* AnalyticManagerEvent+WalletHome.swift in Sources */,
 				7B5FAA7922BBE3EC00621A44 /* WalletSeedRepositoryProtocol.swift in Sources */,
+				7BA6826524507042000B5747 /* ServerEnviromentUseCase.swift in Sources */,
 				7B5FAA8022BBE3EC00621A44 /* AccountBalanceRepositoryProtocol.swift in Sources */,
 				7B5FAA9E22BBE3EC00621A44 /* NotificationNewsDomainDTO.swift in Sources */,
 				E99A3B7522BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift in Sources */,
@@ -7755,6 +7766,7 @@
 				7BF50AAE22D8B95400582783 /* DexOrderBookRepositoryRemote.swift in Sources */,
 				87566696242A67E100E9F177 /* StakingBalanceServiceImpl.swift in Sources */,
 				7BF50AA422D8B95400582783 /* AuthenticationRepositoryRemote.swift in Sources */,
+				7BA682672450747B000B5747 /* WavesServices.swift in Sources */,
 				7BF50A7D22D8B95400582783 /* DataTransaction.swift in Sources */,
 				7BF50A9A22D8B95400582783 /* Wallet+Mapper.swift in Sources */,
 				7BF50A8122D8B95400582783 /* AssetBalanceSettings.swift in Sources */,

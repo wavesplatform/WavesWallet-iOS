@@ -37,7 +37,7 @@ extension DomainLayer.DTO.AliasTransaction {
          environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,

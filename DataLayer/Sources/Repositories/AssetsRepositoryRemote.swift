@@ -24,118 +24,115 @@ private enum Constants {
 //TODO: REFACTOR Move Repository to AssetsUseCase
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+    private let wavesSDKServices: WavesSDKServices
+    
+    private let environmentRepository: EnvironmentRepositoryProtocol
     
     private let spamAssetsRepository: SpamAssetsRepositoryProtocol
     
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         spamAssetsRepository: SpamAssetsRepositoryProtocol,
-         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(spamAssetsRepository: SpamAssetsRepositoryProtocol,
+         accountSettingsRepository: AccountSettingsRepositoryProtocol,
+         environmentRepository: EnvironmentRepositoryProtocol,
+         wavesSDKServices: WavesSDKServices) {
+        
+        self.wavesSDKServices = wavesSDKServices
         self.spamAssetsRepository = spamAssetsRepository
         self.accountSettingsRepository = accountSettingsRepository
+        self.environmentRepository = environmentRepository
     }
     
-    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
-
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMap({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Asset]> in
-                
-            guard let self = self else { return Observable.empty() }
-            
-            let walletEnviroment = servicesEnvironment.walletEnvironment
-
-            let spamAssets = self.spamAssets(accountAddress: accountAddress)
-
-            let assetsList = servicesEnvironment
-                .wavesServices
-                .dataServices
-                .assetsDataService
-                .assets(ids: ids)
-            
-            return Observable.zip(assetsList, spamAssets)
-                .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
-                    
-                    let map = walletEnviroment.hashMapAssets()
-                    let mapGeneralAssets = walletEnviroment.hashMapGeneralAssets()
-                    
-                    let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
-
-                    return assets.map { DomainLayer.DTO.Asset(asset: $0,
-                                                              info: map[$0.id],
-                                                              isSpam: spamIds[$0.id] == true,
-                                                              isMyWavesToken: $0.sender == accountAddress,
-                                                              isGeneral: mapGeneralAssets[$0.id] != nil) }
-                })
-        })
-    }
-
-    //TODO: Refactor method
-    func searchAssets(search: String, accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    
+    func assets(serverEnvironment: ServerEnvironment,
+                ids: [String],
+                accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMap({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Asset]> in
+        let wavesServices = wavesSDKServices
+            .wavesServices(environment: serverEnvironment)
+        
+        let walletEnvironment = environmentRepository.walletEnvironment()
+        
+        let spamAssets = self.spamAssets(accountAddress: accountAddress)
+        
+        let assetsList = wavesServices
+            .dataServices
+            .assetsDataService
+            .assets(ids: ids)
+        
+        return Observable.zip(assetsList, spamAssets, walletEnvironment)
+            .map({ assets, spamAssets, walletEnvironment -> [DomainLayer.DTO.Asset] in
                 
-                guard let self = self else { return Observable.empty() }
+                let map = walletEnvironment.hashMapAssets()
+                let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
                 
-                let walletEnviroment = servicesEnvironment.walletEnvironment
+                let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
                 
-                let spamAssets = self.spamAssets(accountAddress: accountAddress)
-                
-                let assetsList = servicesEnvironment
-                    .wavesServices
-                    .dataServices
-                    .assetsDataService
-                    .searchAssets(search: search, limit: Constants.searchAssetsLimit)
-                
-                return Observable.zip(assetsList, spamAssets)
-                    .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
-                        
-                        let map = walletEnviroment.hashMapAssets()
-                        let mapGeneralAssets = walletEnviroment.hashMapGeneralAssets()
-                        
-                        let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
-                        
-                        return assets.map { DomainLayer.DTO.Asset(asset: $0,
-                                                                  info: map[$0.id],
-                                                                  isSpam: spamIds[$0.id] == true,
-                                                                  isMyWavesToken: $0.sender == accountAddress,
-                                                                  isGeneral: mapGeneralAssets[$0.id] != nil) }
-                    })
+                return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                                                          info: map[$0.id],
+                                                          isSpam: spamIds[$0.id] == true,
+                                                          isMyWavesToken: $0.sender == accountAddress,
+                                                          isGeneral: mapGeneralAssets[$0.id] != nil) }
             })
     }
 
+    func searchAssets(serverEnvironment: ServerEnvironment,
+                      search: String,
+                      accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+        
+        let wavesServices = wavesSDKServices
+            .wavesServices(environment: serverEnvironment)
+        
+        let walletEnvironment = environmentRepository.walletEnvironment()
+                                
+        let spamAssets = self.spamAssets(accountAddress: accountAddress)
+        
+        let assetsList =
+            wavesServices
+            .dataServices
+            .assetsDataService
+            .searchAssets(search: search, limit: Constants.searchAssetsLimit)
+        
+        return Observable.zip(assetsList, spamAssets, walletEnvironment)
+            .map({ assets, spamAssets, walletEnvironment -> [DomainLayer.DTO.Asset] in
+                
+                let map = walletEnvironment.hashMapAssets()
+                let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
+                
+                let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
+                
+                return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                                                          info: map[$0.id],
+                                                          isSpam: spamIds[$0.id] == true,
+                                                          isMyWavesToken: $0.sender == accountAddress,
+                                                          isGeneral: mapGeneralAssets[$0.id] != nil) }
+            })
+    }
+    
     func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
-
+    
     func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
-
-    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
-
+    
+    func isSmartAsset(serverEnvironment: ServerEnvironment, assetId: String, accountAddress: String) -> Observable<Bool> {
+        
         if assetId == WavesSDKConstants.wavesAssetId {
             return Observable.just(false)
         }
-
-        return environmentRepository
-            .servicesEnvironment()
-            .map { $0.wavesServices }
-            .flatMap({ (wavesServices) -> Observable<Bool> in                
                 
-                return wavesServices
-                    .nodeServices
-                    .assetsNodeService
-                    .assetDetails(assetId: assetId)
-                    .map { $0.scripted == true }
-            })
+        let wavesServices = wavesSDKServices
+            .wavesServices(environment: serverEnvironment)
+
+        return wavesServices
+            .nodeServices
+            .assetsNodeService
+            .assetDetails(assetId: assetId)
+            .map { $0.scripted == true }
     }
 }
 
@@ -145,7 +142,7 @@ fileprivate extension AssetsRepositoryRemote {
         
         return self.accountSettingsRepository.accountSettings(accountAddress: accountAddress)
             .flatMap { [weak self] (settings) -> Observable<[SpamAssetId]> in
-             
+                
                 guard let self = self else { return Observable.never() }
                 
                 if settings?.isEnabledSpam ?? true {
@@ -153,12 +150,12 @@ fileprivate extension AssetsRepositoryRemote {
                 } else {
                     return Observable.just([])
                 }
-            }
+        }
     }
 }
 
 fileprivate extension WalletEnvironment {
-
+    
     func hashMapAssets() -> [String: WalletEnvironment.AssetInfo] {
         
         var allAssets = generalAssets
@@ -186,7 +183,7 @@ fileprivate extension WalletEnvironment {
 }
 
 fileprivate extension DomainLayer.DTO.Asset {
-
+    
     init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool, isGeneral: Bool) {
         var isWaves = false
         var isFiat = false

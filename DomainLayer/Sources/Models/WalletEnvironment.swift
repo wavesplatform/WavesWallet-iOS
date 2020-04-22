@@ -19,14 +19,12 @@ private enum Constants {
     fileprivate static let testnet_test = "environment_testnet_test"
     fileprivate static let stagenet_test = "environment_stagenet_test"
     
-    static let vostokMainNetScheme = "V"
-    static let vostokTestNetScheme = "F"
 }
 
 //TODO: Rename ?
-public struct WalletEnvironment: Decodable {
+public struct WalletEnvironment: Decodable, Hashable {
     
-    public enum Kind: String {
+    public enum Kind: String, Hashable {
         case mainnet = "W"
         case testnet = "T"
         case stagenet = "S"
@@ -37,9 +35,9 @@ public struct WalletEnvironment: Decodable {
                 
     }
     
-    public struct AssetInfo: Decodable {
+    public struct AssetInfo: Decodable, Hashable {
         
-        public struct Icon: Decodable {
+        public struct Icon: Decodable, Hashable {
             public let `default`: String?
         }
         
@@ -54,9 +52,9 @@ public struct WalletEnvironment: Decodable {
         public let gatewayType: String?
     }
     
-    public struct Servers: Decodable {
+    public struct Servers: Decodable, Hashable {
             
-        public struct Gateways: Decodable {
+        public struct Gateways: Decodable, Hashable {
             public let v0: URL
             public let v1: URL
             public let v2: URL
@@ -129,10 +127,6 @@ public extension WalletEnvironment {
     
     var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
-    }
-    
-    var vostokScheme: String {
-        return self.kind == .testnet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
     }
 }
 

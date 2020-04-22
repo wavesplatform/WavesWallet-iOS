@@ -48,7 +48,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
 
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
@@ -139,7 +139,7 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         let assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: order.assetPair.amountAsset.normalizeAssetId,
                                                                       priceAsset: order.assetPair.priceAsset.normalizeAssetId)
         self.init(id: order.id,
-                  sender: order.sender.normalizeAddress(environment: environment),
+                  sender: order.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
                   senderPublicKey: order.senderPublicKey,
                   matcherPublicKey: order.matcherPublicKey,
                   assetPair: assetPair,

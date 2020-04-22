@@ -15,7 +15,13 @@ public enum AliasesRepositoryError: Error {
 }
 
 public protocol AliasesRepositoryProtocol {
-    func aliases(accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]>
-    func alias(by name: String, accountAddress: String) -> Observable<String>
-    func saveAliases(by accountAddress: String, aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool>
+    func aliases(serverEnvironment: ServerEnvironment,
+                 accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]>
+    
+    func alias(serverEnvironment: ServerEnvironment,
+               name: String,
+               accountAddress: String) -> Observable<String>
+    
+    func saveAliases(accountAddress: String,
+                     aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool>
 }

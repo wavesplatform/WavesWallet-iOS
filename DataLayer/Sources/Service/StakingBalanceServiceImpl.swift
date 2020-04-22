@@ -12,6 +12,7 @@ import Foundation
 import RxSwift
 import WavesSDK
 
+//TODO: Dont use the authorizationUseCase. The Class use for DomainLayer or PresentationLayer
 public final class StakingBalanceServiceImpl: StakingBalanceService {
     private let authorizationService: AuthorizationUseCaseProtocol
     private let devConfig: DevelopmentConfigsRepositoryProtocol

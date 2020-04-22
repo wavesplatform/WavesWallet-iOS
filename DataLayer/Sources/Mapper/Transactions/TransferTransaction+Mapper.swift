@@ -45,7 +45,7 @@ extension DomainLayer.DTO.TransferTransaction {
          environment: WalletEnvironment) {
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
@@ -53,7 +53,7 @@ extension DomainLayer.DTO.TransferTransaction {
                   height: transaction.height ?? -1,
                   signature: transaction.signature,
                   proofs: transaction.proofs,
-                  recipient: transaction.recipient.normalizeAddress(environment: environment),
+                  recipient: transaction.recipient.normalizeAddress(aliasScheme: environment.aliasScheme),
                   assetId: transaction.assetId.normalizeAssetId,
                   feeAssetId: transaction.feeAssetId.normalizeAssetId,
                   feeAsset: transaction.feeAssetId,

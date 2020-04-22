@@ -65,7 +65,9 @@ private extension DomainLayer.DTO.Candle.TimeFrameType {
 
 //TODO: Split usercase and services
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+        
+    private let wavesSDKServices: WavesSDKServices
+    
     private let matcherRepository: MatcherRepositoryProtocol
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
 
@@ -84,28 +86,30 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
         }
     }
 
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         matcherRepository: MatcherRepositoryProtocol,
-         developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(matcherRepository: MatcherRepositoryProtocol,
+         developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol,
+         wavesSDKServices: WavesSDKServices) {
+        
+        self.wavesSDKServices = wavesSDKServices
         self.matcherRepository = matcherRepository
         self.developmentConfigsRepository = developmentConfigsRepository
     }
 
-    func candles(amountAsset: String,
+    func candles(serverEnvironment: ServerEnvironment,
+                 amountAsset: String,
                  priceAsset: String,
                  timeStart: Date,
                  timeEnd: Date,
                  timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
-        Observable.zip(environmentRepository.servicesEnvironment(),
-                       matcherRepository.matcherPublicKey(),
+        
+        Observable.zip(matcherRepository.matcherPublicKey(),
                        getMatcherSwapConfigs())
-            .flatMap { servicesEnvironment, publicKeyAccount, swapConfigs
-                -> Observable<(queries: [DataService.Query.CandleFilters], servicesEnvironment: ApplicationEnviroment)> in
+            .flatMap { publicKeyAccount, swapConfigs
+                -> Observable<[DataService.Query.CandleFilters]> in
 
                 let swapDate = swapConfigs.matcherSwapTimestamp
                 let swapMatcherAddress = swapConfigs.matcherSwapAddress
-                let timestampServerDiff = servicesEnvironment.timestampServerDiff
+                let timestampServerDiff = serverEnvironment.timestampServerDiff
 
                 if timeStart.compare(swapDate) == .orderedAscending, timeEnd.compare(swapDate) == .orderedAscending {
                     let queryTimeStart = timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff)
@@ -119,7 +123,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                   matcher: swapMatcherAddress)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
 
-                    return Observable.just((queries: queries, servicesEnvironment: servicesEnvironment))
+                    return Observable.just(queries)
                 } else if timeStart.compare(swapDate) == .orderedDescending, timeEnd.compare(swapDate) == .orderedDescending {
                     let queryTimeStart = timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff)
                     let queryTimeEnd = timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff)
@@ -132,9 +136,9 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                   matcher: publicKeyAccount.address)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
 
-                    return Observable.just((queries: queries, servicesEnvironment: servicesEnvironment))
+                    return Observable.just(queries)
                 } else if timeStart.compare(swapDate) == .orderedAscending, timeEnd.compare(swapDate) == .orderedDescending {
-                    // query 1 query 2 ?????
+                    
                     let matcherSwapTimestamp1M = Date(timeIntervalSince1970: Constants.matcherSwapTimestamp1M)
                     let monthSwapDate = timeFrame == .M1 ? matcherSwapTimestamp1M : swapDate
 
@@ -158,16 +162,16 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                  matcher: publicKeyAccount.address)
                         .normalizedCandleFiltersQueries(timeFrame: timeFrame)
 
-                    return Observable.just((queries: query1 + query2, servicesEnvironment: servicesEnvironment))
+                    return Observable.just(query1 + query2)
                 }
 
-                return Observable.just((queries: [], servicesEnvironment: servicesEnvironment))
+                return Observable.just([])
             }
-            .flatMap { [weak self] data -> Observable<[DomainLayer.DTO.Candle]> in
+            .flatMap { [weak self] queries -> Observable<[DomainLayer.DTO.Candle]> in
                 guard let self = self else { return Observable.never() }
 
-                let obsQueries = data.queries.map {
-                    self.candlesQuery(servicesEnvironment: data.servicesEnvironment, query: $0, timeFrame: timeFrame)
+                let obsQueries = queries.map {
+                    self.candlesQuery(serverEnvironment: serverEnvironment, query: $0, timeFrame: timeFrame)
                 }
 
                 return Observable.zip(obsQueries).map { $0.flatMap { $0 } }
@@ -176,12 +180,13 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
 }
 
 private extension CandlesRepositoryRemote {
-    func candlesQuery(servicesEnvironment: ApplicationEnviroment,
+    func candlesQuery(serverEnvironment: ServerEnvironment,
                       query: DataService.Query.CandleFilters,
                       timeFrame _: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
-        servicesEnvironment
-            .wavesServices
-            .dataServices
+        
+        return wavesSDKServices
+            .wavesServices(environment: serverEnvironment)
+            .dataServices            
             .candlesDataService
             .candles(query: query)
             .map { chart -> [DomainLayer.DTO.Candle] in
