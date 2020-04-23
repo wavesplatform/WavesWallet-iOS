@@ -13,6 +13,7 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
+//TODO: Rename to Services
 final class AddressRepositoryRemote: AddressRepositoryProtocol {
 
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols

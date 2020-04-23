@@ -12,6 +12,9 @@ import Foundation
 import Moya
 import RxSwift
 import WavesSDK
+import GRPC
+import NIOHTTP2
+import SwiftProtobuf
 
 final class GatewayRepository: GatewayRepositoryProtocol {
     private let gatewayProvider: MoyaProvider<Gateway.Service> = .anyMoyaProvider()
@@ -45,8 +48,8 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                             maxAmount: Money(startWithdraw.maxAmount, asset.precision),
                             fee: Money(startWithdraw.fee, asset.precision),
                             processId: startWithdraw.processId)
-                    }
-            }
+                }
+        }
     }
     
     func startDepositProcess(address: String,
@@ -71,8 +74,8 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                             address: startDeposit.address,
                             minAmount: Money(startDeposit.minAmount, asset.precision),
                             maxAmount: Money(startDeposit.maxAmount, asset.precision))
-                    }
-            }
+                }
+        }
     }
     
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool> {
@@ -94,6 +97,51 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                     .filterSuccessfulStatusAndRedirectCodes()
                     .asObservable()
                     .map { _ in true }
+        }
+    }
+    
+    
+    
+    var api: Gateways_ApiClient = {
+        
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 2)
+        
+        let connect = ClientConnection(configuration: .init(target: .hostAndPort("grpc-mainnet-dev.waves.exchange",
+                                                                                 443),
+                                                            eventLoopGroup: group))
+        
+       return Gateways_ApiClient(channel: connect)
+    }()
+    
+    
+    func test() -> Observable<Bool> {
+        
+        return Observable.create { (observer) -> Disposable in
+                                    
+            var request = Gateways_TransferBindingRequest()
+            
+            request.recipientAddress = "mefilt"
+            request.recipientAsset = "USD"
+            request.senderAsset="mefilt"
+            
+            do {
+                let model = try self
+                    .api
+                    .createTransferBinding(request)
+                    .response
+                    .wait()
+                print("Start \(model)")
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch let e {
+                print("\n Error \(type(of: e)): \(e) \n")
+                
+                observer.onError(e)
             }
+            
+            return Disposables.create {
+                //                  try? group.syncShutdownGracefully()
+            }
+        }
     }
 }

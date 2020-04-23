@@ -16,6 +16,7 @@ private struct Constants {
     static let forceUpdateVersion: String = "force_update_version"
 }
 
+// TODO: Rename to service
 final class ApplicationVersionRepository: ApplicationVersionRepositoryProtocol {
     private let applicationVersionService: MoyaProvider<ResourceAPI.Service.ApplicationVersion> = .anyMoyaProvider()
 

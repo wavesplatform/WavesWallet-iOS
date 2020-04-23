@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package gateways;
+
+message Asset {
+    enum Type {
+        CRYPTO = 0;
+        FIAT = 1;
+    };
+
+    string asset = 1;
+    int32 decimals = 2;
+    string ticker = 3;
+    Type type = 4;
+}
+
+message AssetBinding {
+    Asset sender_asset = 1;
+    Asset recipient_asset = 2;
+    bytes sender_amount_min = 3;
+    bytes sender_amount_max = 4;
+    bytes tax_flat = 5;
+    double tax_rate = 6;
+    bool active = 7;
+}
+
+message TransferBinding {
+    AssetBinding asset_binding = 1;
+    repeated string addresses = 2;
+    string recipient = 3;
+}
+
+message CursorRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+
+message CursorResponse {
+    bool has_next = 1;
+}

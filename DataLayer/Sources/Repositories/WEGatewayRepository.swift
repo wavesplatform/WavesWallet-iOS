@@ -51,7 +51,7 @@ private struct RegisterOrderResponse: Codable {
         case authenticationData = "authentication_data"
     }
 }
-
+//TODO: Split Usecase and services
 final class WEGatewayRepository: WEGatewayRepositoryProtocol {
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol

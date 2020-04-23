@@ -12,7 +12,6 @@ import WavesSDKExtensions
 
 import FirebaseCore
 import FirebaseDatabase
-import FirebaseInAppMessaging
 
 import Amplitude_iOS
 import Crashlytics
@@ -22,7 +21,6 @@ private struct Constants {
     static let firebaseAppWavesPlatform: String = "WavesPlatform"
 }
 
-// TODO: Rename Local Repository and protocol
 typealias ExtensionsEnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
 
 public final class RepositoriesFactory: RepositoriesFactoryProtocol {

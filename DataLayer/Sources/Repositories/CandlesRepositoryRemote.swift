@@ -63,6 +63,7 @@ private extension DomainLayer.DTO.Candle.TimeFrameType {
     }
 }
 
+//TODO: Split usercase and services
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 import Moya
 import WavesSDKExtensions
 
@@ -43,8 +42,9 @@ struct NodePlugin: PluginType {
     
     func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
         
-        guard let response = result.value?.response else { return }
-        
+        guard case let .success(responseSuccess) = result,
+        let response = responseSuccess.response else { return }
+                
         guard let allHeaderFields = response.allHeaderFields as? [String : String] else { return }
         guard let url = response.url else { return }
         

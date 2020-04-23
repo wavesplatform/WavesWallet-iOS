@@ -81,7 +81,8 @@ final class MarketPulseWidgetViewController: UIViewController {
         
         if inverval != .manually {
             Observable<Int>
-                .interval(RxTimeInterval(inverval.rawValue), scheduler: MainScheduler.asyncInstance)
+                .interval(DispatchTimeInterval.seconds(inverval.rawValue),
+                          scheduler: MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] _ in
                     guard let self = self else { return }
                     self.sendEvent.accept(.refresh)

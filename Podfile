@@ -63,7 +63,7 @@ target 'WavesWallet-iOS' do
 
     # Debug
     pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
-    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']        
+    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
 end
 
 
@@ -119,6 +119,11 @@ target 'DataLayer' do
 
     pod 'Moya'
     pod 'Moya/RxSwift'    
+
+    # pod 'SwiftGRPC'
+    pod 'gRPC-Swift', '1.0.0-alpha.11'
+    # pod 'SwiftProtobuf'
+    # pod 'WEProtobuf', :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git'
 end
 
 target 'DomainLayer' do
