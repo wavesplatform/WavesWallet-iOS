@@ -11,5 +11,6 @@ import RxSwift
 
 public protocol TradeCategoriesConfigRepositoryProtocol {
     
-    func tradeCagegories(accountAddress: String) -> Observable<[DomainLayer.DTO.TradeCategory]>
+    func tradeCagegories(serverEnvironment: ServerEnvironment,
+                         accountAddress: String) -> Observable<[DomainLayer.DTO.TradeCategory]>
 }

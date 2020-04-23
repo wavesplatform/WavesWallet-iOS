@@ -15,22 +15,34 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
     private let orderBookRepository: DexOrderBookRepositoryProtocol
     private let assetsInteractor: AssetsUseCaseProtocol
     private let authorizationInteractor: AuthorizationUseCaseProtocol
+    private let serverEnvironment: ServerEnvironmentUseCase
     
     init(orderBookRepository: DexOrderBookRepositoryProtocol,
          assetsInteractor: AssetsUseCaseProtocol,
-         authorizationInteractor: AuthorizationUseCaseProtocol) {
+         authorizationInteractor: AuthorizationUseCaseProtocol,
+         serverEnvironment: ServerEnvironmentUseCase) {
+        
         self.orderBookRepository = orderBookRepository
         self.assetsInteractor = assetsInteractor
         self.authorizationInteractor = authorizationInteractor
+        self.serverEnvironment = serverEnvironment
     }
     
     func orderSettingsFee() -> Observable<DomainLayer.DTO.Dex.SmartSettingsOrderFee> {
        
-        return authorizationInteractor.authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.Dex.SmartSettingsOrderFee> in
-                guard let self = self else { return Observable.empty() }
+        let serverEnvironment = self.serverEnvironment.serverEnviroment()
+        let authorizedWallet = authorizationInteractor.authorizedWallet()
+        
+        return Observable.zip(authorizedWallet,
+                              serverEnvironment)
+            .flatMap({ [weak self] wallet, serverEnvironment -> Observable<DomainLayer.DTO.Dex.SmartSettingsOrderFee> in
                 
-                return self.orderBookRepository.orderSettingsFee()
+                guard let self = self else { return Observable.empty() }
+                                                
+                return self
+                    .orderBookRepository
+                    .orderSettingsFee(serverEnvironment: serverEnvironment)
+                    
                     .flatMap({ [weak self] (baseSettings) -> Observable<DomainLayer.DTO.Dex.SmartSettingsOrderFee> in
                         guard let self = self else { return Observable.empty() }
                        

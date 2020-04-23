@@ -24,8 +24,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let transactionInteractor: TransactionsUseCaseProtocol
     private let assetsInteractor: AssetsUseCaseProtocol
     private let orderBookInteractor: OrderBookUseCaseProtocol
-    private let environmentRepository: EnvironmentRepositoryProtocol
     private let developmentConfig: DevelopmentConfigsRepositoryProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     
     init(authorization: AuthorizationUseCaseProtocol,
          matcherRepository: MatcherRepositoryProtocol,
@@ -33,15 +33,16 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
          transactionInteractor: TransactionsUseCaseProtocol,
          assetsInteractor: AssetsUseCaseProtocol,
          orderBookInteractor: OrderBookUseCaseProtocol,
-         environmentRepository: EnvironmentRepositoryProtocol,
-         developmentConfig: DevelopmentConfigsRepositoryProtocol) {
+         developmentConfig: DevelopmentConfigsRepositoryProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+        
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.auth = authorization
         self.matcherRepository = matcherRepository
         self.orderBookRepository = dexOrderBookRepository
         self.transactionInteractor = transactionInteractor
         self.assetsInteractor = assetsInteractor
         self.orderBookInteractor = orderBookInteractor
-        self.environmentRepository = environmentRepository
         self.developmentConfig = developmentConfig
     }
 
@@ -85,13 +86,18 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     }
     
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool> {
-        auth.authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<Bool> in
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return Observable.zip(auth.authorizedWallet(), serverEnvironment)
+            .flatMap({ [weak self] wallet, serverEnvironment -> Observable<Bool> in
             
                 guard let self = self else { return Observable.empty() }
                 
-                return self.orderBookRepository.orderBook(amountAsset: order.amountAsset.id,
-                                                          priceAsset: order.priceAsset.id)
+                return self.orderBookRepository
+                    .orderBook(serverEnvironment: serverEnvironment,
+                               amountAsset: order.amountAsset.id,
+                               priceAsset: order.priceAsset.id)
                     .flatMap({ (trade) -> Observable<Bool> in
                                                 
                         let price = order.price.decimalValue
@@ -124,32 +130,44 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         let zeroPriceValue = Money(0, priceAsset.decimals)
         
         if orderAmount.amount > 0 {
-            return orderBookRepository.orderBook(amountAsset: amountAsset.id, priceAsset: priceAsset.id)
-                .flatMap { orderBook -> Observable<DexCreateOrder.DTO.MarketOrder> in
-  
-                    var filledAmount: Money = Money(0, amountAsset.decimals)
-                    var computedTotal: Money = zeroPriceValue
-                    var askOrBidPrice: Money = zeroPriceValue
-
-                    let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
-                    for askOrBid in bidOrAsks {
-                        if filledAmount.decimalValue >= orderAmount.decimalValue {
-                            break
-                        }
-
-                        askOrBidPrice = Money.price(amount: askOrBid.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
-
-                        let askOrBidAmount = Money(askOrBid.amount, amountAsset.decimals)
-                        let unfilledAmount = Money(value: orderAmount.decimalValue - filledAmount.decimalValue, amountAsset.decimals)
-                        let amount = unfilledAmount.decimalValue <= askOrBidAmount.decimalValue ? unfilledAmount : askOrBidAmount
-                        let total = askOrBidPrice.decimalValue * amount.decimalValue
-
-                        computedTotal = Money(value: computedTotal.decimalValue + total, computedTotal.decimals)
-                        filledAmount = Money(value: filledAmount.decimalValue + amount.decimalValue, filledAmount.decimals)
+            
+            let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+            
+            return serverEnvironment
+                .flatMap { [weak self] serverEnvironment -> Observable<DexCreateOrder.DTO.MarketOrder> in
+                    
+                    guard let self = self else { return Observable.never() }
+                    
+                    return self.orderBookRepository
+                        .orderBook(serverEnvironment: serverEnvironment,
+                                   amountAsset: amountAsset.id,
+                                   priceAsset: priceAsset.id)
+                        .flatMap { orderBook -> Observable<DexCreateOrder.DTO.MarketOrder> in
+                            
+                            var filledAmount: Money = Money(0, amountAsset.decimals)
+                            var computedTotal: Money = zeroPriceValue
+                            var askOrBidPrice: Money = zeroPriceValue
+                            
+                            let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
+                            for askOrBid in bidOrAsks {
+                                if filledAmount.decimalValue >= orderAmount.decimalValue {
+                                    break
+                                }
+                                
+                                askOrBidPrice = Money.price(amount: askOrBid.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
+                                
+                                let askOrBidAmount = Money(askOrBid.amount, amountAsset.decimals)
+                                let unfilledAmount = Money(value: orderAmount.decimalValue - filledAmount.decimalValue, amountAsset.decimals)
+                                let amount = unfilledAmount.decimalValue <= askOrBidAmount.decimalValue ? unfilledAmount : askOrBidAmount
+                                let total = askOrBidPrice.decimalValue * amount.decimalValue
+                                
+                                computedTotal = Money(value: computedTotal.decimalValue + total, computedTotal.decimals)
+                                filledAmount = Money(value: filledAmount.decimalValue + amount.decimalValue, filledAmount.decimals)
+                            }
+                            
+                            let priceAvg = filledAmount.decimalValue > 0 ? Money(value: computedTotal.decimalValue / filledAmount.decimalValue, priceAsset.decimals) : zeroPriceValue
+                            return Observable.just(.init(price: askOrBidPrice, priceAvg: priceAvg, total: computedTotal))
                     }
-
-                    let priceAvg = filledAmount.decimalValue > 0 ? Money(value: computedTotal.decimalValue / filledAmount.decimalValue, priceAsset.decimals) : zeroPriceValue
-                    return Observable.just(.init(price: askOrBidPrice, priceAvg: priceAvg, total: computedTotal))
             }
         }
         
@@ -163,17 +181,19 @@ private extension DexCreateOrderInteractor {
                                     updatedPrice: Money?,
                                     priceAvg: Money?,
                                     type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
-        auth.authorizedWallet()
-               .flatMap{ [weak self] wallet -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return Observable.zip(auth.authorizedWallet(),
+                              serverEnvironment)
+               .flatMap{ [weak self] wallet, serverEnvironment -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                
                guard let self = self else { return Observable.empty() }
                
                let matcher = self.matcherRepository.matcherPublicKey()
-               let environment = self.environmentRepository.applicationEnvironment()
-               
-               //TODO: Code move to another method
-               return Observable.zip(matcher, environment)
-                   .flatMap{ [weak self] (matcherPublicKey, environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+
+               return matcher
+                   .flatMap { [weak self] matcherPublicKey -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                        guard let self = self else { return Observable.empty() }
                        
                        let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
@@ -195,7 +215,10 @@ private extension DexCreateOrderInteractor {
                        
                        return self
                            .orderBookRepository
-                           .createOrder(wallet: wallet, order: orderQuery, type: type == .limit ? .limit : .market)
+                            .createOrder(serverEnvironment: serverEnvironment,
+                                     wallet: wallet,
+                                     order: orderQuery,
+                                     type: type == .limit ? .limit : .market)
                            .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                                let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
                                                                       orderType: order.type,

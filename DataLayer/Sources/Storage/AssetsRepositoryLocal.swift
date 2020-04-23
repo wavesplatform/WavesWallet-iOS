@@ -74,7 +74,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
         saveAssets([asset], by: accountAddress)
     }
 
-    func isSmartAsset(serverEnvironment: ServerEnvironment, assetId: String, by accountAddress: String) -> Observable<Bool> {
+    func isSmartAsset(serverEnvironment: ServerEnvironment, assetId: String, accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }

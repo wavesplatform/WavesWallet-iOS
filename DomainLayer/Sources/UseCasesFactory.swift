@@ -111,7 +111,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
         let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,
                                           assetsInteractor: assets,
-                                          authorizationInteractor: authorization)
+                                          authorizationInteractor: authorization,
+                                          serverEnvironment: ServerEnvironmentUseCaseImp())
         return interactor
     }()
     

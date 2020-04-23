@@ -25,6 +25,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     private let auth = UseCasesFactory.instance.authorization
     private let assetsInteractor = UseCasesFactory.instance.assets
     private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
     
     var pair: DexTraderContainer.DTO.Pair!
     
@@ -43,11 +44,17 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               availableBalances: [],
                                               scriptedAssets: [])
         
+        let orderBook = serverEnvironmentUseCase
+            .serverEnviroment()
+            .flatMap { serverEnvironment -> Observable<DomainLayer.DTO.Dex.OrderBook> in
+                return self.orderBookRepository.orderBook(serverEnvironment: serverEnvironment,
+                                                          amountAsset: self.pair.amountAsset.id,
+                                                          priceAsset: self.pair.priceAsset.id)
+            }
 
         return Observable.zip(self.account.balances(),
                               self.getLastTransactionInfo(),
-                              self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
-                                                                 priceAsset: self.pair.priceAsset.id),
+                              orderBook,
                               self.getScriptedAssets())
             .flatMap({ [weak self] (
                 balances,

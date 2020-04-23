@@ -14,16 +14,20 @@ import RxSwift
 import WavesSDK
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
+    
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol
     private let assetsRepository: AssetsRepositoryProtocol
+    private let wavesSDKServices: WavesSDKServices
     
     init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
          matcherRepository: MatcherRepositoryProtocol,
-         assetsRepository: AssetsRepositoryProtocol) {
+         assetsRepository: AssetsRepositoryProtocol,
+         wavesSDKServices: WavesSDKServices) {
         self.environmentRepository = environmentRepository
         self.matcherRepository = matcherRepository
         self.assetsRepository = assetsRepository
+        self.wavesSDKServices = wavesSDKServices
     }
     
     func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
@@ -79,13 +83,20 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     }
     
     // TODO: Any model from dataservice return like null. Need refactor
-    func pairs(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+    
+    func pairs(serverEnvironment: ServerEnvironment,
+               accountAddress: String,
+               pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+        
         guard !pairs.isEmpty else { return Observable.just([]) }
         
-        return Observable.zip(environmentRepository.servicesEnvironment(),
-                              matcherRepository.matcherPublicKey(),
-                              assetsRepository.assets(by: pairs.assetsIds, accountAddress: accountAddress))
-            .flatMapLatest { servicesEnvironment, matcherPublicKey, assets -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+        let wavesServices = self.wavesSDKServices.wavesServices(environment: serverEnvironment)
+        
+        return Observable.zip(matcherRepository.matcherPublicKey(),
+                              assetsRepository.assets(serverEnvironment: serverEnvironment,
+                                                      ids: pairs.assetsIds,
+                                                      accountAddress: accountAddress))
+            .flatMapLatest { matcherPublicKey, assets -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
                 
                 let pairsForQuery = pairs.map {
                     DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset, priceAssetId: $0.priceAsset)
@@ -93,8 +104,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                 
                 let query = DataService.Query.PairsPrice(pairs: pairsForQuery, matcher: matcherPublicKey.address)
                 
-                return servicesEnvironment
-                    .wavesServices
+                return wavesServices
                     .dataServices
                     .pairsPriceDataService
                     .pairsPrice(query: query)

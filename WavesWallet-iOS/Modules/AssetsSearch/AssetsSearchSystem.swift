@@ -23,7 +23,7 @@ private typealias Types = AssetsSearch
 final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
-    
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
     private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
     
     private let assets: [DomainLayer.DTO.Asset]
@@ -63,8 +63,21 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             return Signal<Int>.timer(0.25, period: 1)
                 .flatMap({ [weak self] _ -> Signal<Event> in
                     guard let self = self else { return Signal.never() }
-                    return self.assetsRepository
-                        .searchAssets(search: search, accountAddress: "")
+                    
+                    return self
+                        .serverEnvironmentUseCase
+                        .serverEnviroment()
+                        .flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.Asset]> in
+                            
+                            guard let self = self else { return Observable.never() }
+                            
+                            return self
+                                .assetsRepository
+                                .searchAssets(serverEnvironment: serverEnviroment,
+                                              search: search,
+                                              accountAddress: "")
+                            
+                        }
                         .map { $0.count > 0 ? Event.assets($0) : Event.empty }
                         .asSignal(onErrorRecover: { error -> Signal<Event> in
                             return Signal.just(.handlerError(error))
@@ -86,14 +99,14 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
         }, effects: { [weak self] (search) -> Signal<Event> in
             
             guard let self = self else { return Signal.never() }
-            
-            return self.environmentRepository
-                .applicationEnvironment()
-                .flatMap({ [weak self] (enviroment) -> Observable<Event> in
+                        
+            return Observable.zip(self.serverEnvironmentUseCase.serverEnviroment(),
+                                  self.environmentRepository.walletEnvironment())
+                .flatMap({ [weak self] serverEnviroment, walletEnvironment -> Observable<Event> in
                     
                     guard let self = self else { return Observable.never() }
                     
-                    var assetsId = enviroment.walletEnvironment
+                    var assetsId = walletEnvironment
                         .generalAssets
                         .map { $0.assetId }
                   
@@ -102,7 +115,9 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                     
                     return self
                         .assetsRepository
-                        .assets(by: assetsId, accountAddress: "")
+                        .assets(serverEnvironment: serverEnviroment,
+                                ids: assetsId,
+                                accountAddress: "")
                         .map { $0.count > 0 ? Event.assets($0) : Event.empty }
                 })
                 .asSignal(onErrorRecover: { error -> Signal<Event> in

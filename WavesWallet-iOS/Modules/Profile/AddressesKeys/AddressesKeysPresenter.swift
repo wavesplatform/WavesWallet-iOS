@@ -36,7 +36,8 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
     private let disposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
-
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    
     var moduleInput: AddressesKeysModuleInput!
     weak var moduleOutput: AddressesKeysModuleOutput?
 
@@ -72,12 +73,22 @@ fileprivate extension AddressesKeysPresenter {
         }, effects: { [weak self] accountAddress -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
-
-            return self
-                .aliasesRepository
-                .aliases(accountAddress: accountAddress)
+            
+            let serverEnvironment = self
+                .serverEnvironmentUseCase
+                .serverEnviroment()
+                                    
+            return serverEnvironment
+                .flatMap({ [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Alias]> in
+                    
+                    guard let self = self else { return Observable.never() }
+                    
+                    return self
+                        .aliasesRepository
+                        .aliases(serverEnvironment: serverEnvironment,
+                                 accountAddress: accountAddress)
+                })
                 .map { Types.Event.setAliases($0) }
-                .sweetDebug("getAliasesQuery")
                 .asSignal(onErrorRecover: { _ in
                     Signal.empty()
                 })

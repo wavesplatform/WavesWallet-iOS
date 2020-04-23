@@ -42,7 +42,8 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
         self.assetsRepoitory = assetsRepoitory
     }
     
-    func tradeCagegories(accountAddress: String) -> Observable<[DomainLayer.DTO.TradeCategory]> {
+    func tradeCagegories(serverEnvironment: ServerEnvironment,
+                         accountAddress: String) -> Observable<[DomainLayer.DTO.TradeCategory]> {
      
         return categoriesConfigProvider.rx
             .request(.get(isDebug: ApplicationDebugSettings.isEnableTradeCategoriesConfigTest),
@@ -74,7 +75,9 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                                 
                 return self
                     .assetsRepoitory
-                    .assets(by: assetsIds, accountAddress: accountAddress)
+                    .assets(serverEnvironment: serverEnvironment,
+                            ids: assetsIds,
+                            accountAddress: accountAddress)                
                     .map { (assets) -> [DomainLayer.DTO.TradeCategory] in
                  
                         let lang = Language.currentLanguage.code

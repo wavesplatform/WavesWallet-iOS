@@ -11,6 +11,6 @@ import RxSwift
 
 public protocol AddressRepositoryProtocol {
 
-    func isSmartAddress(serverEnviroment: ServerEnvironment,
+    func isSmartAddress(serverEnvironment: ServerEnvironment,
                         accountAddress: String) -> Observable<Bool>
 }

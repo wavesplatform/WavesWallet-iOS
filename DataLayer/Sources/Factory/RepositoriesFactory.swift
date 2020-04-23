@@ -69,13 +69,14 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol =
         DexPairsPriceRepositoryRemote(environmentRepository: environmentRepositoryInternal,
                                       matcherRepository: matcherRepositoryRemote,
-                                      assetsRepository: assetsRepositoryRemote)
+                                      assetsRepository: assetsRepositoryRemote,
+                                      wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol =
-        DexOrderBookRepositoryRemote(environmentRepository: environmentRepositoryInternal,
-                                     spamAssetsRepository: spamAssets,
+        DexOrderBookRepositoryRemote(spamAssetsRepository: spamAssets,
                                      matcherRepository: matcherRepositoryRemote,
-                                     assetsRepository: assetsRepositoryRemote)
+                                     assetsRepository: assetsRepositoryRemote,
+                                     waveSDKServices: wavesSDKServices)
     
     public private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol =
         AliasesRepository(wavesSDKServices: wavesSDKServices)

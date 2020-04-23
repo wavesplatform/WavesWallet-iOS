@@ -44,7 +44,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
         }
     }
     
-    func alias(by serverEnvironment: ServerEnvironment,
+    func alias(serverEnvironment: ServerEnvironment,
                name: String,
                accountAddress: String) -> Observable<String> {
         

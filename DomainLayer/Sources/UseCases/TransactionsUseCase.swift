@@ -121,14 +121,14 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType,
                       accountAddress: String) -> Observable<Money> {
         
-        let serverEnviroment = serverEnvironmentUseCase
+        let serverEnvironment = serverEnvironmentUseCase
             .serverEnviroment()
         
-        let isSmartAccount = serverEnviroment.flatMap({ [weak self] (serverEnviroment) -> Observable<Bool> in
+        let isSmartAccount = serverEnvironment.flatMap({ [weak self] serverEnvironment -> Observable<Bool> in
             
             guard let self = self else { return Observable.never() }
             
-            return self.addressRepository.isSmartAddress(serverEnviroment: serverEnviroment,
+            return self.addressRepository.isSmartAddress(serverEnvironment: serverEnvironment,
                                                          accountAddress: accountAddress)
         })
         
@@ -152,7 +152,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
             .assetIds
             .reduce(into: [Observable<(String, Bool)>]()) { result, assetId in
                                         
-                let isSmartAsset = serverEnviroment
+                let isSmartAsset = serverEnvironment
                     .flatMap { [weak self] serverEnvironment -> Observable<(String, Bool)> in
                         
                         guard let self = self else { return Observable.never() }

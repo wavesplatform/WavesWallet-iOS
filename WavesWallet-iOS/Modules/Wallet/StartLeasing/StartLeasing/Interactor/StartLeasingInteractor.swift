@@ -16,6 +16,7 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
     func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction> {
 
@@ -40,12 +41,15 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     
     func validateAlis(alias: String) -> Observable<Bool> {
 
-       return authorizationInteractor
-           .authorizedWallet()
-           .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return Observable.zip(authorizationInteractor.authorizedWallet(), serverEnvironment)
+           .flatMap({ [weak self] wallet, serverEnvironment -> Observable<Bool> in
                guard let self = self else { return Observable.never() }
-           
-               return self.aliasRepository.alias(by: alias, accountAddress: wallet.address)
+                       
+               return self.aliasRepository.alias(serverEnvironment: serverEnvironment,
+                                                 name: alias,
+                                                 accountAddress: wallet.address)
                    .flatMap({ (address) -> Observable<Bool>  in
                        return Observable.just(true)
                })
