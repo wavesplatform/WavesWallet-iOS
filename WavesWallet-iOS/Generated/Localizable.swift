@@ -405,7 +405,7 @@ internal enum Localizable {
       internal enum Backup {
 
         internal enum Navigation {
-          /// Backup phrase
+          /// Seed phrase
           internal static var title: String { Localizable.tr("Waves", "backup.backup.navigation.title") }
           internal static var titleKey: String { "backup.backup.navigation.title" }
         }
@@ -432,7 +432,7 @@ internal enum Localizable {
         }
 
         internal enum Navigation {
-          /// Confirm backup
+          /// Confirm seed phrase
           internal static var title: String { Localizable.tr("Waves", "backup.confirmbackup.navigation.title") }
           internal static var titleKey: String { "backup.confirmbackup.navigation.title" }
         }
@@ -450,7 +450,7 @@ internal enum Localizable {
         }
 
         internal enum Label {
-          /// You must save the secret phrase. It is crucial for accessing your account.
+          /// You must save your seed phrase. It is crucial for accessing your account.
           internal static var detail: String { Localizable.tr("Waves", "backup.needbackup.label.detail") }
           internal static var detailKey: String { "backup.needbackup.label.detail" }
           /// No Backup, No Money
@@ -471,13 +471,13 @@ internal enum Localizable {
         }
 
         internal enum Label {
-          /// Since only you control your money, you’ll need to save your backup phrase in case this app is deleted
+          /// Since only you control your money, you’ll need to save your seed phrase in case this app is deleted
           internal static var title: String { Localizable.tr("Waves", "backup.savebackup.label.title") }
           internal static var titleKey: String { "backup.savebackup.label.title" }
         }
 
         internal enum Navigation {
-          /// Save backup phrase
+          /// Save seed phrase
           internal static var title: String { Localizable.tr("Waves", "backup.savebackup.navigation.title") }
           internal static var titleKey: String { "backup.savebackup.navigation.title" }
         }
@@ -1408,7 +1408,7 @@ internal enum Localizable {
           /// Store your SEED safely, it is the only way to restore your wallet
           internal static var subtitle: String { Localizable.tr("Waves", "general.tost.saveBackup.subtitle") }
           internal static var subtitleKey: String { "general.tost.saveBackup.subtitle" }
-          /// Save your backup phrase (SEED)
+          /// Save your seed phrase
           internal static var title: String { Localizable.tr("Waves", "general.tost.saveBackup.title") }
           internal static var titleKey: String { "general.tost.saveBackup.title" }
         }
@@ -1781,7 +1781,7 @@ internal enum Localizable {
             /// Your SEED is the 15 words you saved when creating your account
             internal static var placeholder: String { Localizable.tr("Waves", "import.manually.label.address.placeholder") }
             internal static var placeholderKey: String { "import.manually.label.address.placeholder" }
-            /// Your account SEED
+            /// Your seed phrase
             internal static var title: String { Localizable.tr("Waves", "import.manually.label.address.title") }
             internal static var titleKey: String { "import.manually.label.address.title" }
           }
@@ -2337,7 +2337,7 @@ internal enum Localizable {
         }
 
         internal enum Backupphrase {
-          /// Backup phrase
+          /// Seed phrase
           internal static var title: String { Localizable.tr("Waves", "profile.cell.backupphrase.title") }
           internal static var titleKey: String { "profile.cell.backupphrase.title" }
         }
