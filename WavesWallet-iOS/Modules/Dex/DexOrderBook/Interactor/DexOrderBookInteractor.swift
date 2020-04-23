@@ -189,11 +189,18 @@ private extension DexOrderBookInteractor {
     
     func getScriptedAssets() -> Observable<[DomainLayer.DTO.Asset]> {
 
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Asset]> in
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let wallet = auth.authorizedWallet()
+        
+        return Observable.zip(serverEnvironment, wallet)
+            .flatMap({ [weak self] serverEnvironment, wallet -> Observable<[DomainLayer.DTO.Asset]> in
             guard let self = self else { return Observable.empty() }
 
             let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
-            return self.assetsRepositoryLocal.assets(by: ids, accountAddress: wallet.address)
+            
+            return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnvironment,
+                                                     ids: ids,
+                                                     accountAddress: wallet.address)
                 .map { $0.filter { $0.hasScript }.sorted(by: { (first, second) -> Bool in
                     return first.id == self.pair.amountAsset.id
                 })}

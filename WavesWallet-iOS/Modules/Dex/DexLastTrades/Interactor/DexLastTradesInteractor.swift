@@ -17,7 +17,7 @@ private enum Constants {
 }
 
 final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
-
+    
     private struct LastSellBuy {
         let sell: DexLastTrades.DTO.SellBuyTrade?
         let buy: DexLastTrades.DTO.SellBuyTrade?
@@ -29,11 +29,12 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     private let auth = UseCasesFactory.instance.authorization
     private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
     private let assetsInteractor = UseCasesFactory.instance.assets
-
+    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    
     var pair: DexTraderContainer.DTO.Pair!
-
+    
     func displayInfo() -> Observable<DexLastTrades.DTO.DisplayData> {
-
+        
         Observable.zip(getLastTrades(),
                        getLastSellBuy(),
                        account.balances(),
@@ -42,9 +43,9 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
                 guard let self = self else { return Observable.empty() }
                 
                 return self.displayData(lastTrades: lastTrades,
-                                         lastSellBuy: lastSellBuy,
-                                         balances:  balances,
-                                         scriptedAssets: scriptedAssets)
+                                        lastSellBuy: lastSellBuy,
+                                        balances:  balances,
+                                        scriptedAssets: scriptedAssets)
             })
             .catchError({ [weak self] (error) -> Observable<(DexLastTrades.DTO.DisplayData)> in
                 guard let self = self else { return Observable.empty() }
@@ -71,7 +72,7 @@ extension DexLastTradesInteractor {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
-                
+        
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)
         }
@@ -79,7 +80,7 @@ extension DexLastTradesInteractor {
         if let priceAsset = balances.first(where: {$0.assetId == pair.priceAsset.id}) {
             priceAssetBalance = Money(priceAsset.availableBalance, priceAsset.asset.precision)
         }
-                
+        
         let display = DexLastTrades.DTO.DisplayData(trades: lastTrades,
                                                     lastSell: lastSellBuy.sell,
                                                     lastBuy: lastSellBuy.buy,
@@ -91,7 +92,7 @@ extension DexLastTradesInteractor {
     }
     
     private func getLastTrades() -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
-
+        
         return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
                                                priceAsset: pair.priceAsset,
                                                limit: Constants.limit)
@@ -99,8 +100,20 @@ extension DexLastTradesInteractor {
     
     private func getLastSellBuy() -> Observable<LastSellBuy> {
         
-        return self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
-                                                  priceAsset: self.pair.priceAsset.id)
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        let orderBook = serverEnvironment
+            .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.Dex.OrderBook> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self.orderBookRepository
+                    .orderBook(serverEnvironment: serverEnvironment,
+                               amountAsset: self.pair.amountAsset.id,
+                               priceAsset: self.pair.priceAsset.id)
+        }
+        
+        return orderBook
             .flatMap({ [weak self] (orderbook) -> Observable<LastSellBuy> in
                 
                 guard let self = self else { return Observable.empty() }
@@ -128,24 +141,29 @@ extension DexLastTradesInteractor {
                 
                 return Observable.just(LastSellBuy(sell: sell, buy: buy))
             })
-        
     }
     
     func getScriptedAssets() -> Observable<[DomainLayer.DTO.Asset]> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Asset]> in
-            guard let self = self else { return Observable.empty() }
-            
-            let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
-            return self.assetsRepositoryLocal.assets(by: ids, accountAddress: wallet.address)
-                .map { $0.filter { $0.hasScript }.sorted(by: { (first, second) -> Bool in
-                    return first.id == self.pair.amountAsset.id
-                })}
-                .catchError({ [weak self] (error) -> Observable<[DomainLayer.DTO.Asset]> in
-                    guard let self = self else { return Observable.empty() }
-                    
-                    return self.assetsInteractor.assets(by: ids, accountAddress: wallet.address)
-                })
-        })
+        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let wallet = auth.authorizedWallet()
+        
+        return Observable.zip(wallet, serverEnviroment)
+            .flatMap({ [weak self] wallet, serverEnviroment -> Observable<[DomainLayer.DTO.Asset]> in
+                guard let self = self else { return Observable.empty() }
+                
+                let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
+                return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnviroment,
+                                                         ids: ids,
+                                                         accountAddress: wallet.address)                
+                    .map { $0.filter { $0.hasScript }.sorted(by: { (first, second) -> Bool in
+                        return first.id == self.pair.amountAsset.id
+                    })}
+                    .catchError({ [weak self] (error) -> Observable<[DomainLayer.DTO.Asset]> in
+                        guard let self = self else { return Observable.empty() }
+                        
+                        return self.assetsInteractor.assets(by: ids, accountAddress: wallet.address)
+                    })
+            })
     }
 }

@@ -29,7 +29,7 @@ protocol AddressInputViewDelegate: AnyObject {
     func addressInputViewDidEndEditing()
     func addressInputViewDidStartLoadingInfo()
     func addressInputViewDidRemoveBlockMode()
-
+    
 }
 
 extension AddressInputViewDelegate {
@@ -63,7 +63,8 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     private let assetInteractor = UseCasesFactory.instance.assets
     private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
     private let auth = UseCasesFactory.instance.authorization
-
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    
     weak var delegate: AddressInputViewDelegate?
     var decimals: Int = 0
     
@@ -91,7 +92,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-      
+        
         labelError.alpha = 0
         viewContentTextField.addTableCellShadowStyle()
         inputScrollView.inputDelegate = self
@@ -104,7 +105,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     
     // MARK: - Actions
     @IBAction private func addressDidChange(_ sender: Any) {
-       
+        
         hideLoadingState()
         setupButtonsState()
         updateHeight(animation: true)
@@ -131,16 +132,16 @@ final class AddressInputView: UIView, NibOwnerLoadable {
         CameraAccess.requestAccess(success: { [weak self] in
             guard let self = self else { return }
             self.showScanner()
-        }, failure: { [weak self] in
-            guard let self = self else { return }
-            let alert = CameraAccess.alertController
-            self.firstAvailableViewController().present(alert, animated: true, completion: nil)
+            }, failure: { [weak self] in
+                guard let self = self else { return }
+                let alert = CameraAccess.alertController
+                self.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
     }
 }
 
 extension AddressInputView: ViewConfiguration {
-
+    
     func update(with model: Input) {
         canChangeAsset = model.canChangeAsset
         labelTitle.text = model.title
@@ -203,7 +204,7 @@ extension AddressInputView: InputScrollButtonsViewDelegate {
 
 // MARK: - UITextFieldDelegate
 extension AddressInputView: UITextFieldDelegate {
-  
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.addressInputViewDidTapNext()
         return true
@@ -338,18 +339,18 @@ private extension AddressInputView {
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             
             if let value = result?.value {
-
+                
                 let address = QRCodeParser.parseAddress(value)
                 let assetID = QRCodeParser.parseAssetID(value)
                 let amount = QRCodeParser.parseAmount(value)
                 self.setupText(address, animation: false)
-
+                
                 if amount > 0 {
                     self.getDecimals(assetID: assetID).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
                         return SharedSequence.just(0)
                     }
                     .drive(onNext: { (decimals) in
-                            
+                        
                         let amount = Money(value: Decimal(amount), decimals)
                         DispatchQueue.main.async {
                             self.delegate?.addressInputViewDidScanAddress(address,
@@ -357,7 +358,7 @@ private extension AddressInputView {
                                                                           assetID: assetID)
                         }
                     })
-                    .disposed(by: self.disposeBag)
+                        .disposed(by: self.disposeBag)
                 }
                 else {
                     DispatchQueue.main.async {
@@ -384,30 +385,36 @@ private extension AddressInputView {
             self.delegate?.addressInputViewDidStartLoadingInfo()
         }
         
-        return auth.authorizedWallet().flatMap({[weak self] (wallet) -> Observable<Int> in
-            guard let self = self else { return Observable.empty() }
-            
-            return self.assetsRepositoryLocal.assets(by: [assetID], accountAddress: wallet.address)
-                .flatMap({ (assets) -> Observable<Int> in
-                    
-                    if let asset = assets.first(where: {$0.id == assetID}) {
-                        return Observable.just(asset.precision)
-                    }
-                    return Observable.just(0)
-                })
-                .catchError({ [weak self] (error) -> Observable<Int> in
-                    
-                    guard let self = self else { return Observable.empty() }
-                    return self.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
-                        .flatMap({ (assets) -> Observable<Int> in
-                            
-                            if let asset = assets.first(where: {$0.id == assetID}) {
-                                return Observable.just(asset.precision)
-                            }
-                            return Observable.just(0)
-                        })
-                })
-            
-        })
+        let wallet = auth.authorizedWallet()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return Observable.zip(wallet, serverEnvironment)
+            .flatMap({[weak self] wallet, serverEnvironment -> Observable<Int> in
+                guard let self = self else { return Observable.empty() }
+                
+                return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnvironment,
+                                                         ids: [assetID],
+                                                         accountAddress: wallet.address)
+                    .flatMap({ (assets) -> Observable<Int> in
+                        
+                        if let asset = assets.first(where: {$0.id == assetID}) {
+                            return Observable.just(asset.precision)
+                        }
+                        return Observable.just(0)
+                    })
+                    .catchError({ [weak self] (error) -> Observable<Int> in
+                        
+                        guard let self = self else { return Observable.empty() }
+                        return self.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
+                            .flatMap({ (assets) -> Observable<Int> in
+                                
+                                if let asset = assets.first(where: {$0.id == assetID}) {
+                                    return Observable.just(asset.precision)
+                                }
+                                return Observable.just(0)
+                            })
+                    })
+                
+            })
     }
 }

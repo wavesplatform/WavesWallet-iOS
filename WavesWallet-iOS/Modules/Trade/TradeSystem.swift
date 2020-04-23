@@ -27,6 +27,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     private let developmentConfigsRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
+    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
     
     private let selectedAsset: DomainLayer.DTO.Dex.Asset?
 
@@ -298,11 +299,19 @@ private extension TradeSystem {
     }
 
     func loadData(selectedAsset: DomainLayer.DTO.Dex.Asset?) -> Observable<TradeTypes.DTO.Core> {
-        auth.authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<TradeTypes.DTO.Core> in
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let wallet = auth.authorizedWallet()
+        
+        return Observable.zip(serverEnvironment, wallet)
+            .flatMap { [weak self] serverEnvironment, wallet -> Observable<TradeTypes.DTO.Core> in
                 guard let self = self else { return Observable.empty() }
 
-                let tradeCagegories = self.tradeCategoriesRepository.tradeCagegories(accountAddress: wallet.address)
+                let tradeCagegories = self
+                    .tradeCategoriesRepository
+                    .tradeCagegories(serverEnvironment: serverEnvironment,
+                                     accountAddress: wallet.address)
+                
                 let favoritePairs = self.dexRealmRepository.list(by: wallet.address)
 
                 return Observable.zip(tradeCagegories, favoritePairs)
@@ -363,7 +372,19 @@ private extension TradeSystem {
                         let simplePairs = pairs.map {
                             DomainLayer.DTO.Dex.SimplePair(amountAsset: $0.amountAsset, priceAsset: $0.priceAsset)
                         }
-                        let pairsPrice = self.pairsPriceRepository.pairs(accountAddress: wallet.address, pairs: simplePairs)
+                        
+                                            
+                        let pairsPrice = self
+                            .serverEnvironmentUseCase
+                            .serverEnviroment()
+                            .flatMap { serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+                                return self
+                                    .pairsPriceRepository
+                                    .pairs(serverEnvironment: serverEnvironment,
+                                           accountAddress: wallet.address,
+                                           pairs: simplePairs)
+                            }
+                        
 
                         let queryPairs: [DomainLayer.DTO.Dex.SimplePair] = pairs.map {
                             .init(amountAsset: $0.amountAsset, priceAsset: Constants.usdAssetId)

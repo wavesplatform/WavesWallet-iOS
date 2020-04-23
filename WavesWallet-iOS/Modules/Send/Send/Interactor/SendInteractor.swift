@@ -24,6 +24,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let accountBalance = UseCasesFactory.instance.accountBalance
     private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
     private let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
+    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
     
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
@@ -84,12 +85,16 @@ final class SendInteractor: SendInteractorProtocol {
       
     func validateAlis(alias: String) -> Observable<Bool> {
 
-        return auth
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let wallet = auth.authorizedWallet()
+        return Observable.zip(serverEnvironment, wallet)
+            .flatMap({ [weak self] serverEnvironment, wallet -> Observable<Bool> in
                 guard let self = self else { return Observable.never() }
             
-                return self.aliasRepository.alias(by: alias, accountAddress: wallet.address)
+                return self.aliasRepository
+                    .alias(serverEnvironment: serverEnvironment,
+                           name: alias,
+                           accountAddress: wallet.address)
                     .flatMap({ (address) -> Observable<Bool>  in
                         return Observable.just(true)
                 })

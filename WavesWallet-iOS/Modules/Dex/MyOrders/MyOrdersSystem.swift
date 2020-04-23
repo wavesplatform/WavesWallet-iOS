@@ -15,10 +15,11 @@ import RxCocoa
 import WavesSDK
 
 final class MyOrdersSystem: System<MyOrdersTypes.State, MyOrdersTypes.Event> {
-
+    
     private let repository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    
     override func initialState() -> MyOrdersTypes.State! {
         
         let skeletonRows: [MyOrdersTypes.ViewModel.Row] = [.skeleton, .skeleton, .skeleton, .skeleton, .skeleton]
@@ -41,11 +42,11 @@ final class MyOrdersSystem: System<MyOrdersTypes.State, MyOrdersTypes.Event> {
         case .readyView:
             state.coreAction = .loadOrders
             state.uiAction = .none
-              
+            
         case .refresh:
             state.coreAction = .loadOrders
             state.uiAction = .none
-
+            
         case .setOrders(let orders):
             state.orders = orders
             
@@ -83,7 +84,7 @@ final class MyOrdersSystem: System<MyOrdersTypes.State, MyOrdersTypes.Event> {
         case .orderDidFinishCancelSuccess:
             state.coreAction = .loadOrders
             state.uiAction = .ordersDidFinishCanceledSuccess(isMultipleOrders: false)
-
+            
         case .ordersDidFinishCancelError(let error):
             state.coreAction = .none
             state.uiAction = .ordersDidFinishCanceledError(error)
@@ -103,9 +104,9 @@ private extension DomainLayer.DTO.Dex.MyOrder  {
 
 
 private extension MyOrdersSystem {
-
+    
     func myOrdersQuery() -> Feedback {
-
+        
         return react(request: { state -> MyOrdersTypes.State? in
             
             switch state.coreAction {
@@ -116,9 +117,9 @@ private extension MyOrdersSystem {
                 return nil
             }
         }, effects: { [weak self] state -> Signal<MyOrdersTypes.Event> in
-
+            
             guard let self = self else { return Signal.empty() }
-
+            
             return self.myOrders().map {.setOrders($0)}
                 .asSignal { error -> Signal<MyOrdersTypes.Event> in
                     return Signal.just(.setOrders([]))
@@ -137,9 +138,9 @@ private extension MyOrdersSystem {
                 return nil
             }
         }, effects: { [weak self] state -> Signal<MyOrdersTypes.Event> in
-
+            
             guard let self = self else { return Signal.empty() }
-
+            
             return self.cancelAllOrders().map { _ in .ordersDidFinishCancelSuccess }
                 .asSignal(onErrorRecover: { error -> Signal<MyOrdersTypes.Event> in
                     
@@ -162,22 +163,22 @@ private extension MyOrdersSystem {
                 return nil
             }
         }, effects: { [weak self] state -> Signal<MyOrdersTypes.Event> in
-
+            
             guard let self = self else { return Signal.empty() }
-
+            
             if case let .cancelOrder(orderId, amountAsset, priceAsset) = state.coreAction {
-              return self.cancelOrder(orderId: orderId, amountAsset: amountAsset, priceAsset: priceAsset).map { _ in .orderDidFinishCancelSuccess }
+                return self.cancelOrder(orderId: orderId, amountAsset: amountAsset, priceAsset: priceAsset).map { _ in .orderDidFinishCancelSuccess }
                     .asSignal(onErrorRecover: { error -> Signal<MyOrdersTypes.Event> in
-                                 
+                        
                         if let error = error as? NetworkError {
                             return Signal.just(.ordersDidFinishCancelError(error))
                         }
                         return Signal.just(.ordersDidFinishCancelError(NetworkError.error(by: error)))
-                })
+                    })
             }
             return Signal.empty()
             
-           
+            
         })
     }
 }
@@ -185,29 +186,47 @@ private extension MyOrdersSystem {
 private extension MyOrdersSystem {
     
     func myOrders() -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
-        return authorizationInteractor
-            .authorizedWallet()
-            .flatMap { [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return Observable.zip(authorizationInteractor.authorizedWallet(),
+                              serverEnvironment)
+            .flatMap { [weak self] wallet, serverEnvironment -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                 guard let self = self else { return Observable.empty() }
-                return self.repository.allMyOrders(wallet: wallet)
+                return self.repository
+                    .allMyOrders(serverEnvironment: serverEnvironment,
+                                 wallet: wallet)
         }
     }
     
     func cancelAllOrders() -> Observable<Bool> {
-        return authorizationInteractor
-            .authorizedWallet()
-            .flatMap { [weak self] (wallet) -> Observable<Bool> in
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return Observable.zip(authorizationInteractor.authorizedWallet(),
+                              serverEnvironment)
+            .flatMap { [weak self] wallet, serverEnvironment -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
-                return self.repository.cancelAllOrders(wallet: wallet)
+                return self.repository.cancelAllOrders(serverEnvironment: serverEnvironment,
+                                                       wallet: wallet)
         }
     }
     
-    func cancelOrder(orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool> {
-        return authorizationInteractor
-            .authorizedWallet()
-            .flatMap { [weak self] (wallet) -> Observable<Bool> in
+    func cancelOrder(orderId: String,
+                     amountAsset: String,
+                     priceAsset: String) -> Observable<Bool> {
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return Observable.zip(authorizationInteractor.authorizedWallet(),
+                              serverEnvironment)
+            .flatMap { [weak self] wallet, serverEnvironment -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
-                return self.repository.cancelOrder(wallet: wallet, orderId: orderId, amountAsset: amountAsset, priceAsset: priceAsset)
+                return self.repository.cancelOrder(serverEnvironment: serverEnvironment,
+                                                   wallet: wallet,
+                                                   orderId: orderId,
+                                                   amountAsset: amountAsset,
+                                                   priceAsset: priceAsset)
         }
     }
 }

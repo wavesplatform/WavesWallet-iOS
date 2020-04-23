@@ -30,4 +30,5 @@ public protocol EnvironmentRepositoryProtocol {
     func deffaultEnvironment() -> Observable<WalletEnvironment>
     
     var environmentKind: WalletEnvironment.Kind { get set }
+//    servicesEnvironment()
 }
