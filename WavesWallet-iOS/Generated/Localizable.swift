@@ -2443,7 +2443,7 @@ internal enum Localizable {
       }
 
       internal enum Navigation {
-        /// Profile
+        /// Settings
         internal static var title: String { Localizable.tr("Waves", "profile.navigation.title") }
         internal static var titleKey: String { "profile.navigation.title" }
       }
