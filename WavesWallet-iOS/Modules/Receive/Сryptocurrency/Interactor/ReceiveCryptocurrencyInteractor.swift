@@ -19,15 +19,27 @@ private enum Constants {
 }
 
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
-    private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
-    private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
-    private let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
+    private let auth: AuthorizationUseCaseProtocol
+    private let coinomatRepository: CoinomatRepositoryProtocol
+    private let gatewayRepository: GatewayRepositoryProtocol
+    private let weGatewayUseCase: WEGatewayUseCaseProtocol
+    private let environment: EnvironmentRepositoryProtocol
+    
+    init(authorization: AuthorizationUseCaseProtocol,
+         coinomatRepository: CoinomatRepositoryProtocol,
+         gatewayRepository: GatewayRepositoryProtocol,
+         weGatewayUseCase: WEGatewayUseCaseProtocol,
+         environment: EnvironmentRepositoryProtocol) {
+        self.auth = authorization
+        self.coinomatRepository = coinomatRepository
+        self.gatewayRepository = gatewayRepository
+        self.weGatewayUseCase = weGatewayUseCase
+        self.environment = environment
+    }
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
-        auth.authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-
+        Observable.zip(auth.authorizedWallet(), environment.walletEnvironment())
+            .flatMap { [weak self] wallet, appEnvironments -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
                 guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
 
                 switch gatewayType {
@@ -39,7 +51,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 
                             let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: addresses,
                                                                                     asset: asset,
-                                                                                    minAmount: startDeposit.minAmount)
+                                                                                    minAmount: startDeposit.minAmount,
+                                                                                    generalAssets: appEnvironments.generalAssets)
 
                             return ResponseType(output: displayInfo, error: nil)
                         }
@@ -60,7 +73,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                             let displayInfo = ReceiveCryptocurrency.DTO
                                 .DisplayInfo(addresses: [tunnel.address.displayInfoAddress()],
                                              asset: asset,
-                                             minAmount: tunnel.min)
+                                             minAmount: tunnel.min,
+                                             generalAssets: appEnvironments.generalAssets)
                             return Observable.just(ResponseType(output: displayInfo, error: nil))
                         }
                 case .exchange:
@@ -69,23 +83,26 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                         .map { model -> ReceiveCryptocurrency.DTO.DisplayInfo in
                             ReceiveCryptocurrency.DTO.DisplayInfo(addresses: model.addresses.displayInfoAddresses(),
                                                                   asset: asset,
-                                                                  minAmount: model.amountMin)
+                                                                  minAmount: model.amountMin,
+                                                                  generalAssets: appEnvironments.generalAssets)
                         }
                         .map { ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: $0, error: nil) }
                         .catchError {
-                            Observable.just(ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: nil,
-                                                                                                error: NetworkError
-                                                                                                    .error(by: $0)))
+                            let error = NetworkError.error(by: $0)
+                            let response = ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: nil, error: error)
+                            
+                            return Observable.just(response)
                         }
                 }
+        }
+        .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+            if let networkError = error as? NetworkError {
+                return Observable.just(ResponseType(output: nil, error: networkError))
             }
-            .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-                if let networkError = error as? NetworkError {
-                    return Observable.just(ResponseType(output: nil, error: networkError))
-                }
 
-                return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-            }
+            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+        }
+            
     }
 }
 

@@ -44,5 +44,8 @@ extension ReceiveCryptocurrency.DTO {
         let addresses: [Address]
         let asset: DomainLayer.DTO.Asset
         let minAmount: Money
+        
+        /// необходимо чтобы правильно, в зависимости от ассета, выставлять тексты на экране
+        let generalAssets: [WalletEnvironment.AssetInfo]
     }
 }
