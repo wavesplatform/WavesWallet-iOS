@@ -14,6 +14,7 @@ import WavesSDK
 
 //TODO: Dont use the authorizationUseCase. The Class use for DomainLayer or PresentationLayer
 public final class StakingBalanceServiceImpl: StakingBalanceService {
+        
     private let authorizationService: AuthorizationUseCaseProtocol
     private let devConfig: DevelopmentConfigsRepositoryProtocol
     private let enviroment: ExtensionsEnvironmentRepositoryProtocols
@@ -31,8 +32,9 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     
     public func getAvailableStakingBalance() -> Observable<AvailableStakingBalance> {
         Observable
-            .zip(authorizationService.authorizedWallet(), devConfig.developmentConfigs(), enviroment.servicesEnvironment())
-            .flatMap { [weak self] signedWallet, devConfig, _ -> Observable<DomainLayer.DTO.SmartAssetBalance> in
+            .zip(authorizationService.authorizedWallet(),
+                 devConfig.developmentConfigs())
+            .flatMap { [weak self] signedWallet, devConfig -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 guard let strongSelf = self else { return Observable.never() }
                 let assetId = devConfig.staking.first?.neutrinoAssetId ?? ""
                 
@@ -48,8 +50,10 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     }
     
     public func totalStakingBalance() -> Observable<TotalStakingBalance> {
+        
         Observable
-            .zip(getAvailableStakingBalance(), getDepositeStakingBalance())
+            .zip(getAvailableStakingBalance(),
+                 getDepositeStakingBalance())
             .map { availableBalance, depositeBalance -> TotalStakingBalance in
                 TotalStakingBalance(availbleBalance: availableBalance.balance,
                                     depositeBalance: depositeBalance.value,
@@ -62,7 +66,9 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     
     public func getDepositeStakingBalance() -> Observable<NodeService.DTO.AddressesData> {
         Observable
-            .zip(authorizationService.authorizedWallet(), enviroment.servicesEnvironment(), devConfig.developmentConfigs())
+            .zip(authorizationService.authorizedWallet(),
+                 enviroment.servicesEnvironment(),
+                 devConfig.developmentConfigs())
             .flatMap { [weak self] signedWallet, servicesConfig, devConfig -> Observable<NodeService.DTO.AddressesData> in
                 guard let sself = self else { return Observable.never() }
                 let walletAddress = signedWallet.wallet.address

@@ -32,6 +32,8 @@ final class MobileKeeperCoordinator: Coordinator {
     private let mobileKeeperRepository: MobileKeeperRepositoryProtocol =
         UseCasesFactory.instance.repositories.mobileKeeperRepository
     
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    
     private var snackError: String?
     
     weak var delegate: MobileKeeperCoordinatorDelegate?
@@ -166,8 +168,17 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
             break
         }
         
-        mobileKeeperRepository
-            .completeRequest(complitingRequest.prepareRequest)
+        return serverEnvironmentUseCase
+            .serverEnviroment()
+            .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
+        
+                guard let self = self else { return Observable.never() }
+                
+                return self
+                    .mobileKeeperRepository
+                    .completeRequest(serverEnvironment: serverEnvironment,
+                                     prepareRequest: complitingRequest.prepareRequest)
+            }
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (completed) in
                 

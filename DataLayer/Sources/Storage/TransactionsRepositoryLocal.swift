@@ -144,7 +144,8 @@ private extension TransactionType {
 }
 
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
-    func transactions(by address: DomainLayer.DTO.Address,
+    func transactions(serverEnvironment: ServerEnvironment,
+                      address: DomainLayer.DTO.Address,
                       offset: Int,
                       limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
         let specifications = TransactionsSpecifications(page: .init(offset: offset, limit: limit),
@@ -274,7 +275,8 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         .subscribeOn(Schedulers.realmThreadScheduler)
     }
 
-    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
+    func activeLeasingTransactions(serverEnvironment: ServerEnvironment,
+                                   accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
         transactions(by: DomainLayer.DTO.Address(address: accountAddress,
                                                  contact: nil,
                                                  isMyAccount: true,
@@ -295,8 +297,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             }
     }
 
-    func send(by _: TransactionSenderSpecifications,
-              wallet _: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
+    func send(serverEnvironment: ServerEnvironment, specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
         assertMethodDontSupported()
         return Observable.never()
     }

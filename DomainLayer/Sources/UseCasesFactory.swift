@@ -123,7 +123,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     
     public private(set) lazy var widgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol = {
         let useCase = WidgetSettingsInizializationUseCase(repositories: repositories,
-                                                          useCases: self)
+                                                          useCases: self,
+                                                          serverEnvironmentUseCase: serverEnvironmentUseCase)
         return useCase
     }()
     

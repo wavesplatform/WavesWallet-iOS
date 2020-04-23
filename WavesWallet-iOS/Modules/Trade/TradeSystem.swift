@@ -377,7 +377,10 @@ private extension TradeSystem {
                         let pairsPrice = self
                             .serverEnvironmentUseCase
                             .serverEnviroment()
-                            .flatMap { serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+                            .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+                                
+                                guard let self = self else { return Observable.empty() }
+                                
                                 return self
                                     .pairsPriceRepository
                                     .pairs(serverEnvironment: serverEnvironment,
@@ -390,7 +393,19 @@ private extension TradeSystem {
                             .init(amountAsset: $0.amountAsset, priceAsset: Constants.usdAssetId)
                         }
                         let query = DomainLayer.Query.Dex.PairsRate(pairs: queryPairs, timestamp: nil)
-                        let pairsRate = self.pairsPriceRepository.pairsRate(query: query)
+                                                
+                        let pairsRate = self
+                            .serverEnvironmentUseCase
+                            .serverEnviroment()
+                            .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
+                                
+                                guard let self = self else { return Observable.empty() }
+                                
+                                return self.pairsPriceRepository
+                                    .pairsRate(serverEnvironment: serverEnvironment,
+                                               query: query)
+                            }
+                        
 
                         let mapPairs = pairs
                             .reduce(into: [String: DomainLayer.DTO.CorrectionPairs.Pair]()) { $0[$1.keyPair] = $1 }

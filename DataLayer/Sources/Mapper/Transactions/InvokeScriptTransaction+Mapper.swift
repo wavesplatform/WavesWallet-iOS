@@ -43,7 +43,7 @@ extension InvokeScriptTransaction {
 extension DomainLayer.DTO.InvokeScriptTransaction {
     init(transaction: NodeService.DTO.InvokeScriptTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
+         aliasScheme: String) {
         var call: DomainLayer.DTO.InvokeScriptTransaction.Call?
         
         if let localCall = transaction.call {
@@ -74,7 +74,7 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
         
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   feeAssetId: transaction.feeAssetId,

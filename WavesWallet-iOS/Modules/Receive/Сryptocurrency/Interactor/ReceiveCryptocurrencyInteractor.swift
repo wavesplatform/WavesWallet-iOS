@@ -23,16 +23,23 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
     private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
     private let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
+    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
-        auth.authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let wallet = auth.authorizedWallet()
+        
+        return Observable.zip(wallet, serverEnvironment)
+            .flatMap { [weak self] wallet, serverEnvironment -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
 
                 guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
 
                 switch gatewayType {
                 case .gateway:
-                    return self.gatewayRepository.startDepositProcess(address: wallet.address, asset: asset)
+                    return self.gatewayRepository.startDepositProcess(serverEnvironment: serverEnvironment,
+                                                                      address: wallet.address,
+                                                                      asset: asset)
                         .map { startDeposit -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
 
                             let addresses = [startDeposit.address.displayInfoAddress()]

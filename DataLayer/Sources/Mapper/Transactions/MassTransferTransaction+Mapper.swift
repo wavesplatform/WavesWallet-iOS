@@ -52,16 +52,16 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
     init(transaction: NodeService.DTO.MassTransferTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
+         aliasScheme: String) {
 
         let transfers: [DomainLayer.DTO.MassTransferTransaction.Transfer] = transaction
             .transfers
-            .map { .init(recipient: $0.recipient.normalizeAddress(aliasScheme: environment.aliasScheme),
+            .map { .init(recipient: $0.recipient.normalizeAddress(aliasScheme: aliasScheme),
                          amount: $0.amount) }
 
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,

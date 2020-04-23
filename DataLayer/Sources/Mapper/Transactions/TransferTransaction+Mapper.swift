@@ -42,10 +42,10 @@ extension TransferTransaction {
 extension DomainLayer.DTO.TransferTransaction {
     init(transaction: NodeService.DTO.TransferTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
+         aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
@@ -53,7 +53,7 @@ extension DomainLayer.DTO.TransferTransaction {
                   height: transaction.height ?? -1,
                   signature: transaction.signature,
                   proofs: transaction.proofs,
-                  recipient: transaction.recipient.normalizeAddress(aliasScheme: environment.aliasScheme),
+                  recipient: transaction.recipient.normalizeAddress(aliasScheme: aliasScheme),
                   assetId: transaction.assetId.normalizeAssetId,
                   feeAssetId: transaction.feeAssetId.normalizeAssetId,
                   feeAsset: transaction.feeAssetId,

@@ -47,7 +47,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var transactionsRepositoryLocal: TransactionsRepositoryProtocol = TransactionsRepositoryLocal()
     
     public private(set) lazy var transactionsRepositoryRemote: TransactionsRepositoryProtocol =
-        TransactionsRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+        TransactionsRepositoryRemote(environmentRepository: environmentRepositoryInternal,
+                                     wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var blockRemote: BlockRepositoryProtocol =
         BlockRepositoryRemote(wavesSDKServices: wavesSDKServices)
@@ -113,8 +114,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                              accountSettingsRepository: accountSettingsRepository)
     }()
     
-    public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol =
-        GatewayRepository(environmentRepository: environmentRepositoryInternal)
+    public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol = GatewayRepository()
     
     public private(set) lazy var widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
     

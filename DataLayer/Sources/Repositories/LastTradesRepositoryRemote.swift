@@ -25,7 +25,9 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
     func lastTrades(amountAsset: DomainLayer.DTO.Dex.Asset,
                     priceAsset: DomainLayer.DTO.Dex.Asset,
                     limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
-        Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey())
+        
+        Observable.zip(environmentRepository.servicesEnvironment(),
+                       matcherRepository.matcherPublicKey())
             .flatMap { (servicesEnvironment, publicKeyAccount) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
                 let query = DataService.Query.ExchangeFilters(matcher: publicKeyAccount.address,
                                                               sender: nil,

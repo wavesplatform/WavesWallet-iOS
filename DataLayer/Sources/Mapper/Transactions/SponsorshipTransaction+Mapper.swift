@@ -37,10 +37,10 @@ extension SponsorshipTransaction {
 extension DomainLayer.DTO.SponsorshipTransaction {
     init(transaction: NodeService.DTO.SponsorshipTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
+         aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,

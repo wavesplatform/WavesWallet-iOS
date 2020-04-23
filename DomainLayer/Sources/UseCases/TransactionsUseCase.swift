@@ -209,9 +209,20 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     
     func send(by specifications: TransactionSenderSpecifications,
               wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {
-        transactionsRepositoryRemote
-            .send(by: specifications, wallet: wallet)
-            .flatMap { [weak self] transaction -> Observable<DomainLayer.DTO.AnyTransaction> in
+        
+        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return serverEnviroment
+            .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.AnyTransaction> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self.transactionsRepositoryRemote
+                .send(serverEnvironment: serverEnvironment,
+                      specifications: specifications,
+                      wallet: wallet)
+        }
+        .flatMap { [weak self] transaction -> Observable<DomainLayer.DTO.AnyTransaction> in
                 guard let self = self else { return Observable.never() }
                 return self.saveTransactions([transaction], accountAddress: wallet.address).map { _ in transaction }
         }
@@ -239,10 +250,19 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     }
     
     func activeLeasingTransactionsSync(by accountAddress: String) -> SmartTransactionsSyncObservable {
-        return transactionsRepositoryRemote
-            .activeLeasingTransactions(by: accountAddress)
-            .map {
-                return RemoteActiveLeasingResult(txs: $0, error: nil)
+        
+        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+                
+        return serverEnviroment.flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+            
+            guard let self = self else { return Observable.never() }
+                        
+            return self.transactionsRepositoryRemote
+                .activeLeasingTransactions(serverEnvironment: serverEnviroment,
+                                           accountAddress: accountAddress)
+        }
+        .map {
+            return RemoteActiveLeasingResult(txs: $0, error: nil)
         }
         .catchError { error -> Observable<RemoteActiveLeasingResult> in
             Observable.just(RemoteActiveLeasingResult(txs: [], error: error))
@@ -345,20 +365,29 @@ private extension TransactionsUseCase {
     
     private func firstTransactionsLoadingSync(_ address: DomainLayer.DTO.Address,
                                               specifications: TransactionsSpecifications) -> SmartTransactionsSyncObservable {
-        transactionsRepositoryRemote
-            .transactions(by: address,
-                          offset: 0,
-                          limit: Constants.maxLimit)
-            .map { RemoteResult(txs: $0, error: nil) }
-            .catchError { error -> Observable<RemoteResult> in Observable.just(RemoteResult(txs: [], error: error)) }
-            .flatMap { [weak self] result -> Observable<RemoteResult> in
-                guard let self = self else { return Observable.never() }
-                if result.txs.isEmpty {
-                    return Observable.just(result)
-                }
-                return self
-                    .saveTransactions(result.txs, accountAddress: address.address)
-                    .map { _ in result }
+        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+                
+        return serverEnviroment
+            .flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+            
+            guard let self = self else { return Observable.never() }
+            
+            return self.transactionsRepositoryRemote
+                .transactions(serverEnvironment: serverEnviroment,
+                              address: address,
+                              offset: 0,
+                              limit: Constants.maxLimit)
+        }
+        .map { RemoteResult(txs: $0, error: nil) }
+        .catchError { error -> Observable<RemoteResult> in Observable.just(RemoteResult(txs: [], error: error)) }
+        .flatMap { [weak self] result -> Observable<RemoteResult> in
+            guard let self = self else { return Observable.never() }
+            if result.txs.isEmpty {
+                return Observable.just(result)
+            }
+            return self
+                .saveTransactions(result.txs, accountAddress: address.address)
+                .map { _ in result }
         }
         .map { result in
             AnyTransactionsSyncQuery(address: address, specifications: specifications, remoteError: result.error)
@@ -368,10 +397,20 @@ private extension TransactionsUseCase {
     }
     
     private func ifNeededLoadNextTransactionsSync(_ query: IfNeededLoadNextTransactionsQuery) -> SmartTransactionsSyncObservable {
-        transactionsRepositoryRemote
-            .transactions(by: query.address,
-                          offset: query.currentOffset,
-                          limit: query.currentLimit)
+        
+        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return serverEnviroment
+            .flatMap({ [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+          
+                guard let self = self else { return Observable.never() }
+                
+                return self.transactionsRepositoryRemote
+                    .transactions(serverEnvironment: serverEnvironment,
+                                  address: query.address,
+                                  offset: query.currentOffset,
+                                  limit: query.currentLimit)
+            })
             .map { RemoteResult(txs: $0, error: nil) }
             .catchError { error -> Observable<RemoteResult> in Observable.just(RemoteResult(txs: [], error: error)) }
             .map {
@@ -464,9 +503,18 @@ private extension TransactionsUseCase {
             }) != nil
             
             if isNeedActiveLeasing {
-                // need handler error correct
-                activeLeasing = transactionsRepositoryRemote
-                    .activeLeasingTransactions(by: query.address.address)
+                
+                let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+                                                            
+                activeLeasing = serverEnviroment
+                    .flatMap({ [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+                        
+                        guard let self = self else { return Observable.never() }
+                        
+                        return self.transactionsRepositoryRemote
+                            .activeLeasingTransactions(serverEnvironment: serverEnvironment,
+                                                       accountAddress: query.address.address)
+                    })
                     .catchError { _ -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
                         Observable.just([])
                 }

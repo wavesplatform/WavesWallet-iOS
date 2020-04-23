@@ -42,13 +42,17 @@ extension ExchangeTransaction {
 extension DomainLayer.DTO.ExchangeTransaction {
     init(transaction: NodeService.DTO.ExchangeTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
-        let order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1, environment: environment)
-        let order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2, environment: environment)
+         aliasScheme: String) {
+        
+        let order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1,
+                                                               aliasScheme: aliasScheme)
+        
+        let order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2,
+                                                               aliasScheme: aliasScheme)
 
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
@@ -135,11 +139,16 @@ extension ExchangeTransactionOrder {
 }
 
 extension DomainLayer.DTO.ExchangeTransaction.Order {
-    init(order: NodeService.DTO.ExchangeTransaction.Order, environment: WalletEnvironment) {
-        let assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: order.assetPair.amountAsset.normalizeAssetId,
-                                                                      priceAsset: order.assetPair.priceAsset.normalizeAssetId)
+    init(order: NodeService.DTO.ExchangeTransaction.Order,
+         aliasScheme: String) {
+        
+        let amountAsset = order.assetPair.amountAsset.normalizeAssetId
+        let priceAsset = order.assetPair.priceAsset.normalizeAssetId
+        
+        let assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: amountAsset,
+                                                                      priceAsset: priceAsset)
         self.init(id: order.id,
-                  sender: order.sender.normalizeAddress(aliasScheme: environment.aliasScheme),
+                  sender: order.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: order.senderPublicKey,
                   matcherPublicKey: order.matcherPublicKey,
                   assetPair: assetPair,
