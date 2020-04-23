@@ -15,44 +15,34 @@ import DomainLayer
 import Extensions
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
-
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
-        self.environmentRepository = environmentRepository
+    private let wavesSDKServices: WavesSDKServices
+    
+    init(wavesSDKServices: WavesSDKServices) {
+        self.wavesSDKServices = wavesSDKServices
     }
     
-    func matcherPublicKey() -> Observable<DomainLayer.DTO.PublicKey> {
+    func matcherPublicKey(servicesEnvironment: ServerEnvironment) -> Observable<DomainLayer.DTO.PublicKey> {
         
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<DomainLayer.DTO.PublicKey> in
-                
-                return servicesEnvironment
-                    .wavesServices
-                    .matcherServices
-                    .publicKeyMatcherService
-                    .publicKey()                                        
-                    .map {
-                        return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0))
-                    }
-            })
+        return wavesSDKServices
+            .wavesServices(environment: servicesEnvironment)
+            .matcherServices
+            .publicKeyMatcherService
+            .publicKey()
+            .map {
+                return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0))
+        }
     }
-
-    func settingsIdsPairs() -> Observable<[String]> {
-     
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<[String]> in
-                
-                return servicesEnvironment
-                    .wavesServices
-                    .matcherServices
-                    .orderBookMatcherService
-                    .settings()
-                    .map {
-                        return $0.priceAssets
-                    }
-            })
+    
+    func settingsIdsPairs(servicesEnvironment: ServerEnvironment) -> Observable<[String]> {
+        
+        return wavesSDKServices
+            .wavesServices(environment: servicesEnvironment)
+            .matcherServices
+            .orderBookMatcherService
+            .settings()
+            .map {
+                return $0.priceAssets
+            }
     }
 }

@@ -12,18 +12,18 @@ import RxSwift
 import WavesSDK
 
 final class MassTransferRepositoryRemote: MassTransferRepositoryProtocol {
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
-        self.environmentRepository = environmentRepository
+    private let wavesSDKServices: WavesSDKServices
+    
+    init(wavesSDKServices: WavesSDKServices) {
+        self.wavesSDKServices = wavesSDKServices
     }
     
-    func obtainPayoutsHistory(query: DataService.Query.MassTransferDataQuery)
-        -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
-            environmentRepository
-                .servicesEnvironment()
-                .flatMap { app -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
-                    app.wavesServices.dataServices.transactionsDataService.getMassTransferTransactions(query: query)
-                }
+    func obtainPayoutsHistory(serverEnvironment: ServerEnvironment,
+                              query: DataService.Query.MassTransferDataQuery) -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
+                        
+            return wavesSDKServices
+                .wavesServices(environment: serverEnvironment)
+                .dataServices.transactionsDataService.getMassTransferTransactions(query: query)
     }
 }

@@ -80,16 +80,22 @@ final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
     
     func correction(pairs: [DomainLayer.DTO.CorrectionPairs.Pair]) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> {
         
-        let pairs = repositories
-            .matcherRepository
-            .settingsIdsPairs()
+        return useCases
+            .serverEnvironmentUseCase
+            .serverEnviroment()
+            .flatMap { [weak self] serverEnvironment -> Observable<[String]> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self.repositories
+                    .matcherRepository
+                    .settingsIdsPairs(servicesEnvironment: serverEnvironment)
+            }
             .flatMap { (pricePairs) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
                 
                 let result = CorrectionPairsUseCaseLogic.mapCorrectPairs(settingsIdsPairs: pricePairs, pairs: pairs)
                 return Observable.just(result)
             }
-        
-        return pairs
     }
 }
 

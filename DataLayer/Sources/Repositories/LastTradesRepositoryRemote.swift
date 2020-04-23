@@ -14,21 +14,29 @@ import RxSwift
 import WavesSDK
 
 final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
+    
     private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol
-
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols, matcherRepository: MatcherRepositoryProtocol) {
+    private let wavesSDKServices: WavesSDKServices
+    
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
+         matcherRepository: MatcherRepositoryProtocol,
+         wavesSDKServices: WavesSDKServices) {
         self.environmentRepository = environmentRepository
         self.matcherRepository = matcherRepository
+        self.wavesSDKServices = wavesSDKServices
     }
-
-    func lastTrades(amountAsset: DomainLayer.DTO.Dex.Asset,
+    
+    func lastTrades(serverEnvironment: ServerEnvironment,
+                    amountAsset: DomainLayer.DTO.Dex.Asset,
                     priceAsset: DomainLayer.DTO.Dex.Asset,
                     limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
         
-        Observable.zip(environmentRepository.servicesEnvironment(),
-                       matcherRepository.matcherPublicKey())
-            .flatMap { (servicesEnvironment, publicKeyAccount) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+        return matcherRepository.matcherPublicKey()
+            .flatMap { [weak self] publicKeyAccount -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+                
+                guard let self = self else { return Observable.never() }
+                
                 let query = DataService.Query.ExchangeFilters(matcher: publicKeyAccount.address,
                                                               sender: nil,
                                                               timeStart: nil,
@@ -37,19 +45,20 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                                                               priceAsset: priceAsset.id,
                                                               after: nil,
                                                               limit: limit)
-
-                return servicesEnvironment
-                    .wavesServices
+                
+                return self
+                    .wavesSDKServices
+                    .wavesServices(environment: serverEnvironment)
                     .dataServices
                     .transactionsDataService
                     .transactionsExchange(query: query)
                     .flatMap { transactions -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
-
+                        
                         var trades: [DomainLayer.DTO.Dex.LastTrade] = []
                         for tx in transactions {
                             let sum = Money(value: Decimal(tx.price * tx.amount), priceAsset.decimals)
                             let orderType: DomainLayer.DTO.Dex.OrderType = tx.orderType == .sell ? .sell : .buy
-
+                            
                             let price = Money(value: Decimal(tx.price), priceAsset.decimals)
                             let amount = Money(value: Decimal(tx.amount), amountAsset.decimals)
                             let model = DomainLayer.DTO.Dex.LastTrade(time: tx.timestamp,
@@ -59,9 +68,9 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                                                                       type: orderType)
                             trades.append(model)
                         }
-
+                        
                         return Observable.just(trades)
-                    }
-            }
+                }
+        }
     }
 }

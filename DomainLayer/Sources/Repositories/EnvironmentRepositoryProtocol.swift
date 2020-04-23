@@ -21,7 +21,6 @@ public protocol ApplicationEnvironmentProtocol {
     var timestampServerDiff: Int64 { get }
 }
 
-
 public protocol EnvironmentRepositoryProtocol {
     
     func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol>
@@ -30,5 +29,4 @@ public protocol EnvironmentRepositoryProtocol {
     func deffaultEnvironment() -> Observable<WalletEnvironment>
     
     var environmentKind: WalletEnvironment.Kind { get set }
-//    servicesEnvironment()
 }

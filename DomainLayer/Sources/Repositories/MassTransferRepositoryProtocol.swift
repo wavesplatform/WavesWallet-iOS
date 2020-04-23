@@ -11,6 +11,7 @@ import Foundation
 import RxSwift
 
 public protocol MassTransferRepositoryProtocol: AnyObject {
-    func obtainPayoutsHistory(query: DataService.Query.MassTransferDataQuery)
-        -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>>
+    
+    func obtainPayoutsHistory(serverEnvironment: ServerEnvironment,
+                              query: DataService.Query.MassTransferDataQuery) -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>>
 }
