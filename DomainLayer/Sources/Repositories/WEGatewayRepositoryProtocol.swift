@@ -119,7 +119,9 @@ extension DomainLayer.DTO.WEGateway {
 }
 
 public protocol WEGatewayRepositoryProtocol {
-    func transferBinding(request: DomainLayer.Query.WEGateway.TransferBinding) -> Observable<DomainLayer.DTO.WEGateway.TransferBinding>
+    func transferBinding(serverEnvironment: ServerEnvironment,
+                         request: DomainLayer.Query.WEGateway.TransferBinding) -> Observable<DomainLayer.DTO.WEGateway.TransferBinding>
     
-    func adCashDepositsRegisterOrder(request: DomainLayer.Query.WEGateway.RegisterOrder) -> Observable<DomainLayer.DTO.WEGateway.Order>
+    func adCashDepositsRegisterOrder(serverEnvironment: ServerEnvironment,
+                                     request: DomainLayer.Query.WEGateway.RegisterOrder) -> Observable<DomainLayer.DTO.WEGateway.Order>
 }

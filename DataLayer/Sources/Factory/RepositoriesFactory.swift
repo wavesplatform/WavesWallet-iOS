@@ -151,7 +151,9 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         StakingBalanceServiceImpl(authorizationService: UseCasesFactory.instance.authorization,
                                   devConfig: UseCasesFactory.instance.repositories.developmentConfigsRepository,
                                   enviroment: environmentRepositoryInternal,
-                                  accountBalanceService: UseCasesFactory.instance.accountBalance)
+                                  accountBalanceService: UseCasesFactory.instance.accountBalance,
+                                  serverEnvironmentUseCase: UseCasesFactory.instance.serverEnvironmentUseCase,
+                                  wavesSDKServices: wavesSDKServices)
     
     public struct Resources {
         public typealias PathForFile = String

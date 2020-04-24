@@ -19,15 +19,21 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     private let devConfig: DevelopmentConfigsRepositoryProtocol
     private let enviroment: ExtensionsEnvironmentRepositoryProtocols
     private let accountBalanceService: AccountBalanceUseCaseProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let wavesSDKServices: WavesSDKServices
     
     init(authorizationService: AuthorizationUseCaseProtocol,
          devConfig: DevelopmentConfigsRepositoryProtocol,
          enviroment: ExtensionsEnvironmentRepositoryProtocols,
-         accountBalanceService: AccountBalanceUseCaseProtocol) {
+         accountBalanceService: AccountBalanceUseCaseProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase,
+         wavesSDKServices: WavesSDKServices) {
         self.authorizationService = authorizationService
         self.devConfig = devConfig
         self.enviroment = enviroment
         self.accountBalanceService = accountBalanceService
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
+        self.wavesSDKServices = wavesSDKServices
     }
     
     public func getAvailableStakingBalance() -> Observable<AvailableStakingBalance> {
@@ -67,16 +73,18 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     public func getDepositeStakingBalance() -> Observable<NodeService.DTO.AddressesData> {
         Observable
             .zip(authorizationService.authorizedWallet(),
-                 enviroment.servicesEnvironment(),
+                 serverEnvironmentUseCase.serverEnviroment(),
                  devConfig.developmentConfigs())
-            .flatMap { [weak self] signedWallet, servicesConfig, devConfig -> Observable<NodeService.DTO.AddressesData> in
-                guard let sself = self else { return Observable.never() }
+            .flatMap { [weak self] signedWallet, serverEnviroment, devConfig -> Observable<NodeService.DTO.AddressesData> in
+                guard let self = self else { return Observable.never() }
                 let walletAddress = signedWallet.wallet.address
                 let addressSmartContract = devConfig.staking.first?.addressStakingContract ?? ""
                 let neutrinoAssetId = devConfig.staking.first?.neutrinoAssetId ?? ""
-                let key = sself.buildStakingDepositeBalanceKey(neutrinoAssetId: neutrinoAssetId, walletAddress: walletAddress)
-                return servicesConfig
-                    .wavesServices
+                let key = self.buildStakingDepositeBalanceKey(neutrinoAssetId: neutrinoAssetId, walletAddress: walletAddress)
+                            
+                return self
+                    .wavesSDKServices
+                    .wavesServices(environment: serverEnviroment)                    
                     .nodeServices
                     .addressesNodeService
                     .getAddressData(addressSmartContract: addressSmartContract, key: key)
