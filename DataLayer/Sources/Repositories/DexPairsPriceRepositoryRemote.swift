@@ -62,7 +62,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             }
         }
         
-        return matcherRepository.matcherPublicKey()
+        return matcherRepository.matcherPublicKey(serverEnvironment: serverEnvironment)
             .flatMap { [weak self] matcherPublicKey -> Observable<[DomainLayer.DTO.Dex.SimplePair]> in
                 
                 guard let self = self else { return Observable.never() }
@@ -97,7 +97,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         
         let wavesServices = self.wavesSDKServices.wavesServices(environment: serverEnvironment)
         
-        return Observable.zip(matcherRepository.matcherPublicKey(),
+        return Observable.zip(matcherRepository.matcherPublicKey(serverEnvironment: serverEnvironment),
                               assetsRepository.assets(serverEnvironment: serverEnvironment,
                                                       ids: pairs.assetsIds,
                                                       accountAddress: accountAddress))
@@ -145,7 +145,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     func pairsRate(serverEnvironment: ServerEnvironment,
                    query: DomainLayer.Query.Dex.PairsRate) -> Observable<[DomainLayer.DTO.Dex.PairRate]> {
         
-        matcherRepository.matcherPublicKey()
+        matcherRepository
+            .matcherPublicKey(serverEnvironment: serverEnvironment)
             .flatMap { [weak self] matcherPublicKey -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
                 
                 guard let self = self else { return Observable.never() }
@@ -175,7 +176,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     func searchPairs(serverEnvironment: ServerEnvironment,
                      query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
                 
-        return matcherRepository.matcherPublicKey()
+        return matcherRepository
+            .matcherPublicKey(serverEnvironment: serverEnvironment)
             .flatMapLatest { [weak self] matcherPublicKey -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
                 
                 guard let self = self else { return Observable.never() }

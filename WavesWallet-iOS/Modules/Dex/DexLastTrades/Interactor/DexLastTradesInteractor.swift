@@ -92,10 +92,19 @@ extension DexLastTradesInteractor {
     }
     
     private func getLastTrades() -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
-        
-        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
-                                               priceAsset: pair.priceAsset,
-                                               limit: Constants.limit)
+                
+        return serverEnvironmentUseCase
+            .serverEnviroment()
+            .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self.lastTradesRepository
+                    .lastTrades(serverEnvironment: serverEnvironment,
+                                amountAsset: self.pair.amountAsset,
+                                priceAsset: self.pair.priceAsset,
+                                limit: Constants.limit)
+        }
     }
     
     private func getLastSellBuy() -> Observable<LastSellBuy> {

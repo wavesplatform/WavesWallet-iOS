@@ -67,7 +67,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         let waveSDKServices = self.waveSDKServices.wavesServices(environment: serverEnvironment)
         
         return matcherRepository
-            .matcherPublicKey()
+            .matcherPublicKey(serverEnvironment: serverEnvironment)
             .flatMap { [weak self] matcherPublicKey -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
                 

@@ -29,11 +29,10 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceUseCaseProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol
-
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    
     private let leasingInteractor: TransactionsUseCaseProtocol
-
     private let walletsRepository: WalletsRepositoryProtocol
-
     private let stakingBalanceService: StakingBalanceService
 
     private let disposeBag = DisposeBag()
@@ -47,7 +46,8 @@ final class WalletInteractor: WalletInteractorProtocol {
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          applicationVersionUseCase: ApplicationVersionUseCaseProtocol,
          leasingInteractor: TransactionsUseCaseProtocol,
-         walletsRepository: WalletsRepositoryProtocol) {
+         walletsRepository: WalletsRepositoryProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
         self.assetUseCase = assetUseCase
@@ -58,6 +58,7 @@ final class WalletInteractor: WalletInteractorProtocol {
         self.applicationVersionUseCase = applicationVersionUseCase
         self.leasingInteractor = leasingInteractor
         self.walletsRepository = walletsRepository
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
     func isHasAppUpdate() -> Observable<Bool> { applicationVersionUseCase.isHasNewVersion() }
@@ -325,8 +326,18 @@ private extension WalletInteractor {
                 return query
             }
             .flatMap { [weak self] query -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
-                guard let strongSelf = self else { return Observable.never() }
-                return strongSelf.massTransferRepository.obtainPayoutsHistory(query: query)
+                guard let self = self else { return Observable.never() }
+                
+                return self.serverEnvironmentUseCase
+                    .serverEnviroment()
+                    .flatMap { [weak self] serverEnvironment -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
+                        
+                        guard let self = self else { return Observable.never() }
+                        
+                        return self.massTransferRepository
+                            .obtainPayoutsHistory(serverEnvironment: serverEnvironment,
+                                                  query: query)
+                    }
             }
     }
 
@@ -377,7 +388,15 @@ private extension WalletInteractor {
                 guard let self = self else { return Observable.never() }
 
                 let queryCache = Observable.just(query)
-                let massTransferTransactions = self.massTransferRepository.obtainPayoutsHistory(query: query)
+                
+                let massTransferTransactions = self
+                    .serverEnvironmentUseCase
+                    .serverEnviroment()
+                    .flatMap { [weak self] serverEnvironment -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
+                        guard let self = self else { return Observable.never() }
+                        return self.massTransferRepository.obtainPayoutsHistory(serverEnvironment: serverEnvironment,
+                                                                                query: query)
+                    }
 
                 let id = query.assetId ?? ""
                 let accountAddress = query.recipient

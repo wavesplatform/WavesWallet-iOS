@@ -102,7 +102,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                  timeEnd: Date,
                  timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
         
-        Observable.zip(matcherRepository.matcherPublicKey(),
+        Observable.zip(matcherRepository.matcherPublicKey(serverEnvironment: serverEnvironment),
                        getMatcherSwapConfigs())
             .flatMap { publicKeyAccount, swapConfigs
                 -> Observable<[DataService.Query.CandleFilters]> in

@@ -19,17 +19,20 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
     private let massTransferRepository: MassTransferRepositoryProtocol
     private let authUseCase: AuthorizationUseCaseProtocol
     private let assetUseCase: AssetsUseCaseProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     
     private let disposeBag = DisposeBag()
     
     init(massTransferRepository: MassTransferRepositoryProtocol,
          enviroment: DevelopmentConfigsRepositoryProtocol,
          authUseCase: AuthorizationUseCaseProtocol,
-         assetUseCase: AssetsUseCaseProtocol) {
+         assetUseCase: AssetsUseCaseProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
         self.authUseCase = authUseCase
         self.assetUseCase = assetUseCase
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
     
     override func internalFeedbacks() -> [(Driver<PayoutsHistoryState>) -> Signal<PayoutsHistoryEvents>] {
@@ -218,7 +221,18 @@ extension PayoutsHistorySystem {
                 guard let self = self else { return Observable.never() }
                 
                 let queryCache = Observable.just(query)
-                let massTransferTransactions = self.massTransferRepository.obtainPayoutsHistory(query: query)
+                let massTransferTransactions = self
+                    .serverEnvironmentUseCase
+                    .serverEnviroment()
+                    .flatMap { [weak self] serverEnvironment -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
+                        guard let self = self else { return Observable.never() }
+                        
+                        return self
+                            .massTransferRepository
+                            .obtainPayoutsHistory(serverEnvironment: serverEnvironment,
+                                                  query: query)
+                    }
+                    
                 
                 let id = query.assetId ?? ""
                 let accountAddress = query.recipient

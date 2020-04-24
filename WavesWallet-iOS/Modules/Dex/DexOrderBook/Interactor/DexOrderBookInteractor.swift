@@ -179,12 +179,23 @@ private extension DexOrderBookInteractor {
     
     func getLastTransactionInfo() -> Observable<DomainLayer.DTO.Dex.LastTrade?> {
         
-        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
-                                               priceAsset: pair.priceAsset,
-                                               limit: 1)
-                .flatMap({ (lastTrades) ->  Observable<DomainLayer.DTO.Dex.LastTrade?> in
-                    return Observable.just(lastTrades.first)
-                })
+        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        
+        return serverEnviroment
+            .flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+                
+                guard let self = self else { return Observable.empty() }
+                
+                return self
+                    .lastTradesRepository
+                    .lastTrades(serverEnvironment: serverEnviroment,
+                                amountAsset: self.pair.amountAsset,
+                                priceAsset: self.pair.priceAsset,
+                                limit: 1)
+        }
+        .flatMap({ (lastTrades) ->  Observable<DomainLayer.DTO.Dex.LastTrade?> in
+            return Observable.just(lastTrades.first)
+        })
     }
     
     func getScriptedAssets() -> Observable<[DomainLayer.DTO.Asset]> {

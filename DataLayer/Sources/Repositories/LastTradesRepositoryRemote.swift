@@ -32,7 +32,8 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                     priceAsset: DomainLayer.DTO.Dex.Asset,
                     limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
         
-        return matcherRepository.matcherPublicKey()
+        return matcherRepository
+            .matcherPublicKey(serverEnvironment: serverEnvironment)
             .flatMap { [weak self] publicKeyAccount -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
                 
                 guard let self = self else { return Observable.never() }

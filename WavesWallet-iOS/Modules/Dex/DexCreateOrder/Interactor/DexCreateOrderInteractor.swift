@@ -190,7 +190,7 @@ private extension DexCreateOrderInteractor {
                
                guard let self = self else { return Observable.empty() }
                
-               let matcher = self.matcherRepository.matcherPublicKey()
+                let matcher = self.matcherRepository.matcherPublicKey(serverEnvironment: serverEnvironment)
 
                return matcher
                    .flatMap { [weak self] matcherPublicKey -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in

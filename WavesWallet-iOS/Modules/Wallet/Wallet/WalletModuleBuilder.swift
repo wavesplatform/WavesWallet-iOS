@@ -26,6 +26,7 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
         let assetsUseCase = UseCasesFactory.instance.assets
         let accountSettingsRepository = UseCasesFactory.instance.repositories.accountSettingsRepository
         let stakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
         
         let interactor = WalletInteractor(enviroment: enviroment,
                                           massTransferRepository: massTransferRepository,
@@ -36,7 +37,8 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
                                           accountSettingsRepository: accountSettingsRepository,
                                           applicationVersionUseCase: UseCasesFactory.instance.applicationVersionUseCase,
                                           leasingInteractor: UseCasesFactory.instance.transactions,
-                                          walletsRepository: UseCasesFactory.instance.repositories.walletsRepositoryLocal)
+                                          walletsRepository: UseCasesFactory.instance.repositories.walletsRepositoryLocal,
+                                          serverEnvironmentUseCase: serverEnvironmentUseCase)
 
         presenter.interactor = interactor
         presenter.moduleOutput = output

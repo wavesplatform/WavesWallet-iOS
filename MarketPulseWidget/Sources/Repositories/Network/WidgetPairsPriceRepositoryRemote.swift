@@ -37,11 +37,10 @@ protocol WidgetPairsPriceRepositoryProtocol {
     func ratePairs(_ query: MarketPulse.Query.Rates) -> Observable<[MarketPulse.DTO.Rate]>
 }
 
-final class WidgetPairsPriceRepositoryRemote: WidgetPairsPriceRepositoryProtocol {
+final class WidgetPairsPriceRepositoryRemote {
     private let pairsPriceDataService: WidgetPairsPriceDataServiceProtocol = WidgetPairsPriceDataService()
     
-    private let matcherRepository: MatcherRepositoryProtocol =
-        MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
+    private let matcherRepository = WidgetMatcherRepositoryRemote()
     
     func ratePairs(_ query: MarketPulse.Query.Rates) -> Observable<[MarketPulse.DTO.Rate]> {
         return matcherRepository

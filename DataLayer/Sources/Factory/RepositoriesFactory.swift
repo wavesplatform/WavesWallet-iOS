@@ -93,7 +93,9 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                 wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol =
-        LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepository)
+        LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal,
+                                   matcherRepository: matcherRepository,
+                                   wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
     
@@ -122,7 +124,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         MatcherRepositoryLocal(matcherRepositoryRemote: matcherRepositoryRemote)
     
     public private(set) lazy var matcherRepositoryRemote: MatcherRepositoryProtocol =
-        MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+        MatcherRepositoryRemote(wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol =
         MobileKeeperRepository(repositoriesFactory: self)
@@ -134,7 +136,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
     
     public private(set) lazy var massTransferRepository: MassTransferRepositoryProtocol = {
-        MassTransferRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+        MassTransferRepositoryRemote(wavesSDKServices: wavesSDKServices)
     }()
     
     public private(set) lazy var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol =

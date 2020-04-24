@@ -89,7 +89,7 @@ final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
                 
                 return self.repositories
                     .matcherRepository
-                    .settingsIdsPairs(servicesEnvironment: serverEnvironment)
+                    .settingsIdsPairs(serverEnvironment: serverEnvironment)
             }
             .flatMap { (pricePairs) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
                 

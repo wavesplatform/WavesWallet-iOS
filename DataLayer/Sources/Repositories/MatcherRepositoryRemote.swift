@@ -22,10 +22,10 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
         self.wavesSDKServices = wavesSDKServices
     }
     
-    func matcherPublicKey(servicesEnvironment: ServerEnvironment) -> Observable<DomainLayer.DTO.PublicKey> {
+    func matcherPublicKey(serverEnvironment: ServerEnvironment) -> Observable<DomainLayer.DTO.PublicKey> {
         
         return wavesSDKServices
-            .wavesServices(environment: servicesEnvironment)
+            .wavesServices(environment: serverEnvironment)
             .matcherServices
             .publicKeyMatcherService
             .publicKey()
@@ -34,10 +34,10 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
         }
     }
     
-    func settingsIdsPairs(servicesEnvironment: ServerEnvironment) -> Observable<[String]> {
+    func settingsIdsPairs(serverEnvironment: ServerEnvironment) -> Observable<[String]> {
         
         return wavesSDKServices
-            .wavesServices(environment: servicesEnvironment)
+            .wavesServices(environment: serverEnvironment)
             .matcherServices
             .orderBookMatcherService
             .settings()
