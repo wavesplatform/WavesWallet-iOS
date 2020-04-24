@@ -9,7 +9,11 @@
 import Foundation
 import DomainLayer
 
-public final class StoragesFactory: StoragesFactoryProtocol {
+public final class DaoFactoryImp: DaoFactory {
 
     public init() {}
+    
+    public private(set) lazy var serverTimestampDiffDao: ServerTimestampDiffDao = {
+        return ServerTimestampDiffDaoImp()
+    }()
 }

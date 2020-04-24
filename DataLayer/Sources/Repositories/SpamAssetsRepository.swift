@@ -14,11 +14,11 @@ import RxSwift
 final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
     
     private let spamService: SpamAssetsService = SpamAssetsService()
-    
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+        
+    private let environmentRepository: EnvironmentRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
+    init(environmentRepository: EnvironmentRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol) {
         
         self.environmentRepository = environmentRepository

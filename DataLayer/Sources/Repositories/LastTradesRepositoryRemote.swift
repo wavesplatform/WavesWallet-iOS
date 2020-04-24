@@ -14,15 +14,12 @@ import RxSwift
 import WavesSDK
 
 final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
-    
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+        
     private let matcherRepository: MatcherRepositoryProtocol
     private let wavesSDKServices: WavesSDKServices
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         matcherRepository: MatcherRepositoryProtocol,
-         wavesSDKServices: WavesSDKServices) {
-        self.environmentRepository = environmentRepository
+    init(matcherRepository: MatcherRepositoryProtocol,
+         wavesSDKServices: WavesSDKServices) {        
         self.matcherRepository = matcherRepository
         self.wavesSDKServices = wavesSDKServices
     }

@@ -16,30 +16,38 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
     private let gatewayRepository: WEGatewayRepositoryProtocol
     private let oAuthRepository: WEOAuthRepositoryProtocol
     private let authorizationUseCase: AuthorizationUseCaseProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     
     init(gatewayRepository: WEGatewayRepositoryProtocol,
          oAuthRepository: WEOAuthRepositoryProtocol,
-         authorizationUseCase: AuthorizationUseCaseProtocol) {
+         authorizationUseCase: AuthorizationUseCaseProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.gatewayRepository = gatewayRepository
         self.oAuthRepository = oAuthRepository
         self.authorizationUseCase = authorizationUseCase
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
     
     func receiveBinding(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> {
         
-        return authorizationUseCase
-            .authorizedWallet()
-            .flatMap { [weak self] signedWallet -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> in
+        let serverEnvironment = self.serverEnvironmentUseCase.serverEnviroment()
+        let wallet = authorizationUseCase.authorizedWallet()
+        
+        return Observable.zip(wallet, serverEnvironment)
+            .flatMap { [weak self] signedWallet, serverEnvironment -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> in
                 
                 guard let self = self else { return Observable.never() }
+                                
+                let oauthToken = self.oAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
+                                                                 signedWallet: signedWallet)
                 
-                return self.oAuthRepository
-                    .oauthToken(signedWallet: signedWallet)
+                return oauthToken
                     .flatMap { [weak self] token -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> in
                         
                         guard let self = self else { return Observable.never() }
                         
-                        return self.gatewayRepository.transferBinding(request: .init(senderAsset: asset.gatewayId ?? "",
+                        return self.gatewayRepository.transferBinding(serverEnvironment: serverEnvironment,
+                                                                      request: .init(senderAsset: asset.gatewayId ?? "",
                                                                                      recipientAsset: asset.id,
                                                                                      recipientAddress: signedWallet.address,
                                                                                      token: token))
@@ -61,19 +69,25 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
     func sendBinding(asset: DomainLayer.DTO.Asset,
                      address: String,
                      amount: Money) -> Observable<DomainLayer.DTO.WEGateway.SendBinding> {
-        return authorizationUseCase
-            .authorizedWallet()
-            .flatMap { [weak self] signedWallet -> Observable<DomainLayer.DTO.WEGateway.SendBinding> in
+        
+        let serverEnvironment = self.serverEnvironmentUseCase.serverEnviroment()
+        let wallet = authorizationUseCase.authorizedWallet()
+        
+        return Observable.zip(wallet, serverEnvironment)
+            .flatMap { [weak self] signedWallet, serverEnvironment -> Observable<DomainLayer.DTO.WEGateway.SendBinding> in
                 
                 guard let self = self else { return Observable.never() }
+                                
+                let oauthToken = self.oAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
+                                                                 signedWallet: signedWallet)
                 
-                return self.oAuthRepository
-                    .oauthToken(signedWallet: signedWallet)
+                return oauthToken
                     .flatMap { [weak self] token -> Observable<DomainLayer.DTO.WEGateway.SendBinding> in
                         
                         guard let self = self else { return Observable.never() }
                         
-                        return self.gatewayRepository.transferBinding(request: .init(senderAsset: asset.id,
+                        return self.gatewayRepository.transferBinding(serverEnvironment: serverEnvironment,
+                                                                      request: .init(senderAsset: asset.id,
                                                                                      recipientAsset: asset.gatewayId ?? "",
                                                                                      recipientAddress: address,
                                                                                      token: token))

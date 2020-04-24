@@ -8,6 +8,7 @@
 
 import Foundation
 
-public protocol StoragesFactoryProtocol {
+public protocol DaoFactory {
 
+    var serverTimestampDiffDao: ServerTimestampDiffDao { get }
 }

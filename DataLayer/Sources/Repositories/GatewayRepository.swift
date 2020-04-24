@@ -28,7 +28,9 @@ final class GatewayRepository: GatewayRepositoryProtocol {
         
         let url = serverEnvironment.servers.gatewayUrl
         
-        return self.gatewayProvider.rx
+        return self
+            .gatewayProvider
+            .rx
             .request(.startWithdrawProcess(baseURL: url, withdrawProcess: startProcess),
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()

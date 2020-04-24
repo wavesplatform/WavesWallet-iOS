@@ -58,27 +58,34 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
     private let oAuthRepository: WEOAuthRepositoryProtocol
     private let authorizationUseCase: AuthorizationUseCaseProtocol
     private let assetsUseCase: AssetsUseCaseProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     
     init(gatewayRepository: WEGatewayRepositoryProtocol,
          oAuthRepository: WEOAuthRepositoryProtocol,
          authorizationUseCase: AuthorizationUseCaseProtocol,
-         assetsUseCase: AssetsUseCaseProtocol) {
+         assetsUseCase: AssetsUseCaseProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.gatewayRepository = gatewayRepository
         self.oAuthRepository = oAuthRepository
         self.authorizationUseCase = authorizationUseCase
         self.assetsUseCase = assetsUseCase
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
     
     func requirementsOrder(assetId: String) -> Observable<DomainLayer.DTO.AdCashDeposits.RequirementsOrder> {
         
-        return authorizationUseCase
-            .authorizedWallet()
-            .flatMap { [weak self] signedWallet -> Observable<DomainLayer.DTO.AdCashDeposits.RequirementsOrder> in
+        let serverEnvironment = self.serverEnvironmentUseCase.serverEnviroment()
+        let wallet = authorizationUseCase.authorizedWallet()
+        
+        return Observable.zip(wallet, serverEnvironment)
+            .flatMap { [weak self] signedWallet, serverEnvironment -> Observable<DomainLayer.DTO.AdCashDeposits.RequirementsOrder> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return self.oAuthRepository
-                    .oauthToken(signedWallet: signedWallet)
+                let oauthToken = self.oAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
+                                                                 signedWallet: signedWallet)
+                
+                return oauthToken
                     .flatMap { [weak self] token -> Observable<DomainLayer.DTO.AdCashDeposits.RequirementsOrder> in
                         
                         guard let self = self else { return Observable.never() }
@@ -93,11 +100,15 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                                 return Observable.just(asset)
                         }
                         
-                        let transferBinding = self.gatewayRepository
-                            .transferBinding(request: .init(senderAsset: Constants.ACUSD,
+                        let transferBinding = self
+                            .gatewayRepository
+                            .transferBinding(serverEnvironment: serverEnvironment,
+                                             request: .init(senderAsset: Constants.ACUSD,
                                                             recipientAsset: assetId,
                                                             recipientAddress: signedWallet.address,
                                                             token: token))
+                        
+                        
                         
                         return Observable
                             .zip(transferBinding, assets)
@@ -126,29 +137,39 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
     
     func createOrder(assetId: String, amount: Money) -> Observable<DomainLayer.DTO.AdCashDeposits.Order> {
         
-        return authorizationUseCase
-            .authorizedWallet()
-            .flatMap { [weak self] signedWallet -> Observable<DomainLayer.DTO.AdCashDeposits.Order> in
+        let serverEnvironment = self
+                          .serverEnvironmentUseCase
+                          .serverEnviroment()
+        let wallet = authorizationUseCase.authorizedWallet()
+        
+        return Observable.zip(wallet, serverEnvironment)
+            .flatMap { [weak self] signedWallet, serverEnvironment -> Observable<DomainLayer.DTO.AdCashDeposits.Order> in
                 
                 guard let self = self else { return Observable.never() }
-                                        
-                return self.oAuthRepository
-                    .oauthToken(signedWallet: signedWallet)
+                                                
+                let oauthToken = self
+                    .oAuthRepository
+                    .oauthToken(serverEnvironment: serverEnvironment,
+                                signedWallet: signedWallet)
+                
+                return oauthToken
                     .flatMap { [weak self] token -> Observable<(DomainLayer.DTO.WEGateway.TransferBinding,
-                        DomainLayer.DTO.WEOAuth.Token)> in
-                        
+                        DomainLayer.DTO.WEOAuth.Token, ServerEnvironment)> in
                         
                         guard let self = self else { return Observable.never() }
                         
                         let transferBinding = self.gatewayRepository
-                            .transferBinding(request: .init(senderAsset: Constants.ACUSD,
+                            .transferBinding(serverEnvironment: serverEnvironment,
+                                             request: .init(senderAsset: Constants.ACUSD,
                                                             recipientAsset: assetId,
                                                             recipientAddress: signedWallet.address,
                                                             token: token))
                         
-                        return Observable.zip(transferBinding, Observable.just(token))
+                        return Observable.zip(transferBinding,
+                                              Observable.just(token),
+                                              Observable.just(serverEnvironment))
                 }
-                .flatMap { transferBinding, token -> Observable<DomainLayer.DTO.AdCashDeposits.Order> in
+                .flatMap { transferBinding, token, serverEnviroment -> Observable<DomainLayer.DTO.AdCashDeposits.Order> in
                     
                     guard let address = transferBinding
                         .addresses
@@ -160,10 +181,11 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                                                                                    token: token)
                     
                     return self.gatewayRepository
-                        .adCashDepositsRegisterOrder(request: request)
+                        .adCashDepositsRegisterOrder(serverEnvironment: serverEnviroment,
+                                                     request: request)
                         .map { (order) -> DomainLayer.DTO.AdCashDeposits.Order in
                             return .init(url: order.url)
-                        }
+                    }
                 }
         }
     }

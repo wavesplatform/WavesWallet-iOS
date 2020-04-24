@@ -47,13 +47,10 @@ extension TransactionSenderSpecifications {
 
 final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     private let transactionRules: MoyaProvider<ResourceAPI.Service.TransactionRules> = .anyMoyaProvider()
-    
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+        
     private let wavesSDKServices: WavesSDKServices
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         wavesSDKServices: WavesSDKServices) {
-        self.environmentRepository = environmentRepository
+    init(wavesSDKServices: WavesSDKServices) {        
         self.wavesSDKServices = wavesSDKServices
     }
     

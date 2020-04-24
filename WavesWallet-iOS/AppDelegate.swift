@@ -174,16 +174,21 @@ extension AppDelegate {
                                                       amplitudeInfo: amplitudeInfoPath,
                                                       sentryIoInfoPath: sentryIoInfoPath,
                                                       googleServiceInfoForWavesPlatform: googleServiceInfoPathWaves)
-        let repositories = RepositoriesFactory(resources: resourses)
         
-        let storages = StoragesFactory()
+        let services = ServicesFactoryImp()
+        
+        let daoFactory = DaoFactoryImp()
+        
+        let repositories = RepositoriesFactory(resources: resourses,
+                                               services: services,
+                                               daoFactory: daoFactory)
         
         Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId:"ibdxiwmt")
-                    
-        
-        UseCasesFactory.initialization(repositories: repositories,
+                        
+        UseCasesFactory.initialization(services: services,
+                                       repositories: repositories,
                                        authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp(),
-                                       storages: storages)
+                                       daoFactory: daoFactory)
         
         UNUserNotificationCenter.current().delegate = self
         return true

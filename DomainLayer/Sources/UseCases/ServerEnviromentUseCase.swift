@@ -15,7 +15,7 @@ public struct ServerEnvironment: Hashable {
     public let servers: WalletEnvironment.Servers
     // Нужна для синхранизации времени между клиентом и сервером
     public private(set) var timestampServerDiff: Int64
-
+    
     public var aliasScheme: String
     
     public init(kind: WalletEnvironment.Kind,
@@ -30,18 +30,43 @@ public struct ServerEnvironment: Hashable {
 }
 
 public protocol ServerEnvironmentUseCase {
-        
     func serverEnviroment() -> Observable<ServerEnvironment>
 }
 
 public final class ServerEnvironmentUseCaseImp: ServerEnvironmentUseCase {
     
-//    private let timeNode
+    private let serverTimestampRepository: ServerTimestampRepository
+    private let environmentRepository: EnvironmentRepositoryProtocol
     
-    init() { }
+    init(serverTimestampRepository: ServerTimestampRepository,
+         environmentRepository: EnvironmentRepositoryProtocol) {
+        
+        self.serverTimestampRepository = serverTimestampRepository
+        self.environmentRepository = environmentRepository  
+    }
     
     public func serverEnviroment() -> Observable<ServerEnvironment> {
         
-        return Observable.never()
+        let walletEnvironment = self.environmentRepository.walletEnvironment()
+        
+        return walletEnvironment
+            .flatMap { walletEnvironment -> Observable<ServerEnvironment> in
+                
+                let environmentKind = self.environmentRepository.environmentKind
+                
+                let serverEnvironment = ServerEnvironment(kind: environmentKind,
+                                                          servers: walletEnvironment.servers,
+                                                          timestampServerDiff: 0,
+                                                          aliasScheme: walletEnvironment.aliasScheme)
+                
+                return self
+                    .serverTimestampRepository
+                    .timestampServerDiff(serverEnvironment: serverEnvironment)
+                    .map { ServerEnvironment(kind: environmentKind,
+                                             servers: walletEnvironment.servers,
+                                             timestampServerDiff: $0,
+                                             aliasScheme: walletEnvironment.aliasScheme)
+                    }
+        }
     }
 }

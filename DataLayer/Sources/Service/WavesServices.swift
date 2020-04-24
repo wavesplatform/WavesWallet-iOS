@@ -13,7 +13,6 @@ import DomainLayer
 // Зачем нужен mutex?
 // Так как обращение к WavesServices могут происходить с разных потоках и wavesdk может проинициализировано несколько раз =/
 
-
 protocol WavesSDKServices {
     func wavesServices(environment: ServerEnvironment) -> WavesServicesProtocol
 }
@@ -36,10 +35,22 @@ final class WavesSDKServicesImp: WavesSDKServices {
         }
     }
     
+    // Уберем singleton когда вытащим все сервисы из Repository
+    public static let shared: WavesSDKServices = WavesSDKServicesImp()
+    
+    init() {
+        print("WavesSDKServicesImp")
+    }
+    
     func wavesServices(environment: ServerEnvironment) -> WavesServicesProtocol {
         
+        if self.serverEnvironment == environment {
+            return WavesSDK.shared.services
+        }
+        
+        self.serverEnvironment = environment
+        
         defer {
-            self.serverEnvironment = environment
             objc_sync_exit(self)
         }
         
@@ -50,11 +61,14 @@ final class WavesSDKServicesImp: WavesSDKServices {
                                                 data: environment.servers.dataUrl,
                                                 scheme: environment.kind.chainId)
         
-        if WavesSDK.isInitialized() && self.serverEnvironment != environment {
+        if WavesSDK.isInitialized()  {
             var enviromentService = WavesSDK.shared.enviroment
             enviromentService.server = server
             enviromentService.timestampServerDiff = environment.timestampServerDiff
             WavesSDK.shared.enviroment = enviromentService
+            
+            print("WavesSDK isInitialized")
+            self.serverEnvironment = environment
             
             return WavesSDK.shared.services
         }
@@ -67,11 +81,16 @@ final class WavesSDKServicesImp: WavesSDKServices {
                                                         matcher: [SentryNetworkLoggerPlugin(),
                                                                   CachePolicyPlugin()])
         
+        self.serverEnvironment = environment
+        
+        
         let wavesSDKEnviroment = Enviroment(server: server,
                                             timestampServerDiff: environment.timestampServerDiff)
         
         WavesSDK.initialization(servicesPlugins: servicesPlugins,
                                 enviroment: wavesSDKEnviroment)
+        
+        print("WavesSDK initialization")
         
         return WavesSDK.shared.services
     }

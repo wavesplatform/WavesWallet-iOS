@@ -105,7 +105,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
          blockRepositoryRemote: BlockRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          orderBookRepository: DexOrderBookRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase = ServerEnvironmentUseCaseImp()) {
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.transactionsRepositoryLocal = transactionsRepositoryLocal
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
         self.assetsInteractors = assetsInteractors

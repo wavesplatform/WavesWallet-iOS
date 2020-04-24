@@ -21,11 +21,12 @@ private struct Constants {
     static let firebaseAppWavesPlatform: String = "WavesPlatform"
 }
 
-typealias ExtensionsEnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
-
 public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
-    private lazy var wavesSDKServices: WavesSDKServices = WavesSDKServicesImp()
+    private let wavesSDKServices: WavesSDKServices = WavesSDKServicesImp.shared
+    
+    private let servicesFactory: ServicesFactory
+    private let daoFactory: DaoFactory
     
     private lazy var environmentRepositoryInternal: EnvironmentRepository = EnvironmentRepository()
     
@@ -47,8 +48,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var transactionsRepositoryLocal: TransactionsRepositoryProtocol = TransactionsRepositoryLocal()
     
     public private(set) lazy var transactionsRepositoryRemote: TransactionsRepositoryProtocol =
-        TransactionsRepositoryRemote(environmentRepository: environmentRepositoryInternal,
-                                     wavesSDKServices: wavesSDKServices)
+        TransactionsRepositoryRemote(wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var blockRemote: BlockRepositoryProtocol =
         BlockRepositoryRemote(wavesSDKServices: wavesSDKServices)
@@ -68,8 +68,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var dexRealmRepository: DexRealmRepositoryProtocol = DexRealmRepositoryLocal()
     
     public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol =
-        DexPairsPriceRepositoryRemote(environmentRepository: environmentRepositoryInternal,
-                                      matcherRepository: matcherRepositoryRemote,
+        DexPairsPriceRepositoryRemote(matcherRepository: matcherRepositoryRemote,
                                       assetsRepository: assetsRepositoryRemote,
                                       wavesSDKServices: wavesSDKServices)
     
@@ -93,8 +92,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                 wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol =
-        LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal,
-                                   matcherRepository: matcherRepository,
+        LastTradesRepositoryRemote(matcherRepository: matcherRepository,
                                    wavesSDKServices: wavesSDKServices)
     
     public private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
@@ -112,7 +110,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     }()
     
     public private(set) lazy var spamAssets: SpamAssetsRepositoryProtocol = {
-        SpamAssetsRepository(environmentRepository: environmentRepositoryInternal,
+        SpamAssetsRepository(environmentRepository: environmentRepository,
                              accountSettingsRepository: accountSettingsRepository)
     }()
     
@@ -140,20 +138,22 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     }()
     
     public private(set) lazy var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol =
-        WEGatewayRepository(environmentRepository: environmentRepositoryInternal,
-                            developmentConfigsRepository: developmentConfigsRepository)
+        WEGatewayRepository(developmentConfigsRepository: developmentConfigsRepository)
     
     public private(set) lazy var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol =
-        WEOAuthRepository(environmentRepository: environmentRepositoryInternal,
-                          developmentConfigsRepository: developmentConfigsRepository)
+        WEOAuthRepository(developmentConfigsRepository: developmentConfigsRepository)
     
     public private(set) lazy var stakingBalanceService: StakingBalanceService =
         StakingBalanceServiceImpl(authorizationService: UseCasesFactory.instance.authorization,
-                                  devConfig: UseCasesFactory.instance.repositories.developmentConfigsRepository,
-                                  enviroment: environmentRepositoryInternal,
+                                  devConfig: UseCasesFactory.instance.repositories.developmentConfigsRepository,                                  
                                   accountBalanceService: UseCasesFactory.instance.accountBalance,
                                   serverEnvironmentUseCase: UseCasesFactory.instance.serverEnvironmentUseCase,
                                   wavesSDKServices: wavesSDKServices)
+    
+    public private(set) lazy var serverTimestampRepository: ServerTimestampRepository = {
+        return ServerTimestampRepositoryImp(timestampServerService: servicesFactory.timestampServerService,
+                                            serverTimestampDiffDao: daoFactory.serverTimestampDiffDao)
+    }()
     
     public struct Resources {
         public typealias PathForFile = String
@@ -176,8 +176,14 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
             self.sentryIoInfoPath = sentryIoInfoPath
         }
     }
-    
-    public init(resources: Resources) {
+
+    public init(resources: Resources,
+                services: ServicesFactory,
+                daoFactory: DaoFactory) {
+        
+        self.servicesFactory = services
+        self.daoFactory = daoFactory
+        
         if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {
             FirebaseApp.configure(options: options)
             Database.database().isPersistenceEnabled = false

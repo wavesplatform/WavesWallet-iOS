@@ -54,7 +54,7 @@ private struct RegisterOrderResponse: Codable {
 //TODO: Split Usecase and services
 final class WEGatewayRepository: WEGatewayRepositoryProtocol {
     
-    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtoco
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     private let weGateway: MoyaProvider<WEGateway.Service> = .anyMoyaProvider()
     
     init(developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
@@ -100,7 +100,7 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
                                      request: DomainLayer.Query.WEGateway.RegisterOrder)
         -> Observable<DomainLayer.DTO.WEGateway.Order> {
                                             
-            let url = servicesEnvironment.servers.gateways.v2
+            let url = serverEnvironment.servers.gateways.v2
             
             let token = request.token.accessToken
             let currency = Constants.currencyForAd

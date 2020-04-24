@@ -19,7 +19,7 @@ final class AliasesUseCase: AliasesUseCaseProtocol {
     
     init(aliasesRepositoryRemote: AliasesRepositoryProtocol,
          aliasesRepositoryLocal: AliasesRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase = ServerEnvironmentUseCaseImp()) {
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.aliasesRepository = aliasesRepositoryRemote
         self.aliasesRepositoryLocal = aliasesRepositoryLocal
         self.serverEnvironmentUseCase = serverEnvironmentUseCase

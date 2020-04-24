@@ -37,7 +37,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
          assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol,
          transactionsInteractor: TransactionsUseCaseProtocol,
          assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase = ServerEnvironmentUseCaseImp()) {
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         
         self.authorizationInteractor = authorizationInteractor
         self.balanceRepositoryRemote = balanceRepositoryRemote

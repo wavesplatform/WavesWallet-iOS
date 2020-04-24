@@ -14,17 +14,14 @@ import RxSwift
 import WavesSDK
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
-    
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+        
     private let matcherRepository: MatcherRepositoryProtocol
     private let assetsRepository: AssetsRepositoryProtocol
     private let wavesSDKServices: WavesSDKServices
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         matcherRepository: MatcherRepositoryProtocol,
+    init(matcherRepository: MatcherRepositoryProtocol,
          assetsRepository: AssetsRepositoryProtocol,
          wavesSDKServices: WavesSDKServices) {
-        self.environmentRepository = environmentRepository
         self.matcherRepository = matcherRepository
         self.assetsRepository = assetsRepository
         self.wavesSDKServices = wavesSDKServices
