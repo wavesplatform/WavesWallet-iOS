@@ -2655,15 +2655,30 @@ internal enum Localizable {
       }
 
       internal enum Label {
+        /// The minimum amount of deposit is %@, the maximum amount of deposit is %@.
+        internal static func minAndMaxAmountOfDeposit(_ p1: String, _ p2: String) -> String {
+          Localizable.tr("Waves", "receivecryptocurrency.label.minAndMaxAmountOfDeposit", p1, p2)
+        }
         /// The minimum amount of deposit is %@
         internal static func minumumAmountOfDeposit(_ p1: String) -> String {
           Localizable.tr("Waves", "receivecryptocurrency.label.minumumAmountOfDeposit", p1)
         }
+        /// Payment ID is not required.
+        internal static var paymentIdIsNotRequired: String { Localizable.tr("Waves", "receivecryptocurrency.label.paymentIdIsNotRequired") }
+        internal static var paymentIdIsNotRequiredKey: String { "receivecryptocurrency.label.paymentIdIsNotRequired" }
         /// Send only %@ to this deposit address
         internal static func sendOnlyOnThisDeposit(_ p1: String) -> String {
           Localizable.tr("Waves", "receivecryptocurrency.label.sendOnlyOnThisDeposit", p1)
         }
-        /// If you will send less than %@, you will lose that money.
+        /// Check if your wallet or exchange uses smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.
+        internal static func usdtWarningDetailsDeposite(_ p1: String) -> String {
+          Localizable.tr("Waves", "receivecryptocurrency.label.usdtWarningDetailsDeposite", p1)
+        }
+        /// This is ERC-20 %@ deposit address. Send only %@ to this deposit address. Sending any other coin or token to this address may result in the loss of your deposit. Please do not deposit %@ from smart contracts!
+        internal static func usdtWarningTitleDeposite(_ p1: String, _ p2: String, _ p3: String) -> String {
+          Localizable.tr("Waves", "receivecryptocurrency.label.usdtWarningTitleDeposite", p1, p2, p3)
+        }
+        /// If you will send less than %@, you will lose your funds.
         internal static func warningMinimumAmountOfDeposit(_ p1: String) -> String {
           Localizable.tr("Waves", "receivecryptocurrency.label.warningMinimumAmountOfDeposit", p1)
         }

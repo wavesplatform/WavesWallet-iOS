@@ -52,6 +52,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                             let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(addresses: addresses,
                                                                                     asset: asset,
                                                                                     minAmount: startDeposit.minAmount,
+                                                                                    maxAmount: startDeposit.maxAmount,
                                                                                     generalAssets: appEnvironments.generalAssets)
 
                             return ResponseType(output: displayInfo, error: nil)
@@ -69,11 +70,11 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                     let rate = self.coinomatRepository.getRate(asset: asset)
                     return Observable.zip(tunnel, rate)
                         .flatMap { tunnel, _ -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-
                             let displayInfo = ReceiveCryptocurrency.DTO
                                 .DisplayInfo(addresses: [tunnel.address.displayInfoAddress()],
                                              asset: asset,
                                              minAmount: tunnel.min,
+                                             maxAmount: nil, // где взять max? 
                                              generalAssets: appEnvironments.generalAssets)
                             return Observable.just(ResponseType(output: displayInfo, error: nil))
                         }
@@ -84,6 +85,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                             ReceiveCryptocurrency.DTO.DisplayInfo(addresses: model.addresses.displayInfoAddresses(),
                                                                   asset: asset,
                                                                   minAmount: model.amountMin,
+                                                                  maxAmount: model.amountMax,
                                                                   generalAssets: appEnvironments.generalAssets)
                         }
                         .map { ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: $0, error: nil) }

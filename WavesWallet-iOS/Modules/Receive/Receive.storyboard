@@ -315,23 +315,23 @@ will be updated</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1q-JM-4pv">
                                                 <rect key="frame" x="16" y="96" width="343" height="127"/>
                                                 <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Error500" translatesAutoresizingMaskIntoConstraints="NO" id="anI-4p-u2F">
+                                                        <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="14" id="3ut-0g-yEU"/>
+                                                            <constraint firstAttribute="height" constant="14" id="UYL-HD-xsq"/>
+                                                        </constraints>
+                                                    </imageView>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF6-ax-zF8">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="49.5"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Error500" translatesAutoresizingMaskIntoConstraints="NO" id="anI-4p-u2F">
-                                                                <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="14" id="3ut-0g-yEU"/>
-                                                                    <constraint firstAttribute="height" constant="14" id="UYL-HD-xsq"/>
-                                                                </constraints>
-                                                            </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The minimum amount of deposit is 0.001 BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZz-wN-tfl">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send only BTC to this deposit address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZz-wN-tfl">
                                                                 <rect key="frame" x="26" y="0.0" width="317" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you will send less than 0.001 BTC, you will lose that money." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKn-1Z-ZcV">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending any other currency to this address may result in the loss of your deposit." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKn-1Z-ZcV">
                                                                 <rect key="frame" x="26" y="20.5" width="317" height="29"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
@@ -346,21 +346,19 @@ will be updated</string>
                                                             <constraint firstItem="nKn-1Z-ZcV" firstAttribute="trailing" secondItem="iZz-wN-tfl" secondAttribute="trailing" id="Vpa-E2-WOs"/>
                                                             <constraint firstItem="nKn-1Z-ZcV" firstAttribute="leading" secondItem="iZz-wN-tfl" secondAttribute="leading" id="hon-ee-A87"/>
                                                             <constraint firstAttribute="bottom" secondItem="nKn-1Z-ZcV" secondAttribute="bottom" id="neH-TR-5Eg"/>
-                                                            <constraint firstItem="anI-4p-u2F" firstAttribute="leading" secondItem="GF6-ax-zF8" secondAttribute="leading" id="vdI-z0-IGR"/>
-                                                            <constraint firstItem="anI-4p-u2F" firstAttribute="top" secondItem="GF6-ax-zF8" secondAttribute="top" id="wQq-hq-aFf"/>
                                                             <constraint firstAttribute="trailing" secondItem="iZz-wN-tfl" secondAttribute="trailing" id="ywV-m1-CvX"/>
                                                         </constraints>
                                                     </view>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxC-X3-Fsf">
                                                         <rect key="frame" x="0.0" y="63.5" width="343" height="63.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send only BTC to this deposit address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5g-FS-0FS">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The minimum amount of deposit is 0.001 BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5g-FS-0FS">
                                                                 <rect key="frame" x="26" y="0.0" width="317" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending any other currency to this address may result in the loss of your deposit." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4u-MQ-lod">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you will send less than 0.001 BTC, you will lose that money." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4u-MQ-lod">
                                                                 <rect key="frame" x="26" y="20.5" width="317" height="29"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -397,7 +395,9 @@ will be updated</string>
                                                     <constraint firstItem="GF6-ax-zF8" firstAttribute="leading" secondItem="S1q-JM-4pv" secondAttribute="leading" id="NSN-kU-RNu"/>
                                                     <constraint firstItem="GF6-ax-zF8" firstAttribute="top" secondItem="S1q-JM-4pv" secondAttribute="top" id="XkG-rI-a6d"/>
                                                     <constraint firstItem="cxC-X3-Fsf" firstAttribute="top" secondItem="GF6-ax-zF8" secondAttribute="bottom" constant="14" id="Ygd-Pl-ycQ"/>
+                                                    <constraint firstItem="anI-4p-u2F" firstAttribute="leading" secondItem="S1q-JM-4pv" secondAttribute="leading" id="rey-lD-QM9"/>
                                                     <constraint firstAttribute="trailing" secondItem="cxC-X3-Fsf" secondAttribute="trailing" id="tku-sz-hbB"/>
+                                                    <constraint firstItem="anI-4p-u2F" firstAttribute="top" secondItem="GF6-ax-zF8" secondAttribute="top" id="xtt-PM-Rk4"/>
                                                 </constraints>
                                             </view>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yrz-qJ-RoC">
@@ -472,11 +472,13 @@ will be updated</string>
                         <outlet property="assetView" destination="Zl8-wN-mmJ" id="r6Q-Ar-m2B"/>
                         <outlet property="buttonCotinue" destination="NNf-XO-nk5" id="Grp-SC-5ES"/>
                         <outlet property="coinomatErrorView" destination="WC2-u9-HCT" id="bUP-mv-pqg"/>
-                        <outlet property="labelTitleMinimumAmount" destination="iZz-wN-tfl" id="mXT-dC-DuE"/>
-                        <outlet property="labelTitleSendOnlyDeposit" destination="I5g-FS-0FS" id="Dxe-r8-jow"/>
-                        <outlet property="labelWarningMinimumAmount" destination="nKn-1Z-ZcV" id="kTt-SM-UTQ"/>
-                        <outlet property="labelWarningSendOnlyDeposit" destination="b4u-MQ-lod" id="ZxV-8p-l7M"/>
+                        <outlet property="labelTitleMinimumAmount" destination="I5g-FS-0FS" id="TFP-eh-fyI"/>
+                        <outlet property="labelTitleSendOnlyDeposit" destination="iZz-wN-tfl" id="fGb-Ej-d7J"/>
+                        <outlet property="labelTitleSendOnlyDepositBottom" destination="G1a-1E-Ktt" id="KaN-KP-WY1"/>
+                        <outlet property="labelWarningMinimumAmount" destination="b4u-MQ-lod" id="PR6-7d-Urg"/>
+                        <outlet property="labelWarningSendOnlyDeposit" destination="nKn-1Z-ZcV" id="P6X-E0-8SS"/>
                         <outlet property="viewWarning" destination="S1q-JM-4pv" id="g75-bi-o2J"/>
+                        <outlet property="warningContainersBottom" destination="Ygd-Pl-ycQ" id="UJt-Pb-iAP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AKR-BU-kh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
