@@ -16,13 +16,16 @@ struct ReceiveCryptocurrencyModuleBuilder: ModuleBuilder {
         let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
         let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
         let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
-        let environment = UseCasesFactory.instance.repositories.environmentRepository
-
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+ 
+        let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
+        
         let interactor = ReceiveCryptocurrencyInteractor(authorization: authorization,
                                                          coinomatRepository: coinomatRepository,
                                                          gatewayRepository: gatewayRepository,
                                                          weGatewayUseCase: weGatewayUseCase,
-                                                         environment: environment)
+                                                         serverEnvironmentUseCase: serverEnvironmentUseCase,
+                                                         environmentRepository: environmentRepository)
 
         let presenter = ReceiveCryptocurrencyPresenter()
         presenter.interactor = interactor

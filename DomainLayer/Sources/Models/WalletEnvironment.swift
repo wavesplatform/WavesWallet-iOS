@@ -21,7 +21,6 @@ private enum Constants {
     
 }
 
-//TODO: Rename ?
 public struct WalletEnvironment: Decodable, Hashable {
     
     public enum Kind: String, Hashable {
@@ -34,11 +33,10 @@ public struct WalletEnvironment: Decodable, Hashable {
         }
                 
     }
-    
-    /// TODO: думаю что транспортные модели не должны быть Equatable
-    public struct AssetInfo: Decodable, Equatable {
         
-        public struct Icon: Decodable, Equatable {
+    public struct AssetInfo: Decodable, Hashable {
+        
+        public struct Icon: Decodable, Hashable {
             public let `default`: String?
         }
         

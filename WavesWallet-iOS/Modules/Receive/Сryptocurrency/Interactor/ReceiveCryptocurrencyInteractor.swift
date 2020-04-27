@@ -23,27 +23,31 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let coinomatRepository: CoinomatRepositoryProtocol
     private let gatewayRepository: GatewayRepositoryProtocol
     private let weGatewayUseCase: WEGatewayUseCaseProtocol
-    private let environment: EnvironmentRepositoryProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(authorization: AuthorizationUseCaseProtocol,
          coinomatRepository: CoinomatRepositoryProtocol,
          gatewayRepository: GatewayRepositoryProtocol,
          weGatewayUseCase: WEGatewayUseCaseProtocol,
-         environment: EnvironmentRepositoryProtocol) {
+         serverEnvironmentUseCase: ServerEnvironmentUseCase,
+         environmentRepository: EnvironmentRepositoryProtocol) {
         self.auth = authorization
         self.coinomatRepository = coinomatRepository
         self.gatewayRepository = gatewayRepository
         self.weGatewayUseCase = weGatewayUseCase
-        self.environment = environment
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
+        self.environmentRepository = environmentRepository
     }
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
+        let environment = environmentRepository.walletEnvironment()
         
-        return Observable.zip(wallet, serverEnvironment)
-            .flatMap { [weak self] wallet, serverEnvironment -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+        return Observable.zip(wallet, serverEnvironment, environment)
+            .flatMap { [weak self] wallet, serverEnvironment, appEnvironments-> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
 
                 guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
 
