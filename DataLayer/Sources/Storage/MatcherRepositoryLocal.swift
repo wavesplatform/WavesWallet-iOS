@@ -11,7 +11,6 @@ import DomainLayer
 import RxSwift
 import WavesSDKExtensions
 
-//TODO: Two Target
 final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
     
     private var internalPublicKeyAccount: DomainLayer.DTO.PublicKey?
@@ -36,13 +35,14 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
         self.matcherRepositoryRemote = matcherRepositoryRemote
     }
     
-    func matcherPublicKey() -> Observable<DomainLayer.DTO.PublicKey> {
+    func matcherPublicKey(serverEnvironment: ServerEnvironment) -> Observable<DomainLayer.DTO.PublicKey> {
         
         if let publicKey = publicKeyAccount {
             return Observable.just(publicKey)
         }
 
-        return matcherPublicKeyShare
+        return matcherRepositoryRemote
+            .matcherPublicKey(serverEnvironment: serverEnvironment)
             .flatMap({ [weak self] (publicKey) -> Observable<DomainLayer.DTO.PublicKey> in
                 guard let self = self else { return Observable.empty() }
 
@@ -50,13 +50,8 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
                 return Observable.just(publicKey)
             })
     }
-    
-    private lazy var matcherPublicKeyShare: Observable<DomainLayer.DTO.PublicKey> = {
-        return matcherRepositoryRemote.matcherPublicKey()
-            .share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
-    }()
-    
-    func settingsIdsPairs() -> Observable<[String]> {
-        return matcherRepositoryRemote.settingsIdsPairs()        
+            
+    func settingsIdsPairs(serverEnvironment: ServerEnvironment) -> Observable<[String]> {
+        return matcherRepositoryRemote.settingsIdsPairs(serverEnvironment: serverEnvironment)        
     }
 }

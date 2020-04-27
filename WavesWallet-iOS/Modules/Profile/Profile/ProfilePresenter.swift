@@ -46,6 +46,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     private let blockRepository: BlockRepositoryProtocol = UseCasesFactory.instance.repositories.blockRemote
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
+    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
     weak var moduleOutput: ProfileModuleOutput?
@@ -142,17 +143,17 @@ fileprivate extension ProfilePresenter {
 
         case let .setEnabledBiometric(isOn, wallet):
             owner.moduleOutput?.accountSetEnabledBiometric(isOn: isOn, wallet: wallet)
-            
+
         case .openFaq:
             if let url = URL(string: UIGlobalConstants.URL.medium) {
                 BrowserViewController.openURL(url)
             }
-            
+
         case .openTermOfCondition:
             if let url = URL(string: UIGlobalConstants.URL.termsOfConditions) {
                 BrowserViewController.openURL(url)
             }
-            
+
         case .didTapDebug:
             owner.moduleOutput?.openDebug()
 
@@ -291,9 +292,17 @@ fileprivate extension ProfilePresenter {
 
             guard let self = self else { return Signal.empty() }
 
-            return self
-                .blockRepository
-                .height(accountAddress: address)
+            let serverEnvironment = self
+                .serverEnvironmentUseCase
+                .serverEnvironment()
+
+            let height = serverEnvironment
+                .flatMap { [weak self] serverEnvironment -> Observable<Int64> in
+                    guard let self = self else { return Observable.never() }
+                    return self.blockRepository.height(serverEnvironment: serverEnvironment,
+                                                       accountAddress: address)
+                }
+            return height
                 .map { Types.Event.setBlock($0) }
                 .asSignal(onErrorRecover: { _ in
                     Signal.empty()
@@ -468,7 +477,7 @@ private extension ProfilePresenter {
 
             case .faq:
                 state.query = .openFaq
-                
+
             case .termOfConditions:
                 state.query = .openTermOfCondition
 
@@ -557,7 +566,7 @@ private extension ProfilePresenter {
 
         case .updatePushNotificationsSettings:
             state.query = .updatePushNotificationsSettings
-            
+
         case .didTapDebug:
             state.query = .didTapDebug
         default:

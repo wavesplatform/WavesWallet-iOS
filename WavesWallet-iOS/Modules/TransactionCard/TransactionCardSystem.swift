@@ -35,9 +35,9 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
-    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol =
-        UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let orderbookInteractor = UseCasesFactory.instance.oderbook
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
     init(kind: TransactionCard.Kind) {
         self.kind = kind
@@ -319,13 +319,19 @@ private extension TransactionCardSystem {
     }
 
     private func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<Bool> {
-        return authorizationInteractor
-            .authorizedWallet()
-            .flatMap { [weak self] (wallet) -> Observable<Bool> in
+        
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
+        
+        return Observable.zip(serverEnviroment,
+                              authorizationInteractor.authorizedWallet())
+            .flatMap { [weak self] serverEnviroment, wallet -> Observable<Bool> in
+                
                 guard let self = self else { return Observable.empty() }
+                
                 return self
                     .dexOrderBookRepository
-                    .cancelOrder(wallet: wallet,
+                    .cancelOrder(serverEnvironment: serverEnviroment,
+                                 wallet: wallet,
                                  orderId: order.id,
                                  amountAsset: order.amountAsset.id,
                                  priceAsset: order.priceAsset.id)

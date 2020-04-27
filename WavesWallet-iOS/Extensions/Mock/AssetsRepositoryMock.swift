@@ -12,24 +12,36 @@ import RxSwift
 
 final class AssetsRepositoryMock: AssetsRepositoryProtocol {
     
-    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func assets(serverEnvironment: ServerEnvironment,
+                ids: [String],
+                accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         
         return Observable.never()
     }
     
-    func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
+    func isSmartAsset(serverEnvironment: ServerEnvironment,
+                      assetId: String,
+                      accountAddress: String) -> Observable<Bool> {
+        
         return Observable.never()
     }
     
-    func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
+    func searchAssets(serverEnvironment: ServerEnvironment,
+                      search: String,
+                      accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+        
         return Observable.never()
     }
     
-    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
+    func saveAssets(_ assets:[DomainLayer.DTO.Asset],
+                    by accountAddress: String) -> Observable<Bool> {
+        
         return Observable.never()
     }
     
-    func searchAssets(search: String, accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func saveAsset(_ asset: DomainLayer.DTO.Asset,
+                   by accountAddress: String) -> Observable<Bool> {
+        
         return Observable.never()
     }
 }

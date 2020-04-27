@@ -11,7 +11,15 @@ import RxSwift
 
 public protocol GatewayRepositoryProtocol {
     
-    func startWithdrawProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess>
-    func startDepositProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess>
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool>        
+    func startWithdrawProcess(serverEnvironment: ServerEnvironment,
+                              address: String,
+                              asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess>
+    
+    func startDepositProcess(serverEnvironment: ServerEnvironment,
+                             address: String,
+                             asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess>
+    
+    func send(serverEnvironment: ServerEnvironment,
+              specifications: TransactionSenderSpecifications,
+              wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool>
 }

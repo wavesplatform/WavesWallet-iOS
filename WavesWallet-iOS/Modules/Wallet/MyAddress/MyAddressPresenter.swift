@@ -31,6 +31,7 @@ final class MyAddressPresenter: MyAddressPresenterProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
     weak var moduleOutput: MyAddressModuleOutput?
 
@@ -97,8 +98,17 @@ fileprivate extension MyAddressPresenter {
             guard let self = self else { return Signal.never() }
 
             return self
-                .aliasesRepository
-                .aliases(accountAddress: accountAddress)
+                .serverEnvironmentUseCase
+                .serverEnvironment()
+                .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Alias]> in
+                    
+                    guard let self = self else { return Observable.never() }
+                    
+                    return self
+                    .aliasesRepository
+                    .aliases(serverEnvironment: serverEnvironment,
+                             accountAddress: accountAddress)
+                }
                 .map { Types.Event.setAliases($0) }
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()

@@ -79,4 +79,6 @@ public protocol RepositoriesFactoryProtocol {
     var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol { get }
     
     var stakingBalanceService: StakingBalanceService { get }
+    
+    var serverTimestampRepository: ServerTimestampRepository { get }
 }

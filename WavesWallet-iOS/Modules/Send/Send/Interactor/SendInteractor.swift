@@ -24,6 +24,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let accountBalance = UseCasesFactory.instance.accountBalance
     private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
     private let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
+    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
     
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
@@ -51,7 +52,7 @@ final class SendInteractor: SendInteractorProtocol {
                         }
                         return Observable.just(assetBalance)
                     })
-
+                
             })
         }).catchError({ (error) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
             return Observable.just(nil)
@@ -68,7 +69,7 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
-
+        
         //TODO: need optimization
         
         return accountBalance.balances()
@@ -81,18 +82,22 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-      
+    
     func validateAlis(alias: String) -> Observable<Bool> {
-
-        return auth
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+        
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
+        let wallet = auth.authorizedWallet()
+        return Observable.zip(serverEnvironment, wallet)
+            .flatMap({ [weak self] serverEnvironment, wallet -> Observable<Bool> in
                 guard let self = self else { return Observable.never() }
-            
-                return self.aliasRepository.alias(by: alias, accountAddress: wallet.address)
+                
+                return self.aliasRepository
+                    .alias(serverEnvironment: serverEnvironment,
+                           name: alias,
+                           accountAddress: wallet.address)
                     .flatMap({ (address) -> Observable<Bool>  in
                         return Observable.just(true)
-                })
+                    })
             })
             .catchError({ (error) -> Observable<Bool> in
                 return Observable.just(false)
@@ -107,52 +112,59 @@ final class SendInteractor: SendInteractorProtocol {
               feeAssetID: String,
               isGatewayTransaction: Bool) -> Observable<Send.TransactionStatus> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
-            guard let self = self else { return Observable.empty() }
-
-            let assetId = asset.isWaves ? "" : asset.id
-
-            let sender = SendTransactionSender(recipient: recipient,
-                                               assetId: assetId,
-                                               amount: amount.amount,
-                                               fee: fee.amount,
-                                               attachment: attachment,
-                                               feeAssetID: feeAssetID)
-            
-            if isGatewayTransaction {
-                guard let gatewayType = asset.gatewayType else { return Observable.empty() }
-           
-                switch gatewayType {
-                case .exchange:
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
+        let wallet = auth.authorizedWallet()
+        
+        return Observable.zip(wallet, serverEnviroment)
+            .flatMap({ [weak self] wallet, serverEnviroment -> Observable<Send.TransactionStatus> in
+                
+                guard let self = self else { return Observable.empty() }
+                
+                let assetId = asset.isWaves ? "" : asset.id
+                
+                let sender = SendTransactionSender(recipient: recipient,
+                                                   assetId: assetId,
+                                                   amount: amount.amount,
+                                                   fee: fee.amount,
+                                                   attachment: attachment,
+                                                   feeAssetID: feeAssetID)
+                
+                if isGatewayTransaction {
+                    guard let gatewayType = asset.gatewayType else { return Observable.empty() }
                     
+                    switch gatewayType {
+                    case .exchange:
+                        
+                        return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
+                            .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
+                                return Observable.just(.success)
+                            })
+                    case .coinomat:
+                        return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
+                            .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
+                                return Observable.just(.success)
+                            })
+                    case .gateway:
+                        return self.gatewayRepository.send(serverEnvironment: serverEnviroment,
+                                                           specifications: TransactionSenderSpecifications.send(sender),
+                                                           wallet: wallet)
+                            .flatMap({ (transaction) -> Observable<Send.TransactionStatus> in
+                                return Observable.just(.success)
+                            })
+                    }
+                } else {
                     return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
                         .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
-                            return Observable.just(.success)
-                        })
-                case .coinomat:
-                    return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
-                        .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
-                            return Observable.just(.success)
-                        })
-                case .gateway:
-                    return self.gatewayRepository.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
-                        .flatMap({ (transaction) -> Observable<Send.TransactionStatus> in
                             return Observable.just(.success)
                         })
                 }
-            } else {
-                return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
-                    .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
-                        return Observable.just(.success)
-                    })
-            }
-        })
-        .catchError({ (error) -> Observable<Send.TransactionStatus> in
-            if let error = error as? NetworkError {
-                return Observable.just(.error(error))
-            }
-            return Observable.just(.error(NetworkError.error(by: error)))
-        })
+            })
+            .catchError({ (error) -> Observable<Send.TransactionStatus> in
+                if let error = error as? NetworkError {
+                    return Observable.just(.error(error))
+                }
+                return Observable.just(.error(NetworkError.error(by: error)))
+            })
     }
     
     func getDecimalsForAsset(assetID: String) -> Observable<Int> {
@@ -200,19 +212,30 @@ extension SendInteractor {
                     return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
                 })
         case .gateway:
-            return gatewayRepository
-                .startWithdrawProcess(address: address, asset: asset)
-                .map({ (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
+                                    
+            return serverEnvironmentUseCase
+                .serverEnvironment()
+                .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> in
                     
-                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                           assetShortName: asset.ticker ?? "",
-                                                           minAmount: startProcessInfo.minAmount,
-                                                           maxAmount: startProcessInfo.maxAmount,
-                                                           fee: startProcessInfo.fee,
-                                                           address: startProcessInfo.recipientAddress,
-                                                           attachment: startProcessInfo.processId)
-                    return ResponseType(output: gatewayInfo, error: nil)
-                })
+                    guard let self = self else { return Observable.never() }
+                    
+                    return self
+                        .gatewayRepository
+                        .startWithdrawProcess(serverEnvironment: serverEnvironment,
+                                              address: address,
+                                              asset: asset)
+            }
+            .map({ (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
+                
+                let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                       assetShortName: asset.ticker ?? "",
+                                                       minAmount: startProcessInfo.minAmount,
+                                                       maxAmount: startProcessInfo.maxAmount,
+                                                       fee: startProcessInfo.fee,
+                                                       address: startProcessInfo.recipientAddress,
+                                                       attachment: startProcessInfo.processId)
+                return ResponseType(output: gatewayInfo, error: nil)
+            })
                 .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
                     if let networkError = error as? NetworkError {
                         return Observable.just(ResponseType(output: nil, error: networkError))
@@ -220,7 +243,7 @@ extension SendInteractor {
                     
                     return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
                 })
-        
+            
         case .coinomat:
             guard let currencyFrom = asset.wavesId,
                 let currencyTo = asset.gatewayId else { return Observable.empty() }
@@ -232,17 +255,18 @@ extension SendInteractor {
             
             let rate = coinomatRepository.getRate(asset: asset)
             
-            return Observable.zip(tunnel, rate).flatMap({ (tunnel, rate) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
-                
-                let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                       assetShortName: currencyTo,
-                                                       minAmount: rate.min,
-                                                       maxAmount: rate.max,
-                                                       fee: rate.fee,
-                                                       address: tunnel.address,
-                                                       attachment: tunnel.attachment)
-                return Observable.just(ResponseType(output: gatewayInfo, error: nil))
-            })
+            return Observable.zip(tunnel, rate)
+                .flatMap({ (tunnel, rate) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+                    
+                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                           assetShortName: currencyTo,
+                                                           minAmount: rate.min,
+                                                           maxAmount: rate.max,
+                                                           fee: rate.fee,
+                                                           address: tunnel.address,
+                                                           attachment: tunnel.attachment)
+                    return Observable.just(ResponseType(output: gatewayInfo, error: nil))
+                })
                 .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
                     if let networkError = error as? NetworkError {
                         return Observable.just(ResponseType(output: nil, error: networkError))

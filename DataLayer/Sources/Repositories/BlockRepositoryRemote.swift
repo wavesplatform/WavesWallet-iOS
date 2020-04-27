@@ -14,25 +14,22 @@ import DomainLayer
 
 // TODO: Rename to Services
 final class BlockRepositoryRemote: BlockRepositoryProtocol {
-
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
-        self.environmentRepository = environmentRepository
+    private let wavesSDKServices: WavesSDKServices
+    
+    init(wavesSDKServices: WavesSDKServices) {
+        self.wavesSDKServices = wavesSDKServices
     }
-
-    func height(accountAddress: String) -> Observable<Int64> {
-
-        return environmentRepository
-            .servicesEnvironment()            
-            .flatMap({ (servicesEnvironment) -> Observable<Int64> in
-
-                return servicesEnvironment
-                    .wavesServices
-                    .nodeServices
-                    .blocksNodeService
-                    .height(address: accountAddress)
-                    .map { $0.height }
-            })
+    
+    func height(serverEnvironment: ServerEnvironment,
+                accountAddress: String) -> Observable<Int64> {
+        
+        return wavesSDKServices
+            .wavesServices(environment: serverEnvironment)
+            .nodeServices
+            .blocksNodeService
+            .height(address: accountAddress)
+            .map { $0.height }
+        
     }
 }

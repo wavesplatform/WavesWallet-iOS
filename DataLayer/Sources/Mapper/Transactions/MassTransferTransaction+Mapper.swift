@@ -6,13 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKExtensions
-import WavesSDK
 import DomainLayer
+import Foundation
+import WavesSDK
+import WavesSDKExtensions
 
 extension MassTransferTransaction {
-
     convenience init(transaction: DomainLayer.DTO.MassTransferTransaction) {
         self.init()
         type = transaction.type
@@ -49,19 +48,17 @@ extension MassTransferTransaction {
 }
 
 extension DomainLayer.DTO.MassTransferTransaction {
-
     init(transaction: NodeService.DTO.MassTransferTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
-
+         aliasScheme: String) {
+        
         let transfers: [DomainLayer.DTO.MassTransferTransaction.Transfer] = transaction
             .transfers
-            .map { .init(recipient: $0.recipient.normalizeAddress(environment: environment),
-                         amount: $0.amount) }
+            .map { .init(recipient: $0.recipient.normalizeAddress(aliasScheme: aliasScheme), amount: $0.amount) }
 
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
@@ -75,18 +72,16 @@ extension DomainLayer.DTO.MassTransferTransaction {
                   transfers: transfers,
                   modified: Date(),
                   status: status)
-        
+
         self.status = status
     }
 
     init(transaction: MassTransferTransaction) {
-
         let transfers = transaction
             .transfers
             .toArray()
-            .map { DomainLayer.DTO.MassTransferTransaction.Transfer(recipient: $0.recipient,
-                                                                    amount: $0.amount) }
-        
+            .map { DomainLayer.DTO.MassTransferTransaction.Transfer(recipient: $0.recipient, amount: $0.amount) }
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
