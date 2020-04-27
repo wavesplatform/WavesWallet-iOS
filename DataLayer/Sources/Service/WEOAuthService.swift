@@ -21,14 +21,13 @@ enum WEOAuth {
 extension WEOAuth.Query {
    
     struct Token: Codable {
-        let token: String
+//        let token: String
         let username: String
         let password: String
         let grantType: String
         let scope: String
         
         private enum CodingKeys: String, CodingKey {
-            case token
             case username
             case password
             case grantType = "grant_type"
@@ -54,17 +53,17 @@ extension WEOAuth.Service: TargetType {
     var path: String {
         switch self {
         case .token:
-            return "token"
+            return "v1/oauth2/token"
         }
     }
     
     var headers: [String: String]? {
         var headers: [String: String] = .init()
         
-        switch self {
-        case .token(_, let token):
-            headers["Authorization"] = token.token
-        }
+//        switch self {
+//        case .token(_, let token):
+////            headers["Authorization"] = token.token
+//        }
         
         return headers
     }
