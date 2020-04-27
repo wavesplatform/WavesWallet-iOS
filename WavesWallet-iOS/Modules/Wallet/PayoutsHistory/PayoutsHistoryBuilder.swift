@@ -14,12 +14,7 @@ protocol PayoutsHistoryOutput: AnyObject {}
 
 final class PayoutsHistoryBuilder: ModuleBuilder {
     typealias Input = Void
-//    var output: PayoutsHistoryOutput
-    
-//    init(output: PayoutsHistoryOutput) {
-//        self.output = output
-//    }
-    
+
     func build(input: Void) -> UIViewController {
         build()
     }
@@ -31,11 +26,13 @@ final class PayoutsHistoryBuilder: ModuleBuilder {
         let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let authUseCase = UseCasesFactory.instance.authorization
         let assetsUseCase = UseCasesFactory.instance.assets
-        
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+                
         let system = PayoutsHistorySystem(massTransferRepository: massTransferRepository,
                                           enviroment: enviroment,
                                           authUseCase: authUseCase,
-                                          assetUseCase: assetsUseCase)
+                                          assetUseCase: assetsUseCase,
+                                          serverEnvironmentUseCase: serverEnvironmentUseCase)
         
         viewController.system = system
         

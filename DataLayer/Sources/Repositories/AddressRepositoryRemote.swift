@@ -15,25 +15,20 @@ import Extensions
 
 //TODO: Rename to Services
 final class AddressRepositoryRemote: AddressRepositoryProtocol {
-
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
-        self.environmentRepository = environmentRepository
+    private let wavesSDKServices: WavesSDKServices
+    
+    init(wavesSDKServices: WavesSDKServices) {
+        self.wavesSDKServices = wavesSDKServices
     }
     
-    func isSmartAddress(accountAddress: String) -> Observable<Bool> {
+    func isSmartAddress(serverEnvironment: ServerEnvironment,
+                        accountAddress: String) -> Observable<Bool> {
         
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<Bool> in
-                                
-                return servicesEnvironment
-                    .wavesServices
-                    .nodeServices
-                    .addressesNodeService
-                    .scriptInfo(address: accountAddress)
-                    .map { ($0.extraFee ?? 0) > 0 }
-            })
+        return wavesSDKServices.wavesServices(environment: serverEnvironment)
+            .nodeServices
+            .addressesNodeService
+            .scriptInfo(address: accountAddress)
+            .map { ($0.extraFee ?? 0) > 0 }
     }
 }

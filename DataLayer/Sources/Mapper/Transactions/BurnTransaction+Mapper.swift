@@ -35,10 +35,12 @@ extension BurnTransaction {
 }
 
 extension DomainLayer.DTO.BurnTransaction {
-    init(transaction: NodeService.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
+    init(transaction: NodeService.DTO.BurnTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,

@@ -7,8 +7,8 @@
 //
 
 import DomainLayer
-import UIKit
 import Extensions
+import UIKit
 import WavesSDK
 
 struct WalletModuleBuilder: ModuleBuilderOutput {
@@ -17,7 +17,7 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
     // input it ts isDisplayInvesting
     func build(input: Bool) -> WalletViewController {
         let vc = StoryboardScene.Wallet.walletViewController.instantiate()
-        
+
         let presenter = WalletPresenter(kind: input == true ? .staking : .assets)
 
         let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
@@ -26,7 +26,8 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
         let assetsUseCase = UseCasesFactory.instance.assets
         let accountSettingsRepository = UseCasesFactory.instance.repositories.accountSettingsRepository
         let stakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
-        
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+
         let interactor = WalletInteractor(enviroment: enviroment,
                                           massTransferRepository: massTransferRepository,
                                           assetUseCase: assetsUseCase,
@@ -36,7 +37,8 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
                                           accountSettingsRepository: accountSettingsRepository,
                                           applicationVersionUseCase: UseCasesFactory.instance.applicationVersionUseCase,
                                           leasingInteractor: UseCasesFactory.instance.transactions,
-                                          walletsRepository: UseCasesFactory.instance.repositories.walletsRepositoryLocal)
+                                          walletsRepository: UseCasesFactory.instance.repositories.walletsRepositoryLocal,
+                                          serverEnvironmentUseCase: serverEnvironmentUseCase)
 
         presenter.interactor = interactor
         presenter.moduleOutput = output

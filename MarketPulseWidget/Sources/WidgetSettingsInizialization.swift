@@ -15,9 +15,8 @@ import WavesSDKCrypto
 class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol {
     
     private let widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
-    private let matcherRepository: MatcherRepositoryProtocol =
-        MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
-    private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
+    private let matcherRepository = WidgetMatcherRepositoryRemote()
+    private let pairsPriceRepository = WidgetPairsPriceRepositoryRemote()
     private let assetsRepository: WidgetAssetsRepositoryProtocol = WidgetAssetsRepositoryRemote()
     
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings> {

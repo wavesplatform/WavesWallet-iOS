@@ -16,7 +16,8 @@ import Extensions
 
 final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
 
-    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func balances(by serverEnviroment: ServerEnvironment,
+                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         return Observable.create { (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
@@ -35,7 +36,9 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func balance(by assetId: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance> {
+    func balance(by serverEnviroment: ServerEnvironment,
+                 assetId: String,
+                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance> {
 
         return Observable.create { (observer) -> Disposable in
 

@@ -9,6 +9,11 @@ import Foundation
 import WavesSDK
 import WavesSDKCrypto
 
+private struct Constants {
+    static let vostokMainNetScheme = "V"
+    static let vostokTestNetScheme = "F"
+}
+
 // TODO: The class need move to use case
 public class AddressValidator {
     static let AddressVersion: UInt8 = 1
@@ -59,8 +64,12 @@ public class AddressValidator {
     }
     
     public class func isValidVostokAddress(address: String?) -> Bool {
-        return isValidAddress(address: address, schemeBytes: walletEnvironment.vostokScheme.utf8.first!)
+        
+        let vostokScheme: String = self.walletEnvironment.kind == .testnet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
+        
+        return isValidAddress(address: address, schemeBytes: vostokScheme.utf8.first ?? 0)
     }
+    
     
     public class func scheme(from publicKey: String) -> String? {
         

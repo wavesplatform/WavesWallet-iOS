@@ -13,7 +13,7 @@ import DomainLayer
 import WavesSDK
 import WavesSDKCrypto
 
-final class WidgetMatcherRepositoryRemote: MatcherRepositoryProtocol {
+final class WidgetMatcherRepositoryRemote {
    
     private let settingsMatcherService: WidgetMatcherSettingServiceProtocol = WidgetMatcherSettingService()
     private let publicKeyMatcherService: PublicKeyMatcherServiceProtocol = WidgetPublicKeyMatcherService()

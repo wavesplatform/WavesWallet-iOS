@@ -25,26 +25,23 @@ private struct Token: Codable {
 
 //TODO: Split Usecase and services
 final class WEOAuthRepository: WEOAuthRepositoryProtocol {
-    
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+        
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     
     private let weOAuth: MoyaProvider<WEOAuth.Service> = .anyMoyaProvider()
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
         self.developmentConfigsRepository = developmentConfigsRepository
     }
     
-    func oauthToken(signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.WEOAuth.Token> {
+    func oauthToken(serverEnvironment: ServerEnvironment,
+                    signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.WEOAuth.Token> {
                 
-        return Observable.zip(environmentRepository.servicesEnvironment(),
-                              developmentConfigsRepository.developmentConfigs())
-            .flatMap({ [weak self] (servicesEnvironment, developmentConfigs) ->  Observable<DomainLayer.DTO.WEOAuth.Token> in
+        return developmentConfigsRepository.developmentConfigs()
+            .flatMap { [weak self] developmentConfigs ->  Observable<DomainLayer.DTO.WEOAuth.Token> in
                 guard let self = self else { return Observable.empty() }
                 
-                let url = servicesEnvironment.walletEnvironment.servers.authUrl
+                let url = serverEnvironment.servers.authUrl
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
                 
                 let token: WEOAuth.Query.Token = self.createOAuthToken(signedWallet: signedWallet,
@@ -60,7 +57,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                     .map(Token.self)
                     .map { DomainLayer.DTO.WEOAuth.Token(accessToken: $0.access_token) }
                     .asObservable()
-            })
+            }
     }
     
     private func createOAuthToken(signedWallet: DomainLayer.DTO.SignedWallet,

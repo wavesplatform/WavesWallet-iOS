@@ -12,25 +12,24 @@ import WavesSDKCrypto
 import WavesSDKExtensions
 
 extension TransactionSenderSpecifications {
-    private func chainId(servicesEnvironment: ApplicationEnviroment,
+    private func chainId(serverEnvironment: ServerEnvironment,
                          specifications: TransactionSenderSpecifications,
                          wallet: DomainLayer.DTO.SignedWallet) -> String {
-        let walletEnvironment = servicesEnvironment.walletEnvironment
         
-        return specifications.chainId ?? walletEnvironment.scheme
+        return specifications.chainId ?? serverEnvironment.kind.chainId
     }
     
     private func timestamp(specifications: TransactionSenderSpecifications) -> Date {
         return specifications.timestamp ?? Date()
     }
     
-    func broadcastSpecification(servicesEnvironment: ApplicationEnviroment,
+    func broadcastSpecification(serverEnvironment: ServerEnvironment,
                                 wallet: DomainLayer.DTO.SignedWallet,
                                 specifications: TransactionSenderSpecifications) -> NodeService.Query.Transaction? {
-        let walletEnvironment = servicesEnvironment.walletEnvironment
-        let timestampServerDiff = servicesEnvironment.timestampServerDiff
         
-        let scheme = self.chainId(servicesEnvironment: servicesEnvironment,
+        let timestampServerDiff = serverEnvironment.timestampServerDiff
+        
+        let scheme = self.chainId(serverEnvironment: serverEnvironment,
                                   specifications: specifications,
                                   wallet: wallet)
         
@@ -51,21 +50,23 @@ extension TransactionSenderSpecifications {
         let proofs = [Base58Encoder.encode(signature)]
         
         let broadcastSpecification = self.continueBroadcastSpecification(timestamp: timestamp,
-                                                                         environment: walletEnvironment,
+                                                                         scheme: serverEnvironment.kind.chainId,
+                                                                         aliasScheme: serverEnvironment.aliasScheme,
                                                                          publicKey: wallet.publicKey.getPublicKeyStr(),
                                                                          proofs: proofs)
         return broadcastSpecification
     }
     
     private func continueBroadcastSpecification(timestamp: Int64,
-                                                environment: WalletEnvironment,
+                                                scheme: String,
+                                                aliasScheme: String,
                                                 publicKey: String,
                                                 proofs: [String]) -> NodeService.Query.Transaction {
         switch self {
         case .burn(let model):
             
             return .burn(NodeService.Query.Transaction.Burn(version: self.version,
-                                                            chainId: environment.scheme,
+                                                            chainId: scheme,
                                                             fee: model.fee,
                                                             assetId: model.assetID,
                                                             quantity: model.quantity,
@@ -76,7 +77,7 @@ extension TransactionSenderSpecifications {
         case .createAlias(let model):
             
             return .createAlias(NodeService.Query.Transaction.Alias(version: self.version,
-                                                                    chainId: environment.scheme,
+                                                                    chainId: scheme,
                                                                     name: model.alias,
                                                                     fee: model.fee,
                                                                     timestamp: timestamp,
@@ -86,12 +87,12 @@ extension TransactionSenderSpecifications {
             
             var recipient = ""
             if model.recipient.count <= WavesSDKConstants.aliasNameMaxLimitSymbols {
-                recipient = environment.aliasScheme + model.recipient
+                recipient = aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
             }
             return .startLease(NodeService.Query.Transaction.Lease(version: self.version,
-                                                                   chainId: environment.scheme,
+                                                                   chainId: scheme,
                                                                    fee: model.fee,
                                                                    recipient: recipient,
                                                                    amount: model.amount,
@@ -101,7 +102,7 @@ extension TransactionSenderSpecifications {
         case .cancelLease(let model):
             
             return .cancelLease(NodeService.Query.Transaction.LeaseCancel(version: self.version,
-                                                                          chainId: environment.scheme,
+                                                                          chainId: scheme,
                                                                           fee: model.fee,
                                                                           leaseId: model.leaseId,
                                                                           timestamp: timestamp,
@@ -116,13 +117,13 @@ extension TransactionSenderSpecifications {
                                                             senderPublicKey: publicKey,
                                                             proofs: proofs,
                                                             data: model.dataForNode,
-                                                            chainId: environment.scheme))
+                                                            chainId: scheme))
             
         case .send(let model):
             let recipient: String
             
             if model.recipient.count <= WavesSDKConstants.aliasNameMaxLimitSymbols {
-                recipient = environment.aliasScheme + model.recipient
+                recipient = aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
             }
@@ -138,7 +139,7 @@ extension TransactionSenderSpecifications {
                                                                     timestamp: timestamp,
                                                                     senderPublicKey: publicKey,
                                                                     proofs: proofs,
-                                                                    chainId: environment.scheme))
+                                                                    chainId: scheme))
             
         case .invokeScript(let model):
             var call: NodeService.Query.Transaction.InvokeScript.Call?
@@ -176,7 +177,7 @@ extension TransactionSenderSpecifications {
             }
             
             return .invokeScript(.init(version: self.version,
-                                       chainId: environment.scheme,
+                                       chainId: scheme,
                                        fee: model.fee,
                                        timestamp: timestamp,
                                        senderPublicKey: publicKey,

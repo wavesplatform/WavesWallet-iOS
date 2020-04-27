@@ -53,25 +53,23 @@ private struct RegisterOrderResponse: Codable {
 }
 //TODO: Split Usecase and services
 final class WEGatewayRepository: WEGatewayRepositoryProtocol {
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
-    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     private let weGateway: MoyaProvider<WEGateway.Service> = .anyMoyaProvider()
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
         self.developmentConfigsRepository = developmentConfigsRepository
     }
     
-    func transferBinding(request: DomainLayer.Query.WEGateway.TransferBinding)
-        -> Observable<DomainLayer.DTO.WEGateway.TransferBinding> {
-        Observable.zip(environmentRepository.servicesEnvironment(), developmentConfigsRepository.developmentConfigs())
-            .flatMap { [weak self] servicesEnvironment, developmentConfigs
-                -> Observable<DomainLayer.DTO.WEGateway.TransferBinding> in
+    func transferBinding(serverEnvironment: ServerEnvironment,
+                         request: DomainLayer.Query.WEGateway.TransferBinding) -> Observable<DomainLayer.DTO.WEGateway.TransferBinding> {
+            
+    return developmentConfigsRepository
+        .developmentConfigs()
+            .flatMap { [weak self] developmentConfigs-> Observable<DomainLayer.DTO.WEGateway.TransferBinding> in
                 guard let self = self else { return Observable.empty() }
                 
-                let url = servicesEnvironment.walletEnvironment.servers.gateways.v2
+                let url = serverEnvironment.servers.gateways.v2
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
                 
                 let transferBinding: WEGateway.Query.TransferBinding = .init(token: exchangeClientSecret,
@@ -98,49 +96,42 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
             }
     }
     
-    func adCashDepositsRegisterOrder(request: DomainLayer.Query.WEGateway.RegisterOrder)
+    func adCashDepositsRegisterOrder(serverEnvironment: ServerEnvironment,
+                                     request: DomainLayer.Query.WEGateway.RegisterOrder)
         -> Observable<DomainLayer.DTO.WEGateway.Order> {
-        environmentRepository
-            .servicesEnvironment()
-            .flatMap { [weak self] servicesEnvironment -> Observable<DomainLayer.DTO.WEGateway.Order> in
-                guard let self = self else { return Observable.empty() }
-                
-                let url = servicesEnvironment.walletEnvironment.servers.gateways.v2
-                
-                let token = request.token.accessToken
-                let currency = Constants.currencyForAd
-                let amount = request.amount
-                let address = request.address
-                
-                let adCashDepositsRegisterOrder: WEGateway.Query.AdCashDepositsRegisterOrder = .init(currency: currency,
-                                                                                                     amount: "\(amount)",
-                                                                                                     address: address)
-                return self
-                    .weGateway
-                    .rx
-                    .request(.adCashDepositsRegisterOrder(baseURL: url,
-                                                          token: token,
-                                                          query: adCashDepositsRegisterOrder),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .map(RegisterOrderResponse.self)
-                    .catchError { _ -> PrimitiveSequence<SingleTrait, RegisterOrderResponse> in
-                        // это нормально?
-                        Single.never()
+                                            
+            let url = serverEnvironment.servers.gateways.v2
+            
+            let token = request.token.accessToken
+            let currency = Constants.currencyForAd
+            let amount = request.amount
+            let address = request.address
+            
+            let adCashDepositsRegisterOrder: WEGateway.Query.AdCashDepositsRegisterOrder = .init(currency: currency,
+                                                                                                 amount: "\(amount)",
+                                                                                                 address: address)
+            return self
+                .weGateway
+                .rx
+                .request(.adCashDepositsRegisterOrder(baseURL: url,
+                                                      token: token,
+                                                      query: adCashDepositsRegisterOrder),
+                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                .filterSuccessfulStatusAndRedirectCodes()
+                .map(RegisterOrderResponse.self)
+                .map { response -> DomainLayer.DTO.WEGateway.Order? in
+                    guard let url = response.createAdCashUrl(amount: amount, currency: Constants.currencyForLink) else {
+                        return nil
                     }
-                    .map { response -> DomainLayer.DTO.WEGateway.Order? in
-                        guard let url = response.createAdCashUrl(amount: amount, currency: Constants.currencyForLink) else {
-                            return nil
-                        }
-                        
-                        return DomainLayer.DTO.WEGateway.Order(url: url)
-                    }
-                    .flatMap { order -> Single<DomainLayer.DTO.WEGateway.Order> in
-                        guard let order = order else { return Single.error(NetworkError.notFound) }
-                        return Single.just(order)
-                    }
-                    .asObservable()
-            }
+                    
+                    return DomainLayer.DTO.WEGateway.Order(url: url)
+                }
+                .flatMap { order -> Single<DomainLayer.DTO.WEGateway.Order> in
+                    guard let order = order else { return Single.error(NetworkError.notFound) }
+                    return Single.just(order)
+                }
+                .asObservable()
+        
     }
 }
 
