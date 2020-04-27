@@ -68,6 +68,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         
         set {
             internalEnvironmentKind = newValue
+            //TODO: TSUD
             UserDefaults.standard.set(newValue.rawValue, forKey: "wallet.environment.kind")
             UserDefaults.standard.synchronize()
             

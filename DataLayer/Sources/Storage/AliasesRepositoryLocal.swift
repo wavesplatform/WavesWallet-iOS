@@ -6,20 +6,19 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxSwift
 import WavesSDKExtensions
-import DomainLayer
 
 private enum Constants {
     static var notFoundCode = 404
 }
+
 final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
-
-    func aliases(serverEnvironment: ServerEnvironment,
+    func aliases(serverEnvironment _: ServerEnvironment,
                  accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
-
-        return Observable.create({ (observer) -> Disposable in
+        return Observable.create { observer -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onError(AssetsRepositoryError.fail)
@@ -34,18 +33,18 @@ final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
             observer.onCompleted()
 
             return Disposables.create()
-        })
+        }
     }
 
-    func alias(serverEnvironment: ServerEnvironment,
-               name: String,
-               accountAddress: String) -> Observable<String> {
+    func alias(serverEnvironment _: ServerEnvironment,
+               name _: String,
+               accountAddress _: String) -> Observable<String> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
     func saveAliases(accountAddress: String, aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool> {
-        return Observable.create({ (observer) -> Disposable in
+        return Observable.create { observer -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onNext(false)
@@ -54,14 +53,14 @@ final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
             }
 
             do {
-                try realm.write({
+                try realm.write {
                     realm.add(aliases.map {
                         let alias = Alias()
                         alias.name = $0.name
                         alias.originalName = $0.originalName
                         return alias
                     }, update: .all)
-                })
+                }
                 observer.onNext(true)
                 observer.onCompleted()
             } catch _ {
@@ -71,6 +70,6 @@ final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
             }
 
             return Disposables.create()
-        })
+        }
     }
 }

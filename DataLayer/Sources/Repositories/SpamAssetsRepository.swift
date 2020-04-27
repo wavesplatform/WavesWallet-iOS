@@ -13,23 +13,25 @@ import RxSwift
 
 final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
     
-    private let spamService: SpamAssetsService = SpamAssetsService()
+    private let spamService: SpamAssetsService
         
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol,
-         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
+         accountSettingsRepository: AccountSettingsRepositoryProtocol,
+         spamAssetsService: SpamAssetsService) {
         
         self.environmentRepository = environmentRepository
         self.accountSettingsRepository = accountSettingsRepository
+        self.spamService = spamAssetsService
     }
     
     func spamAssets(accountAddress: String) -> Observable<[SpamAssetId]> {
         
         return accountSettingsRepository
             .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (accountEnviroment) -> Observable<[SpamAssetId]> in
+            .flatMap({ [weak self] accountEnviroment -> Observable<[SpamAssetId]> in
                 
                 guard let self = self else { return Observable.never() }
                 

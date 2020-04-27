@@ -6,18 +6,23 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import Foundation
 import DomainLayer
+import Foundation
 
-final public class ServicesFactoryImp: ServicesFactory {
+public final class ServicesFactoryImp: ServicesFactory {
+            
     
-    private let wavesSDKServices: WavesSDKServices = WavesSDKServicesImp.shared
-    
-    public init() { }
+    public private(set) lazy var wavesSDKServices: WavesSDKServices = {
+        return WavesSDKServicesImp()
+    }()
     
     public private(set) lazy var timestampServerService: TimestampServerService = {
-        return TimestampServerServiceImp(wavesSDKServices: wavesSDKServices)
+        TimestampServerServiceImp(wavesSDKServices: wavesSDKServices)
     }()
+
+    public private(set) lazy var spamAssetsService: SpamAssetsService = {
+        return SpamAssetsServiceImp()
+    }()
+    
+    public init() {}
 }
-
-

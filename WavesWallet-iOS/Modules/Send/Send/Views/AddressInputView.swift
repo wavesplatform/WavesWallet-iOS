@@ -6,12 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import QRCodeReader
-import RxSwift
-import RxCocoa
 import DomainLayer
 import Extensions
+import QRCodeReader
+import RxCocoa
+import RxSwift
+import UIKit
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
@@ -29,7 +29,6 @@ protocol AddressInputViewDelegate: AnyObject {
     func addressInputViewDidEndEditing()
     func addressInputViewDidStartLoadingInfo()
     func addressInputViewDidRemoveBlockMode()
-    
 }
 
 extension AddressInputViewDelegate {
@@ -38,7 +37,6 @@ extension AddressInputViewDelegate {
 }
 
 final class AddressInputView: UIView, NibOwnerLoadable {
-    
     struct Input {
         let title: String
         let error: String
@@ -46,9 +44,9 @@ final class AddressInputView: UIView, NibOwnerLoadable {
         let contacts: [String]
         let canChangeAsset: Bool
     }
-    
-    var errorValidation:((String) -> Bool)?
-    
+
+    var errorValidation: ((String) -> Bool)?
+
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
@@ -58,66 +56,66 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelError: UILabel!
     @IBOutlet private weak var inputScrollViewHeight: NSLayoutConstraint!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
-    
+
     private let disposeBag = DisposeBag()
     private let assetInteractor = UseCasesFactory.instance.assets
     private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
     private let auth = UseCasesFactory.instance.authorization
     private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
-    
+
     weak var delegate: AddressInputViewDelegate?
     var decimals: Int = 0
-    
+
     private var isHiddenDeleteButton = true
     private var isShowErrorLabel = false
     private var canChangeAsset = false
-    
+
     var isBlockAddressMode: Bool = false {
         didSet {
             updateStyleView()
         }
     }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     var text: String {
         return textField.text ?? ""
     }
-    
+
     var isKeyboardShow: Bool {
         return textField.isFirstResponder
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         labelError.alpha = 0
         viewContentTextField.addTableCellShadowStyle()
         inputScrollView.inputDelegate = self
         buttonDelete.alpha = 0
         showInputScrollView(animation: false)
     }
-    
-    
+
     private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
-    
+
     // MARK: - Actions
-    @IBAction private func addressDidChange(_ sender: Any) {
-        
+
+    @IBAction private func addressDidChange(_: Any) {
         hideLoadingState()
         setupButtonsState()
         updateHeight(animation: true)
-        
+
         if let text = textField.text {
             delegate?.addressInputViewDidChangeAddress(text)
         }
-        
+
         showLabelError(isShow: false)
     }
-    
-    @IBAction private func deleteTapped(_ sender: Any) {
+
+    @IBAction private func deleteTapped(_: Any) {
         setupText("", animation: true)
         delegate?.addressInputViewDidDeleteAddress()
         showLabelError(isShow: false)
@@ -126,22 +124,20 @@ final class AddressInputView: UIView, NibOwnerLoadable {
             delegate?.addressInputViewDidRemoveBlockMode()
         }
     }
-    
-    @IBAction private func scanTapped(_ sender: Any) {
-        
+
+    @IBAction private func scanTapped(_: Any) {
         CameraAccess.requestAccess(success: { [weak self] in
             guard let self = self else { return }
             self.showScanner()
-            }, failure: { [weak self] in
-                guard let self = self else { return }
-                let alert = CameraAccess.alertController
-                self.firstAvailableViewController().present(alert, animated: true, completion: nil)
+        }, failure: { [weak self] in
+            guard let self = self else { return }
+            let alert = CameraAccess.alertController
+            self.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
     }
 }
 
 extension AddressInputView: ViewConfiguration {
-    
     func update(with model: Input) {
         canChangeAsset = model.canChangeAsset
         labelTitle.text = model.title
@@ -152,68 +148,65 @@ extension AddressInputView: ViewConfiguration {
 }
 
 // MARK: - Methods
+
 extension AddressInputView {
-    
     func showLoadingState() {
         buttonDelete.isHidden = true
         buttonScan.isHidden = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
-    
+
     func hideLoadingState() {
         buttonDelete.isHidden = false
         buttonScan.isHidden = false
         activityIndicator.stopAnimating()
     }
-    
+
     func setupText(_ text: String, animation: Bool) {
         textField.text = text
         updateHeight(animation: animation)
         setupButtonsState()
     }
-    
+
     func checkIfValidAddress() {
-        if let text = textField.text, text.count > 0 {
+        if let text = textField.text, !text.isEmpty {
             var showError = false
             if let validation = errorValidation {
                 showError = !validation(text)
             }
-            
+
             showLabelError(isShow: showError)
-        }
-        else {
+        } else {
             showLabelError(isShow: false)
         }
     }
 }
 
 // MARK: - InputScrollButtonsViewDelegate
+
 extension AddressInputView: InputScrollButtonsViewDelegate {
-    
     func inputScrollButtonsViewDidTapAt(index: Int) {
         if index == 0 {
             delegate?.addressInputViewDidSelectAddressBook()
-        }
-        else {
+        } else {
             delegate?.addressInputViewDidSelectContactAtIndex(index - 1)
         }
     }
 }
 
-
 // MARK: - UITextFieldDelegate
+
 extension AddressInputView: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_: UITextField) -> Bool {
         delegate?.addressInputViewDidTapNext()
         return true
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
+
+    func textFieldDidEndEditing(_: UITextField) {
         delegate?.addressInputViewDidEndEditing()
     }
-    
+
     private func showLabelError(isShow: Bool) {
         guard isShowErrorLabel != isShow else { return }
         isShowErrorLabel = isShow
@@ -223,13 +216,10 @@ extension AddressInputView: UITextFieldDelegate {
     }
 }
 
-
 // MARK: - SetupUI
 
 private extension AddressInputView {
-    
     func updateStyleView() {
-        
         if isBlockAddressMode {
             textField.isUserInteractionEnabled = false
             viewContentTextField.layer.removeShadow()
@@ -237,8 +227,7 @@ private extension AddressInputView {
             viewContentTextField.layer.cornerRadius = Constants.borderRadius
             viewContentTextField.layer.borderWidth = Constants.borderWidth
             viewContentTextField.layer.borderColor = UIColor.overlayDark.cgColor
-        }
-        else {
+        } else {
             textField.isUserInteractionEnabled = true
             viewContentTextField.backgroundColor = .white
             viewContentTextField.layer.cornerRadius = 0
@@ -247,28 +236,26 @@ private extension AddressInputView {
             viewContentTextField.addTableCellShadowStyle()
         }
     }
-    
+
     func setupButtonsState() {
         if textField.text?.count ?? 0 > 0 {
-            
             if isHiddenDeleteButton {
                 isHiddenDeleteButton = false
                 UIView.animate(withDuration: Constants.animationDuration) {
                     self.buttonDelete.alpha = 1
                     self.buttonScan.alpha = 0
                 }
-                
+
                 hideInputScrollView(animation: true)
             }
-        }
-        else {
+        } else {
             if !isHiddenDeleteButton {
                 isHiddenDeleteButton = true
                 UIView.animate(withDuration: Constants.animationDuration) {
                     self.buttonDelete.alpha = 0
                     self.buttonScan.alpha = 1
                 }
-                
+
                 showInputScrollView(animation: true)
             }
         }
@@ -278,50 +265,43 @@ private extension AddressInputView {
 // MARK: - Change frame
 
 private extension AddressInputView {
-    
     func updateHeight(animation: Bool) {
-        
         if textField.text?.count ?? 0 > 0 {
             hideInputScrollView(animation: animation)
-        }
-        else {
+        } else {
             showInputScrollView(animation: animation)
         }
     }
-    
+
     func showInputScrollView(animation: Bool) {
-        
         let height = inputScrollView.frame.origin.y + inputScrollView.frame.size.height
         guard heightConstraint.constant != height else { return }
-        
+
         heightConstraint.constant = height
         updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: true)
     }
-    
+
     func hideInputScrollView(animation: Bool) {
-        
         let height = viewContentTextField.frame.origin.y + viewContentTextField.frame.size.height
         guard heightConstraint.constant != height else { return }
-        
+
         heightConstraint.constant = height
         updateWithAnimationIfNeed(animation: animation, isShowInputScrollView: false)
     }
-    
+
     func updateWithAnimationIfNeed(animation: Bool, isShowInputScrollView: Bool) {
         if animation {
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.firstAvailableViewController().view.layoutIfNeeded()
                 self.inputScrollView.alpha = isShowInputScrollView ? 1 : 0
             }
-        }
-        else {
+        } else {
             inputScrollView.alpha = isShowInputScrollView ? 1 : 0
         }
     }
-    
+
     var heightConstraint: NSLayoutConstraint {
-        
-        if let constraint = constraints.first(where: {$0.firstAttribute == .height}) {
+        if let constraint = constraints.first(where: { $0.firstAttribute == .height }) {
             return constraint
         }
         return NSLayoutConstraint()
@@ -331,26 +311,23 @@ private extension AddressInputView {
 // MARK: - QRCodeReader
 
 private extension AddressInputView {
-    
     func showScanner() {
-        
         guard QRCodeReader.isAvailable() else { return }
         firstAvailableViewController().view.endEditing(true)
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-            
+
             if let value = result?.value {
-                
                 let address = QRCodeParser.parseAddress(value)
                 let assetID = QRCodeParser.parseAssetID(value)
                 let amount = QRCodeParser.parseAmount(value)
                 self.setupText(address, animation: false)
-                
+
                 if amount > 0 {
-                    self.getDecimals(assetID: assetID).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
-                        return SharedSequence.just(0)
+                    self.getDecimals(assetID: assetID).asDriver { (_) -> SharedSequence<DriverSharingStrategy, Int> in
+                        SharedSequence.just(0)
                     }
-                    .drive(onNext: { (decimals) in
-                        
+                    .drive(onNext: { decimals in
+
                         let amount = Money(value: Decimal(amount), decimals)
                         DispatchQueue.main.async {
                             self.delegate?.addressInputViewDidScanAddress(address,
@@ -358,9 +335,8 @@ private extension AddressInputView {
                                                                           assetID: assetID)
                         }
                     })
-                        .disposed(by: self.disposeBag)
-                }
-                else {
+                    .disposed(by: self.disposeBag)
+                } else {
                     DispatchQueue.main.async {
                         self.delegate?.addressInputViewDidScanAddress(address,
                                                                       amount: nil,
@@ -368,53 +344,52 @@ private extension AddressInputView {
                     }
                 }
             }
-            
+
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
         }
-        
+
         firstAvailableViewController().present(readerVC, animated: true)
     }
-    
+
     func getDecimals(assetID: String?) -> Observable<Int> {
-        if decimals > 0 && !canChangeAsset {
+        if decimals > 0, !canChangeAsset {
             return Observable.just(decimals)
         }
-        
+
         guard let assetID = assetID else { return Observable.just(0) }
         DispatchQueue.main.async {
             self.delegate?.addressInputViewDidStartLoadingInfo()
         }
-        
+
         let wallet = auth.authorizedWallet()
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
-        
+
         return Observable.zip(wallet, serverEnvironment)
-            .flatMap({[weak self] wallet, serverEnvironment -> Observable<Int> in
+            .flatMap { [weak self] wallet, serverEnvironment -> Observable<Int> in
                 guard let self = self else { return Observable.empty() }
-                
+
                 return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnvironment,
                                                          ids: [assetID],
                                                          accountAddress: wallet.address)
-                    .flatMap({ (assets) -> Observable<Int> in
-                        
-                        if let asset = assets.first(where: {$0.id == assetID}) {
+                    .flatMap { (assets) -> Observable<Int> in
+
+                        if let asset = assets.first(where: { $0.id == assetID }) {
                             return Observable.just(asset.precision)
                         }
                         return Observable.just(0)
-                    })
-                    .catchError({ [weak self] (error) -> Observable<Int> in
-                        
+                    }
+                    .catchError { [weak self] (_) -> Observable<Int> in
+
                         guard let self = self else { return Observable.empty() }
                         return self.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
-                            .flatMap({ (assets) -> Observable<Int> in
-                                
-                                if let asset = assets.first(where: {$0.id == assetID}) {
+                            .flatMap { (assets) -> Observable<Int> in
+
+                                if let asset = assets.first(where: { $0.id == assetID }) {
                                     return Observable.just(asset.precision)
                                 }
                                 return Observable.just(0)
-                            })
-                    })
-                
-            })
+                            }
+                    }
+            }
     }
 }

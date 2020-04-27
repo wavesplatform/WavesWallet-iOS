@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import DomainLayer
 import RxSwift
 
 enum Spam {}
@@ -21,7 +22,7 @@ private struct Constants {
     static let spamFileExt = "scv";
 }
 
-final class SpamAssetsService {
+final class SpamAssetsServiceImp: SpamAssetsService {
     
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
     

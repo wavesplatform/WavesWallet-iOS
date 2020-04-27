@@ -9,42 +9,34 @@
 import Foundation
 
 public final class UseCasesFactory: UseCasesFactoryProtocol {
-    
     public let services: ServicesFactory
-    
+
     public let repositories: RepositoriesFactoryProtocol
-    
-    public let daoFactory: DaoFactory
-    
+
     public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
-    
+
     public static var instance: UseCasesFactory!
-    
+
     init(services: ServicesFactory,
          repositories: RepositoriesFactoryProtocol,
-         authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol,
-         daoFactory: DaoFactory) {
+         authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
         self.services = services
         self.repositories = repositories
-        self.daoFactory = daoFactory
         self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
     }
-    
+
     public class func initialization(services: ServicesFactory,
                                      repositories: RepositoriesFactoryProtocol,
-                                     authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol,
-                                     daoFactory: DaoFactory) {
-        
-        self.instance = UseCasesFactory(services: services,
-                                        repositories: repositories,
-                                        authorizationInteractorLocalizable: authorizationInteractorLocalizable,
-                                        daoFactory: daoFactory)
+                                     authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        instance = UseCasesFactory(services: services,
+                                   repositories: repositories,
+                                   authorizationInteractorLocalizable: authorizationInteractorLocalizable)
     }
-    
+
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
         repositories.analyticManager
     }()
-    
+
     public private(set) lazy var accountBalance: AccountBalanceUseCaseProtocol = {
         let interactor = AccountBalanceUseCase(authorizationInteractor: self.authorization,
                                                balanceRepositoryRemote: repositories.accountBalanceRepositoryRemote,
@@ -52,10 +44,11 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                                assetsInteractor: self.assets,
                                                assetsBalanceSettings: self.assetsBalanceSettings,
                                                transactionsInteractor: self.transactions,
-                                               assetsBalanceSettingsRepository: repositories.assetsBalanceSettingsRepositoryLocal, serverEnvironmentUseCase: serverEnvironmentUseCase)
+                                               assetsBalanceSettingsRepository: repositories.assetsBalanceSettingsRepositoryLocal,
+                                               serverEnvironmentUseCase: serverEnvironmentUseCase)
         return interactor
     }()
-    
+
     public private(set) lazy var transactions: TransactionsUseCaseProtocol = {
         let interactor = TransactionsUseCase(transactionsRepositoryLocal: repositories.transactionsRepositoryLocal,
                                              transactionsRepositoryRemote: repositories.transactionsRepositoryRemote,
@@ -65,16 +58,17 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                              assetsRepositoryRemote: repositories.assetsRepositoryRemote,
                                              blockRepositoryRemote: repositories.blockRemote,
                                              accountSettingsRepository: repositories.accountSettingsRepository,
-                                             orderBookRepository: repositories.dexOrderBookRepository, serverEnvironmentUseCase: serverEnvironmentUseCase)
+                                             orderBookRepository: repositories.dexOrderBookRepository,
+                                             serverEnvironmentUseCase: serverEnvironmentUseCase)
         return interactor
     }()
-    
+
     public private(set) lazy var address: AddressInteractorProtocol = {
         let interactor = AddressUseCase(addressBookRepository: repositories.addressBookRepository,
                                         aliasesInteractor: self.aliases)
         return interactor
     }()
-    
+
     public private(set) lazy var authorization: AuthorizationUseCaseProtocol = {
         let interactor = AuthorizationUseCase(localWalletRepository: repositories.walletsRepositoryLocal,
                                               localWalletSeedRepository: repositories.walletSeedRepositoryLocal,
@@ -82,40 +76,42 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                               accountSettingsRepository: repositories.accountSettingsRepository,
                                               localizable: self.authorizationInteractorLocalizable,
                                               analyticManager: self.analyticManager)
-        
+
         return interactor
     }()
-    
+
     public private(set) lazy var aliases: AliasesUseCaseProtocol = {
         let interactor = AliasesUseCase(aliasesRepositoryRemote: repositories.aliasesRepositoryRemote,
                                         aliasesRepositoryLocal: repositories.aliasesRepositoryLocal,
                                         serverEnvironmentUseCase: serverEnvironmentUseCase)
-        
+
         return interactor
     }()
-    
+
     public private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol = {
-        let interactor = AssetsBalanceSettingsUseCase(assetsBalanceSettingsRepositoryLocal: repositories.assetsBalanceSettingsRepositoryLocal,
+        let interactor = AssetsBalanceSettingsUseCase(assetsBalanceSettingsRepositoryLocal: repositories
+            .assetsBalanceSettingsRepositoryLocal,
                                                       environmentRepository: repositories.environmentRepository,
                                                       authorizationInteractor: authorization)
-        
+
         return interactor
     }()
-    
+
     public private(set) lazy var migration: MigrationUseCaseProtocol = {
         MigrationUseCase(walletsRepository: repositories.walletsRepositoryLocal)
     }()
-    
-    public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase = ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
-    
+
+    public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase =
+        ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
+
     public private(set) lazy var assets: AssetsUseCaseProtocol = {
         let interactor = AssetsUseCase(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
                                        assetsRepositoryRemote: repositories.assetsRepositoryRemote,
                                        serverEnvironmentUseCase: serverEnvironmentUseCase)
-        
+
         return interactor
     }()
-    
+
     public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
         let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,
                                           assetsInteractor: assets,
@@ -123,35 +119,33 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                           serverEnvironment: serverEnvironmentUseCase)
         return interactor
     }()
-    
+
     public private(set) lazy var widgetSettings: WidgetSettingsUseCaseProtocol = {
         let useCase = WidgetSettingsUseCase(repositories: repositories, useCases: self)
         return useCase
     }()
-    
+
     public private(set) lazy var widgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol = {
         let useCase = WidgetSettingsInizializationUseCase(repositories: repositories,
                                                           useCases: self,
                                                           serverEnvironmentUseCase: serverEnvironmentUseCase)
         return useCase
     }()
-    
+
     public private(set) lazy var correctionPairsUseCase: CorrectionPairsUseCaseProtocol = {
         let useCase = CorrectionPairsUseCase(repositories: repositories, useCases: self)
         return useCase
     }()
-    
-    public private(set) lazy var weGatewayUseCase: WEGatewayUseCaseProtocol = {
 
+    public private(set) lazy var weGatewayUseCase: WEGatewayUseCaseProtocol = {
         let useCase = WEGatewayUseCase(gatewayRepository: repositories.weGatewayRepositoryProtocol,
                                        oAuthRepository: repositories.weOAuthRepositoryProtocol,
                                        authorizationUseCase: self.authorization,
                                        serverEnvironmentUseCase: serverEnvironmentUseCase)
         return useCase
     }()
-        
-    public private(set) lazy var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol = {
 
+    public private(set) lazy var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol = {
         let useCase = ACashDepositsUseCase(gatewayRepository: repositories.weGatewayRepositoryProtocol,
                                            oAuthRepository: repositories.weOAuthRepositoryProtocol,
                                            authorizationUseCase: self.authorization,
@@ -159,12 +153,11 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                            serverEnvironmentUseCase: serverEnvironmentUseCase)
         return useCase
     }()
-    
-    public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentUseCase = {
 
+    public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentUseCase = {
         let useCase = ServerEnvironmentUseCaseImp(serverTimestampRepository: repositories.serverTimestampRepository,
                                                   environmentRepository: repositories.environmentRepository)
-        
+
         return useCase
     }()
 }

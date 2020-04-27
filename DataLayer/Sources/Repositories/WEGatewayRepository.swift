@@ -119,10 +119,6 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
                 .filterSuccessfulStatusAndRedirectCodes()
                 .map(RegisterOrderResponse.self)
-                .catchError { _ -> PrimitiveSequence<SingleTrait, RegisterOrderResponse> in
-                    // это нормально?
-                    Single.never()
-                }
                 .map { response -> DomainLayer.DTO.WEGateway.Order? in
                     guard let url = response.createAdCashUrl(amount: amount, currency: Constants.currencyForLink) else {
                         return nil

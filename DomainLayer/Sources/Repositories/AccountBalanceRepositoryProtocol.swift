@@ -16,7 +16,6 @@ public enum AccountBalanceRepositoryError: Error {
 
 public protocol AccountBalanceRepositoryProtocol {
 
-    //TODO: Deprecated
     func balances(by serverEnviroment: ServerEnvironment,
                   wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]>
     

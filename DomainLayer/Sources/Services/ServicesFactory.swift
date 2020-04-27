@@ -11,4 +11,8 @@ import Foundation
 public protocol ServicesFactory {
 
     var timestampServerService: TimestampServerService { get }
+    
+    var wavesSDKServices: WavesSDKServices { get }
+    
+    var spamAssetsService: SpamAssetsService { get }
 }

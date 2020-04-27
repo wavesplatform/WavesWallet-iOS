@@ -6,65 +6,57 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxSwift
-import DomainLayer
-
-// TODO: Need remove
 
 final class ServerTimestampRepositoryImp: ServerTimestampRepository {
-            
     private let timestampServerService: TimestampServerService
-    private let serverTimestampDiffDao: ServerTimestampDiffDao
     private let disposeBag: DisposeBag = DisposeBag()
-    
-    init(timestampServerService: TimestampServerService,
-         serverTimestampDiffDao: ServerTimestampDiffDao) {
+
+    private var internalServerTimestampDiff: Int64?
+
+    private var serverTimestampDiff: Int64? {
+        get {
+            objc_sync_enter(self)
+            defer { objc_sync_exit(self) }
+            return internalServerTimestampDiff
+        }
+
+        set {
+            objc_sync_enter(self)
+            defer { objc_sync_exit(self) }
+            internalServerTimestampDiff = newValue
+        }
+    }
+
+    init(timestampServerService: TimestampServerService) {
         self.timestampServerService = timestampServerService
-        self.serverTimestampDiffDao = serverTimestampDiffDao
-        
-        // TODO: Is need move code to use case?
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(timeDidChange),
+
+        NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange),
                                                name: UIApplication.significantTimeChangeNotification,
                                                object: nil)
     }
-    
+
     func timestampServerDiff(serverEnvironment: ServerEnvironment) -> Observable<Int64> {
-        
-        return serverTimestampDiffDao
-            .serverTimestampDiffDao()
+        if let time = serverTimestampDiff {
+            return Observable.just(time)
+        }
+
+        return timestampServerService
+            .timestampServerDiff(serverEnvironment: serverEnvironment)
             .flatMap { [weak self] time -> Observable<Int64> in
-                
+
                 guard let self = self else { return Observable.never() }
-                
-                if let time = time {
-                    return Observable.just(time)
-                }
-                                
-                return self
-                    .timestampServerService
-                    .timestampServerDiff(serverEnvironment: serverEnvironment)
-                    .flatMap { [weak self] time -> Observable<Int64> in
-                        
-                        guard let self = self else { return Observable.never() }
-                        
-                        return self
-                            .serverTimestampDiffDao
-                            .setServerTimestampDiffDao(time)
-                            .map { $0 ?? time }
-                    }
+
+                self.serverTimestampDiff = time
+                return Observable.just(time)
             }
     }
 }
 
 private extension ServerTimestampRepositoryImp {
-    
     @objc func timeDidChange() {
-        
-        serverTimestampDiffDao
-            .setServerTimestampDiffDao(nil)
-            .subscribe()
-            .disposed(by: disposeBag)
-    }    
+        self.serverTimestampDiff = nil
+    }
 }

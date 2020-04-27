@@ -38,7 +38,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                     signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.WEOAuth.Token> {
                 
         return developmentConfigsRepository.developmentConfigs()
-            .flatMap({ [weak self] developmentConfigs ->  Observable<DomainLayer.DTO.WEOAuth.Token> in
+            .flatMap { [weak self] developmentConfigs ->  Observable<DomainLayer.DTO.WEOAuth.Token> in
                 guard let self = self else { return Observable.empty() }
                 
                 let url = URL(string: "https://api.waves.exchange/")!
@@ -57,7 +57,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                     .map(Token.self)
                     .map { DomainLayer.DTO.WEOAuth.Token(accessToken: $0.access_token) }
                     .asObservable()
-            })
+            } 
     }
     
     private func createOAuthToken(signedWallet: DomainLayer.DTO.SignedWallet,
