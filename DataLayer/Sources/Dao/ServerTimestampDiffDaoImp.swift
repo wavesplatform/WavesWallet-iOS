@@ -14,6 +14,7 @@ class ServerTimestampDiffDaoImp: ServerTimestampDiffDao {
     
     private var internalServerTimestampDiff: Int64?
 
+    // TODO: Is need mutex?
     private var serverTimestampDiff: Int64? {
         get {
             objc_sync_enter(self)
@@ -27,7 +28,7 @@ class ServerTimestampDiffDaoImp: ServerTimestampDiffDao {
             internalServerTimestampDiff = newValue
         }
     }
-             
+                 
     func serverTimestampDiffDao() -> Observable<Int64?> {
         return Observable.just(serverTimestampDiff)
     }

@@ -1,4 +1,4 @@
-//
+    //
 //  String+NormalizeAssetId.swift
 //  WavesWallet-iOS
 //

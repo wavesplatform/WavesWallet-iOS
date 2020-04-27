@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 import DomainLayer
 
+// TODO: Need remove
+
 final class ServerTimestampRepositoryImp: ServerTimestampRepository {
             
     private let timestampServerService: TimestampServerService
@@ -21,6 +23,7 @@ final class ServerTimestampRepositoryImp: ServerTimestampRepository {
         self.timestampServerService = timestampServerService
         self.serverTimestampDiffDao = serverTimestampDiffDao
         
+        // TODO: Is need move code to use case?
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(timeDidChange),
                                                name: UIApplication.significantTimeChangeNotification,
@@ -54,6 +57,7 @@ final class ServerTimestampRepositoryImp: ServerTimestampRepository {
             }
     }
 }
+
 private extension ServerTimestampRepositoryImp {
     
     @objc func timeDidChange() {

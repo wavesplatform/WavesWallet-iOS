@@ -20,7 +20,6 @@ private struct SponsoredAssetDetail {
 }
 
 final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
-    
     private let wavesSDKServices: WavesSDKServices
     
     init(wavesSDKServices: WavesSDKServices) {
@@ -29,7 +28,6 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     
     func balances(by serverEnviroment: ServerEnvironment,
                   wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
-        
         let walletAddress = wallet.address
         let assetsBalance = self.assetsBalance(by: serverEnviroment,
                                                walletAddress: walletAddress)
@@ -53,7 +51,6 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     func balance(by serverEnviroment: ServerEnvironment,
                  assetId: String,
                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance> {
-        
         let matcherBalances = self.matcherBalances(by: serverEnviroment,
                                                    walletAddress: wallet.address,
                                                    wallet: wallet)
@@ -68,7 +65,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                 .map { (accountBalance, matcher) -> DomainLayer.DTO.AssetBalance in
                     let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
                     return DomainLayer.DTO.AssetBalance(accountBalance: accountBalance, inOrderBalance: inOrderBalance)
-            }
+                }
         } else {
             let assetBalance = self.assetBalance(by: serverEnviroment,
                                                  walletAddress: wallet.address, assetId: assetId)
@@ -86,7 +83,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                     return DomainLayer.DTO.AssetBalance(model: assetBalance,
                                                         inOrderBalance: inOrderBalance,
                                                         sponsoredAssetDetail: sponsorBalance)
-            }
+                }
         }
     }
     
@@ -112,11 +109,9 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 }
 
 private extension AccountBalanceRepositoryRemote {
-    
     func matcherBalances(by serverEnviroment: ServerEnvironment,
                          walletAddress: String,
                          wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
-        
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
         
         let signature = TimestampSignature(signedWallet: wallet,
@@ -128,13 +123,11 @@ private extension AccountBalanceRepositoryRemote {
             .balanceReserved(query: .init(senderPublicKey: wallet.publicKey.getPublicKeyStr(),
                                           signature: Base58Encoder.encode(signature.signature()),
                                           timestamp: signature.timestamp))
-        
     }
     
     func assetBalance(by serverEnviroment: ServerEnvironment,
                       walletAddress: String,
                       assetId: String) -> Observable<NodeService.DTO.AddressAssetBalance> {
-        
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
         
         return wavesServices
@@ -142,7 +135,6 @@ private extension AccountBalanceRepositoryRemote {
             .assetsNodeService
             .assetBalance(address: walletAddress,
                           assetId: assetId)
-        
     }
     
     // TODO: https://wavesplatform.atlassian.net/browse/NODE-1488
@@ -150,7 +142,6 @@ private extension AccountBalanceRepositoryRemote {
     func sponsorBalance(serverEnviroment: ServerEnvironment,
                         assetId: String,
                         walletAddress: String) -> Observable<SponsoredAssetDetail> {
-        
         return assetDetail(serverEnviroment: serverEnviroment,
                            assetId: assetId,
                            walletAddress: walletAddress)
@@ -164,14 +155,13 @@ private extension AccountBalanceRepositoryRemote {
                     .map { (balance) -> SponsoredAssetDetail in
                         SponsoredAssetDetail(minSponsoredAssetFee: detail.minSponsoredAssetFee,
                                              sponsoredBalance: balance.balance)
-                }
-        }
+                    }
+            }
     }
     
     func assetDetail(serverEnviroment: ServerEnvironment,
                      assetId: String,
                      walletAddress: String) -> Observable<NodeService.DTO.AssetDetail> {
-        
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
         
         return wavesServices
@@ -183,7 +173,6 @@ private extension AccountBalanceRepositoryRemote {
     func balance(for serverEnviroment: ServerEnvironment,
                  walletAddress: String,
                  myWalletAddress: String) -> Observable<NodeService.DTO.AddressBalance> {
-        
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
         
         return wavesServices
@@ -192,22 +181,18 @@ private extension AccountBalanceRepositoryRemote {
             .addressBalance(address: walletAddress)
     }
     
-    
     func assetsBalance(by serverEnviroment: ServerEnvironment,
                        walletAddress: String) -> Observable<NodeService.DTO.AddressAssetsBalance> {
-        
-        let wavesServices = self.wavesSDKServices.wavesServices(environment: serverEnviroment)
+        let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
         
         return wavesServices
             .nodeServices
             .assetsNodeService
             .assetsBalances(address: walletAddress)
-        
     }
     
     func accountBalance(by serverEnviroment: ServerEnvironment,
                         walletAddress: String) -> Observable<NodeService.DTO.AddressBalance> {
-        
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
         
         return wavesServices

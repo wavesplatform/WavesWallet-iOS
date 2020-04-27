@@ -43,6 +43,11 @@ final class WavesSDKServicesImp: WavesSDKServices {
     }
     
     func wavesServices(environment: ServerEnvironment) -> WavesServicesProtocol {
+        defer {
+              objc_sync_exit(self)
+        }
+        
+        objc_sync_enter(self)
         
         if self.serverEnvironment == environment {
             return WavesSDK.shared.services
@@ -50,12 +55,7 @@ final class WavesSDKServicesImp: WavesSDKServices {
         
         self.serverEnvironment = environment
         
-        defer {
-            objc_sync_exit(self)
-        }
-        
-        objc_sync_enter(self)
-        
+                          
         let server: Enviroment.Server = .custom(node: environment.servers.nodeUrl,
                                                 matcher: environment.servers.matcherUrl,
                                                 data: environment.servers.dataUrl,

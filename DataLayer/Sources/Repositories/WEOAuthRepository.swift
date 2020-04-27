@@ -41,7 +41,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
             .flatMap({ [weak self] developmentConfigs ->  Observable<DomainLayer.DTO.WEOAuth.Token> in
                 guard let self = self else { return Observable.empty() }
                 
-                let url = serverEnvironment.servers.authUrl
+                let url = URL(string: "https://api.waves.exchange/")!
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
                 
                 let token: WEOAuth.Query.Token = self.createOAuthToken(signedWallet: signedWallet,

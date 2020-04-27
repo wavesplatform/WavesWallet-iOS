@@ -67,6 +67,9 @@ public struct WalletEnvironment: Decodable, Hashable {
         public let gatewayUrl: URL
         public let authUrl: URL
         public let gateways: Gateways
+        //
+        public let wavesExchangeApiUrl: URL?
+        public let wavesExchangeGrpcAddress: URL?
         
         public init(nodeUrl: URL,
                     dataUrl: URL,
@@ -74,7 +77,9 @@ public struct WalletEnvironment: Decodable, Hashable {
                     matcherUrl: URL,
                     gatewayUrl: URL,
                     authUrl: URL,
-                    gateways: Gateways) {
+                    gateways: Gateways,
+                    wavesExchangeApiUrl: URL,
+                    wavesExchangeGrpcAddress: URL) {
             
             self.nodeUrl = nodeUrl
             self.dataUrl = dataUrl
@@ -83,6 +88,8 @@ public struct WalletEnvironment: Decodable, Hashable {
             self.gatewayUrl = gatewayUrl
             self.authUrl = authUrl
             self.gateways = gateways
+            self.wavesExchangeApiUrl = wavesExchangeApiUrl
+            self.wavesExchangeGrpcAddress = wavesExchangeGrpcAddress
         }
     }
     

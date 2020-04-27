@@ -13,11 +13,10 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
-//TODO: Rename to Services
-//TODO: Protocol Split beetwin bd and api
+// TODO: Rename to Services
+// TODO: Protocol Split beetwin bd and api
 
 final class AliasesRepository: AliasesRepositoryProtocol {
-    
     private let wavesSDKServices: WavesSDKServices
     
     init(wavesSDKServices: WavesSDKServices) {
@@ -26,7 +25,6 @@ final class AliasesRepository: AliasesRepositoryProtocol {
     
     func aliases(serverEnvironment: ServerEnvironment,
                  accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
-        
         return wavesSDKServices
             .wavesServices(environment: serverEnvironment)
             .dataServices
@@ -34,20 +32,19 @@ final class AliasesRepository: AliasesRepositoryProtocol {
             .aliases(address: accountAddress)
             .map { list -> [DomainLayer.DTO.Alias] in
                 
-                return list.map { alias -> DomainLayer.DTO.Alias? in
+                list.map { alias -> DomainLayer.DTO.Alias? in
                     
                     let name = alias.alias
                     let originalName = serverEnvironment.aliasScheme + name
                     return DomainLayer.DTO.Alias(name: name, originalName: originalName)
                 }
                 .compactMap { $0 }
-        }
+            }
     }
     
     func alias(serverEnvironment: ServerEnvironment,
                name: String,
                accountAddress: String) -> Observable<String> {
-        
         return wavesSDKServices
             .wavesServices(environment: serverEnvironment)
             .dataServices
@@ -61,9 +58,9 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                 }
                 
                 return Observable.error(AliasesRepositoryError.invalid)
-        }
+            }
     }
-        
+    
     func saveAliases(accountAddress: String,
                      aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool> {
         assertMethodDontSupported()

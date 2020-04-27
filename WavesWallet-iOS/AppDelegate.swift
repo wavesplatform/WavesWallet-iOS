@@ -175,6 +175,7 @@ extension AppDelegate {
                                                       sentryIoInfoPath: sentryIoInfoPath,
                                                       googleServiceInfoForWavesPlatform: googleServiceInfoPathWaves)
         
+        
         let services = ServicesFactoryImp()
         
         let daoFactory = DaoFactoryImp()
