@@ -38,7 +38,7 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
                                           applicationVersionUseCase: UseCasesFactory.instance.applicationVersionUseCase,
                                           leasingInteractor: UseCasesFactory.instance.transactions,
                                           walletsRepository: UseCasesFactory.instance.repositories.walletsRepositoryLocal,
-                                          serverEnvironmentUseCase: serverEnvironmentUseCase)s
+                                          serverEnvironmentUseCase: serverEnvironmentUseCase)
 
         presenter.interactor = interactor
         presenter.moduleOutput = output
