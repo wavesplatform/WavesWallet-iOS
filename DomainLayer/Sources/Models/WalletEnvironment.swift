@@ -35,9 +35,10 @@ public struct WalletEnvironment: Decodable, Hashable {
                 
     }
     
-    public struct AssetInfo: Decodable, Hashable {
+    /// TODO: думаю что транспортные модели не должны быть Equatable
+    public struct AssetInfo: Decodable, Equatable {
         
-        public struct Icon: Decodable, Hashable {
+        public struct Icon: Decodable, Equatable {
             public let `default`: String?
         }
         
