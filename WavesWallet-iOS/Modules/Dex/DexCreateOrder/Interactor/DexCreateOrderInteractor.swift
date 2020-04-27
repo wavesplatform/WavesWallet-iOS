@@ -87,7 +87,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(auth.authorizedWallet(), serverEnvironment)
             .flatMap({ [weak self] wallet, serverEnvironment -> Observable<Bool> in
@@ -131,7 +131,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         
         if orderAmount.amount > 0 {
             
-            let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+            let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
             
             return serverEnvironment
                 .flatMap { [weak self] serverEnvironment -> Observable<DexCreateOrder.DTO.MarketOrder> in
@@ -182,7 +182,7 @@ private extension DexCreateOrderInteractor {
                                     priceAvg: Money?,
                                     type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(auth.authorizedWallet(),
                               serverEnvironment)

@@ -320,7 +320,7 @@ private extension TransactionCardSystem {
 
     private func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<Bool> {
         
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(serverEnviroment,
                               authorizationInteractor.authorizedWallet())

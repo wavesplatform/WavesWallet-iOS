@@ -187,7 +187,7 @@ private extension MyOrdersSystem {
     
     func myOrders() -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(authorizationInteractor.authorizedWallet(),
                               serverEnvironment)
@@ -201,7 +201,7 @@ private extension MyOrdersSystem {
     
     func cancelAllOrders() -> Observable<Bool> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(authorizationInteractor.authorizedWallet(),
                               serverEnvironment)
@@ -216,7 +216,7 @@ private extension MyOrdersSystem {
                      amountAsset: String,
                      priceAsset: String) -> Observable<Bool> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(authorizationInteractor.authorizedWallet(),
                               serverEnvironment)

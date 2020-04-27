@@ -76,7 +76,7 @@ fileprivate extension AddressesKeysPresenter {
             
             let serverEnvironment = self
                 .serverEnvironmentUseCase
-                .serverEnviroment()
+                .serverEnvironment()
                                     
             return serverEnvironment
                 .flatMap({ [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Alias]> in

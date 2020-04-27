@@ -31,7 +31,7 @@ final class DexChartInteractor: DexChartInteractorProtocol {
         
         
         return serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Candle]> in
                 
                 guard let self = self else { return Observable.never() }

@@ -30,7 +30,7 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
     
     func receiveBinding(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> {
         
-        let serverEnvironment = self.serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = self.serverEnvironmentUseCase.serverEnvironment()
         let wallet = authorizationUseCase.authorizedWallet()
         
         return Observable.zip(wallet, serverEnvironment)
@@ -70,7 +70,7 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
                      address: String,
                      amount: Money) -> Observable<DomainLayer.DTO.WEGateway.SendBinding> {
         
-        let serverEnvironment = self.serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = self.serverEnvironmentUseCase.serverEnvironment()
         let wallet = authorizationUseCase.authorizedWallet()
         
         return Observable.zip(wallet, serverEnvironment)

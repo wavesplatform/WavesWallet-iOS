@@ -70,7 +70,7 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     public func getDepositeStakingBalance() -> Observable<NodeService.DTO.AddressesData> {
         Observable
             .zip(authorizationService.authorizedWallet(),
-                 serverEnvironmentUseCase.serverEnviroment(),
+                 serverEnvironmentUseCase.serverEnvironment(),
                  devConfig.developmentConfigs())
             .flatMap { [weak self] signedWallet, serverEnviroment, devConfig -> Observable<NodeService.DTO.AddressesData> in
                 guard let self = self else { return Observable.never() }

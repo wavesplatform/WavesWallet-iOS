@@ -386,7 +386,7 @@ private extension AddressInputView {
         }
         
         let wallet = auth.authorizedWallet()
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(wallet, serverEnvironment)
             .flatMap({[weak self] wallet, serverEnvironment -> Observable<Int> in

@@ -30,7 +30,7 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
     
     func orderSettingsFee() -> Observable<DomainLayer.DTO.Dex.SmartSettingsOrderFee> {
        
-        let serverEnvironment = self.serverEnvironment.serverEnviroment()
+        let serverEnvironment = self.serverEnvironment.serverEnvironment()
         let authorizedWallet = authorizationInteractor.authorizedWallet()
         
         return Observable.zip(authorizedWallet,

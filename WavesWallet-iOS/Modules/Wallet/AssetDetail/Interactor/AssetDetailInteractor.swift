@@ -60,7 +60,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
             
             let pairsRateNow = self
                 .serverEnvironmentUseCase
-                .serverEnviroment()
+                .serverEnvironment()
                 .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
                     guard let self = self else { return Observable.empty() }
                     return self
@@ -72,7 +72,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
             
             let pairsRateYesterday = self
                 .serverEnvironmentUseCase
-                .serverEnviroment()
+                .serverEnvironment()
                 .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
                     guard let self = self else { return Observable.empty() }
                     return self

@@ -41,7 +41,7 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     
     func validateAlis(alias: String) -> Observable<Bool> {
 
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(authorizationInteractor.authorizedWallet(), serverEnvironment)
            .flatMap({ [weak self] wallet, serverEnvironment -> Observable<Bool> in

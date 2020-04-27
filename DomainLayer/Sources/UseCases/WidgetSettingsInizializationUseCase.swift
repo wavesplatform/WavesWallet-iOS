@@ -59,7 +59,7 @@ public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUs
             let pairs = assets.map { DomainLayer.DTO.CorrectionPairs.Pair.init(amountAsset: $0.id,
                                                                                priceAsset: WavesSDKConstants.wavesAssetId) }
             
-            let serverEnviroment = self.serverEnvironmentUseCase.serverEnviroment()
+            let serverEnviroment = self.serverEnvironmentUseCase.serverEnvironment()
             let correctionPairs  = self.useCases.correctionPairsUseCase.correction(pairs: pairs)
             
             return Observable.zip(serverEnviroment, correctionPairs)

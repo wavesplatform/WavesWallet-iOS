@@ -99,7 +99,7 @@ fileprivate extension MyAddressPresenter {
 
             return self
                 .serverEnvironmentUseCase
-                .serverEnviroment()
+                .serverEnvironment()
                 .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Alias]> in
                     
                     guard let self = self else { return Observable.never() }

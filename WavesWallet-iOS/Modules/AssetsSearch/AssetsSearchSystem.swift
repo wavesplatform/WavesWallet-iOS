@@ -66,7 +66,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                     
                     return self
                         .serverEnvironmentUseCase
-                        .serverEnviroment()
+                        .serverEnvironment()
                         .flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.Asset]> in
                             
                             guard let self = self else { return Observable.never() }
@@ -100,7 +100,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             
             guard let self = self else { return Signal.never() }
                         
-            return Observable.zip(self.serverEnvironmentUseCase.serverEnviroment(),
+            return Observable.zip(self.serverEnvironmentUseCase.serverEnvironment(),
                                   self.environmentRepository.walletEnvironment())
                 .flatMap({ [weak self] serverEnviroment, walletEnvironment -> Observable<Event> in
                     

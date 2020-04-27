@@ -54,7 +54,7 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
     private func remoteAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         
         return serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Asset]> in
                 
                 guard let self = self else { return Observable.never() }
@@ -79,7 +79,7 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
     private func localeAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         
         return serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Asset]> in
             
                 guard let self = self else { return Observable.never() }

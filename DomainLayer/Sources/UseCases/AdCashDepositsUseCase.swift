@@ -74,7 +74,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
     
     func requirementsOrder(assetId: String) -> Observable<DomainLayer.DTO.AdCashDeposits.RequirementsOrder> {
         
-        let serverEnvironment = self.serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = self.serverEnvironmentUseCase.serverEnvironment()
         let wallet = authorizationUseCase.authorizedWallet()
         
         return Observable.zip(wallet, serverEnvironment)
@@ -139,7 +139,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
         
         let serverEnvironment = self
                           .serverEnvironmentUseCase
-                          .serverEnviroment()
+                          .serverEnvironment()
         let wallet = authorizationUseCase.authorizedWallet()
         
         return Observable.zip(wallet, serverEnvironment)

@@ -223,7 +223,7 @@ extension PayoutsHistorySystem {
                 let queryCache = Observable.just(query)
                 let massTransferTransactions = self
                     .serverEnvironmentUseCase
-                    .serverEnviroment()
+                    .serverEnvironment()
                     .flatMap { [weak self] serverEnvironment -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
                         guard let self = self else { return Observable.never() }
                         

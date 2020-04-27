@@ -75,7 +75,7 @@ final class GatewayRepository: GatewayRepositoryProtocol {
               wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool> {
         
         let url = serverEnvironment.servers.gatewayUrl
-                    
+        
         let specs = specifications.broadcastSpecification(serverEnvironment: serverEnvironment,
                                                           wallet: wallet,
                                                           specifications: specifications)

@@ -82,7 +82,7 @@ final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
         
         return useCases
             .serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<[String]> in
                 
                 guard let self = self else { return Observable.never() }

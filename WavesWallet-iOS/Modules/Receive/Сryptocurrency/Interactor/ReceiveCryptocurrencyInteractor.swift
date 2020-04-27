@@ -27,7 +27,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         
         return Observable.zip(wallet, serverEnvironment)

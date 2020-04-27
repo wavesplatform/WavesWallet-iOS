@@ -169,7 +169,7 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
         }
         
         return serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
         
                 guard let self = self else { return Observable.never() }

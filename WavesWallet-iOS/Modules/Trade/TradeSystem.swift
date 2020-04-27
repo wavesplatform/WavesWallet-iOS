@@ -300,7 +300,7 @@ private extension TradeSystem {
 
     func loadData(selectedAsset: DomainLayer.DTO.Dex.Asset?) -> Observable<TradeTypes.DTO.Core> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         
         return Observable.zip(serverEnvironment, wallet)
@@ -376,7 +376,7 @@ private extension TradeSystem {
                                             
                         let pairsPrice = self
                             .serverEnvironmentUseCase
-                            .serverEnviroment()
+                            .serverEnvironment()
                             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
                                 
                                 guard let self = self else { return Observable.empty() }
@@ -396,7 +396,7 @@ private extension TradeSystem {
                                                 
                         let pairsRate = self
                             .serverEnvironmentUseCase
-                            .serverEnviroment()
+                            .serverEnvironment()
                             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
                                 
                                 guard let self = self else { return Observable.empty() }

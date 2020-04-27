@@ -89,7 +89,7 @@ private extension AccountBalanceUseCase {
     private func assetBalances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         
         let serverEnviroment = serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
         
         let balances = serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.AssetBalance]> in
             guard let self = self else { return Observable.never() }
@@ -121,7 +121,7 @@ private extension AccountBalanceUseCase {
                               assetId: String) -> Observable<DomainLayer.DTO.AssetBalance> {
         
         let serverEnviroment = serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
         
         return serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<DomainLayer.DTO.AssetBalance> in
             guard let self = self else { return Observable.never() }

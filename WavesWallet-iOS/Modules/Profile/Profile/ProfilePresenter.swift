@@ -294,7 +294,7 @@ fileprivate extension ProfilePresenter {
 
             let serverEnvironment = self
                 .serverEnvironmentUseCase
-                .serverEnviroment()
+                .serverEnvironment()
             
             let height = serverEnvironment
                 .flatMap { [weak self] serverEnvironment -> Observable<Int64> in

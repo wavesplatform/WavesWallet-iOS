@@ -94,7 +94,7 @@ extension DexLastTradesInteractor {
     private func getLastTrades() -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
                 
         return serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
                 
                 guard let self = self else { return Observable.never() }
@@ -109,7 +109,7 @@ extension DexLastTradesInteractor {
     
     private func getLastSellBuy() -> Observable<LastSellBuy> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         
         let orderBook = serverEnvironment
             .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.Dex.OrderBook> in
@@ -154,7 +154,7 @@ extension DexLastTradesInteractor {
     
     func getScriptedAssets() -> Observable<[DomainLayer.DTO.Asset]> {
         
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         
         return Observable.zip(wallet, serverEnviroment)

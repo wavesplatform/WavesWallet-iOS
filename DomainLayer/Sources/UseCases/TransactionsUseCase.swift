@@ -122,7 +122,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                       accountAddress: String) -> Observable<Money> {
         
         let serverEnvironment = serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
         
         let isSmartAccount = serverEnvironment.flatMap({ [weak self] serverEnvironment -> Observable<Bool> in
             
@@ -210,7 +210,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     func send(by specifications: TransactionSenderSpecifications,
               wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {
         
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
         
         return serverEnviroment
             .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.AnyTransaction> in
@@ -251,7 +251,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     
     func activeLeasingTransactionsSync(by accountAddress: String) -> SmartTransactionsSyncObservable {
         
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
                 
         return serverEnviroment.flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
             
@@ -365,7 +365,7 @@ private extension TransactionsUseCase {
     
     private func firstTransactionsLoadingSync(_ address: DomainLayer.DTO.Address,
                                               specifications: TransactionsSpecifications) -> SmartTransactionsSyncObservable {
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
                 
         return serverEnviroment
             .flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
@@ -398,7 +398,7 @@ private extension TransactionsUseCase {
     
     private func ifNeededLoadNextTransactionsSync(_ query: IfNeededLoadNextTransactionsQuery) -> SmartTransactionsSyncObservable {
         
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
         
         return serverEnviroment
             .flatMap({ [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
@@ -504,7 +504,7 @@ private extension TransactionsUseCase {
             
             if isNeedActiveLeasing {
                 
-                let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+                let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
                                                             
                 activeLeasing = serverEnviroment
                     .flatMap({ [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
@@ -606,7 +606,7 @@ private extension TransactionsUseCase {
         
                 
         let blockHeight = serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<Int64> in
                 guard let self = self else { return Observable.never() }
                 return self

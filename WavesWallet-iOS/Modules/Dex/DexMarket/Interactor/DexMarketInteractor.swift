@@ -59,7 +59,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
         
         return Observable.zip(auth.authorizedWallet(),
                               environment.walletEnvironment(),
-                              serverEnvironmentUseCase.serverEnviroment())
+                              serverEnvironmentUseCase.serverEnvironment())
             .flatMap{ [weak self] wallet, environment, serverEnvironment -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
                 
@@ -158,7 +158,7 @@ private extension DexMarketInteractor {
                 
                 let searchPairsObserver = self
                     .serverEnvironmentUseCase
-                    .serverEnviroment()
+                    .serverEnvironment()
                     .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
                         guard let self = self else { return Observable.empty() }
                         
@@ -258,7 +258,7 @@ private extension DexMarketInteractor {
                 
                 let orderBook = self
                     .serverEnvironmentUseCase
-                    .serverEnviroment()
+                    .serverEnvironment()
                     .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                         
                         guard let self = self else { return Observable.empty() }

@@ -171,7 +171,7 @@ fileprivate extension CreateAliasPresenter {
         }, effects: { [weak self] name -> Signal<Types.Event> in
             guard let self = self else { return Signal.empty() }
             
-            let serverEnvironment = self.serverEnvironmentUseCase.serverEnviroment()
+            let serverEnvironment = self.serverEnvironmentUseCase.serverEnvironment()
             let authorizedWallet = self.authorizationInteractor.authorizedWallet()
             
             return Observable.zip(authorizedWallet, serverEnvironment)

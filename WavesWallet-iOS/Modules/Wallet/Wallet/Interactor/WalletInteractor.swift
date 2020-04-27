@@ -329,7 +329,7 @@ private extension WalletInteractor {
                 guard let self = self else { return Observable.never() }
                 
                 return self.serverEnvironmentUseCase
-                    .serverEnviroment()
+                    .serverEnvironment()
                     .flatMap { [weak self] serverEnvironment -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
                         
                         guard let self = self else { return Observable.never() }
@@ -391,7 +391,7 @@ private extension WalletInteractor {
                 
                 let massTransferTransactions = self
                     .serverEnvironmentUseCase
-                    .serverEnviroment()
+                    .serverEnvironment()
                     .flatMap { [weak self] serverEnvironment -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
                         guard let self = self else { return Observable.never() }
                         return self.massTransferRepository.obtainPayoutsHistory(serverEnvironment: serverEnvironment,

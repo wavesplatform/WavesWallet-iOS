@@ -85,7 +85,7 @@ final class SendInteractor: SendInteractorProtocol {
     
     func validateAlis(alias: String) -> Observable<Bool> {
         
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         return Observable.zip(serverEnvironment, wallet)
             .flatMap({ [weak self] serverEnvironment, wallet -> Observable<Bool> in
@@ -112,7 +112,7 @@ final class SendInteractor: SendInteractorProtocol {
               feeAssetID: String,
               isGatewayTransaction: Bool) -> Observable<Send.TransactionStatus> {
         
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         
         return Observable.zip(wallet, serverEnviroment)
@@ -214,7 +214,7 @@ extension SendInteractor {
         case .gateway:
                                     
             return serverEnvironmentUseCase
-                .serverEnviroment()
+                .serverEnvironment()
                 .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> in
                     
                     guard let self = self else { return Observable.never() }

@@ -55,7 +55,7 @@ final class AliasesUseCase: AliasesUseCaseProtocol {
     private func remoteAliases(by accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
         
         return serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Alias]> in
                 
                 guard let self = self else { return Observable.never() }
@@ -79,7 +79,7 @@ final class AliasesUseCase: AliasesUseCaseProtocol {
     private func localeAliases(by accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
         
         return serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<[DomainLayer.DTO.Alias]> in
                 
                 guard let self = self else { return Observable.never() }

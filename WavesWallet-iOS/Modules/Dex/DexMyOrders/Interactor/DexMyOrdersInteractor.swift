@@ -21,7 +21,7 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     func myOrders() -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
         
         let wallet = auth.authorizedWallet()
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
         
         return Observable.zip(wallet, serverEnviroment)
             .flatMap({ [weak self] wallet, serverEnviroment -> Observable<[DomainLayer.DTO.Dex.MyOrder]>  in

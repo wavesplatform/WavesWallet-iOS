@@ -30,7 +30,7 @@ public struct ServerEnvironment: Hashable {
 }
 
 public protocol ServerEnvironmentUseCase {
-    func serverEnviroment() -> Observable<ServerEnvironment>
+    func serverEnvironment() -> Observable<ServerEnvironment>
 }
 
 public final class ServerEnvironmentUseCaseImp: ServerEnvironmentUseCase {
@@ -45,7 +45,7 @@ public final class ServerEnvironmentUseCaseImp: ServerEnvironmentUseCase {
         self.environmentRepository = environmentRepository  
     }
     
-    public func serverEnviroment() -> Observable<ServerEnvironment> {
+    public func serverEnvironment() -> Observable<ServerEnvironment> {
         
         let walletEnvironment = self.environmentRepository.walletEnvironment()
         

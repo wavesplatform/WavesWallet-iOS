@@ -45,7 +45,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               scriptedAssets: [])
         
         let orderBook = serverEnvironmentUseCase
-            .serverEnviroment()
+            .serverEnvironment()
             .flatMap { serverEnvironment -> Observable<DomainLayer.DTO.Dex.OrderBook> in
                 return self.orderBookRepository.orderBook(serverEnvironment: serverEnvironment,
                                                           amountAsset: self.pair.amountAsset.id,
@@ -179,7 +179,7 @@ private extension DexOrderBookInteractor {
     
     func getLastTransactionInfo() -> Observable<DomainLayer.DTO.Dex.LastTrade?> {
         
-        let serverEnviroment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
         
         return serverEnviroment
             .flatMap { [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
@@ -200,7 +200,7 @@ private extension DexOrderBookInteractor {
     
     func getScriptedAssets() -> Observable<[DomainLayer.DTO.Asset]> {
 
-        let serverEnvironment = serverEnvironmentUseCase.serverEnviroment()
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         
         return Observable.zip(serverEnvironment, wallet)
