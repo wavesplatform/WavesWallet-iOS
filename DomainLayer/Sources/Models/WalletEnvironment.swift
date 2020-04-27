@@ -21,7 +21,6 @@ private enum Constants {
     
 }
 
-//TODO: Rename ?
 public struct WalletEnvironment: Decodable, Hashable {
     
     public enum Kind: String, Hashable {
@@ -34,7 +33,7 @@ public struct WalletEnvironment: Decodable, Hashable {
         }
                 
     }
-    
+        
     public struct AssetInfo: Decodable, Hashable {
         
         public struct Icon: Decodable, Hashable {
