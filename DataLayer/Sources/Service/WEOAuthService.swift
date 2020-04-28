@@ -19,19 +19,20 @@ enum WEOAuth {
 }
 
 extension WEOAuth.Query {
-   
+    
     struct Token: Codable {
-//        let token: String
         let username: String
         let password: String
         let grantType: String
         let scope: String
+        let clientId: String
         
         private enum CodingKeys: String, CodingKey {
             case username
             case password
             case grantType = "grant_type"
             case scope
+            case clientId = "client_id"
         }
     }
 }
@@ -60,10 +61,7 @@ extension WEOAuth.Service: TargetType {
     var headers: [String: String]? {
         var headers: [String: String] = .init()
         
-//        switch self {
-//        case .token(_, let token):
-////            headers["Authorization"] = token.token
-//        }
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         
         return headers
     }
