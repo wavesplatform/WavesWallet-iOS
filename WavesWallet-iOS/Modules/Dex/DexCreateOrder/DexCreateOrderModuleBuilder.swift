@@ -6,45 +6,41 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
- 
+import UIKit
+
 struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
-    
     weak var output: DexCreateOrderModuleOutput?
 
     func build(input: DexCreateOrder.DTO.Input) -> UIViewController {
-        
-        let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-        let matcherRepository: MatcherRepositoryProtocol = UseCasesFactory.instance.repositories.matcherRepository
-        let orderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
-        let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
-        let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
-        let orderBookInteractor: OrderBookUseCaseProtocol = UseCasesFactory.instance.oderbook
-        let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
+        let pair = DomainLayer.DTO.Dex.Pair(amountAsset: input.amountAsset, priceAsset: input.priceAsset)
+
+        let auth = UseCasesFactory.instance.authorization
+        let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
+        let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+        let transactionInteractor = UseCasesFactory.instance.transactions
+        let assetsInteractor = UseCasesFactory.instance.assets
+        let orderBookInteractor = UseCasesFactory.instance.oderbook
         let developmentConfig = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
-        let interactor: DexCreateOrderInteractorProtocol = DexCreateOrderInteractor(authorization: auth,
-                                                                                    matcherRepository: matcherRepository,
-                                                                                    dexOrderBookRepository: orderBookRepository,
-                                                                                    transactionInteractor: transactionInteractor,
-                                                                                    assetsInteractor: assetsInteractor,
-                                                                                    orderBookInteractor: orderBookInteractor,
-                                                                                    developmentConfig: developmentConfig,
-                                                                                    serverEnvironmentUseCase: serverEnvironmentUseCase)
-        
-        var presenter: DexCreateOrderPresenterProtocol = DexCreateOrderPresenter()
-        presenter.interactor = interactor
-        presenter.pair = DomainLayer.DTO.Dex.Pair(amountAsset: input.amountAsset,
-                                                  priceAsset: input.priceAsset)
-        
+        let interactor = DexCreateOrderInteractor(authorization: auth,
+                                                  matcherRepository: matcherRepository,
+                                                  dexOrderBookRepository: orderBookRepository,
+                                                  transactionInteractor: transactionInteractor,
+                                                  assetsInteractor: assetsInteractor,
+                                                  orderBookInteractor: orderBookInteractor,
+                                                  developmentConfig: developmentConfig,
+                                                  serverEnvironmentUseCase: serverEnvironmentUseCase)
+
+        let presenter = DexCreateOrderPresenter(interactor: interactor, pair: pair)
+
         let vc = StoryboardScene.Dex.dexCreateOrderViewController.instantiate()
         vc.input = input
         vc.presenter = presenter
         vc.moduleOutput = output
-        
+
         return vc
     }
 }
