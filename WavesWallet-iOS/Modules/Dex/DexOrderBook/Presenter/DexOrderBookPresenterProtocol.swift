@@ -12,10 +12,8 @@ import DomainLayer
 
 protocol DexOrderBookPresenterProtocol {
     typealias Feedback = (Driver<DexOrderBook.State>) -> Signal<DexOrderBook.Event>
-    var interactor: DexOrderBookInteractorProtocol! { get set }
-    func system(feedbacks: [Feedback])
+    
     var moduleOutput: DexOrderBookModuleOutput? { get set }
     
-    var priceAsset: DomainLayer.DTO.Dex.Asset! { get set }
-    var amountAsset: DomainLayer.DTO.Dex.Asset! { get set }
+    func system(feedbacks: [Feedback])
 }

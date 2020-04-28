@@ -27,6 +27,10 @@ private enum Constants {
 
 final class DexCreateOrderViewController: UIViewController {
     
+    deinit {
+        print(#function)
+    }
+    
     var input: DexCreateOrder.DTO.Input! {
         didSet {
             
