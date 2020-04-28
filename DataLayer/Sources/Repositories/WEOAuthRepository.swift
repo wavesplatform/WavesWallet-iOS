@@ -20,10 +20,9 @@ private struct Token: Codable {
     private enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
     }
-    
 }
 
-final class WEOAuthServiceImp: WEOAuthRepositoryProtocol {
+final class WEOAuthRepository: WEOAuthRepositoryProtocol {
     
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     
@@ -39,7 +38,7 @@ final class WEOAuthServiceImp: WEOAuthRepositoryProtocol {
             .flatMap { [weak self] developmentConfigs -> Observable<WEOAuthTokenDTO> in
                 guard let self = self else { return Observable.empty() }
 
-                let url = serverEnvironment.servers.wavesExchangeApiUrl!
+                let url = serverEnvironment.servers.wavesExchangeApiUrl
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
 
                 let token: WEOAuth.Query.Token = self.createOAuthToken(signedWallet: signedWallet,

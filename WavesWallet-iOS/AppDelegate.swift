@@ -175,12 +175,12 @@ extension AppDelegate {
                                                       googleServiceInfoForWavesPlatform: googleServiceInfoPathWaves)
         
         let services = ServicesFactoryImp()
-
         
         let repositories = RepositoriesFactory(resources: resourses,
                                                services: services)
 
-        Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId: "ibdxiwmt")
+        Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920",
+                           forAppId: "ibdxiwmt")
 
         UseCasesFactory.initialization(services: services,
                                        repositories: repositories,

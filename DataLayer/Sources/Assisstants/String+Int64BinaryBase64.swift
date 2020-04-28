@@ -27,3 +27,21 @@ extension String {
         return value
     }
 }
+
+
+extension Data {
+    
+    func decodeInt64() -> Int64 {
+        
+        guard !self.isEmpty else { return 0 }
+                    
+        var value: Int64 = 0
+                
+        self.forEach { byte in
+            value = value << 8
+            value = value | Int64(byte)
+        }
+
+        return value
+    }
+}

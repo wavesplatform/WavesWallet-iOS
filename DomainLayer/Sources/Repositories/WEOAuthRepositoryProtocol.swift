@@ -21,3 +21,5 @@ public protocol WEOAuthRepositoryProtocol {
     func oauthToken(serverEnvironment: ServerEnvironment,
                     signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<WEOAuthTokenDTO>
 }
+
+

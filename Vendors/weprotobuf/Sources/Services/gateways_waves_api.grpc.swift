@@ -30,9 +30,13 @@ import SwiftProtobuf
 /// Usage: instantiate Gateways_WavesApiClient, then call methods of this protocol to make API calls.
 public protocol Gateways_WavesApiClientProtocol {
   func getWavesAssetBindings(_ request: Gateways_GetWavesAssetBindingsRequest, callOptions: CallOptions?) -> UnaryCall<Gateways_GetWavesAssetBindingsRequest, Gateways_AssetBindingsResponse>
+    
   func getDepositTransferBinding(_ request: Gateways_GetDepositTransferBindingRequest, callOptions: CallOptions?) -> UnaryCall<Gateways_GetDepositTransferBindingRequest, Gateways_GetTransferBindingResponse>
+    
   func getWithdrawalTransferBinding(_ request: Gateways_GetWithdrawalTransferBindingRequest, callOptions: CallOptions?) -> UnaryCall<Gateways_GetWithdrawalTransferBindingRequest, Gateways_GetTransferBindingResponse>
+    
   func createDepositTransferBinding(_ request: Gateways_CreateDepositTransferBindingRequest, callOptions: CallOptions?) -> UnaryCall<Gateways_CreateDepositTransferBindingRequest, Gateways_CreateTransferBindingResponse>
+    
   func createWithdrawalTransferBinding(_ request: Gateways_CreateWithdrawalTransferBindingRequest, callOptions: CallOptions?) -> UnaryCall<Gateways_CreateWithdrawalTransferBindingRequest, Gateways_CreateTransferBindingResponse>
 }
 
