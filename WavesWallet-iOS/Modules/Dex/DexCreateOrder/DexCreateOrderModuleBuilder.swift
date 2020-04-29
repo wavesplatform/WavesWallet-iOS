@@ -24,12 +24,20 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
         let orderBookInteractor = UseCasesFactory.instance.oderbook
         let developmentConfig = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
-
-        let interactor = DexCreateOrderInteractor(authorization: auth,
+        let addressRepository = UseCasesFactory.instance.repositories.addressRepository
+        let accountBalance = UseCasesFactory.instance.accountBalance
+        let assetRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+        let transactionRepositoryRemote = UseCasesFactory.instance.repositories.transactionsRepositoryRemote
+        
+        let interactor = DexCreateOrderInteractor(authorization: auth, 
+                                                  addressRepository: addressRepository,
+                                                  accountBalance: accountBalance,
                                                   matcherRepository: matcherRepository,
                                                   dexOrderBookRepository: orderBookRepository,
                                                   transactionInteractor: transactionInteractor,
+                                                  transactionsRepositoryRemote: transactionRepositoryRemote,
                                                   assetsInteractor: assetsInteractor,
+                                                  assetsRepository: assetRepository,
                                                   orderBookInteractor: orderBookInteractor,
                                                   developmentConfig: developmentConfig,
                                                   serverEnvironmentUseCase: serverEnvironmentUseCase)

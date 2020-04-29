@@ -12,12 +12,15 @@ import Extensions
 
 final class AssetsUseCase: AssetsUseCaseProtocol {
 
-    private let assetsRepository: AssetsRepositoryProtocol
+    private let assetsRepositoryLocal: AssetsRepositoryProtocol
+    private let assetsRepositoryRemote: AssetsRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentUseCase
 
-    init(assetsRepository: AssetsRepositoryProtocol,
+    init(assetsRepositoryLocal: AssetsRepositoryProtocol,
+         assetsRepositoryRemote: AssetsRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentUseCase) {
-        self.assetsRepository = assetsRepository
+        self.assetsRepositoryLocal = assetsRepositoryLocal
+        self.assetsRepositoryRemote = assetsRepositoryRemote
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
@@ -57,7 +60,7 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
                 guard let self = self else { return Observable.never() }
                 
                 return self
-                    .assetsRepository
+                    .assetsRepositoryRemote
                     .assets(serverEnvironment: serverEnvironment,
                             ids: ids,
                             accountAddress: accountAddress)
@@ -65,7 +68,7 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
             .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
                 guard let self = self else { return Observable.never() }
                 return self
-                    .assetsRepository
+                    .assetsRepositoryLocal
                     .saveAssets(assets, by: accountAddress)
                     .map({ _ -> [DomainLayer.DTO.Asset] in
                         return assets
@@ -82,10 +85,8 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
                 guard let self = self else { return Observable.never() }
                 
                 return self
-                    .assetsRepository
-                    .assets(serverEnvironment: serverEnvironment,
-                            ids: ids,
-                            accountAddress: accountAddress)
+                    .assetsRepositoryLocal
+                    .assets(serverEnvironment: serverEnvironment, ids: ids, accountAddress: accountAddress)
             }
     }
 

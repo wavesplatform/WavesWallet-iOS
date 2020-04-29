@@ -41,7 +41,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
          transactionInteractor: TransactionsUseCaseProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
          assetsInteractor: AssetsUseCaseProtocol,
-         assetsRepository _: AssetsRepositoryProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          orderBookInteractor: OrderBookUseCaseProtocol,
          developmentConfig: DevelopmentConfigsRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentUseCase) {
@@ -51,6 +51,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         auth = authorization
         self.matcherRepository = matcherRepository
         orderBookRepository = dexOrderBookRepository
+        self.assetsRepository = assetsRepository
         self.transactionInteractor = transactionInteractor
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
         self.assetsInteractor = assetsInteractor
@@ -113,7 +114,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                   isSmartAddress,
                                   self.accountBalance.balances(),
                                   isSmartAssets)
-                .flatMap { settingOrderFee, feeRules, isSmartAddress, _, isSmartAssets -> Observable<DexCreateOrder.DTO.FeeSettings> in
+                .flatMap { settingOrderFee, feeRules, isSmartAddress, assetsBalances, isSmartAssets -> Observable<DexCreateOrder.DTO.FeeSettings> in
 
                     self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
                                                                              priceAsset: priceAsset,
@@ -124,6 +125,10 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 
                             let feeAssets = settingOrderFee.feeAssets.filter { [weak self] feeAsset -> Bool in
                                 guard let strongSelf = self else { return false }
+                                
+                                if feeAsset.asset.id == WavesSDKConstants.wavesAssetId {
+                                    return true
+                                }
                                 
                                 var isSmartAssetsDict: [String: Bool] = [:]
                                 isSmartAssets.forEach { isSmartAssetsDict[$0] = $1 }
@@ -137,12 +142,12 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                      baseFee: settingOrderFee.baseFee,
                                                                      rules: feeRules,
                                                                      isSmartAssets: isSmartAssetsDict) // как собирать этот список?
-
-                                // как сравнивать балансы? (откуда брать precision)
-
-                                return true
                                 
-//                                return assetBalances.first(where: { $0.assetId == feeAsset.asset.id })?
+                                let assetBalanceFee = assetsBalances.first(where: { $0.assetId == feeAssetId })
+                                let assetBalanceFeeMoney = Money(assetBalanceFee?.availableBalance ?? 0,
+                                                                 assetBalanceFee?.asset.precision ?? 0)
+                                
+                                return allFee > assetBalanceFeeMoney
                             }
 
                             return DexCreateOrder.DTO.FeeSettings(fee: fee, feeAssets: feeAssets)
