@@ -115,8 +115,13 @@ import Intercom
     func application(_: UIApplication, open _: URL, sourceApplication _: String?, annotation _: Any) -> Bool { false }
 
     func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
         Messaging.messaging().apnsToken = deviceToken
-        Intercom.setDeviceToken(deviceToken)
+        
+        var value = IntercomInitial.value
+        value.apns = deviceToken
+        IntercomInitial.set(value)
+            
     }
 
     func application(_ application: UIApplication,
@@ -178,9 +183,7 @@ extension AppDelegate {
 
         
         let repositories = RepositoriesFactory(resources: resourses,
-                                               services: services)
-
-        Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId: "ibdxiwmt")
+                                               services: services)        
 
         UseCasesFactory.initialization(services: services,
                                        repositories: repositories,
