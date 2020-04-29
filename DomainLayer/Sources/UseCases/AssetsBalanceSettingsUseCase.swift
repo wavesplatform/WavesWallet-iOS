@@ -30,9 +30,7 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
 
     func settings(by accountAddress: String,
                   assets: [DomainLayer.DTO.Asset]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
-        
-        return self
-            .environmentRepository
+        return environmentRepository
             .walletEnvironment()
             .flatMap { [weak self] (environment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
 
@@ -42,7 +40,7 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
 
                 let settings = self
                     .ifNeedCreateDeffaultSettings(accountAddress: accountAddress,
-                                            enviroment: environment)
+                                                  enviroment: environment)
                     .flatMapLatest { [weak self] settings -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
 
                         guard let self = self else { return Observable.never() }
@@ -61,8 +59,7 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
                             .saveSettings(by: accountAddress, settings: settings)
                     }
                     .flatMapLatest { [weak self] (_) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-
-                        // TODO: Remove listenerSettings from code and move to Intercator display
+                        
                         guard let self = self else { return Observable.never() }
                         return self
                             .assetsBalanceSettingsRepository
@@ -115,18 +112,12 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
 private extension AssetsBalanceSettingsUseCase {
     func assetSettings(settings: [DomainLayer.DTO.AssetBalanceSettings],
                        assets: [DomainLayer.DTO.Asset],
-                       ids: [String],
-                       accountAddress: String,
+                       ids _: [String],
+                       accountAddress _: String,
                        environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
-        
         let spamIds = assets.reduce(into: [String: Bool]()) { $0[$1.id] = $1.isSpam }
 
-//        return assetsBalanceSettingsRepository
-//            .settings(by: accountAddress)
-//            .flatMapLatest { [weak self] settings -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-//                guard let self = self else { return Observable.empty() }
-        
-        let mapSettings: [String: DomainLayer.DTO.AssetBalanceSettings] = settings.reduce(into: [:],  { $0[$1.assetId] = $1 })
+        let mapSettings: [String: DomainLayer.DTO.AssetBalanceSettings] = settings.reduce(into: [:]) { $0[$1.assetId] = $1 }
 
         let sortedSettings = mapSettings
             .reduce(into: [DomainLayer.DTO.AssetBalanceSettings]()) { $0.append($1.value) }
@@ -140,7 +131,7 @@ private extension AssetsBalanceSettingsUseCase {
                 } else if settings.isFavorite, spamIds[settings.assetId] == true {
                     result.append(asset)
                 }
-            } else  {
+            } else {
                 result.append(asset)
             }
         }
@@ -148,16 +139,8 @@ private extension AssetsBalanceSettingsUseCase {
         let maxSortLevel = sortedSettings
             .sorted(by: { $0.sortLevel > $1.sortLevel }).first?.sortLevel ?? Constants
             .sortLevelNotFound
-              
-        sortedSettings.forEach { print("id \($0.assetId) - lv \($0.sortLevel)") }
-//                print(sortedSettings)
-        
-            print(maxSortLevel)
-        
-        withoutSettingsAssets.forEach { print("w id \($0.id) - lv ?") }
-        
-        let withoutSettingsAssetsSorted = self
-            .sortAssets(assets: withoutSettingsAssets, enviroment: environment)
+
+        let withoutSettingsAssetsSorted = sortAssets(assets: withoutSettingsAssets, enviroment: environment)
             .enumerated()
             .map { element -> DomainLayer.DTO.AssetBalanceSettings in
 
@@ -175,7 +158,6 @@ private extension AssetsBalanceSettingsUseCase {
         settings.append(contentsOf: withoutSettingsAssetsSorted)
 
         return Observable.just(settings)
-//            }
     }
 
     func sortAssets(assets: [DomainLayer.DTO.Asset], enviroment: WalletEnvironment) -> [DomainLayer.DTO.Asset] {
@@ -216,11 +198,10 @@ private extension AssetsBalanceSettingsUseCase {
 
     func ifNeedCreateDeffaultSettings(accountAddress: String,
                                       enviroment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
-
         return assetsBalanceSettingsRepository
             .settings(by: accountAddress)
             .flatMap { [weak self] settings -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-                
+
                 guard let self = self else { return Observable.never() }
 
                 if !settings.isEmpty {
@@ -237,7 +218,7 @@ private extension AssetsBalanceSettingsUseCase {
                     }
 
                 return self.assetsBalanceSettingsRepository
-                    .   saveSettings(by: accountAddress,
+                    .saveSettings(by: accountAddress,
                                   settings: assets)
                     .map { _ in assets }
             }
