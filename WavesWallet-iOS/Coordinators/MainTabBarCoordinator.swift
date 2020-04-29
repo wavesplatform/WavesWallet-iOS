@@ -192,16 +192,22 @@ private extension MainTabBarCoordinator {
         
         
         authorizationInteractor
-              .authorizedWallet()
+            .authorizedWallet()
+            .observeOn(MainScheduler.asyncInstance)        
             .subscribe(onNext: { wallet in
                 
-                Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId: "ibdxiwmt")
+                Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920",
+                                   forAppId: "ibdxiwmt")
                 Intercom.registerUser(withUserId: wallet.address)
                 
-                let value = IntercomInitial.value
+                var value = IntercomInitial.value
                 if let deviceToken = value.apns {
+                    print("v \(deviceToken)")
                     Intercom.setDeviceToken(deviceToken)
                 }
+                
+                value.accounts[wallet.address] = true
+                IntercomInitial.set(value)
                 
                 let attributes = ICMUserAttributes()
                 attributes.userId = wallet.address

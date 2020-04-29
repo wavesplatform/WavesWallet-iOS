@@ -131,7 +131,29 @@ final class AppCoordinator: Coordinator {
         }
         completionHandler(.noData);
     }
-    
+
+    func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        var value = IntercomInitial.value
+        value.apns = deviceToken
+        IntercomInitial.set(value)
+        
+        print("v \(deviceToken)")
+        
+        authoAuthorizationInteractor
+            .authorizedWallet()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { wallet in
+            
+                let value = IntercomInitial.value
+                    
+                if value.accounts[wallet.address] ?? false {
+                    Intercom.setDeviceToken(deviceToken)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+    }
 }
 
 

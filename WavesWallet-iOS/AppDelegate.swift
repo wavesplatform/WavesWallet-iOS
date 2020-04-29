@@ -112,15 +112,14 @@ import Intercom
 
     func applicationWillTerminate(_: UIApplication) {}
 
-    func application(_: UIApplication, open _: URL, sourceApplication _: String?, annotation _: Any) -> Bool { false }
+    func application(application: UIApplication, open _: URL, sourceApplication _: String?, annotation _: Any) -> Bool { false }
 
-    func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         Messaging.messaging().apnsToken = deviceToken
-        
-        var value = IntercomInitial.value
-        value.apns = deviceToken
-        IntercomInitial.set(value)
+                    
+        appCoordinator.application(application,
+                                   didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
             
     }
 
