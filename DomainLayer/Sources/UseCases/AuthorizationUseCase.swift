@@ -552,8 +552,7 @@ extension AuthorizationUseCase {
 
         
         return Observable.zip([localWalletRepository.removeWallet(wallet),
-                               deleleteWalletSeed,
-                               CleanerWalletManager.rx.setCleanWallet(accountAddress: wallet.address, isClean: false),
+                               deleleteWalletSeed,                               
                                localWalletRepository.removeWalletEncryption(by: wallet.publicKey)])
             .map { _ in true }
             .catchError({ [weak self] error -> Observable<Bool> in
