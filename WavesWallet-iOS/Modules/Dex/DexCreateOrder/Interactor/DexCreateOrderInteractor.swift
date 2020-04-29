@@ -80,80 +80,102 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 
     func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings> {
         auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<DexCreateOrder.DTO.FeeSettings> in
-            guard let self = self else { return Observable.empty() }
+            guard let strongSelf = self else { return Observable.empty() }
 
-            let isSmartAddress = self.serverEnvironmentUseCase.serverEnvironment()
+            let isSmartAddress = strongSelf.serverEnvironmentUseCase.serverEnvironment()
                 .flatMap { [weak self] serverEnvironment -> Observable<Bool> in
                     guard let strongSelf = self else { return Observable.never() }
                     return strongSelf.addressRepository.isSmartAddress(serverEnvironment: serverEnvironment,
                                                                        accountAddress: wallet.address)
                 }
 
-            // вот тут опять трешак какой-то. это не нормально. нужно избавляться от rx на уровне сети и не плодить больше ничего.
-            let isSmartAssets = Observable.combineLatest(
-                [amountAsset, priceAsset, feeAssetId]
-                    .reduce(into: [Observable<(String, Bool)>]()) { [weak self] result, assetId in
-
-                        guard let strongSelf = self else { return }
-                        let isSmartAsset = strongSelf.serverEnvironmentUseCase.serverEnvironment()
-                            .flatMap { [weak self] serverEnvironment -> Observable<(String, Bool)> in
-                                guard let self = self else { return Observable.never() }
-
-                                return self.assetsRepository
-                                    .isSmartAsset(serverEnvironment: serverEnvironment,
-                                                  assetId: assetId,
-                                                  accountAddress: wallet.address)
-                                    .map { isSmartAsset -> (String, Bool) in (assetId, isSmartAsset) }
-                            }
-                        result.append(isSmartAsset)
-                    }
-            )
-
-            return Observable.zip(self.orderBookInteractor.orderSettingsFee(),
-                                  self.transactionsRepositoryRemote.feeRules(),
+            return Observable.zip(strongSelf.orderBookInteractor.orderSettingsFee(),
+                                  strongSelf.transactionsRepositoryRemote.feeRules(),
                                   isSmartAddress,
-                                  self.accountBalance.balances(),
-                                  isSmartAssets)
-                .flatMap { settingOrderFee, feeRules, isSmartAddress, assetsBalances, isSmartAssets -> Observable<DexCreateOrder.DTO.FeeSettings> in
-
-                    self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
-                                                                             priceAsset: priceAsset,
-                                                                             settingsOrderFee: settingOrderFee,
-                                                                             feeAssetId: feeAssetId),
-                                                            accountAddress: wallet.address)
+                                  strongSelf.accountBalance.balances(),
+                                  strongSelf.isSmartAssets([amountAsset, priceAsset, feeAssetId], walletAddress: wallet.address))
+                .flatMap { [weak self]
+                    settingOrderFee, feeRules, isSmartAddress, assetsBalances, isSmartAssets
+                    -> Observable<DexCreateOrder.DTO.FeeSettings> in
+                    guard let strongSelf = self else { return Observable.never() }
+                    
+                    return strongSelf.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
+                                                                                          priceAsset: priceAsset,
+                                                                                          settingsOrderFee: settingOrderFee,
+                                                                                          feeAssetId: feeAssetId),
+                                                                         accountAddress: wallet.address)
                         .map { [weak self] fee in
-
                             let feeAssets = settingOrderFee.feeAssets.filter { [weak self] feeAsset -> Bool in
                                 guard let strongSelf = self else { return false }
-                                
-                                if feeAsset.asset.id == WavesSDKConstants.wavesAssetId {
-                                    return true
-                                }
-                                
-                                var isSmartAssetsDict: [String: Bool] = [:]
-                                isSmartAssets.forEach { isSmartAssetsDict[$0] = $1 }
 
-                                let allFee = strongSelf.calculateFee(isSmartAddress: isSmartAddress,
-                                                                     amountAssetId: amountAsset,
-                                                                     priceAssetId: priceAsset,
-                                                                     feeAssetId: feeAssetId,
-                                                                     asset: feeAsset, // какой ассет сюда передавать?
-                                                                     settingOrderFee: feeAsset,
-                                                                     baseFee: settingOrderFee.baseFee,
-                                                                     rules: feeRules,
-                                                                     isSmartAssets: isSmartAssetsDict) // как собирать этот список?
-                                
-                                let assetBalanceFee = assetsBalances.first(where: { $0.assetId == feeAssetId })
-                                let assetBalanceFeeMoney = Money(assetBalanceFee?.availableBalance ?? 0,
-                                                                 assetBalanceFee?.asset.precision ?? 0)
-                                
-                                return allFee > assetBalanceFeeMoney
+                                return strongSelf.filterFeeAssets(feeAsset: feeAsset,
+                                                                  isSmartAssets: isSmartAssets,
+                                                                  isSmartAddress: isSmartAddress,
+                                                                  amountAsset: amountAsset,
+                                                                  priceAsset: priceAsset,
+                                                                  feeAssetId: feeAssetId,
+                                                                  baseFee: settingOrderFee.baseFee,
+                                                                  feeRules: feeRules,
+                                                                  assetsBalances: assetsBalances)
                             }
 
                             return DexCreateOrder.DTO.FeeSettings(fee: fee, feeAssets: feeAssets)
                         }
                 }
         }
+    }
+
+    private func filterFeeAssets(feeAsset: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
+                                 isSmartAssets: [(String, Bool)],
+                                 isSmartAddress: Bool,
+                                 amountAsset: String,
+                                 priceAsset: String,
+                                 feeAssetId: String,
+                                 baseFee: Int64,
+                                 feeRules: DomainLayer.DTO.TransactionFeeRules,
+                                 assetsBalances: [DomainLayer.DTO.SmartAssetBalance]) -> Bool {
+        if feeAsset.asset.id == WavesSDKConstants.wavesAssetId {
+            return true
+        }
+
+        var isSmartAssetsDict: [String: Bool] = [:]
+        isSmartAssets.forEach { isSmartAssetsDict[$0] = $1 }
+
+        let allFee = calculateFee(isSmartAddress: isSmartAddress,
+                                  amountAssetId: amountAsset,
+                                  priceAssetId: priceAsset,
+                                  feeAssetId: feeAssetId,
+                                  asset: feeAsset,
+                                  settingOrderFee: feeAsset,
+                                  baseFee: baseFee,
+                                  rules: feeRules,
+                                  isSmartAssets: isSmartAssetsDict)
+
+        let assetBalanceFee = assetsBalances.first(where: { $0.assetId == feeAssetId })
+        let assetBalanceFeeMoney = Money(assetBalanceFee?.availableBalance ?? 0,
+                                         assetBalanceFee?.asset.precision ?? 0)
+
+        return allFee > assetBalanceFeeMoney
+    }
+
+    private func isSmartAssets(_ assets: [String], walletAddress: String) -> Observable<[(String, Bool)]> {
+        Observable.combineLatest(
+            assets.reduce(into: [Observable<(String, Bool)>]()) { [weak self] result, assetId in
+                guard let strongSelf = self else { return }
+                let isSmartAsset = strongSelf.serverEnvironmentUseCase.serverEnvironment()
+                    .flatMap { [weak self] serverEnvironment -> Observable<(String, Bool)> in
+                        guard let self = self else { return Observable.never() }
+                        
+                        return self.assetsRepository
+                            .isSmartAsset(serverEnvironment: serverEnvironment,
+                                          assetId: assetId,
+                                          accountAddress: walletAddress)
+                            .map { isSmartAsset -> (String, Bool) in (assetId, isSmartAsset) }
+                    }
+                
+                result.append(isSmartAsset)
+            }
+        )
     }
 
     private func calculateFee(isSmartAddress: Bool,
