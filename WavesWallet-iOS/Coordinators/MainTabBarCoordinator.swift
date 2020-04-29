@@ -201,8 +201,7 @@ private extension MainTabBarCoordinator {
                 Intercom.registerUser(withUserId: wallet.address)
                 
                 var value = IntercomInitial.value
-                if let deviceToken = value.apns {
-                    print("v \(deviceToken)")
+                if let deviceToken = value.apns {                    
                     Intercom.setDeviceToken(deviceToken)
                 }
                 

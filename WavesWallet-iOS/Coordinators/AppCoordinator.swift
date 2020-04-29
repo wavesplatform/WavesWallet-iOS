@@ -137,9 +137,7 @@ final class AppCoordinator: Coordinator {
         var value = IntercomInitial.value
         value.apns = deviceToken
         IntercomInitial.set(value)
-        
-        print("v \(deviceToken)")
-        
+                        
         authoAuthorizationInteractor
             .authorizedWallet()
             .observeOn(MainScheduler.asyncInstance)
