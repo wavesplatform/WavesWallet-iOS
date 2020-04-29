@@ -15,32 +15,43 @@ import WavesSDKExtensions
 
 private enum Constants {
     static let numberForConveringDecimals = 8
+
+    static let rateSmart: Int64 = 400_000
 }
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let auth: AuthorizationUseCaseProtocol
+    private let addressRepository: AddressRepositoryProtocol
+    private let accountBalance: AccountBalanceUseCaseProtocol
     private let matcherRepository: MatcherRepositoryProtocol
     private let orderBookRepository: DexOrderBookRepositoryProtocol
     private let transactionInteractor: TransactionsUseCaseProtocol
-    private let assetsInteractor: AssetsUseCaseProtocol
+    private let transactionsRepositoryRemote: TransactionsRepositoryProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     private let orderBookInteractor: OrderBookUseCaseProtocol
     private let developmentConfig: DevelopmentConfigsRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentUseCase
 
     init(authorization: AuthorizationUseCaseProtocol,
+         addressRepository: AddressRepositoryProtocol,
+         accountBalance: AccountBalanceUseCaseProtocol,
          matcherRepository: MatcherRepositoryProtocol,
          dexOrderBookRepository: DexOrderBookRepositoryProtocol,
          transactionInteractor: TransactionsUseCaseProtocol,
-         assetsInteractor: AssetsUseCaseProtocol,
+         transactionsRepositoryRemote: TransactionsRepositoryProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          orderBookInteractor: OrderBookUseCaseProtocol,
          developmentConfig: DevelopmentConfigsRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentUseCase) {
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
+        self.accountBalance = accountBalance
+        self.addressRepository = addressRepository
         auth = authorization
         self.matcherRepository = matcherRepository
         orderBookRepository = dexOrderBookRepository
+        self.assetsRepository = assetsRepository
         self.transactionInteractor = transactionInteractor
-        self.assetsInteractor = assetsInteractor
+        self.transactionsRepositoryRemote = transactionsRepositoryRemote
         self.orderBookInteractor = orderBookInteractor
         self.developmentConfig = developmentConfig
     }
@@ -65,23 +76,165 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     }
 
     func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings> {
-        auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<DexCreateOrder.DTO.FeeSettings> in
-            guard let self = self else { return Observable.empty() }
+        auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<DexCreateOrder.DTO.FeeSettings> in
+            guard let strongSelf = self else { return Observable.empty() }
 
-            return self.orderBookInteractor.orderSettingsFee()
-                .flatMap { [weak self] (smartSettings) -> Observable<DexCreateOrder.DTO.FeeSettings> in
-                    guard let self = self else { return Observable.empty() }
+            let isSmartAddress = strongSelf.isSmartAddress(walletAddress: wallet.address)
+            
+            let isSmartAssets = strongSelf.isSmartAssets([amountAsset, priceAsset, feeAssetId], walletAddress: wallet.address)
 
-                    return self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
-                                                                                    priceAsset: priceAsset,
-                                                                                    settingsOrderFee: smartSettings,
-                                                                                    feeAssetId: feeAssetId),
-                                                                   accountAddress: wallet.address)
-                        .map { (fee) -> DexCreateOrder.DTO.FeeSettings in
-                            DexCreateOrder.DTO.FeeSettings(fee: fee, feeAssets: smartSettings.feeAssets)
+            return Observable.zip(strongSelf.orderBookInteractor.orderSettingsFee(),
+                                  strongSelf.transactionsRepositoryRemote.feeRules(),
+                                  isSmartAddress,
+                                  strongSelf.accountBalance.balances(),
+                                  isSmartAssets)
+                .flatMap { [weak self]
+                    settingOrderFee, feeRules, isSmartAddress, assetsBalances, isSmartAssets
+                    -> Observable<DexCreateOrder.DTO.FeeSettings> in
+                    guard let strongSelf = self else { return Observable.never() }
+                    
+                    return strongSelf.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
+                                                                                          priceAsset: priceAsset,
+                                                                                          settingsOrderFee: settingOrderFee,
+                                                                                          feeAssetId: feeAssetId),
+                                                                         accountAddress: wallet.address)
+                        .map { [weak self] fee in
+                            let feeAssets = settingOrderFee.feeAssets.filter { [weak self] feeAsset -> Bool in
+                                guard let strongSelf = self else { return false }
+
+                                return strongSelf.filterFeeAssets(feeAsset: feeAsset,
+                                                                  isSmartAssets: isSmartAssets,
+                                                                  isSmartAddress: isSmartAddress,
+                                                                  amountAsset: amountAsset,
+                                                                  priceAsset: priceAsset,
+                                                                  feeAssetId: feeAssetId,
+                                                                  baseFee: settingOrderFee.baseFee,
+                                                                  feeRules: feeRules,
+                                                                  assetsBalances: assetsBalances)
+                            }
+
+                            return DexCreateOrder.DTO.FeeSettings(fee: fee, feeAssets: feeAssets)
                         }
                 }
         }
+    }
+    
+    private func isSmartAddress(walletAddress: String) -> Observable<Bool> {
+        serverEnvironmentUseCase
+        .serverEnvironment()
+        .flatMap { [weak self] serverEnvironment -> Observable<Bool> in
+            guard let strongSelf = self else { return Observable.never() }
+            return strongSelf.addressRepository.isSmartAddress(serverEnvironment: serverEnvironment,
+                                                               accountAddress: walletAddress)
+        }
+    }
+
+    private func filterFeeAssets(feeAsset: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
+                                 isSmartAssets: [(String, Bool)],
+                                 isSmartAddress: Bool,
+                                 amountAsset: String,
+                                 priceAsset: String,
+                                 feeAssetId: String,
+                                 baseFee: Int64,
+                                 feeRules: DomainLayer.DTO.TransactionFeeRules,
+                                 assetsBalances: [DomainLayer.DTO.SmartAssetBalance]) -> Bool {
+        if feeAsset.asset.id == WavesSDKConstants.wavesAssetId {
+            return true
+        }
+
+        var isSmartAssetsDict: [String: Bool] = [:]
+        isSmartAssets.forEach { isSmartAssetsDict[$0] = $1 }
+
+        let allFee = calculateFee(isSmartAddress: isSmartAddress,
+                                  amountAssetId: amountAsset,
+                                  priceAssetId: priceAsset,
+                                  feeAssetId: feeAssetId,
+                                  asset: feeAsset,
+                                  settingOrderFee: feeAsset,
+                                  baseFee: baseFee,
+                                  rules: feeRules,
+                                  isSmartAssets: isSmartAssetsDict)
+
+        let assetBalanceFee = assetsBalances.first(where: { $0.assetId == feeAssetId })
+        let assetBalanceFeeMoney = Money(assetBalanceFee?.availableBalance ?? 0,
+                                         assetBalanceFee?.asset.precision ?? 0)
+
+        return allFee > assetBalanceFeeMoney
+    }
+
+    private func isSmartAssets(_ assets: [String], walletAddress: String) -> Observable<[(String, Bool)]> {
+        Observable.combineLatest(
+            assets.reduce(into: [Observable<(String, Bool)>]()) { [weak self] result, assetId in
+                guard let strongSelf = self else { return }
+                let isSmartAsset = strongSelf.serverEnvironmentUseCase.serverEnvironment()
+                    .flatMap { [weak self] serverEnvironment -> Observable<(String, Bool)> in
+                        guard let self = self else { return Observable.never() }
+                        
+                        return self.assetsRepository
+                            .isSmartAsset(serverEnvironment: serverEnvironment,
+                                          assetId: assetId,
+                                          accountAddress: walletAddress)
+                            .map { isSmartAsset -> (String, Bool) in (assetId, isSmartAsset) }
+                    }
+                
+                result.append(isSmartAsset)
+            }
+        )
+    }
+
+    private func calculateFee(isSmartAddress: Bool,
+                              amountAssetId: String,
+                              priceAssetId: String,
+                              feeAssetId: String,
+                              asset: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
+                              settingOrderFee: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
+                              baseFee: Int64,
+                              rules: DomainLayer.DTO.TransactionFeeRules,
+                              isSmartAssets: [String: Bool]) -> Money {
+        let rule = rules.rules[.exchange] ?? rules.defaultRule
+
+        var fee: Int64 = rule.fee
+
+        if rule.addSmartAccountFee, isSmartAddress {
+            fee += rules.smartAccountExtraFee
+        }
+
+        var n: Int64 = 0
+
+        if isSmartAssets[amountAssetId] == true {
+            n += 1
+        }
+
+        if isSmartAssets[priceAssetId] == true {
+            n += 1
+        }
+
+        if isSmartAssets[feeAssetId] == true,
+            feeAssetId != amountAssetId,
+            feeAssetId != priceAssetId {
+            n += 1
+        }
+
+        if isSmartAddress {
+            n += 1
+        }
+
+        let assetDecimal = settingOrderFee.asset.decimals
+        let assetFee = settingOrderFee.rate * Double(baseFee + rules.smartAccountExtraFee * n)
+
+        let factorFee = (asset.asset
+            .decimals - assetDecimal) // где-то это называется decimals где-то precision. надо описать модели и методы!
+        let correctFee: Int64 = {
+            let assetFeeDouble = ceil(assetFee)
+
+            if factorFee == 0 {
+                return Int64(assetFeeDouble)
+            }
+
+            return Int64(ceil(assetFeeDouble / pow(10.0, Double(factorFee))))
+        }()
+
+        return Money(correctFee, assetDecimal)
     }
 
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool> {
@@ -96,7 +249,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                     .orderBook(serverEnvironment: serverEnvironment,
                                amountAsset: order.amountAsset.id,
                                priceAsset: order.priceAsset.id)
-                    .flatMap { (trade) -> Observable<Bool> in
+                    .flatMap { trade -> Observable<Bool> in
 
                         let price = order.price.decimalValue
 
@@ -123,11 +276,10 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             }
     }
 
-    func calculateMarketOrderPrice(
-        amountAsset: DomainLayer.DTO.Dex.Asset,
-        priceAsset: DomainLayer.DTO.Dex.Asset,
-        orderAmount: Money,
-        type: DomainLayer.DTO.Dex.OrderType) -> Observable<DexCreateOrder.DTO.MarketOrder> {
+    func calculateMarketOrderPrice(amountAsset: DomainLayer.DTO.Dex.Asset,
+                                   priceAsset: DomainLayer.DTO.Dex.Asset,
+                                   orderAmount: Money,
+                                   type: DomainLayer.DTO.Dex.OrderType) -> Observable<DexCreateOrder.DTO.MarketOrder> {
         let zeroPriceValue = Money(0, priceAsset.decimals)
 
         if orderAmount.amount > 0 {
@@ -183,11 +335,11 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 }
 
 private extension DexCreateOrderInteractor {
-    func performeCreateOrderRequest(
-        order: DexCreateOrder.DTO.Order,
-        updatedPrice: Money?,
-        priceAvg: Money?,
-        type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+    func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order,
+                                    updatedPrice: Money?,
+                                    priceAvg: Money?,
+                                    type: DexCreateOrder.DTO.CreateOrderType)
+        -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
 
         return Observable.zip(auth.authorizedWallet(),
@@ -225,7 +377,7 @@ private extension DexCreateOrderInteractor {
                                          wallet: wallet,
                                          order: orderQuery,
                                          type: type == .limit ? .limit : .market)
-                            .flatMap { (_) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                            .flatMap { _ -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                                 let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
                                                                        orderType: order.type,
                                                                        price: priceAvg ?? order.price,
@@ -236,18 +388,16 @@ private extension DexCreateOrderInteractor {
             }
     }
 
-    func calculateMarketOrderPriceIfNeed(
-        order: DexCreateOrder.DTO.Order,
-        createType: DexCreateOrder.DTO.CreateOrderType) -> Observable<DexCreateOrder.DTO.MarketOrder?> {
+    func calculateMarketOrderPriceIfNeed(order: DexCreateOrder.DTO.Order, createType: DexCreateOrder.DTO.CreateOrderType)
+        -> Observable<DexCreateOrder.DTO.MarketOrder?> {
         if createType == .market {
             return calculateMarketOrderPrice(amountAsset: order.amountAsset,
                                              priceAsset: order.priceAsset,
                                              orderAmount: order.amount,
                                              type: order.type)
-                .map { (order) -> DexCreateOrder.DTO.MarketOrder? in
-                    order
-                }
+                .map { order -> DexCreateOrder.DTO.MarketOrder? in order }
+        } else {
+            return Observable.just(nil)
         }
-        return Observable.just(nil)
     }
 }

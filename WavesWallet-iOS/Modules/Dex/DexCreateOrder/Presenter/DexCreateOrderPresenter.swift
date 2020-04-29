@@ -14,10 +14,15 @@ import RxFeedback
 import RxSwift
 
 final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
-    var interactor: DexCreateOrderInteractorProtocol!
+    private let interactor: DexCreateOrderInteractorProtocol
+    private let pair: DomainLayer.DTO.Dex.Pair
+    
     private let disposeBag = DisposeBag()
-
-    var pair: DomainLayer.DTO.Dex.Pair!
+    
+    init(interactor: DexCreateOrderInteractorProtocol, pair: DomainLayer.DTO.Dex.Pair) {
+        self.interactor = interactor
+        self.pair = pair
+    }
 
     func system(feedbacks: [DexCreateOrderPresenter.Feedback], feeAssetId: String) {
         var newFeedbacks = feedbacks

@@ -29,7 +29,6 @@ final class DexCreateOrderViewController: UIViewController {
     
     var input: DexCreateOrder.DTO.Input! {
         didSet {
-            
             order = DexCreateOrder.DTO.Order(amountAsset: input.amountAsset, priceAsset: input.priceAsset,
                                              type: input.type,
                                              amount: Money(0, input.amountAsset.decimals),
@@ -277,7 +276,6 @@ private extension DexCreateOrderViewController {
             }
             
         case .didGetFee(let feeSettings):
-            
             self.feeSettings = feeSettings
             self.feeAssets = feeSettings.feeAssets.map{ $0.asset }
             self.showFee(fee: feeSettings.fee)
