@@ -12,6 +12,7 @@ public struct GatewaysAsset {
     public enum TypeAsset {
         case crypto
         case fiat
+        case unrecognized(Int)
     }
 
     public var asset: String

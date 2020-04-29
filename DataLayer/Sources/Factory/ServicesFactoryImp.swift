@@ -11,7 +11,6 @@ import Foundation
 
 public final class ServicesFactoryImp: ServicesFactory {
             
-    
     public private(set) lazy var wavesSDKServices: WavesSDKServices = {
         return WavesSDKServicesImp()
     }()
@@ -24,5 +23,9 @@ public final class ServicesFactoryImp: ServicesFactory {
         return SpamAssetsServiceImp()
     }()
     
+    public private(set) lazy var gatewaysWavesService: GatewaysWavesService = {
+        return GatewaysWavesServiceImp()
+    }()
+            
     public init() {}
 }

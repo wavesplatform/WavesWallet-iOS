@@ -13,7 +13,6 @@ import Moya
 import RxSwift
 import WavesSDK
 
-
 final class GatewayRepository: GatewayRepositoryProtocol {
     
     private let gatewayProvider: MoyaProvider<Gateway.Service> = .anyMoyaProvider()

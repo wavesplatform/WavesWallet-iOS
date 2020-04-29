@@ -17,43 +17,159 @@ import SwiftProtobuf
 import WavesSDK
 import WavesSDKCrypto
 
-// Это оберка для GRPC, но будет использоваться только в DataLayer
-// Делать свои DTO модели не вижу смысла так как вне DataLayer использоватся не будет
+fileprivate extension Gateways_Asset {
+    var gatewaysAsset: GatewaysAsset {
+        let type: GatewaysAsset.TypeAsset = {
+            switch self.type {
+            case .crypto: return .crypto
+            case .fiat: return .fiat
+            case let .UNRECOGNIZED(value): return .unrecognized(value)
+            }
+        }()
+
+        return GatewaysAsset(asset: asset, decimals: decimals, ticker: ticker, type: type)
+    }
+}
+
+fileprivate extension Gateways_AssetBinding {
+    var gatewaysAssetBinding: GatewaysAssetBinding {
+        let senderAsset = self.senderAsset.gatewaysAsset
+        let recipientAsset = self.recipientAsset.gatewaysAsset
+
+        return GatewaysAssetBinding(senderAsset: senderAsset,
+                                    recipientAsset: recipientAsset,
+                                    hasRecipientAsset: hasRecipientAsset,
+                                    senderAmountMin: senderAmountMin.decodeInt64(),
+                                    senderAmountMax: senderAmountMax.decodeInt64(),
+                                    taxFlat: taxFlat.decodeInt64(),
+                                    taxRate: taxRate,
+                                    active: active)
+    }
+}
+
+fileprivate extension Gateways_AssetBindingsResponse {
+    var gatewaysAssetsBinding: [GatewaysAssetBinding] {
+        return assetBindings.map { $0.gatewaysAssetBinding }
+    }
+}
+
+fileprivate extension Gateways_TransferBinding {
+    var gatewaysTransferBinding: GatewaysTransferBinding {
+        let assetBinding = self.assetBinding.gatewaysAssetBinding
+
+        return .init(assetBinding: assetBinding,
+                     addresses: addresses,
+                     recipient: recipient)
+    }
+}
 
 final class GatewaysWavesServiceImp: GatewaysWavesService {
-    
-    func assetBindingsRequest(addressGrpc: String,
-                              oAToken: String,
-                              request: GetWavesAssetBindingsRequest) -> Observable<GetWavesAssetBindingsRequest> {
-        
-        return Observable.never()
-    }
-    
-    func withdrawalTransferBinding(addressGrpc: String,
-                                   oAToken: String,
-                                   request: TransferBindingRequest) -> Observable<GatewaysGetTransferBindingResponse> {
-        return Observable.never()
+    func assetBindingsRequest(serverEnvironment: ServerEnvironment,
+                              oAToken: WEOAuthTokenDTO,
+                              request: AssetBindingsRequest) -> Observable<[GatewaysAssetBinding]> {
+        var requestBindings = Gateways_GetWavesAssetBindingsRequest()
+
+        if let includesExternalAssetTicker = request.includesExternalAssetTicker {
+            requestBindings.includesExternalAssetTicker = includesExternalAssetTicker
+        }
+
+        if let includesWavesAsset = request.includesWavesAsset {
+            requestBindings.includesWavesAsset = includesWavesAsset
+        }
+
+        switch request.direction {
+        case .deposit:
+            requestBindings.direction = .deposit
+
+        case .withdraw:
+            requestBindings.direction = .withdrawal
+        }
+
+        let accessToken = oAToken.accessToken
+        let addressGrpc = serverEnvironment.servers.wavesExchangeGrpcAddress
+
+        return getWavesAssetBindingsRequest(addressGrpc: addressGrpc, oAToken: accessToken, request: requestBindings)
+            .map { response -> [GatewaysAssetBinding] in
+                response.gatewaysAssetsBinding
+            }
     }
 
-    func depositTransferBinding(addressGrpc: String,
-                                oAToken: String,
-                                request: GatewaysGetDepositTransferBindingRequest) -> Observable<GatewaysGetTransferBindingResponse> {
-        return Observable.never()
+    func withdrawalTransferBinding(serverEnvironment: ServerEnvironment,
+                                   oAToken: WEOAuthTokenDTO,
+                                   request: TransferBindingRequest) -> Observable<GatewaysTransferBinding> {
+        let accessToken = oAToken.accessToken
+        let addressGrpc = serverEnvironment.servers.wavesExchangeGrpcAddress
+
+        var bindingRequest = Gateways_GetWithdrawalTransferBindingRequest()
+        bindingRequest.asset = request.asset
+        bindingRequest.recipientAddress = request.recipientAddress
+
+        return getWithdrawalTransferBinding(addressGrpc: addressGrpc,
+                                            oAToken: accessToken,
+                                            request: bindingRequest)
+            .map { response -> GatewaysTransferBinding in
+                response.transferBinding.gatewaysTransferBinding
+            }
+            .catchError { [weak self] _ -> Observable<GatewaysTransferBinding> in
+
+                guard let self = self else { return Observable.never() }
+
+                var bindingRequest = Gateways_CreateWithdrawalTransferBindingRequest()
+                bindingRequest.asset = request.asset
+                bindingRequest.recipientAddress = request.recipientAddress
+
+                return self.createWithdrawalTransferBinding(addressGrpc: addressGrpc,
+                                                            oAToken: accessToken,
+                                                            request: bindingRequest)
+                    .map { response -> GatewaysTransferBinding in
+                        response.transferBinding.gatewaysTransferBinding
+                    }
+
+                return Observable.never()
+            }
     }
-    
-        
-    
-    func getWavesAssetBindingsRequest(addressGrpc: String,
-                                      oAToken: String,
-                                      request: GetWavesAssetBindingsRequest) -> Observable<GetWavesAssetBindingsRequest> {
-        
+
+    func depositTransferBinding(serverEnvironment: ServerEnvironment,
+                                oAToken: WEOAuthTokenDTO,
+                                request: TransferBindingRequest) -> Observable<GatewaysTransferBinding> {
+        let accessToken = oAToken.accessToken
+        let addressGrpc = serverEnvironment.servers.wavesExchangeGrpcAddress
+
+        var bindingRequest = Gateways_GetDepositTransferBindingRequest()
+        bindingRequest.asset = request.asset
+        bindingRequest.recipientAddress = request.recipientAddress
+
+        return getDepositTransferBinding(addressGrpc: addressGrpc,
+                                         oAToken: accessToken,
+                                         request: bindingRequest)
+            .map { response -> GatewaysTransferBinding in
+                response.transferBinding.gatewaysTransferBinding
+            }
+            .catchError { [weak self] _ -> Observable<GatewaysTransferBinding> in
+
+                guard let self = self else { return Observable.never() }
+
+                var bindingRequest = Gateways_CreateDepositTransferBindingRequest()
+                bindingRequest.asset = request.asset
+                bindingRequest.recipientAddress = request.recipientAddress
+
+                return self.createDepositTransferBinding(addressGrpc: addressGrpc,
+                                                         oAToken: accessToken,
+                                                         request: bindingRequest)
+                    .map { response -> GatewaysTransferBinding in
+                        response.transferBinding.gatewaysTransferBinding
+                    }
+            }
+    }
+}
+
+private extension GatewaysWavesServiceImp {
+    func getWavesAssetBindingsRequest(
+        addressGrpc: String,
+        oAToken: String,
+        request: Gateways_GetWavesAssetBindingsRequest) -> Observable<Gateways_AssetBindingsResponse> {
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          oAToken: oAToken)
-
-        var request = Gateways_GetWavesAssetBindingsRequest()
-
-        request.direction = direction
-        request.includesWavesAsset = includesWavesAsset
 
         return Observable.create { observer -> Disposable in
 
@@ -63,7 +179,7 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
                     .response
                     .wait()
 
-//                observer.onNext(response)
+                observer.onNext(response)
                 observer.onCompleted()
 
             } catch let e {
@@ -75,17 +191,12 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
         }
     }
 
-    func getWithdrawalTransferBinding(addressGrpc: String,
-                                      recipientAddress: String,
-                                      asset: String,
-                                      oAToken: String) -> Observable<Gateways_GetTransferBindingResponse> {
+    func getWithdrawalTransferBinding(
+        addressGrpc: String,
+        oAToken: String,
+        request: Gateways_GetWithdrawalTransferBindingRequest) -> Observable<Gateways_GetTransferBindingResponse> {
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          oAToken: oAToken)
-
-        var request = Gateways_GetWithdrawalTransferBindingRequest()
-
-        request.recipientAddress = recipientAddress
-        request.asset = asset
 
         return Observable.create { observer -> Disposable in
 
@@ -107,17 +218,12 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
         }
     }
 
-    func createWithdrawalTransferBinding(addressGrpc: String,
-                                         recipientAddress: String,
-                                         asset: String,
-                                         oAToken: String) -> Observable<Gateways_CreateTransferBindingResponse> {
+    func createWithdrawalTransferBinding(
+        addressGrpc: String,
+        oAToken: String,
+        request: Gateways_CreateWithdrawalTransferBindingRequest) -> Observable<Gateways_CreateTransferBindingResponse> {
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          oAToken: oAToken)
-
-        var request = Gateways_CreateWithdrawalTransferBindingRequest()
-
-        request.recipientAddress = recipientAddress
-        request.asset = asset
 
         return Observable.create { observer -> Disposable in
 
@@ -139,17 +245,12 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
         }
     }
 
-    func getDepositTransferBinding(addressGrpc: String,
-                                   recipientAddress: String,
-                                   asset: String,
-                                   oAToken: String) -> Observable<Gateways_GetTransferBindingResponse> {
+    func getDepositTransferBinding(
+        addressGrpc: String,
+        oAToken: String,
+        request: Gateways_GetDepositTransferBindingRequest) -> Observable<Gateways_GetTransferBindingResponse> {
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          oAToken: oAToken)
-
-        var request = Gateways_GetDepositTransferBindingRequest()
-
-        request.recipientAddress = recipientAddress
-        request.asset = asset
 
         return Observable.create { observer -> Disposable in
 
@@ -171,17 +272,12 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
         }
     }
 
-    func createDepositTransferBinding(addressGrpc: String,
-                                      recipientAddress: String,
-                                      asset: String,
-                                      oAToken: String) -> Observable<Gateways_CreateTransferBindingResponse> {
+    func createDepositTransferBinding(
+        addressGrpc: String,
+        oAToken: String,
+        request: Gateways_CreateDepositTransferBindingRequest) -> Observable<Gateways_CreateTransferBindingResponse> {
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          oAToken: oAToken)
-
-        var request = Gateways_CreateDepositTransferBindingRequest()
-
-        request.recipientAddress = recipientAddress
-        request.asset = asset
 
         return Observable.create { observer -> Disposable in
 

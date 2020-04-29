@@ -71,8 +71,8 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     private let matcherRepository: MatcherRepositoryProtocol
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
 
-    private var internalMatcherSwapConfigs: DomainLayer.DTO.DevelopmentConfigs?
-    private var matcherSwapConfigs: DomainLayer.DTO.DevelopmentConfigs? {
+    private var internalMatcherSwapConfigs: DevelopmentConfigs?
+    private var matcherSwapConfigs: DevelopmentConfigs? {
         get {
             objc_sync_enter(self)
             defer { objc_sync_exit(self) }
@@ -217,24 +217,24 @@ private extension CandlesRepositoryRemote {
     }
 
     // TODO: Refactor
-    func getMatcherSwapConfigs() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
+    func getMatcherSwapConfigs() -> Observable<DevelopmentConfigs> {
         if let data = matcherSwapConfigs {
             return Observable.just(data)
         }
 
         return developmentConfigsRepository.developmentConfigs()
             .share(replay: 1, scope: .whileConnected)
-            .flatMap { [weak self] configs -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
+            .flatMap { [weak self] configs -> Observable<DevelopmentConfigs> in
                 guard let self = self else { return Observable.empty() }
 
                 self.matcherSwapConfigs = configs
                 return Observable.just(configs)
         }
-        .catchError { (_) -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
+        .catchError { (_) -> Observable<DevelopmentConfigs> in
                                     
             let matcherSwapTimestamp = Date(timeIntervalSince1970: Constants.matcherSwapTimestamp)
             
-            let confing = DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: true,
+            let confing = DevelopmentConfigs(serviceAvailable: true,
                                                              matcherSwapTimestamp: matcherSwapTimestamp,
                                                              matcherSwapAddress: Constants.matcherSwapAddress,
                                                              exchangeClientSecret: "",

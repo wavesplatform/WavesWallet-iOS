@@ -8,21 +8,21 @@
 
 import Foundation
 
-struct AssetBindingsRequest {
-    enum Direction {
+public struct AssetBindingsRequest {
+    public enum Direction {
         case withdraw
         case deposit
     }
 
-    enum AssetType {
+    public enum AssetType {
         case fiat
         case crypto
     }
 
-    let assetType: AssetType
-    let direction: Direction
-    let includesExternalAssetTicker: String?
-    let includesWavesAsset: String?
+    public let assetType: AssetType
+    public let direction: Direction
+    public let includesExternalAssetTicker: String?
+    public let includesWavesAsset: String?
 
     public init(assetType: AssetType, direction: Direction, includesExternalAssetTicker: String?, includesWavesAsset: String?) {
         self.assetType = assetType

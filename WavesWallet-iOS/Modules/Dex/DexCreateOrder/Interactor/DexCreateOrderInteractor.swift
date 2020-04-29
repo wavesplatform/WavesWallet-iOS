@@ -45,7 +45,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         self.developmentConfig = developmentConfig
     }
 
-    func getDevConfig() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
+    func getDevConfig() -> Observable<DevelopmentConfigs> {
         developmentConfig.developmentConfigs()
     }
 

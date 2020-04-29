@@ -25,19 +25,24 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let weGatewayUseCase: WEGatewayUseCaseProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     private let environmentRepository: EnvironmentRepositoryProtocol
+    private let gatewaysWavesService: GatewaysWavesService
+    private let gatewaysWavesService: OA
     
     init(authorization: AuthorizationUseCaseProtocol,
          coinomatRepository: CoinomatRepositoryProtocol,
          gatewayRepository: GatewayRepositoryProtocol,
          weGatewayUseCase: WEGatewayUseCaseProtocol,
          serverEnvironmentUseCase: ServerEnvironmentUseCase,
-         environmentRepository: EnvironmentRepositoryProtocol) {
+         environmentRepository: EnvironmentRepositoryProtocol,
+         gatewaysWavesService: GatewaysWavesService) {
+        
         self.auth = authorization
         self.coinomatRepository = coinomatRepository
         self.gatewayRepository = gatewayRepository
         self.weGatewayUseCase = weGatewayUseCase
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.environmentRepository = environmentRepository
+        self.gatewaysWavesService = gatewaysWavesService
     }
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
@@ -90,6 +95,12 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                             return Observable.just(ResponseType(output: displayInfo, error: nil))
                         }
                 case .exchange:
+                    
+                    
+                    
+                    return self.gatewaysWavesService.depositTransferBinding(serverEnvironment: serverEnvironment,
+                                                                            oAToken: <#T##String#>, request: <#T##TransferBindingRequest#>)
+                    
                     return self.weGatewayUseCase
                         .receiveBinding(asset: asset)
                         .map { model -> ReceiveCryptocurrency.DTO.DisplayInfo in

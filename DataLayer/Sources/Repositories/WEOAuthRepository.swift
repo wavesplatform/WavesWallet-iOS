@@ -22,6 +22,7 @@ private struct Token: Codable {
     }
 }
 
+//TODO: Rename to service
 final class WEOAuthRepository: WEOAuthRepositoryProtocol {
     
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol

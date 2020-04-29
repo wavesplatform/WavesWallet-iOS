@@ -15,4 +15,6 @@ public protocol ServicesFactory {
     var wavesSDKServices: WavesSDKServices { get }
     
     var spamAssetsService: SpamAssetsService { get }
+    
+    var gatewaysWavesService: GatewaysWavesService { get }
 }

@@ -638,9 +638,9 @@
 		7BEDB6BF24588DAE00605B4D /* AssetBindingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6BE24588DAE00605B4D /* AssetBindingsRequest.swift */; };
 		7BEDB6C124588DBE00605B4D /* GatewaysAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */; };
 		7BEDB6C324588DCB00605B4D /* GatewaysAssetBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */; };
-		7BEDB6C524588DD700605B4D /* GatewaysAssetBindingsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C424588DD700605B4D /* GatewaysAssetBindingsResponse.swift */; };
 		7BEDB6C924588FCA00605B4D /* TransferBindingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C824588FCA00605B4D /* TransferBindingRequest.swift */; };
 		7BEDB6CD24588FFB00605B4D /* GatewaysTransferBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6CC24588FFB00605B4D /* GatewaysTransferBinding.swift */; };
+		7BEDB6D7245988C200605B4D /* DevelopmentConfigsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6D6245988C200605B4D /* DevelopmentConfigsService.swift */; };
 		7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F322D8B95300582783 /* SeedItem.swift */; };
 		7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F522D8B95300582783 /* WalletRealmFactory.swift */; };
 		7BF50A6D22D8B95400582783 /* LeaseTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F822D8B95300582783 /* LeaseTransaction.swift */; };
@@ -2024,9 +2024,9 @@
 		7BEDB6BE24588DAE00605B4D /* AssetBindingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBindingsRequest.swift; sourceTree = "<group>"; };
 		7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysAsset.swift; sourceTree = "<group>"; };
 		7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysAssetBinding.swift; sourceTree = "<group>"; };
-		7BEDB6C424588DD700605B4D /* GatewaysAssetBindingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysAssetBindingsResponse.swift; sourceTree = "<group>"; };
 		7BEDB6C824588FCA00605B4D /* TransferBindingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferBindingRequest.swift; sourceTree = "<group>"; };
 		7BEDB6CC24588FFB00605B4D /* GatewaysTransferBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysTransferBinding.swift; sourceTree = "<group>"; };
+		7BEDB6D6245988C200605B4D /* DevelopmentConfigsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsService.swift; sourceTree = "<group>"; };
 		7BF509F322D8B95300582783 /* SeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
 		7BF509F522D8B95300582783 /* WalletRealmFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRealmFactory.swift; sourceTree = "<group>"; };
 		7BF509F822D8B95300582783 /* LeaseTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaseTransaction.swift; sourceTree = "<group>"; };
@@ -4626,7 +4626,6 @@
 			children = (
 				7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */,
 				7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */,
-				7BEDB6C424588DD700605B4D /* GatewaysAssetBindingsResponse.swift */,
 				7BEDB6CC24588FFB00605B4D /* GatewaysTransferBinding.swift */,
 			);
 			path = Model;
@@ -5090,6 +5089,7 @@
 				7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */,
 				7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */,
 				7BEDB6BD24588D9600605B4D /* GatewaysWavesApiClient */,
+				7BEDB6D6245988C200605B4D /* DevelopmentConfigsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -7664,7 +7664,6 @@
 				7B5FAA8C22BBE3EC00621A44 /* SponsorshipTransactionDomainDTO.swift in Sources */,
 				7BDC6D4422C3965900614E6B /* AnalyticManagerEvent+ImportAccount.swift in Sources */,
 				7B5FAACF22BCEA3500621A44 /* AliasesUseCaseProtocol.swift in Sources */,
-				7BEDB6C524588DD700605B4D /* GatewaysAssetBindingsResponse.swift in Sources */,
 				7B5FAABD22BBE3EC00621A44 /* AddressValidator.swift in Sources */,
 				7B5FAA6F22BBE3EC00621A44 /* AccountSettingsRepositoryProtocol.swift in Sources */,
 				7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */,
@@ -7696,6 +7695,7 @@
 				7B5FAAA122BBE3EC00621A44 /* ContactDomainDTO.swift in Sources */,
 				7B431A8322BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift in Sources */,
 				7B97B0B222FCB5DA008BA3F4 /* Localizable.swift in Sources */,
+				7BEDB6D7245988C200605B4D /* DevelopmentConfigsService.swift in Sources */,
 				7B5FAAA022BBE3EC00621A44 /* CoinomatDomainDTO.swift in Sources */,
 				7BEDB6C324588DCB00605B4D /* GatewaysAssetBinding.swift in Sources */,
 				7B5FAA8F22BBE3EC00621A44 /* DataTransactionDomainDTO.swift in Sources */,
