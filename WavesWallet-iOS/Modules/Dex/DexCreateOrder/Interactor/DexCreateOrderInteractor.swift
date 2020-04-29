@@ -27,7 +27,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let orderBookRepository: DexOrderBookRepositoryProtocol
     private let transactionInteractor: TransactionsUseCaseProtocol
     private let transactionsRepositoryRemote: TransactionsRepositoryProtocol
-    private let assetsInteractor: AssetsUseCaseProtocol // какое-то дублирование и размазывание логики, может нам не нужны use case(ы)?
     private let assetsRepository: AssetsRepositoryProtocol
     private let orderBookInteractor: OrderBookUseCaseProtocol
     private let developmentConfig: DevelopmentConfigsRepositoryProtocol
@@ -40,7 +39,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
          dexOrderBookRepository: DexOrderBookRepositoryProtocol,
          transactionInteractor: TransactionsUseCaseProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
-         assetsInteractor: AssetsUseCaseProtocol,
          assetsRepository: AssetsRepositoryProtocol,
          orderBookInteractor: OrderBookUseCaseProtocol,
          developmentConfig: DevelopmentConfigsRepositoryProtocol,
@@ -54,7 +52,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         self.assetsRepository = assetsRepository
         self.transactionInteractor = transactionInteractor
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
-        self.assetsInteractor = assetsInteractor
         self.orderBookInteractor = orderBookInteractor
         self.developmentConfig = developmentConfig
     }
@@ -82,18 +79,15 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<DexCreateOrder.DTO.FeeSettings> in
             guard let strongSelf = self else { return Observable.empty() }
 
-            let isSmartAddress = strongSelf.serverEnvironmentUseCase.serverEnvironment()
-                .flatMap { [weak self] serverEnvironment -> Observable<Bool> in
-                    guard let strongSelf = self else { return Observable.never() }
-                    return strongSelf.addressRepository.isSmartAddress(serverEnvironment: serverEnvironment,
-                                                                       accountAddress: wallet.address)
-                }
+            let isSmartAddress = strongSelf.isSmartAddress(walletAddress: wallet.address)
+            
+            let isSmartAssets = strongSelf.isSmartAssets([amountAsset, priceAsset, feeAssetId], walletAddress: wallet.address)
 
             return Observable.zip(strongSelf.orderBookInteractor.orderSettingsFee(),
                                   strongSelf.transactionsRepositoryRemote.feeRules(),
                                   isSmartAddress,
                                   strongSelf.accountBalance.balances(),
-                                  strongSelf.isSmartAssets([amountAsset, priceAsset, feeAssetId], walletAddress: wallet.address))
+                                  isSmartAssets)
                 .flatMap { [weak self]
                     settingOrderFee, feeRules, isSmartAddress, assetsBalances, isSmartAssets
                     -> Observable<DexCreateOrder.DTO.FeeSettings> in
@@ -122,6 +116,16 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                             return DexCreateOrder.DTO.FeeSettings(fee: fee, feeAssets: feeAssets)
                         }
                 }
+        }
+    }
+    
+    private func isSmartAddress(walletAddress: String) -> Observable<Bool> {
+        serverEnvironmentUseCase
+        .serverEnvironment()
+        .flatMap { [weak self] serverEnvironment -> Observable<Bool> in
+            guard let strongSelf = self else { return Observable.never() }
+            return strongSelf.addressRepository.isSmartAddress(serverEnvironment: serverEnvironment,
+                                                               accountAddress: walletAddress)
         }
     }
 
