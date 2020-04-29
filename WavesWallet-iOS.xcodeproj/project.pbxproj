@@ -368,7 +368,6 @@
 		7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */; };
 		7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */; };
 		7B5FAAB822BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */; };
-		7B5FAAB922BBE3EC00621A44 /* CleanerWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5E22BBE3EC00621A44 /* CleanerWalletManager.swift */; };
 		7B5FAABA22BBE3EC00621A44 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */; };
 		7B5FAABB22BBE3EC00621A44 /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6122BBE3EC00621A44 /* WordList.swift */; };
 		7B5FAABC22BBE3EC00621A44 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6222BBE3EC00621A44 /* Hash.swift */; };
@@ -1775,7 +1774,6 @@
 		7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDebugSettings.swift; sourceTree = "<group>"; };
 		7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerWalletManagerBanner.swift; sourceTree = "<group>"; };
 		7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDomain+Assistants.swift"; sourceTree = "<group>"; };
-		7B5FAA5E22BBE3EC00621A44 /* CleanerWalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerWalletManager.swift; sourceTree = "<group>"; };
 		7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
 		7B5FAA6122BBE3EC00621A44 /* WordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
 		7B5FAA6222BBE3EC00621A44 /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
@@ -3983,7 +3981,6 @@
 				7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */,
 				7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */,
 				7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */,
-				7B5FAA5E22BBE3EC00621A44 /* CleanerWalletManager.swift */,
 				7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */,
 				7B5FAA6022BBE3EC00621A44 /* ClientCrypto */,
 				7B5FAA6822BBE3EC00621A44 /* BiometricManager.swift */,
@@ -7708,7 +7705,6 @@
 				7B431A8122BCFF7100DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift in Sources */,
 				875393202423BA8000394762 /* WEOAuthRepositoryProtocol.swift in Sources */,
 				87566699242B668600E9F177 /* StakingBalanceService.swift in Sources */,
-				7B5FAAB922BBE3EC00621A44 /* CleanerWalletManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
