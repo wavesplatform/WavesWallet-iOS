@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import DeviceKit
 import DomainLayer
 import Intercom
 
@@ -186,6 +187,43 @@ private extension MainTabBarCoordinator {
             })
             .disposed(by: disposeBag)
     }
+    
+    private func handlerActionButton() {
+        
+        
+        authorizationInteractor
+            .authorizedWallet()
+            .observeOn(MainScheduler.asyncInstance)        
+            .subscribe(onNext: { wallet in
+                
+                Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920",
+                                   forAppId: "ibdxiwmt")
+                Intercom.registerUser(withUserId: wallet.address)
+                
+                var value = IntercomInitial.value
+                if let deviceToken = value.apns {                    
+                    Intercom.setDeviceToken(deviceToken)
+                }
+                
+                value.accounts[wallet.address] = true
+                IntercomInitial.set(value)
+                
+                let attributes = ICMUserAttributes()
+                attributes.userId = wallet.address
+                attributes.customAttributes = ["platform": "iOS",
+                                               "version": Bundle.main.versionAndBuild,
+                                               "device": Device.current.model ?? "",
+                                               "carrierName": UIDevice.current.carrierName,
+                                               "os": UIDevice.current.osVersion,
+                                               "deviceId": UIDevice.uuid]
+                Intercom.updateUser(attributes)
+        
+                Intercom.presentMessenger()
+            })
+            .disposed(by: disposeBag)
+        
+        
+    }
 }
 
 // MARK: UITabBarControllerDelegate
@@ -194,8 +232,8 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
-        if viewController is ActionButtonViewController {                        
-            Intercom.presentMessenger()
+        if viewController is ActionButtonViewController {
+            self.handlerActionButton()
             return false
         }
 
