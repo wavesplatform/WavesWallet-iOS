@@ -65,6 +65,10 @@ import Intercom
 
         guard setupLayers() else { return false }
 
+        UNUserNotificationCenter.current().delegate = self
+        
+        application.registerForRemoteNotifications()
+        
         setupUI()
         setupServices()
 
@@ -79,8 +83,7 @@ import Intercom
                        onError: { _ in },
                        onCompleted: { self.appCoordinator.start() })
             .disposed(by: disposeBag)
-
-        application.registerForRemoteNotifications()
+        
 
         return true
     }
@@ -112,10 +115,17 @@ import Intercom
 
     func applicationWillTerminate(_: UIApplication) {}
 
-    func application(application: UIApplication, open _: URL, sourceApplication _: String?, annotation _: Any) -> Bool { false }
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {}
+    
+    func application(_ application: UIApplication,
+                     open: URL,
+                     sourceApplication: String?,
+                     annotation: Any) -> Bool { false }
 
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+                
         Messaging.messaging().apnsToken = deviceToken
                     
         appCoordinator.application(application,
@@ -216,9 +226,10 @@ extension AppDelegate {
 // MARK: - UNUserNotificationCenterDelegate
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_: UNUserNotificationCenter,
-                                willPresent _: UNNotification,
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    
         completionHandler([.alert, .sound])
     }
 }
