@@ -561,6 +561,7 @@
 		7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */; };
 		7BA6826524507042000B5747 /* ServerEnviromentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA6826424507042000B5747 /* ServerEnviromentUseCase.swift */; };
 		7BA682672450747B000B5747 /* WavesServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA682662450747B000B5747 /* WavesServices.swift */; };
+		7BABF8BD245ACB0E0073C381 /* AnalyticManagerEvent+Intercom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BABF8BC245ACB0E0073C381 /* AnalyticManagerEvent+Intercom.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BC17E7523F569F400F76B7B /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7423F569F400F76B7B /* PageControl.swift */; };
@@ -1934,6 +1935,7 @@
 		7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepository.swift; sourceTree = "<group>"; };
 		7BA6826424507042000B5747 /* ServerEnviromentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnviromentUseCase.swift; sourceTree = "<group>"; };
 		7BA682662450747B000B5747 /* WavesServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesServices.swift; sourceTree = "<group>"; };
+		7BABF8BC245ACB0E0073C381 /* AnalyticManagerEvent+Intercom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticManagerEvent+Intercom.swift"; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BC17E7423F569F400F76B7B /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
@@ -3947,6 +3949,7 @@
 				7BDC6D6F22C3A03400614E6B /* AnalyticManagerEvent+Menu.swift */,
 				7BDC6D7122C3A03E00614E6B /* AnalyticManagerEvent+Widgets.swift */,
 				7B5D783F24339C2500D665CC /* AnalyticManagerEventStaking.swift */,
+				7BABF8BC245ACB0E0073C381 /* AnalyticManagerEvent+Intercom.swift */,
 			);
 			path = AnalyticManager;
 			sourceTree = "<group>";
@@ -7590,6 +7593,7 @@
 				7B848A7123018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift in Sources */,
 				7B5FAABC22BBE3EC00621A44 /* Hash.swift in Sources */,
 				7B5FAA7722BBE3EC00621A44 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
+				7BABF8BD245ACB0E0073C381 /* AnalyticManagerEvent+Intercom.swift in Sources */,
 				7B9DC35E2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift in Sources */,
 				7B5FAAB122BBE3EC00621A44 /* AddressUseCase.swift in Sources */,
 				7B5FAABE22BBE3EC00621A44 /* PublicKey.swift in Sources */,

@@ -19,8 +19,7 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
         let auth = UseCasesFactory.instance.authorization
         let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
         let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
-        let transactionInteractor = UseCasesFactory.instance.transactions
-        let assetsInteractor = UseCasesFactory.instance.assets
+        let transactionInteractor = UseCasesFactory.instance.transactions        
         let orderBookInteractor = UseCasesFactory.instance.oderbook
         let developmentConfig = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
@@ -36,7 +35,6 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
                                                   dexOrderBookRepository: orderBookRepository,
                                                   transactionInteractor: transactionInteractor,
                                                   transactionsRepositoryRemote: transactionRepositoryRemote,
-                                                  assetsInteractor: assetsInteractor,
                                                   assetsRepository: assetRepository,
                                                   orderBookInteractor: orderBookInteractor,
                                                   developmentConfig: developmentConfig,
