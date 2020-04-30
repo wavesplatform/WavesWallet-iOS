@@ -172,6 +172,8 @@ extension AppDelegate {
             return false
         }
 
+        Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920", forAppId: "ibdxiwmt")
+        
         let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
                                                       appsflyerInfo: appsflyerInfoPath,
                                                       amplitudeInfo: amplitudeInfoPath,

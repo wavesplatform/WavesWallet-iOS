@@ -46,6 +46,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     private let disposeBag = DisposeBag()
 
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let analyticManager: AnalyticManagerProtocol = UseCasesFactory.instance.analyticManager
     private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
 
     private let navigationRouterWallet: NavigationRouter = {
@@ -190,19 +191,22 @@ private extension MainTabBarCoordinator {
     
     private func handlerActionButton() {
         
-        
         authorizationInteractor
             .authorizedWallet()
             .observeOn(MainScheduler.asyncInstance)        
-            .subscribe(onNext: { wallet in
-                
-                Intercom.setApiKey("ios_sdk-5f049396b8a724034920255ca7645cadc3ee1920",
-                                   forAppId: "ibdxiwmt")
+            .subscribe(onNext: { [weak self] wallet in
+        
+                self?.analyticManager.trackEvent(.intercom(.intercomButtonTap))
+                                
                 Intercom.registerUser(withUserId: wallet.address)
                 
                 var value = IntercomInitial.value
                 if let deviceToken = value.apns {                    
                     Intercom.setDeviceToken(deviceToken)
+                }
+                
+                if (value.accounts[wallet.address] ?? false) == false {
+                    self?.analyticManager.trackEvent(.intercom(.intercomInit))
                 }
                 
                 value.accounts[wallet.address] = true

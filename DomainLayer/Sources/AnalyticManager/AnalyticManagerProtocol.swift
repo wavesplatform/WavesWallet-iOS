@@ -26,6 +26,7 @@ public enum AnalyticManagerEvent {
     case menu(Menu)
     case widgets(Widgets)
     case staking(AnalyticManagerEventStaking)
+    case intercom(Intercom)
 }
 
 public protocol AnalyticManagerEventInfo {
@@ -92,6 +93,9 @@ extension AnalyticManagerEvent: AnalyticManagerEventInfo {
             
         case .staking(let model):
             return model.name
+            
+        case .intercom(let model):
+            return model.name
         }
     }
     
@@ -144,6 +148,9 @@ extension AnalyticManagerEvent: AnalyticManagerEventInfo {
             
         case .staking(let model):
             return model.params
+            
+        case .intercom:
+            return [:]
         }
     }
 }
