@@ -55,7 +55,8 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
         return Observable.just(prepareRequest)
     }
 
-    public func completeRequest(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest)
+    public func completeRequest(serverEnvironment: ServerEnvironment,
+                                prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest)
         -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> {
         let action = prepareRequest.request.action
 
@@ -64,7 +65,8 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
 
             return repositoriesFactory
                 .transactionsRepositoryRemote
-                .send(by: prepareRequest.request.transaction,
+                .send(serverEnvironment: serverEnvironment,
+                      specifications: prepareRequest.request.transaction,
                       wallet: prepareRequest.signedWallet)
                 .flatMap { tx -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
 

@@ -279,12 +279,19 @@ public enum TransactionSenderSpecifications {
 
 public protocol TransactionsRepositoryProtocol {
 
-    func transactions(by address: DomainLayer.DTO.Address, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
-    func transactions(by address: DomainLayer.DTO.Address, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    func transactions(serverEnvironment: ServerEnvironment,
+                      address: DomainLayer.DTO.Address,
+                      offset: Int,
+                      limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    
+    func transactions(by address: DomainLayer.DTO.Address,
+                      specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    
     func newTransactions(by address: DomainLayer.DTO.Address,
                          specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
 
-    func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> 
+    func activeLeasingTransactions(serverEnvironment: ServerEnvironment,
+                                   accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> 
     
     func saveTransactions(_ transactions: [DomainLayer.DTO.AnyTransaction], accountAddress: String) -> Observable<Bool>
 
@@ -292,7 +299,9 @@ public protocol TransactionsRepositoryProtocol {
     func isHasTransactions(by ids: [String], accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool>
     func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool>
 
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction>
+    func send(serverEnvironment: ServerEnvironment,
+              specifications: TransactionSenderSpecifications,
+              wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction>
 
     func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules>
 }

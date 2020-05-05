@@ -16,18 +16,9 @@ public enum EnvironmentRepositoryError: Error {
     case invalidResponse
 }
 
-public protocol ApplicationEnvironmentProtocol {
-    var walletEnvironment: WalletEnvironment { get }
-    var timestampServerDiff: Int64 { get }
-}
-
-
 public protocol EnvironmentRepositoryProtocol {
-    
-    func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol>
-    
-    func walletEnvironment() -> Observable<WalletEnvironment>
-    func deffaultEnvironment() -> Observable<WalletEnvironment>
+            
+    func walletEnvironment() -> Observable<WalletEnvironment>    
     
     var environmentKind: WalletEnvironment.Kind { get set }
 }

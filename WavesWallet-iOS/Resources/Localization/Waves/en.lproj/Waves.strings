@@ -414,8 +414,12 @@
 "receivecardcomplete.label.afterPaymentUpdateBalance" = "After payment has been made your balance will be updated";
 "receivecardcomplete.label.redirectToIndacoin" = "You have been redirected to «Indacoin»";
 "receivecryptocurrency.label.minumumAmountOfDeposit" = "The minimum amount of deposit is %@";
+"receivecryptocurrency.label.minAndMaxAmountOfDeposit" = "The minimum amount of deposit is %@, the maximum amount of deposit is %@.";
+"receivecryptocurrency.label.usdtWarningTitleDeposite" = "This is ERC-20 %@ deposit address. Send only %@ to this deposit address. Sending any other coin or token to this address may result in the loss of your deposit. Please do not deposit %@ from smart contracts!";
+"receivecryptocurrency.label.usdtWarningDetailsDeposite" = "Check if your wallet or exchange uses smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+"receivecryptocurrency.label.paymentIdIsNotRequired" = "Payment ID is not required.";
 "receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Send only %@ to this deposit address";
-"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "If you will send less than %@, you will lose that money.";
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "If you will send less than %@, you will lose your funds.";
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Sending any other currency to this address may result in the loss of your deposit.";
 "receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
 "receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
@@ -812,6 +816,6 @@
 "staking.refillError.refillByAdvancedCashCancelled" = "You've canceled the payment procedure at Advanced Cash. You won't be charged. USDN won't be credited to your account. Use Try Again to start all over.";
 
 
-"trade.message.pairlocked.button.ok" = "Continue";
-"trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
-"trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";
+    "trade.message.pairlocked.button.ok" = "Continue";
+    "trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
+    "trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";

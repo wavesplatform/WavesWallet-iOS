@@ -414,9 +414,13 @@
 "receivecardcomplete.label.afterPaymentUpdateBalance" = "После того, как платеж будет произведен, ваш баланс обновится";
 "receivecardcomplete.label.redirectToIndacoin" = "Вы перенаправлены на «Indacoin»";
 "receivecryptocurrency.label.minumumAmountOfDeposit" = "Минимальная сумма пополнения %@";
+"receivecryptocurrency.label.minAndMaxAmountOfDeposit" = "Минимальная сумма депозита %@, максимальная сумма депозита %@";
+"receivecryptocurrency.label.usdtWarningTitleDeposite" = "Это адрес для депозита %@ стандарта ERC-20. Отправляйте на этот адрес только токены %@. Отправка на этот адрес любых других токенов приведёт к безвозвратной утрате этих токенов. Пожалуйста, не совершайте депозит %@ со смарт-контрактов, это может привести к утрате токенов!";
+"receivecryptocurrency.label.usdtWarningDetailsDeposite" = "Проверьте, не использует ли ваш кошелёк или биржа смарт-контракты для отправки %@. Мы не принимаем такие переводы и не можем возместить их. Вы потеряете эти деньги.";
+"receivecryptocurrency.label.paymentIdIsNotRequired" = "Payment ID не требуется.";
 "receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Отправляйте только %@ на этот адрес";
-"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Если вы отправите меньше чем %@, вы потеряете деньги.";
-"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Отправка любой другой валюты на этот адрес может привести к потере ваших средств.";
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Если вы отправите меньше чем %@, вы потеряете ваши средства.";
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Отправка любой другой валюты на этот адрес может повлечь за собой потерю средств.";
 "receivecryptocurrency.label.warningSmartContracts.subtitle" = "Проверьте, не использует ли ваш кошелёк или биржа смарт-контракты для отправки %@. Мы не принимаем такие переводы и не можем возместить их. Вы потеряете эти деньги.";
 "receivecryptocurrency.label.warningSmartContracts.title" = "Не отправляйте %@ со смарт-контрактов! Не отправляйте ERC20-токены! Только %@.";
 "receivegenerate.label.generate" = "Создание…";

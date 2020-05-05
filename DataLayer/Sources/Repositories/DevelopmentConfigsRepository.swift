@@ -69,6 +69,8 @@ private struct Staking: Decodable {
     }
 }
 
+//TODO: Rename to services
+
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
     private let developmentConfigsProvider: MoyaProvider<ResourceAPI.Service.DevelopmentConfigs> = .anyMoyaProvider()
 

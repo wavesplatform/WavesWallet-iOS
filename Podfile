@@ -103,6 +103,10 @@ target 'DataLayer' do
 
     firebase_dependencies
 
+    pod 'RxRealm'
+    pod 'RxCocoa'
+    pod 'RxSwift'
+    pod 'Sentry'
     pod 'Amplitude-iOS'
     pod 'Crashlytics'
     pod 'CryptoSwift'
@@ -111,12 +115,12 @@ target 'DataLayer' do
     pod 'Fabric'
     pod 'KeychainAccess'
     pod 'Moya'
-    pod 'Moya/RxSwift'
-    pod 'RealmSwift'
-    pod 'RxCocoa'
-    pod 'RxRealm'
-    pod 'RxSwift'
-    pod 'Sentry'
+    pod 'Moya/RxSwift'    
+
+    # pod 'SwiftGRPC'
+    pod 'gRPC-Swift', '1.0.0-alpha.11'
+    # pod 'SwiftProtobuf'
+    # pod 'WEProtobuf', :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git'
 end
 
 target 'Extensions' do
@@ -148,7 +152,6 @@ end
 
 #
 #
-
 
 
 target 'DomainLayerTests' do
@@ -225,7 +228,10 @@ post_install do |installer|
         target.build_configurations.each do |config|
 
             config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
-            config.build_settings['SWIFT_VERSION'] = '4.2'
+
+            if ['QRCode'].include? target.name
+                config.build_settings['SWIFT_VERSION'] = '4.2'
+            end
             
         end        
     end 

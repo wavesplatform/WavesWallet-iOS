@@ -14,63 +14,65 @@ import WavesSDKExtensions
 
 extension NodeService.DTO.Transaction {
     func anyTransaction(status: DomainLayer.DTO.TransactionStatus,
-                        environment: WalletEnvironment) -> DomainLayer.DTO.AnyTransaction {
+                        scheme: String,
+                        aliasScheme: String) -> DomainLayer.DTO.AnyTransaction {
         switch self {
         case .unrecognised(let transaction):
-            return .unrecognised(.init(transaction: transaction, status: status, environment: environment))
+            return .unrecognised(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .issue(let transaction):
-            return .issue(.init(transaction: transaction, status: status, environment: environment))
+            return .issue(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .transfer(let transaction):
-            return .transfer(.init(transaction: transaction, status: status, environment: environment))
+            return .transfer(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .reissue(let transaction):
-            return .reissue(.init(transaction: transaction, status: status, environment: environment))
+            return .reissue(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .burn(let transaction):
-            return .burn(.init(transaction: transaction, status: status, environment: environment))
+            return .burn(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .exchange(let transaction):
-            return .exchange(.init(transaction: transaction, status: status, environment: environment))
+            return .exchange(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .lease(let transaction):
-            return .lease(.init(transaction: transaction, status: status, environment: environment))
+            return .lease(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .leaseCancel(let transaction):
-            return .leaseCancel(.init(transaction: transaction, status: status, environment: environment))
+            return .leaseCancel(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .alias(let transaction):
-            return .alias(.init(transaction: transaction, status: status, environment: environment))
+            return .alias(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .massTransfer(let transaction):
-            return .massTransfer(.init(transaction: transaction, status: status, environment: environment))
+            return .massTransfer(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .data(let transaction):
-            return .data(.init(transaction: transaction, status: status, environment: environment))
+            return .data(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .script(let transaction):
-            return .script(.init(transaction: transaction, status: status, environment: environment))
+            return .script(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .assetScript(let transaction):
-            return .assetScript(.init(transaction: transaction, status: status, environment: environment))
+            return .assetScript(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .sponsorship(let transaction):
-            return .sponsorship(.init(transaction: transaction, status: status, environment: environment))
+            return .sponsorship(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
         case .invokeScript(let transaction):
-            return .invokeScript(.init(transaction: transaction, status: status, environment: environment))
+            return .invokeScript(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
         }
     }
 }
 
 extension NodeService.DTO.TransactionContainers {
     func anyTransactions(status: DomainLayer.DTO.TransactionStatus,
-                         environment: WalletEnvironment) -> [DomainLayer.DTO.AnyTransaction] {
+                         scheme: String,
+                         aliasScheme: String) -> [DomainLayer.DTO.AnyTransaction] {
         var anyTransactions = [DomainLayer.DTO.AnyTransaction]()
 
         for transaction in self.transactions {
-            anyTransactions.append(transaction.anyTransaction(status: status, environment: environment))
+            anyTransactions.append(transaction.anyTransaction(status: status, scheme: scheme, aliasScheme: aliasScheme))
         }
 
         return anyTransactions

@@ -42,6 +42,7 @@ Pods/
 
 # Temp
 Temp/
+Vendor/weprotobuf/Sources/
 
 # Ingore Service Plist
 *.GoogleService-Info.plist

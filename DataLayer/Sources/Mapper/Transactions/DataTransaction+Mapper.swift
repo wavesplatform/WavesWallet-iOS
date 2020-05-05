@@ -55,7 +55,7 @@ extension DataTransaction {
 extension DomainLayer.DTO.DataTransaction {
     init(transaction: NodeService.DTO.DataTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
+         aliasScheme: String) {
         let dataList = transaction.data.map { data -> DomainLayer.DTO.DataTransaction.Data in
 
             var dataValue: DomainLayer.DTO.DataTransaction.Data.Value!
@@ -76,7 +76,7 @@ extension DomainLayer.DTO.DataTransaction {
 
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,

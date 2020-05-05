@@ -34,10 +34,10 @@ extension AliasTransaction {
 extension DomainLayer.DTO.AliasTransaction {
     init(transaction: NodeService.DTO.AliasTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: WalletEnvironment) {
+         aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,

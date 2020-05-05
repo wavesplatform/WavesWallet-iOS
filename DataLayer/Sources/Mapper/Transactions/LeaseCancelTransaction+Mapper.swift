@@ -42,16 +42,21 @@ extension LeaseCancelTransaction {
 }
 
 extension DomainLayer.DTO.LeaseCancelTransaction {
-    init(transaction: NodeService.DTO.LeaseCancelTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
+    init(transaction: NodeService.DTO.LeaseCancelTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         aliasScheme: String) {
+        
         var leaseTx: DomainLayer.DTO.LeaseTransaction?
 
         if let lease = transaction.lease {
-            leaseTx = DomainLayer.DTO.LeaseTransaction(transaction: lease, status: .completed, environment: environment)
+            leaseTx = DomainLayer.DTO.LeaseTransaction(transaction: lease,
+                                                       status: .completed,
+                                                       aliasScheme: aliasScheme)
         }
 
         self.init(type: transaction.type,
                   id: transaction.id,
-                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
                   senderPublicKey: transaction.senderPublicKey,
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,

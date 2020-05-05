@@ -1,4 +1,4 @@
-//
+    //
 //  String+NormalizeAssetId.swift
 //  WavesWallet-iOS
 //
@@ -23,9 +23,9 @@ public extension Optional where Wrapped == String {
 
 public extension String {
     
-    func normalizeAddress(environment: WalletEnvironment) -> String {
+    func normalizeAddress(aliasScheme: String) -> String {
         
-        if let range = self.range(of: environment.aliasScheme), self.contains(environment.aliasScheme) {
+        if let range = self.range(of: aliasScheme), self.contains(aliasScheme) {
             var newString = self
             newString.removeSubrange(range)
             return newString

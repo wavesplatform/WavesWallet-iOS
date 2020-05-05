@@ -17,6 +17,7 @@ fileprivate enum Constants {
 }
 
 final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
+    
     private let authorizationInteractor: AuthorizationUseCaseProtocol
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -25,6 +26,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
     private let assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol
     private let leasingInteractor: TransactionsUseCaseProtocol
     private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -34,14 +36,17 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
          assetsInteractor: AssetsUseCaseProtocol,
          assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol,
          transactionsInteractor: TransactionsUseCaseProtocol,
-         assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol) {
+         assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+        
         self.authorizationInteractor = authorizationInteractor
         self.balanceRepositoryRemote = balanceRepositoryRemote
         self.environmentRepository = environmentRepository
         self.assetsInteractor = assetsInteractor
         self.assetsBalanceSettings = assetsBalanceSettings
-        leasingInteractor = transactionsInteractor
+        self.leasingInteractor = transactionsInteractor
         self.assetsBalanceSettingsRepository = assetsBalanceSettingsRepository
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
     func balances() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
@@ -82,8 +87,14 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
 
 private extension AccountBalanceUseCase {
     private func assetBalances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
-        let balances = balanceRepositoryRemote
-            .balances(by: wallet)
+        
+        let serverEnviroment = serverEnvironmentUseCase
+            .serverEnvironment()
+        
+        let balances = serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.AssetBalance]> in
+            guard let self = self else { return Observable.never() }
+            return self.balanceRepositoryRemote.balances(by: serverEnviroment, wallet: wallet)
+        })
 
         let environment = environmentRepository
             .walletEnvironment()
@@ -108,14 +119,23 @@ private extension AccountBalanceUseCase {
 
     private func assetBalance(by wallet: DomainLayer.DTO.SignedWallet,
                               assetId: String) -> Observable<DomainLayer.DTO.AssetBalance> {
-        return balanceRepositoryRemote.balance(by: assetId, wallet: wallet)
+        
+        let serverEnviroment = serverEnvironmentUseCase
+            .serverEnvironment()
+        
+        return serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<DomainLayer.DTO.AssetBalance> in
+            guard let self = self else { return Observable.never() }
+            return self.balanceRepositoryRemote.balance(by: serverEnviroment,
+                                                        assetId: assetId,
+                                                        wallet: wallet)
+        })
     }
 
     private func modifyBalances(by wallet: DomainLayer.DTO.SignedWallet,
                                 balances: [DomainLayer.DTO.AssetBalance]) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         let activeTransactions = leasingInteractor
             .activeLeasingTransactionsSync(by: wallet.address)
-            .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+            .flatMap { txs -> Observable<[DomainLayer.DTO.SmartTransaction]> in
 
                 switch txs {
                 case let .remote(model):

@@ -20,8 +20,7 @@ protocol WidgetTransactionsRepositoryProtocol {
 
 final class WidgetTransactionsRepositoryRemote: WidgetTransactionsRepositoryProtocol {
     private let transactionsDataService: TransactionsDataServiceProtocol = WidgetTransactionsDataService()
-    private let matcherRepository: MatcherRepositoryProtocol =
-        MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
+    private let matcherRepository = WidgetMatcherRepositoryRemote()
 
     func exchangeTransactions(amountAsset: String,
                               priceAsset: String,

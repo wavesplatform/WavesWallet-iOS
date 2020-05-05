@@ -126,8 +126,9 @@ public protocol MobileKeeperRepositoryProtocol {
     func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
                         signedWallet: DomainLayer.DTO.SignedWallet,
                         timestamp: Date) -> Observable<DomainLayer.DTO.MobileKeeper.PrepareRequest>
-    
-    func completeRequest(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest>
+                                        
+    func completeRequest(serverEnvironment: ServerEnvironment,
+                         prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest>
     
     func decodableRequest(_ url: URL) -> Observable<DomainLayer.DTO.MobileKeeper.Request?>
     

@@ -26,7 +26,7 @@ protocol MarketPulseWidgetInteractorProtocol {
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
     private let widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
-    private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
+    private let pairsPriceRepository = WidgetPairsPriceRepositoryRemote()
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
     private let assetsRepository: WidgetAssetsRepositoryProtocol = WidgetAssetsRepositoryRemote()
 

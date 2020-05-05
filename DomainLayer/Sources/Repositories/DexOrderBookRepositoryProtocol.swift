@@ -11,19 +11,30 @@ import RxSwift
 
 public protocol DexOrderBookRepositoryProtocol {
     
-    func orderBook(amountAsset: String, priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook>
+    func orderBook(serverEnvironment: ServerEnvironment,
+                   amountAsset: String,
+                   priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook>
     
-    func markets(wallet: DomainLayer.DTO.SignedWallet, pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
-
-    func myOrders(wallet: DomainLayer.DTO.SignedWallet, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>
-
-    func allMyOrders(wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>
-
-    func cancelOrder(wallet: DomainLayer.DTO.SignedWallet, orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool>
-
-    func cancelAllOrders(wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool>
-
-    func createOrder(wallet: DomainLayer.DTO.SignedWallet, order: DomainLayer.Query.Dex.CreateOrder, type: DomainLayer.Query.Dex.CreateOrderType) -> Observable<Bool>
-
-    func orderSettingsFee() -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee>
+    func markets(serverEnvironment: ServerEnvironment,
+                 wallet: DomainLayer.DTO.SignedWallet,
+                 pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
+    
+    func myOrders(serverEnvironment: ServerEnvironment,
+                  wallet: DomainLayer.DTO.SignedWallet,
+                  amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>
+    
+    func allMyOrders(serverEnvironment: ServerEnvironment,
+                     wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>
+    
+    func cancelOrder(serverEnvironment: ServerEnvironment,
+                     wallet: DomainLayer.DTO.SignedWallet, orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool>
+    
+    func cancelAllOrders(serverEnvironment: ServerEnvironment,
+                         wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool>
+    
+    func createOrder(serverEnvironment: ServerEnvironment,
+                     wallet: DomainLayer.DTO.SignedWallet,
+                     order: DomainLayer.Query.Dex.CreateOrder, type: DomainLayer.Query.Dex.CreateOrderType) -> Observable<Bool>
+    
+    func orderSettingsFee(serverEnvironment: ServerEnvironment) -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee>
 }

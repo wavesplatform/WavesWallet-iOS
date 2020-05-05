@@ -26,5 +26,6 @@ public extension DomainLayer.DTO.WEOAuth {
 }
 
 public protocol WEOAuthRepositoryProtocol {
-    func oauthToken(signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.WEOAuth.Token>
+    func oauthToken(serverEnvironment: ServerEnvironment,
+                    signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.WEOAuth.Token>
 }

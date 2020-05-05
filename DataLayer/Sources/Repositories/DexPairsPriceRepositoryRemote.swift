@@ -14,19 +14,22 @@ import RxSwift
 import WavesSDK
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
+        
     private let matcherRepository: MatcherRepositoryProtocol
     private let assetsRepository: AssetsRepositoryProtocol
+    private let wavesSDKServices: WavesSDKServices
     
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
-         matcherRepository: MatcherRepositoryProtocol,
-         assetsRepository: AssetsRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(matcherRepository: MatcherRepositoryProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
+         wavesSDKServices: WavesSDKServices) {
         self.matcherRepository = matcherRepository
         self.assetsRepository = assetsRepository
+        self.wavesSDKServices = wavesSDKServices
     }
     
-    func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
+    func search(serverEnvironment: ServerEnvironment,
+                accountAddress: String,
+                searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
         var kind: DataService.Query.PairsPriceSearch.Kind!
         
         var searchCompoments = searchText.components(separatedBy: "/")
@@ -56,11 +59,14 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             }
         }
         
-        return Observable.zip(environmentRepository.servicesEnvironment(),
-                              matcherRepository.matcherPublicKey())
-            .flatMap { servicesEnvironment, matcherPublicKey -> Observable<[DomainLayer.DTO.Dex.SimplePair]> in
-                servicesEnvironment
-                    .wavesServices
+        return matcherRepository.matcherPublicKey(serverEnvironment: serverEnvironment)
+            .flatMap { [weak self] matcherPublicKey -> Observable<[DomainLayer.DTO.Dex.SimplePair]> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self
+                    .wavesSDKServices
+                    .wavesServices(environment: serverEnvironment)
                     .dataServices
                     .pairsPriceDataService
                     .searchByAsset(query: .init(kind: kind, matcher: matcherPublicKey.address))
@@ -79,22 +85,29 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     }
     
     // TODO: Any model from dataservice return like null. Need refactor
-    func pairs(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+    
+    func pairs(serverEnvironment: ServerEnvironment,
+               accountAddress: String,
+               pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+        
         guard !pairs.isEmpty else { return Observable.just([]) }
         
-        return Observable.zip(environmentRepository.servicesEnvironment(),
-                              matcherRepository.matcherPublicKey(),
-                              assetsRepository.assets(by: pairs.assetsIds, accountAddress: accountAddress))
-            .flatMapLatest { servicesEnvironment, matcherPublicKey, assets -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+        let wavesServices = self.wavesSDKServices.wavesServices(environment: serverEnvironment)
+        
+        return Observable.zip(matcherRepository.matcherPublicKey(serverEnvironment: serverEnvironment),
+                              assetsRepository.assets(serverEnvironment: serverEnvironment,
+                                                      ids: pairs.assetsIds,
+                                                      accountAddress: accountAddress))
+            .flatMapLatest { matcherPublicKey, assets -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
                 
                 let pairsForQuery = pairs.map {
                     DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset, priceAssetId: $0.priceAsset)
                 }
                 
-                let query = DataService.Query.PairsPrice(pairs: pairsForQuery, matcher: matcherPublicKey.address)
+                let query = DataService.Query.PairsPrice(pairs: pairsForQuery,
+                                                         matcher: matcherPublicKey.address)
                 
-                return servicesEnvironment
-                    .wavesServices
+                return wavesServices
                     .dataServices
                     .pairsPriceDataService
                     .pairsPrice(query: query)
@@ -126,17 +139,22 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             }
     }
     
-    func pairsRate(query: DomainLayer.Query.Dex.PairsRate) -> Observable<[DomainLayer.DTO.Dex.PairRate]> {
-        Observable.zip(environmentRepository.servicesEnvironment(),
-                       matcherRepository.matcherPublicKey())
-            .flatMap { servicesEnvironment, matcherPublicKey -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
+    func pairsRate(serverEnvironment: ServerEnvironment,
+                   query: DomainLayer.Query.Dex.PairsRate) -> Observable<[DomainLayer.DTO.Dex.PairRate]> {
+        
+        matcherRepository
+            .matcherPublicKey(serverEnvironment: serverEnvironment)
+            .flatMap { [weak self] matcherPublicKey -> Observable<[DomainLayer.DTO.Dex.PairRate]> in
+                
+                guard let self = self else { return Observable.never() }
                 
                 let queryPairs = query.pairs.map {
                     DataService.Query.PairsRate.Pair(amountAssetId: $0.amountAsset, priceAssetId: $0.priceAsset)
                 }
                 
-                return servicesEnvironment
-                    .wavesServices
+                return self
+                    .wavesSDKServices
+                    .wavesServices(environment: serverEnvironment)
                     .dataServices
                     .pairsPriceDataService
                     .pairsRate(query: .init(pairs: queryPairs,
@@ -152,9 +170,14 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             }
     }
     
-    func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
-        Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey())
-            .flatMapLatest { servicesEnvironment, matcherPublicKey -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
+    func searchPairs(serverEnvironment: ServerEnvironment,
+                     query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
+                
+        return matcherRepository
+            .matcherPublicKey(serverEnvironment: serverEnvironment)
+            .flatMapLatest { [weak self] matcherPublicKey -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
+                
+                guard let self = self else { return Observable.never() }
                 // TODO: Others type kinds
                 guard case let .pairs(pairs) = query.kind else { return Observable.never() }
                 
@@ -164,8 +187,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                 
                 let query = DataService.Query.PairsPrice(pairs: pairsForQuery, matcher: matcherPublicKey.address)
                 
-                return servicesEnvironment
-                    .wavesServices
+                return self.wavesSDKServices
+                    .wavesServices(environment: serverEnvironment)
                     .dataServices
                     .pairsPriceDataService
                     .pairsPrice(query: query)

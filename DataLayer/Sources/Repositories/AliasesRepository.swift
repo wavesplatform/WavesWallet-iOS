@@ -13,61 +13,56 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
+// TODO: Rename to Services
+// TODO: Protocol Split beetwin bd and api
+
 final class AliasesRepository: AliasesRepositoryProtocol {
-    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
-
-    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
-        self.environmentRepository = environmentRepository
+    private let wavesSDKServices: WavesSDKServices
+    
+    init(wavesSDKServices: WavesSDKServices) {
+        self.wavesSDKServices = wavesSDKServices
     }
-
-    func aliases(accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
-        environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest { servicesEnvironment
-                -> Observable<(aliases: [DataService.DTO.Alias], environment: WalletEnvironment)> in
-                servicesEnvironment
-                    .wavesServices
-                    .dataServices
-                    .aliasDataService
-                    .aliases(address: accountAddress)
-                    .map { (aliases: $0, environment: servicesEnvironment.walletEnvironment) }
-            }
-            .map { data -> [DomainLayer.DTO.Alias] in
-                let list = data.aliases
-                let aliasScheme = data.environment.aliasScheme
-
-                return list.map { alias -> DomainLayer.DTO.Alias? in
-
+    
+    func aliases(serverEnvironment: ServerEnvironment,
+                 accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
+        return wavesSDKServices
+            .wavesServices(environment: serverEnvironment)
+            .dataServices
+            .aliasDataService
+            .aliases(address: accountAddress)
+            .map { list -> [DomainLayer.DTO.Alias] in
+                
+                list.map { alias -> DomainLayer.DTO.Alias? in
+                    
                     let name = alias.alias
-                    let originalName = aliasScheme + name
+                    let originalName = serverEnvironment.aliasScheme + name
                     return DomainLayer.DTO.Alias(name: name, originalName: originalName)
                 }
                 .compactMap { $0 }
             }
     }
-
-    func alias(by name: String, accountAddress: String) -> Observable<String> {
-        environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest { servicesEnvironment -> Observable<String> in
-                servicesEnvironment
-                    .wavesServices
-                    .dataServices
-                    .aliasDataService
-                    .alias(name: name)
-                    .map { $0.address }
-                    .catchError { error -> Observable<String> in
-
-                        if let error = error as? NetworkError, error == .notFound {
-                            return Observable.error(AliasesRepositoryError.dontExist)
-                        }
-
-                        return Observable.error(AliasesRepositoryError.invalid)
-                    }
+    
+    func alias(serverEnvironment: ServerEnvironment,
+               name: String,
+               accountAddress: String) -> Observable<String> {
+        return wavesSDKServices
+            .wavesServices(environment: serverEnvironment)
+            .dataServices
+            .aliasDataService
+            .alias(name: name)
+            .map { $0.address }
+            .catchError { error -> Observable<String> in
+                
+                if let error = error as? NetworkError, error == .notFound {
+                    return Observable.error(AliasesRepositoryError.dontExist)
+                }
+                
+                return Observable.error(AliasesRepositoryError.invalid)
             }
     }
-
-    func saveAliases(by accountAddress: String, aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool> {
+    
+    func saveAliases(accountAddress: String,
+                     aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }

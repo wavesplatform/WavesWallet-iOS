@@ -14,5 +14,6 @@ public enum BlockRepositoryError: Error {
 }
 
 public protocol BlockRepositoryProtocol {
-    func height(accountAddress: String) -> Observable<Int64>
+    func height(serverEnvironment: ServerEnvironment,
+                accountAddress: String) -> Observable<Int64>
 }

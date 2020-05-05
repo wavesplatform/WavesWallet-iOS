@@ -11,11 +11,17 @@ import RxSwift
 
 public protocol DexPairsPriceRepositoryProtocol {
     
-    func pairs(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]>
+    func pairs(serverEnvironment: ServerEnvironment,
+               accountAddress: String,
+               pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]>
     
-    func pairsRate(query: DomainLayer.Query.Dex.PairsRate) -> Observable<[DomainLayer.DTO.Dex.PairRate]>
+    func pairsRate(serverEnvironment: ServerEnvironment,
+                   query: DomainLayer.Query.Dex.PairsRate) -> Observable<[DomainLayer.DTO.Dex.PairRate]>
     //TODO: Refactor searchPairs and search
-    func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch>
+    func searchPairs(serverEnvironment: ServerEnvironment,
+                     query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch>
     
-    func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]>
+    func search(serverEnvironment: ServerEnvironment,
+                accountAddress: String,
+                searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]>
 }

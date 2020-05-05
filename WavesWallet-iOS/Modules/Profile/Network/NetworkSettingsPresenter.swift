@@ -126,7 +126,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             let environment = self
                 .environmentRepository
-                .deffaultEnvironment()
+                .walletEnvironment()
 
             return environment
                 .map { Types.Event.setDeffaultEnvironmet($0) }

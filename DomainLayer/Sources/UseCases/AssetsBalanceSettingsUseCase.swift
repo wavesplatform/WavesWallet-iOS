@@ -16,8 +16,7 @@ private enum Constants {
 }
 
 final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
-    
-    
+        
     private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let authorizationInteractor: AuthorizationUseCaseProtocol
