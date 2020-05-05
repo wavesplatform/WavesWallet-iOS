@@ -6526,18 +6526,18 @@
 			isa = PBXGroup;
 			children = (
 				7B9DC3042382C04700DCCA75 /* CommonResources */,
-				F7E954E61EA8FE0700A804DE /* WavesWallet-iOS */,
-				7B66860122B3F70E0029E6F1 /* DomainLayer */,
 				7B66872422B7E68B0029E6F1 /* DataLayer */,
-				7B431A8D22BD176D00DE73B9 /* DomainLayerTests */,
 				7B431A9D22BD185B00DE73B9 /* DataLayerTests */,
+				7B66860122B3F70E0029E6F1 /* DomainLayer */,
+				7B431A8D22BD176D00DE73B9 /* DomainLayerTests */,
 				7B83A7D122D8C74F0038180D /* DummyForTest */,
 				7B6686EF22B7C5120029E6F1 /* Extensions */,
-				E9B190AA22E7CD99008220B7 /* MarketPulseWidget */,
 				7B66873122B7E6950029E6F1 /* Frameworks */,
+				E9B190AA22E7CD99008220B7 /* MarketPulseWidget */,
 				34D3652B38B4C48A2B987569 /* Pods */,
 				F7E954E51EA8FE0700A804DE /* Products */,
 				7BDDFA74230B2E75007A179B /* Recovered References */,
+				F7E954E61EA8FE0700A804DE /* WavesWallet-iOS */,
 			);
 			sourceTree = "<group>";
 		};

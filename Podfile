@@ -33,18 +33,18 @@ end
 #     # данный таргет не должен содержать никаких зависимостей.
 # end
 
-project 'AppTools/AppTools.xcodeproj' do 
-    target 'AppTools' do
-        inherit! :search_paths
-        workspace 'WavesWallet-iOS'
-        project 'AppTools/AppTools'
+# project 'AppTools/AppTools.xcodeproj' do 
+#     target 'AppTools' do
+#         inherit! :search_paths
+#         workspace 'WavesWallet-iOS'
+#         project 'AppTools/AppTools'
 
-        use_frameworks! :linkage => :dynamic
+#         use_frameworks! :linkage => :dynamic
 
-        pod 'RxCocoa'
-        pod 'RxSwift'
-    end
-end
+#         pod 'RxCocoa'
+#         pod 'RxSwift'
+#     end
+# end
 
 # target 'WavesUIKit' do
 #     workspace 'WavesWallet-iOS'
@@ -59,9 +59,6 @@ target 'WavesWallet-iOS' do
     project 'WavesWallet-iOS'
 
     use_frameworks! :linkage => :dynamic
-
-    pod 'StandartTools', path: 'StandartTools/'
-    pod 'AppTools', path: 'AppTools/'
 
     pod 'Charts'
     pod 'Down'
