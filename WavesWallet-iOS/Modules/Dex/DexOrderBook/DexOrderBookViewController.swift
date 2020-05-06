@@ -49,12 +49,10 @@ final class DexOrderBookViewController: UIViewController {
 extension DexOrderBookViewController: DexTraderContainerProcotol {
     
     func controllerWillAppear() {
-
         sendEvent.accept(.updateData)
 
         Observable<Int>
-            .interval(Constansts.updateTime,
-                      scheduler: MainScheduler.asyncInstance)
+            .interval(Constansts.updateTime, scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (value) in
                 guard let self = self else { return }
                 self.sendEvent.accept(.updateData)

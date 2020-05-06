@@ -8,8 +8,8 @@
 
 import DomainLayer
 import Extensions
-import Foundation
 import UIKit
+import UITools
 
 final class BalanceLabel: UIView, NibOwnerLoadable, ResetableView {
     @IBOutlet private var contentView: UIView!
@@ -39,7 +39,7 @@ final class BalanceLabel: UIView, NibOwnerLoadable, ResetableView {
     }
 
     override var intrinsicContentSize: CGSize { CGSize(width: frame.width, height: UIView.noIntrinsicMetric) }
-    
+
     func resetToEmptyState() {
         titleLabel.text = nil
         tickerView.resetToEmptyState()
@@ -54,7 +54,7 @@ extension BalanceLabel: ViewConfiguration {
 
         if let ticker = balance.currency.ticker {
             switch model.style {
-            case .custom(_, _, let tickerStyle):
+            case let .custom(_, _, tickerStyle):
                 tickerView.update(with: .init(text: ticker,
                                               style: tickerStyle))
             default:

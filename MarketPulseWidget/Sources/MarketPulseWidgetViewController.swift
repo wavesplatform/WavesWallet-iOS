@@ -80,14 +80,10 @@ final class MarketPulseWidgetViewController: UIViewController {
         disposeBag = DisposeBag()
         
         if inverval != .manually {
-            Observable<Int>
-                .interval(DispatchTimeInterval.seconds(inverval.rawValue),
-                          scheduler: MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.sendEvent.accept(.refresh)
-                })
-                .disposed(by: disposeBag)
+          Observable<Int>
+            .interval(RxTimeInterval.seconds(inverval.rawValue), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in self?.sendEvent.accept(.refresh) })
+            .disposed(by: disposeBag)
         }
     }
     

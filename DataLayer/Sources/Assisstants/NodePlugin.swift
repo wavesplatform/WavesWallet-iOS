@@ -48,7 +48,6 @@ struct NodePlugin: PluginType {
         guard let allHeaderFields = response.allHeaderFields as? [String : String] else { return }
         guard let url = response.url else { return }
         
-        
         let cookies = HTTPCookie.cookies(withResponseHeaderFields: allHeaderFields, for: url)
         var cflb: String? = nil
         var awsalb: String? = nil
