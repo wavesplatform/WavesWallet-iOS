@@ -12,6 +12,7 @@ import WavesSDKExtensions
 
 import FirebaseCore
 import FirebaseDatabase
+//import FirebaseAnalytics
 
 import Amplitude_iOS
 import Crashlytics

@@ -81,7 +81,7 @@ import Intercom
             .disposed(by: disposeBag)
 
         application.registerForRemoteNotifications()
-
+        
         return true
     }
 

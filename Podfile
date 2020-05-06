@@ -1,195 +1,215 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 
-# Ignore all warnings from all pods
-inhibit_all_warnings!
+use_frameworks! :linkage => :dynamic
 
 install! 'cocoapods', :disable_input_output_paths => true
 
-use_frameworks!(true)
-
-# Enable the stricter search paths and module map generation for all pods
-# use_modular_headers!
-
-# Pods for MonkeyTest
-target 'MonkeyTest' do
-    pod 'SwiftMonkey'
-end 
+# install! 'cocoapods', :generate_multiple_pod_projects => true
 
 workspace 'WavesWallet-iOS.xcworkspace'
-project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
 project 'WavesWallet-iOS.xcodeproj'
 
-# Pods for WavesWallet-iOS
-target 'WavesWallet-iOS' do
-    # inherit! :search_paths
+# 
+# 
 
-    project 'WavesWallet-iOS.xcodeproj'
-
-    pod 'SwiftLint'
-    
-    # UI
-    pod 'RxCocoa'
-    
-    pod 'TTTAttributedLabel'
-    pod 'Down'
-
-    pod 'MGSwipeTableCell'
-
-    pod 'UPCarouselFlowLayout'
-    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
-    pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
-
-    pod 'Skeleton'
-    pod 'Charts'
-
-    pod 'IQKeyboardManagerSwift'
-    pod 'TPKeyboardAvoiding'
-    
-    # Assisstant
-    pod 'RxSwift'
-    pod 'RxFeedback'
-
-    pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
-    pod 'QRCode'
-    pod 'QRCodeReader.swift', '~> 9.0.1'
-    pod 'Kingfisher'
-
-    # Code Gen
-    pod 'SwiftGen', '~> 5.3.0'
-
-   # Service
-   pod 'Intercom'
-
-    # Debug
-    pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
-    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
-end
-
-
-target 'MarketPulseWidget' do
-  project 'WavesWallet-iOS.xcodeproj'
-  pod 'SwiftLint'
-  
-  pod 'RxSwift'
-  pod 'RxFeedback'
-  pod 'RxCocoa'
-  pod 'Moya'
-  pod 'Moya/RxSwift'
-  pod 'RealmSwift'
-  pod 'RxRealm'
-  
-  pod 'Kingfisher'
-  
-  pod 'Amplitude-iOS'
-  
-end
-
-target 'DataLayer' do
-    inherit! :search_paths  
-    project 'WavesWallet-iOS.xcodeproj'
-    pod 'SwiftLint'
-    
-    # External Service
+def firebase_dependencies
+    pod 'Firebase'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Auth'
     pod 'Firebase/Core'
     pod 'Firebase/Database'
-    pod 'Firebase/Auth'
-    pod 'Firebase'
     pod 'Firebase/InAppMessagingDisplay'
-    pod 'Firebase/Analytics'
     pod 'Firebase/Messaging'
-    
-    pod 'Fabric'
-    pod 'Crashlytics'
-    pod 'Amplitude-iOS'            
-    pod 'Sentry'
+end
 
-    # DB
-    pod 'RealmSwift'
-    pod 'RxRealm'
+# 
+# 
 
-    # Assisstant
+target 'StandartTools' do
+    workspace 'WavesWallet-iOS.xcworkspace'
+    project 'StandartTools/StandartTools.xcodeproj'
+    # данный таргет не должен содержать никаких зависимостей.
+end
+
+target 'WavesUIKit' do
+    workspace 'WavesWallet-iOS'
+    project 'WavesUIKit/WavesUIKit'
+
     pod 'RxCocoa'
     pod 'RxSwift'
-    pod 'CSV.swift'
+end
 
-    pod 'CryptoSwift'
-    pod 'DeviceKit'
-    pod 'KeychainAccess'
+target 'AppTools' do
+	workspace 'WavesWallet-iOS'
+	project 'AppTools/AppTools'
 
-    pod 'Moya'
-    pod 'Moya/RxSwift'    
+    pod 'RxCocoa'
+    pod 'RxSwift'
+end
 
-    # pod 'SwiftGRPC'
-    pod 'gRPC-Swift', '1.0.0-alpha.11'
-    # pod 'SwiftProtobuf'
-    # pod 'WEProtobuf', :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git'
+target 'WavesWallet-iOS' do
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
+
+    use_frameworks! :linkage => :dynamic
+
+    pod 'Charts'
+    pod 'Down'
+    pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
+    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
+    pod 'Intercom'
+    pod 'IQKeyboardManagerSwift'
+    pod 'Kingfisher'
+    pod 'MGSwipeTableCell'
+    pod 'QRCode'
+    pod 'QRCodeReader.swift', '~> 9.0.1'
+    pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
+    pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
+    pod 'RxCocoa'
+    pod 'RxFeedback'
+    pod 'RxSwift'
+    pod 'Skeleton'
+    pod 'SwiftGen', '~> 5.3.0'
+    pod 'SwiftLint'
+    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
+    pod 'TTTAttributedLabel'
+    pod 'UPCarouselFlowLayout'
 end
 
 target 'DomainLayer' do
-    # inherit! :search_paths
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 
-    pod 'SwiftLint'
-
-    # DB
-    pod 'RealmSwift'
-    pod 'RxRealm'
-
-    # Assisstant
-    pod 'RxCocoa'
-    pod 'RxSwift'        
-    pod 'RxReachability'
-  
-    pod 'KeychainAccess'        
-    
     pod 'CryptoSwift'
+    pod 'KeychainAccess'
+    pod 'RealmSwift'
+    pod 'RxCocoa'
+    pod 'RxReachability'
+    pod 'RxRealm'
+    pod 'RxSwift'
+end
+
+target 'DataLayer' do
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
+
+    firebase_dependencies
+
+    pod 'RxRealm'
+    pod 'RxCocoa'
+    pod 'RxSwift'
+    pod 'Sentry'
+    pod 'Amplitude-iOS'
+    pod 'Crashlytics'
+    pod 'CryptoSwift'
+    pod 'CSV.swift'
+    pod 'DeviceKit'
+    pod 'Fabric'
+    pod 'KeychainAccess'
+    pod 'Moya'
+    pod 'Moya/RxSwift'    
+
+    pod 'gRPC-Swift', '1.0.0-alpha.11'
 end
 
 target 'Extensions' do
-    # inherit! :search_paths
-    project 'WavesWallet-iOS.xcodeproj'
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 
-    pod 'SwiftLint'    
-
-    # Assisstant
-    pod 'RxCocoa'
-    pod 'RxSwift'
     pod 'DeviceKit'
-    pod 'RxFeedback'
-    pod 'RxReachability'    
     pod 'Kingfisher'
-
+    pod 'RxCocoa'
+    pod 'RxFeedback'
+    pod 'RxReachability'
+    pod 'RxSwift'
 end
 
+target 'MarketPulseWidget' do
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
+
+    pod 'Amplitude-iOS'
+    pod 'Kingfisher'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RealmSwift'
+    pod 'RxCocoa'
+    pod 'RxFeedback'
+    pod 'RxRealm'
+    pod 'RxSwift'
+end
+
+#
+#
+
+
 target 'DomainLayerTests' do
-    project 'WavesWallet-iOS.xcodeproj'
-        
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 end
 
 target 'DataLayerTests' do
-    project 'WavesWallet-iOS.xcodeproj'    
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
 end
 
-target 'WavesSDK' do    
-    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
-    pod 'RxSwift'
-    pod 'Moya'
-    pod 'Moya/RxSwift'
+target 'MonkeyTest' do
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
+    pod 'SwiftMonkey'
 end
 
-target 'WavesSDKExtensions' do    
-    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
-    pod 'RxSwift'
+target 'DummyForTest' do 
+    workspace 'WavesWallet-iOS'
+    project 'WavesWallet-iOS'
+
     pod 'Moya'
     pod 'Moya/RxSwift'
+    pod 'RxSwift'
 end
 
-target 'WavesSDKCrypto' do    
-    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
-    pod 'RxSwift'
+#
+#
+
+target 'WavesSDK' do
+    project 'Vendors/WavesSDK/WavesSDK'
+
     pod 'Moya'
     pod 'Moya/RxSwift'
+    pod 'RxSwift'
+end
+
+target 'WavesSDKExtensions' do
+    project 'Vendors/WavesSDK/WavesSDK'
+
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RxSwift'
+end
+
+target 'WavesSDKCrypto' do
+    project 'Vendors/WavesSDK/WavesSDK'
+
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RxSwift'
+end
+
+target 'StubTest' do 
+    project 'Vendors/WavesSDK/WavesSDK'
+
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RxSwift'
+end
+
+target 'WavesSDKTests' do
+    project 'Vendors/WavesSDK/WavesSDK'
+
+    pod 'Fakery'
+    pod 'Nimble'
+    pod 'RxSwift'
 end
 
 post_install do |installer|
@@ -207,7 +227,9 @@ post_install do |installer|
     end 
 
     remove_static_framework_duplicate_linkage({
-        'DataLayer' => ['Fabric', 'Crashlytics',
+        'DataLayer' => [
+            'Fabric', 
+            'Crashlytics',
             'AppsFlyerFramework',
             'Amplitude-iOS',
             'Amplitude_iOS',
@@ -221,7 +243,8 @@ post_install do |installer|
             'FirebaseInAppMessaging',
             'GoogleAppMeasurement',
             'GTMSessionFetcher',
-            'GoogleUtilities']
+            'GoogleUtilities'
+        ]
     })
 
 end
