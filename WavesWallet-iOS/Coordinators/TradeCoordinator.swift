@@ -304,8 +304,8 @@ private extension TradeCoordinator {
 
                         let viewController = DexCreateOrderModuleBuilder(output: self).build(input: input)
                         if let controller = viewController as? DexCreateOrderViewController {
-                            self.dexCreateOrderPopup.onDismiss = {
-                                controller.removeTimer()
+                            self.dexCreateOrderPopup.onDismiss = { [weak controller] in
+                                controller?.removeTimer()
                             }
                             self.dexCreateOrderPopup.present(contentViewController: controller)
                         }
@@ -320,8 +320,8 @@ private extension TradeCoordinator {
                 } else {
                     let viewController = DexCreateOrderModuleBuilder(output: self).build(input: input)
                     if let controller = viewController as? DexCreateOrderViewController {
-                        self.dexCreateOrderPopup.onDismiss = {
-                            controller.removeTimer()
+                        self.dexCreateOrderPopup.onDismiss = { [weak controller] in
+                            controller?.removeTimer()
                         }
                         self.dexCreateOrderPopup.present(contentViewController: controller)
                     }

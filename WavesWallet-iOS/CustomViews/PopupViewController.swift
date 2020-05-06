@@ -98,10 +98,13 @@ final class PopupViewController: UIViewController {
             
             self.onDismiss?()
             self.bgView.removeFromSuperview()
-            self.view.removeFromSuperview()
             self.willMove(toParent: nil)
+            self.view.removeFromSuperview()
             self.removeFromParent()
+            self.topController.willMove(toParent: nil)
+            self.contentView.subviews.forEach { $0.removeFromSuperview() }
             self.children.forEach { $0.removeFromParent() }
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

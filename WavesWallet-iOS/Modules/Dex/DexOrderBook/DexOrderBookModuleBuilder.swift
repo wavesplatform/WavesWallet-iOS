@@ -6,6 +6,7 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import UIKit
 import Extensions
 
@@ -14,15 +15,28 @@ struct DexOrderBookModuleBuilder: ModuleBuilderOutput {
     weak var output: DexOrderBookModuleOutput?
     
     func build(input: DexTraderContainer.DTO.Pair) -> UIViewController {
-       
-        var interactor: DexOrderBookInteractorProtocol = DexOrderBookInteractor()
-        interactor.pair = input
         
-        var presenter: DexOrderBookPresenterProtocol = DexOrderBookPresenter()
-        presenter.interactor = interactor
+        let accountBalance = UseCasesFactory.instance.accountBalance
+        let dexOrderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+        let lastTradesRespository = UseCasesFactory.instance.repositories.lastTradesRespository
+        let authorization = UseCasesFactory.instance.authorization
+        let assetsInteractor = UseCasesFactory.instance.assets
+        let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+       
+        let interactor = DexOrderBookInteractor(pair: input,
+                                                accountBalance: accountBalance,
+                                                dexOrderBookRepository: dexOrderBookRepository,
+                                                lastTradesRespository: lastTradesRespository,
+                                                authorization: authorization,
+                                                assetsInteractor: assetsInteractor,
+                                                assetsRepositoryLocal: assetsRepositoryLocal,
+                                                serverEnvironmentUseCase: serverEnvironmentUseCase)
+        
+        let presenter = DexOrderBookPresenter.init(interactor: interactor,
+                                                   priceAsset: input.priceAsset,
+                                                   amountAsset: input.amountAsset)
         presenter.moduleOutput = output
-        presenter.priceAsset = input.priceAsset
-        presenter.amountAsset = input.amountAsset
 
         let vc = StoryboardScene.Dex.dexOrderBookViewController.instantiate()
         vc.presenter = presenter
