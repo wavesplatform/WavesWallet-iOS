@@ -755,6 +755,10 @@
 		8710569A243340F7005022DD /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87105699243340F7005022DD /* SocialNetworkView.swift */; };
 		8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8710569C24336992005022DD /* ExchangeTitleView.xib */; };
 		8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8710569E2433699D005022DD /* ExchangeTitleView.swift */; };
+		871450582462402200A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871450572462402200A17BA9 /* StandartTools.framework */; };
+		871450592462402200A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450572462402200A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8714505B2462402600A17BA9 /* AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714505A2462402600A17BA9 /* AppTools.framework */; };
+		8714505C2462402600A17BA9 /* AppTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714505A2462402600A17BA9 /* AppTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* Wallet+TSUD.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
@@ -1357,6 +1361,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8714505C2462402600A17BA9 /* AppTools.framework in Embed Frameworks */,
+				871450592462402200A17BA9 /* StandartTools.framework in Embed Frameworks */,
 				7B9393C922DF5827006634A6 /* WavesSDK.framework in Embed Frameworks */,
 				7B9393D022DF5830006634A6 /* DataLayer.framework in Embed Frameworks */,
 				7B9393D222DF5835006634A6 /* Extensions.framework in Embed Frameworks */,
@@ -2162,6 +2168,8 @@
 		87105699243340F7005022DD /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
 		8710569C24336992005022DD /* ExchangeTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExchangeTitleView.xib; sourceTree = "<group>"; };
 		8710569E2433699D005022DD /* ExchangeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTitleView.swift; sourceTree = "<group>"; };
+		871450572462402200A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8714505A2462402600A17BA9 /* AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		871D7262242CC94100F89403 /* Wallet+TSUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+TSUD.swift"; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
@@ -2803,6 +2811,8 @@
 				7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */,
 				7B9393CF22DF5830006634A6 /* DataLayer.framework in Frameworks */,
 				7B9393CA22DF5827006634A6 /* WavesSDKCrypto.framework in Frameworks */,
+				871450582462402200A17BA9 /* StandartTools.framework in Frameworks */,
+				8714505B2462402600A17BA9 /* AppTools.framework in Frameworks */,
 				7B9393C822DF5827006634A6 /* WavesSDK.framework in Frameworks */,
 				DC56310F5B940EE4A79ED8C9 /* Pods_WavesWallet_iOS.framework in Frameworks */,
 			);
@@ -4063,6 +4073,8 @@
 		7B66873122B7E6950029E6F1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8714505A2462402600A17BA9 /* AppTools.framework */,
+				871450572462402200A17BA9 /* StandartTools.framework */,
 				8796A5E8244DE20100027E9C /* StandartTools.framework */,
 				8796A4E6244DC6BA00027E9C /* Pods_StandartTools.framework */,
 				8796A4D5244DBB8C00027E9C /* StandartTools.framework */,

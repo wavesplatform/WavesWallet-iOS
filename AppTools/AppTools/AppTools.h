@@ -2,11 +2,12 @@
 //  AppTools.h
 //  AppTools
 //
-//  Created by vvisotskiy on 21.04.2020.
+//  Created by vvisotskiy on 06.05.2020.
 //  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <StandartTools/StandartTools.h>
 
 //! Project version number for AppTools.
 FOUNDATION_EXPORT double AppToolsVersionNumber;

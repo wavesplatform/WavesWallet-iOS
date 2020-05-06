@@ -34,16 +34,7 @@ end
 # end
 
 # project 'AppTools/AppTools.xcodeproj' do 
-#     target 'AppTools' do
-#         inherit! :search_paths
-#         workspace 'WavesWallet-iOS'
-#         project 'AppTools/AppTools'
 
-#         use_frameworks! :linkage => :dynamic
-
-#         pod 'RxCocoa'
-#         pod 'RxSwift'
-#     end
 # end
 
 # target 'WavesUIKit' do
@@ -53,6 +44,18 @@ end
 #     pod 'RxCocoa'
 #     pod 'RxSwift'
 # end
+
+workspace 'WavesWallet-iOS'
+project 'AppTools/AppTools'
+
+target 'AppTools' do
+    inherit! :search_paths
+    
+    use_frameworks! :linkage => :dynamic
+
+    pod 'RxCocoa'
+    pod 'RxSwift'
+end
 
 target 'WavesWallet-iOS' do
     workspace 'WavesWallet-iOS'

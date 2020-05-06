@@ -2,7 +2,7 @@
 //  StandartTools.h
 //  StandartTools
 //
-//  Created by vvisotskiy on 21.04.2020.
+//  Created by vvisotskiy on 06.05.2020.
 //  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
