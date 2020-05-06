@@ -759,6 +759,10 @@
 		871450592462402200A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450572462402200A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8714505B2462402600A17BA9 /* AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714505A2462402600A17BA9 /* AppTools.framework */; };
 		8714505C2462402600A17BA9 /* AppTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714505A2462402600A17BA9 /* AppTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		87145090246243A000A17BA9 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508E246243A000A17BA9 /* UITools.framework */; };
+		87145091246243A000A17BA9 /* UITools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508E246243A000A17BA9 /* UITools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		87145092246243A000A17BA9 /* WavesUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508F246243A000A17BA9 /* WavesUIKit.framework */; };
+		87145093246243A000A17BA9 /* WavesUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508F246243A000A17BA9 /* WavesUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* Wallet+TSUD.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
@@ -768,7 +772,6 @@
 		8752A273241279C200B968C7 /* PayoutsTransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8752A270241279C200B968C7 /* PayoutsTransactionCell.xib */; };
 		8752A274241279C200B968C7 /* PayoutsTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8752A271241279C200B968C7 /* PayoutsTransactionView.xib */; };
 		8752A275241279C200B968C7 /* PayoutsTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A272241279C200B968C7 /* PayoutsTransactionCell.swift */; };
-		8752A27924127ABE00B968C7 /* ResetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A27724127ABE00B968C7 /* ResetableView.swift */; };
 		8752A27A24127ABE00B968C7 /* UITableViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A27824127ABE00B968C7 /* UITableViewCellContainer.swift */; };
 		8752A27D24127AD500B968C7 /* ContainerContentConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A27C24127AD500B968C7 /* ContainerContentConstraints.swift */; };
 		8753931E2423BA8000394762 /* MarketPulseWidgetSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8753931B2423BA7F00394762 /* MarketPulseWidgetSettingsRepositoryProtocol.swift */; };
@@ -1365,10 +1368,12 @@
 				871450592462402200A17BA9 /* StandartTools.framework in Embed Frameworks */,
 				7B9393C922DF5827006634A6 /* WavesSDK.framework in Embed Frameworks */,
 				7B9393D022DF5830006634A6 /* DataLayer.framework in Embed Frameworks */,
+				87145093246243A000A17BA9 /* WavesUIKit.framework in Embed Frameworks */,
 				7B9393D222DF5835006634A6 /* Extensions.framework in Embed Frameworks */,
 				7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */,
 				7B9393CE22DF582D006634A6 /* DomainLayer.framework in Embed Frameworks */,
 				7B9393CB22DF5827006634A6 /* WavesSDKCrypto.framework in Embed Frameworks */,
+				87145091246243A000A17BA9 /* UITools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2170,6 +2175,8 @@
 		8710569E2433699D005022DD /* ExchangeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTitleView.swift; sourceTree = "<group>"; };
 		871450572462402200A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714505A2462402600A17BA9 /* AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8714508E246243A000A17BA9 /* UITools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UITools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8714508F246243A000A17BA9 /* WavesUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WavesUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		871D7262242CC94100F89403 /* Wallet+TSUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+TSUD.swift"; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
@@ -2179,7 +2186,6 @@
 		8752A270241279C200B968C7 /* PayoutsTransactionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayoutsTransactionCell.xib; sourceTree = "<group>"; };
 		8752A271241279C200B968C7 /* PayoutsTransactionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayoutsTransactionView.xib; sourceTree = "<group>"; };
 		8752A272241279C200B968C7 /* PayoutsTransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsTransactionCell.swift; sourceTree = "<group>"; };
-		8752A27724127ABE00B968C7 /* ResetableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetableView.swift; sourceTree = "<group>"; };
 		8752A27824127ABE00B968C7 /* UITableViewCellContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellContainer.swift; sourceTree = "<group>"; };
 		8752A27C24127AD500B968C7 /* ContainerContentConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerContentConstraints.swift; sourceTree = "<group>"; };
 		8753931B2423BA7F00394762 /* MarketPulseWidgetSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -2808,7 +2814,9 @@
 			files = (
 				7B9393CD22DF582D006634A6 /* DomainLayer.framework in Frameworks */,
 				7B9393D122DF5835006634A6 /* Extensions.framework in Frameworks */,
+				87145090246243A000A17BA9 /* UITools.framework in Frameworks */,
 				7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */,
+				87145092246243A000A17BA9 /* WavesUIKit.framework in Frameworks */,
 				7B9393CF22DF5830006634A6 /* DataLayer.framework in Frameworks */,
 				7B9393CA22DF5827006634A6 /* WavesSDKCrypto.framework in Frameworks */,
 				871450582462402200A17BA9 /* StandartTools.framework in Frameworks */,
@@ -4073,6 +4081,8 @@
 		7B66873122B7E6950029E6F1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8714508E246243A000A17BA9 /* UITools.framework */,
+				8714508F246243A000A17BA9 /* WavesUIKit.framework */,
 				8714505A2462402600A17BA9 /* AppTools.framework */,
 				871450572462402200A17BA9 /* StandartTools.framework */,
 				8796A5E8244DE20100027E9C /* StandartTools.framework */,
@@ -4987,7 +4997,6 @@
 			isa = PBXGroup;
 			children = (
 				8752A27B24127AC100B968C7 /* Helpers */,
-				8752A27724127ABE00B968C7 /* ResetableView.swift */,
 				8752A27824127ABE00B968C7 /* UITableViewCellContainer.swift */,
 				87D0860D2424F998004CAF4A /* UICollectionViewCellContainer.swift */,
 			);
@@ -8415,7 +8424,6 @@
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
 				E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */,
 				0ADD802A21F22FFA0075FC59 /* EnterLanguageCoordinator.swift in Sources */,
-				8752A27924127ABE00B968C7 /* ResetableView.swift in Sources */,
 				E921ED04222DDA4600DE286D /* DexScriptAssetMessageViewController.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				7B3681B12315612C000D5592 /* ConfirmRequestSkeletonCell.swift in Sources */,

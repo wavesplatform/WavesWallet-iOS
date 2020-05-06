@@ -8,12 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		8714502024623C5700A17BA9 /* StandartTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8714501E24623C5700A17BA9 /* StandartTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		871450AF2462449500A17BA9 /* VoidClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871450AE2462449500A17BA9 /* VoidClosure.swift */; };
+		92D539F8EEA68064CAB6A5F8 /* Pods_StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D2782FF88B0951AFA4994 /* Pods_StandartTools.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		050CDFA35520E6D858303C22 /* Pods-StandartTools.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.release-dev.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.release-dev.xcconfig"; sourceTree = "<group>"; };
+		10FE707833B2E25E73628302 /* Pods-StandartTools.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.dev-debug.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.dev-debug.xcconfig"; sourceTree = "<group>"; };
+		294AFE6142135A20DB04372B /* Pods-StandartTools.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
+		64EE6AE6DCD2D083D8230D04 /* Pods-StandartTools.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.test-prod.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.test-prod.xcconfig"; sourceTree = "<group>"; };
 		8714501B24623C5700A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714501E24623C5700A17BA9 /* StandartTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StandartTools.h; sourceTree = "<group>"; };
 		8714501F24623C5700A17BA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		871450AE2462449500A17BA9 /* VoidClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidClosure.swift; sourceTree = "<group>"; };
+		C93D2782FF88B0951AFA4994 /* Pods_StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB7EC2FD123267C1DDDA69E1 /* Pods-StandartTools.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.release-adhoc.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.release-adhoc.xcconfig"; sourceTree = "<group>"; };
+		DE940F1011C4470885ECA495 /* Pods-StandartTools.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.release-prod.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.release-prod.xcconfig"; sourceTree = "<group>"; };
+		E2A1468F77D59909F3E8A819 /* Pods-StandartTools.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.test-dev.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.test-dev.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,17 +32,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92D539F8EEA68064CAB6A5F8 /* Pods_StandartTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41D76AA931431D1943E2137E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				10FE707833B2E25E73628302 /* Pods-StandartTools.dev-debug.xcconfig */,
+				050CDFA35520E6D858303C22 /* Pods-StandartTools.release-dev.xcconfig */,
+				294AFE6142135A20DB04372B /* Pods-StandartTools.dev-adhoc.xcconfig */,
+				DE940F1011C4470885ECA495 /* Pods-StandartTools.release-prod.xcconfig */,
+				CB7EC2FD123267C1DDDA69E1 /* Pods-StandartTools.release-adhoc.xcconfig */,
+				E2A1468F77D59909F3E8A819 /* Pods-StandartTools.test-dev.xcconfig */,
+				64EE6AE6DCD2D083D8230D04 /* Pods-StandartTools.test-prod.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
 		8714501124623C5700A17BA9 = {
 			isa = PBXGroup;
 			children = (
 				8714501D24623C5700A17BA9 /* StandartTools */,
 				8714501C24623C5700A17BA9 /* Products */,
+				41D76AA931431D1943E2137E /* Pods */,
+				CA7DF326ED3283A09013C28F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,10 +75,27 @@
 		8714501D24623C5700A17BA9 /* StandartTools */ = {
 			isa = PBXGroup;
 			children = (
+				871450AD2462448600A17BA9 /* Extensions */,
 				8714501E24623C5700A17BA9 /* StandartTools.h */,
 				8714501F24623C5700A17BA9 /* Info.plist */,
 			);
 			path = StandartTools;
+			sourceTree = "<group>";
+		};
+		871450AD2462448600A17BA9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				871450AE2462449500A17BA9 /* VoidClosure.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CA7DF326ED3283A09013C28F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C93D2782FF88B0951AFA4994 /* Pods_StandartTools.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -70,6 +116,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8714502324623C5700A17BA9 /* Build configuration list for PBXNativeTarget "StandartTools" */;
 			buildPhases = (
+				E4F7DFA3D9131E7859CFE9E5 /* [CP] Check Pods Manifest.lock */,
 				8714501624623C5700A17BA9 /* Headers */,
 				8714501724623C5700A17BA9 /* Sources */,
 				8714501824623C5700A17BA9 /* Frameworks */,
@@ -95,6 +142,7 @@
 				TargetAttributes = {
 					8714501A24623C5700A17BA9 = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -126,11 +174,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E4F7DFA3D9131E7859CFE9E5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StandartTools-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8714501724623C5700A17BA9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				871450AF2462449500A17BA9 /* VoidClosure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,8 +270,10 @@
 		};
 		8714502524623C5700A17BA9 /* Dev-Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10FE707833B2E25E73628302 /* Pods-StandartTools.dev-debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -280,8 +356,10 @@
 		};
 		8714502724623C7700A17BA9 /* Release-Prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE940F1011C4470885ECA495 /* Pods-StandartTools.release-prod.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -364,8 +442,10 @@
 		};
 		8714502924623C9C00A17BA9 /* Dev-Adhoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 294AFE6142135A20DB04372B /* Pods-StandartTools.dev-adhoc.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -448,8 +528,10 @@
 		};
 		8714502B24623CB200A17BA9 /* Release-Adhoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB7EC2FD123267C1DDDA69E1 /* Pods-StandartTools.release-adhoc.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -532,8 +614,10 @@
 		};
 		8714502D24623CC600A17BA9 /* Release-Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 050CDFA35520E6D858303C22 /* Pods-StandartTools.release-dev.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -616,8 +700,10 @@
 		};
 		8714502F24623CDC00A17BA9 /* Test-Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2A1468F77D59909F3E8A819 /* Pods-StandartTools.test-dev.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -700,8 +786,10 @@
 		};
 		8714503124623CE900A17BA9 /* Test-Prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64EE6AE6DCD2D083D8230D04 /* Pods-StandartTools.test-prod.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;

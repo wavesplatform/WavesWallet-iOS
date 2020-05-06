@@ -6,9 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let height: CGFloat = 16
@@ -16,14 +16,12 @@ fileprivate enum Constants {
 }
 
 final class TickerView: UIView, NibOwnerLoadable, ResetableView {
-
     struct Model {
-        
-        //TODO: Rename
+        // TODO: Rename
         enum Style {
-            case soft //SPAM
-            case normal //ticker
-            case custom(backgroundColor: UIColor, textColor: UIColor) //TICKER
+            case soft // SPAM
+            case normal // ticker
+            case custom(backgroundColor: UIColor, textColor: UIColor) // TICKER
         }
 
         let text: String
@@ -44,27 +42,27 @@ final class TickerView: UIView, NibOwnerLoadable, ResetableView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         layer.removeBorder()
-        
+
         switch style {
         case .normal:
             backgroundColor = .submit50
             titleLabel.textColor = .info500
             layer.clip(cornerRadius: Constants.cornerRadius)
-                        
+
         case .soft:
             backgroundColor = .white
             titleLabel.textColor = .info500
             layer.border(cornerRadius: Constants.cornerRadius,
                          borderWidth: 0.5,
                          borderColor: .info500)
-            
-        case .custom(let backgroundColor,
-                     let textColor):
-            
+
+        case let .custom(backgroundColor,
+                         textColor):
+
             self.backgroundColor = backgroundColor
-            self.titleLabel.textColor = textColor
+            titleLabel.textColor = textColor
             layer.clip(cornerRadius: Constants.cornerRadius)
         }
     }
@@ -72,7 +70,7 @@ final class TickerView: UIView, NibOwnerLoadable, ResetableView {
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIView.noIntrinsicMetric, height: Constants.height)
     }
-    
+
     func resetToEmptyState() {
         titleLabel.text = nil
     }
@@ -81,8 +79,8 @@ final class TickerView: UIView, NibOwnerLoadable, ResetableView {
 extension TickerView: ViewConfiguration {
     func update(with model: TickerView.Model) {
         titleLabel.text = model.text
-        self.style = model.style
-        setNeedsLayout()        
+        style = model.style
+        setNeedsLayout()
     }
 }
 

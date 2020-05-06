@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8714504124623DED00A17BA9 /* AppTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8714503F24623DED00A17BA9 /* AppTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8714505224623F5500A17BA9 /* TestAppTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8714505124623F5500A17BA9 /* TestAppTools.swift */; };
 		871450542462400700A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; };
 		871450552462400700A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92586C2530794E52F54C277E /* Pods_AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2E09101C0977A48EAB3198 /* Pods_AppTools.framework */; };
@@ -38,7 +37,6 @@
 		8714503C24623DED00A17BA9 /* AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714503F24623DED00A17BA9 /* AppTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTools.h; sourceTree = "<group>"; };
 		8714504024623DED00A17BA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8714505124623F5500A17BA9 /* TestAppTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppTools.swift; sourceTree = "<group>"; };
 		871450532462400700A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F20B210F7DFE62B748D5BE /* Pods-AppTools.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTools.release-dev.xcconfig"; path = "Target Support Files/Pods-AppTools/Pods-AppTools.release-dev.xcconfig"; sourceTree = "<group>"; };
 		EE2E09101C0977A48EAB3198 /* Pods_AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +93,6 @@
 			children = (
 				8714503F24623DED00A17BA9 /* AppTools.h */,
 				8714504024623DED00A17BA9 /* Info.plist */,
-				8714505124623F5500A17BA9 /* TestAppTools.swift */,
 			);
 			path = AppTools;
 			sourceTree = "<group>";
@@ -216,7 +213,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8714505224623F5500A17BA9 /* TestAppTools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,11 +10,12 @@ import Extensions
 import RxCocoa
 import RxSwift
 import UIKit
+import UITools
 
 final class SocialNetworkCell: UITableViewXibContainerCell<SocialNetworkView> {
     override func initialSetup() {
         selectionStyle = .none
-        
+
         backgroundColor = .clear
         contentView.backgroundColor = .clear
     }
@@ -23,7 +24,7 @@ final class SocialNetworkCell: UITableViewXibContainerCell<SocialNetworkView> {
         super.prepareForReuse()
         view.resetToEmptyState()
     }
-    
+
     static func cellHeight() -> CGFloat {
         115
     }
@@ -48,7 +49,7 @@ final class SocialNetworkView: UIView, NibLoadable, ResetableView {
 
     func resetToEmptyState() {
         titleLabel.text = nil
-        
+
         didTapTelegram = nil
         didTapMedium = nil
         didTapTwitter = nil

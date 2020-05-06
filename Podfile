@@ -7,9 +7,8 @@ install! 'cocoapods', :disable_input_output_paths => true
 
 # install! 'cocoapods', :generate_multiple_pod_projects => true
 
-workspace 'WavesWallet-iOS'
-# project 'StandartTools/StandartTools'
-project 'WavesWallet-iOS'
+workspace 'WavesWallet-iOS.xcworkspace'
+project 'WavesWallet-iOS.xcodeproj'
 
 # 
 # 
@@ -27,31 +26,23 @@ end
 # 
 # 
 
-# target 'StandartTools' do
-#     workspace 'WavesWallet-iOS.xcworkspace'
-#     project 'StandartTools/StandartTools.xcodeproj'
-#     # данный таргет не должен содержать никаких зависимостей.
-# end
+target 'StandartTools' do
+    workspace 'WavesWallet-iOS.xcworkspace'
+    project 'StandartTools/StandartTools.xcodeproj'
+    # данный таргет не должен содержать никаких зависимостей.
+end
 
-# project 'AppTools/AppTools.xcodeproj' do 
+target 'WavesUIKit' do
+    workspace 'WavesWallet-iOS'
+    project 'WavesUIKit/WavesUIKit'
 
-# end
-
-# target 'WavesUIKit' do
-#     workspace 'WavesWallet-iOS'
-#     project 'WavesUIKit/WavesUIKit'
-
-#     pod 'RxCocoa'
-#     pod 'RxSwift'
-# end
-
-workspace 'WavesWallet-iOS'
-project 'AppTools/AppTools'
+    pod 'RxCocoa'
+    pod 'RxSwift'
+end
 
 target 'AppTools' do
-    inherit! :search_paths
-    
-    use_frameworks! :linkage => :dynamic
+	workspace 'WavesWallet-iOS'
+	project 'AppTools/AppTools'
 
     pod 'RxCocoa'
     pod 'RxSwift'
@@ -82,7 +73,6 @@ target 'WavesWallet-iOS' do
     pod 'SwiftGen', '~> 5.3.0'
     pod 'SwiftLint'
     pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
-    # pod 'TPKeyboardAvoiding'
     pod 'TTTAttributedLabel'
     pod 'UPCarouselFlowLayout'
 end
@@ -120,10 +110,7 @@ target 'DataLayer' do
     pod 'Moya'
     pod 'Moya/RxSwift'    
 
-    # pod 'SwiftGRPC'
     pod 'gRPC-Swift', '1.0.0-alpha.11'
-    # pod 'SwiftProtobuf'
-    # pod 'WEProtobuf', :git => 'git@gitlab.wvservices.com:waves-exchange/mobile/weprotobuf-ios.git'
 end
 
 target 'Extensions' do
