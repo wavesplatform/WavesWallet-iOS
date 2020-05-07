@@ -9,9 +9,7 @@
 import UIKit
 
 public extension UINavigationController {
-    
     func pushViewControllerAndSetLast(_ viewController: UIViewController) {
-        
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             self.viewControllers = [self.viewControllers.last!]
@@ -19,11 +17,9 @@ public extension UINavigationController {
         pushViewController(viewController, animated: true)
         CATransaction.commit()
     }
-    
 }
 
 public extension UIImage {
-    
     static func shadowImage(color: UIColor) -> UIImage? {
         UIGraphicsBeginImageContext(CGSize(width: 0.5, height: 0.5))
         guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
@@ -33,5 +29,4 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-    
 }

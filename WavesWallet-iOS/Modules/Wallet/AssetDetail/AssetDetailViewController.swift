@@ -478,7 +478,7 @@ extension AssetDetailViewController: UITableViewDelegate {
         case let .title(title):
             return AssetHeaderView.viewHeight(model: title, width: tableView.frame.width)
         default:
-            return CGFloat.minValue
+            return CGFloat.leastNonzeroMagnitude
         }
     }
 
@@ -510,7 +510,7 @@ extension AssetDetailViewController: UITableViewDelegate {
     }
 
     func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

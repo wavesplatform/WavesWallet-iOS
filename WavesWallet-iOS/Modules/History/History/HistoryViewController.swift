@@ -397,11 +397,11 @@ extension HistoryViewController: UITableViewDelegate {
     }
 
     func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
 
     func tableView(_: UITableView, estimatedHeightForFooterInSection _: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
 }
 
