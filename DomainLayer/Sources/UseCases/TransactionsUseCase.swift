@@ -79,22 +79,22 @@ private typealias AnyTransactionsSyncQuery =
 final class TransactionsUseCase: TransactionsUseCaseProtocol {
     typealias SmartTransactionsSyncObservable = SyncObservable<[DomainLayer.DTO.SmartTransaction]>
     
-    private var transactionsRepositoryLocal: TransactionsRepositoryProtocol
-    private var transactionsRepositoryRemote: TransactionsRepositoryProtocol
+    private let transactionsRepositoryLocal: TransactionsRepositoryProtocol
+    private let transactionsRepositoryRemote: TransactionsRepositoryProtocol
     
-    private var assetsInteractors: AssetsUseCaseProtocol
-    private var addressInteractors: AddressInteractorProtocol
+    private let assetsInteractors: AssetsUseCaseProtocol
+    private let addressInteractors: AddressInteractorProtocol
     
-    private var addressRepository: AddressRepositoryProtocol
-    private var assetsRepository: AssetsRepositoryProtocol
+    private let addressRepository: AddressRepositoryProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     
-    private var blockRepositoryRemote: BlockRepositoryProtocol
+    private let blockRepositoryRemote: BlockRepositoryProtocol
     
-    private var accountSettingsRepository: AccountSettingsRepositoryProtocol
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     
-    private var orderBookRepository: DexOrderBookRepositoryProtocol
+    private let orderBookRepository: DexOrderBookRepositoryProtocol
     
-    private var serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     
     init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
@@ -175,7 +175,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
         let rules = transactionsRepositoryRemote.feeRules()
         
         return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable)
-            .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
+            .flatMap { [weak self] isSmartAccount, wavesAsset, rules, isSmartAssets -> Observable<Money> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -191,7 +191,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                 
                 return Observable.just(money)
         }
-        .catchError { (error) -> Observable<Money> in
+        .catchError { error -> Observable<Money> in
             
             switch error {
             case let error as NetworkError:

@@ -14,10 +14,15 @@ import RxFeedback
 import RxSwift
 
 final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
-    var interactor: DexCreateOrderInteractorProtocol!
+    private let interactor: DexCreateOrderInteractorProtocol
+    private let pair: DomainLayer.DTO.Dex.Pair
+
     private let disposeBag = DisposeBag()
 
-    var pair: DomainLayer.DTO.Dex.Pair!
+    init(interactor: DexCreateOrderInteractorProtocol, pair: DomainLayer.DTO.Dex.Pair) {
+        self.interactor = interactor
+        self.pair = pair
+    }
 
     func system(feedbacks: [DexCreateOrderPresenter.Feedback], feeAssetId: String) {
         var newFeedbacks = feedbacks
@@ -29,8 +34,8 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
 
         Driver.system(initialState: DexCreateOrder.State.initialState(feeAssetId: feeAssetId),
                       reduce: { [weak self] state, event -> DexCreateOrder.State in
-
                           guard let self = self else { return state }
+                        
                           return self.reduce(state: state, event: event)
                       },
                       feedback: newFeedbacks)
@@ -39,76 +44,75 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     }
 
     private func feeQuery() -> Feedback {
-        react(request: { state -> DexCreateOrder.State? in
-            state.isNeedGetFee ? state : nil
-        }, effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
-
-            guard let self = self else { return Signal.empty() }
-
-            return self
-                .interactor
-                .getFee(amountAsset: self.pair.amountAsset.id, priceAsset: self.pair.priceAsset.id, feeAssetId: state.feeAssetId)
-                .map { .didGetFee($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) })
+        react(request: { state -> DexCreateOrder.State? in state.isNeedGetFee ? state : nil },
+              effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
+                
+                guard let self = self else { return Signal.empty() }
+                
+                let amountAssetId = self.pair.amountAsset.id
+                let priceAssetId = self.pair.priceAsset.id
+                let selectedFeeAssetId = state.feeAssetId
+                
+                return self
+                    .interactor
+                    .getFee(amountAsset: amountAssetId, priceAsset: priceAssetId, selectedFeeAssetId: selectedFeeAssetId)
+                    .map { .didGetFee($0) }
+                    .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) })
         })
     }
-
+    
     private func calculateMarketPriceQuery() -> Feedback {
-        react(request: { state -> DexCreateOrder.State? in
-            state.isNeedCalculateMarketOrderPrice ? state : nil
-        }, effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
-
-            guard let self = self else { return Signal.empty() }
-            guard let order = state.order else { return Signal.empty() }
-
-            return self.interactor.calculateMarketOrderPrice(amountAsset: order.amountAsset,
-                                                             priceAsset: order.priceAsset,
-                                                             orderAmount: order.amount,
-                                                             type: order.type)
-                .map { .didGetMarketOrderPrice($0) }
-                .asSignal(onErrorSignalWith: Signal.empty())
+        react(request: { state -> DexCreateOrder.State? in state.isNeedCalculateMarketOrderPrice ? state : nil },
+              effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
+                
+                guard let self = self else { return Signal.empty() }
+                guard let order = state.order else { return Signal.empty() }
+                
+                return self.interactor.calculateMarketOrderPrice(amountAsset: order.amountAsset,
+                                                                 priceAsset: order.priceAsset,
+                                                                 orderAmount: order.amount,
+                                                                 type: order.type)
+                    .map { .didGetMarketOrderPrice($0) }
+                    .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 
     private func modelsQuery() -> Feedback {
-        return react(request: { state -> DexCreateOrder.State? in state.isNeedCreateOrder ? state : nil },
-                     effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
-
-                         guard let self = self else { return Signal.empty() }
-                         guard let order = state.order else { return Signal.empty() }
-
-                         return self.interactor.createOrder(order: order,
-                                                            type: state.createOrderType)
-                             .map { .orderDidCreate($0) }
-                             .asSignal(onErrorSignalWith: Signal.empty())
+        react(request: { state -> DexCreateOrder.State? in state.isNeedCreateOrder ? state : nil },
+              effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
+                
+                guard let self = self else { return Signal.empty() }
+                guard let order = state.order else { return Signal.empty() }
+                
+                return self.interactor.createOrder(order: order,
+                                                   type: state.createOrderType)
+                    .map { .orderDidCreate($0) }
+                    .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 
     private func isValidOrderQuery() -> Feedback {
-        react(request: { state -> DexCreateOrder.State? in
-            state.isNeedCheckValidOrder ? state : nil
-        }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
-            guard let self = self else { return Signal.empty() }
-            guard let order = ss.order else { return Signal.empty() }
-
-            return self
-                .interactor
-                .isValidOrder(order: order)
-                .map { $0 == true ? .sendOrder : .orderNotValid(.invalid) }
-                .asSignal(onErrorRecover: { (error) -> Signal<DexCreateOrder.Event> in
-                    if let error = error as? DexCreateOrder.CreateOrderError {
-                        return Signal.just(.orderNotValid(error))
-                    } else {
-                        return Signal.just(.orderNotValid(.invalid))
-                    }
-                })
+        react(request: { state -> DexCreateOrder.State? in state.isNeedCheckValidOrder ? state : nil },
+              effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
+                guard let self = self else { return Signal.empty() }
+                guard let order = ss.order else { return Signal.empty() }
+                
+                return self
+                    .interactor
+                    .isValidOrder(order: order)
+                    .map { $0 == true ? .sendOrder : .orderNotValid(.invalid) }
+                    .asSignal(onErrorRecover: { (error) -> Signal<DexCreateOrder.Event> in
+                        if let error = error as? DexCreateOrder.CreateOrderError {
+                            return Signal.just(.orderNotValid(error))
+                        } else {
+                            return Signal.just(.orderNotValid(.invalid))
+                        }
+                    })
         })
     }
-
+    
     private func getDevelopmentConfig() -> Feedback {
-        react(request: { state -> DexCreateOrder.State? in
-            return state.isNeedCheckPairs ? state : nil
-        },
+        react(request: { state -> DexCreateOrder.State? in state.isNeedCheckPairs ? state : nil },
               effects: { [weak self] _ -> Signal<DexCreateOrder.Event> in
                 guard let self = self else { return Signal.never() }
                 
@@ -125,7 +129,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                         let isVisible = pairs.contains(checkPair)
                         
                         return .updateVisibleOrderTypesContainer(isVisible)
-                        
                 }
                 .asSignal(onErrorJustReturn: .updateVisibleOrderTypesContainer(true))
         })
@@ -134,28 +137,24 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     private func reduce(state: DexCreateOrder.State, event: DexCreateOrder.Event) -> DexCreateOrder.State {
         switch event {
         case .refreshFee:
-
             return state.mutate {
                 $0.isNeedGetFee = true
             }
             .changeAction(.none)
 
         case let .feeAssetNeedUpdate(feeAssetId):
-
             return state.mutate {
                 $0.feeAssetId = feeAssetId
                 $0.isNeedGetFee = true
             }.changeAction(.none)
 
         case let .handlerFeeError(error):
-
             return state.mutate {
                 $0.isNeedGetFee = false
                 $0.isDisabledSellBuyButton = true
                 if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
-                    $0
-                        .displayFeeErrorState = .error(DisplayError
-                            .message(Localizable.Waves.Transaction.Error.Commission.receiving))
+                    let error = DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving)
+                    $0.displayFeeErrorState = .error(error)
                 } else {
                     $0.displayFeeErrorState = .error(DisplayError(error: error))
                 }
@@ -172,7 +171,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             .changeAction(.didGetFee(feeSettings))
 
         case .createOrder:
-
             if state.order?.type == .buy {
                 UseCasesFactory.instance.analyticManager.trackEvent(.dex(.buyOrderSuccess(amountAsset: pair.amountAsset.name,
                                                                                           priceAsset: pair.priceAsset.name)))
@@ -188,7 +186,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             .changeAction(.showCreatingOrderState)
 
         case .cancelCreateOrder:
-
             return state.mutate {
                 $0.isNeedCreateOrder = false
                 $0.isNeedCheckValidOrder = false
@@ -196,7 +193,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             .changeAction(.showDeffaultOrderState)
 
         case .sendOrder:
-
             return state.mutate {
                 $0.isNeedCreateOrder = true
                 $0.isNeedCheckValidOrder = false
@@ -204,22 +200,21 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             .changeAction(.showCreatingOrderState)
 
         case let .orderNotValid(error):
-
             return state.mutate {
                 $0.isNeedCreateOrder = false
                 $0.isNeedCheckValidOrder = false
             }
             .changeAction(.orderNotValid(error))
-            
-        case .orderDidCreate(let responce):
+
+        case let .orderDidCreate(responce):
             return state.mutate {
                 $0.isNeedCreateOrder = false
 
                 switch responce.result {
-                    case .error(let error):
-                        $0.action = .orderDidFailCreate(error)
-                    case .success(let output):
-                        $0.action = .orderDidCreate(output)
+                case let .error(error):
+                    $0.action = .orderDidFailCreate(error)
+                case let .success(output):
+                    $0.action = .orderDidCreate(output)
                 }
             }
 
@@ -264,9 +259,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
 
 fileprivate extension DexCreateOrder.State {
     func changeAction(_ action: DexCreateOrder.State.Action) -> DexCreateOrder.State {
-        return mutate { state in
-            state.action = action
-        }
+        mutate { $0.action = action }
     }
 }
 

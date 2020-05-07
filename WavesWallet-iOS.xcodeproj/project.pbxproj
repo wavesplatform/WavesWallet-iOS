@@ -367,7 +367,6 @@
 		7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */; };
 		7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */; };
 		7B5FAAB822BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */; };
-		7B5FAAB922BBE3EC00621A44 /* CleanerWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5E22BBE3EC00621A44 /* CleanerWalletManager.swift */; };
 		7B5FAABA22BBE3EC00621A44 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */; };
 		7B5FAABB22BBE3EC00621A44 /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6122BBE3EC00621A44 /* WordList.swift */; };
 		7B5FAABC22BBE3EC00621A44 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6222BBE3EC00621A44 /* Hash.swift */; };
@@ -751,6 +750,10 @@
 		7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FA22FC742F002B19F8 /* BiometricManager+String.swift */; };
 		7BFB481A22FC742F002B19F8 /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FD22FC742F002B19F8 /* QRCodeParser.swift */; };
 		7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FF22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift */; };
+		870016DA246305CB0013F85E /* AnalyticManagerEvent+Intercom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870016D9246305CB0013F85E /* AnalyticManagerEvent+Intercom.swift */; };
+		870016DE246306950013F85E /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870016DB246306940013F85E /* String+Size.swift */; };
+		870016DF246306950013F85E /* IntercomInitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870016DC246306950013F85E /* IntercomInitial.swift */; };
+		870016E0246306950013F85E /* Reachability+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870016DD246306950013F85E /* Reachability+Shared.swift */; };
 		87105698243340DD005022DD /* SocialNetworkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87105697243340DD005022DD /* SocialNetworkView.xib */; };
 		8710569A243340F7005022DD /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87105699243340F7005022DD /* SocialNetworkView.swift */; };
 		8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8710569C24336992005022DD /* ExchangeTitleView.xib */; };
@@ -1786,7 +1789,6 @@
 		7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDebugSettings.swift; sourceTree = "<group>"; };
 		7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerWalletManagerBanner.swift; sourceTree = "<group>"; };
 		7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDomain+Assistants.swift"; sourceTree = "<group>"; };
-		7B5FAA5E22BBE3EC00621A44 /* CleanerWalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerWalletManager.swift; sourceTree = "<group>"; };
 		7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
 		7B5FAA6122BBE3EC00621A44 /* WordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
 		7B5FAA6222BBE3EC00621A44 /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
@@ -2169,6 +2171,10 @@
 		7DE1A4775A6F529AE97E38D8 /* Pods-DomainLayerTests.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.test-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.test-prod.xcconfig"; sourceTree = "<group>"; };
 		82F76577DDAFE917481BF729 /* Pods-MonkeyTest.release-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release-adhoc.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release-adhoc.xcconfig"; sourceTree = "<group>"; };
 		83BED0DF93542A1B1ECD29C1 /* Pods-DummyForTest.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyForTest.test-prod.xcconfig"; path = "Target Support Files/Pods-DummyForTest/Pods-DummyForTest.test-prod.xcconfig"; sourceTree = "<group>"; };
+		870016D9246305CB0013F85E /* AnalyticManagerEvent+Intercom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnalyticManagerEvent+Intercom.swift"; sourceTree = "<group>"; };
+		870016DB246306940013F85E /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
+		870016DC246306950013F85E /* IntercomInitial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomInitial.swift; sourceTree = "<group>"; };
+		870016DD246306950013F85E /* Reachability+Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reachability+Shared.swift"; sourceTree = "<group>"; };
 		87105697243340DD005022DD /* SocialNetworkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialNetworkView.xib; sourceTree = "<group>"; };
 		87105699243340F7005022DD /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
 		8710569C24336992005022DD /* ExchangeTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExchangeTitleView.xib; sourceTree = "<group>"; };
@@ -3265,6 +3271,9 @@
 		0ADD7F1E21F22FB60075FC59 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				870016DC246306950013F85E /* IntercomInitial.swift */,
+				870016DD246306950013F85E /* Reachability+Shared.swift */,
+				870016DB246306940013F85E /* String+Size.swift */,
 				7B0D1B892402ABDF00442B7B /* Style */,
 				7BFB47F822FC742E002B19F8 /* AuthorizationInteractorLocalizableImp.swift */,
 				7B97B0BB22FD92AC008BA3F4 /* AssetLogo+Styles.swift */,
@@ -3967,6 +3976,7 @@
 		7B5FAA4822BBE3EC00621A44 /* AnalyticManager */ = {
 			isa = PBXGroup;
 			children = (
+				870016D9246305CB0013F85E /* AnalyticManagerEvent+Intercom.swift */,
 				7B5FAA4A22BBE3EC00621A44 /* AnalyticManagerProtocol.swift */,
 				7B5FAA4B22BBE3EC00621A44 /* AnalyticAssetManager.swift */,
 				7B5FAA4E22BBE3EC00621A44 /* AnalyticManager+Dex.swift */,
@@ -4019,7 +4029,6 @@
 				7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */,
 				7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */,
 				7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */,
-				7B5FAA5E22BBE3EC00621A44 /* CleanerWalletManager.swift */,
 				7B5FAA5F22BBE3EC00621A44 /* SigningWalletsProtocol.swift */,
 				7B5FAA6022BBE3EC00621A44 /* ClientCrypto */,
 				7B5FAA6822BBE3EC00621A44 /* BiometricManager.swift */,
@@ -7668,6 +7677,7 @@
 				7B848A7123018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift in Sources */,
 				7B5FAABC22BBE3EC00621A44 /* Hash.swift in Sources */,
 				7B5FAA7722BBE3EC00621A44 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
+				870016DA246305CB0013F85E /* AnalyticManagerEvent+Intercom.swift in Sources */,
 				7B9DC35E2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift in Sources */,
 				7B5FAAB122BBE3EC00621A44 /* AddressUseCase.swift in Sources */,
 				7B5FAABE22BBE3EC00621A44 /* PublicKey.swift in Sources */,
@@ -7783,7 +7793,6 @@
 				7B431A8122BCFF7100DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift in Sources */,
 				875393202423BA8000394762 /* WEOAuthRepositoryProtocol.swift in Sources */,
 				87566699242B668600E9F177 /* StakingBalanceService.swift in Sources */,
-				7B5FAAB922BBE3EC00621A44 /* CleanerWalletManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8188,6 +8197,7 @@
 				0AF9222F212E0F1F003BA067 /* WalletAssetSkeletonCell.swift in Sources */,
 				E9B088112163886800937644 /* DexMarketTypes.swift in Sources */,
 				7BFB481822FC742F002B19F8 /* BiometricManager+String.swift in Sources */,
+				870016DF246306950013F85E /* IntercomInitial.swift in Sources */,
 				E9983F2223ACB63B00859136 /* MyOrdersViewController.swift in Sources */,
 				0A20606821822C3A0048CF83 /* AddressesKeysViewController.swift in Sources */,
 				87FA5DC024223FBE002F282D /* AssetDetailCell.swift in Sources */,
@@ -8210,6 +8220,7 @@
 				E9F69B9822A522E400CDBD00 /* WalletSearchPresenter.swift in Sources */,
 				7BD3605D240EF3AE006F3A77 /* StakingTransferInteractor.swift in Sources */,
 				E9B088132163886800937644 /* DexMarketInteractor.swift in Sources */,
+				870016E0246306950013F85E /* Reachability+Shared.swift in Sources */,
 				E95E151522A197B8003552B8 /* WalletSearchViewController.swift in Sources */,
 				0AED6BBA216620F000481B42 /* ProfileTypes.swift in Sources */,
 				7B85E61123FD1D6600365829 /* NavigationRouter+Utils.swift in Sources */,
@@ -8249,6 +8260,7 @@
 				7B8818602304474E00AB0549 /* AuthorizationInteractorLocalizableImp.swift in Sources */,
 				0A96F1DF21544331005E148F /* MultyTextField.swift in Sources */,
 				7BFB480722FC742F002B19F8 /* UITableView+Skeleton.swift in Sources */,
+				870016DE246306950013F85E /* String+Size.swift in Sources */,
 				04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */,
 				0AF922FC212E1234003BA067 /* CenteringContentButton.swift in Sources */,
 				E9310D1921792D01008BF3EE /* SendConfirmationRecipientView.swift in Sources */,
