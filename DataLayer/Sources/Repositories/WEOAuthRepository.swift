@@ -45,7 +45,6 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                 let token: WEOAuth.Query.Token = self.createOAuthToken(signedWallet: signedWallet,
                                                                        chainId: serverEnvironment.kind.chainId,
                                                                        exchangeClientSecret: exchangeClientSecret)
-
                 return self
                     .weOAuth
                     .rx

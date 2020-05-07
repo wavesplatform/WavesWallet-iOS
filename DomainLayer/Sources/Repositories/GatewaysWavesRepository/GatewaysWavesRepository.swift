@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-public protocol GatewaysWavesService {
+public protocol GatewaysWavesRepository {
     
     func assetBindingsRequest(serverEnvironment: ServerEnvironment,
                               oAToken: WEOAuthTokenDTO,

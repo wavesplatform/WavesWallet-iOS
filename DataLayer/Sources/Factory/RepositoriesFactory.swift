@@ -152,6 +152,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var serverTimestampRepository: ServerTimestampRepository = {
         ServerTimestampRepositoryImp(timestampServerService: servicesFactory.timestampServerService)
     }()
+    
+    public private(set) lazy var gatewaysWavesRepository: GatewaysWavesRepository = {
+        return GatewaysWavesRepositoryImp()
+    }()
 
     public struct Resources {
         public typealias PathForFile = String

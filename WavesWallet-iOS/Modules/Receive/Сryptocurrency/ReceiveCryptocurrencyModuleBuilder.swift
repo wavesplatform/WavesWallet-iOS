@@ -19,7 +19,8 @@ struct ReceiveCryptocurrencyModuleBuilder: ModuleBuilder {
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
  
         let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
-        let gatewaysWavesService = UseCasesFactory.instance.services.gatewaysWavesService
+        let gatewaysWavesRepository = UseCasesFactory.instance.repositories.gatewaysWavesRepository
+        let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepositoryProtocol
         
         let interactor = ReceiveCryptocurrencyInteractor(authorization: authorization,
                                                          coinomatRepository: coinomatRepository,
@@ -27,7 +28,8 @@ struct ReceiveCryptocurrencyModuleBuilder: ModuleBuilder {
                                                          weGatewayUseCase: weGatewayUseCase,
                                                          serverEnvironmentUseCase: serverEnvironmentUseCase,
                                                          environmentRepository: environmentRepository,
-                                                         gatewaysWavesService: gatewaysWavesService)
+                                                         gatewaysWavesRepository: gatewaysWavesRepository,
+                                                         weOAuthRepository: weOAuthRepository)
 
         let presenter = ReceiveCryptocurrencyPresenter()
         presenter.interactor = interactor

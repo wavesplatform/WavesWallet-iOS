@@ -81,4 +81,6 @@ public protocol RepositoriesFactoryProtocol {
     var stakingBalanceService: StakingBalanceService { get }
     
     var serverTimestampRepository: ServerTimestampRepository { get }
+    
+    var gatewaysWavesRepository: GatewaysWavesRepository { get }
 }

@@ -7,7 +7,7 @@
     "matcherUrl": "https://matcher.waves.exchange",
     "gatewayUrl": "https://gw.waves.exchange/api",
     "authUrl": "https://waves.exchange/oauth",
-    "wavesExchangeApiUrl": "https://api.waves.exchange",
+    "wavesExchangeApiUrl": "https://api-mainnet-dev.waves.exchange",
     "wavesExchangeGrpcAddress": "grpc-mainnet-dev.waves.exchange",
     "gateways": {
       "v0": "https://coinomat.com/api",

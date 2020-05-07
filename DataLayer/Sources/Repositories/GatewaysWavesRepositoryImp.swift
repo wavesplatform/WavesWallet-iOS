@@ -63,7 +63,7 @@ fileprivate extension Gateways_TransferBinding {
     }
 }
 
-final class GatewaysWavesServiceImp: GatewaysWavesService {
+final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
     func assetBindingsRequest(serverEnvironment: ServerEnvironment,
                               oAToken: WEOAuthTokenDTO,
                               request: AssetBindingsRequest) -> Observable<[GatewaysAssetBinding]> {
@@ -110,10 +110,12 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
             .map { response -> GatewaysTransferBinding in
                 response.transferBinding.gatewaysTransferBinding
             }
-            .catchError { [weak self] _ -> Observable<GatewaysTransferBinding> in
+            .catchError { [weak self] error -> Observable<GatewaysTransferBinding> in
 
                 guard let self = self else { return Observable.never() }
 
+                print("error \(error)")
+                
                 var bindingRequest = Gateways_CreateWithdrawalTransferBindingRequest()
                 bindingRequest.asset = request.asset
                 bindingRequest.recipientAddress = request.recipientAddress
@@ -124,8 +126,6 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
                     .map { response -> GatewaysTransferBinding in
                         response.transferBinding.gatewaysTransferBinding
                     }
-
-                return Observable.never()
             }
     }
 
@@ -145,8 +145,10 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
             .map { response -> GatewaysTransferBinding in
                 response.transferBinding.gatewaysTransferBinding
             }
-            .catchError { [weak self] _ -> Observable<GatewaysTransferBinding> in
+            .catchError { [weak self] error -> Observable<GatewaysTransferBinding> in
 
+                print("error \(error)")
+                
                 guard let self = self else { return Observable.never() }
 
                 var bindingRequest = Gateways_CreateDepositTransferBindingRequest()
@@ -163,7 +165,7 @@ final class GatewaysWavesServiceImp: GatewaysWavesService {
     }
 }
 
-private extension GatewaysWavesServiceImp {
+private extension GatewaysWavesRepositoryImp {
     func getWavesAssetBindingsRequest(
         addressGrpc: String,
         oAToken: String,

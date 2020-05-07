@@ -25,8 +25,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let weGatewayUseCase: WEGatewayUseCaseProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     private let environmentRepository: EnvironmentRepositoryProtocol
-    private let gatewaysWavesService: GatewaysWavesService
-    private let gatewaysWavesService: OA
+    private let gatewaysWavesRepository: GatewaysWavesRepository
+    private let weOAuthRepository: WEOAuthRepositoryProtocol
     
     init(authorization: AuthorizationUseCaseProtocol,
          coinomatRepository: CoinomatRepositoryProtocol,
@@ -34,7 +34,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
          weGatewayUseCase: WEGatewayUseCaseProtocol,
          serverEnvironmentUseCase: ServerEnvironmentUseCase,
          environmentRepository: EnvironmentRepositoryProtocol,
-         gatewaysWavesService: GatewaysWavesService) {
+         gatewaysWavesRepository: GatewaysWavesRepository,
+         weOAuthRepository: WEOAuthRepositoryProtocol) {
         
         self.auth = authorization
         self.coinomatRepository = coinomatRepository
@@ -42,7 +43,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         self.weGatewayUseCase = weGatewayUseCase
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.environmentRepository = environmentRepository
-        self.gatewaysWavesService = gatewaysWavesService
+        self.gatewaysWavesRepository = gatewaysWavesRepository
+        self.weOAuthRepository = weOAuthRepository
     }
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
@@ -97,9 +99,41 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 case .exchange:
                     
                     
+                    return self.weOAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
+                                                             signedWallet: wallet)
+                        .flatMap { [weak self] token -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+                            
+                            guard let self = self else { return Observable.never() }
+                            
+                            
+                            let assetBindingsRequest = AssetBindingsRequest(assetType: .crypto,
+                                                                            direction: .deposit,
+                                                                            includesWavesAsset: asset.id)
+                            
+                            return self
+                                .gatewaysWavesRepository.assetBindingsRequest(serverEnvironment: serverEnvironment,
+                                                                              oAToken: token,
+                                                                              request: assetBindingsRequest)
+                                .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
+                                                              
+                                    print(binding)
+                                    return ResponseType(output: nil, error: nil)
+                                }
+                            
+                            return self
+                                .gatewaysWavesRepository
+                                .depositTransferBinding(serverEnvironment: serverEnvironment,
+                                                        oAToken: token,
+                                                        request: TransferBindingRequest(asset: "",
+                                                                                        recipientAddress: ""))
+                                .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
+                                
+                                    print(binding)
+                                    return ResponseType(output: nil, error: nil)
+                                }
+                        }
                     
-                    return self.gatewaysWavesService.depositTransferBinding(serverEnvironment: serverEnvironment,
-                                                                            oAToken: <#T##String#>, request: <#T##TransferBindingRequest#>)
+                    
                     
                     return self.weGatewayUseCase
                         .receiveBinding(asset: asset)

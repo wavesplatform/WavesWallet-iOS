@@ -633,8 +633,8 @@
 		7BE09AD323140F0900A038AD /* MobileKeeper.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */; };
 		7BEDB6B324573E1F00605B4D /* WavesSDKServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */; };
 		7BEDB6B52457428A00605B4D /* SpamAssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */; };
-		7BEDB6B92458846C00605B4D /* GatewaysWavesApiClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B82458846B00605B4D /* GatewaysWavesApiClientService.swift */; };
-		7BEDB6BC24588D8600605B4D /* GatewaysWavesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6BB24588D8600605B4D /* GatewaysWavesService.swift */; };
+		7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */; };
+		7BEDB6BC24588D8600605B4D /* GatewaysWavesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6BB24588D8600605B4D /* GatewaysWavesRepository.swift */; };
 		7BEDB6BF24588DAE00605B4D /* AssetBindingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6BE24588DAE00605B4D /* AssetBindingsRequest.swift */; };
 		7BEDB6C124588DBE00605B4D /* GatewaysAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */; };
 		7BEDB6C324588DCB00605B4D /* GatewaysAssetBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */; };
@@ -2034,8 +2034,8 @@
 		7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MobileKeeper.storyboard; sourceTree = "<group>"; };
 		7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSDKServices.swift; sourceTree = "<group>"; };
 		7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpamAssetsService.swift; sourceTree = "<group>"; };
-		7BEDB6B82458846B00605B4D /* GatewaysWavesApiClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysWavesApiClientService.swift; sourceTree = "<group>"; };
-		7BEDB6BB24588D8600605B4D /* GatewaysWavesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysWavesService.swift; sourceTree = "<group>"; };
+		7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysWavesRepositoryImp.swift; sourceTree = "<group>"; };
+		7BEDB6BB24588D8600605B4D /* GatewaysWavesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysWavesRepository.swift; sourceTree = "<group>"; };
 		7BEDB6BE24588DAE00605B4D /* AssetBindingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBindingsRequest.swift; sourceTree = "<group>"; };
 		7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysAsset.swift; sourceTree = "<group>"; };
 		7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysAssetBinding.swift; sourceTree = "<group>"; };
@@ -3882,6 +3882,7 @@
 		7B5FAA0C22BBE3EB00621A44 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDB6BD24588D9600605B4D /* GatewaysWavesRepository */,
 				7B5FAA1F22BBE3EB00621A44 /* AccountBalanceRepositoryProtocol.swift */,
 				7B5FAA0E22BBE3EB00621A44 /* AccountSettingsRepositoryProtocol.swift */,
 				7B5FAA1722BBE3EB00621A44 /* AddressBookRepositoryProtocol.swift */,
@@ -4659,14 +4660,14 @@
 			path = MobileKeeper;
 			sourceTree = "<group>";
 		};
-		7BEDB6BD24588D9600605B4D /* GatewaysWavesApiClient */ = {
+		7BEDB6BD24588D9600605B4D /* GatewaysWavesRepository */ = {
 			isa = PBXGroup;
 			children = (
-				7BEDB6BB24588D8600605B4D /* GatewaysWavesService.swift */,
+				7BEDB6BB24588D8600605B4D /* GatewaysWavesRepository.swift */,
 				7BEDB6C724588FBB00605B4D /* Request */,
 				7BEDB6C624588FB100605B4D /* Model */,
 			);
-			path = GatewaysWavesApiClient;
+			path = GatewaysWavesRepository;
 			sourceTree = "<group>";
 		};
 		7BEDB6C624588FB100605B4D /* Model */ = {
@@ -4827,6 +4828,7 @@
 		7BF50A2C22D8B95400582783 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */,
 				875393262423BB2F00394762 /* WEOAuthRepository.swift */,
 				7BF50A3D22D8B95400582783 /* AccountBalanceRepositoryRemote.swift */,
 				7BF50A3522D8B95400582783 /* AddressRepositoryRemote.swift */,
@@ -4868,7 +4870,6 @@
 				875393292423BB9700394762 /* WEOAuthService.swift */,
 				7BA682662450747B000B5747 /* WavesServices.swift */,
 				7B05BEF724534EA4001AD9AD /* TimestampServerServiceImp.swift */,
-				7BEDB6B82458846B00605B4D /* GatewaysWavesApiClientService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -5128,7 +5129,6 @@
 				7B05BEF52453491F001AD9AD /* TimestampServerService.swift */,
 				7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */,
 				7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */,
-				7BEDB6BD24588D9600605B4D /* GatewaysWavesApiClient */,
 				7BEDB6D6245988C200605B4D /* DevelopmentConfigsService.swift */,
 			);
 			path = Services;
@@ -7707,7 +7707,7 @@
 				7B5FAAC222BBE3EC00621A44 /* BiometricManager.swift in Sources */,
 				7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */,
 				7B5FAAB322BBE3EC00621A44 /* ApplicationVersionUseCase.swift in Sources */,
-				7BEDB6BC24588D8600605B4D /* GatewaysWavesService.swift in Sources */,
+				7BEDB6BC24588D8600605B4D /* GatewaysWavesRepository.swift in Sources */,
 				E97A74A522D3BAA200777C39 /* OrderBookUseCaseProtocol.swift in Sources */,
 				7B5FAAA322BBE3EC00621A44 /* ResponseType.swift in Sources */,
 				7B5FAA6A22BBE3EC00621A44 /* RepositoriesFactoryProtocol.swift in Sources */,
@@ -7951,7 +7951,7 @@
 				7B896FE623F34FA000F45A70 /* AccountBalanceRepositoryLocal.swift in Sources */,
 				7BF50A6E22D8B95400582783 /* ScriptTransaction.swift in Sources */,
 				7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */,
-				7BEDB6B92458846C00605B4D /* GatewaysWavesApiClientService.swift in Sources */,
+				7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */,
 				7BD2A47A24505D6800CB3008 /* messages.pb.swift in Sources */,
 				7B896FE523F34FA000F45A70 /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */,
 				7BD2A48124505D6800CB3008 /* adcash_managing.grpc.swift in Sources */,

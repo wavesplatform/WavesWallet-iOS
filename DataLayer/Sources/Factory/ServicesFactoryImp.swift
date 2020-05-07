@@ -22,10 +22,6 @@ public final class ServicesFactoryImp: ServicesFactory {
     public private(set) lazy var spamAssetsService: SpamAssetsService = {
         return SpamAssetsServiceImp()
     }()
-    
-    public private(set) lazy var gatewaysWavesService: GatewaysWavesService = {
-        return GatewaysWavesServiceImp()
-    }()
-            
+                
     public init() {}
 }
