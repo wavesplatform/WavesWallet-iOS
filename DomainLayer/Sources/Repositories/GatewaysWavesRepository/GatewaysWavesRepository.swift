@@ -8,6 +8,12 @@
 
 import Foundation
 import RxSwift
+import WavesSDK
+
+public enum GatewaysWavesError: Error {
+    case network(NetworkError)
+    case notFound
+}
 
 public protocol GatewaysWavesRepository {
     

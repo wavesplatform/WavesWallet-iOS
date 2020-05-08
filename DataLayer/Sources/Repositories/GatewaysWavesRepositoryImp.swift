@@ -114,7 +114,8 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
 
                 guard let self = self else { return Observable.never() }
 
-                print("error \(error)")
+                print("withdrawalTransferBinding \(error)")
+                //TODO: Handler error
                 
                 var bindingRequest = Gateways_CreateWithdrawalTransferBindingRequest()
                 bindingRequest.asset = request.asset
@@ -147,7 +148,8 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
             }
             .catchError { [weak self] error -> Observable<GatewaysTransferBinding> in
 
-                print("error \(error)")
+                print("depositTransferBinding \(error)")
+                //TODO: Handler errorz
                 
                 guard let self = self else { return Observable.never() }
 
@@ -165,7 +167,25 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
     }
 }
 
+// -> NetworkError
+// ->
+
 private extension GatewaysWavesRepositoryImp {
+    
+    func gatewaysWavesError(from error: Error) -> GatewaysWavesRepository {
+        
+//        switch error {
+//        case let status as GRPCStatus:
+//            switch status.code {
+//            case .notFound
+//                return Gateway
+//            default:
+//                
+//            }
+//        
+//        }
+    }
+    
     func getWavesAssetBindingsRequest(
         addressGrpc: String,
         oAToken: String,
@@ -185,7 +205,7 @@ private extension GatewaysWavesRepositoryImp {
                 observer.onCompleted()
 
             } catch let e {
-                print(e)
+                
                 observer.onError(e)
             }
 

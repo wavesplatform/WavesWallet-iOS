@@ -27,7 +27,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let gatewaysWavesRepository: GatewaysWavesRepository
     private let weOAuthRepository: WEOAuthRepositoryProtocol
-    
+
     init(authorization: AuthorizationUseCaseProtocol,
          coinomatRepository: CoinomatRepositoryProtocol,
          gatewayRepository: GatewayRepositoryProtocol,
@@ -36,8 +36,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
          environmentRepository: EnvironmentRepositoryProtocol,
          gatewaysWavesRepository: GatewaysWavesRepository,
          weOAuthRepository: WEOAuthRepositoryProtocol) {
-        
-        self.auth = authorization
+        auth = authorization
         self.coinomatRepository = coinomatRepository
         self.gatewayRepository = gatewayRepository
         self.weGatewayUseCase = weGatewayUseCase
@@ -48,13 +47,12 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     }
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
-        
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         let environment = environmentRepository.walletEnvironment()
-        
+
         return Observable.zip(wallet, serverEnvironment, environment)
-            .flatMap { [weak self] wallet, serverEnvironment, appEnvironments-> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+            .flatMap { [weak self] wallet, serverEnvironment, appEnvironments -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
 
                 guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
 
@@ -92,49 +90,60 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                 .DisplayInfo(addresses: [tunnel.address.displayInfoAddress()],
                                              asset: asset,
                                              minAmount: tunnel.min,
-                                             maxAmount: nil, // где взять max? 
+                                             maxAmount: nil, // где взять max?
                                              generalAssets: appEnvironments.generalAssets)
                             return Observable.just(ResponseType(output: displayInfo, error: nil))
                         }
                 case .exchange:
-                    
-                    
+
                     return self.weOAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
                                                              signedWallet: wallet)
                         .flatMap { [weak self] token -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-                            
+
                             guard let self = self else { return Observable.never() }
-                            
-                            
+
                             let assetBindingsRequest = AssetBindingsRequest(assetType: .crypto,
                                                                             direction: .deposit,
                                                                             includesWavesAsset: asset.id)
-                            
+
                             return self
                                 .gatewaysWavesRepository.assetBindingsRequest(serverEnvironment: serverEnvironment,
                                                                               oAToken: token,
                                                                               request: assetBindingsRequest)
-                                .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
-                                                              
-                                    print(binding)
-                                    return ResponseType(output: nil, error: nil)
+                                .flatMap { [weak self] binding -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+
+                                    guard let self = self else { return Observable.never() }
+
+                                    guard let asset = binding.first else { return Observable.error(NetworkError.notFound) }
+
+                                    let request = TransferBindingRequest(asset: asset.recipientAsset.asset,
+                                                                         recipientAddress: wallet.address)
+
+                                    return self
+                                        .gatewaysWavesRepository
+                                        .depositTransferBinding(serverEnvironment: serverEnvironment,
+                                                                oAToken: token,
+                                                                request: request)
+                                        .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
+
+                                            print(binding)
+                                            return ResponseType(output: nil, error: nil)
+                                    }
+                                    .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+                                        
+                                        print("error \(error)")
+                                        
+                                        return Observable.error(error)
+                                    }
                                 }
-                            
-                            return self
-                                .gatewaysWavesRepository
-                                .depositTransferBinding(serverEnvironment: serverEnvironment,
-                                                        oAToken: token,
-                                                        request: TransferBindingRequest(asset: "",
-                                                                                        recipientAddress: ""))
+
                                 .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
-                                
+
                                     print(binding)
                                     return ResponseType(output: nil, error: nil)
                                 }
                         }
-                    
-                    
-                    
+
                     return self.weGatewayUseCase
                         .receiveBinding(asset: asset)
                         .map { model -> ReceiveCryptocurrency.DTO.DisplayInfo in
@@ -148,19 +157,18 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                         .catchError {
                             let error = NetworkError.error(by: $0)
                             let response = ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: nil, error: error)
-                            
+
                             return Observable.just(response)
                         }
                 }
-        }
-        .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-            if let networkError = error as? NetworkError {
-                return Observable.just(ResponseType(output: nil, error: networkError))
             }
+            .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+                if let networkError = error as? NetworkError {
+                    return Observable.just(ResponseType(output: nil, error: networkError))
+                }
 
-            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-        }
-            
+                return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+            }
     }
 }
 
