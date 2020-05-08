@@ -10,6 +10,13 @@
 		8714504124623DED00A17BA9 /* AppTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8714503F24623DED00A17BA9 /* AppTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871450542462400700A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; };
 		871450552462400700A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8769B58D246443AA00124484 /* BindableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B58C246443AA00124484 /* BindableView.swift */; };
+		8769B58F246443C400124484 /* IOTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B58E246443C400124484 /* IOTransformer.swift */; };
+		8769B591246443DA00124484 /* VIPBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B590246443DA00124484 /* VIPBinder.swift */; };
+		8769B59A2464455400124484 /* Observable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B5992464455400124484 /* Observable+Extensions.swift */; };
+		8769B59C2464466C00124484 /* PublishObservableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B59B2464466C00124484 /* PublishObservableWrapper.swift */; };
+		8769B59F246446CC00124484 /* PublishControlEventWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B59E246446CC00124484 /* PublishControlEventWrapper.swift */; };
+		8769B5A12464475300124484 /* WithLatestFrom+BothValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B5A02464475300124484 /* WithLatestFrom+BothValue.swift */; };
 		92586C2530794E52F54C277E /* Pods_AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2E09101C0977A48EAB3198 /* Pods_AppTools.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +45,13 @@
 		8714503F24623DED00A17BA9 /* AppTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTools.h; sourceTree = "<group>"; };
 		8714504024623DED00A17BA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		871450532462400700A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8769B58C246443AA00124484 /* BindableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableView.swift; sourceTree = "<group>"; };
+		8769B58E246443C400124484 /* IOTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOTransformer.swift; sourceTree = "<group>"; };
+		8769B590246443DA00124484 /* VIPBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIPBinder.swift; sourceTree = "<group>"; };
+		8769B5992464455400124484 /* Observable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Extensions.swift"; sourceTree = "<group>"; };
+		8769B59B2464466C00124484 /* PublishObservableWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishObservableWrapper.swift; sourceTree = "<group>"; };
+		8769B59E246446CC00124484 /* PublishControlEventWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishControlEventWrapper.swift; sourceTree = "<group>"; };
+		8769B5A02464475300124484 /* WithLatestFrom+BothValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WithLatestFrom+BothValue.swift"; sourceTree = "<group>"; };
 		B4F20B210F7DFE62B748D5BE /* Pods-AppTools.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTools.release-dev.xcconfig"; path = "Target Support Files/Pods-AppTools/Pods-AppTools.release-dev.xcconfig"; sourceTree = "<group>"; };
 		EE2E09101C0977A48EAB3198 /* Pods_AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -91,10 +105,33 @@
 		8714503E24623DED00A17BA9 /* AppTools */ = {
 			isa = PBXGroup;
 			children = (
+				8769B5922464449E00124484 /* ModuleTooling+Rx */,
+				8769B58B2464439700124484 /* ModuleTooling */,
 				8714503F24623DED00A17BA9 /* AppTools.h */,
 				8714504024623DED00A17BA9 /* Info.plist */,
 			);
 			path = AppTools;
+			sourceTree = "<group>";
+		};
+		8769B58B2464439700124484 /* ModuleTooling */ = {
+			isa = PBXGroup;
+			children = (
+				8769B58C246443AA00124484 /* BindableView.swift */,
+				8769B58E246443C400124484 /* IOTransformer.swift */,
+				8769B590246443DA00124484 /* VIPBinder.swift */,
+			);
+			path = ModuleTooling;
+			sourceTree = "<group>";
+		};
+		8769B5922464449E00124484 /* ModuleTooling+Rx */ = {
+			isa = PBXGroup;
+			children = (
+				8769B5992464455400124484 /* Observable+Extensions.swift */,
+				8769B59B2464466C00124484 /* PublishObservableWrapper.swift */,
+				8769B59E246446CC00124484 /* PublishControlEventWrapper.swift */,
+				8769B5A02464475300124484 /* WithLatestFrom+BothValue.swift */,
+			);
+			path = "ModuleTooling+Rx";
 			sourceTree = "<group>";
 		};
 		A0C383608A4BE25E452BD094 /* Frameworks */ = {
@@ -213,6 +250,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8769B591246443DA00124484 /* VIPBinder.swift in Sources */,
+				8769B58D246443AA00124484 /* BindableView.swift in Sources */,
+				8769B59F246446CC00124484 /* PublishControlEventWrapper.swift in Sources */,
+				8769B59C2464466C00124484 /* PublishObservableWrapper.swift in Sources */,
+				8769B5A12464475300124484 /* WithLatestFrom+BothValue.swift in Sources */,
+				8769B59A2464455400124484 /* Observable+Extensions.swift in Sources */,
+				8769B58F246443C400124484 /* IOTransformer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

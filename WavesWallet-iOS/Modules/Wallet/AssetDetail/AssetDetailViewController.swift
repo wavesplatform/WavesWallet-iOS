@@ -130,8 +130,7 @@ private extension AssetDetailViewController {
 
     func events() -> [Signal<AssetDetailTypes.Event>] {
         let eventChangedAsset = segmentedControl.currentAssetId()
-            .filter { $0 != nil }
-            .map { $0! }
+            .compactMap { $0 }
             .map { AssetDetailTypes.Event.changedAsset(id: $0) }
         
         let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: false) }

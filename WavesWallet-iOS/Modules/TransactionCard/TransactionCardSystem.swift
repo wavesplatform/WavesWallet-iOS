@@ -372,9 +372,7 @@ private extension TransactionCardSystem {
                     .assetsInteractor
                     .assets(by: [assetID],
                             accountAddress: wallet.address)
-                    .map { $0.first }
-                    .filter { $0 != nil }
-                    .map { $0! }
+                    .compactMap { $0.first }
             }
     }
 }
