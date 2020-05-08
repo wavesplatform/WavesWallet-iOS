@@ -14,10 +14,8 @@ fileprivate enum Constants {
 }
 
 public extension CALayer {
-
     func clip() {
-
-        self.mask = {
+        mask = {
             let mask = CAShapeLayer()
             let path = UIBezierPath(rect: bounds)
             mask.frame = bounds
@@ -27,14 +25,12 @@ public extension CALayer {
     }
 
     func clip(roundedRect rect: CGRect? = nil,
-                     byRoundingCorners corners: UIRectCorner = .allCorners,
-                     cornerRadius: CGFloat,
-                     inverse: Bool = false) {
-        
-        self.mask = {
-
+              byRoundingCorners corners: UIRectCorner = .allCorners,
+              cornerRadius: CGFloat,
+              inverse: Bool = false) {
+        mask = {
             let roundedRect = rect ?? bounds
-            
+
             let mask = CAShapeLayer()
             mask.name = Constants.maskName
             let path = UIBezierPath(roundedRect: roundedRect,
@@ -53,20 +49,19 @@ public extension CALayer {
     }
 
     func removeClip() {
-        self.mask = nil
+        mask = nil
     }
 
     func border(roundedRect rect: CGRect? = nil,
-                       byRoundingCorners corners: UIRectCorner = .allCorners,
-                       cornerRadius: CGFloat,
-                       borderWidth: CGFloat,
-                       borderColor: UIColor) {
-
-        self.removeBorder()
+                byRoundingCorners corners: UIRectCorner = .allCorners,
+                cornerRadius: CGFloat,
+                borderWidth: CGFloat,
+                borderColor: UIColor) {
+        removeBorder()
 
         let rect = (rect ?? bounds)
 
-        self.mask = {
+        mask = {
             let mask = CAShapeLayer()
             mask.path = UIBezierPath(roundedRect: rect,
                                      byRoundingCorners: corners,
@@ -87,8 +82,8 @@ public extension CALayer {
 
             let cornerRadius = max(0, cornerRadius - inset)
             border.path = UIBezierPath(roundedRect: rect,
-                                   byRoundingCorners: corners,
-                                   cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+                                       byRoundingCorners: corners,
+                                       cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
             border.name = Constants.maskName
             return border
         }()
@@ -97,7 +92,7 @@ public extension CALayer {
     }
 
     func removeBorder() {
-        self.sublayers?
+        sublayers?
             .filter { $0.name == Constants.maskName }
             .forEach { $0.removeFromSuperlayer() }
     }

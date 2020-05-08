@@ -130,8 +130,7 @@ private extension AssetDetailViewController {
 
     func events() -> [Signal<AssetDetailTypes.Event>] {
         let eventChangedAsset = segmentedControl.currentAssetId()
-            .filter { $0 != nil }
-            .map { $0! }
+            .compactMap { $0 }
             .map { AssetDetailTypes.Event.changedAsset(id: $0) }
         
         let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: false) }
@@ -478,7 +477,7 @@ extension AssetDetailViewController: UITableViewDelegate {
         case let .title(title):
             return AssetHeaderView.viewHeight(model: title, width: tableView.frame.width)
         default:
-            return CGFloat.minValue
+            return CGFloat.leastNonzeroMagnitude
         }
     }
 
@@ -510,7 +509,7 @@ extension AssetDetailViewController: UITableViewDelegate {
     }
 
     func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -46,13 +46,14 @@ struct WidgetSettings: TSUD, Codable, Mutating {
 extension Reactive where Base == WidgetSettings {
     
     static func currency() -> Observable<MarketPulse.Currency> {
-        return WidgetSettings.rx.get().flatMap({ (settings) -> Observable<MarketPulse.Currency> in
+        Observable.just(WidgetSettings.get())
+            .flatMap { settings -> Observable<MarketPulse.Currency> in
             
             guard let currency = MarketPulse.Currency(rawValue: settings.currency) else {
                 return Observable.empty()
             }
             return Observable.just(currency)
-        })
+        }
     }
 }
 

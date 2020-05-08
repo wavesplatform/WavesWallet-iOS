@@ -55,11 +55,8 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
                                    reduce: AccountPasswordPresenter.reduce,
                                    feedback: newFeedbacks)
 
-        // TODO: .filter { $0 != nil }.map { $0! } вынести в extension для rx
         system
-            .map { $0.query }
-            .filter { $0 != nil }
-            .map { $0! }
+            .compactMap { $0.query }
             .drive(onNext: { [weak self] query in
                 guard let self = self else { return }
                 self.handlerQuery(query: query)

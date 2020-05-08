@@ -9,60 +9,59 @@
 import UIKit
 
 public extension UIFont {
-
-    class var titleH1: UIFont {
-        return UIFont.systemFont(ofSize: 34.0, weight: .bold)
+    static var titleH1: UIFont {
+        UIFont.systemFont(ofSize: 34.0, weight: .bold)
     }
 
-    class var titleH2: UIFont {
-        return UIFont.systemFont(ofSize: 22.0, weight: .bold)
+    static var titleH2: UIFont {
+        UIFont.systemFont(ofSize: 22.0, weight: .bold)
     }
 
-    class var headlineRegular: UIFont {
-        return UIFont.systemFont(ofSize: 22.0, weight: .regular)
+    static var headlineRegular: UIFont {
+        UIFont.systemFont(ofSize: 22.0, weight: .regular)
     }
 
-    class var headlineSemibold: UIFont {
-        return UIFont.systemFont(ofSize: 17.0, weight: .semibold)
+    static var headlineSemibold: UIFont {
+        UIFont.systemFont(ofSize: 17.0, weight: .semibold)
     }
 
-    class var bodyRegular: UIFont {
-        return UIFont.systemFont(ofSize: 17.0, weight: .regular)
+    static var bodyRegular: UIFont {
+        UIFont.systemFont(ofSize: 17.0, weight: .regular)
     }
 
-    class var bodySemibold: UIFont {
-        return UIFont.systemFont(ofSize: 17.0, weight: .semibold)
+    static var bodySemibold: UIFont {
+        UIFont.systemFont(ofSize: 17.0, weight: .semibold)
     }
 
-    class var actionSheetRegular: UIFont {
-        return UIFont.systemFont(ofSize: 20.0, weight: .regular)
+    static var actionSheetRegular: UIFont {
+        UIFont.systemFont(ofSize: 20.0, weight: .regular)
     }
 
-    class var actionSheetSemibold: UIFont {
-        return UIFont.systemFont(ofSize: 20.0, weight: .semibold)
+    static var actionSheetSemibold: UIFont {
+        UIFont.systemFont(ofSize: 20.0, weight: .semibold)
     }
 
-    class var passcodeRegular: UIFont {
-        return UIFont.systemFont(ofSize: 36, weight: .regular)
+    static var passcodeRegular: UIFont {
+        UIFont.systemFont(ofSize: 36, weight: .regular)
     }
 
-    class var captionRegular: UIFont {
-        return UIFont.systemFont(ofSize: 13, weight: .regular)
+    static var captionRegular: UIFont {
+        UIFont.systemFont(ofSize: 13, weight: .regular)
     }
 
-    class var captionSemibold: UIFont {
-        return UIFont.systemFont(ofSize: 13, weight: .regular)
+    static var captionSemibold: UIFont {
+        UIFont.systemFont(ofSize: 13, weight: .regular)
     }
 
-    class var tagRegular: UIFont {
-        return UIFont.systemFont(ofSize: 10, weight: .regular)
+    static var tagRegular: UIFont {
+        UIFont.systemFont(ofSize: 10, weight: .regular)
     }
 
-    class var tabBarRegular: UIFont {
-        return UIFont.systemFont(ofSize: 10, weight: .regular)
+    static var tabBarRegular: UIFont {
+        UIFont.systemFont(ofSize: 10, weight: .regular)
     }
     
-    class func robotoRegular(size: CGFloat) -> UIFont {
-        return UIFont(name: "RobotoCondensed-Regular", size: size)!
+    static func robotoRegular(size: CGFloat) -> UIFont {
+        UIFont(name: "RobotoCondensed-Regular", size: size)!
     }
 }

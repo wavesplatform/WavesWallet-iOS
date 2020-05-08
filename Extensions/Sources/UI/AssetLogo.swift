@@ -11,7 +11,6 @@ import RxSwift
 import Kingfisher
 
 public enum AssetLogo {
-    
     public struct Icon: Hashable, Codable {
         public let assetId: String
         public let name: String
@@ -50,22 +49,18 @@ public enum AssetLogo {
     }
     
     public struct Style: Hashable {
-        public struct Border: Hashable {
-            public let width: CGFloat
-            public let color: UIColor
-            
-            public init(width: CGFloat,
-                        color: UIColor) {
-                self.width = width
-                self.color = color
-            }
-        }
-        
         public struct Specifications: Hashable {
             
             public let sponsoredImage: UIImage
             public let scriptImage: UIImage
             public let size: CGSize
+            
+            public func hash(into hasher: inout Hasher) {
+                hasher.combine(sponsoredImage.hashValue)
+                hasher.combine(scriptImage.hashValue)
+                hasher.combine(size.height)
+                hasher.combine(size.width)
+            }
             
             public init(sponsoredImage: UIImage,
                         scriptImage: UIImage,
@@ -102,56 +97,52 @@ public enum AssetLogo {
             
             return keys.reduce(into: "", { $0 = $0 + "." + $1 })
         }
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(font)
+            hasher.combine(specs)
+            hasher.combine(size.height)
+            hasher.combine(size.width)
+        }
     }
 }
 
 public extension AssetLogo {
 
-    static func logo(icon: AssetLogo.Icon,
-                     style: Style) -> Observable<UIImage> {
+    static func logo(icon: AssetLogo.Icon, style: Style) -> Observable<UIImage> {
         
         let key = cacheKeyForRemoteLogo(icon: icon, style: style)
         
         return retrieveImage(key: key)
-            .flatMap({ (image) -> Observable<UIImage> in
+            .flatMap { image -> Observable<UIImage> in
                 if let image = image {
                     return Observable.just(image)
                 } else {
                     if let url = icon.url {
-                        
-                        return Observable.merge(localLogo(icon: icon,
-                                                          style: style),
-                                                remoteLogo(icon: icon,
-                                                           style: style,
-                                                           url: url))
+                        return Observable.merge(localLogo(icon: icon, style: style),
+                                                remoteLogo(icon: icon, style: style, url: url))
                     } else {
-                        return localLogo(icon: icon,
-                                         style: style)
+                        return localLogo(icon: icon, style: style)
                     }
                 }
-            })
+            }
     }
 }
 
 public extension AssetLogo {
     
-    private static func cacheKeyForRemoteLogo(icon: AssetLogo.Icon,
-                                              style: Style) -> String {
-        return "com.wavesplatform.asset.logo.v3.\(icon.key).\(style.key)"
+    private static func cacheKeyForRemoteLogo(icon: AssetLogo.Icon, style: Style) -> String {
+        "com.wavesplatform.asset.logo.v3.\(icon.key).\(style.key)"
     }
 
-    private static func cacheKeyForLocalLogo(icon: AssetLogo.Icon,
-                                             style: Style) -> String {
-        return "\(cacheKeyForRemoteLogo(icon: icon, style: style)).local"
+    private static func cacheKeyForLocalLogo(icon: AssetLogo.Icon, style: Style) -> String {
+        "\(cacheKeyForRemoteLogo(icon: icon, style: style)).local"
     }
 
 
-    private static func remoteLogo(icon: AssetLogo.Icon,
-                           style: Style,
-                           url: String) -> Observable<UIImage> {
-
-        return retrieveImage(key: url)
-            .flatMap({ (image) -> Observable<UIImage> in
+    private static func remoteLogo(icon: AssetLogo.Icon, style: Style, url: String) -> Observable<UIImage> {
+        retrieveImage(key: url)
+            .flatMap { image -> Observable<UIImage> in
                 if let image = image {
                     return prepareRemoteLogo(icon: icon, style: style, image: image)
                 } else {
@@ -169,32 +160,23 @@ public extension AssetLogo {
                             }
                         })
                 }
-            })
+            }
     }
 
-    private static func prepareRemoteLogo(icon: AssetLogo.Icon,
-                                          style: Style,
-                                          image: UIImage) -> Observable<UIImage> {
+    private static func prepareRemoteLogo(icon: AssetLogo.Icon, style: Style, image: UIImage) -> Observable<UIImage> {
+        let image = rxCreateLogo(icon: icon, image: image, style: style)
 
-        let image = rxCreateLogo(icon: icon,
-                                 image: image,
-                                 style: style)
-
-        return image
-            .flatMap({ (image) -> Observable<UIImage> in
-                
+        return image.flatMap { image -> Observable<UIImage> in
                 let key = cacheKeyForRemoteLogo(icon: icon, style: style)
                 
                 return saveImage(key: key, image: image ?? UIImage())
-            })
+            }
     }
 
-    private static func localLogo(icon: AssetLogo.Icon,
-                                  style: Style) -> Observable<UIImage> {
-
+    private static func localLogo(icon: AssetLogo.Icon, style: Style) -> Observable<UIImage> {
         let localKey = cacheKeyForLocalLogo(icon: icon, style: style)
         return retrieveImage(key: localKey)
-            .flatMap({ (image) -> Observable<UIImage> in
+            .flatMap { image -> Observable<UIImage> in
                 if let image = image {
                     return Observable.just(image)
                 } else {
@@ -202,20 +184,15 @@ public extension AssetLogo {
                                              image: nil,
                                              style: style)
                     
-                    return image
-                        .flatMap({ (image) -> Observable<UIImage> in
-                            return saveImage(key: localKey, image: image ?? UIImage())
-                        })
+                    return image.flatMap { image -> Observable<UIImage> in
+                            saveImage(key: localKey, image: image ?? UIImage())
+                        }
                 }
-            })
+            }
     }
     
-    private static func rxCreateLogo(icon: AssetLogo.Icon,
-                                     image: UIImage?,
-                                     style: Style) -> Observable<UIImage?> {
-        
-        return Observable.create { (observer) -> Disposable in
-            
+    private static func rxCreateLogo(icon: AssetLogo.Icon, image: UIImage?, style: Style) -> Observable<UIImage?> {
+        Observable.create { observer -> Disposable in
             let logo = createLogo(icon: icon, image: image, style: style)
             observer.onNext(logo)
             observer.onCompleted()
@@ -225,10 +202,7 @@ public extension AssetLogo {
         .observeOn(MainScheduler.asyncInstance)
     }
 
-    private static func createLogo(icon: AssetLogo.Icon,
-                                   image: UIImage?,
-                                   style: Style) -> UIImage? {
-
+    private static func createLogo(icon: AssetLogo.Icon, image: UIImage?, style: Style) -> UIImage? {
         let size = style.size
         let font = style.font
         let name = icon.name
@@ -275,7 +249,6 @@ public extension AssetLogo {
         }
         
         if icon.hasScript || icon.isSponsored {
-
             let rect = CGRect(x: size.width - style.specs.size.width,
                               y: size.height - style.specs.size.height,
                               width: style.specs.size.width,
@@ -304,11 +277,7 @@ public extension AssetLogo {
         return image
     }
     
-    
-    static func createLogo(name: String,
-                           logoColor: UIColor,
-                           style: Style) -> UIImage? {
-        
+    static func createLogo(name: String, logoColor: UIColor, style: Style) -> UIImage? {
         let size = style.size
         let font = style.font
         
