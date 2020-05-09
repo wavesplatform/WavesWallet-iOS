@@ -21,8 +21,7 @@ private enum Constants {
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     private let auth: AuthorizationUseCaseProtocol
     private let coinomatRepository: CoinomatRepositoryProtocol
-    private let gatewayRepository: GatewayRepositoryProtocol
-    private let weGatewayUseCase: WEGatewayUseCaseProtocol
+    private let gatewayRepository: GatewayRepositoryProtocol    
     private let serverEnvironmentUseCase: ServerEnvironmentUseCase
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let gatewaysWavesRepository: GatewaysWavesRepository
@@ -31,7 +30,6 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     init(authorization: AuthorizationUseCaseProtocol,
          coinomatRepository: CoinomatRepositoryProtocol,
          gatewayRepository: GatewayRepositoryProtocol,
-         weGatewayUseCase: WEGatewayUseCaseProtocol,
          serverEnvironmentUseCase: ServerEnvironmentUseCase,
          environmentRepository: EnvironmentRepositoryProtocol,
          gatewaysWavesRepository: GatewaysWavesRepository,
@@ -39,7 +37,6 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         auth = authorization
         self.coinomatRepository = coinomatRepository
         self.gatewayRepository = gatewayRepository
-        self.weGatewayUseCase = weGatewayUseCase
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.environmentRepository = environmentRepository
         self.gatewaysWavesRepository = gatewaysWavesRepository
@@ -114,9 +111,9 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 
                                     guard let self = self else { return Observable.never() }
 
-                                    guard let asset = binding.first else { return Observable.error(NetworkError.notFound) }
+                                    guard let binding = binding.first else { return Observable.error(NetworkError.notFound) }
 
-                                    let request = TransferBindingRequest(asset: asset.recipientAsset.asset,
+                                    let request = TransferBindingRequest(asset: binding.senderAsset.asset,
                                                                          recipientAddress: wallet.address)
 
                                     return self
@@ -126,39 +123,22 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                 request: request)
                                         .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
 
-                                            print(binding)
-                                            return ResponseType(output: nil, error: nil)
-                                    }
-                                    .catchError { error -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-                                        
-                                        print("error \(error)")
-                                        
-                                        return Observable.error(error)
-                                    }
+                                            let minAmount = Money(binding.assetBinding.senderAmountMin, asset.precision)
+                                            let maxAmount = Money(binding.assetBinding.senderAmountMax, asset.precision)
+
+                                            let addresses = binding.addresses.displayInfoAddresses()
+
+                                            let info = ReceiveCryptocurrency
+                                                .DTO
+                                                .DisplayInfo(addresses: addresses,
+                                                             asset: asset,
+                                                             minAmount: minAmount,
+                                                             maxAmount: maxAmount,
+                                                             generalAssets: appEnvironments.generalAssets)
+                                            return ResponseType(output: info,
+                                                                error: nil)
+                                        }
                                 }
-
-                                .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
-
-                                    print(binding)
-                                    return ResponseType(output: nil, error: nil)
-                                }
-                        }
-
-                    return self.weGatewayUseCase
-                        .receiveBinding(asset: asset)
-                        .map { model -> ReceiveCryptocurrency.DTO.DisplayInfo in
-                            ReceiveCryptocurrency.DTO.DisplayInfo(addresses: model.addresses.displayInfoAddresses(),
-                                                                  asset: asset,
-                                                                  minAmount: model.amountMin,
-                                                                  maxAmount: model.amountMax,
-                                                                  generalAssets: appEnvironments.generalAssets)
-                        }
-                        .map { ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: $0, error: nil) }
-                        .catchError {
-                            let error = NetworkError.error(by: $0)
-                            let response = ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>(output: nil, error: error)
-
-                            return Observable.just(response)
                         }
                 }
             }

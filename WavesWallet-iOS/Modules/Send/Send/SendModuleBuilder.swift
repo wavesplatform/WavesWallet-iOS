@@ -8,12 +8,36 @@
 
 import UIKit
 import Extensions
+import DomainLayer
 
 struct SendModuleBuilder: ModuleBuilder {
 
     func build(input: Send.DTO.InputModel) -> UIViewController {
+
+        let accountBalanceUseCase: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
+        let assetsUseCase = UseCasesFactory.instance.assets
+        let authorizationUseCase = UseCasesFactory.instance.authorization
+        let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
+        let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+        let transactionUseCase: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions        
+        let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
+        let gatewaysWavesRepository = UseCasesFactory.instance.repositories.gatewaysWavesRepository
+        let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
         
-        let interactor: SendInteractorProtocol = SendInteractor()
+        let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepositoryProtocol
+        
+        let interactor: SendInteractorProtocol = SendInteractor(gatewaysWavesRepository: gatewaysWavesRepository,
+                                                                assetsUseCase: assetsUseCase,
+                                                                authorizationUseCase: authorizationUseCase,
+                                                                coinomatRepository: coinomatRepository,
+                                                                aliasRepository: aliasRepository,
+                                                                transactionUseCase: transactionUseCase,
+                                                                accountBalanceUseCase: accountBalanceUseCase,
+                                                                gatewayRepository: gatewayRepository,
+                                                                weGatewayUseCase: weGatewayUseCase,
+                                                                serverEnvironmentUseCase: serverEnvironmentUseCase,
+                                                                weOAuthRepository: weOAuthRepository)
         
         var presenter: SendPresenterProtocol = SendPresenter()
         presenter.interactor = interactor

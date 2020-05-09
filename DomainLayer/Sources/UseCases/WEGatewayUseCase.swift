@@ -11,6 +11,7 @@ import RxSwift
 import Extensions
 import WavesSDK
 
+//TODO: После переходна grpc надо бы его удалить
 final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
     
     private let gatewayRepository: WEGatewayRepositoryProtocol
