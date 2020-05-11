@@ -35,8 +35,8 @@ public struct CleanerWalletManagerBanner: TSUD, Codable, Mutating {
 public extension Reactive where Base == CleanerWalletManagerBanner {
     
     static func setCleanWalletBanner(accountAddress: String, isClean: Bool) -> Observable<Bool> {
-        return CleanerWalletManagerBanner.rx.get()
-            .flatMap({ (settings) -> Observable<Bool> in
+        return Observable.just(CleanerWalletManagerBanner.get())
+            .flatMap { settings -> Observable<Bool> in
                 
                 var newSettings = settings
                 if isClean {
@@ -47,8 +47,11 @@ public extension Reactive where Base == CleanerWalletManagerBanner {
                 else {
                     newSettings.cleanAccounts.remove(accountAddress)
                 }
-                return CleanerWalletManagerBanner.rx.set(newSettings)
-            })
+                
+                CleanerWalletManagerBanner.set(newSettings)
+                
+                return Observable.just(true)
+            }
     }
     
     static func isCleanWalletBanner(by accountAddress: String) -> Observable<Bool> {

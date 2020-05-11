@@ -9,7 +9,6 @@
 import UIKit
 
 private enum Constants {
-    
     static let colorList: [String] = [
         "#39a12c",
         "#6a737b",
@@ -51,7 +50,6 @@ private enum Constants {
 }
 
 public extension UIColor {
-    
     static func colorAsset(assetId: String) -> UIColor {
         
         let sum = assetId.unicodeScalars.map { $0.value }.reduce(into: 0) { (result, code) in result = result + code }

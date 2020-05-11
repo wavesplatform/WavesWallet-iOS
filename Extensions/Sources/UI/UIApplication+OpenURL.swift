@@ -11,7 +11,9 @@ import UIKit
 public extension UIApplication {
     func openURLAsync(_ url: URL) {
         DispatchQueue.main.async {
-            self.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary(.init()), completionHandler: nil)
+            self.open(url,
+                      options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary(.init()),
+                      completionHandler: nil)
         }
     }
 }

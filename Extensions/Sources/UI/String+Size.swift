@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 public extension String {
-
     func maxHeight(font: UIFont, forWidth: CGFloat) -> CGFloat {
         let text = self as NSString
         return ceil(text.boundingRect(with: CGSize(width: forWidth, height: CGFloat.greatestFiniteMagnitude),
@@ -44,7 +43,6 @@ public extension String {
 }
 
 public extension NSAttributedString {
-    
     func boundingRect(with size: CGSize) -> CGRect {
         boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
     }

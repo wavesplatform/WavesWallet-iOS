@@ -331,7 +331,7 @@ extension WalletDisplayData: UITableViewDelegate {
             return StakingHeaderView.viewHeight()
         }
         
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -343,11 +343,11 @@ extension WalletDisplayData: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -380,7 +380,7 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletHistoryCell.cellHeight()
             
         case .hidden:
-            return CGFloat.minValue
+            return CGFloat.leastNonzeroMagnitude
             
         case .quickNote:
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)

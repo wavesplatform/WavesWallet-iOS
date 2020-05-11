@@ -13,8 +13,10 @@ public extension String {
 
     func maxHeight(font: UIFont, forWidth: CGFloat) -> CGFloat {
         let text = self as NSString
-        let textSize = text.boundingRect(with: CGSize(width: forWidth, height: CGFloat.greatestFiniteMagnitude))
-        return ceil(textSize, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.height)
+        let textSize = text.boundingRect(with: CGSize(width: forWidth, height: CGFloat.greatestFiniteMagnitude),
+                                         context: nil)
+        
+        return ceil(textSize.height)
     }
     
     func maxHeightMultiline(font: UIFont, forWidth: CGFloat) -> CGFloat {
@@ -34,8 +36,9 @@ public extension String {
     func maxWidth(font: UIFont) -> CGFloat {
         let text = self as NSString
         let textSize = text.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude,
-                                                      height: CGFloat.greatestFiniteMagnitude))
-        return ceil(textSize, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size.width)
+                                                      height: CGFloat.greatestFiniteMagnitude),
+                                         context: nil)
+        return ceil(textSize.width)
     }        
 }
 

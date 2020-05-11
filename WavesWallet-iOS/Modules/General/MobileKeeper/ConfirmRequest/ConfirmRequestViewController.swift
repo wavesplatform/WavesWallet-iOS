@@ -175,11 +175,11 @@ extension ConfirmRequestViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.minValue
+        return CGFloat.leastNonzeroMagnitude
     }
 }
 

@@ -44,7 +44,6 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                                assetsInteractor: self.assets,
                                                assetsBalanceSettings: self.assetsBalanceSettings,
                                                transactionsInteractor: self.transactions,
-                                               assetsBalanceSettingsRepository: repositories.assetsBalanceSettingsRepositoryLocal,
                                                serverEnvironmentUseCase: serverEnvironmentUseCase)
         return interactor
     }()

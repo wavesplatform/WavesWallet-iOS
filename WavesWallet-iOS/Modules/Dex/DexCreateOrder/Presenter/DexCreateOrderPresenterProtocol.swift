@@ -12,10 +12,7 @@ import Extensions
 import DomainLayer
 
 protocol DexCreateOrderPresenterProtocol {
-    
     typealias Feedback = (Driver<DexCreateOrder.State>) -> Signal<DexCreateOrder.Event>
-    var interactor: DexCreateOrderInteractorProtocol! { get set }
-    func system(feedbacks: [Feedback], feeAssetId: String)
     
-    var pair: DomainLayer.DTO.Dex.Pair! { get set }
+    func system(feedbacks: [Feedback], feeAssetId: String)
 }

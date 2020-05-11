@@ -480,11 +480,11 @@ extension TransactionCardViewController: UITableViewDelegate {
     }
 
     func tableView(_: UITableView, estimatedHeightForFooterInSection _: Int) -> CGFloat {
-        CGFloat.minValue
+        CGFloat.leastNonzeroMagnitude
     }
 
     func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
-        CGFloat.minValue
+        CGFloat.leastNonzeroMagnitude
     }
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

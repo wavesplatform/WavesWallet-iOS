@@ -15,10 +15,11 @@ protocol DexCreateOrderInteractorProtocol {
     
     func getDevConfig() -> Observable<DevelopmentConfigs>
     
-    func createOrder(order: DexCreateOrder.DTO.Order, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>>
+    func createOrder(order: DexCreateOrder.DTO.Order,
+                     type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>>
 
-    func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings>    
-    // DexCreateOrder.Error
+    func getFee(amountAsset: String, priceAsset: String, selectedFeeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings>
+    
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool>
     
     func calculateMarketOrderPrice(amountAsset: DomainLayer.DTO.Dex.Asset,
