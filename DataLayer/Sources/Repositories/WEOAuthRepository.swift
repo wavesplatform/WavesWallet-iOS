@@ -15,19 +15,17 @@ import WavesSDKCrypto
 import WavesSDKExtensions
 
 private struct Token: Codable {
-    let accessToken: String
-    
+    let accessToken: String    
     private enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
     }
 }
 
-//TODO: Rename to service
 final class WEOAuthRepository: WEOAuthRepositoryProtocol {
     
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     
-    private let weOAuth: MoyaProvider<WEOAuth.Service> = .anyMoyaProvider()
+    private let weOAuth: MoyaProvider<WEOAuthTarget> = .anyMoyaProvider()
 
     init(developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
         self.developmentConfigsRepository = developmentConfigsRepository
@@ -42,7 +40,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                 let url = serverEnvironment.servers.wavesExchangeApiUrl
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
 
-                let token: WEOAuth.Query.Token = self.createOAuthToken(signedWallet: signedWallet,
+                let token: WEOAuthTokenQuery = self.createOAuthToken(signedWallet: signedWallet,
                                                                        chainId: serverEnvironment.kind.chainId,
                                                                        exchangeClientSecret: exchangeClientSecret)
                 return self
@@ -63,7 +61,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
 
     private func createOAuthToken(signedWallet: DomainLayer.DTO.SignedWallet,
                                   chainId: String,
-                                  exchangeClientSecret: String) -> WEOAuth.Query.Token {
+                                  exchangeClientSecret: String) -> WEOAuthTokenQuery {
 
         let clientId = "waves.exchange"
         let time = Int64(round(Date().timeIntervalSince1970 + (60 * 60 * 24 * 7))) // Token for a week

@@ -10,34 +10,28 @@ import Foundation
 import Moya
 import WavesSDK
 
-enum WEOAuth {
-    enum Service {
-        case token(baseURL: URL, token: WEOAuth.Query.Token)
-    }
-    
-    enum Query {}
+enum WEOAuthTarget {
+    case token(baseURL: URL, token: WEOAuthTokenQuery)
 }
 
-extension WEOAuth.Query {
+
+struct WEOAuthTokenQuery: Codable {
+    let username: String
+    let password: String
+    let grantType: String
+    let scope: String
+    let clientId: String
     
-    struct Token: Codable {
-        let username: String
-        let password: String
-        let grantType: String
-        let scope: String
-        let clientId: String
-        
-        private enum CodingKeys: String, CodingKey {
-            case username
-            case password
-            case grantType = "grant_type"
-            case scope
-            case clientId = "client_id"
-        }
+    private enum CodingKeys: String, CodingKey {
+        case username
+        case password
+        case grantType = "grant_type"
+        case scope
+        case clientId = "client_id"
     }
 }
 
-extension WEOAuth.Service: TargetType {
+extension WEOAuthTarget: TargetType {
     
     var sampleData: Data {
         return Data()

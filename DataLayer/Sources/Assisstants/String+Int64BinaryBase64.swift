@@ -45,8 +45,12 @@ extension Data {
         return value
     }
     
-    //TODO: С сети может придти больше чем int64, как с этим быть сейчас хз
+    //TODO: С сети может придти больше чем int256, как с этим быть сейчас хз
     // Я пока не знаю как бинарник перевести в Decimal
+    //
+    // Варианты
+    // https://github.com/attaswift/BigInt
+    // https://github.com/apple/swift/blob/master/test/Prototypes/BigInt.swift
     func decodeDecimal() -> Decimal {
                 
         guard !self.isEmpty else { return 0 }

@@ -788,7 +788,7 @@
 		875393242423BAC300394762 /* WEGatewayUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393232423BAC300394762 /* WEGatewayUseCaseProtocol.swift */; };
 		875393272423BB2F00394762 /* WEGatewayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393252423BB2F00394762 /* WEGatewayRepository.swift */; };
 		875393282423BB2F00394762 /* WEOAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393262423BB2F00394762 /* WEOAuthRepository.swift */; };
-		8753932B2423BB9800394762 /* WEOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393292423BB9700394762 /* WEOAuthService.swift */; };
+		8753932B2423BB9800394762 /* WEOAuthTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393292423BB9700394762 /* WEOAuthTarget.swift */; };
 		8753932C2423BB9800394762 /* WEGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8753932A2423BB9700394762 /* WEGatewayService.swift */; };
 		8753932E2423BC2600394762 /* String+Int64BinaryBase64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8753932D2423BC2600394762 /* String+Int64BinaryBase64.swift */; };
 		875393322423BE5F00394762 /* ReceiveContainerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393302423BE5F00394762 /* ReceiveContainerModuleBuilder.swift */; };
@@ -2209,7 +2209,7 @@
 		875393232423BAC300394762 /* WEGatewayUseCaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEGatewayUseCaseProtocol.swift; sourceTree = "<group>"; };
 		875393252423BB2F00394762 /* WEGatewayRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEGatewayRepository.swift; sourceTree = "<group>"; };
 		875393262423BB2F00394762 /* WEOAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEOAuthRepository.swift; sourceTree = "<group>"; };
-		875393292423BB9700394762 /* WEOAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEOAuthService.swift; sourceTree = "<group>"; };
+		875393292423BB9700394762 /* WEOAuthTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEOAuthTarget.swift; sourceTree = "<group>"; };
 		8753932A2423BB9700394762 /* WEGatewayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEGatewayService.swift; sourceTree = "<group>"; };
 		8753932D2423BC2600394762 /* String+Int64BinaryBase64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Int64BinaryBase64.swift"; sourceTree = "<group>"; };
 		875393302423BE5F00394762 /* ReceiveContainerModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveContainerModuleBuilder.swift; sourceTree = "<group>"; };
@@ -4871,7 +4871,7 @@
 				7BF50A5222D8B95400582783 /* Spam */,
 				87566695242A67E100E9F177 /* StakingBalanceServiceImpl.swift */,
 				8753932A2423BB9700394762 /* WEGatewayService.swift */,
-				875393292423BB9700394762 /* WEOAuthService.swift */,
+				875393292423BB9700394762 /* WEOAuthTarget.swift */,
 				7BA682662450747B000B5747 /* WavesServices.swift */,
 				7B05BEF724534EA4001AD9AD /* TimestampServerServiceImp.swift */,
 			);
@@ -7924,7 +7924,7 @@
 				7B896FE023F34FA000F45A70 /* WalletsRepositoryLocal.swift in Sources */,
 				7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */,
 				E94AF03023D0BF3F002919FF /* TradeCategoriesConfigRepository.swift in Sources */,
-				8753932B2423BB9800394762 /* WEOAuthService.swift in Sources */,
+				8753932B2423BB9800394762 /* WEOAuthTarget.swift in Sources */,
 				7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */,
 				7B896FE423F34FA000F45A70 /* WalletSeedRepositoryLocal.swift in Sources */,
 				7BF50A7722D8B95400582783 /* TransferTransaction.swift in Sources */,
