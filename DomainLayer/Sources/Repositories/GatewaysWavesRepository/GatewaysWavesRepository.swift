@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDK
+import Extensions
 
 public enum GatewaysWavesError: Error {
     case network(NetworkError)
@@ -28,4 +29,6 @@ public protocol GatewaysWavesRepository {
     func depositTransferBinding(serverEnvironment: ServerEnvironment,
                                 oAToken: WEOAuthTokenDTO,
                                 request: TransferBindingRequest) -> Observable<GatewaysTransferBinding>
+    
+    func calculateFee(amount: Int64, assetBinding: GatewaysAssetBinding) -> Money
 }

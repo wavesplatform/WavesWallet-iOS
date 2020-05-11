@@ -16,6 +16,7 @@ import RxSwift
 import SwiftProtobuf
 import WavesSDK
 import WavesSDKCrypto
+import Extensions
 
 final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
     func assetBindingsRequest(serverEnvironment: ServerEnvironment,
@@ -131,6 +132,21 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
             .catchError { error -> Observable<GatewaysTransferBinding> in
                 Observable.error(NetworkError.error(by: error))
             }
+    }
+    
+    func calculateFee(amount: Int64, assetBinding: GatewaysAssetBinding) -> Money {
+        
+        let decimals = Int(assetBinding.senderAsset.decimals)
+        
+        let amountMoney = Money(amount, Int(decimals))
+        
+        let amountDecimal = amountMoney.decimalValue
+        let taxFlatDecimal = Money(assetBinding.taxFlat, decimals).decimalValue
+
+        let amountTotal = (amountDecimal / Decimal(assetBinding.taxRate)).rounded(decimals, .up) + taxFlatDecimal
+        let fee = amountTotal - amountDecimal
+
+        return Money(value: fee, decimals)
     }
 }
 

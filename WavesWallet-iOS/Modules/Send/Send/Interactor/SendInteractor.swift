@@ -206,7 +206,8 @@ final class SendInteractor: SendInteractorProtocol {
 }
 
 extension SendInteractor {
-    func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String,
+    func gateWayInfo(asset: DomainLayer.DTO.Asset,
+                     address: String,
                      amount: Money) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         guard let gateWayType = asset.gatewayType else { return Observable.empty() }
 
@@ -259,33 +260,41 @@ extension SendInteractor {
                         .gatewaysWavesRepository.assetBindingsRequest(serverEnvironment: serverEnvironment,
                                                                       oAToken: token,
                                                                       request: assetBindingsRequest)
-                        .flatMap { [weak self] binding -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+                        .flatMap { [weak self] assetsBinding -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
 
                             guard let self = self else { return Observable.never() }
 
-                            guard let binding = binding.first else { return Observable.error(NetworkError.notFound) }
+                            guard let assetBinding = assetsBinding.first else { return Observable.error(NetworkError.notFound) }
 
-                            let request = TransferBindingRequest(asset: binding.recipientAsset.asset,
-                                                                 recipientAddress: wallet.address)
+                            let request = TransferBindingRequest(asset: assetBinding.recipientAsset.asset,
+                                                                 recipientAddress: address)
 
                             return self
                                 .gatewaysWavesRepository
                                 .withdrawalTransferBinding(serverEnvironment: serverEnvironment,
                                                            oAToken: token,
                                                            request: request)
-                                .map { binding -> ResponseType<Send.DTO.GatewayInfo> in
+                                .map { transferBinding -> ResponseType<Send.DTO.GatewayInfo> in
 
-                                    let minAmount = Money(binding.assetBinding.senderAmountMin, asset.precision)
-                                    let maxAmount = Money(binding.assetBinding.senderAmountMax, asset.precision)
+                                    let minAmount = Money(transferBinding.assetBinding.senderAmountMin, asset.precision)
+                                    let maxAmount = Money(transferBinding.assetBinding.senderAmountMax, asset.precision)
                                     
-                                    binding.assetBinding.
+//                                    assetBinding.taxRate
+                                    let fee = self.gatewaysWavesRepository.calculateFee(amount: amount.amount,
+                                                                                        assetBinding: assetBinding)
+//                                    binding.
+//                                    binding.assetBinding.
                                     
                                     
-                                    Send.DTO.GatewayInfo(assetName: asset.name,
-                                                         assetShortName: asset.ticker ?? asset.name,
-                                                         minAmount: minAmount,
-                                                         maxAmount: maxAmount,
-                                                         fee: <#T##Money#>, address: <#T##String#>, attachment: <#T##String#>)
+                                    
+                                                                        
+                                    let info = Send.DTO.GatewayInfo(assetName: asset.name,
+                                                                    assetShortName: asset.ticker ?? asset.name,
+                                                                    minAmount: minAmount,
+                                                                    maxAmount: maxAmount,
+                                                                    fee: fee,
+                                                                    address: address,
+                                                                    attachment: "")
 //                                    let addresses = binding.addresses.displayInfoAddresses()
 //
 //                                    let info = ReceiveCryptocurrency
