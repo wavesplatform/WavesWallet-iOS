@@ -401,6 +401,7 @@
 		7B66872722B7E68B0029E6F1 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66872522B7E68B0029E6F1 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6922C6223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */; };
 		7B737BD3239680F700BEE392 /* WidgetMatcherDataTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BD2239680F700BEE392 /* WidgetMatcherDataTarget.swift */; };
+		7B74DBBA24695E3500AB1109 /* GrpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBB924695E3500AB1109 /* GrpcClient.swift */; };
 		7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */; };
 		7B83A7D322D8C74F0038180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D222D8C74F0038180D /* AppDelegate.swift */; };
 		7B83A7D522D8C74F0038180D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D422D8C74F0038180D /* ViewController.swift */; };
@@ -1834,6 +1835,7 @@
 		7B737BD2239680F700BEE392 /* WidgetMatcherDataTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMatcherDataTarget.swift; sourceTree = "<group>"; };
 		7B7422E3237ACC9D00E5910D /* WavesWallet-iOS-Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS-Dev.entitlements"; sourceTree = "<group>"; };
 		7B7422E4237ACC9D00E5910D /* WavesWallet-iOS-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS-Test.entitlements"; sourceTree = "<group>"; };
+		7B74DBB924695E3500AB1109 /* GrpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrpcClient.swift; sourceTree = "<group>"; };
 		7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInvalidPriceView.swift; sourceTree = "<group>"; };
 		7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexCreateOrderInvalidPriceView.xib; sourceTree = "<group>"; };
 		7B83A7D022D8C74E0038180D /* DummyForTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DummyForTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4926,6 +4928,7 @@
 				7BF50A6A22D8B95400582783 /* SweetLoggerSentry.swift */,
 				7BF50A5F22D8B95400582783 /* TransactionSenderAssistant.swift */,
 				7BF50A6022D8B95400582783 /* Types */,
+				7B74DBB924695E3500AB1109 /* GrpcClient.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -7932,6 +7935,7 @@
 				7BF50ABB22D8B95400582783 /* AssetsSpamServiceTarget.swift in Sources */,
 				7B22A9C424643CE0005EAC9C /* messages.pb.swift in Sources */,
 				7BF50AB922D8B95400582783 /* EnvironmentRepository.swift in Sources */,
+				7B74DBBA24695E3500AB1109 /* GrpcClient.swift in Sources */,
 				7B848A742301AD0D0092AD18 /* WalletsRealmFactory.swift in Sources */,
 				8753932E2423BC2600394762 /* String+Int64BinaryBase64.swift in Sources */,
 				7B896FE323F34FA000F45A70 /* AliasesRepositoryLocal.swift in Sources */,

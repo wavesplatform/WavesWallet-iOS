@@ -7,6 +7,7 @@
 //
 
 import DomainLayer
+import Extensions
 import Foundation
 import GRPC
 import NIOHPACK
@@ -16,7 +17,6 @@ import RxSwift
 import SwiftProtobuf
 import WavesSDK
 import WavesSDKCrypto
-import Extensions
 
 final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
     func assetBindingsRequest(serverEnvironment: ServerEnvironment,
@@ -133,15 +133,21 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
                 Observable.error(NetworkError.error(by: error))
             }
     }
-    
-    func calculateFee(amount: Int64, assetBinding: GatewaysAssetBinding) -> Money {
-        
-        let decimals = Int(assetBinding.senderAsset.decimals)
-        
-        let amountMoney = Money(amount, Int(decimals))
-        
+
+    func calculateFee(amount: Int64, direction: AssetBindingsRequest.Direction, assetBinding: GatewaysAssetBinding) -> Money {
+        let decimals = { () -> Int in
+            if direction == .deposit {
+                return Int(assetBinding.recipientAsset.decimals)
+            } else {
+                return Int(assetBinding.senderAsset.decimals)
+            }
+        }()
+
+        let amountMoney = Money(amount, decimals)
+
         let amountDecimal = amountMoney.decimalValue
-        let taxFlatDecimal = Money(assetBinding.taxFlat, decimals).decimalValue
+        let taxFlatDecimal = Money(assetBinding.taxFlat.int64Value,
+                                   decimals).decimalValue
 
         let amountTotal = (amountDecimal / Decimal(assetBinding.taxRate)).rounded(decimals, .up) + taxFlatDecimal
         let fee = amountTotal - amountDecimal
@@ -155,7 +161,10 @@ private extension GatewaysWavesRepositoryImp {
         addressGrpc: String,
         oAToken: String,
         request: Gateways_GetWavesAssetBindingsRequest) -> Observable<Gateways_AssetBindingsResponse> {
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
+                                                                         eventLoopGroup: group,
                                                                          oAToken: oAToken)
 
         return Observable.create { observer -> Disposable in
@@ -173,7 +182,9 @@ private extension GatewaysWavesRepositoryImp {
                 observer.onError(e)
             }
 
-            return Disposables.create()
+            return Disposables.create {
+                try? group.syncShutdownGracefully()
+            }
         }
     }
 
@@ -181,7 +192,10 @@ private extension GatewaysWavesRepositoryImp {
         addressGrpc: String,
         oAToken: String,
         request: Gateways_GetWithdrawalTransferBindingRequest) -> Observable<Gateways_GetTransferBindingResponse> {
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
+                                                                         eventLoopGroup: group,
                                                                          oAToken: oAToken)
 
         return Observable.create { observer -> Disposable in
@@ -199,7 +213,9 @@ private extension GatewaysWavesRepositoryImp {
                 observer.onError(e)
             }
 
-            return Disposables.create()
+            return Disposables.create {
+                try? group.syncShutdownGracefully()
+            }
         }
     }
 
@@ -207,7 +223,9 @@ private extension GatewaysWavesRepositoryImp {
         addressGrpc: String,
         oAToken: String,
         request: Gateways_CreateWithdrawalTransferBindingRequest) -> Observable<Gateways_CreateTransferBindingResponse> {
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
+                                                                         eventLoopGroup: group,
                                                                          oAToken: oAToken)
 
         return Observable.create { observer -> Disposable in
@@ -225,7 +243,9 @@ private extension GatewaysWavesRepositoryImp {
                 observer.onError(e)
             }
 
-            return Disposables.create()
+            return Disposables.create {
+                try? group.syncShutdownGracefully()
+            }
         }
     }
 
@@ -233,7 +253,9 @@ private extension GatewaysWavesRepositoryImp {
         addressGrpc: String,
         oAToken: String,
         request: Gateways_GetDepositTransferBindingRequest) -> Observable<Gateways_GetTransferBindingResponse> {
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
+                                                                         eventLoopGroup: group,
                                                                          oAToken: oAToken)
 
         return Observable.create { observer -> Disposable in
@@ -251,7 +273,9 @@ private extension GatewaysWavesRepositoryImp {
                 observer.onError(e)
             }
 
-            return Disposables.create()
+            return Disposables.create {
+                try? group.syncShutdownGracefully()
+            }
         }
     }
 
@@ -259,7 +283,9 @@ private extension GatewaysWavesRepositoryImp {
         addressGrpc: String,
         oAToken: String,
         request: Gateways_CreateDepositTransferBindingRequest) -> Observable<Gateways_CreateTransferBindingResponse> {
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
+                                                                         eventLoopGroup: group,
                                                                          oAToken: oAToken)
 
         return Observable.create { observer -> Disposable in
@@ -277,29 +303,10 @@ private extension GatewaysWavesRepositoryImp {
                 observer.onError(e)
             }
 
-            return Disposables.create()
+            return Disposables.create {
+                try? group.syncShutdownGracefully()
+            }
         }
-    }
-
-    private func grpcClient<Client: GRPCClient>(address: String,
-                                                oAToken: String) -> Client {
-        var headers = HPACKHeaders()
-        headers.add(name: "Authorization",
-                    value: "Bearer \(oAToken)")
-
-        let callOptions = CallOptions(customMetadata: headers)
-
-        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
-
-        let tls = ClientConnection.Configuration.TLS()
-
-        let configuration = ClientConnection.Configuration(target: .hostAndPort(address, 443),
-                                                           eventLoopGroup: group,
-                                                           tls: tls)
-
-        let connect = ClientConnection(configuration: configuration)
-
-        return Client(channel: connect, defaultCallOptions: callOptions)
     }
 }
 
@@ -325,9 +332,9 @@ fileprivate extension Gateways_AssetBinding {
         return GatewaysAssetBinding(senderAsset: senderAsset,
                                     recipientAsset: recipientAsset,
                                     hasRecipientAsset: hasRecipientAsset,
-                                    senderAmountMin: senderAmountMin.decodeInt64(),
-                                    senderAmountMax: senderAmountMax.decodeInt64(),
-                                    taxFlat: taxFlat.decodeInt64(),
+                                    senderAmountMin: senderAmountMin.to(type: Decimal.self) ?? 0,
+                                    senderAmountMax: senderAmountMax.to(type: Decimal.self) ?? 0,
+                                    taxFlat: taxFlat.to(type: Decimal.self) ?? 0,
                                     taxRate: taxRate,
                                     active: active)
     }

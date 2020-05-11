@@ -15,11 +15,11 @@ public struct GatewaysAssetBinding {
 
     public var hasRecipientAsset: Bool
 
-    public var senderAmountMin: Int64
+    public var senderAmountMin: Decimal
 
-    public var senderAmountMax: Int64
+    public var senderAmountMax: Decimal
 
-    public var taxFlat: Int64
+    public var taxFlat: Decimal
 
     public var taxRate: Double
 
@@ -28,9 +28,9 @@ public struct GatewaysAssetBinding {
     public init(senderAsset: GatewaysAsset,
                 recipientAsset: GatewaysAsset,
                 hasRecipientAsset: Bool,
-                senderAmountMin: Int64,
-                senderAmountMax: Int64,
-                taxFlat: Int64,
+                senderAmountMin: Decimal,
+                senderAmountMax: Decimal,
+                taxFlat: Decimal,
                 taxRate: Double,
                 active: Bool) {
         self.senderAsset = senderAsset

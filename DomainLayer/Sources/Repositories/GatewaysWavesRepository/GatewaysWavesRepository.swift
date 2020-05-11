@@ -6,10 +6,10 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import RxSwift
 import WavesSDK
-import Extensions
 
 public enum GatewaysWavesError: Error {
     case network(NetworkError)
@@ -17,11 +17,10 @@ public enum GatewaysWavesError: Error {
 }
 
 public protocol GatewaysWavesRepository {
-    
     func assetBindingsRequest(serverEnvironment: ServerEnvironment,
                               oAToken: WEOAuthTokenDTO,
                               request: AssetBindingsRequest) -> Observable<[GatewaysAssetBinding]>
-    
+
     func withdrawalTransferBinding(serverEnvironment: ServerEnvironment,
                                    oAToken: WEOAuthTokenDTO,
                                    request: TransferBindingRequest) -> Observable<GatewaysTransferBinding>
@@ -29,6 +28,6 @@ public protocol GatewaysWavesRepository {
     func depositTransferBinding(serverEnvironment: ServerEnvironment,
                                 oAToken: WEOAuthTokenDTO,
                                 request: TransferBindingRequest) -> Observable<GatewaysTransferBinding>
-    
-    func calculateFee(amount: Int64, assetBinding: GatewaysAssetBinding) -> Money
+
+    func calculateFee(amount: Int64, direction: AssetBindingsRequest.Direction, assetBinding: GatewaysAssetBinding) -> Money
 }

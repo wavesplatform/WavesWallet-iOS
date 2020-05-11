@@ -123,8 +123,10 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                 request: request)
                                         .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
 
-                                            let minAmount = Money(binding.assetBinding.senderAmountMin, asset.precision)
-                                            let maxAmount = Money(binding.assetBinding.senderAmountMax, asset.precision)
+                                            let minAmount = Money(binding.assetBinding.senderAmountMin.int64Value,
+                                                                  asset.precision)
+                                            let maxAmount = Money(binding.assetBinding.senderAmountMax.int64Value,
+                                                                  asset.precision)
 
                                             let addresses = binding.addresses.displayInfoAddresses()
 

@@ -214,28 +214,6 @@ extension SendInteractor {
         switch gateWayType {
         case .exchange:
 
-            return weGatewayUseCase
-                .sendBinding(asset: asset, address: address, amount: amount)
-                .map { (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
-
-                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                           assetShortName: asset.ticker ?? "",
-                                                           minAmount: startProcessInfo.amountMin,
-                                                           maxAmount: startProcessInfo.amountMax,
-                                                           fee: startProcessInfo.fee,
-                                                           address: startProcessInfo.addresses.first ?? "",
-                                                           attachment: "")
-                    return ResponseType(output: gatewayInfo, error: nil)
-                }
-                .catchError { (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
-                    if let networkError = error as? NetworkError {
-                        return Observable.just(ResponseType(output: nil, error: networkError))
-                    }
-
-                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-                }
-        case .gateway:
-
             let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
             let authorizedWallet = authorizationUseCase.authorizedWallet()
 
@@ -276,17 +254,12 @@ extension SendInteractor {
                                                            request: request)
                                 .map { transferBinding -> ResponseType<Send.DTO.GatewayInfo> in
 
-                                    let minAmount = Money(transferBinding.assetBinding.senderAmountMin, asset.precision)
-                                    let maxAmount = Money(transferBinding.assetBinding.senderAmountMax, asset.precision)
+                                    let minAmount = Money(transferBinding.assetBinding.senderAmountMin.int64Value, asset.precision)
+                                    let maxAmount = Money(transferBinding.assetBinding.senderAmountMax.int64Value, asset.precision)
                                     
-//                                    assetBinding.taxRate
+
                                     let fee = self.gatewaysWavesRepository.calculateFee(amount: amount.amount,
                                                                                         assetBinding: assetBinding)
-//                                    binding.
-//                                    binding.assetBinding.
-                                    
-                                    
-                                    
                                                                         
                                     let info = Send.DTO.GatewayInfo(assetName: asset.name,
                                                                     assetShortName: asset.ticker ?? asset.name,
@@ -295,52 +268,43 @@ extension SendInteractor {
                                                                     fee: fee,
                                                                     address: address,
                                                                     attachment: "")
-//                                    let addresses = binding.addresses.displayInfoAddresses()
-//
-//                                    let info = ReceiveCryptocurrency
-//                                        .DTO
-//                                        .DisplayInfo(addresses: addresses,
-//                                                     asset: asset,
-//                                                     minAmount: minAmount,
-//                                                     maxAmount: maxAmount,
-//                                                     generalAssets: appEnvironments.generalAssets)
                                     return ResponseType(output: info,
                                                         error: nil)
                                 }
                         }
                 }
 
-            return Observable.never()
-//            return serverEnvironmentUseCase
-//                .serverEnvironment()
-//                .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> in
-//
-//                    guard let self = self else { return Observable.never() }
-//
-//                    return self
-//                        .gatewayRepository
-//                        .startWithdrawProcess(serverEnvironment: serverEnvironment,
-//                                              address: address,
-//                                              asset: asset)
-//                }
-//                .map { (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
-//
-//                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-//                                                           assetShortName: asset.ticker ?? "",
-//                                                           minAmount: startProcessInfo.minAmount,
-//                                                           maxAmount: startProcessInfo.maxAmount,
-//                                                           fee: startProcessInfo.fee,
-//                                                           address: startProcessInfo.recipientAddress,
-//                                                           attachment: startProcessInfo.processId)
-//                    return ResponseType(output: gatewayInfo, error: nil)
-//                }
-//                .catchError { (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
-//                    if let networkError = error as? NetworkError {
-//                        return Observable.just(ResponseType(output: nil, error: networkError))
-//                    }
-//
-//                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-//                }
+        case .gateway:
+            return serverEnvironmentUseCase
+                .serverEnvironment()
+                .flatMap { [weak self] serverEnvironment -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> in
+
+                    guard let self = self else { return Observable.never() }
+
+                    return self
+                        .gatewayRepository
+                        .startWithdrawProcess(serverEnvironment: serverEnvironment,
+                                              address: address,
+                                              asset: asset)
+                }
+                .map { (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
+
+                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                           assetShortName: asset.ticker ?? "",
+                                                           minAmount: startProcessInfo.minAmount,
+                                                           maxAmount: startProcessInfo.maxAmount,
+                                                           fee: startProcessInfo.fee,
+                                                           address: startProcessInfo.recipientAddress,
+                                                           attachment: startProcessInfo.processId)
+                    return ResponseType(output: gatewayInfo, error: nil)
+                }
+                .catchError { (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+                    if let networkError = error as? NetworkError {
+                        return Observable.just(ResponseType(output: nil, error: networkError))
+                    }
+
+                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+                }
 
         case .coinomat:
             guard let currencyFrom = asset.wavesId,
