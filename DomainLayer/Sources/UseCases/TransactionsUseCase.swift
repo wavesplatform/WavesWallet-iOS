@@ -750,8 +750,9 @@ private extension TransactionsUseCase {
                               rules: DomainLayer.DTO.TransactionFeeRules,
                               isSmartAssets: [String: Bool],
                               type: DomainLayer.Query.TransactionSpecificationType) -> Money {
+                
         var rule: DomainLayer.DTO.TransactionFeeRules.Rule!
-        
+                        
         if let txType = type.transactionType {
             rule = rules.rules[txType] ?? rules.defaultRule
         } else {
@@ -1002,6 +1003,7 @@ private extension DomainLayer.Query.TransactionSpecificationType {
     }
     
     var transactionType: TransactionType? {
+                
         switch self {
         case .createAlias:
             return TransactionType.createAlias

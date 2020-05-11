@@ -6,47 +6,43 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
-import RxSwift
 import Moya
+import RxSwift
+import WavesSDK
 import WavesSDKCrypto
 import WavesSDKExtensions
-import DomainLayer
-
-private enum Constants {
-    static let sessionLifeTime: Int64 = 12000000
-    static let grantType: String = "password"
-    static let scope: String = "client"
-}
 
 private struct Token: Codable {
-    let access_token: String
+    let accessToken: String    
+    private enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+    }
 }
 
-//TODO: Split Usecase and services
 final class WEOAuthRepository: WEOAuthRepositoryProtocol {
-        
+    
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
     
-    private let weOAuth: MoyaProvider<WEOAuth.Service> = .anyMoyaProvider()
-    
+    private let weOAuth: MoyaProvider<WEOAuthTarget> = .anyMoyaProvider()
+
     init(developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
         self.developmentConfigsRepository = developmentConfigsRepository
     }
-    
+
     func oauthToken(serverEnvironment: ServerEnvironment,
-                    signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.WEOAuth.Token> {
-                
+                    signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<WEOAuthTokenDTO> {
         return developmentConfigsRepository.developmentConfigs()
-            .flatMap { [weak self] developmentConfigs ->  Observable<DomainLayer.DTO.WEOAuth.Token> in
+            .flatMap { [weak self] developmentConfigs -> Observable<WEOAuthTokenDTO> in
                 guard let self = self else { return Observable.empty() }
-                
-                let url = serverEnvironment.servers.authUrl
+
+                let url = serverEnvironment.servers.wavesExchangeApiUrl
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
-                
-                let token: WEOAuth.Query.Token = self.createOAuthToken(signedWallet: signedWallet,
+
+                let token: WEOAuthTokenQuery = self.createOAuthToken(signedWallet: signedWallet,
+                                                                       chainId: serverEnvironment.kind.chainId,
                                                                        exchangeClientSecret: exchangeClientSecret)
-                
                 return self
                     .weOAuth
                     .rx
@@ -55,29 +51,40 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(Token.self)
-                    .map { DomainLayer.DTO.WEOAuth.Token(accessToken: $0.access_token) }
+                    .map { WEOAuthTokenDTO(accessToken: $0.accessToken) }
                     .asObservable()
+                    .catchError { error -> Observable<WEOAuthTokenDTO> in
+                        Observable.error(NetworkError.error(by: error))
+                    }
             }
     }
-    
+
     private func createOAuthToken(signedWallet: DomainLayer.DTO.SignedWallet,
-                                  exchangeClientSecret: String) -> WEOAuth.Query.Token {
-        
-        let time = Date().millisecondsSince1970 + Constants.sessionLifeTime
+                                  chainId: String,
+                                  exchangeClientSecret: String) -> WEOAuthTokenQuery {
+
+        let clientId = "waves.exchange"
+        let time = Int64(round(Date().timeIntervalSince1970 + (60 * 60 * 24 * 7))) // Token for a week
+        let timeString = "\(chainId):\(clientId):\(time)"
+
+        // Read Protocol for oauth
+        // https://docs.waves.exchange/en/api/auth/oauth2-token#response-parameters
         var bytes: Bytes = .init()
-        bytes += signedWallet.publicKey.publicKey
-        bytes += toByteArray(time)
-        
+        bytes += [UInt8(255)]
+        bytes += [UInt8(255)]
+        bytes += [UInt8(255)]
+        bytes += [UInt8(1)]
+        bytes += timeString.utf8
+
         let signatureBytes = (try? signedWallet.sign(input: bytes, kind: [.none])) ?? []
         let signature = WavesCrypto.shared.base58encode(input: signatureBytes) ?? ""
-        
+
         let passsword = "\(time):" + signature
-        
-        return .init(token: exchangeClientSecret,
-                     username: signedWallet.publicKey.getPublicKeyStr(),
+
+        return .init(username: signedWallet.publicKey.getPublicKeyStr(),
                      password: passsword,
-                     grantType: Constants.grantType,
-                     scope: Constants.scope)
-                
+                     grantType: "password",
+                     scope: "general",
+                     clientId: clientId)
     }
 }

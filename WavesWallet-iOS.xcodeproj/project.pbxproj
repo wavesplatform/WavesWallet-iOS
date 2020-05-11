@@ -220,6 +220,18 @@
 		7B0FD98F2319C0EA0004B52B /* MobileKeeperRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD98E2319C0EA0004B52B /* MobileKeeperRepositoryProtocol.swift */; };
 		7B16BCE622DBE49A00540418 /* DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B66860022B3F70D0029E6F1 /* DomainLayer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7B1A337724011AFD00AE54B9 /* StringProtocol+Ranges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1A337624011AFD00AE54B9 /* StringProtocol+Ranges.swift */; };
+		7B22A9C424643CE0005EAC9C /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9B624643CDF005EAC9C /* messages.pb.swift */; };
+		7B22A9C524643CE0005EAC9C /* gateways_waves_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9B724643CDF005EAC9C /* gateways_waves_api.pb.swift */; };
+		7B22A9C624643CE0005EAC9C /* gateways_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9B824643CDF005EAC9C /* gateways_api.pb.swift */; };
+		7B22A9C724643CE0005EAC9C /* adcash_withdrawals.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9B924643CDF005EAC9C /* adcash_withdrawals.pb.swift */; };
+		7B22A9C824643CE0005EAC9C /* adcash_managing.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9BA24643CDF005EAC9C /* adcash_managing.pb.swift */; };
+		7B22A9C924643CE0005EAC9C /* errors.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9BC24643CDF005EAC9C /* errors.pb.swift */; };
+		7B22A9CA24643CE0005EAC9C /* adcash_deposits.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9BD24643CDF005EAC9C /* adcash_deposits.pb.swift */; };
+		7B22A9CB24643CE0005EAC9C /* gateways_waves_api.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9BF24643CDF005EAC9C /* gateways_waves_api.grpc.swift */; };
+		7B22A9CC24643CE0005EAC9C /* adcash_managing.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9C024643CDF005EAC9C /* adcash_managing.grpc.swift */; };
+		7B22A9CD24643CE0005EAC9C /* adcash_withdrawals.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9C124643CDF005EAC9C /* adcash_withdrawals.grpc.swift */; };
+		7B22A9CE24643CE0005EAC9C /* adcash_deposits.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9C224643CDF005EAC9C /* adcash_deposits.grpc.swift */; };
+		7B22A9CF24643CE0005EAC9C /* gateways_api.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B22A9C324643CDF005EAC9C /* gateways_api.grpc.swift */; };
 		7B2408002317F26100D35F59 /* ConfirmRequestButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2407FF2317F26100D35F59 /* ConfirmRequestButtonsCell.swift */; };
 		7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B26A87C22ED129300E7B024 /* WidgetSettings.storyboard */; };
 		7B26A87F22ED13F300E7B024 /* WidgetSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A87E22ED13F300E7B024 /* WidgetSettingsViewController.swift */; };
@@ -389,6 +401,7 @@
 		7B66872722B7E68B0029E6F1 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66872522B7E68B0029E6F1 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6922C6223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */; };
 		7B737BD3239680F700BEE392 /* WidgetMatcherDataTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BD2239680F700BEE392 /* WidgetMatcherDataTarget.swift */; };
+		7B74DBBA24695E3500AB1109 /* GrpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBB924695E3500AB1109 /* GrpcClient.swift */; };
 		7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */; };
 		7B83A7D322D8C74F0038180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D222D8C74F0038180D /* AppDelegate.swift */; };
 		7B83A7D522D8C74F0038180D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D422D8C74F0038180D /* ViewController.swift */; };
@@ -563,17 +576,6 @@
 		7BCFAB37242CF416002850B1 /* URL+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFAB36242CF416002850B1 /* URL+Encoding.swift */; };
 		7BCFC36824092AB000B8AF1C /* StakingTransferTypes+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
-		7BD2A47A24505D6800CB3008 /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A46E24505D6800CB3008 /* messages.pb.swift */; };
-		7BD2A47B24505D6800CB3008 /* gateways_waves_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A46F24505D6800CB3008 /* gateways_waves_api.pb.swift */; };
-		7BD2A47C24505D6800CB3008 /* gateways_api.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47024505D6800CB3008 /* gateways_api.pb.swift */; };
-		7BD2A47D24505D6800CB3008 /* adcash_withdrawals.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47124505D6800CB3008 /* adcash_withdrawals.pb.swift */; };
-		7BD2A47E24505D6800CB3008 /* adcash_managing.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47224505D6800CB3008 /* adcash_managing.pb.swift */; };
-		7BD2A47F24505D6800CB3008 /* adcash_deposits.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47324505D6800CB3008 /* adcash_deposits.pb.swift */; };
-		7BD2A48024505D6800CB3008 /* gateways_waves_api.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47524505D6800CB3008 /* gateways_waves_api.grpc.swift */; };
-		7BD2A48124505D6800CB3008 /* adcash_managing.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47624505D6800CB3008 /* adcash_managing.grpc.swift */; };
-		7BD2A48224505D6800CB3008 /* adcash_withdrawals.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47724505D6800CB3008 /* adcash_withdrawals.grpc.swift */; };
-		7BD2A48324505D6800CB3008 /* adcash_deposits.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47824505D6800CB3008 /* adcash_deposits.grpc.swift */; };
-		7BD2A48424505D6800CB3008 /* gateways_api.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2A47924505D6800CB3008 /* gateways_api.grpc.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BD3605B240EC51C006F3A77 /* UIScreen+SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */; };
 		7BD3605D240EF3AE006F3A77 /* StakingTransferInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3605C240EF3AD006F3A77 /* StakingTransferInteractor.swift */; };
@@ -626,6 +628,14 @@
 		7BE09AD323140F0900A038AD /* MobileKeeper.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */; };
 		7BEDB6B324573E1F00605B4D /* WavesSDKServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */; };
 		7BEDB6B52457428A00605B4D /* SpamAssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */; };
+		7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */; };
+		7BEDB6BC24588D8600605B4D /* GatewaysWavesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6BB24588D8600605B4D /* GatewaysWavesRepository.swift */; };
+		7BEDB6BF24588DAE00605B4D /* AssetBindingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6BE24588DAE00605B4D /* AssetBindingsRequest.swift */; };
+		7BEDB6C124588DBE00605B4D /* GatewaysAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */; };
+		7BEDB6C324588DCB00605B4D /* GatewaysAssetBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */; };
+		7BEDB6C924588FCA00605B4D /* TransferBindingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6C824588FCA00605B4D /* TransferBindingRequest.swift */; };
+		7BEDB6CD24588FFB00605B4D /* GatewaysTransferBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6CC24588FFB00605B4D /* GatewaysTransferBinding.swift */; };
+		7BEDB6D7245988C200605B4D /* DevelopmentConfigsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6D6245988C200605B4D /* DevelopmentConfigsService.swift */; };
 		7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F322D8B95300582783 /* SeedItem.swift */; };
 		7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F522D8B95300582783 /* WalletRealmFactory.swift */; };
 		7BF50A6D22D8B95400582783 /* LeaseTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F822D8B95300582783 /* LeaseTransaction.swift */; };
@@ -778,7 +788,7 @@
 		875393242423BAC300394762 /* WEGatewayUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393232423BAC300394762 /* WEGatewayUseCaseProtocol.swift */; };
 		875393272423BB2F00394762 /* WEGatewayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393252423BB2F00394762 /* WEGatewayRepository.swift */; };
 		875393282423BB2F00394762 /* WEOAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393262423BB2F00394762 /* WEOAuthRepository.swift */; };
-		8753932B2423BB9800394762 /* WEOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393292423BB9700394762 /* WEOAuthService.swift */; };
+		8753932B2423BB9800394762 /* WEOAuthTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393292423BB9700394762 /* WEOAuthTarget.swift */; };
 		8753932C2423BB9800394762 /* WEGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8753932A2423BB9700394762 /* WEGatewayService.swift */; };
 		8753932E2423BC2600394762 /* String+Int64BinaryBase64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8753932D2423BC2600394762 /* String+Int64BinaryBase64.swift */; };
 		875393322423BE5F00394762 /* ReceiveContainerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393302423BE5F00394762 /* ReceiveContainerModuleBuilder.swift */; };
@@ -1632,6 +1642,18 @@
 		7B0FD98A23196C430004B52B /* ConfirmRequestDTORequest+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmRequestDTORequest+Mapper.swift"; sourceTree = "<group>"; };
 		7B0FD98E2319C0EA0004B52B /* MobileKeeperRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileKeeperRepositoryProtocol.swift; sourceTree = "<group>"; };
 		7B1A337624011AFD00AE54B9 /* StringProtocol+Ranges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Ranges.swift"; sourceTree = "<group>"; };
+		7B22A9B624643CDF005EAC9C /* messages.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messages.pb.swift; sourceTree = "<group>"; };
+		7B22A9B724643CDF005EAC9C /* gateways_waves_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.pb.swift; sourceTree = "<group>"; };
+		7B22A9B824643CDF005EAC9C /* gateways_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.pb.swift; sourceTree = "<group>"; };
+		7B22A9B924643CDF005EAC9C /* adcash_withdrawals.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_withdrawals.pb.swift; sourceTree = "<group>"; };
+		7B22A9BA24643CDF005EAC9C /* adcash_managing.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_managing.pb.swift; sourceTree = "<group>"; };
+		7B22A9BC24643CDF005EAC9C /* errors.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = errors.pb.swift; sourceTree = "<group>"; };
+		7B22A9BD24643CDF005EAC9C /* adcash_deposits.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_deposits.pb.swift; sourceTree = "<group>"; };
+		7B22A9BF24643CDF005EAC9C /* gateways_waves_api.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.grpc.swift; sourceTree = "<group>"; };
+		7B22A9C024643CDF005EAC9C /* adcash_managing.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_managing.grpc.swift; sourceTree = "<group>"; };
+		7B22A9C124643CDF005EAC9C /* adcash_withdrawals.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_withdrawals.grpc.swift; sourceTree = "<group>"; };
+		7B22A9C224643CDF005EAC9C /* adcash_deposits.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_deposits.grpc.swift; sourceTree = "<group>"; };
+		7B22A9C324643CDF005EAC9C /* gateways_api.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.grpc.swift; sourceTree = "<group>"; };
 		7B2407FF2317F26100D35F59 /* ConfirmRequestButtonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestButtonsCell.swift; sourceTree = "<group>"; };
 		7B26A87C22ED129300E7B024 /* WidgetSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WidgetSettings.storyboard; sourceTree = "<group>"; };
 		7B26A87E22ED13F300E7B024 /* WidgetSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1813,6 +1835,7 @@
 		7B737BD2239680F700BEE392 /* WidgetMatcherDataTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMatcherDataTarget.swift; sourceTree = "<group>"; };
 		7B7422E3237ACC9D00E5910D /* WavesWallet-iOS-Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS-Dev.entitlements"; sourceTree = "<group>"; };
 		7B7422E4237ACC9D00E5910D /* WavesWallet-iOS-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS-Test.entitlements"; sourceTree = "<group>"; };
+		7B74DBB924695E3500AB1109 /* GrpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrpcClient.swift; sourceTree = "<group>"; };
 		7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInvalidPriceView.swift; sourceTree = "<group>"; };
 		7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexCreateOrderInvalidPriceView.xib; sourceTree = "<group>"; };
 		7B83A7D022D8C74E0038180D /* DummyForTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DummyForTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1946,17 +1969,6 @@
 		7BCFAB36242CF416002850B1 /* URL+Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Encoding.swift"; sourceTree = "<group>"; };
 		7BCFC36724092AB000B8AF1C /* StakingTransferTypes+Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Card.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
-		7BD2A46E24505D6800CB3008 /* messages.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messages.pb.swift; sourceTree = "<group>"; };
-		7BD2A46F24505D6800CB3008 /* gateways_waves_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.pb.swift; sourceTree = "<group>"; };
-		7BD2A47024505D6800CB3008 /* gateways_api.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.pb.swift; sourceTree = "<group>"; };
-		7BD2A47124505D6800CB3008 /* adcash_withdrawals.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_withdrawals.pb.swift; sourceTree = "<group>"; };
-		7BD2A47224505D6800CB3008 /* adcash_managing.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_managing.pb.swift; sourceTree = "<group>"; };
-		7BD2A47324505D6800CB3008 /* adcash_deposits.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_deposits.pb.swift; sourceTree = "<group>"; };
-		7BD2A47524505D6800CB3008 /* gateways_waves_api.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_waves_api.grpc.swift; sourceTree = "<group>"; };
-		7BD2A47624505D6800CB3008 /* adcash_managing.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_managing.grpc.swift; sourceTree = "<group>"; };
-		7BD2A47724505D6800CB3008 /* adcash_withdrawals.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_withdrawals.grpc.swift; sourceTree = "<group>"; };
-		7BD2A47824505D6800CB3008 /* adcash_deposits.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adcash_deposits.grpc.swift; sourceTree = "<group>"; };
-		7BD2A47924505D6800CB3008 /* gateways_api.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gateways_api.grpc.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BD3605A240EC51C006F3A77 /* UIScreen+SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+SafeArea.swift"; sourceTree = "<group>"; };
 		7BD3605C240EF3AD006F3A77 /* StakingTransferInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferInteractor.swift; sourceTree = "<group>"; };
@@ -2016,6 +2028,14 @@
 		7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MobileKeeper.storyboard; sourceTree = "<group>"; };
 		7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesSDKServices.swift; sourceTree = "<group>"; };
 		7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpamAssetsService.swift; sourceTree = "<group>"; };
+		7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysWavesRepositoryImp.swift; sourceTree = "<group>"; };
+		7BEDB6BB24588D8600605B4D /* GatewaysWavesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysWavesRepository.swift; sourceTree = "<group>"; };
+		7BEDB6BE24588DAE00605B4D /* AssetBindingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBindingsRequest.swift; sourceTree = "<group>"; };
+		7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysAsset.swift; sourceTree = "<group>"; };
+		7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysAssetBinding.swift; sourceTree = "<group>"; };
+		7BEDB6C824588FCA00605B4D /* TransferBindingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferBindingRequest.swift; sourceTree = "<group>"; };
+		7BEDB6CC24588FFB00605B4D /* GatewaysTransferBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewaysTransferBinding.swift; sourceTree = "<group>"; };
+		7BEDB6D6245988C200605B4D /* DevelopmentConfigsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsService.swift; sourceTree = "<group>"; };
 		7BF509F322D8B95300582783 /* SeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
 		7BF509F522D8B95300582783 /* WalletRealmFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRealmFactory.swift; sourceTree = "<group>"; };
 		7BF509F822D8B95300582783 /* LeaseTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaseTransaction.swift; sourceTree = "<group>"; };
@@ -2189,7 +2209,7 @@
 		875393232423BAC300394762 /* WEGatewayUseCaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEGatewayUseCaseProtocol.swift; sourceTree = "<group>"; };
 		875393252423BB2F00394762 /* WEGatewayRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEGatewayRepository.swift; sourceTree = "<group>"; };
 		875393262423BB2F00394762 /* WEOAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEOAuthRepository.swift; sourceTree = "<group>"; };
-		875393292423BB9700394762 /* WEOAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEOAuthService.swift; sourceTree = "<group>"; };
+		875393292423BB9700394762 /* WEOAuthTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEOAuthTarget.swift; sourceTree = "<group>"; };
 		8753932A2423BB9700394762 /* WEGatewayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WEGatewayService.swift; sourceTree = "<group>"; };
 		8753932D2423BC2600394762 /* String+Int64BinaryBase64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Int64BinaryBase64.swift"; sourceTree = "<group>"; };
 		875393302423BE5F00394762 /* ReceiveContainerModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveContainerModuleBuilder.swift; sourceTree = "<group>"; };
@@ -3658,6 +3678,42 @@
 			path = Style;
 			sourceTree = "<group>";
 		};
+		7B22A9B524643CDF005EAC9C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B22A9B624643CDF005EAC9C /* messages.pb.swift */,
+				7B22A9B724643CDF005EAC9C /* gateways_waves_api.pb.swift */,
+				7B22A9B824643CDF005EAC9C /* gateways_api.pb.swift */,
+				7B22A9B924643CDF005EAC9C /* adcash_withdrawals.pb.swift */,
+				7B22A9BA24643CDF005EAC9C /* adcash_managing.pb.swift */,
+				7B22A9BB24643CDF005EAC9C /* errors */,
+				7B22A9BD24643CDF005EAC9C /* adcash_deposits.pb.swift */,
+			);
+			name = Model;
+			path = Vendors/weprotobuf/Sources/Model;
+			sourceTree = SOURCE_ROOT;
+		};
+		7B22A9BB24643CDF005EAC9C /* errors */ = {
+			isa = PBXGroup;
+			children = (
+				7B22A9BC24643CDF005EAC9C /* errors.pb.swift */,
+			);
+			path = errors;
+			sourceTree = "<group>";
+		};
+		7B22A9BE24643CDF005EAC9C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7B22A9BF24643CDF005EAC9C /* gateways_waves_api.grpc.swift */,
+				7B22A9C024643CDF005EAC9C /* adcash_managing.grpc.swift */,
+				7B22A9C124643CDF005EAC9C /* adcash_withdrawals.grpc.swift */,
+				7B22A9C224643CDF005EAC9C /* adcash_deposits.grpc.swift */,
+				7B22A9C324643CDF005EAC9C /* gateways_api.grpc.swift */,
+			);
+			name = Services;
+			path = Vendors/weprotobuf/Sources/Services;
+			sourceTree = SOURCE_ROOT;
+		};
 		7B26A87B22ED127600E7B024 /* WidgetSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -3863,6 +3919,7 @@
 		7B5FAA0C22BBE3EB00621A44 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDB6BD24588D9600605B4D /* GatewaysWavesRepository */,
 				7B5FAA1F22BBE3EB00621A44 /* AccountBalanceRepositoryProtocol.swift */,
 				7B5FAA0E22BBE3EB00621A44 /* AccountSettingsRepositoryProtocol.swift */,
 				7B5FAA1722BBE3EB00621A44 /* AddressBookRepositoryProtocol.swift */,
@@ -4538,38 +4595,11 @@
 		7BD2A46C244F5A1A00CB3008 /* grpc */ = {
 			isa = PBXGroup;
 			children = (
-				7BD2A46D24505D6800CB3008 /* Model */,
-				7BD2A47424505D6800CB3008 /* Services */,
+				7B22A9B524643CDF005EAC9C /* Model */,
+				7B22A9BE24643CDF005EAC9C /* Services */,
 			);
 			path = grpc;
 			sourceTree = "<group>";
-		};
-		7BD2A46D24505D6800CB3008 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				7BD2A46E24505D6800CB3008 /* messages.pb.swift */,
-				7BD2A46F24505D6800CB3008 /* gateways_waves_api.pb.swift */,
-				7BD2A47024505D6800CB3008 /* gateways_api.pb.swift */,
-				7BD2A47124505D6800CB3008 /* adcash_withdrawals.pb.swift */,
-				7BD2A47224505D6800CB3008 /* adcash_managing.pb.swift */,
-				7BD2A47324505D6800CB3008 /* adcash_deposits.pb.swift */,
-			);
-			name = Model;
-			path = Vendors/weprotobuf/Sources/Model;
-			sourceTree = SOURCE_ROOT;
-		};
-		7BD2A47424505D6800CB3008 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				7BD2A47524505D6800CB3008 /* gateways_waves_api.grpc.swift */,
-				7BD2A47624505D6800CB3008 /* adcash_managing.grpc.swift */,
-				7BD2A47724505D6800CB3008 /* adcash_withdrawals.grpc.swift */,
-				7BD2A47824505D6800CB3008 /* adcash_deposits.grpc.swift */,
-				7BD2A47924505D6800CB3008 /* gateways_api.grpc.swift */,
-			);
-			name = Services;
-			path = Vendors/weprotobuf/Sources/Services;
-			sourceTree = SOURCE_ROOT;
 		};
 		7BD579A523F413640001C601 /* Staking */ = {
 			isa = PBXGroup;
@@ -4632,6 +4662,35 @@
 				7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */,
 			);
 			path = MobileKeeper;
+			sourceTree = "<group>";
+		};
+		7BEDB6BD24588D9600605B4D /* GatewaysWavesRepository */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDB6BB24588D8600605B4D /* GatewaysWavesRepository.swift */,
+				7BEDB6C724588FBB00605B4D /* Request */,
+				7BEDB6C624588FB100605B4D /* Model */,
+			);
+			path = GatewaysWavesRepository;
+			sourceTree = "<group>";
+		};
+		7BEDB6C624588FB100605B4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDB6C024588DBE00605B4D /* GatewaysAsset.swift */,
+				7BEDB6C224588DCB00605B4D /* GatewaysAssetBinding.swift */,
+				7BEDB6CC24588FFB00605B4D /* GatewaysTransferBinding.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7BEDB6C724588FBB00605B4D /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				7BEDB6BE24588DAE00605B4D /* AssetBindingsRequest.swift */,
+				7BEDB6C824588FCA00605B4D /* TransferBindingRequest.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 		7BF509F022D8B95300582783 /* Sources */ = {
@@ -4773,6 +4832,8 @@
 		7BF50A2C22D8B95400582783 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */,
+				875393262423BB2F00394762 /* WEOAuthRepository.swift */,
 				7BF50A3D22D8B95400582783 /* AccountBalanceRepositoryRemote.swift */,
 				7BF50A3522D8B95400582783 /* AddressRepositoryRemote.swift */,
 				7BF50A4A22D8B95400582783 /* AliasesRepository.swift */,
@@ -4796,7 +4857,6 @@
 				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
 				7BF50A3722D8B95400582783 /* TransactionsRepositoryRemote.swift */,
 				875393252423BB2F00394762 /* WEGatewayRepository.swift */,
-				875393262423BB2F00394762 /* WEOAuthRepository.swift */,
 				7B05BF0824535BC8001AD9AD /* ServerTimestampRepositoryImp.swift */,
 			);
 			path = Repositories;
@@ -4811,7 +4871,7 @@
 				7BF50A5222D8B95400582783 /* Spam */,
 				87566695242A67E100E9F177 /* StakingBalanceServiceImpl.swift */,
 				8753932A2423BB9700394762 /* WEGatewayService.swift */,
-				875393292423BB9700394762 /* WEOAuthService.swift */,
+				875393292423BB9700394762 /* WEOAuthTarget.swift */,
 				7BA682662450747B000B5747 /* WavesServices.swift */,
 				7B05BEF724534EA4001AD9AD /* TimestampServerServiceImp.swift */,
 			);
@@ -4868,6 +4928,7 @@
 				7BF50A6A22D8B95400582783 /* SweetLoggerSentry.swift */,
 				7BF50A5F22D8B95400582783 /* TransactionSenderAssistant.swift */,
 				7BF50A6022D8B95400582783 /* Types */,
+				7B74DBB924695E3500AB1109 /* GrpcClient.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -5073,6 +5134,7 @@
 				7B05BEF52453491F001AD9AD /* TimestampServerService.swift */,
 				7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */,
 				7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */,
+				7BEDB6D6245988C200605B4D /* DevelopmentConfigsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -7650,6 +7712,7 @@
 				7B5FAAC222BBE3EC00621A44 /* BiometricManager.swift in Sources */,
 				7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */,
 				7B5FAAB322BBE3EC00621A44 /* ApplicationVersionUseCase.swift in Sources */,
+				7BEDB6BC24588D8600605B4D /* GatewaysWavesRepository.swift in Sources */,
 				E97A74A522D3BAA200777C39 /* OrderBookUseCaseProtocol.swift in Sources */,
 				7B5FAAA322BBE3EC00621A44 /* ResponseType.swift in Sources */,
 				7B5FAA6A22BBE3EC00621A44 /* RepositoriesFactoryProtocol.swift in Sources */,
@@ -7666,6 +7729,7 @@
 				7BDC6D6E22C398F600614E6B /* AnalyticManagerEvent+AddressBook.swift in Sources */,
 				7BDC6D5C22C3978400614E6B /* AnalyticManagerEvent+Alias.swift in Sources */,
 				7B5FAAC122BBE3EC00621A44 /* Data+AES.swift in Sources */,
+				7BEDB6C124588DBE00605B4D /* GatewaysAsset.swift in Sources */,
 				7B5FAA9222BBE3EC00621A44 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
 				7B5FAAB522BBE3EC00621A44 /* AssetsBalanceSettingsUseCase.swift in Sources */,
 				7B5FAA7522BBE3EC00621A44 /* NotificationNewsRepositoryProtocol.swift in Sources */,
@@ -7697,6 +7761,7 @@
 				7B5FAA7C22BBE3EC00621A44 /* LastTradesRepositoryProtocol.swift in Sources */,
 				7B05BEF2245348D5001AD9AD /* ServicesFactory.swift in Sources */,
 				7B5FAA7A22BBE3EC00621A44 /* CandlesRepositoryProtocol.swift in Sources */,
+				7BEDB6CD24588FFB00605B4D /* GatewaysTransferBinding.swift in Sources */,
 				7B5FAA8422BBE3EC00621A44 /* UtilsRepositoryProtocol.swift in Sources */,
 				7B5FAA9122BBE3EC00621A44 /* SmartTransactionDomainDTO.swift in Sources */,
 				7B5FAA9922BBE3EC00621A44 /* ExchangeTransactionDomainDTO.swift in Sources */,
@@ -7714,7 +7779,9 @@
 				7B5FAAA122BBE3EC00621A44 /* ContactDomainDTO.swift in Sources */,
 				7B431A8322BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift in Sources */,
 				7B97B0B222FCB5DA008BA3F4 /* Localizable.swift in Sources */,
+				7BEDB6D7245988C200605B4D /* DevelopmentConfigsService.swift in Sources */,
 				7B5FAAA022BBE3EC00621A44 /* CoinomatDomainDTO.swift in Sources */,
+				7BEDB6C324588DCB00605B4D /* GatewaysAssetBinding.swift in Sources */,
 				7B5FAA8F22BBE3EC00621A44 /* DataTransactionDomainDTO.swift in Sources */,
 				7BDC6D7322C3A05B00614E6B /* AnalyticManagerEvent+Menu.swift in Sources */,
 				7B431A8622BD030600DE73B9 /* AddressUseCaseProtocol.swift in Sources */,
@@ -7725,6 +7792,7 @@
 				7B5FAA8B22BBE3EC00621A44 /* AliasDomainDTO.swift in Sources */,
 				7B5FAAA822BBE3EC00621A44 /* AnalyticAssetManager.swift in Sources */,
 				7B5FAA6B22BBE3EC00621A44 /* TransactionDomainDTO+Mapper.swift in Sources */,
+				7BEDB6BF24588DAE00605B4D /* AssetBindingsRequest.swift in Sources */,
 				7B5FAA7822BBE3EC00621A44 /* AddressBookRepositoryProtocol.swift in Sources */,
 				7B5FAADB22BCEA4200621A44 /* AccountBalanceUseCaseProtocol.swift in Sources */,
 				7B9542C423FB2CF50079AB18 /* Balance.swift in Sources */,
@@ -7764,6 +7832,7 @@
 				7B5FAA8022BBE3EC00621A44 /* AccountBalanceRepositoryProtocol.swift in Sources */,
 				7B5FAA9E22BBE3EC00621A44 /* NotificationNewsDomainDTO.swift in Sources */,
 				E99A3B7522BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift in Sources */,
+				7BEDB6C924588FCA00605B4D /* TransferBindingRequest.swift in Sources */,
 				7B5FAA8A22BBE3EC00621A44 /* WalletDomainDTO.swift in Sources */,
 				7BEDB6B324573E1F00605B4D /* WavesSDKServices.swift in Sources */,
 				7B5FAA7122BBE3EC00621A44 /* AddressRepositoryProtocol.swift in Sources */,
@@ -7841,21 +7910,21 @@
 				7B896FDF23F34FA000F45A70 /* AssetsRepositoryLocal.swift in Sources */,
 				7B896FDC23F34FA000F45A70 /* MatcherRepositoryLocal.swift in Sources */,
 				E9618D1922F0473000FB7F06 /* MarketPulseTypes.swift in Sources */,
-				7BD2A48324505D6800CB3008 /* adcash_deposits.grpc.swift in Sources */,
 				7BF50AAD22D8B95400582783 /* LastTradesRepositoryRemote.swift in Sources */,
 				7BF50A9522D8B95400582783 /* TransferTransaction+Mapper.swift in Sources */,
 				7BF50AC322D8B95400582783 /* TimestampSignature.swift in Sources */,
+				7B22A9C924643CE0005EAC9C /* errors.pb.swift in Sources */,
+				7B22A9CD24643CE0005EAC9C /* adcash_withdrawals.grpc.swift in Sources */,
 				7BF50A6F22D8B95400582783 /* IssueTransaction.swift in Sources */,
 				7BF50A7B22D8B95400582783 /* MassTransferTransaction.swift in Sources */,
 				7B896FDB23F34FA000F45A70 /* WidgetSettingsRepositoryStorage.swift in Sources */,
 				7BF50ABF22D8B95400582783 /* GatewayService.swift in Sources */,
 				7BF50ABC22D8B95400582783 /* ResourceAPIService.swift in Sources */,
-				7BD2A47F24505D6800CB3008 /* adcash_deposits.pb.swift in Sources */,
 				7BF50A7822D8B95400582783 /* ExchangeTransaction.swift in Sources */,
 				7B896FE023F34FA000F45A70 /* WalletsRepositoryLocal.swift in Sources */,
 				7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */,
 				E94AF03023D0BF3F002919FF /* TradeCategoriesConfigRepository.swift in Sources */,
-				8753932B2423BB9800394762 /* WEOAuthService.swift in Sources */,
+				8753932B2423BB9800394762 /* WEOAuthTarget.swift in Sources */,
 				7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */,
 				7B896FE423F34FA000F45A70 /* WalletSeedRepositoryLocal.swift in Sources */,
 				7BF50A7722D8B95400582783 /* TransferTransaction.swift in Sources */,
@@ -7864,11 +7933,11 @@
 				7BF50AB022D8B95400582783 /* CandlesRepositoryRemote.swift in Sources */,
 				7BF50AB422D8B95400582783 /* AliasesRepository.swift in Sources */,
 				7BF50ABB22D8B95400582783 /* AssetsSpamServiceTarget.swift in Sources */,
-				7BD2A47E24505D6800CB3008 /* adcash_managing.pb.swift in Sources */,
+				7B22A9C424643CE0005EAC9C /* messages.pb.swift in Sources */,
 				7BF50AB922D8B95400582783 /* EnvironmentRepository.swift in Sources */,
+				7B74DBBA24695E3500AB1109 /* GrpcClient.swift in Sources */,
 				7B848A742301AD0D0092AD18 /* WalletsRealmFactory.swift in Sources */,
 				8753932E2423BC2600394762 /* String+Int64BinaryBase64.swift in Sources */,
-				7BD2A48024505D6800CB3008 /* gateways_waves_api.grpc.swift in Sources */,
 				7B896FE323F34FA000F45A70 /* AliasesRepositoryLocal.swift in Sources */,
 				7BF50AAE22D8B95400582783 /* DexOrderBookRepositoryRemote.swift in Sources */,
 				87566696242A67E100E9F177 /* StakingBalanceServiceImpl.swift in Sources */,
@@ -7881,12 +7950,13 @@
 				7B896FE623F34FA000F45A70 /* AccountBalanceRepositoryLocal.swift in Sources */,
 				7BF50A6E22D8B95400582783 /* ScriptTransaction.swift in Sources */,
 				7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */,
-				7BD2A47A24505D6800CB3008 /* messages.pb.swift in Sources */,
+				7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */,
+				7B22A9C524643CE0005EAC9C /* gateways_waves_api.pb.swift in Sources */,
 				7B896FE523F34FA000F45A70 /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */,
-				7BD2A48124505D6800CB3008 /* adcash_managing.grpc.swift in Sources */,
 				7BF50A7922D8B95400582783 /* AliasTransaction.swift in Sources */,
 				7BF50AC122D8B95400582783 /* AnalyticManager.swift in Sources */,
 				7B896FDD23F34FA000F45A70 /* TransactionsRepositoryLocal.swift in Sources */,
+				7B22A9CF24643CE0005EAC9C /* gateways_api.grpc.swift in Sources */,
 				7BF50A8422D8B95400582783 /* AccountEnvironment.swift in Sources */,
 				7BF50A9322D8B95400582783 /* SponsorshipTransaction+Mapper.swift in Sources */,
 				7BF50A7122D8B95400582783 /* UnrecognisedTransaction.swift in Sources */,
@@ -7899,13 +7969,14 @@
 				7BF50A8B22D8B95400582783 /* ReissueTransaction+Mapper.swift in Sources */,
 				7BF50A9422D8B95400582783 /* IssueTransaction+Mapper.swift in Sources */,
 				7BF50A7A22D8B95400582783 /* ReissueTransaction.swift in Sources */,
-				7BD2A48224505D6800CB3008 /* adcash_withdrawals.grpc.swift in Sources */,
 				7BF50AA322D8B95400582783 /* CoinomatRepository.swift in Sources */,
 				7BF50A9C22D8B95400582783 /* Asset+Mapper.swift in Sources */,
 				7BF50AA022D8B95400582783 /* GatewayRepository.swift in Sources */,
+				7B22A9CC24643CE0005EAC9C /* adcash_managing.grpc.swift in Sources */,
 				7BF50A9E22D8B95400582783 /* NotificationNewsRepository.swift in Sources */,
 				7BF50A7522D8B95400582783 /* BurnTransaction.swift in Sources */,
 				7BF50AC422D8B95400582783 /* Signature.swift in Sources */,
+				7B22A9CA24643CE0005EAC9C /* adcash_deposits.pb.swift in Sources */,
 				7BF50A7F22D8B95400582783 /* Alias.swift in Sources */,
 				7BF50A9622D8B95400582783 /* MassTransferTransaction+Mapper.swift in Sources */,
 				7BF50A8C22D8B95400582783 /* InvokeScriptTransaction+Mapper.swift in Sources */,
@@ -7916,11 +7987,10 @@
 				7B896FE223F34FA000F45A70 /* AccountSettingsRepository.swift in Sources */,
 				7BF50AB122D8B95400582783 /* DexPairsPriceRepositoryRemote.swift in Sources */,
 				7BF50A7E22D8B95400582783 /* AddressBook.swift in Sources */,
-				7BD2A48424505D6800CB3008 /* gateways_api.grpc.swift in Sources */,
 				7BF50A8622D8B95400582783 /* WalletItem.swift in Sources */,
 				7BF50A9722D8B95400582783 /* BurnTransaction+Mapper.swift in Sources */,
-				7BD2A47C24505D6800CB3008 /* gateways_api.pb.swift in Sources */,
 				7BF50A8A22D8B95400582783 /* AnyTransaction+Mapper.swift in Sources */,
+				7B22A9CB24643CE0005EAC9C /* gateways_waves_api.grpc.swift in Sources */,
 				875393282423BB2F00394762 /* WEOAuthRepository.swift in Sources */,
 				7BF50ACC22D8B95400582783 /* SweetLoggerSentry.swift in Sources */,
 				7BF50AA622D8B95400582783 /* TransactionsRepositoryRemote.swift in Sources */,
@@ -7928,6 +7998,7 @@
 				7BF50A8E22D8B95400582783 /* AliasTransaction+Mapper.swift in Sources */,
 				7BF50A9D22D8B95400582783 /* SpamAssetsRepository.swift in Sources */,
 				7BF50A8322D8B95400582783 /* Asset.swift in Sources */,
+				7B22A9C824643CE0005EAC9C /* adcash_managing.pb.swift in Sources */,
 				7BF50A9B22D8B95400582783 /* AccountSettings+Mapper.swift in Sources */,
 				7BF50AA522D8B95400582783 /* AddressRepositoryRemote.swift in Sources */,
 				7B05BF0924535BC8001AD9AD /* ServerTimestampRepositoryImp.swift in Sources */,
@@ -7935,6 +8006,7 @@
 				7BF50A9822D8B95400582783 /* ExchangeTransaction+Mapper.swift in Sources */,
 				7BF50A8222D8B95400582783 /* DexAssetPair.swift in Sources */,
 				7BF50AC622D8B95400582783 /* NodePlugin.swift in Sources */,
+				7B22A9C724643CE0005EAC9C /* adcash_withdrawals.pb.swift in Sources */,
 				7BF50AC722D8B95400582783 /* MoyaProvider+Helper.swift in Sources */,
 				7BF50AC822D8B95400582783 /* SentryNetworkLoggerPlugin.swift in Sources */,
 				7BF50A7322D8B95400582783 /* LeaseCancelTransaction.swift in Sources */,
@@ -7946,10 +8018,10 @@
 				7BF50A7222D8B95400582783 /* SponsorshipTransaction.swift in Sources */,
 				7BF50AC522D8B95400582783 /* Results+Limit.swift in Sources */,
 				7BF50A7022D8B95400582783 /* AssetScriptTransaction.swift in Sources */,
+				7B22A9C624643CE0005EAC9C /* gateways_api.pb.swift in Sources */,
 				7BF50A9922D8B95400582783 /* LeaseTransaction+Mapper.swift in Sources */,
 				7BF50A8722D8B95400582783 /* WalletEncryption.swift in Sources */,
 				7BF50A6D22D8B95400582783 /* LeaseTransaction.swift in Sources */,
-				7BD2A47D24505D6800CB3008 /* adcash_withdrawals.pb.swift in Sources */,
 				7B05BEF92453500E001AD9AD /* ServicesFactoryImp.swift in Sources */,
 				7BF50AC922D8B95400582783 /* SentryManager.swift in Sources */,
 				7BF50A7C22D8B95400582783 /* AnyTransaction.swift in Sources */,
@@ -7960,9 +8032,9 @@
 				7BF50AAC22D8B95400582783 /* MatcherRepositoryRemote.swift in Sources */,
 				7B05BEF824534EA4001AD9AD /* TimestampServerServiceImp.swift in Sources */,
 				7B896FE123F34FA000F45A70 /* AddressBookRepository.swift in Sources */,
-				7BD2A47B24505D6800CB3008 /* gateways_waves_api.pb.swift in Sources */,
 				7BF50AB822D8B95400582783 /* AssetsRepositoryRemote.swift in Sources */,
 				7BF50ABA22D8B95400582783 /* SpamAssetsServiceImp.swift in Sources */,
+				7B22A9CE24643CE0005EAC9C /* adcash_deposits.grpc.swift in Sources */,
 				7BF50A8822D8B95400582783 /* DexAssetPairDomainDTO+Mapper.swift in Sources */,
 				7BF50ABE22D8B95400582783 /* CoinomatService.swift in Sources */,
 			);

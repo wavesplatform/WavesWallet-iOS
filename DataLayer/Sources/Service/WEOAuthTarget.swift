@@ -10,34 +10,28 @@ import Foundation
 import Moya
 import WavesSDK
 
-enum WEOAuth {
-    enum Service {
-        case token(baseURL: URL, token: WEOAuth.Query.Token)
-    }
+enum WEOAuthTarget {
+    case token(baseURL: URL, token: WEOAuthTokenQuery)
+}
+
+
+struct WEOAuthTokenQuery: Codable {
+    let username: String
+    let password: String
+    let grantType: String
+    let scope: String
+    let clientId: String
     
-    enum Query {}
-}
-
-extension WEOAuth.Query {
-   
-    struct Token: Codable {
-        let token: String
-        let username: String
-        let password: String
-        let grantType: String
-        let scope: String
-        
-        private enum CodingKeys: String, CodingKey {
-            case token
-            case username
-            case password
-            case grantType = "grant_type"
-            case scope
-        }
+    private enum CodingKeys: String, CodingKey {
+        case username
+        case password
+        case grantType = "grant_type"
+        case scope
+        case clientId = "client_id"
     }
 }
 
-extension WEOAuth.Service: TargetType {
+extension WEOAuthTarget: TargetType {
     
     var sampleData: Data {
         return Data()
@@ -54,17 +48,14 @@ extension WEOAuth.Service: TargetType {
     var path: String {
         switch self {
         case .token:
-            return "token"
+            return "v1/oauth2/token"
         }
     }
     
     var headers: [String: String]? {
         var headers: [String: String] = .init()
         
-        switch self {
-        case .token(_, let token):
-            headers["Authorization"] = token.token
-        }
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         
         return headers
     }

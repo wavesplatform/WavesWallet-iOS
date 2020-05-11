@@ -9,65 +9,10 @@
 import Foundation
 import RxSwift
 
-public extension DomainLayer.DTO {
-    struct DevelopmentConfigs {
-        public struct Rate: Decodable {
-            public let rate: Double
-            public let flat: Int64
 
-            public init(rate: Double, flat: Int64) {
-                self.rate = rate
-                self.flat = flat
-            }
-        }
-        
-        public struct MarketPair {
-            public let amount: String
-            public let price: String
-            
-            public init(amount: String, price: String) {
-                self.amount = amount
-                self.price = price
-            }
-        }
-
-        public let serviceAvailable: Bool
-        public let matcherSwapTimestamp: Date
-        public let matcherSwapAddress: String
-        public let exchangeClientSecret: String
-        public let staking: [Staking]
-        // List assetId when lock
-        public let lockedPairs: [String]
-
-        // First key is assetId and second key is fiat
-        // For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
-        public let gatewayMinFee: [String: [String: Rate]]
-        
-        /// Список пар, обмен на которые возможен
-        public let marketPairs: [MarketPair]
-        
-        public init(serviceAvailable: Bool,
-                    matcherSwapTimestamp: Date,
-                    matcherSwapAddress: String,
-                    exchangeClientSecret: String,
-                    staking: [Staking],
-                    lockedPairs: [String],
-                    gatewayMinFee: [String: [String: Rate]],
-                    marketPairs: [MarketPair]) {
-            self.serviceAvailable = serviceAvailable
-            self.matcherSwapAddress = matcherSwapAddress
-            self.matcherSwapTimestamp = matcherSwapTimestamp
-            self.exchangeClientSecret = exchangeClientSecret
-            self.staking = staking
-            self.lockedPairs = lockedPairs
-            self.gatewayMinFee = gatewayMinFee
-            self.marketPairs = marketPairs
-        }
-    }
-}
-
-public extension DomainLayer.DTO {
-    struct Staking {
+public struct DevelopmentConfigs {
+    
+    public struct Staking {
         public let type: String
         public let neutrinoAssetId: String
         public let addressByPayoutsAnnualPercent: String
@@ -86,13 +31,64 @@ public extension DomainLayer.DTO {
             self.addressByCalculateProfit = addressByCalculateProfit
         }
     }
+    
+    public struct Rate: Decodable {
+        public let rate: Double
+        public let flat: Int64
+
+        public init(rate: Double, flat: Int64) {
+            self.rate = rate
+            self.flat = flat
+        }
+    }
+    
+    public struct MarketPair {
+        public let amount: String
+        public let price: String
+        
+        public init(amount: String, price: String) {
+            self.amount = amount
+            self.price = price
+        }
+    }
+
+    public let serviceAvailable: Bool
+    public let matcherSwapTimestamp: Date
+    public let matcherSwapAddress: String
+    public let exchangeClientSecret: String
+    public let staking: [Staking]
+    // List assetId when lock
+    public let lockedPairs: [String]
+
+    // First key is assetId and second key is fiat
+    // For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
+    public let gatewayMinFee: [String: [String: Rate]]
+    
+    /// Список пар, обмен на которые возможен
+    public let marketPairs: [MarketPair]
+    
+    public init(serviceAvailable: Bool,
+                matcherSwapTimestamp: Date,
+                matcherSwapAddress: String,
+                exchangeClientSecret: String,
+                staking: [Staking],
+                lockedPairs: [String],
+                gatewayMinFee: [String: [String: Rate]],
+                marketPairs: [MarketPair]) {
+        self.serviceAvailable = serviceAvailable
+        self.matcherSwapAddress = matcherSwapAddress
+        self.matcherSwapTimestamp = matcherSwapTimestamp
+        self.exchangeClientSecret = exchangeClientSecret
+        self.staking = staking
+        self.lockedPairs = lockedPairs
+        self.gatewayMinFee = gatewayMinFee
+        self.marketPairs = marketPairs
+    }
 }
 
 public protocol DevelopmentConfigsRepositoryProtocol {
 
     func isEnabledMaintenance() -> Observable<Bool>
     
-    func developmentConfigs() -> Observable<DomainLayer.DTO.DevelopmentConfigs>
+    func developmentConfigs() -> Observable<DevelopmentConfigs>
 }
-
-

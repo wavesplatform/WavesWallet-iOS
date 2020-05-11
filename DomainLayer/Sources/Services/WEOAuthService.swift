@@ -1,8 +1,8 @@
 //
-//  WavesExchangeAuthProtocol.swift
+//  WEOAuthService.swift
 //  DomainLayer
 //
-//  Created by rprokofev on 12.03.2020.
+//  Created by rprokofev on 28.04.2020.
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
@@ -17,9 +17,7 @@ public struct WEOAuthTokenDTO {
     }
 }
 
-public protocol WEOAuthRepositoryProtocol {
+public protocol WEOAuthService {
     func oauthToken(serverEnvironment: ServerEnvironment,
                     signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<WEOAuthTokenDTO>
 }
-
-

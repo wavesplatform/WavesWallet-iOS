@@ -154,7 +154,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                 
                 return oauthToken
                     .flatMap { [weak self] token -> Observable<(DomainLayer.DTO.WEGateway.TransferBinding,
-                        DomainLayer.DTO.WEOAuth.Token, ServerEnvironment)> in
+                        WEOAuthTokenDTO, ServerEnvironment)> in
                         
                         guard let self = self else { return Observable.never() }
                         

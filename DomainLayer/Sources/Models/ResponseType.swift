@@ -9,6 +9,7 @@
 import Foundation
 import WavesSDK
 
+//TODO: Remove
 public struct ResponseType <T> {
     
     public let output: T?

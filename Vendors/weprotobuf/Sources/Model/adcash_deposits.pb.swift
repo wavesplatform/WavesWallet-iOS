@@ -167,6 +167,8 @@ public struct Acash_GetACashAssetsExchangeRateRequest {
 
   public var recipientAsset: String = String()
 
+  public var senderAssetAmount: Double = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -179,11 +181,7 @@ public struct Acash_GetACashAssetsExchangeRateResponse {
 
   public var rate: Double = 0
 
-  public var senderAmountMin: Double = 0
-
-  public var senderAmountMax: Double = 0
-
-  public var networkFee: Double = 0
+  public var recipientAssetAmount: Double = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -430,6 +428,7 @@ extension Acash_GetACashAssetsExchangeRateRequest: SwiftProtobuf.Message, SwiftP
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "sender_asset"),
     2: .standard(proto: "recipient_asset"),
+    3: .standard(proto: "sender_asset_amount"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -437,6 +436,7 @@ extension Acash_GetACashAssetsExchangeRateRequest: SwiftProtobuf.Message, SwiftP
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.senderAsset)
       case 2: try decoder.decodeSingularStringField(value: &self.recipientAsset)
+      case 3: try decoder.decodeSingularDoubleField(value: &self.senderAssetAmount)
       default: break
       }
     }
@@ -449,12 +449,16 @@ extension Acash_GetACashAssetsExchangeRateRequest: SwiftProtobuf.Message, SwiftP
     if !self.recipientAsset.isEmpty {
       try visitor.visitSingularStringField(value: self.recipientAsset, fieldNumber: 2)
     }
+    if self.senderAssetAmount != 0 {
+      try visitor.visitSingularDoubleField(value: self.senderAssetAmount, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Acash_GetACashAssetsExchangeRateRequest, rhs: Acash_GetACashAssetsExchangeRateRequest) -> Bool {
     if lhs.senderAsset != rhs.senderAsset {return false}
     if lhs.recipientAsset != rhs.recipientAsset {return false}
+    if lhs.senderAssetAmount != rhs.senderAssetAmount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -464,18 +468,14 @@ extension Acash_GetACashAssetsExchangeRateResponse: SwiftProtobuf.Message, Swift
   public static let protoMessageName: String = _protobuf_package + ".GetACashAssetsExchangeRateResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "rate"),
-    2: .standard(proto: "sender_amount_min"),
-    3: .standard(proto: "sender_amount_max"),
-    4: .standard(proto: "network_fee"),
+    2: .standard(proto: "recipient_asset_amount"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularDoubleField(value: &self.rate)
-      case 2: try decoder.decodeSingularDoubleField(value: &self.senderAmountMin)
-      case 3: try decoder.decodeSingularDoubleField(value: &self.senderAmountMax)
-      case 4: try decoder.decodeSingularDoubleField(value: &self.networkFee)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.recipientAssetAmount)
       default: break
       }
     }
@@ -485,23 +485,15 @@ extension Acash_GetACashAssetsExchangeRateResponse: SwiftProtobuf.Message, Swift
     if self.rate != 0 {
       try visitor.visitSingularDoubleField(value: self.rate, fieldNumber: 1)
     }
-    if self.senderAmountMin != 0 {
-      try visitor.visitSingularDoubleField(value: self.senderAmountMin, fieldNumber: 2)
-    }
-    if self.senderAmountMax != 0 {
-      try visitor.visitSingularDoubleField(value: self.senderAmountMax, fieldNumber: 3)
-    }
-    if self.networkFee != 0 {
-      try visitor.visitSingularDoubleField(value: self.networkFee, fieldNumber: 4)
+    if self.recipientAssetAmount != 0 {
+      try visitor.visitSingularDoubleField(value: self.recipientAssetAmount, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Acash_GetACashAssetsExchangeRateResponse, rhs: Acash_GetACashAssetsExchangeRateResponse) -> Bool {
     if lhs.rate != rhs.rate {return false}
-    if lhs.senderAmountMin != rhs.senderAmountMin {return false}
-    if lhs.senderAmountMax != rhs.senderAmountMax {return false}
-    if lhs.networkFee != rhs.networkFee {return false}
+    if lhs.recipientAssetAmount != rhs.recipientAssetAmount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
