@@ -218,15 +218,16 @@ extension SendInteractor {
             let authorizedWallet = authorizationUseCase.authorizedWallet()
 
             return Observable.zip(serverEnvironment, authorizedWallet)
-                .flatMap { [weak self] serverEnvironment, wallet -> Observable<(ServerEnvironment, WEOAuthTokenDTO, DomainLayer.DTO.SignedWallet)> in
+                .flatMap { [weak self] serverEnvironment, wallet -> Observable<(ServerEnvironment, WEOAuthTokenDTO,
+                                                                                DomainLayer.DTO.SignedWallet)> in
 
-                    guard let self = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                    return self.weOAuthRepository
-                        .oauthToken(serverEnvironment: serverEnvironment, signedWallet: wallet)
-                        .map { (serverEnvironment, $0, wallet) }
+                return self.weOAuthRepository
+                    .oauthToken(serverEnvironment: serverEnvironment, signedWallet: wallet)
+                    .map { (serverEnvironment, $0, wallet) }
                 }
-                .flatMap { [weak self] serverEnvironment, token, wallet -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+                .flatMap { [weak self] serverEnvironment, token, _ -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
 
                     guard let self = self else { return Observable.never() }
 
@@ -254,13 +255,15 @@ extension SendInteractor {
                                                            request: request)
                                 .map { transferBinding -> ResponseType<Send.DTO.GatewayInfo> in
 
-                                    let minAmount = Money(transferBinding.assetBinding.senderAmountMin.int64Value, asset.precision)
-                                    let maxAmount = Money(transferBinding.assetBinding.senderAmountMax.int64Value, asset.precision)
-                                    
+                                    let minAmount = Money(transferBinding.assetBinding.senderAmountMin.int64Value,
+                                                          asset.precision)
+                                    let maxAmount = Money(transferBinding.assetBinding.senderAmountMax.int64Value,
+                                                          asset.precision)
 
-                                    let fee = self.gatewaysWavesRepository.calculateFee(amount: amount.amount,
-                                                                                        assetBinding: assetBinding)
-                                                                        
+                                    let fee = self.gatewaysWavesRepository
+                                        .calculateFee(amount: amount.amount, direction: .withdraw,
+                                                      assetBinding: assetBinding)
+
                                     let info = Send.DTO.GatewayInfo(assetName: asset.name,
                                                                     assetShortName: asset.ticker ?? asset.name,
                                                                     minAmount: minAmount,
