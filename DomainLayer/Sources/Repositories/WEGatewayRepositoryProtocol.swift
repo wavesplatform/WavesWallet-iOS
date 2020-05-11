@@ -55,6 +55,7 @@ extension DomainLayer.Query.WEGateway {
     }
 }
 
+//TODO: После переходна grpc надо бы его удалить
 extension DomainLayer.DTO.WEGateway {
     
     public struct TransferBinding {

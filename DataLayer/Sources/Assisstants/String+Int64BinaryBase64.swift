@@ -45,14 +45,11 @@ extension Data {
         return value
     }
     
-    init<T>(from value: T) {
-        self = Swift.withUnsafeBytes(of: value) { Data($0) }
+    //TODO: С сети может придти больше чем int64, как с этим быть сейчас хз
+    // Я пока не знаю как бинарник перевести в Decimal
+    func decodeDecimal() -> Decimal {
+                
+        guard !self.isEmpty else { return 0 }
+        return Decimal(self.decodeInt64())
     }
-    
-    func to<T>(type: T.Type) -> T? where T: ExpressibleByIntegerLiteral {
-         var value: T = 0
-         guard count >= MemoryLayout.size(ofValue: value) else { return nil }
-         _ = Swift.withUnsafeMutableBytes(of: &value, { copyBytes(to: $0)} )
-         return value
-     }
 }

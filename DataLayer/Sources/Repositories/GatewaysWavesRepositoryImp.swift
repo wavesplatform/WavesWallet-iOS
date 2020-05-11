@@ -332,9 +332,9 @@ fileprivate extension Gateways_AssetBinding {
         return GatewaysAssetBinding(senderAsset: senderAsset,
                                     recipientAsset: recipientAsset,
                                     hasRecipientAsset: hasRecipientAsset,
-                                    senderAmountMin: senderAmountMin.to(type: Decimal.self) ?? 0,
-                                    senderAmountMax: senderAmountMax.to(type: Decimal.self) ?? 0,
-                                    taxFlat: taxFlat.to(type: Decimal.self) ?? 0,
+                                    senderAmountMin: senderAmountMin.decodeDecimal(),
+                                    senderAmountMax: senderAmountMax.decodeDecimal(),
+                                    taxFlat: taxFlat.decodeDecimal(),
                                     taxRate: taxRate,
                                     active: active)
     }
