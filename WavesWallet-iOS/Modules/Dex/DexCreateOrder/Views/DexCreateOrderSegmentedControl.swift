@@ -6,9 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
@@ -16,46 +17,43 @@ private enum Constants {
 }
 
 protocol DexCreateOrderSegmentedControlDelegate: AnyObject {
-    
     func dexCreateOrderDidChangeType(_ type: DomainLayer.DTO.Dex.OrderType)
 }
 
 final class DexCreateOrderSegmentedControl: UIView, NibOwnerLoadable {
-
     @IBOutlet private weak var buttonBuy: UIButton!
     @IBOutlet private weak var buttonSell: UIButton!
     @IBOutlet private weak var viewPosition: UIView!
     @IBOutlet private weak var viewPositionOffset: NSLayoutConstraint!
-    
+
     weak var delegate: DexCreateOrderSegmentedControlDelegate?
-    
+
     var type: DomainLayer.DTO.Dex.OrderType! {
         didSet {
             if type == .sell {
                 buttonSell.setTitleColor(.black, for: .normal)
                 buttonBuy.setTitleColor(.basic500, for: .normal)
                 viewPosition.backgroundColor = .error400
-            }
-            else {
+            } else {
                 buttonSell.setTitleColor(.basic500, for: .normal)
                 buttonBuy.setTitleColor(.black, for: .normal)
                 viewPosition.backgroundColor = .submit400
             }
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         buttonBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy, for: .normal)
         buttonSell.setTitle(Localizable.Waves.Dexcreateorder.Button.sell, for: .normal)
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         setupViewPositionOffset(animation: false)
@@ -63,8 +61,8 @@ final class DexCreateOrderSegmentedControl: UIView, NibOwnerLoadable {
 }
 
 // MARK: - Setup
+
 private extension DexCreateOrderSegmentedControl {
-    
     func setupViewPositionOffset(animation: Bool) {
         let buttonWidth = frame.size.width / CGFloat(Constants.countButtons)
         let buttonPosition: CGFloat = type == .sell ? buttonWidth : 0
@@ -80,17 +78,16 @@ private extension DexCreateOrderSegmentedControl {
 }
 
 // MARK: - Actions
-private extension DexCreateOrderSegmentedControl {    
-    
-    @IBAction func buyTapped(_ sender: UIButton) {
+
+private extension DexCreateOrderSegmentedControl {
+    @IBAction func buyTapped(_: UIButton) {
         guard type != .buy else { return }
         type = .buy
         setupViewPositionOffset(animation: true)
         delegate?.dexCreateOrderDidChangeType(type)
     }
-    
-    
-    @IBAction func sellTapped(_ sender: UIButton) {
+
+    @IBAction func sellTapped(_: UIButton) {
         guard type != .sell else { return }
         type = .sell
         setupViewPositionOffset(animation: true)

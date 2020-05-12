@@ -6,9 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import IdentityImg
 import Extensions
+import IdentityImg
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 179
@@ -20,30 +21,29 @@ protocol MyAddressInfoAddressCellDelegate: AnyObject {
 }
 
 final class MyAddressInfoAddressCell: UITableViewCell, Reusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subTitleLabel: UILabel!
     @IBOutlet private var copyButton: PasteboardButton!
     @IBOutlet private var shareButton: UIButton!
     @IBOutlet private var iconImageView: UIImageView!
-    
+
     weak var delegate: MyAddressInfoAddressCellDelegate?
-    
+
     private let identity: Identity = Identity(options: Identity.defaultOptions)
 
     override func awakeFromNib() {
-        super.awakeFromNib()        
+        super.awakeFromNib()
         copyButton.isBlack = false
         setupLocalization()
 
         copyButton.copiedText = {
-            return self.subTitleLabel.text
+            self.subTitleLabel.text
         }
     }
 
-    @IBAction func actionTouchUpCopyButton(sender: Any) {
-        delegate?.myAddressInfoAddressCellDidTapShareAddress(self.subTitleLabel.text ?? "")
+    @IBAction func actionTouchUpCopyButton(sender _: Any) {
+        delegate?.myAddressInfoAddressCellDidTapShareAddress(subTitleLabel.text ?? "")
     }
 }
 
@@ -55,7 +55,7 @@ extension MyAddressInfoAddressCell: ViewConfiguration {
     }
 
     func update(with model: Model) {
-        self.subTitleLabel.text = model.address
+        subTitleLabel.text = model.address
         let image = identity.createImage(by: model.address, size: CGSize(width: Constants.iconSize, height: Constants.iconSize))
         iconImageView.image = image
     }
@@ -64,7 +64,6 @@ extension MyAddressInfoAddressCell: ViewConfiguration {
 // MARK: ViewHeight
 
 extension MyAddressInfoAddressCell: ViewHeight {
-
     static func viewHeight() -> CGFloat {
         return Constants.height
     }
@@ -73,7 +72,6 @@ extension MyAddressInfoAddressCell: ViewHeight {
 // MARK: Localization
 
 extension MyAddressInfoAddressCell: Localization {
-
     func setupLocalization() {
         titleLabel.text = Localizable.Waves.Myaddress.Cell.Info.title
         copyButton.setTitle(Localizable.Waves.Myaddress.Button.Copy.title, for: .normal)

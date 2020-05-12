@@ -9,10 +9,11 @@
 import Extensions
 import RxSwift
 import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 38
-    
+
     static let redTickerColor: UIColor = .error500
     static let greenTickerColor: UIColor = .successLime
     static let tickerRightOffsetDefault: CGFloat = 10
@@ -26,9 +27,9 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
     @IBOutlet private weak var viewTicker: UIView!
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var tickerRightOffset: NSLayoutConstraint!
-    
+
     private var disposeBag = DisposeBag()
-    
+
     private static let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
@@ -39,7 +40,7 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
         numberFormatter.maximumFractionDigits = 2
         return numberFormatter
     }()
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         iconLogo.image = nil
@@ -54,21 +55,21 @@ extension MarketPulseWidgetCell: ViewConfiguration {
             .observeOn(MainScheduler.instance)
             .bind(to: iconLogo.rx.image)
             .disposed(by: disposeBag)
-        
+
         labelTitle.text = model.name
-        
+
         let numberFormatter = MarketPulseWidgetCell.numberFormatter
         let price = model.currency.ticker + (numberFormatter.string(from: NSNumber(value: model.price)) ?? "")
-        
+
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
         let attr = NSMutableAttributedString(string: price, attributes: attributes)
-        
+
         let separatorRange = (price as NSString).range(of: numberFormatter.decimalSeparator)
         let additionalAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .semibold)]
         attr.addAttributes(additionalAttributes, range: NSMakeRange(0, separatorRange.location))
-        
+
         labelPrice.attributedText = attr
-        
+
         if model.percent == 0 {
             labelPercent.text = String(format: "%.0f", model.percent) + "%"
         } else if model.percent > 0 {
@@ -76,15 +77,15 @@ extension MarketPulseWidgetCell: ViewConfiguration {
         } else {
             labelPercent.text = "-" + String(format: "%.02f", model.percent * -1) + "%"
         }
-        
+
         tickerRightOffset.constant = model.isDarkMode ? Constants.tickerRightOffsetDark : Constants.tickerRightOffsetDefault
-        
+
         labelTitle.textColor = model.isDarkMode ? .white : .black
         labelPrice.textColor = model.isDarkMode ? .white : .black
-        
+
         if model.isDarkMode {
             viewTicker.backgroundColor = .clear
-            
+
             if model.percent == 0 {
                 labelPercent.textColor = .disabled700
             } else if model.percent > 0 {
@@ -94,7 +95,7 @@ extension MarketPulseWidgetCell: ViewConfiguration {
             }
         } else {
             labelPercent.textColor = .white
-            
+
             if model.percent == 0 {
                 viewTicker.backgroundColor = .basic700
             } else if model.percent > 0 {

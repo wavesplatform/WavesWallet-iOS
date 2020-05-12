@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let smallPading: CGFloat = 16
@@ -16,13 +17,12 @@ private enum Constants {
 }
 
 final class LanguageTableCell: UITableViewCell, NibReusable {
-    
     struct Model {
         let icon: UIImage?
         let title: String
         let isOn: Bool
     }
-    
+
     @IBOutlet fileprivate weak var iconLanguage: UIImageView!
     @IBOutlet fileprivate weak var labelTitle: UILabel!
     @IBOutlet fileprivate weak var iconCheckmark: UIImageView!
@@ -48,14 +48,14 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
             leftConstraint.constant = Constants.bigPadding
             rightConstraint.constant = Constants.bigPadding
         }
-        
+
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = .white
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        
+
         if highlighted {
             selectedBackgroundView?.backgroundColor = .basic50
         } else {
@@ -65,11 +65,10 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
 }
 
 extension LanguageTableCell: ViewConfiguration {
-    
     func update(with model: LanguageTableCell.Model) {
         iconLanguage.image = model.icon
         labelTitle.text = model.title
-        
+
         if model.isOn {
             iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Languagetablecell.Iconcheckmark.select
             iconCheckmark.image = Images.on.image
@@ -78,5 +77,4 @@ extension LanguageTableCell: ViewConfiguration {
             iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Languagetablecell.Iconcheckmark.unselect
         }
     }
-    
 }

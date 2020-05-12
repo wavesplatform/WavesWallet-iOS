@@ -6,10 +6,11 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
 import Extensions
 import QRCode
 import RxSwift
+import UIKit
+import UITools
 
 private enum Constants {
     static let copyDuration: TimeInterval = 2
@@ -21,7 +22,6 @@ private enum Constants {
 }
 
 final class ReceiveAddressCardView: UIView, NibLoadable {
-                
     @IBOutlet private weak var buttonShare: UIButton!
     @IBOutlet private weak var buttonCopy: UIButton!
     @IBOutlet private weak var labelAddress: UILabel!
@@ -31,18 +31,18 @@ final class ReceiveAddressCardView: UIView, NibLoadable {
     @IBOutlet private weak var widthIconLayoutConstraint: NSLayoutConstraint!
     @IBOutlet private weak var topInfoQRCodeLayoutConstraint: NSLayoutConstraint!
     @IBOutlet private weak var topQRCodeLayoutConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var topAssetIconLayoutConstraint: NSLayoutConstraint!
     @IBOutlet private weak var bottomAssetIconLayoutConstraint: NSLayoutConstraint!
-    
+
     private let disposeBag: DisposeBag = DisposeBag()
-    private var model: ReceiveAddress.ViewModel.Address? = nil
-    
-    var shareTapped: ((ReceiveAddress.ViewModel.Address) -> Void)? = nil
-    
+    private var model: ReceiveAddress.ViewModel.Address?
+
+    var shareTapped: ((ReceiveAddress.ViewModel.Address) -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         if Platform.isIphone5 {
             widthIconLayoutConstraint.constant = Constants.widthIcon
             topInfoQRCodeLayoutConstraint.constant = Constants.topInfoQRCodePadding
@@ -56,41 +56,38 @@ final class ReceiveAddressCardView: UIView, NibLoadable {
 // MARK: Private
 
 private extension ReceiveAddressCardView {
-    
-     @IBAction private func copyTapped(_ sender: Any) {
+    @IBAction private func copyTapped(_: Any) {
+        UIPasteboard.general.string = labelAddress.text
 
-         UIPasteboard.general.string = labelAddress.text
-        
-         buttonCopy.isUserInteractionEnabled = false
-         buttonCopy.tintColor = UIColor.success400
-         buttonCopy.setTitleColor(UIColor.success400, for: .normal)
-         buttonCopy.setImage(Images.checkSuccess.image, for: .normal)
-         buttonCopy.titleLabel?.text = Localizable.Waves.Receiveaddress.Button.copied
-         buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copied, for: .normal)
+        buttonCopy.isUserInteractionEnabled = false
+        buttonCopy.tintColor = UIColor.success400
+        buttonCopy.setTitleColor(UIColor.success400, for: .normal)
+        buttonCopy.setImage(Images.checkSuccess.image, for: .normal)
+        buttonCopy.titleLabel?.text = Localizable.Waves.Receiveaddress.Button.copied
+        buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copied, for: .normal)
 
-         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.copyDuration) {
-             self.buttonCopy.isUserInteractionEnabled = true
-             self.buttonCopy.tintColor = UIColor.submit400
-             self.buttonCopy.setTitleColor(UIColor.submit400, for: .normal)
-             self.buttonCopy.setImage(Images.copyAddress.image, for: .normal)
-             self.buttonCopy.titleLabel?.text = Localizable.Waves.Receiveaddress.Button.copy
-             self.buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copy, for: .normal)
-         }
-     }
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.copyDuration) {
+            self.buttonCopy.isUserInteractionEnabled = true
+            self.buttonCopy.tintColor = UIColor.submit400
+            self.buttonCopy.setTitleColor(UIColor.submit400, for: .normal)
+            self.buttonCopy.setImage(Images.copyAddress.image, for: .normal)
+            self.buttonCopy.titleLabel?.text = Localizable.Waves.Receiveaddress.Button.copy
+            self.buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copy, for: .normal)
+        }
+    }
 
-     @IBAction private func shareTapped(_ sender: Any) {
+    @IBAction private func shareTapped(_: Any) {
         guard let model = model else { return }
-        self.shareTapped?(model)
-     }
+        shareTapped?(model)
+    }
 }
 
 // MARK: ViewConfiguration
 
 extension ReceiveAddressCardView: ViewConfiguration {
-    
     func update(with model: ReceiveAddress.ViewModel.Address) {
         self.model = model
-        
+
         labelQRCode.text = Localizable.Waves.Receiveaddress.Label.yourQRCode
         buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copy, for: .normal)
         buttonShare.setTitle(Localizable.Waves.Receiveaddress.Button.share, for: .normal)

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import Extensions
+import UITools
 
 private enum Constants {
     static let headerHeight: CGFloat = 74
@@ -21,14 +22,14 @@ private typealias Types = AssetsSearch
 
 final class AssetsSearchViewController: ModalScrollViewController {
     
-    @IBOutlet var tableView: ModalTableView!
+    @IBOutlet private var tableView: ModalTableView!
     
     override var scrollView: UIScrollView {
-        return tableView
+        tableView
     }
     
     private var rootView: ModalRootView {
-        return view as! ModalRootView
+        view as! ModalRootView
     }
     
     private var headerView: AssetsSearchHeaderView = AssetsSearchHeaderView.loadView()

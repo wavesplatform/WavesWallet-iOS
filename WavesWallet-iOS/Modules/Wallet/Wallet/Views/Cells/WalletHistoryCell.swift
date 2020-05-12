@@ -6,15 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 56
 }
 
 final class WalletHistoryCell: UITableViewCell, NibReusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
 
@@ -29,10 +29,9 @@ final class WalletHistoryCell: UITableViewCell, NibReusable {
 }
 
 // MARK: ViewConfiguration
+
 extension WalletHistoryCell: ViewConfiguration {
- 
     func update(with model: WalletTypes.ViewModel.Row.HistoryCellType) {
-        
         switch model {
         case .leasing:
             titleLabel.text = Localizable.Waves.Wallet.Label.viewHistory

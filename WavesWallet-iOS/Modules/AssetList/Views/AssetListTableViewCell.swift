@@ -6,25 +6,25 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
+import DataLayer
 import DomainLayer
 import Extensions
-import DataLayer
+import RxSwift
+import UIKit
+import UITools
 
 private enum Constants {
     static let defaultTopTitleOffset: CGFloat = 10
 }
 
 final class AssetListTableViewCell: UITableViewCell, NibReusable {
-
     @IBOutlet private weak var iconAsset: UIImageView!
     @IBOutlet private weak var labelAssetName: UILabel!
     @IBOutlet private weak var labelAmount: UILabel!
     @IBOutlet private weak var iconCheckmark: UIImageView!
     @IBOutlet private weak var iconFav: UIImageView!
     @IBOutlet private weak var topTitleOffset: NSLayoutConstraint!
-    
+
     private var disposeBag: DisposeBag = DisposeBag()
 
     override func prepareForReuse() {
@@ -35,23 +35,21 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
 }
 
 extension AssetListTableViewCell: ViewConfiguration {
-    
     struct Model {
-        let asset:  DomainLayer.DTO.Asset
+        let asset: DomainLayer.DTO.Asset
         let balance: Money
         let isChecked: Bool
         let isFavourite: Bool
     }
-    
+
     func update(with model: Model) {
-        
         let centerOffset = frame.size.height / 2 - labelAssetName.frame.size.height / 2
         topTitleOffset.constant = model.balance.isZero ? centerOffset : Constants.defaultTopTitleOffset
         labelAmount.isHidden = model.balance.isZero
-        
+
         labelAssetName.text = model.asset.displayName
         iconFav.isHidden = !model.isFavourite
-        
+
         labelAmount.text = model.balance.displayText
 
         AssetLogo.logo(icon: model.asset.iconLogo,

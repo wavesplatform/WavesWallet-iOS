@@ -6,14 +6,14 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class ConfirmRequestTransactionKindCell: UITableViewCell, Reusable {
-    
     @IBOutlet private var transactionKindView: ConfirmRequestTransactionKindView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -24,7 +24,6 @@ final class ConfirmRequestTransactionKindCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension ConfirmRequestTransactionKindCell: ViewConfiguration {
-    
     func update(with model: ConfirmRequestTransactionKindView.Model) {
         transactionKindView.update(with: model)
     }

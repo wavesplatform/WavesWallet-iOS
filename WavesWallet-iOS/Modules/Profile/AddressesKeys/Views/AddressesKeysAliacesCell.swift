@@ -8,6 +8,7 @@
 
 import Extensions
 import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 60
@@ -45,7 +46,7 @@ extension AddressesKeysAliacesCell: ViewConfiguration {
     struct Model {
         let count: Int
     }
-    
+
     // модель с 1 полем? зачем?
     func update(with model: AddressesKeysAliacesCell.Model) {
         if model.count == 0 {

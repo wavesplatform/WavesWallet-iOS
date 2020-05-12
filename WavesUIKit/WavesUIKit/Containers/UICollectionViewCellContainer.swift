@@ -1,13 +1,14 @@
 //
 //  UICollectionViewCellContainer.swift
-//  WavesWallet-iOS
+//  WavesUIKit
 //
-//  Created by vvisotskiy on 20.03.2020.
-//  Copyright © 2020 Waves Platform. All rights reserved.
+//  Created by vvisotskiy on 13.05.2020.
+//  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
 import Extensions
 import UIKit
+import UITools
 
 open class UICollectionViewXibContainerCell<T>: UICollectionViewContainerCell<T> where T: UIView & NibReusable {
     open override class func makeViewInstanse() -> T {

@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let statusBarPadding: CGFloat = 32
@@ -18,12 +19,10 @@ fileprivate enum Constants {
 }
 
 protocol WalletLeasingBalanceCellDelegate: AnyObject {
-
     func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money)
 }
 
 final class WalletLeasingBalanceCell: UITableViewCell, NibReusable {
-    
     @IBOutlet private weak var viewContainer: UIView!
 
     @IBOutlet private weak var avaliableTitleLabel: UILabel!
@@ -38,12 +37,12 @@ final class WalletLeasingBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var leasedWidth: NSLayoutConstraint!
 
     @IBOutlet private weak var viewContainerLeasedTotalBalance: UIView!
-    
+
     private var leasedPercent: CGFloat = 0
     private var availableMoney: Money!
-    
+
     weak var delegate: WalletLeasingBalanceCellDelegate?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
@@ -52,7 +51,6 @@ final class WalletLeasingBalanceCell: UITableViewCell, NibReusable {
     }
 
     override func updateConstraints() {
-
         let viewWidth = frame.width - Constants.statusBarPadding * 2
         leasedWidth.constant = leasedPercent * viewWidth / 100
 
@@ -79,28 +77,26 @@ extension WalletLeasingBalanceCell: Localization {
 
 extension WalletLeasingBalanceCell: ViewConfiguration {
     func update(with model: WalletTypes.DTO.Leasing.Balance) {
-
         setupLocalization()
         availableMoney = model.avaliableMoney
-        
+
         labelAvaliableBalance.attributedText = .styleForBalance(text: model.avaliableMoney.displayText,
-                                                       font: labelAvaliableBalance.font)
+                                                                font: labelAvaliableBalance.font)
 
         leasedBalanceLabel.attributedText = .styleForBalance(text: model.leasedMoney.displayText,
-                                                                font: leasedBalanceLabel.font)
+                                                             font: leasedBalanceLabel.font)
 
         labelTotalBalance.attributedText = .styleForBalance(text: model.totalMoney.displayText,
-                                                             font: labelTotalBalance.font)
+                                                            font: labelTotalBalance.font)
 
         leasedPercent = CGFloat(model.leasedMoney.amount) / CGFloat(model.avaliableMoney.amount) * 100
 
-        if model.avaliableMoney.isZero && model.leasedMoney.isZero && model.totalMoney.isZero {
+        if model.avaliableMoney.isZero, model.leasedMoney.isZero, model.totalMoney.isZero {
             viewContainerLeasedTotalBalance.isHidden = true
-        }
-        else {
+        } else {
             viewContainerLeasedTotalBalance.isHidden = false
         }
-        
+
         if leasedPercent < Constants.statusBarMinSmallPercent {
             leasedPercent = Constants.statusBarMinSmallPercent
         }
@@ -116,13 +112,11 @@ extension WalletLeasingBalanceCell: ViewConfiguration {
 }
 
 extension WalletLeasingBalanceCell: ViewCalculateHeight {
-    
-    static func viewHeight(model: WalletTypes.DTO.Leasing.Balance, width: CGFloat) -> CGFloat {
-        
-        if model.avaliableMoney.isZero && model.leasedMoney.isZero && model.totalMoney.isZero {
+    static func viewHeight(model: WalletTypes.DTO.Leasing.Balance, width _: CGFloat) -> CGFloat {
+        if model.avaliableMoney.isZero, model.leasedMoney.isZero, model.totalMoney.isZero {
             return Constants.height - Constants.blockLeasedTotalBalanceHeight
         }
-       
+
         return Constants.height
     }
 }

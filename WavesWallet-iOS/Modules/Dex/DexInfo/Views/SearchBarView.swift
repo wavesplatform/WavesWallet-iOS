@@ -6,31 +6,30 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 protocol SearchBarViewDelegate: AnyObject {
-    
     func searchBarDidChangeText(_ searchText: String)
 }
 
 final class SearchBarView: UIView, NibOwnerLoadable {
-
     @IBOutlet private(set) weak var textField: UITextField!
-    
+
     @IBOutlet private weak var iconImageView: UIImageView!
-    
+
     @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
 
     weak var delegate: SearchBarViewDelegate?
-    
+
     var searchText: String {
         if let text = textField.text {
             return text
         }
         return ""
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNibContent()
@@ -40,47 +39,47 @@ final class SearchBarView: UIView, NibOwnerLoadable {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        textField.attributedPlaceholder = NSAttributedString(string: Localizable.Waves.Dexmarket.Searchbar.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.basic500])
+        textField
+            .attributedPlaceholder = NSAttributedString(string: Localizable.Waves.Dexmarket.Searchbar.placeholder,
+                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.basic500])
     }
-    
+
     override func becomeFirstResponder() -> Bool {
         return textField.becomeFirstResponder()
     }
-    
+
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
-    
+
     func startLoading() {
         iconImageView.isHidden = true
         indicatorView.isHidden = false
         indicatorView.startAnimating()
     }
-    
+
     func stopLoading() {
         iconImageView.isHidden = false
         indicatorView.stopAnimating()
         indicatorView.isHidden = true
     }
-    
 }
 
 // MARK: UITextFieldDelegate
+
 extension SearchBarView: UITextFieldDelegate {
-    
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_: UITextField) {
         iconImageView.image = Images.search24Black.image
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
+
+    func textFieldDidEndEditing(_: UITextField) {
         iconImageView.image = Images.search24Basic500.image
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -90,8 +89,7 @@ extension SearchBarView: UITextFieldDelegate {
 // MARK: - Actions
 
 private extension SearchBarView {
-    
-    @IBAction func textFieldDidChange(_ sender: Any) {
+    @IBAction func textFieldDidChange(_: Any) {
         if let text = textField.text {
             delegate?.searchBarDidChangeText(text)
         }

@@ -6,11 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class AssetHeaderView: UITableViewHeaderFooterView, NibReusable, ViewCalculateHeight {
-
     @IBOutlet private var labelTitle: UILabel!
 
     override func awakeFromNib() {
@@ -23,7 +23,7 @@ final class AssetHeaderView: UITableViewHeaderFooterView, NibReusable, ViewCalcu
         }()
     }
 
-    class func viewHeight(model: AssetHeaderView.Model, width: CGFloat) -> CGFloat {
+    class func viewHeight(model _: AssetHeaderView.Model, width _: CGFloat) -> CGFloat {
         return 48
     }
 }

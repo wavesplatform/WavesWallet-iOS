@@ -6,12 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class TransactionCardSponsorshipDetailCell: UITableViewCell, Reusable {
-
     struct Model {
         let balance: BalanceLabel.Model
     }
@@ -25,16 +25,14 @@ final class TransactionCardSponsorshipDetailCell: UITableViewCell, Reusable {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        separatorInset = .init(top: 0, left: self.bounds.width, bottom: 0, right: 0)
+        separatorInset = .init(top: 0, left: bounds.width, bottom: 0, right: 0)
     }
 }
 
 // MARK: ViewConfiguration
 
 extension TransactionCardSponsorshipDetailCell: ViewConfiguration {
-
     func update(with model: TransactionCardSponsorshipDetailCell.Model) {
-
         titleLabel.text = Localizable.Waves.Transactioncard.Title.amountPerTransaction
 
         balanceLabel.update(with: model.balance)

@@ -6,22 +6,23 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 108
 }
 
 final class MyAddressAliacesCell: UITableViewCell, Reusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subTitleLabel: UILabel!
     @IBOutlet private var infoButton: UIButton!
 
     var infoButtonDidTap: (() -> Void)?
-    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlerTapGesture(gesture:)))
+    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                                 action: #selector(handlerTapGesture(gesture:)))
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,11 +32,11 @@ final class MyAddressAliacesCell: UITableViewCell, Reusable {
         infoButton.addTarget(self, action: #selector(actionTouchInfoButton(sender:)), for: .touchUpInside)
     }
 
-    @objc func actionTouchInfoButton(sender: UIButton) {
+    @objc func actionTouchInfoButton(sender _: UIButton) {
         infoButtonDidTap?()
     }
 
-    @objc func handlerTapGesture(gesture: UITapGestureRecognizer) {
+    @objc func handlerTapGesture(gesture _: UITapGestureRecognizer) {
         infoButtonDidTap?()
     }
 }
@@ -43,13 +44,11 @@ final class MyAddressAliacesCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension MyAddressAliacesCell: ViewConfiguration {
-
     struct Model {
         let count: Int
     }
 
     func update(with model: MyAddressAliacesCell.Model) {
-
         if model.count == 0 {
             subTitleLabel.text = Localizable.Waves.Myaddress.Cell.Aliases.Subtitle.withoutaliaces
         } else {
@@ -61,18 +60,15 @@ extension MyAddressAliacesCell: ViewConfiguration {
 // MARK: ViewHeight
 
 extension MyAddressAliacesCell: ViewHeight {
-
     static func viewHeight() -> CGFloat {
         return Constants.height
     }
 }
 
-
 // MARK: Localization
 
 extension MyAddressAliacesCell: Localization {
-
     func setupLocalization() {
-        self.titleLabel.text = Localizable.Waves.Myaddress.Cell.Aliases.title
+        titleLabel.text = Localizable.Waves.Myaddress.Cell.Aliases.title
     }
 }

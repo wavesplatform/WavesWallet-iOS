@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let defaultHeight: CGFloat = 56
@@ -15,24 +16,23 @@ private enum Constants {
 }
 
 final class AssetBurnCell: UITableViewCell, NibReusable {
-
     struct Model {
         let isSpam: Bool
     }
-    
+
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var topOffset: NSLayoutConstraint!
-    
-    var burnAction:(() -> Void)?
-    
+
+    var burnAction: (() -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
         labelTitle.text = Localizable.Waves.Tokenburn.Label.tokenBurn
     }
-    
-    @IBAction private func burnTapped(_ sender: Any) {
+
+    @IBAction private func burnTapped(_: Any) {
         burnAction?()
     }
 }
@@ -44,8 +44,7 @@ extension AssetBurnCell: ViewConfiguration {
 }
 
 extension AssetBurnCell: ViewCalculateHeight {
-    
-    static func viewHeight(model: AssetBurnCell.Model, width: CGFloat) -> CGFloat {
+    static func viewHeight(model: AssetBurnCell.Model, width _: CGFloat) -> CGFloat {
         return model.isSpam ? Constants.defaultHeight : Constants.defaultHeight + Constants.topOffset
     }
 }

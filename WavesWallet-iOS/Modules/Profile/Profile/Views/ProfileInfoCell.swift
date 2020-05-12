@@ -6,21 +6,21 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 258
 }
 
 final class ProfileInfoCell: UITableViewCell, Reusable {
-
     struct Model {
         let version: String
         let height: String?
         let isLoadingHeight: Bool
     }
-    
+
     @IBOutlet private weak var deleteButton: UIButton!
     @IBOutlet private weak var logoutButton: UIButton!
 
@@ -48,16 +48,14 @@ final class ProfileInfoCell: UITableViewCell, Reusable {
     }
 }
 
-
 // MARK: Action
 
 private extension ProfileInfoCell {
-
-    @IBAction private func deleteAccount(sender: UIButton) {
+    @IBAction private func deleteAccount(sender _: UIButton) {
         deleteButtonDidTap?()
     }
 
-    @IBAction private func logoutAccount(sender: UIButton) {
+    @IBAction private func logoutAccount(sender _: UIButton) {
         logoutButtonDidTap?()
     }
 }
@@ -65,10 +63,7 @@ private extension ProfileInfoCell {
 // MARK: ViewConfiguration
 
 extension ProfileInfoCell: ViewConfiguration {
-
     func update(with model: ProfileInfoCell.Model) {
-
-
         deleteButton.setTitle(Localizable.Waves.Profile.Button.Delete.title, for: .normal)
         logoutButton.setTitle(Localizable.Waves.Profile.Button.Logout.title, for: .normal)
 
@@ -85,4 +80,3 @@ extension ProfileInfoCell: ViewConfiguration {
         }
     }
 }
-

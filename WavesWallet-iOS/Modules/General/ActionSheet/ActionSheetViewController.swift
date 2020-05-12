@@ -6,6 +6,7 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import UITools
 import UIKit
 
 private enum Constants {

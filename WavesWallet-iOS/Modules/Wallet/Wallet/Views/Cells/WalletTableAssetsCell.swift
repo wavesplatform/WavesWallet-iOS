@@ -6,10 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
-import Extensions
 import DomainLayer
+import Extensions
+import RxSwift
+import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let height: CGFloat = 76
@@ -24,15 +25,11 @@ final class WalletTableAssetsCell: UITableViewCell, NibReusable {
     @IBOutlet private var viewSpam: UIView!
     @IBOutlet private weak var labelSpam: UILabel!
     private var disposeBag: DisposeBag = DisposeBag()
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContent.addTableCellShadowStyle()
         labelSpam.text = Localizable.Waves.General.Ticker.Title.spam
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
     }
 
     override func prepareForReuse() {
@@ -42,13 +39,12 @@ final class WalletTableAssetsCell: UITableViewCell, NibReusable {
     }
 
     class func cellHeight() -> CGFloat {
-        return Constants.height
+        Constants.height
     }
 }
 
 extension WalletTableAssetsCell: ViewConfiguration {
     func update(with model: DomainLayer.DTO.SmartAssetBalance) {
-        
         labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.asset.displayName,
                                                                            isMyAsset: model.asset.isMyWavesToken)
 
@@ -59,12 +55,11 @@ extension WalletTableAssetsCell: ViewConfiguration {
         let text = balance.displayShortText
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
-        
+
         AssetLogo.logo(icon: model.asset.iconLogo,
                        style: .large)
             .observeOn(MainScheduler.instance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)
-
     }
 }

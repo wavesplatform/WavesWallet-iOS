@@ -6,16 +6,17 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let padding: CGFloat = 14
 }
 
 final class AssetViewHistoryCell: UITableViewCell, NibReusable {
-    @IBOutlet var viewContainer: UIView!
-    @IBOutlet var button: UIButton!
+    @IBOutlet private var viewContainer: UIView!
+    @IBOutlet private var button: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,20 +31,16 @@ final class AssetViewHistoryCell: UITableViewCell, NibReusable {
 }
 
 final class AssetViewHistoryButton: UIButton {
-
-
     override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
-
         let iconSize = super.imageRect(forContentRect: contentRect).size
 
         return CGRect(x: contentRect.size.width - iconSize.width - Constants.padding,
-                      y: ((contentRect.height - iconSize.height) * 0.5),
+                      y: (contentRect.height - iconSize.height) * 0.5,
                       width: iconSize.width,
                       height: iconSize.height)
     }
 
     override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-
         let titleSize = super.titleRect(forContentRect: contentRect).size
 
         return CGRect(x: 14,

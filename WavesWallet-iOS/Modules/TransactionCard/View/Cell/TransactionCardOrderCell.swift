@@ -6,12 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class TransactionCardOrderCell: UITableViewCell, Reusable {
-
     struct Model {
         let amount: BalanceLabel.Model
         let price: BalanceLabel.Model
@@ -40,9 +40,7 @@ final class TransactionCardOrderCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardOrderCell: ViewConfiguration {
-
     func update(with model: TransactionCardOrderCell.Model) {
-
         amountTitleLabel.text = Localizable.Waves.Transactioncard.Title.amount
         amountBalanceLabel.update(with: model.amount)
 
@@ -53,5 +51,3 @@ extension TransactionCardOrderCell: ViewConfiguration {
         totalBalanceLabel.update(with: model.total)
     }
 }
-
-

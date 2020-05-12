@@ -12,6 +12,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import UITools
 
 private enum Constants {
     static let buttonHeight: CGFloat = 40
@@ -22,21 +23,21 @@ final class AssetListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var viewLoading: UIView!
     @IBOutlet private weak var labelLoading: UILabel!
-    
+
     private var modelSection = AssetList.ViewModel.Section(items: [])
     private var isSearchMode: Bool = false
     private let sendEvent: PublishRelay<AssetList.Event> = PublishRelay<AssetList.Event>()
-    
+
     var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     var presenter: AssetListPresenterProtocol!
     var showAllList = true
-    
+
     private var isMyList = false
     private var isNeedCheckAssetsBalance = true
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupLocalization()
         createBackButton()
         setupFeedBack()
@@ -44,19 +45,19 @@ final class AssetListViewController: UIViewController {
         searchBar.delegate = self
         tableView.keyboardDismissMode = .onDrag
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
         removeTopBarLine()
         navigationItem.backgroundImage = UIImage()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationItem.backgroundImage = nil
     }
-    
+
     @objc private func updateMyListTapped() {
         isMyList.toggle()
         createButtonList()
@@ -71,7 +72,7 @@ private extension AssetListViewController {
         let feedback = bind(self) { owner, state -> Bindings<AssetList.Event> in
             Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
-        
+
         let readyViewFeedback: AssetListPresenter.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
             return self.rx
@@ -82,15 +83,15 @@ private extension AssetListViewController {
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
-    
+
     func events() -> [Signal<AssetList.Event>] { [sendEvent.asSignal()] }
-    
+
     func subscriptions(state: Driver<AssetList.State>) -> [Disposable] {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 guard let self = self else { return }
                 guard state.action != .none else { return }
-                
+
                 if self.isNeedCheckAssetsBalance {
                     self.isNeedCheckAssetsBalance = false
                     if !state.section.isEmptyAssetsBalance {
@@ -101,7 +102,7 @@ private extension AssetListViewController {
                 self.tableView.reloadData()
                 self.setupDefaultState()
             })
-        
+
         return [subscriptionSections]
     }
 }
@@ -129,22 +130,22 @@ extension AssetListViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension AssetListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         modelSection.items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell() as AssetListTableViewCell
-        
+
         let assetBalance = modelSection.items[indexPath.row].asset
-        
+
         let asset = assetBalance.asset
         let isChecked = assetBalance.assetId == selectedAsset?.assetId
         let money = Money(assetBalance.availableBalance, asset.precision)
         let isFavourite = assetBalance.settings.isFavorite
-        
+
         cell.update(with: .init(asset: asset, balance: money, isChecked: isChecked, isFavourite: isFavourite))
-        
+
         return cell
     }
 }
@@ -156,7 +157,7 @@ private extension AssetListViewController {
         if showAllList == false {
             return
         }
-        
+
         let font = UIFont.systemFont(ofSize: 17)
         let title = isMyList ? Localizable.Waves.Assetlist.Button.allList : Localizable.Waves.Assetlist.Button.withBalance
         let button = UIButton(type: .system)
@@ -167,18 +168,18 @@ private extension AssetListViewController {
         button.addTarget(self, action: #selector(updateMyListTapped), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
-    
+
     func setupLocalization() {
         title = Localizable.Waves.Assetlist.Label.assets
         labelLoading.text = Localizable.Waves.Assetlist.Label.loadingAssets
     }
-    
+
     func setupLoadingState() {
         viewLoading.isHidden = false
         tableView.isHidden = true
         searchBar.isHidden = true
     }
-    
+
     func setupDefaultState() {
         viewLoading.isHidden = true
         tableView.isHidden = false

@@ -12,6 +12,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let segmentedControlHeight: CGFloat = 100
@@ -22,7 +23,7 @@ fileprivate enum Constants {
 
 final class AssetDetailViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
-    @IBOutlet var segmentedControl: WrapperAssetsSegmentedControl!
+    @IBOutlet private var segmentedControl: WrapperAssetsSegmentedControl!
 
     private var refreshControl: UIRefreshControl!
     private var isHiddenSegmentedControl = false
@@ -132,7 +133,7 @@ private extension AssetDetailViewController {
         let eventChangedAsset = segmentedControl.currentAssetId()
             .compactMap { $0 }
             .map { AssetDetailTypes.Event.changedAsset(id: $0) }
-        
+
         let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: false) }
         let favoriteOff = favoriteOffBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: true) }
         let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal()

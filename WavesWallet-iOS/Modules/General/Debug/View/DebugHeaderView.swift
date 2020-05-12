@@ -6,19 +6,19 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 44
 }
 
 final class DebugHeaderView: UITableViewHeaderFooterView, NibReusable {
-    
     @IBOutlet private var labelTitle: UILabel!
-    
+
     class func viewHeight() -> CGFloat {
-        return Constants.height
+        Constants.height
     }
 }
 
@@ -29,4 +29,3 @@ extension DebugHeaderView: ViewConfiguration {
         labelTitle.text = model
     }
 }
-

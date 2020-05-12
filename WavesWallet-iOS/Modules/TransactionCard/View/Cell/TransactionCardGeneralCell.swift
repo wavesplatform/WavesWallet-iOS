@@ -6,14 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class TransactionCardGeneralCell: UITableViewCell, Reusable {
-
     struct Model {
-
         enum Info {
             case balance(BalanceLabel.Model)
             case descriptionLabel(String)
@@ -26,13 +25,9 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
     }
 
     @IBOutlet private var balanceLabel: BalanceLabel!
-
     @IBOutlet private var titleLabel: UILabel!
-
     @IBOutlet private var descriptionLabel: UILabel!
-
     @IBOutlet private var stackViewLabel: UIStackView!
-
     @IBOutlet private var transactionImageView: TransactionImageView!
 
     override func awakeFromNib() {
@@ -41,12 +36,12 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
 
     private func showInfo(_ info: Model.Info) {
         switch info {
-        case .balance(let balance):
+        case let .balance(balance):
             balanceLabel.update(with: balance)
             balanceLabel.isHidden = false
             descriptionLabel.isHidden = true
 
-        case .descriptionLabel(let text):
+        case let .descriptionLabel(text):
 
             let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .bold)]
             let attrString = NSMutableAttributedString(string: text, attributes: attributes)
@@ -56,7 +51,7 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
             descriptionLabel.isHidden = false
 
         case let .status(percent, status):
-            
+
             let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .bold)]
             let attrString = NSMutableAttributedString(string: percent, attributes: attributes)
 
@@ -75,9 +70,7 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardGeneralCell: ViewConfiguration {
-
     func update(with model: TransactionCardGeneralCell.Model) {
-
         titleLabel.text = model.title
         transactionImageView.update(with: model.image)
         showInfo(model.info)

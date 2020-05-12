@@ -6,35 +6,34 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
+import UIKit
+import UITools
 
 protocol AddressBookCellDelegate: AnyObject {
     func addressBookCellDidTapEdit(_ cell: AddressBookCell)
 }
 
 final class AddressBookCell: UITableViewCell, Reusable {
-
     @IBOutlet private weak var labelName: UILabel!
     @IBOutlet private weak var labelAddress: UILabel!
     @IBOutlet private weak var buttonEdit: UIButton!
     @IBOutlet private weak var iconCheckmark: UIImageView!
-    
+
     weak var delegate: AddressBookCellDelegate?
-    
-    @IBAction private func buttonTapped(_ sender: Any) {
+
+    @IBAction private func buttonTapped(_: Any) {
         delegate?.addressBookCellDidTapEdit(self)
     }
 }
 
 extension AddressBookCell: ViewConfiguration {
-    
     struct Input {
         let contact: DomainLayer.DTO.Contact
         let isEditMode: Bool
     }
-    
+
     func update(with model: Input) {
         labelName.text = model.contact.name
         labelAddress.text = model.contact.address

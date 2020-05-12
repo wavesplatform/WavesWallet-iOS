@@ -9,6 +9,7 @@
 import DomainLayer
 import Extensions
 import UIKit
+import UITools
 import WavesSDK
 import WavesSDKExtensions
 

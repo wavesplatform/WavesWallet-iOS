@@ -9,10 +9,11 @@
 import UIKit
 import Skeleton
 import Extensions
+import UITools
 
 final class HeaderSkeletonView: UITableViewHeaderFooterView, SkeletonAnimatable, NibReusable {
     
-    @IBOutlet var views: [GradientContainerView]!
+    @IBOutlet private var views: [GradientContainerView]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +21,6 @@ final class HeaderSkeletonView: UITableViewHeaderFooterView, SkeletonAnimatable,
         let baseColor = UIColor.basic100
         let nextColor = UIColor.basic50
         gradientLayers.forEach { gradientLayer in
-            
             gradientLayer.colors = [baseColor.cgColor,
                                     nextColor.cgColor,
                                     baseColor.cgColor]
@@ -28,10 +28,8 @@ final class HeaderSkeletonView: UITableViewHeaderFooterView, SkeletonAnimatable,
     }
     
     var gradientLayers: [CAGradientLayer] {
-        return views.map { $0.gradientLayer }
+        views.map { $0.gradientLayer }
     }
     
-    class func cellHeight() -> CGFloat {
-        return 36
-    }
+    class func cellHeight() -> CGFloat { 36 }
 }

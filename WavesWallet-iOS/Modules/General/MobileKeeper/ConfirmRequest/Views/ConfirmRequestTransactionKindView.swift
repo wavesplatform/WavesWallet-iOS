@@ -6,33 +6,33 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class ConfirmRequestTransactionKindView: UIView, NibOwnerLoadable {
-    
     enum Info {
         case balance(BalanceLabel.Model)
         case descriptionLabel(String)
     }
-    
+
     struct Model {
         let title: String
         let image: UIImage
         let info: Info
     }
-    
+
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var infoLabel: UILabel!
     @IBOutlet private var balanceLabel: BalanceLabel!
     @IBOutlet private var iconImageView: UIImageView!
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -41,23 +41,20 @@ final class ConfirmRequestTransactionKindView: UIView, NibOwnerLoadable {
 // MARK: ViewConfiguration
 
 extension ConfirmRequestTransactionKindView: ViewConfiguration {
-    
     func update(with model: Model) {
-        
         switch model.info {
-        case .balance(let model):
-            self.infoLabel.isHidden = true
-            self.balanceLabel.isHidden = false
-            self.balanceLabel.update(with: model)
-            
-        case .descriptionLabel(let text):
-            self.infoLabel.text = text
-            self.infoLabel.isHidden = false
-            self.balanceLabel.isHidden = true
+        case let .balance(model):
+            infoLabel.isHidden = true
+            balanceLabel.isHidden = false
+            balanceLabel.update(with: model)
+
+        case let .descriptionLabel(text):
+            infoLabel.text = text
+            infoLabel.isHidden = false
+            balanceLabel.isHidden = true
         }
-        
-        self.iconImageView.image = model.image
-        self.titleLabel.text = model.title
+
+        iconImageView.image = model.image
+        titleLabel.text = model.title
     }
 }
-

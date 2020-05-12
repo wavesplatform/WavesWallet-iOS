@@ -10,6 +10,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import UITools
 
 private enum Constants {
     static let topBarHeight: CGFloat = 42

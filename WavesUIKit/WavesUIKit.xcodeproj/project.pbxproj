@@ -20,6 +20,14 @@
 		871450A5246243E100A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509E246243E100A17BA9 /* StandartTools.framework */; };
 		871450A6246243E200A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509E246243E100A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871450A92462440000A17BA9 /* ResetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871450A82462440000A17BA9 /* ResetableView.swift */; };
+		87ED721B246B535E002CAD29 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721A246B535E002CAD29 /* NibLoadable.swift */; };
+		87ED721D246B5418002CAD29 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721C246B5418002CAD29 /* Reusable.swift */; };
+		87ED721F246B5684002CAD29 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721E246B5684002CAD29 /* NibOwnerLoadable.swift */; };
+		87ED7221246B5706002CAD29 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7220246B5706002CAD29 /* UITableView+Reusable.swift */; };
+		87ED7223246B5728002CAD29 /* UICollectionView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7222246B5728002CAD29 /* UICollectionView+Reusable.swift */; };
+		87ED7229246B6B49002CAD29 /* ContainerContentConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7228246B6B49002CAD29 /* ContainerContentConstraints.swift */; };
+		87ED722D246B6B84002CAD29 /* UITableViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED722C246B6B84002CAD29 /* UITableViewCellContainer.swift */; };
+		87ED722F246B6BB4002CAD29 /* UICollectionViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */; };
 		FFB670B1FC15E843126D6F0F /* Pods_WavesUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D4BC507E3B0AD674153F228 /* Pods_WavesUIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +86,14 @@
 		8714509D246243E100A17BA9 /* AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714509E246243E100A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		871450A82462440000A17BA9 /* ResetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetableView.swift; sourceTree = "<group>"; };
+		87ED721A246B535E002CAD29 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		87ED721C246B5418002CAD29 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		87ED721E246B5684002CAD29 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
+		87ED7220246B5706002CAD29 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
+		87ED7222246B5728002CAD29 /* UICollectionView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Reusable.swift"; sourceTree = "<group>"; };
+		87ED7228246B6B49002CAD29 /* ContainerContentConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerContentConstraints.swift; sourceTree = "<group>"; };
+		87ED722C246B6B84002CAD29 /* UITableViewCellContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellContainer.swift; sourceTree = "<group>"; };
+		87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellContainer.swift; sourceTree = "<group>"; };
 		A63F83980BD24EF172B1AD4F /* Pods-WavesUIKit.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.test-dev.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.test-dev.xcconfig"; sourceTree = "<group>"; };
 		A996E98DCF8D1F935604EA1A /* Pods-WavesUIKit.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.release-dev.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.release-dev.xcconfig"; sourceTree = "<group>"; };
 		C14AFAF9CDCA109517EC3290 /* Pods-WavesUIKit.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +146,7 @@
 		87145069246242A200A17BA9 /* WavesUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				87ED722B246B6B7A002CAD29 /* Containers */,
 				8714506A246242A200A17BA9 /* WavesUIKit.h */,
 				8714506B246242A200A17BA9 /* Info.plist */,
 			);
@@ -139,6 +156,7 @@
 		871450822462432200A17BA9 /* UITools */ = {
 			isa = PBXGroup;
 			children = (
+				87ED7219246B534E002CAD29 /* Helpers */,
 				87145094246243B600A17BA9 /* ResetableView */,
 				871450832462432200A17BA9 /* UITools.h */,
 				871450842462432200A17BA9 /* Info.plist */,
@@ -164,6 +182,28 @@
 				2D4BC507E3B0AD674153F228 /* Pods_WavesUIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		87ED7219246B534E002CAD29 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				87ED721A246B535E002CAD29 /* NibLoadable.swift */,
+				87ED721C246B5418002CAD29 /* Reusable.swift */,
+				87ED721E246B5684002CAD29 /* NibOwnerLoadable.swift */,
+				87ED7220246B5706002CAD29 /* UITableView+Reusable.swift */,
+				87ED7222246B5728002CAD29 /* UICollectionView+Reusable.swift */,
+				87ED7228246B6B49002CAD29 /* ContainerContentConstraints.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		87ED722B246B6B7A002CAD29 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				87ED722C246B6B84002CAD29 /* UITableViewCellContainer.swift */,
+				87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */,
+			);
+			path = Containers;
 			sourceTree = "<group>";
 		};
 		F4C9BADFAA66D4CB1C96C025 /* Pods */ = {
@@ -254,6 +294,7 @@
 				TargetAttributes = {
 					87145066246242A200A17BA9 = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 					871450802462432200A17BA9 = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -327,6 +368,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87ED722F246B6BB4002CAD29 /* UICollectionViewCellContainer.swift in Sources */,
+				87ED722D246B6B84002CAD29 /* UITableViewCellContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +377,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87ED7221246B5706002CAD29 /* UITableView+Reusable.swift in Sources */,
+				87ED721D246B5418002CAD29 /* Reusable.swift in Sources */,
+				87ED721F246B5684002CAD29 /* NibOwnerLoadable.swift in Sources */,
+				87ED7223246B5728002CAD29 /* UICollectionView+Reusable.swift in Sources */,
+				87ED7229246B6B49002CAD29 /* ContainerContentConstraints.swift in Sources */,
 				871450A92462440000A17BA9 /* ResetableView.swift in Sources */,
+				87ED721B246B535E002CAD29 /* NibLoadable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +522,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0C7AD0BD6E2504AA76A0D621 /* Pods-WavesUIKit.dev-debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -491,6 +542,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -500,6 +552,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C14AFAF9CDCA109517EC3290 /* Pods-WavesUIKit.dev-adhoc.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -584,6 +638,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 36D01018AC45373557505C75 /* Pods-WavesUIKit.release-prod.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -668,6 +724,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 471F08B55FDDCF85A9E70150 /* Pods-WavesUIKit.release-adhoc.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -752,6 +810,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A996E98DCF8D1F935604EA1A /* Pods-WavesUIKit.release-dev.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -836,6 +896,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A63F83980BD24EF172B1AD4F /* Pods-WavesUIKit.test-dev.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -920,6 +982,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3BDBFD027CCF852C1657740F /* Pods-WavesUIKit.test-prod.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -947,6 +1011,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1029,6 +1094,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1105,6 +1171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1181,6 +1248,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1257,6 +1325,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1333,6 +1402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1409,6 +1479,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

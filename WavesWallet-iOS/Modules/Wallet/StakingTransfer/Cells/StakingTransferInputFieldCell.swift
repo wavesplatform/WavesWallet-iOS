@@ -6,56 +6,51 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
-import Extensions
 import DomainLayer
+import Extensions
 import TTTAttributedLabel
+import UIKit
+import UITools
 
 final class StakingTransferInputFieldCell: UITableViewCell, NibReusable {
-    
     struct Model: Hashable {
-                
-        let title: NSAttributedString        
+        let title: NSAttributedString
         let balance: BalanceInputField.Model
         let hasDecimal: Bool
     }
-    
+
     @IBOutlet private weak var balanceInputField: BalanceInputField!
     @IBOutlet private weak var titleLabel: TTTAttributedLabel!
-            
+
     var didSelectLinkWith: ((URL) -> Void)?
     var didChangeInput: ((_ value: Money?) -> Void)? {
         didSet {
             balanceInputField.didChangeInput = didChangeInput
         }
     }
-    
+
     var didTapButtonDoneOnKeyboard: (() -> Void)? {
         didSet {
             balanceInputField.didTapButtonDoneOnKeyboard = didTapButtonDoneOnKeyboard
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         titleLabel.activeLinkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.linkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.delegate = self
         balanceInputField.didChangeInput = didChangeInput
     }
-        
-    override func becomeFirstResponder() -> Bool {
-        return balanceInputField.becomeFirstResponder()
-    }
+
+    override func becomeFirstResponder() -> Bool { balanceInputField.becomeFirstResponder() }
 }
 
 // MARK: ViewConfiguration
 
 extension StakingTransferInputFieldCell: ViewConfiguration {
-    
     func update(with model: StakingTransferInputFieldCell.Model) {
-        
         if model.hasDecimal {
             balanceInputField.setKeyboardType(.decimalPad)
         } else {
@@ -70,11 +65,9 @@ extension StakingTransferInputFieldCell: ViewConfiguration {
 // MARK: TTTAttributedLabelDelegate
 
 extension StakingTransferInputFieldCell: TTTAttributedLabelDelegate {
-    
-    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        
+    func attributedLabel(_: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         guard let url = url else { return }
-        
-        self.didSelectLinkWith?(url)
+
+        didSelectLinkWith?(url)
     }
 }

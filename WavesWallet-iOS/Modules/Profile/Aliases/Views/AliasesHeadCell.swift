@@ -6,15 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 156
 }
 
 final class AliasesHeadCell: UITableViewCell, Reusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
 
@@ -27,8 +27,7 @@ final class AliasesHeadCell: UITableViewCell, Reusable {
 // MARK: ViewCalculateHeight
 
 extension AliasesHeadCell: ViewCalculateHeight {
-
-    static func viewHeight(model: Void, width: CGFloat) -> CGFloat {
+    static func viewHeight(model _: Void, width _: CGFloat) -> CGFloat {
         return Constants.height
     }
 }
@@ -36,7 +35,6 @@ extension AliasesHeadCell: ViewCalculateHeight {
 // MARK: Localization
 
 extension AliasesHeadCell: Localization {
-
     func setupLocalization() {
         titleLabel.text = Localizable.Waves.Aliases.Cell.Head.title
     }

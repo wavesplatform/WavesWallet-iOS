@@ -6,14 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
+import UIKit
+import UITools
 
 final class WalletLeasingCell: UITableViewCell, NibReusable {
-    @IBOutlet var labelTitle: UILabel!
-    @IBOutlet var labelMoney: UILabel!
-    @IBOutlet var viewContainer: UIView!
+    @IBOutlet private var labelTitle: UILabel!
+    @IBOutlet private var labelMoney: UILabel!
+    @IBOutlet private var viewContainer: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,7 +22,7 @@ final class WalletLeasingCell: UITableViewCell, NibReusable {
     }
 
     class func cellHeight() -> CGFloat {
-        return 76
+        76
     }
 }
 
@@ -31,7 +32,7 @@ extension WalletLeasingCell: ViewConfiguration {
     func update(with model: DomainLayer.DTO.SmartTransaction) {
         labelTitle.text = Localizable.Waves.Wallet.Label.startedLeasing
 
-        if case .startedLeasing(let lease) = model.kind {
+        if case let .startedLeasing(lease) = model.kind {
             labelMoney.attributedText = .styleForBalance(text: lease.balance.money.displayText,
                                                          font: labelMoney.font)
         }

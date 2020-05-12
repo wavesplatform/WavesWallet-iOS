@@ -6,16 +6,16 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 private struct Constants {
     static let padding: CGFloat = 14
 }
 
 final class TransactionCardDashedLineCell: UITableViewCell, Reusable, ViewConfiguration {
-
     enum Model {
         case topPadding
         case bottomPadding
@@ -24,25 +24,24 @@ final class TransactionCardDashedLineCell: UITableViewCell, Reusable, ViewConfig
 
     private var model: Model?
 
-    @IBOutlet var topLayoutConstaint: NSLayoutConstraint!
-    @IBOutlet var bottomLayoutConstaint: NSLayoutConstraint!
+    @IBOutlet private var topLayoutConstaint: NSLayoutConstraint!
+    @IBOutlet private var bottomLayoutConstaint: NSLayoutConstraint!
 
     override func updateConstraints() {
-
         guard let model = model else { return }
 
         switch model {
         case .bottomPadding:
-            self.topLayoutConstaint.constant = 0
-            self.bottomLayoutConstaint.constant = Constants.padding
+            topLayoutConstaint.constant = 0
+            bottomLayoutConstaint.constant = Constants.padding
 
         case .topPadding:
-            self.topLayoutConstaint.constant = Constants.padding
-            self.bottomLayoutConstaint.constant = 0
+            topLayoutConstaint.constant = Constants.padding
+            bottomLayoutConstaint.constant = 0
 
         case .nonePadding:
-            self.topLayoutConstaint.constant = 0
-            self.bottomLayoutConstaint.constant = 0
+            topLayoutConstaint.constant = 0
+            bottomLayoutConstaint.constant = 0
         }
 
         super.updateConstraints()

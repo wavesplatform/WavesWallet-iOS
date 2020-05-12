@@ -6,16 +6,16 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let lineWidth: CGFloat = 0.75
     static let unselectedIconAlpha: CGFloat = 0.3
 }
 
-final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
-
+final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable {
     enum State {
         case none
         case selected
@@ -31,7 +31,8 @@ final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
 
     private(set) var key: String?
     var avatarDidTap: ((NewAccountAvatarView, String) -> Void)?
-    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapHandler(recognizer:)))
+    private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                                 action: #selector(tapHandler(recognizer:)))
 
     var state: State = .none {
         didSet {
@@ -62,7 +63,6 @@ final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
         addGestureRecognizer(tapGesture)
         loadNibContent()
         lineWidth = Constants.lineWidth
-
     }
 
     override func layoutSubviews() {
@@ -74,7 +74,7 @@ final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
         return iconImageView.frame.size
     }
 
-    @objc private func tapHandler(recognizer: UIGestureRecognizer) {
+    @objc private func tapHandler(recognizer _: UIGestureRecognizer) {
         guard state != .selected else { return }
         guard let key = key else { return }
 
@@ -84,9 +84,9 @@ final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
 }
 
 // MARK: UIGestureRecognizerDelegate
-extension NewAccountAvatarView: UIGestureRecognizerDelegate {
 
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+extension NewAccountAvatarView: UIGestureRecognizerDelegate {
+    override func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
         return true
     }
 }

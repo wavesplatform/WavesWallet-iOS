@@ -6,13 +6,13 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class TooltipSeparatorCell: UITableViewCell, Reusable {
-    
-    @IBOutlet var separatorView: SeparatorView!
-            
+    @IBOutlet private var separatorView: SeparatorView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         separatorView.lineColor = UIColor.accent100

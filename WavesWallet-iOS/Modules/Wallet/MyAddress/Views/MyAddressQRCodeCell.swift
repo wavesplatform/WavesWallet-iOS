@@ -1,14 +1,15 @@
 //
 //  AddressesKeysAddressCell.swift
-//  
+//
 //
 //  Created by mefilt on 26/10/2018.
 //
 
-import UIKit
-import QRCode
 import CoreImage
 import Extensions
+import QRCode
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 228
@@ -16,7 +17,6 @@ private enum Constants {
 }
 
 final class MyAddressQRCodeCell: UITableViewCell, Reusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var qrImageView: UIImageView!
@@ -30,33 +30,30 @@ final class MyAddressQRCodeCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension MyAddressQRCodeCell: ViewConfiguration {
-
     struct Model {
         let address: String
     }
 
     func update(with model: MyAddressQRCodeCell.Model) {
-        var qr = QRCode(model.address)        
+        var qr = QRCode(model.address)
         qr?.backgroundColor = CIColor(red: 248 / 255, green: 249 / 255, blue: 251 / 255)
         qr?.size = Constants.qrSize
-        qrImageView.image = qr?.image 
+        qrImageView.image = qr?.image
     }
 }
 
 // MARK: ViewHeight
 
 extension MyAddressQRCodeCell: ViewHeight {
-
     static func viewHeight() -> CGFloat {
         return Constants.height
     }
 }
+
 // MARK: Localization
 
 extension MyAddressQRCodeCell: Localization {
-
     func setupLocalization() {
-        self.titleLabel.text = Localizable.Waves.Myaddress.Cell.Qrcode.title
+        titleLabel.text = Localizable.Waves.Myaddress.Cell.Qrcode.title
     }
 }
-

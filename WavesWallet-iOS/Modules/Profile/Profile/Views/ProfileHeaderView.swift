@@ -6,20 +6,18 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 44
 }
 
 final class ProfileHeaderView: UITableViewHeaderFooterView, NibReusable {
-
     @IBOutlet private var labelTitle: UILabel!
 
-    class func viewHeight() -> CGFloat {
-        return Constants.height
-    }
+    class func viewHeight() -> CGFloat { Constants.height }
 }
 
 // MARK: ViewConfiguration

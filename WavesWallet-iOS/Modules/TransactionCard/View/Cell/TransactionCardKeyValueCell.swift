@@ -6,9 +6,10 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 private struct Constants {
     static let topPaddingLarge: CGFloat = 24
@@ -16,9 +17,7 @@ private struct Constants {
 }
 
 final class TransactionCardKeyValueCell: UITableViewCell, Reusable {
-
     struct Model {
-
         struct Style {
             enum Padding {
                 case largePadding
@@ -46,19 +45,18 @@ final class TransactionCardKeyValueCell: UITableViewCell, Reusable {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        separatorInset = .init(top: 0, left: self.bounds.width, bottom: 0, right: 0)
+        separatorInset = .init(top: 0, left: bounds.width, bottom: 0, right: 0)
     }
 
     override func updateConstraints() {
-
         guard let model = model else { return }
 
         switch model.style.padding {
         case .largePadding:
-            self.topLayoutConstaint.constant = Constants.topPaddingLarge
+            topLayoutConstaint.constant = Constants.topPaddingLarge
 
         case .normalPadding:
-            self.topLayoutConstaint.constant = Constants.topPaddingNormal
+            topLayoutConstaint.constant = Constants.topPaddingNormal
         }
 
         super.updateConstraints()
@@ -68,9 +66,7 @@ final class TransactionCardKeyValueCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardKeyValueCell: ViewConfiguration {
-
     func update(with model: TransactionCardKeyValueCell.Model) {
-        
         self.model = model
         keyLabel.text = model.key
         valueLabel.text = model.value

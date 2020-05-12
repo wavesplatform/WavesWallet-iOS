@@ -6,12 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class WalletHistorySkeletonCell: SkeletonTableCell, NibReusable {
-    
     @IBOutlet private weak var viewContent: UIView!
 
     override func awakeFromNib() {
@@ -20,7 +20,5 @@ final class WalletHistorySkeletonCell: SkeletonTableCell, NibReusable {
         backgroundColor = UIColor.basic50
     }
 
-    class func cellHeight() -> CGFloat {
-        return 56
-    }
+    class func cellHeight() -> CGFloat { 56 }
 }

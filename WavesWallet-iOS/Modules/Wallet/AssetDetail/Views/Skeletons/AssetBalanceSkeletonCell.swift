@@ -6,16 +6,16 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 fileprivate enum Constants {
     static var height: CGFloat = 268
 }
 
 final class AssetBalanceSkeletonCell: SkeletonTableCell, NibReusable {
-    
     @IBOutlet var viewContent: UIView!
     @IBOutlet var separatorViews: [SeparatorView]!
 
@@ -26,7 +26,5 @@ final class AssetBalanceSkeletonCell: SkeletonTableCell, NibReusable {
         separatorViews.forEach { $0.lineColor = .accent100 }
     }
 
-    class func cellHeight() -> CGFloat {
-        return Constants.height
-    }
+    class func cellHeight() -> CGFloat { Constants.height }
 }

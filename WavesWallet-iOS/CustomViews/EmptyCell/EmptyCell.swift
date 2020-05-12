@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
-final class EmptyCell: UITableViewCell, NibReusable { }
+final class EmptyCell: UITableViewCell, NibReusable {}

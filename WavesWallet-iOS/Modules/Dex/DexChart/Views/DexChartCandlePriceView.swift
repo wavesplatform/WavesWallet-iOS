@@ -6,9 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let additionalDeltaWidth: CGFloat = 7
@@ -16,12 +17,11 @@ private enum Constants {
 }
 
 final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
-
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var viewLine: UIView!
     @IBOutlet weak var viewBgPrice: UIView!
     @IBOutlet weak var viewPriceWidth: NSLayoutConstraint!
-    
+
     private var shapeLayer: CAShapeLayer?
     private var isNeedUpdateConstraints = false
     private var width: CGFloat = 0
@@ -29,29 +29,29 @@ final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
     var highlightedMode = false {
         didSet {
             viewLine.isHidden = highlightedMode
-            
-            if !highlightedMode && shapeLayer != nil {
+
+            if !highlightedMode, shapeLayer != nil {
                 shapeLayer?.removeFromSuperlayer()
                 shapeLayer = nil
             }
         }
     }
-    
+
     override func updateConstraints() {
         if isNeedUpdateConstraints {
             isNeedUpdateConstraints = false
             viewPriceWidth.constant = width
             viewBgPrice.layer.cornerRadius = Constants.cornerRadius
         }
-        
+
         super.updateConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     func setupWidth(candles: [DomainLayer.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
         if width == 0 {
             width = DexChartHelper.candleRightWidth(candles: candles, pair: pair) + Constants.additionalDeltaWidth
@@ -59,26 +59,25 @@ final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
             setNeedsUpdateConstraints()
         }
     }
-    
+
     func setup(price: Double, color: UIColor, pair: DexTraderContainer.DTO.Pair) {
-   
         let numberFormatter = DexChart.ViewModel.numberFormatter(pair: pair)
 
         labelPrice.text = numberFormatter.string(from: NSNumber(value: price))
         viewBgPrice.backgroundColor = color
         viewLine.backgroundColor = color
-        
-        if highlightedMode && shapeLayer == nil {
-            
-            let lineDashPattern = DexChart.ChartConstants.Candle.DataSet.highlightLineDashLengths.map { NSNumber(value: Float($0)) }
-            
+
+        if highlightedMode, shapeLayer == nil {
+            let lineDashPattern = DexChart.ChartConstants.Candle.DataSet.highlightLineDashLengths
+                .map { NSNumber(value: Float($0)) }
+
             shapeLayer = CAShapeLayer()
             guard let shapeLayer = shapeLayer else { return }
-            
+
             shapeLayer.strokeColor = DexChart.ChartConstants.Candle.DataSet.highlightColor.cgColor
             shapeLayer.lineWidth = DexChart.ChartConstants.Candle.DataSet.highlightLineWidth
             shapeLayer.lineDashPattern = lineDashPattern
-            
+
             let y = frame.size.height / 2
             let path = CGMutablePath()
             path.addLines(between: [CGPoint(x: 0, y: y),
@@ -86,6 +85,5 @@ final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
             shapeLayer.path = path
             layer.addSublayer(shapeLayer)
         }
-        
     }
 }

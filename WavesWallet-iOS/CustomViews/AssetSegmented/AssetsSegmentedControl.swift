@@ -6,12 +6,13 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
-import UPCarouselFlowLayout
-import InfiniteCollectionView
 import DomainLayer
 import Extensions
+import Foundation
+import InfiniteCollectionView
+import UIKit
+import UITools
+import UPCarouselFlowLayout
 
 fileprivate enum Constants {
     static let spacing: CGFloat = 24
@@ -21,7 +22,6 @@ fileprivate enum Constants {
 }
 
 final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
-
     struct Model {
         struct Asset {
             enum Kind {
@@ -30,6 +30,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
                 case spam
                 case gateway
             }
+
             let id: String
             let name: String
             let kind: Kind
@@ -58,11 +59,10 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     private(set) var currentPage: Int = Constants.currentPageEmpty
 
     var currentAsset: Model.Asset? {
-        
         if currentPage < 0 || currentPage >= assets.count {
             return nil
         }
-        
+
         return assets[currentPage]
     }
 
@@ -95,7 +95,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
         layout.sideItemScale = Constants.scaleCell
-        
+
         collectionView.registerCell(type: AssetsSegmentedCell.self)
     }
 
@@ -119,7 +119,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
             return Constants.sizeLogo.width
         default:
             let smallCellsCount: CGFloat = CGFloat(count) - 1
-            return  Constants.sizeLogo.width
+            return Constants.sizeLogo.width
                 + (Constants.sizeLogo.width * Constants.scaleCell) * smallCellsCount
                 + Constants.spacing * smallCellsCount
         }
@@ -129,21 +129,18 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
 // MARK: Private method
 
 fileprivate extension AssetsSegmentedControl {
-
     var collectionPageSize: CGSize {
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         var pageSize = layout.itemSize
         if layout.scrollDirection == .horizontal {
             pageSize.width += layout.minimumLineSpacing
-        }
-        else {
+        } else {
             pageSize.height += layout.minimumLineSpacing
         }
         return pageSize
     }
 
     func updateWithNewPage(_ newPage: Int) {
-
         if newPage == currentPage {
             return
         }
@@ -169,15 +166,13 @@ fileprivate extension AssetsSegmentedControl {
 }
 
 extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
-
-    func number(ofItems collectionView: UICollectionView) -> Int {
+    func number(ofItems _: UICollectionView) -> Int {
         return assets.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         dequeueForItemAt dequeueIndexPath: IndexPath,
                         cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
-
         let cell: AssetsSegmentedCell = collectionView.dequeueCellForIndexPath(indexPath: dequeueIndexPath)
 
         let asset = assets[usableIndexPath.row]
@@ -195,27 +190,26 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 }
 
 extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
-
-    func infiniteCollectionView(_ collectionView: UICollectionView,
-                                didSelectItemAt usableIndexPath: IndexPath,
+    func infiniteCollectionView(_: UICollectionView,
+                                didSelectItemAt _: IndexPath,
                                 dequeueForItemAt: IndexPath) {
-        //TODO: need doing with animation and detect completed animation. 
-        self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: false)
-        self.sendActions(for: .valueChanged)
+        // TODO: need doing with animation and detect completed animation.
+        collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: false)
+        sendActions(for: .valueChanged)
     }
 
-    func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
+    func scrollView(_: UIScrollView, pageIndex: Int) {
         updateWithNewPage(pageIndex)
     }
 
-    func scrollViewEndMoved(_ scrollView: UIScrollView, pageIndex: Int) {
+    func scrollViewEndMoved(_: UIScrollView, pageIndex _: Int) {
         sendActions(for: .valueChanged)
     }
 }
 
 extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: Model) {
-        self.assets = model.assets
+        assets = model.assets
         currentPage = Constants.currentPageEmpty
         collectionView.reloadInfinity()
         setCurrentAsset(id: model.currentAsset.id, animated: false)

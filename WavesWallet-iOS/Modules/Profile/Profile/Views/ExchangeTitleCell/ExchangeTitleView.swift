@@ -9,6 +9,7 @@
 import Extensions
 import UIKit
 import UITools
+import WavesUIKit
 
 final class ExchangeTitleCell: UITableViewXibContainerCell<ExchangeTitleView> {
     override func initialSetup() {

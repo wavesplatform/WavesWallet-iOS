@@ -5,8 +5,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let logoTop: CGFloat = 44
@@ -20,7 +21,6 @@ protocol HelloLanguagesModuleOutput: AnyObject {
 }
 
 final class HelloLanguagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var continueBtn: UIButton!
 
@@ -29,13 +29,13 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
 
     @IBOutlet private weak var gradientView: CustomGradientView!
     @IBOutlet private weak var whiteView: UIView!
-    
+
     @IBOutlet private weak var continueButtonLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var continueButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var continueButtonRightConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var safeAreaViewHeightConstraint: NSLayoutConstraint!
-    
+
     private var languages: [Language] = Language.list
 
     private var chosenIndexPath: IndexPath?
@@ -45,9 +45,9 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.rootView
-        self.continueBtn.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.continueBtn
-        
+        view.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.rootView
+        continueBtn.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.continueBtn
+
         navigationItem.isNavigationBarHidden = true
 
         tableView.showsVerticalScrollIndicator = false
@@ -58,7 +58,6 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     }
 
     private func setupConstraints() {
-        
         if Platform.isIphone5 {
             continueButtonBottomConstraint.constant = 12
             continueButtonLeftConstraint.constant = 12
@@ -70,31 +69,31 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
             continueButtonLeftConstraint.constant = 24
             continueButtonRightConstraint.constant = 24
             logoTopConstraint.constant = 44
-            
+
             if Platform.isIphone7 {
                 safeAreaViewHeightConstraint.constant = UIApplication.shared.statusBarFrame.height
             } else {
                 safeAreaViewHeightConstraint.constant = 0
             }
         }
-        
+
         let topInset = Constants.logoTop + logoHeightConstraint.constant + Constants.logoBottom
         let bottomInset = continueButtonBottomConstraint.constant +
             continueBtn.bounds.height +
             continueButtonBottomConstraint.constant
-        
+
         tableView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: bottomInset, right: 0)
     }
-    
+
     // MARK: - Actions
-    
-    @IBAction private func continueWasPressed(_ sender: Any) {
+
+    @IBAction private func continueWasPressed(_: Any) {
         output?.userFinishedChangeLanguage()
     }
 
     // MARK: - UITableViewDelegate, UITableViewDataSource
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         languages.count
     }
 
@@ -102,23 +101,22 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         let cell: LanguageTableCell = tableView.dequeueAndRegisterCell()
 
         let item = languages[indexPath.row]
-        
+
         var isOn = false
         if let index = chosenIndexPath, index == indexPath {
             isOn = true
         }
-        
+
         cell.update(with: .init(icon: UIImage(named: item.icon), title: item.title, isOn: isOn))
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        chosenIndexPath = indexPath        
+        chosenIndexPath = indexPath
         tableView.reloadData()
 
         UIView.animate(withDuration: Constants.animationDuration) {
-            
             self.continueBtn.alpha = 1.0
             self.gradientView.alpha = 1.0
             self.whiteView.alpha = 1.0

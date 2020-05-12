@@ -6,16 +6,16 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 290
 }
 
 final class WalletLeasingBalanceSkeletonCell: SkeletonTableCell, NibReusable {
-    
     @IBOutlet private weak var viewContent: UIView!
     @IBOutlet private var separatorViews: [SeparatorView]!
 

@@ -9,6 +9,7 @@
 import Extensions
 import QRCodeReader
 import UIKit
+import UITools
 
 private enum Constansts {
     static let rightButtonOffset: CGFloat = 45
@@ -30,7 +31,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     weak var delegate: AddAddressTextFieldDelegate?
 
     var text: String {
-        set(newValue) {
+        set {
             addressTextField.value = newValue
             setupButtonsState(animation: false)
         }
@@ -40,7 +41,7 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
     }
 
     var error: String? {
-        set(newValue) {
+        set {
             addressTextField.error = newValue
         }
         get {

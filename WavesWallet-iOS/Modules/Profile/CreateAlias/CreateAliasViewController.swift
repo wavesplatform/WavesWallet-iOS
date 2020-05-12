@@ -10,6 +10,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import UITools
 
 final class CreateAliasViewController: UIViewController {
     typealias Types = CreateAliasTypes

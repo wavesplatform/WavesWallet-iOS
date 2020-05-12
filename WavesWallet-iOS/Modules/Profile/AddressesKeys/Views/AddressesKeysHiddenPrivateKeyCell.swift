@@ -6,15 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 94
 }
 
 final class AddressesKeysHiddenPrivateKeyCell: UITableViewCell, Reusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var showButton: UIButton!
@@ -27,22 +27,21 @@ final class AddressesKeysHiddenPrivateKeyCell: UITableViewCell, Reusable {
         showButton.addTarget(self, action: #selector(actionTouchUpShowButton(sender:)), for: .touchUpInside)
     }
 
-    @objc private func actionTouchUpShowButton(sender: UIButton) {
-        showButtonDidTap?()    
+    @objc private func actionTouchUpShowButton(sender _: UIButton) {
+        showButtonDidTap?()
     }
 }
 
 // MARK: ViewConfiguration
 
 extension AddressesKeysHiddenPrivateKeyCell: ViewConfiguration {
-    func update(with model: Void) {}
+    func update(with _: Void) {}
 }
 
 // MARK: ViewCalculateHeight
 
 extension AddressesKeysHiddenPrivateKeyCell: ViewCalculateHeight {
-
-    static func viewHeight(model: Void, width: CGFloat) -> CGFloat {
+    static func viewHeight(model _: Void, width _: CGFloat) -> CGFloat {
         return Constants.height
     }
 }
@@ -50,9 +49,7 @@ extension AddressesKeysHiddenPrivateKeyCell: ViewCalculateHeight {
 // MARK: Localization
 
 extension AddressesKeysHiddenPrivateKeyCell: Localization {
-
     func setupLocalization() {
-        
         titleLabel.text = Localizable.Waves.Addresseskeys.Cell.Privatekey.title
         showButton.setTitle(Localizable.Waves.Addresseskeys.Cell.Privatekeyhidde.Button.title, for: .normal)
     }

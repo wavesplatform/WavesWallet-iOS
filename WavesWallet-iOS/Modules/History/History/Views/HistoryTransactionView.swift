@@ -9,12 +9,13 @@
 import DomainLayer
 import Extensions
 import UIKit
+import UITools
 
 final class HistoryTransactionView: UIView, NibOwnerLoadable {
-    @IBOutlet weak var viewContainer: UIView!
-    @IBOutlet weak var labelValue: UILabel!
-    @IBOutlet weak var imageViewIcon: UIImageView!
-    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet private weak var viewContainer: UIView!
+    @IBOutlet private weak var labelValue: UILabel!
+    @IBOutlet private weak var imageViewIcon: UIImageView!
+    @IBOutlet private weak var labelTitle: UILabel!
 
     @IBOutlet weak var tickerView: TickerView!
 

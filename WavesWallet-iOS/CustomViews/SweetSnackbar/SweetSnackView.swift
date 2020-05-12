@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let durationAnimation: TimeInterval = 1.8
@@ -16,7 +17,6 @@ private enum Constants {
 }
 
 final class SweetSnackView: UIView, NibLoadable {
-
     @IBOutlet private var leftLayout: NSLayoutConstraint!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
@@ -37,10 +37,9 @@ final class SweetSnackView: UIView, NibLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
-    override func updateConstraints() {
 
+    override func updateConstraints() {
         leftAtIconConstraint.isActive = !isHiddenIcon
         leftAtSuperviewConstraint.isActive = isHiddenIcon
 
@@ -76,7 +75,7 @@ final class SweetSnackView: UIView, NibLoadable {
     }
 
     func startAnimationIcon() {
-        self.isStartedAnimation = true
+        isStartedAnimation = true
 
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.fromValue = 0
@@ -86,24 +85,24 @@ final class SweetSnackView: UIView, NibLoadable {
         animation.isCumulative = true
         animation.timingFunction = TimingFunction.easeOut.caMediaTimingFuction
 
-        self.iconImageView.layer.removeAllAnimations()
+        iconImageView.layer.removeAllAnimations()
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handlerDidBecomeActive),
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
-        self.iconImageView.layer.add(animation, forKey: "rotate")
+        iconImageView.layer.add(animation, forKey: "rotate")
     }
 
     func stopAnimationIcon() {
-        self.isStartedAnimation = false
-        self.iconImageView.layer.removeAllAnimations()
+        isStartedAnimation = false
+        iconImageView.layer.removeAllAnimations()
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     @objc private func handlerDidBecomeActive() {
-        if self.isStartedAnimation {
+        if isStartedAnimation {
             startAnimationIcon()
         }
     }

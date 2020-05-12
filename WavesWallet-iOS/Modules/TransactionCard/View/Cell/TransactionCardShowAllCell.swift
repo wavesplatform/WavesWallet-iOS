@@ -6,12 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class TransactionCardShowAllCell: UITableViewCell, Reusable {
-
     struct Model {
         let countOtherTransactions: Int
     }
@@ -41,7 +41,6 @@ final class TransactionCardShowAllCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardShowAllCell: ViewConfiguration {
-
     func update(with model: TransactionCardShowAllCell.Model) {
         buttonShowAll.setTitle(Localizable.Waves.Transactioncard.Title.showAll("\(model.countOtherTransactions)"), for: .normal)
     }

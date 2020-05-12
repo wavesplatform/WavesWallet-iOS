@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 import Extensions
+import UITools
 
 fileprivate enum Constants {
     static var height: CGFloat = 76
 }
 
 final class AssetTransactionSkeletonCell: SkeletonTableCell, NibReusable {
-    @IBOutlet var viewContent: UIView!
+    @IBOutlet private var viewContent: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,7 +24,5 @@ final class AssetTransactionSkeletonCell: SkeletonTableCell, NibReusable {
         backgroundColor = UIColor.basic50
     }
 
-    class func cellHeight() -> CGFloat {
-        return Constants.height
-    }
+    class func cellHeight() -> CGFloat { Constants.height }
 }

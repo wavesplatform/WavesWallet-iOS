@@ -5,8 +5,10 @@
 //  Created by rprokofev on 11.03.2020.
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
-import UIKit
+
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let headerHeight: CGFloat = 70
@@ -24,49 +26,47 @@ protocol TooltipViewControllerModulOutput: AnyObject {
 }
 
 final class TooltipViewController: ModalScrollViewController {
-        
-    @IBOutlet var tableView: ModalTableView!
-    
+    @IBOutlet private var tableView: ModalTableView!
+
     override var scrollView: UIScrollView {
-        return tableView
+        tableView
     }
-    
+
     private var rootView: ModalRootView {
-        return view as! ModalRootView
+        view as! ModalRootView
     }
-        
-    private let headerView:TooltipHeaderView = TooltipHeaderView.loadView()
+
+    private let headerView: TooltipHeaderView = TooltipHeaderView.loadView()
     private var rows: [TooltipTypes.ViewModel.Row] = .init()
-    
+
     weak var moduleOutput: TooltipViewControllerModulOutput?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.rootView.delegate = self
+        rootView.delegate = self
         tableView.reloadData()
     }
-        
+
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        
         var height: CGFloat = 0
-        rows.forEach { (row) in
-            
+        rows.forEach { row in
+
             switch row {
-            case .element(let model):
+            case let .element(model):
                 height += TooltipInfoCell.viewHeight(model: model, width: tableView.frame.size.width)
-                
+
             case .button:
                 height += Constants.buttonHeight
-                            
+
             case .separator:
                 height += Constants.sepatorHeight
             }
         }
-        
+
         return min(height + Constants.headerHeight, size.height)
     }
-    
-    override func bottomScrollInset(for size: CGSize) -> CGFloat {
+
+    override func bottomScrollInset(for _: CGSize) -> CGFloat {
         return 0.0
     }
 }
@@ -74,27 +74,26 @@ final class TooltipViewController: ModalScrollViewController {
 // MARK: ViewConfiguration
 
 extension TooltipViewController: ViewConfiguration {
-    
     func update(with model: TooltipViewControllerModulInput) {
-        let elements = model.data.elements.map { TooltipInfoCell.Model.init(title: $0.title,
-                                                                        description: $0.description) }
-        
-        var rows: [TooltipTypes.ViewModel.Row]  = .init()
-        
+        let elements = model.data.elements.map { TooltipInfoCell.Model(title: $0.title,
+                                                                       description: $0.description) }
+
+        var rows: [TooltipTypes.ViewModel.Row] = .init()
+
         elements.enumerated().forEach { index, element in
             let isLastElement = index == max(elements.count - 1, 0)
             rows.append(.element(element))
-                        
+
             if isLastElement == false {
                 rows.append(.separator)
             }
         }
-        
+
         rows.append(.button)
         self.rows = rows
-        
-        self.headerView.update(with: .init(title: model.data.title))
-        
+
+        headerView.update(with: .init(title: model.data.title))
+
         if isViewLoaded {
             tableView.reloadData()
         }
@@ -104,7 +103,6 @@ extension TooltipViewController: ViewConfiguration {
 // MARK: ModalRootViewDelegate
 
 extension TooltipViewController: ModalRootViewDelegate {
-    
     func modalHeaderView() -> UIView {
         return headerView
     }
@@ -117,35 +115,33 @@ extension TooltipViewController: ModalRootViewDelegate {
 // MARK: UITableViewDataSource
 
 extension TooltipViewController: UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                        
         let row = rows[indexPath.row]
-        
+
         switch row {
-        case .element(let model):
+        case let .element(model):
             let cell: TooltipInfoCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
-            
+
         case .button:
             let cell: TooltipButtonCell = tableView.dequeueCell()
             cell.didTap = { [weak self] in
                 self?.moduleOutput?.tooltipDidTapClose()
             }
             return cell
-            
+
         case .separator:
             let cell: TooltipSeparatorCell = tableView.dequeueCell()
-            return cell            
+            return cell
         }
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+
+    func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return rows.count
     }
 }
@@ -153,13 +149,12 @@ extension TooltipViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension TooltipViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
-    
+
+    func tableView(_: UITableView, didSelectRowAt _: IndexPath) {}
+
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
 

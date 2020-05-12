@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 import UITools
+import WavesUIKit
 
 final class SocialNetworkCell: UITableViewXibContainerCell<SocialNetworkView> {
     override func initialSetup() {

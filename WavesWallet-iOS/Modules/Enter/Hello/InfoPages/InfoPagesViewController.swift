@@ -8,6 +8,7 @@
 import DomainLayer
 import Extensions
 import UIKit
+import UITools
 
 protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()

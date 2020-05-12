@@ -6,20 +6,20 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class HistoryTransactionSkeletonCell: SkeletonTableCell, Reusable {
     @IBOutlet var viewContent: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContent.addTableCellShadowStyle()
         backgroundColor = UIColor.basic50
     }
-    
+
     class func cellHeight() -> CGFloat {
         return 76
     }
 }
-

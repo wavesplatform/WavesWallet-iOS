@@ -6,7 +6,8 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import Foundation
 import Extensions
+import Foundation
+import UITools
 
 final class StakingTransferSkeletonBalanceCell: SkeletonTableCell, NibReusable {}

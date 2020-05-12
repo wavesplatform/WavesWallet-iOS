@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     enum CollectionTopOffset: CGFloat {
@@ -15,12 +16,12 @@ private enum Constants {
         case medium = 24
         case big = 64
     }
-    
+
     enum ButtonTopOffset: CGFloat {
         case small = 14
         case big = 44
     }
-    
+
     enum PageControlTopOffset: CGFloat {
         case small = 2
         case big = 24
@@ -40,23 +41,23 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
 
     @IBOutlet private weak var pageControl: UIPageControl!
     @IBOutlet private weak var collectionViewHeightConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var collectionTopOffsetConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var createAccountButtonTopConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var pageControlTopConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var importAccountView: UIView!
     @IBOutlet private weak var signInView: UIView!
-    
+
     @IBOutlet private weak var signInTitleLabel: UILabel!
     @IBOutlet private weak var signInDetailLabel: UILabel!
     @IBOutlet private weak var importAccountTitleLabel: UILabel!
     @IBOutlet private weak var importAccountDetailLabel: UILabel!
     @IBOutlet private weak var createNewAccountButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
-    
+
     @IBOutlet private weak var orLabel: UILabel!
 
     private var currentPage = 0
@@ -67,82 +68,82 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         gesture.numberOfTapsRequired = 5
         return gesture
     }()
-    
+
     weak var delegate: EnterStartViewControllerDelegate?
 
     deinit {
         unsubscribe()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupNavigationItem()
-        
+
         subscribeLanguageNotification()
         setupLanguage()
-        
+
         setupCollectionView()
         setupTopOffsetConstraint()
-        
+
         collectionView.addGestureRecognizer(tapGesture)
     }
 
     // MARK: - Setup
-    
+
     private func setupCollectionView() {
         collectionView.register(EnterStartBlockCell.nib, forCellWithReuseIdentifier: EnterStartBlockCell.reuseIdentifier)
     }
-    
+
     private func setupLanguage() {
         collectionView.reloadData()
-    createNewAccountButton.setTitle(Localizable.Waves.Enter.Button.Createnewaccount.title, for: .normal)
-        
+        createNewAccountButton.setTitle(Localizable.Waves.Enter.Button.Createnewaccount.title, for: .normal)
+
         orLabel.text = Localizable.Waves.Enter.Label.or
         signInTitleLabel.text = Localizable.Waves.Enter.Button.Signin.title
         signInDetailLabel.text = Localizable.Waves.Enter.Button.Signin.detail
-        
+
         importAccountTitleLabel.text = Localizable.Waves.Enter.Button.Importaccount.title
         importAccountDetailLabel.text = Localizable.Waves.Enter.Button.Importaccount.detail
-        
+
         setupLanguageButton()
     }
-    
+
     private func setupLanguageButton() {
         let language = Language.currentLanguage
         let code = language.titleCode ?? language.code
         let title = code.uppercased()
         let item = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(changeLanguage(_:)))
         item.tintColor = .black
-        
+
         navigationItem.rightBarButtonItem = item
     }
-    
+
     private func setupNavigationItem() {
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
         navigationItem.barTintColor = .black
         navigationItem.tintColor = .black
     }
-    
+
     // MARK: - Layout
-    
+
     private var layouted = false
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         if !layouted {
             layouted = true
             var maxHeight: CGFloat = 0
-            
+
             for block in blocks {
                 let height = EnterStartBlockCell.cellHeight(model: block, width: view.bounds.width)
                 maxHeight = max(height, 0)
             }
-            
+
             collectionViewHeightConstraint.constant = maxHeight
-            
+
             signInView.addTableCellShadowStyle()
             importAccountView.addTableCellShadowStyle()
         }
@@ -163,7 +164,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             pageControlTopConstraint.constant = Constants.PageControlTopOffset.big.rawValue
         }
     }
-    
+
     // MARK: - Notification
 
     private func subscribeLanguageNotification() {
@@ -171,51 +172,50 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             .default
             .addObserver(self, selector: #selector(changedLanguage(_:)), name: .changedLanguage, object: nil)
     }
-    
+
     private func unsubscribe() {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    @objc private func changedLanguage(_ notification: NSNotification) {
+
+    @objc private func changedLanguage(_: NSNotification) {
         setupLanguage()
     }
 
     // MARK: - Actions
 
-    @objc func changeLanguage(_ sender: Any) {
+    @objc func changeLanguage(_: Any) {
         delegate?.showLanguageCoordinator()
     }
-    
-    @objc func handlerTapGesture(gesture: UITapGestureRecognizer) {
+
+    @objc func handlerTapGesture(gesture _: UITapGestureRecognizer) {
         delegate?.showDebug()
     }
-    
-    @IBAction private func signIn(_ sender: Any) {
+
+    @IBAction private func signIn(_: Any) {
         delegate?.showSignInAccount()
     }
-    
-    @IBAction private func importAccount(_ sender: Any) {
+
+    @IBAction private func importAccount(_: Any) {
         delegate?.showImportCoordinator()
     }
 
-    @IBAction private func createNewAccountTapped(_ sender: Any) {
+    @IBAction private func createNewAccountTapped(_: Any) {
         delegate?.showNewAccount()
     }
 }
 
 extension EnterStartViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         blocks.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: EnterStartBlockCell = collectionView
             .dequeueReusableCell(withReuseIdentifier: EnterStartBlockCell.reuseIdentifier, for: indexPath) as! EnterStartBlockCell
-        
+
         let block = blocks[indexPath.row] as Block
         cell.update(with: block)
-        
+
         return cell
     }
 }
@@ -231,8 +231,8 @@ extension EnterStartViewController: UIScrollViewDelegate {
 
 extension EnterStartViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+                        layout _: UICollectionViewLayout,
+                        sizeForItemAt _: IndexPath) -> CGSize {
         return .init(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
 }

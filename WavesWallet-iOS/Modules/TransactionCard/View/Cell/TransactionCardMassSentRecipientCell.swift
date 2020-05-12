@@ -10,6 +10,7 @@ import DomainLayer
 import Extensions
 import Foundation
 import UIKit
+import UITools
 
 final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
     struct Model {
@@ -20,11 +21,8 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
     }
 
     @IBOutlet private var contactDetailView: ContactDetailView!
-
     @IBOutlet private var balanceLabel: BalanceLabel!
-
     @IBOutlet private var copyButton: PasteboardButton!
-
     @IBOutlet private var addressBookButton: AddressBookButton!
 
     private var address: String?
@@ -42,7 +40,7 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
         }
     }
 
-    @IBAction private func actionAddressBookButton(_ sender: Any) {
+    @IBAction private func actionAddressBookButton(_: Any) {
         tapAddressBookButton?(!(isEditName ?? false))
     }
 }

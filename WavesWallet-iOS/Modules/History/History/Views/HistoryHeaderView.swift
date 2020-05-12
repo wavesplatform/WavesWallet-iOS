@@ -6,12 +6,13 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class HistoryHeaderView: UITableViewHeaderFooterView, NibReusable {
     @IBOutlet private var labelTitle: UILabel!
-    
+
     class func viewHeight() -> CGFloat {
         return 36
     }

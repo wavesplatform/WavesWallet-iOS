@@ -6,13 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class ConfirmRequestSkeletonCell: SkeletonTableCell, Reusable {
-    
-    @IBOutlet var viewContent: UIView!
-    
+    @IBOutlet private var viewContent: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

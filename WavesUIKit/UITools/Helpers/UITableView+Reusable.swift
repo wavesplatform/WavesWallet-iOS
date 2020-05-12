@@ -1,12 +1,11 @@
 //
 //  UITableView+Reusable.swift
-//  WavesWallet-iOS
+//  UITools
 //
-//  Created by mefilt on 11.07.2018.
-//  Copyright © 2018 Waves Exchange. All rights reserved.
+//  Created by vvisotskiy on 13.05.2020.
+//  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 public extension UITableView {
@@ -94,3 +93,4 @@ public extension UITableView {
         return dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
     }
 }
+
