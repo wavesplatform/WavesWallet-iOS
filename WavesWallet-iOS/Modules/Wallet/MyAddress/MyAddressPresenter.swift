@@ -31,7 +31,7 @@ final class MyAddressPresenter: MyAddressPresenterProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     weak var moduleOutput: MyAddressModuleOutput?
 

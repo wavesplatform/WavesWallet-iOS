@@ -32,5 +32,5 @@ public protocol UseCasesFactoryProtocol {
     
     var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol { get }
     
-    var serverEnvironmentUseCase: ServerEnvironmentUseCase { get }
+    var serverEnvironmentUseCase: ServerEnvironmentRepository { get }
 }

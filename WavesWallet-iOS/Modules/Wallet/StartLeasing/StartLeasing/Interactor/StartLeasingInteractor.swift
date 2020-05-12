@@ -15,7 +15,7 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction> {
         let sender = LeaseTransactionSender(recipient: order.recipient,

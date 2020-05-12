@@ -7,8 +7,11 @@
     "matcherUrl": "https://matcher.waves.exchange",
     "gatewayUrl": "https://gw.waves.exchange/api",
     "authUrl": "https://waves.exchange/oauth",
-    "wavesExchangeApiUrl": "https://api-mainnet-dev.waves.exchange",
-    "wavesExchangeGrpcAddress": "grpc-mainnet-dev.waves.exchange",
+    "wavesExchangeApiUrl": "https://api.waves.exchange",
+    "wavesExchangePublicApiUrl": "https://api.waves.exchange",
+    "wavesExchangeInternalApiUrl": "https://waves.exchange/api",
+    "firebaseAuthApiUrl": "https://us-central1-waves-exchange.cloudfunctions.net",
+    "wavesExchangeGrpcAddress": "grpc.waves.exchange",
     "gateways": {
       "v0": "https://coinomat.com/api",
       "v1": "https://gw.waves.exchange/api",

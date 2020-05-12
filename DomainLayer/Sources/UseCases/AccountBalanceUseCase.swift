@@ -25,7 +25,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
     private let assetsInteractor: AssetsUseCaseProtocol
     private let assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol
     private let leasingInteractor: TransactionsUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -35,7 +35,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
          assetsInteractor: AssetsUseCaseProtocol,
          assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol,
          transactionsInteractor: TransactionsUseCaseProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         
         self.authorizationInteractor = authorizationInteractor
         self.balanceRepositoryRemote = balanceRepositoryRemote

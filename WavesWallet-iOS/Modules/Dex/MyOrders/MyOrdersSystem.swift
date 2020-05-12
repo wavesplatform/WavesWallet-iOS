@@ -17,7 +17,7 @@ import WavesSDK
 final class MyOrdersSystem: System<MyOrdersTypes.State, MyOrdersTypes.Event> {
     private let repository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     override func initialState() -> MyOrdersTypes.State! {
         let skeletonRows: [MyOrdersTypes.ViewModel.Row] = [.skeleton, .skeleton, .skeleton, .skeleton, .skeleton]

@@ -83,4 +83,7 @@ public protocol RepositoriesFactoryProtocol {
     var serverTimestampRepository: ServerTimestampRepository { get }
     
     var gatewaysWavesRepository: GatewaysWavesRepository { get }
+    
+    @available(*, deprecated, message: "You need use RepositoryFactory.")
+    var serverEnvironmentUseCase: ServerEnvironmentRepository { get }
 }

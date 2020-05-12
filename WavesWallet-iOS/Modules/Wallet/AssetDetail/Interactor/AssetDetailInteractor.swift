@@ -30,7 +30,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
     private let pairsPriceRepository: DexPairsPriceRepositoryProtocol = UseCasesFactory.instance.repositories
         .dexPairsPriceRepository
     
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
     
     private let disposeBag: DisposeBag = DisposeBag()
     

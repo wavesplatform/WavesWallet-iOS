@@ -31,50 +31,75 @@ private enum Constants {
 }
 
 final class AuthenticationRepository: AuthenticationRepositoryProtocol {
-    
+    private let serverEnvironmentRepository: ServerEnvironmentRepository
+
+    init(serverEnvironmentRepository: ServerEnvironmentRepository) {
+        self.serverEnvironmentRepository = serverEnvironmentRepository
+    }
+
     private let firebaseRegisterTarget: MoyaProvider<FirebaseRegisterTarget> = .anyMoyaProvider()
     private let firebaseAuthTarget: MoyaProvider<FirebaseAuthTarget> = .anyMoyaProvider()
-    
+
     func registration(with id: String, keyForPassword: String, passcode: String) -> Observable<Bool> {
-                
-        return firebaseRegisterTarget
-            .rx
-            .request(.init(url: Constants.url,
-                           isDebug: Constants.isDebug,
-                           id: id,
-                           keyForPassword: keyForPassword,
-                           device: Constants.device,
-            passcode: passcode))
-            .filterSuccessfulStatusAndRedirectCodes()
-            .map { _ -> Bool in return true }
-            .asObservable()
+        serverEnvironmentRepository.serverEnvironment()
+            .flatMap { [weak self] serverEnvironment -> Observable<Bool> in
+
+                guard let self = self else { return Observable.never() }
+
+                let firebaseAuthApiUrl = serverEnvironment.servers.firebaseAuthApiUrl
+                let request = FirebaseRegisterTarget(url: firebaseAuthApiUrl,
+                                                     isDebug: Constants.isDebug,
+                                                     id: id,
+                                                     keyForPassword: keyForPassword,
+                                                     device: Constants.device,
+                                                     passcode: passcode)
+
+                return self.firebaseRegisterTarget.rx
+                    .request(request)
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .map { _ -> Bool in true }
+                    .asObservable()
+            }
+            .catchError { error -> Observable<Bool> in
+                return Observable.error(NetworkError.error(by: error))
+            }
     }
 
     func auth(with id: String, passcode: String) -> Observable<String> {
-        
-        return firebaseAuthTarget
-            .rx
-            .request(FirebaseAuthTarget(url: Constants.url,
-                                        isDebug: Constants.isDebug,
-                                        id: id,
-                                        device: Constants.device,
-                                        passcode: passcode))
-            .filterSuccessfulStatusAndRedirectCodes()
-            .flatMap({ response -> PrimitiveSequence<SingleTrait, String> in
-                guard let string = String(data: response.data, encoding: .utf8) else {
-                    return Single.error(RepositoryError.fail)
-                }
-                return Single.just(string)
-            })
-            .asObservable()
+        serverEnvironmentRepository.serverEnvironment()
+            .flatMap { [weak self] serverEnvironment -> Observable<String> in
+
+                guard let self = self else { return Observable.never() }
+
+                let firebaseAuthApiUrl = serverEnvironment.servers.firebaseAuthApiUrl
+
+                let request = FirebaseAuthTarget(url: Constants.url,
+                                                 isDebug: Constants.isDebug,
+                                                 id: id,
+                                                 device: Constants.device,
+                                                 passcode: passcode)
+
+                return self.firebaseAuthTarget.rx
+                    .request(request)
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .flatMap { response -> PrimitiveSequence<SingleTrait, String> in
+                        guard let string = String(data: response.data, encoding: .utf8) else {
+                            return Single.error(RepositoryError.fail)
+                        }
+                        return Single.just(string)
+                    }
+                    .asObservable()
+        }
+        .catchError { error -> Observable<String> in
+            return Observable.error(NetworkError.error(by: error))
+        }
     }
 
     func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool> {
-                
         return auth(with: id,
                     passcode: oldPasscode)
             .flatMap { [weak self] keyForPassword -> Observable<Bool> in
-                
+
                 guard let self = self else { return Observable.never() }
                 return self.registration(with: id,
                                          keyForPassword: keyForPassword,

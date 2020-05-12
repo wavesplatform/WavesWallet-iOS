@@ -29,7 +29,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceUseCaseProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     private let leasingInteractor: TransactionsUseCaseProtocol
     private let walletsRepository: WalletsRepositoryProtocol
@@ -47,7 +47,7 @@ final class WalletInteractor: WalletInteractorProtocol {
          applicationVersionUseCase: ApplicationVersionUseCaseProtocol,
          leasingInteractor: TransactionsUseCaseProtocol,
          walletsRepository: WalletsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
         self.assetUseCase = assetUseCase

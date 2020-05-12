@@ -31,7 +31,7 @@ final class MobileKeeperCoordinator: Coordinator {
     private let mobileKeeperRepository: MobileKeeperRepositoryProtocol =
         UseCasesFactory.instance.repositories.mobileKeeperRepository
 
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     private var snackError: String?
 

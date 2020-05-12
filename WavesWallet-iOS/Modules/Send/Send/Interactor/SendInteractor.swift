@@ -22,7 +22,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let transactionUseCase: TransactionsUseCaseProtocol
     private let gatewayRepository: GatewayRepositoryProtocol
     private let weGatewayUseCase: WEGatewayUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     private let weOAuthRepository: WEOAuthRepositoryProtocol
     private let gatewaysWavesRepository: GatewaysWavesRepository
 
@@ -35,7 +35,7 @@ final class SendInteractor: SendInteractorProtocol {
          accountBalanceUseCase: AccountBalanceUseCaseProtocol,
          gatewayRepository: GatewayRepositoryProtocol,
          weGatewayUseCase: WEGatewayUseCaseProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase,
+         serverEnvironmentUseCase: ServerEnvironmentRepository,
          weOAuthRepository: WEOAuthRepositoryProtocol) {
         self.accountBalanceUseCase = accountBalanceUseCase
         self.assetsUseCase = assetsUseCase

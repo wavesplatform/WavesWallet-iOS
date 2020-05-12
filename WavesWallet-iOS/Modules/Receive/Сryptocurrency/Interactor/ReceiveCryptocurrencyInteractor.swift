@@ -22,7 +22,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     private let auth: AuthorizationUseCaseProtocol
     private let coinomatRepository: CoinomatRepositoryProtocol
     private let gatewayRepository: GatewayRepositoryProtocol    
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let gatewaysWavesRepository: GatewaysWavesRepository
     private let weOAuthRepository: WEOAuthRepositoryProtocol
@@ -30,7 +30,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     init(authorization: AuthorizationUseCaseProtocol,
          coinomatRepository: CoinomatRepositoryProtocol,
          gatewayRepository: GatewayRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase,
+         serverEnvironmentUseCase: ServerEnvironmentRepository,
          environmentRepository: EnvironmentRepositoryProtocol,
          gatewaysWavesRepository: GatewaysWavesRepository,
          weOAuthRepository: WEOAuthRepositoryProtocol) {

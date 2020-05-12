@@ -94,7 +94,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     
     private let orderBookRepository: DexOrderBookRepositoryProtocol
     
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
@@ -105,7 +105,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
          blockRepositoryRemote: BlockRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          orderBookRepository: DexOrderBookRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.transactionsRepositoryLocal = transactionsRepositoryLocal
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
         self.assetsInteractors = assetsInteractors

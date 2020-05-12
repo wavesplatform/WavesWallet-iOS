@@ -58,13 +58,13 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
     private let oAuthRepository: WEOAuthRepositoryProtocol
     private let authorizationUseCase: AuthorizationUseCaseProtocol
     private let assetsUseCase: AssetsUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     init(gatewayRepository: WEGatewayRepositoryProtocol,
          oAuthRepository: WEOAuthRepositoryProtocol,
          authorizationUseCase: AuthorizationUseCaseProtocol,
          assetsUseCase: AssetsUseCaseProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.gatewayRepository = gatewayRepository
         self.oAuthRepository = oAuthRepository
         self.authorizationUseCase = authorizationUseCase

@@ -14,11 +14,11 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
 
     private let assetsRepositoryLocal: AssetsRepositoryProtocol
     private let assetsRepositoryRemote: AssetsRepositoryProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     init(assetsRepositoryLocal: AssetsRepositoryProtocol,
          assetsRepositoryRemote: AssetsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.assetsRepositoryLocal = assetsRepositoryLocal
         self.assetsRepositoryRemote = assetsRepositoryRemote
         self.serverEnvironmentUseCase = serverEnvironmentUseCase

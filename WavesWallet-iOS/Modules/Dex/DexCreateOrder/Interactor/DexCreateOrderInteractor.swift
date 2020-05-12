@@ -30,7 +30,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let assetsRepository: AssetsRepositoryProtocol
     private let orderBookInteractor: OrderBookUseCaseProtocol
     private let developmentConfig: DevelopmentConfigsRepositoryProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     private let assetsInteractors: AssetsUseCaseProtocol
 
     init(authorization: AuthorizationUseCaseProtocol,
@@ -43,7 +43,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
          assetsRepository: AssetsRepositoryProtocol,
          orderBookInteractor: OrderBookUseCaseProtocol,
          developmentConfig: DevelopmentConfigsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase,
+         serverEnvironmentUseCase: ServerEnvironmentRepository,
          assetsInteractors: AssetsUseCaseProtocol) {
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.accountBalance = accountBalance
