@@ -26,7 +26,6 @@ private enum Constants {
         static let isDebug: Bool = false
     #endif
 
-    static let firebaseAppWavesPlatform: String = "WavesPlatform"
     static let device = "ios"
     static let url = URL(string: "https://us-central1-waves-exchange.cloudfunctions.net")!
 }
