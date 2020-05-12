@@ -61,7 +61,7 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     .asObservable()
             }
             .catchError { error -> Observable<Bool> in
-                return Observable.error(NetworkError.error(by: error))
+                Observable.error(NetworkError.error(by: error))
             }
     }
 
@@ -89,10 +89,10 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                         return Single.just(string)
                     }
                     .asObservable()
-        }
-        .catchError { error -> Observable<String> in
-            return Observable.error(NetworkError.error(by: error))
-        }
+            }
+            .catchError { error -> Observable<String> in
+                Observable.error(NetworkError.error(by: error))
+            }
     }
 
     func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool> {
