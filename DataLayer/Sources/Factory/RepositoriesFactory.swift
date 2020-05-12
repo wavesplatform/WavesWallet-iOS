@@ -56,7 +56,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var walletSeedRepositoryLocal: WalletSeedRepositoryProtocol = WalletSeedRepositoryLocal()
 
     public private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol =
-        AuthenticationRepositoryRemote()
+        AuthenticationRepository()
 
     public private(set) lazy var accountSettingsRepository: AccountSettingsRepositoryProtocol =
         AccountSettingsRepository(spamAssetsService: self.servicesFactory.spamAssetsService)
