@@ -59,7 +59,7 @@ enum ConfirmRequest {
         case none
         case viewDidAppear
         case handlerError
-        case prepareRequest([DomainLayer.DTO.Asset], DomainLayer.DTO.MobileKeeper.PrepareRequest)
+        case prepareRequest([Asset], DomainLayer.DTO.MobileKeeper.PrepareRequest)
     }
     
     struct Section: SectionProtocol {
@@ -104,10 +104,10 @@ extension ConfirmRequest.DTO {
     
     struct Transfer {
         let recipient: String
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let amount: Money
         
-        let feeAsset: DomainLayer.DTO.Asset
+        let feeAsset: Asset
         let fee: Money
         
         let attachment: String
@@ -128,7 +128,7 @@ extension ConfirmRequest.DTO {
         }
         
         let fee: Money
-        let feeAsset: DomainLayer.DTO.Asset
+        let feeAsset: Asset
         let data: [Value]
         let chainId: String
     }
@@ -157,12 +157,12 @@ extension ConfirmRequest.DTO {
         
         struct Payment {
             let amount: Money
-            let asset: DomainLayer.DTO.Asset
+            let asset: Asset
         }
         
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let fee: Money
-        let feeAsset: DomainLayer.DTO.Asset
+        let feeAsset: Asset
         let chainId: String
         let dApp: String
         let call: Call?

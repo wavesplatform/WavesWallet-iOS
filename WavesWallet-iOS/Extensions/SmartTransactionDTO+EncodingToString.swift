@@ -11,7 +11,7 @@ import WavesSDKExtensions
 import Extensions
 import DomainLayer
 
-extension DomainLayer.DTO.SmartTransaction {
+extension SmartTransaction {
 
     var allData: String {
 
@@ -125,7 +125,7 @@ extension DomainLayer.DTO.SmartTransaction {
         }
     }
 
-    private var recipientAny: DomainLayer.DTO.Address? {
+    private var recipientAny: Address? {
 
         switch kind {
         case .receive(let tx):

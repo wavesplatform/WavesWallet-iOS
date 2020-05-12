@@ -10,8 +10,8 @@ import DomainLayer
 import Foundation
 import WavesSDK
 
-extension UnrecognisedTransaction {
-    convenience init(transaction: DomainLayer.DTO.UnrecognisedTransaction) {
+extension UnrecognisedTransactionRealm {
+    convenience init(transaction: UnrecognisedTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -26,9 +26,9 @@ extension UnrecognisedTransaction {
     }
 }
 
-extension DomainLayer.DTO.UnrecognisedTransaction {
+extension UnrecognisedTransaction {
     init(transaction: NodeService.DTO.UnrecognisedTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -41,7 +41,7 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
                   status: status)
     }
 
-    init(transaction: UnrecognisedTransaction) {
+    init(transaction: UnrecognisedTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -50,6 +50,6 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
                   timestamp: transaction.timestamp,
                   height: transaction.height,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

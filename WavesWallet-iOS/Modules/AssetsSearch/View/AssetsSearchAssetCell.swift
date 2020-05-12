@@ -21,7 +21,7 @@ final class AssetsSearchAssetCell: UITableViewCell, Reusable {
             case unselected
         }
         
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let state: State
     }
     

@@ -34,8 +34,8 @@ extension UIViewController {
 protocol StakingTransferModuleOutput: AnyObject {
     func stakingTransferOpenURL(_ url: URL)
     func stakingTransferDidSendCard(url: URL, amount: DomainLayer.DTO.Balance)
-    func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
-    func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction, amount: DomainLayer.DTO.Balance)
+    func stakingTransferDidSendWithdraw(transaction: SmartTransaction, amount: DomainLayer.DTO.Balance)
+    func stakingTransferDidSendDeposit(transaction: SmartTransaction, amount: DomainLayer.DTO.Balance)
 }
 
 private enum Constants {

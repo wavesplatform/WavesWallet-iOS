@@ -33,8 +33,8 @@ public let TransactionFeeDefaultRule: String = "default"
 
 public protocol TransactionsUseCaseProtocol {
     
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction>
-    func transactionsSync(by accountAddress: String, specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]>
-    func activeLeasingTransactionsSync(by accountAddress: String) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]>
+    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<SmartTransaction>
+    func transactionsSync(by accountAddress: String, specifications: TransactionsSpecifications) -> SyncObservable<[SmartTransaction]>
+    func activeLeasingTransactionsSync(by accountAddress: String) -> SyncObservable<[SmartTransaction]>
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money>
 }

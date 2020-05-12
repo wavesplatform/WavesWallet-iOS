@@ -26,7 +26,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let matcherRepository: MatcherRepositoryProtocol
     private let orderBookRepository: DexOrderBookRepositoryProtocol
     private let transactionInteractor: TransactionsUseCaseProtocol
-    private let transactionsRepositoryRemote: TransactionsRepositoryProtocol
+    private let transactionsRepository: TransactionsRepositoryProtocol
     private let assetsRepository: AssetsRepositoryProtocol
     private let orderBookInteractor: OrderBookUseCaseProtocol
     private let developmentConfig: DevelopmentConfigsRepositoryProtocol
@@ -39,7 +39,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
          matcherRepository: MatcherRepositoryProtocol,
          dexOrderBookRepository: DexOrderBookRepositoryProtocol,
          transactionInteractor: TransactionsUseCaseProtocol,
-         transactionsRepositoryRemote: TransactionsRepositoryProtocol,
+         transactionsRepository: TransactionsRepositoryProtocol,
          assetsRepository: AssetsRepositoryProtocol,
          orderBookInteractor: OrderBookUseCaseProtocol,
          developmentConfig: DevelopmentConfigsRepositoryProtocol,
@@ -53,7 +53,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         orderBookRepository = dexOrderBookRepository
         self.assetsRepository = assetsRepository
         self.transactionInteractor = transactionInteractor
-        self.transactionsRepositoryRemote = transactionsRepositoryRemote
+        self.transactionsRepository = transactionsRepository
         self.orderBookInteractor = orderBookInteractor
         self.developmentConfig = developmentConfig
         self.assetsInteractors = assetsInteractors
@@ -90,14 +90,13 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                          walletAddress: wallet.address)
 
             return Observable.zip(strongSelf.orderBookInteractor.orderSettingsFee(),
-                                  strongSelf.transactionsRepositoryRemote.feeRules(),
+                                  strongSelf.transactionsRepository.feeRules(),
                                   isSmartAddress,
                                   strongSelf.accountBalance.balances(),
                                   isSmartAssets,
                                   strongSelf.obtainWavesAsset(accountAddress: wallet.address))
                 .flatMap { [weak self]
-                    settingOrderFee, feeRules, isSmartAddress, availableAccountBalances, isSmartAssets, wavesAsset
-                    -> Observable<DexCreateOrder.DTO.FeeSettings> in
+                    (settingOrderFee, feeRules, isSmartAddress, availableAccountBalances, isSmartAssets, wavesAsset) -> Observable<DexCreateOrder.DTO.FeeSettings> in
                     guard let strongSelf = self else { return Observable.never() }
 
                     let transactionSpecs = DomainLayer.Query.TransactionSpecificationType.createOrder(
@@ -130,7 +129,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     }
 
     private func filterFeeAssets(feeAsset: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
-                                 wavesAsset: DomainLayer.DTO.Asset,
+                                 wavesAsset: Asset,
                                  isSmartAssets: [(String, Bool)],
                                  isSmartAddress: Bool,
                                  amountAsset: String,
@@ -169,7 +168,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                               amountAssetId: String,
                               priceAssetId: String,
                               feeAssetId: String,
-                              asset: DomainLayer.DTO.Asset,
+                              asset: Asset,
                               settingOrderFee: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
                               baseFee: Int64,
                               rules: DomainLayer.DTO.TransactionFeeRules,
@@ -246,10 +245,10 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             }
         )
     }
-    
-    private func obtainWavesAsset(accountAddress: String) -> Observable<DomainLayer.DTO.Asset> {
+
+    private func obtainWavesAsset(accountAddress: String) -> Observable<Asset> {
         assetsInteractors.assetsSync(by: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
-            .flatMap { asset -> Observable<DomainLayer.DTO.Asset> in
+            .flatMap { asset -> Observable<Asset> in
                 if let result = asset.remote?.first {
                     return Observable.just(result)
                 } else if let result = asset.local?.result.first {
@@ -259,7 +258,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                 } else {
                     return Observable.error(TransactionsUseCaseError.invalid)
                 }
-        }
+            }
     }
 
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool> {

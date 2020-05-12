@@ -10,8 +10,8 @@ import DomainLayer
 import Foundation
 import WavesSDK
 
-extension ExchangeTransaction {
-    convenience init(transaction: DomainLayer.DTO.ExchangeTransaction) {
+extension ExchangeTransactionRealm {
+    convenience init(transaction: ExchangeTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -33,21 +33,20 @@ extension ExchangeTransaction {
         buyMatcherFee = transaction.buyMatcherFee
         sellMatcherFee = transaction.sellMatcherFee
 
-        order1 = ExchangeTransactionOrder(order: transaction.order1)
-        order2 = ExchangeTransactionOrder(order: transaction.order2)
+        order1 = ExchangeTransactionOrderRealm(order: transaction.order1)
+        order2 = ExchangeTransactionOrderRealm(order: transaction.order2)
         status = transaction.status.rawValue
     }
 }
 
-extension DomainLayer.DTO.ExchangeTransaction {
+extension ExchangeTransaction {
     init(transaction: NodeService.DTO.ExchangeTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
-        
-        let order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1,
+        let order1 = ExchangeTransaction.Order(order: transaction.order1,
                                                                aliasScheme: aliasScheme)
-        
-        let order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2,
+
+        let order2 = ExchangeTransaction.Order(order: transaction.order2,
                                                                aliasScheme: aliasScheme)
 
         self.init(type: transaction.type,
@@ -70,9 +69,9 @@ extension DomainLayer.DTO.ExchangeTransaction {
                   version: transaction.version)
     }
 
-    init(transaction: ExchangeTransaction) {
-        let order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1!)
-        let order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2!)
+    init(transaction: ExchangeTransactionRealm) {
+        let order1 = ExchangeTransaction.Order(order: transaction.order1!)
+        let order2 = ExchangeTransaction.Order(order: transaction.order2!)
 
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -90,12 +89,12 @@ extension DomainLayer.DTO.ExchangeTransaction {
                   buyMatcherFee: transaction.buyMatcherFee,
                   sellMatcherFee: transaction.sellMatcherFee,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed,
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed,
                   version: transaction.version)
     }
 }
 
-private extension DomainLayer.DTO.ExchangeTransaction.Order.Kind {
+private extension ExchangeTransaction.Order.Kind {
     init(key: String) {
         if key == "sell" {
             self = .sell
@@ -114,8 +113,8 @@ private extension DomainLayer.DTO.ExchangeTransaction.Order.Kind {
     }
 }
 
-extension ExchangeTransactionOrder {
-    convenience init(order: DomainLayer.DTO.ExchangeTransaction.Order) {
+extension ExchangeTransactionOrderRealm {
+    convenience init(order: ExchangeTransaction.Order) {
         self.init()
 
         id = order.id
@@ -130,7 +129,7 @@ extension ExchangeTransactionOrder {
         matcherFee = order.matcherFee
         signature = order.signature
 
-        let assetPair = ExchangeTransactionAssetPair()
+        let assetPair = ExchangeTransactionAssetPairRealm()
         assetPair.amountAsset = order.assetPair.amountAsset
         assetPair.priceAsset = order.assetPair.priceAsset
         self.assetPair = assetPair
@@ -138,14 +137,13 @@ extension ExchangeTransactionOrder {
     }
 }
 
-extension DomainLayer.DTO.ExchangeTransaction.Order {
+extension ExchangeTransaction.Order {
     init(order: NodeService.DTO.ExchangeTransaction.Order,
          aliasScheme: String) {
-        
         let amountAsset = order.assetPair.amountAsset.normalizeAssetId
         let priceAsset = order.assetPair.priceAsset.normalizeAssetId
-        
-        let assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: amountAsset,
+
+        let assetPair = ExchangeTransaction.Pair(amountAsset: amountAsset,
                                                                       priceAsset: priceAsset)
         self.init(id: order.id,
                   sender: order.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -162,11 +160,11 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
                   matcherFeeAssetId: order.matcherFeeAssetId)
     }
 
-    init(order: ExchangeTransactionOrder) {
+    init(order: ExchangeTransactionOrderRealm) {
         let amountAssetId = order.assetPair?.amountAsset
         let priceAssetId = order.assetPair?.priceAsset
 
-        let assetPair = DomainLayer.DTO.ExchangeTransaction.AssetPair(amountAsset: amountAssetId.normalizeAssetId,
+        let assetPair = ExchangeTransaction.Pair(amountAsset: amountAssetId.normalizeAssetId,
                                                                       priceAsset: priceAssetId.normalizeAssetId)
 
         self.init(id: order.id,

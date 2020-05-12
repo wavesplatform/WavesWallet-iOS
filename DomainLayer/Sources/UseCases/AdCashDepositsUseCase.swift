@@ -93,7 +93,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                         let assets = self.assetsUseCase
                             .assets(by: [assetId],
                                     accountAddress: signedWallet.address)
-                            .flatMap { assets -> Observable<DomainLayer.DTO.Asset> in
+                            .flatMap { assets -> Observable<Asset> in
                                 guard let asset = assets.first(where: { $0.id == assetId }) else {
                                     return Observable.error(NetworkError.notFound)
                                 }

@@ -16,8 +16,8 @@ public protocol RepositoriesFactoryProtocol {
     var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol { get }
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
 
-    var transactionsRepositoryLocal: TransactionsRepositoryProtocol { get }
-    var transactionsRepositoryRemote: TransactionsRepositoryProtocol { get }
+    var transactionsDAO: TransactionsDAO { get }
+    var transactionsRepository: TransactionsRepositoryProtocol { get }
 
     var blockRemote: BlockRepositoryProtocol { get }
 
@@ -83,7 +83,6 @@ public protocol RepositoriesFactoryProtocol {
     var serverTimestampRepository: ServerTimestampRepository { get }
     
     var gatewaysWavesRepository: GatewaysWavesRepository { get }
-    
-    @available(*, deprecated, message: "You need use RepositoryFactory.")
+        
     var serverEnvironmentUseCase: ServerEnvironmentRepository { get }
 }

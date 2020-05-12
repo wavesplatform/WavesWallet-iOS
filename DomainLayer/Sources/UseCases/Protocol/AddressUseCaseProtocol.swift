@@ -11,8 +11,8 @@ import RxSwift
 import Extensions
 
 public protocol AddressUseCaseProtocol {
-    func address(by ids: [String], myAddress: String) -> Observable<[DomainLayer.DTO.Address]>
-    func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[DomainLayer.DTO.Address]>
+    func address(by ids: [String], myAddress: String) -> Observable<[Address]>
+    func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[Address]>
 }
     
 

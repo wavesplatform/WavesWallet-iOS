@@ -2,7 +2,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-final class AssetBalance: Object {
+final class AssetBalanceRealm: Object {
 
     typealias Identity = String
 

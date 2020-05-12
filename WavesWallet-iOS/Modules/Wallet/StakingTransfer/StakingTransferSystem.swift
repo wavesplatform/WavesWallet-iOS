@@ -514,9 +514,9 @@ private extension StakingTransferSystem {
 }
 
 // TODO: Move
-extension DomainLayer.DTO.Asset {
+extension Asset {
     
-    static func assetUSDN() -> DomainLayer.DTO.Asset {
+    static func assetUSDN() -> Asset {
         return .init(id: "",
                      gatewayId: "",
                      wavesId: "",

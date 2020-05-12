@@ -17,7 +17,7 @@ final class StartLeasingCompleteViewController: UIViewController {
     
     var kind: StartLeasingTypes.Kind!
     weak var output: StartLeasingModuleOutput?
-    var transaction: DomainLayer.DTO.SmartTransaction!
+    var transaction: SmartTransaction!
     
     override func viewDidLoad() {
         super.viewDidLoad()

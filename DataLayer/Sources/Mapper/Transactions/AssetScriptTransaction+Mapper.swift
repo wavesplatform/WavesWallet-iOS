@@ -12,8 +12,8 @@ import Foundation
 import WavesSDK
 import WavesSDKExtensions
 
-extension AssetScriptTransaction {
-    convenience init(transaction: DomainLayer.DTO.AssetScriptTransaction) {
+extension AssetScriptTransactionRealm {
+    convenience init(transaction: AssetScriptTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -35,9 +35,9 @@ extension AssetScriptTransaction {
     }
 }
 
-extension DomainLayer.DTO.AssetScriptTransaction {
+extension AssetScriptTransaction {
     init(transaction: NodeService.DTO.SetAssetScriptTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -56,7 +56,7 @@ extension DomainLayer.DTO.AssetScriptTransaction {
                   status: status)
     }
 
-    init(transaction: AssetScriptTransaction) {
+    init(transaction: AssetScriptTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -71,6 +71,6 @@ extension DomainLayer.DTO.AssetScriptTransaction {
                   script: transaction.script,
                   assetId: transaction.assetId,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

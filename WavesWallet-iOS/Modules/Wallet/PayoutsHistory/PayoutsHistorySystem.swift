@@ -159,7 +159,7 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
 
 extension PayoutsHistorySystem {
     private typealias MassTransferTuple = (DataService.Response<[DataService.DTO.MassTransferTransaction]>,
-                                           [DomainLayer.DTO.Asset],
+                                           [Asset],
                                            DataService.Query.MassTransferDataQuery)
     
     var performLoading: Feedback {

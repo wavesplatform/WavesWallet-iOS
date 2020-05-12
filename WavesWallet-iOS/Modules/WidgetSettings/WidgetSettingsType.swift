@@ -69,7 +69,7 @@ enum WidgetSettings {
                 case none
                 case settings
                 case updateSettings
-                case deleteAsset(_ asset: DomainLayer.DTO.Asset)
+                case deleteAsset(_ asset: Asset)
                 case changeInterval(_ internal: DomainLayer.DTO.Widget.Interval)
                 case changeStyle(_ style: DomainLayer.DTO.Widget.Style)
                 case sortAssets(_ sortMap: [String: Int])
@@ -77,7 +77,7 @@ enum WidgetSettings {
 
             var action: Action
             var invalidAction: Action?
-            var assets: [DomainLayer.DTO.Asset]
+            var assets: [Asset]
             var minCountAssets: Int
             var maxCountAssets: Int
             var interval: DomainLayer.DTO.Widget.Interval
@@ -101,7 +101,7 @@ enum WidgetSettings {
         case moveRow(from: IndexPath, to: IndexPath)
 
         case settings(_ settings: DomainLayer.DTO.Widget.Settings)
-        case syncAssets(_ assets: [DomainLayer.DTO.Asset])
+        case syncAssets(_ assets: [Asset])
         case changeInterval(_ interval: DomainLayer.DTO.Widget.Interval)
         case changeStyle(_ style: DomainLayer.DTO.Widget.Style)
     }
@@ -118,7 +118,7 @@ enum WidgetSettings {
 }
 
 extension WidgetSettings.Row {
-    var asset: DomainLayer.DTO.Asset? {
+    var asset: Asset? {
         switch self {
         case let .asset(model):
             return model.asset
@@ -129,8 +129,8 @@ extension WidgetSettings.Row {
 }
 
 extension WidgetSettings.State.UI {
-    var uiAssets: [DomainLayer.DTO.Asset] {
-        var assets: [DomainLayer.DTO.Asset] = []
+    var uiAssets: [Asset] {
+        var assets: [Asset] = []
 
         if let assetSection = sections.first(where: { !$0.rows.filter { $0.asset != nil }.isEmpty }) {
             let assetRows = assetSection.rows.map { $0.asset }

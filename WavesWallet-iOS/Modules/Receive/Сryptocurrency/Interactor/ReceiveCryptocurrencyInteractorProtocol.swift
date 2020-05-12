@@ -12,6 +12,6 @@ import DomainLayer
 
 protocol ReceiveCryptocurrencyInteractorProtocol {
     
-    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>>
+    func generateAddress(asset: Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>>
     
 }

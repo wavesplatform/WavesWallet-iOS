@@ -13,11 +13,11 @@ public protocol GatewayRepositoryProtocol {
     
     func startWithdrawProcess(serverEnvironment: ServerEnvironment,
                               address: String,
-                              asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess>
+                              asset: Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess>
     
     func startDepositProcess(serverEnvironment: ServerEnvironment,
                              address: String,
-                             asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess>
+                             asset: Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess>
     
     func send(serverEnvironment: ServerEnvironment,
               specifications: TransactionSenderSpecifications,

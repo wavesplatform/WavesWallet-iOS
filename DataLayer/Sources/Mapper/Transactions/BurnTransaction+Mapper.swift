@@ -10,8 +10,8 @@ import DomainLayer
 import Foundation
 import WavesSDK
 
-extension BurnTransaction {
-    convenience init(transaction: DomainLayer.DTO.BurnTransaction) {
+extension BurnTransactionRealm {
+    convenience init(transaction: BurnTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -34,9 +34,9 @@ extension BurnTransaction {
     }
 }
 
-extension DomainLayer.DTO.BurnTransaction {
+extension BurnTransaction {
     init(transaction: NodeService.DTO.BurnTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -55,7 +55,7 @@ extension DomainLayer.DTO.BurnTransaction {
                   status: status)
     }
 
-    init(transaction: BurnTransaction) {
+    init(transaction: BurnTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -70,6 +70,6 @@ extension DomainLayer.DTO.BurnTransaction {
                   assetId: transaction.assetId,
                   amount: transaction.amount,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

@@ -13,7 +13,7 @@ import DomainLayer
 protocol AssetDetailInteractorProtocol {
 
     func assets(by ids: [String]) -> Observable<[AssetDetailTypes.DTO.PriceAsset]>
-    func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]>
+    func transactions(by assetId: String) -> Observable<[SmartTransaction]>
     func refreshAssets(by ids: [String])
     func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool)
 }

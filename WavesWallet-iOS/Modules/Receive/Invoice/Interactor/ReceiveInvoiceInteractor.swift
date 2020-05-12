@@ -19,7 +19,7 @@ private enum Constancts {
 
 final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
  
-    func displayInfo(asset: DomainLayer.DTO.Asset, amount: Money) -> Observable<ReceiveInvoice.DTO.DisplayInfo> {
+    func displayInfo(asset: Asset, amount: Money) -> Observable<ReceiveInvoice.DTO.DisplayInfo> {
 
         let authAccount = UseCasesFactory.instance.authorization
         return authAccount.authorizedWallet()

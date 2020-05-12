@@ -36,7 +36,7 @@ final class DexDeepLinkLoadingViewController: UIViewController {
     
     private func loadAssets() {
         if let amountAssetId = deepLink.amountAsset, let priceAssetId = deepLink.priceAsset {
-            auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<[DomainLayer.DTO.Asset]> in
+            auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<[Asset]> in
                 guard let self = self else { return Observable.empty() }
                 return self.assets.assets(by: [amountAssetId, priceAssetId], accountAddress: wallet.address)
             }

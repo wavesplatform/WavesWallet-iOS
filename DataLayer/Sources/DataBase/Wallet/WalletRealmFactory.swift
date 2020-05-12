@@ -25,8 +25,9 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_4 = 13 // v2.4
     case version_2_5 = 14 // v2.5
     case version_2_6 = 15 // v2.9
+    case version_2_11 = 16
 
-    static let currentVersion: SchemaVersions = .version_2_6
+    static let currentVersion: SchemaVersions = .version_2_11
 }
 
 fileprivate enum Constants {
@@ -48,32 +49,32 @@ enum WalletRealmFactory {
 
             .appendingPathComponent("\(accountAddress).realm")
         config.schemaVersion = SchemaVersions.currentVersion.rawValue
-        config.objectTypes = [Transaction.self,
-                              IssueTransaction.self,
-                              TransferTransaction.self,
-                              ReissueTransaction.self,
-                              LeaseTransaction.self,
-                              LeaseCancelTransaction.self,
-                              AliasTransaction.self,
-                              MassTransferTransaction.self,
-                              MassTransferTransactionTransfer.self,
-                              BurnTransaction.self,
-                              ExchangeTransaction.self,
-                              ExchangeTransactionOrder.self,
-                              ExchangeTransactionAssetPair.self,
-                              ScriptTransaction.self,
-                              AssetScriptTransaction.self,
-                              DataTransaction.self,
-                              DataTransactionData.self,
-                              AnyTransaction.self,
-                              UnrecognisedTransaction.self,
-                              SponsorshipTransaction.self,
-                              InvokeScriptTransaction.self,
-                              InvokeScriptTransactionPayment.self,
-                              Asset.self,
+        config.objectTypes = [TransactionRealm.self,
+                              IssueTransactionRealm.self,
+                              TransferTransactionRealm.self,
+                              ReissueTransactionRealm.self,
+                              LeaseTransactionRealm.self,
+                              LeaseCancelTransactionRealm.self,
+                              AliasTransactionRealm.self,
+                              MassTransferTransactionRealm.self,
+                              MassTransferTransactionTransferRealm.self,
+                              BurnTransactionRealm.self,
+                              ExchangeTransactionRealm.self,
+                              ExchangeTransactionOrderRealm.self,
+                              ExchangeTransactionAssetPairRealm.self,
+                              ScriptTransactionRealm.self,
+                              AssetScriptTransactionRealm.self,
+                              DataTransactionRealm.self,
+                              DataTransactionDataRealm.self,
+                              AnyTransactionRealm.self,
+                              UnrecognisedTransactionRealm.self,
+                              SponsorshipTransactionRealm.self,
+                              InvokeScriptTransactionRealm.self,
+                              InvokeScriptTransactionPaymentRealm.self,
+                              AssetRealm.self,
                               AddressBook.self,
-                              AssetBalance.self,
-                              AssetBalanceSettings.self,
+                              AssetBalanceRealm.self,
+                              AssetBalanceSettingsRealm.self,
                               AccountEnvironment.self,
                               AccountSettings.self,
                               DexAsset.self,
@@ -86,11 +87,11 @@ enum WalletRealmFactory {
 
             if oldSchemaVersion < SchemaVersions.version_2.rawValue {
 
-                if migration.hadProperty(onType: AssetBalance.className(), property: Constants.isHiddenKey) &&
-                    migration.hadProperty(onType: AssetBalance.className(), property: Constants.assetIdKey) &&
-                    migration.hadProperty(onType: AssetBalance.className(), property: Constants.isSpamKey) {
+                if migration.hadProperty(onType: AssetBalanceRealm.className(), property: Constants.isHiddenKey) &&
+                    migration.hadProperty(onType: AssetBalanceRealm.className(), property: Constants.assetIdKey) &&
+                    migration.hadProperty(onType: AssetBalanceRealm.className(), property: Constants.isSpamKey) {
 
-                    migration.enumerateObjects(ofType: AssetBalance.className()) { oldObject, newObject in
+                    migration.enumerateObjects(ofType: AssetBalanceRealm.className()) { oldObject, newObject in
 
                         guard let isHidden = oldObject?[Constants.isHiddenKey] as? Bool else { return }
                         guard var assetId = oldObject?[Constants.assetIdKey] as? String else { return }
@@ -98,12 +99,12 @@ enum WalletRealmFactory {
 
                         assetId = assetId.count == 0 ? WavesSDKConstants.wavesAssetId : assetId
 
-                        let assetBalanceSettings = migration.create(AssetBalanceSettings.className())
+                        let assetBalanceSettings = migration.create(AssetBalanceSettingsRealm.className())
                         assetBalanceSettings[Constants.assetIdKey] = assetId
                         assetBalanceSettings[Constants.isHiddenKey] = isHidden && !isSpam
 
                         //It current code for 2 Schema Version
-                        if migration.hadProperty(onType: AssetBalance.className(), property: Constants.settingsKey) {
+                        if migration.hadProperty(onType: AssetBalanceRealm.className(), property: Constants.settingsKey) {
                             newObject?[Constants.settingsKey] = assetBalanceSettings
                         }
 
@@ -164,6 +165,25 @@ enum WalletRealmFactory {
             if oldSchemaVersion < SchemaVersions.version_2_6.rawValue {
                 removeAsset(migration: migration)
             }
+            
+            if oldSchemaVersion < SchemaVersions.version_2_11.rawValue {
+                                
+                migration.enumerateObjects(ofType: "AssetBalanceSettings") { oldObject, newObject in
+                                        
+                    guard var assetId: String = oldObject?["assetId"] as? String else { return }
+                    guard let sortLevel: Int64 = oldObject?["sortLevel"] as? Int64 else { return }
+                    guard let isHidden: Bool = oldObject?["isHidden"] as? Bool else { return }
+                    guard let isFavorite: Bool = oldObject?["isFavorite"] as? Bool else { return }
+                     
+                    assetId = assetId.count == 0 ? WavesSDKConstants.wavesAssetId : assetId
+
+                    let assetBalanceSettings = migration.create(AssetBalanceSettingsRealm.className())
+                    assetBalanceSettings["assetId"] = assetId
+                    assetBalanceSettings["sortLevel"] = sortLevel
+                    assetBalanceSettings["isHidden"] = isHidden
+                    assetBalanceSettings["isFavorite"] = isFavorite
+                }
+            }
         }
 
         return config
@@ -175,39 +195,39 @@ enum WalletRealmFactory {
     }
 
     static func resetAssetSort(migration: Migration) {
-        migration.enumerateObjects(ofType: AssetBalanceSettings.className()) { oldObject, newObject in
+        migration.enumerateObjects(ofType: AssetBalanceSettingsRealm.className()) { oldObject, newObject in
             newObject?[Constants.sortLevel] = Constants.sortLevelNotFound
         }
     }
 
     static func removeTransaction(migration: Migration) {
-        migration.deleteData(forType: Transaction.className())
-        migration.deleteData(forType: IssueTransaction.className())
-        migration.deleteData(forType: TransferTransaction.className())
-        migration.deleteData(forType: ReissueTransaction.className())
-        migration.deleteData(forType: LeaseTransaction.className())
-        migration.deleteData(forType: LeaseCancelTransaction.className())
-        migration.deleteData(forType: AliasTransaction.className())
-        migration.deleteData(forType: MassTransferTransaction.className())
-        migration.deleteData(forType: MassTransferTransactionTransfer.className())
-        migration.deleteData(forType: BurnTransaction.className())
-        migration.deleteData(forType: ExchangeTransaction.className())
-        migration.deleteData(forType: ExchangeTransactionOrder.className())
-        migration.deleteData(forType: ExchangeTransactionAssetPair.className())
-        migration.deleteData(forType: DataTransaction.className())
-        migration.deleteData(forType: DataTransactionData.className())
-        migration.deleteData(forType: AnyTransaction.className())
-        migration.deleteData(forType: UnrecognisedTransaction.className())
-        migration.deleteData(forType: ScriptTransaction.className())
-        migration.deleteData(forType: AssetScriptTransaction.className())
-        migration.deleteData(forType: SponsorshipTransaction.className())
-        migration.deleteData(forType: InvokeScriptTransaction.className())
-        migration.deleteData(forType: InvokeScriptTransactionPayment.className())
+        migration.deleteData(forType: TransactionRealm.className())
+        migration.deleteData(forType: IssueTransactionRealm.className())
+        migration.deleteData(forType: TransferTransactionRealm.className())
+        migration.deleteData(forType: ReissueTransactionRealm.className())
+        migration.deleteData(forType: LeaseTransactionRealm.className())
+        migration.deleteData(forType: LeaseCancelTransactionRealm.className())
+        migration.deleteData(forType: AliasTransactionRealm.className())
+        migration.deleteData(forType: MassTransferTransactionRealm.className())
+        migration.deleteData(forType: MassTransferTransactionTransferRealm.className())
+        migration.deleteData(forType: BurnTransactionRealm.className())
+        migration.deleteData(forType: ExchangeTransactionRealm.className())
+        migration.deleteData(forType: ExchangeTransactionOrderRealm.className())
+        migration.deleteData(forType: ExchangeTransactionAssetPairRealm.className())
+        migration.deleteData(forType: DataTransactionRealm.className())
+        migration.deleteData(forType: DataTransactionDataRealm.className())
+        migration.deleteData(forType: AnyTransactionRealm.className())
+        migration.deleteData(forType: UnrecognisedTransactionRealm.className())
+        migration.deleteData(forType: ScriptTransactionRealm.className())
+        migration.deleteData(forType: AssetScriptTransactionRealm.className())
+        migration.deleteData(forType: SponsorshipTransactionRealm.className())
+        migration.deleteData(forType: InvokeScriptTransactionRealm.className())
+        migration.deleteData(forType: InvokeScriptTransactionPaymentRealm.className())
     }
     
     static func removeAsset(migration: Migration) {
-        migration.deleteData(forType: Asset.className())
-        migration.deleteData(forType: AssetBalance.className())        
+        migration.deleteData(forType: AssetRealm.className())
+        migration.deleteData(forType: AssetBalanceRealm.className())        
     }
 }
 

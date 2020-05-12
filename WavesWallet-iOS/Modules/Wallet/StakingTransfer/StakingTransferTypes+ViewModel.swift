@@ -14,7 +14,7 @@ extension StakingTransfer.ViewModel {
     
     static func inputField(title: String,
                            hasError: Bool,
-                           asset: DomainLayer.DTO.Asset,
+                           asset: Asset,
                            amount: Money?,
                            hasDecimal: Bool) -> StakingTransfer.ViewModel.Row {
         

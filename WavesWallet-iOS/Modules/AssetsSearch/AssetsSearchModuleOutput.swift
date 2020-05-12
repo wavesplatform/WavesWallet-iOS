@@ -13,6 +13,6 @@ import RxSwift
 
 protocol AssetsSearchModuleOutput {
     
-    func assetsSearchSelectedAssets(_ assets: [DomainLayer.DTO.Asset])
+    func assetsSearchSelectedAssets(_ assets: [Asset])
     func assetsSearchClose()
 }

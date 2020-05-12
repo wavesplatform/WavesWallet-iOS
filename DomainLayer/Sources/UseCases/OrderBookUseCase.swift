@@ -59,7 +59,7 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
             })
     }
     
-    private func mapAssetsToSmartSettings(assets: [DomainLayer.DTO.Asset],
+    private func mapAssetsToSmartSettings(assets: [Asset],
                                           baseSettings: DomainLayer.DTO.Dex.SettingsOrderFee) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee {
         
         var sortedAssets = assets.sorted(by: {$0.displayName < $1.displayName})

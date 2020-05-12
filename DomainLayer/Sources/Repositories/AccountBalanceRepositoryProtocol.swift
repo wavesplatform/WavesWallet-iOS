@@ -17,15 +17,15 @@ public enum AccountBalanceRepositoryError: Error {
 public protocol AccountBalanceRepositoryProtocol {
 
     func balances(by serverEnviroment: ServerEnvironment,
-                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]>
+                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[AssetBalance]>
     
     func balance(by serverEnviroment: ServerEnvironment,
                  assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance>
+                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<AssetBalance>
 
-    func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool>
-    func saveBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool>
-    func saveBalance(_ balance: DomainLayer.DTO.AssetBalance, accountAddress: String) -> Observable<Bool>
+    func deleteBalances(_ balances:[AssetBalance], accountAddress: String) -> Observable<Bool>
+    func saveBalances(_ balances:[AssetBalance], accountAddress: String) -> Observable<Bool>
+    func saveBalance(_ balance: AssetBalance, accountAddress: String) -> Observable<Bool>
     
-    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalance]>
+    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[AssetBalance]>
 }

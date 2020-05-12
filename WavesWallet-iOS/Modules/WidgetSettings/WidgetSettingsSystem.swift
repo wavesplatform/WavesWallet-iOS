@@ -74,7 +74,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     }
 
     private lazy var deleteAsset: Feedback = {
-        react(request: { (state) -> DomainLayer.DTO.Asset? in
+        react(request: { (state) -> Asset? in
 
             if case let .deleteAsset(asset) = state.core.action {
                 return asset
@@ -166,7 +166,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     }()
 
     private struct UpdateQuery: Equatable {
-        let assets: [DomainLayer.DTO.Asset]
+        let assets: [Asset]
         let sortMap: [String: Int]
         let style: DomainLayer.DTO.Widget.Style
         let interval: DomainLayer.DTO.Widget.Interval
@@ -363,7 +363,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
                                          isInitial: false)
     }
 
-    private func sections(assets: [DomainLayer.DTO.Asset], minCountAssets: Int, maxCountAssets: Int) -> [Types.Section] {
+    private func sections(assets: [Asset], minCountAssets: Int, maxCountAssets: Int) -> [Types.Section] {
         let isNeedLock = assets.count == minCountAssets
 
         let rows = assets.enumerated().map { Types.Row.asset(.init(asset: $0.element,

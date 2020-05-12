@@ -52,7 +52,7 @@ public extension DomainLayer.DTO.MobileKeeper {
     
     enum Success {
         case sign(TransactionSenderSpecifications)
-        case send(DomainLayer.DTO.AnyTransaction)
+        case send(AnyTransaction)
     }
     
     enum Error {

@@ -32,11 +32,11 @@ public extension DomainLayer.DTO.Widget {
     }
     
     struct Settings {
-        public let assets: [DomainLayer.DTO.Asset]
+        public let assets: [Asset]
         public let style: Style
         public let interval: Interval
 
-        public init(assets: [DomainLayer.DTO.Asset], style: Style, interval: Interval) {
+        public init(assets: [Asset], style: Style, interval: Interval) {
             self.assets = assets
             self.style = style
             self.interval = interval
@@ -55,7 +55,7 @@ public protocol WidgetSettingsUseCaseProtocol {
     
     func changeStyle(_ style: DomainLayer.DTO.Widget.Style) -> Observable<Bool>
  
-    func removeAsset(_ asset: DomainLayer.DTO.Asset) -> Observable<Bool>
+    func removeAsset(_ asset: Asset) -> Observable<Bool>
     
     func sortAssets(_ sortMap: [String: Int]) -> Observable<Bool>
 }

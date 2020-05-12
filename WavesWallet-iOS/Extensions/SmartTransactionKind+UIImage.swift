@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import DomainLayer
 
-extension DomainLayer.DTO.SmartTransaction.Kind {
+extension SmartTransaction.Kind {
 
     var image: UIImage {
         switch self {

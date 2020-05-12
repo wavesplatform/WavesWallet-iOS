@@ -9,9 +9,9 @@
 import Foundation
 import DomainLayer
 
-extension Asset {
+extension AssetRealm {
 
-    convenience init(asset: DomainLayer.DTO.Asset) {
+    convenience init(asset: Asset) {
         self.init()
         self.id = asset.id
         self.wavesId = asset.wavesId
@@ -40,9 +40,9 @@ extension Asset {
     }
 }
 
-extension DomainLayer.DTO.Asset {
+extension Asset {
     
-    init(_ asset: Asset) {
+    init(_ asset: AssetRealm) {
         
         self.init(id: asset.id,
                   gatewayId: asset.gatewayId,
