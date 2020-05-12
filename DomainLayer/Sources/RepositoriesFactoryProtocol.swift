@@ -12,8 +12,7 @@ public protocol RepositoriesFactoryProtocol {
 
     var assetsRepositoryLocal: AssetsRepositoryProtocol { get }
     var assetsRepositoryRemote: AssetsRepositoryProtocol { get }
-
-    var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol { get }
+    
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
 
     var transactionsRepositoryLocal: TransactionsRepositoryProtocol { get }
@@ -81,4 +80,6 @@ public protocol RepositoriesFactoryProtocol {
     var stakingBalanceService: StakingBalanceService { get }
     
     var serverTimestampRepository: ServerTimestampRepository { get }
+    
+    var gatewaysWavesRepository: GatewaysWavesRepository { get }
 }

@@ -242,6 +242,7 @@ final class SendViewController: UIViewController {
         
         
         let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
+        vc.interactor = presenter.interactor
         vc.resultDelegate = self
         vc.input = .init(asset: asset,
                          address: address,

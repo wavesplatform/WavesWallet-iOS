@@ -24,12 +24,12 @@ extension DomainLayer.Query.WEGateway {
         public let senderAsset: String
         public let recipientAsset: String
         public let recipientAddress: String
-        public let token: DomainLayer.DTO.WEOAuth.Token
+        public let token: WEOAuthTokenDTO
 
         public init(senderAsset: String,
                     recipientAsset: String,
                     recipientAddress: String,
-                    token: DomainLayer.DTO.WEOAuth.Token) {
+                    token: WEOAuthTokenDTO) {
             self.senderAsset = senderAsset
             self.recipientAsset = recipientAsset
             self.recipientAddress = recipientAddress
@@ -41,12 +41,12 @@ extension DomainLayer.Query.WEGateway {
         public let amount: Decimal
         public let assetId: String
         public let address: String
-        public let token: DomainLayer.DTO.WEOAuth.Token
+        public let token: WEOAuthTokenDTO
         
         public init(amount: Decimal,
                     assetId: String,
                     address: String,
-                    token: DomainLayer.DTO.WEOAuth.Token) {
+                    token: WEOAuthTokenDTO) {
             self.amount = amount
             self.assetId = assetId
             self.address = address
@@ -55,6 +55,7 @@ extension DomainLayer.Query.WEGateway {
     }
 }
 
+//TODO: После переходна grpc надо бы его удалить
 extension DomainLayer.DTO.WEGateway {
     
     public struct TransferBinding {

@@ -25,8 +25,9 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_4 = 13 // v2.4
     case version_2_5 = 14 // v2.5
     case version_2_6 = 15 // v2.9
+    case version_2_11 = 16 // v2.11 
 
-    static let currentVersion: SchemaVersions = .version_2_6
+    static let currentVersion: SchemaVersions = .version_2_11
 }
 
 fileprivate enum Constants {
@@ -72,7 +73,6 @@ enum WalletRealmFactory {
                               InvokeScriptTransactionPayment.self,
                               Asset.self,
                               AddressBook.self,
-                              AssetBalance.self,
                               AssetBalanceSettings.self,
                               AccountEnvironment.self,
                               AccountSettings.self,
@@ -85,31 +85,6 @@ enum WalletRealmFactory {
             SweetLogger.debug("Wallet Migration!!! \(oldSchemaVersion)")
 
             if oldSchemaVersion < SchemaVersions.version_2.rawValue {
-
-                if migration.hadProperty(onType: AssetBalance.className(), property: Constants.isHiddenKey) &&
-                    migration.hadProperty(onType: AssetBalance.className(), property: Constants.assetIdKey) &&
-                    migration.hadProperty(onType: AssetBalance.className(), property: Constants.isSpamKey) {
-
-                    migration.enumerateObjects(ofType: AssetBalance.className()) { oldObject, newObject in
-
-                        guard let isHidden = oldObject?[Constants.isHiddenKey] as? Bool else { return }
-                        guard var assetId = oldObject?[Constants.assetIdKey] as? String else { return }
-                        guard let isSpam = oldObject?[Constants.isSpamKey] as? Bool else { return }
-
-                        assetId = assetId.count == 0 ? WavesSDKConstants.wavesAssetId : assetId
-
-                        let assetBalanceSettings = migration.create(AssetBalanceSettings.className())
-                        assetBalanceSettings[Constants.assetIdKey] = assetId
-                        assetBalanceSettings[Constants.isHiddenKey] = isHidden && !isSpam
-
-                        //It current code for 2 Schema Version
-                        if migration.hadProperty(onType: AssetBalance.className(), property: Constants.settingsKey) {
-                            newObject?[Constants.settingsKey] = assetBalanceSettings
-                        }
-
-                        newObject?[Constants.assetIdKey] = assetId
-                    }
-                }
 
                 migration.enumerateObjects(ofType: AddressBook.className()) { oldObject, newObject in
 
@@ -206,8 +181,7 @@ enum WalletRealmFactory {
     }
     
     static func removeAsset(migration: Migration) {
-        migration.deleteData(forType: Asset.className())
-        migration.deleteData(forType: AssetBalance.className())        
+        migration.deleteData(forType: Asset.className())                
     }
 }
 

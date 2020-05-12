@@ -36,9 +36,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                accountSettingsRepository: accountSettingsRepository,
                                environmentRepository: environmentRepository,
                                wavesSDKServices: servicesFactory.wavesSDKServices)
-
-    public private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
-
+    
     public private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol =
         AccountBalanceRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
 
@@ -151,6 +149,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var serverTimestampRepository: ServerTimestampRepository = {
         ServerTimestampRepositoryImp(timestampServerService: servicesFactory.timestampServerService)
+    }()
+    
+    public private(set) lazy var gatewaysWavesRepository: GatewaysWavesRepository = {
+        return GatewaysWavesRepositoryImp()
     }()
 
     public struct Resources {

@@ -17,7 +17,7 @@ final class SendLoadingViewController: UIViewController {
     weak var delegate: SendResultDelegate?
     var input: SendConfirmationViewController.Input!
     
-    let interactor: SendInteractorProtocol = SendInteractor()
+    var interactor: SendInteractorProtocol!
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
