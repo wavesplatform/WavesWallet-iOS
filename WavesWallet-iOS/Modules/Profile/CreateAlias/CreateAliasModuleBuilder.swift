@@ -8,6 +8,7 @@
 
 import UIKit
 import Extensions
+import DomainLayer
 
 struct CreateAliasModuleBuilder: ModuleBuilderOutput {
 
@@ -16,7 +17,18 @@ struct CreateAliasModuleBuilder: ModuleBuilderOutput {
     func build(input: Void) -> UIViewController {
 
         let vc = StoryboardScene.Profile.createAliasViewController.instantiate()
-        let presenter = CreateAliasPresenter()        
+        
+        let aliasesRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+        let authorizationUseCase = UseCasesFactory.instance.authorization
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+        let transactionsUseCase = UseCasesFactory.instance.transactions
+        let accountBalanceUseCase = UseCasesFactory.instance.accountBalance
+        
+        let presenter = CreateAliasPresenter(aliasesRepository: aliasesRepository,
+                                             authorizationUseCase: authorizationUseCase,
+                                             serverEnvironmentUseCase: serverEnvironmentUseCase,
+                                             transactionsUseCase: transactionsUseCase,
+                                             accountBalanceUseCase: accountBalanceUseCase)
         presenter.moduleOutput = output
         vc.presenter = presenter
 

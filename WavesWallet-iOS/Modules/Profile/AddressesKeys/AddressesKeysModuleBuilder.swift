@@ -21,7 +21,14 @@ struct AddressesKeysModuleBuilder: ModuleBuilderOutput {
     func build(input: Input) -> UIViewController {
 
         let vc = StoryboardScene.Profile.addressesKeysViewController.instantiate()
-        let presenter = AddressesKeysPresenter()
+        
+        let authorization = UseCasesFactory.instance.authorization
+        let aliasesRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+        let serverEnvironment = UseCasesFactory.instance.serverEnvironmentUseCase
+                
+        let presenter = AddressesKeysPresenter(authorizationUseCase: authorization,
+                                               aliasesRepository: aliasesRepository,
+                                               serverEnvironmentRepository: serverEnvironment)
         presenter.moduleInput = input
         presenter.moduleOutput = output
         vc.presenter = presenter

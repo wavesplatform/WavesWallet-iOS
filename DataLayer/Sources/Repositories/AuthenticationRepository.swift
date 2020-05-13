@@ -27,7 +27,6 @@ private enum Constants {
     #endif
 
     static let device = "ios"
-    static let url = URL(string: "https://us-central1-waves-exchange.cloudfunctions.net")!
 }
 
 final class AuthenticationRepository: AuthenticationRepositoryProtocol {
@@ -73,7 +72,7 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
 
                 let firebaseAuthApiUrl = serverEnvironment.servers.firebaseAuthApiUrl
 
-                let request = FirebaseAuthTarget(url: Constants.url,
+                let request = FirebaseAuthTarget(url: firebaseAuthApiUrl,
                                                  isDebug: Constants.isDebug,
                                                  id: id,
                                                  device: Constants.device,
@@ -128,11 +127,11 @@ private struct FirebaseRegisterTarget: Codable {
 
 extension FirebaseRegisterTarget: TargetType {
     var sampleData: Data {
-        return Data()
+        Data()
     }
 
     var baseURL: URL {
-        return url
+        url
     }
 
     var path: String {
@@ -144,15 +143,15 @@ extension FirebaseRegisterTarget: TargetType {
     }
 
     var headers: [String: String]? {
-        return ["Content-Type": "application/x-www-form-urlencoded"]
+        ["Content-Type": "application/x-www-form-urlencoded"]
     }
 
     var method: Moya.Method {
-        return .post
+        .post
     }
 
     var task: Task {
-        return .requestParameters(parameters: dictionary, encoding: URLEncoding.default)
+        .requestParameters(parameters: dictionary, encoding: URLEncoding.default)
     }
 }
 
@@ -174,11 +173,11 @@ private struct FirebaseAuthTarget: Codable {
 
 extension FirebaseAuthTarget: TargetType {
     var sampleData: Data {
-        return Data()
+        Data()
     }
 
     var baseURL: URL {
-        return url
+        url
     }
 
     var path: String {
@@ -190,15 +189,15 @@ extension FirebaseAuthTarget: TargetType {
     }
 
     var headers: [String: String]? {
-        return ["Content-Type": "application/x-www-form-urlencoded"]
+        ["Content-Type": "application/x-www-form-urlencoded"]
     }
 
     var method: Moya.Method {
-        return .post
+        .post
     }
 
     var task: Task {
-        return .requestParameters(parameters: dictionary, encoding: URLEncoding.default)
+        .requestParameters(parameters: dictionary, encoding: URLEncoding.default)
     }
 }
 
@@ -218,11 +217,11 @@ private struct FirebaseRevokeTarget: Codable {
 
 extension FirebaseRevokeTarget: TargetType {
     var sampleData: Data {
-        return Data()
+        Data()
     }
 
     var baseURL: URL {
-        return url
+        url
     }
 
     var path: String {
@@ -234,14 +233,14 @@ extension FirebaseRevokeTarget: TargetType {
     }
 
     var headers: [String: String]? {
-        return ["Content-Type": "application/x-www-form-urlencoded"]
+        ["Content-Type": "application/x-www-form-urlencoded"]
     }
 
     var method: Moya.Method {
-        return .post
+        .post
     }
 
     var task: Task {
-        return .requestParameters(parameters: dictionary, encoding: URLEncoding.default)
+        .requestParameters(parameters: dictionary, encoding: URLEncoding.default)
     }
 }
