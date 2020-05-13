@@ -14,8 +14,7 @@ public final class ServerEnvironmentRepositoryImp: ServerEnvironmentRepository {
     private let serverTimestampRepository: ServerTimestampRepository
     private let environmentRepository: EnvironmentRepositoryProtocol
 
-    init(serverTimestampRepository: ServerTimestampRepository,
-         environmentRepository: EnvironmentRepositoryProtocol) {
+    init(serverTimestampRepository: ServerTimestampRepository, environmentRepository: EnvironmentRepositoryProtocol) {
         self.serverTimestampRepository = serverTimestampRepository
         self.environmentRepository = environmentRepository
     }

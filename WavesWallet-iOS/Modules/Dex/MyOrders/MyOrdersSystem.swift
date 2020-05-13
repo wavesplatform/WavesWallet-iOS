@@ -15,9 +15,16 @@ import RxSwift
 import WavesSDK
 
 final class MyOrdersSystem: System<MyOrdersTypes.State, MyOrdersTypes.Event> {
-    private let repository = UseCasesFactory.instance.repositories.dexOrderBookRepository
-    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol
+    private let authorizationUseCase: AuthorizationUseCaseProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
+
+    init(dexOrderBookRepository: DexOrderBookRepositoryProtocol, authorizationUseCase: AuthorizationUseCaseProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
+        self.dexOrderBookRepository = dexOrderBookRepository
+        self.authorizationUseCase = authorizationUseCase
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
+    }
 
     override func initialState() -> MyOrdersTypes.State! {
         let skeletonRows: [MyOrdersTypes.ViewModel.Row] = [.skeleton, .skeleton, .skeleton, .skeleton, .skeleton]
@@ -182,11 +189,11 @@ private extension MyOrdersSystem {
     func myOrders() -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
 
-        return Observable.zip(authorizationInteractor.authorizedWallet(),
+        return Observable.zip(authorizationUseCase.authorizedWallet(),
                               serverEnvironment)
             .flatMap { [weak self] wallet, serverEnvironment -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                 guard let self = self else { return Observable.empty() }
-                return self.repository
+                return self.dexOrderBookRepository
                     .allMyOrders(serverEnvironment: serverEnvironment,
                                  wallet: wallet)
             }
@@ -195,12 +202,12 @@ private extension MyOrdersSystem {
     func cancelAllOrders() -> Observable<Bool> {
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
 
-        return Observable.zip(authorizationInteractor.authorizedWallet(),
+        return Observable.zip(authorizationUseCase.authorizedWallet(),
                               serverEnvironment)
             .flatMap { [weak self] wallet, serverEnvironment -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
-                return self.repository.cancelAllOrders(serverEnvironment: serverEnvironment,
-                                                       wallet: wallet)
+                return self.dexOrderBookRepository.cancelAllOrders(serverEnvironment: serverEnvironment,
+                                                                   wallet: wallet)
             }
     }
 
@@ -209,15 +216,15 @@ private extension MyOrdersSystem {
                      priceAsset: String) -> Observable<Bool> {
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
 
-        return Observable.zip(authorizationInteractor.authorizedWallet(),
+        return Observable.zip(authorizationUseCase.authorizedWallet(),
                               serverEnvironment)
             .flatMap { [weak self] wallet, serverEnvironment -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
-                return self.repository.cancelOrder(serverEnvironment: serverEnvironment,
-                                                   wallet: wallet,
-                                                   orderId: orderId,
-                                                   amountAsset: amountAsset,
-                                                   priceAsset: priceAsset)
+                return self.dexOrderBookRepository.cancelOrder(serverEnvironment: serverEnvironment,
+                                                               wallet: wallet,
+                                                               orderId: orderId,
+                                                               amountAsset: amountAsset,
+                                                               priceAsset: priceAsset)
             }
     }
 }

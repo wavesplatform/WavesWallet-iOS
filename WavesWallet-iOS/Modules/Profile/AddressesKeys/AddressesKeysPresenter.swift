@@ -34,12 +34,20 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
     fileprivate typealias Types = AddressesKeysTypes
 
     private let disposeBag = DisposeBag()
-    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
-    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let authorizationUseCase: AuthorizationUseCaseProtocol
+    private let aliasesRepository: AliasesRepositoryProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     var moduleInput: AddressesKeysModuleInput!
     weak var moduleOutput: AddressesKeysModuleOutput?
+    
+    init(authorizationUseCase: AuthorizationUseCaseProtocol,
+         aliasesRepository: AliasesRepositoryProtocol,
+         serverEnvironmentRepository: ServerEnvironmentRepository) {
+        self.authorizationUseCase = authorizationUseCase
+        self.aliasesRepository = aliasesRepository
+        self.serverEnvironmentUseCase = serverEnvironmentRepository
+    }
 
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
