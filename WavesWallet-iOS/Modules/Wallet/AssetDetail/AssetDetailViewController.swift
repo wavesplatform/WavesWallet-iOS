@@ -596,12 +596,11 @@ extension AssetDetailTypes.DTO.Asset.Info {
         } else if isFiat {
             kind = .fiat
         } else if isGateway {
-            kind = .gateway
-        } else if isWaves {
-            kind = .qualified
+            kind = .gateway        
         } else if isStablecoin {
-        
+            kind = .stablecoin
         } else if isQualified {
+            kind = .qualified
         } else {
             kind = .wavesToken
         }
