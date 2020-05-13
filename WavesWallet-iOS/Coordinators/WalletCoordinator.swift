@@ -443,6 +443,8 @@ fileprivate extension AssetDetailTypes.DTO.Asset.Info {
         sortLevel = asset.settings.sortLevel
         icon = asset.asset.iconLogo
         assetBalance = asset
+        isQualified = asset.asset.isQualified
+        isStablecoin = asset.asset.isStablecoin
     }
 }
 

@@ -229,10 +229,16 @@
 "general.tabbar.title.history" = "History";
 "general.tabbar.title.profile" = "Profile";
 "general.tabbar.title.wallet" = "Wallet";
-"general.ticker.title.cryptocurrency" = "Cryptocurrency";
-"general.ticker.title.fiatmoney" = "Fiat Money";
+
 "general.ticker.title.spam" = "SUSPICIOUS";
+"general.ticker.title.cryptocurrency" = "GATEWAY";
+"general.ticker.title.qualified" = "QUALIFIED";
+"general.ticker.title.stablecoin" = "STABLECOIN";
+
+"general.ticker.title.fiatmoney" = "Fiat Money";
 "general.ticker.title.wavestoken" = "Waves Token";
+
+
 "general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
 "general.tost.saveBackup.title" = "Save your seed phrase";
 "hello.button.continue" = "Continue";

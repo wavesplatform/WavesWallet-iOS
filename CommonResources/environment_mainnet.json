@@ -79,6 +79,8 @@
       "assetId": "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p",
       "displayName": "Neutrino",
       "isFiat": false,
+      "isStablecoin": false,
+      "isQualified": false,
       "isGateway": false,
       "wavesId": "USDN",
       "gatewayId": "",

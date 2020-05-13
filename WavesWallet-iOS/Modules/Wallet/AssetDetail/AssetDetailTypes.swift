@@ -143,6 +143,8 @@ extension AssetDetailTypes.DTO {
             let sortLevel: Float
             let icon: AssetLogo.Icon
             var assetBalance: DomainLayer.DTO.SmartAssetBalance
+            let isStablecoin: Bool
+            let isQualified: Bool
         }
 
         struct Balance: Codable {

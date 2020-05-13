@@ -49,6 +49,8 @@ public struct WalletEnvironment: Decodable, Hashable {
         public let addressRegEx: String
         public let iconUrls: Icon?
         public let gatewayType: String?
+        public let isStablecoin: Bool?
+        public let isQualified: Bool?
     }
     
     public struct Servers: Decodable, Hashable {

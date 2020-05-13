@@ -132,7 +132,7 @@ private extension AssetDetailViewController {
         let eventChangedAsset = segmentedControl.currentAssetId()
             .compactMap { $0 }
             .map { AssetDetailTypes.Event.changedAsset(id: $0) }
-        
+
         let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: false) }
         let favoriteOff = favoriteOffBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: true) }
         let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal()
@@ -597,6 +597,11 @@ extension AssetDetailTypes.DTO.Asset.Info {
             kind = .fiat
         } else if isGateway {
             kind = .gateway
+        } else if isWaves {
+            kind = .qualified
+        } else if isStablecoin {
+        
+        } else if isQualified {
         } else {
             kind = .wavesToken
         }

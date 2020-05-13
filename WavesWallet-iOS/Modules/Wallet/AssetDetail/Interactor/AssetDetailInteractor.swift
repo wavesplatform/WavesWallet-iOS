@@ -208,6 +208,8 @@ private extension DomainLayer.DTO.SmartAssetBalance {
                      isGateway: isGateway,
                      sortLevel: sortLevel,
                      icon: icon,
-                     assetBalance: self)
+                     assetBalance: self,
+                     isStablecoin: asset.isStablecoin,
+                     isQualified: asset.isQualified)
     }
 }
