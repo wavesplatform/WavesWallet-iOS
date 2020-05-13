@@ -393,6 +393,7 @@
 		7B5FAADC22BCEA4200621A44 /* MigrationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */; };
 		7B60E2BC2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60E2BB2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift */; };
 		7B60E2BE2316CC0500113C38 /* ConfirmRequestTransactionKindView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B60E2BD2316CC0400113C38 /* ConfirmRequestTransactionKindView.xib */; };
+		7B64D6FA246C233F00F8404E /* AssetBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B64D6F9246C233E00F8404E /* AssetBalance.swift */; };
 		7B65B6F322F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65B6F222F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift */; };
 		7B65B6F522F9D63D007D5C53 /* KeyboardControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65B6F422F9D63D007D5C53 /* KeyboardControl.swift */; };
 		7B65B6F722F9D647007D5C53 /* KeyboardControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B65B6F622F9D647007D5C53 /* KeyboardControl.xib */; };
@@ -1819,6 +1820,7 @@
 		7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B60E2BB2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestTransactionKindView.swift; sourceTree = "<group>"; };
 		7B60E2BD2316CC0400113C38 /* ConfirmRequestTransactionKindView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmRequestTransactionKindView.xib; sourceTree = "<group>"; };
+		7B64D6F9246C233E00F8404E /* AssetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalance.swift; sourceTree = "<group>"; };
 		7B65B6F222F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsSkeletonCell.swift; sourceTree = "<group>"; };
 		7B65B6F422F9D63D007D5C53 /* KeyboardControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardControl.swift; sourceTree = "<group>"; };
 		7B65B6F622F9D647007D5C53 /* KeyboardControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyboardControl.xib; sourceTree = "<group>"; };
@@ -4746,6 +4748,7 @@
 		7BF509F622D8B95300582783 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B64D6F9246C233E00F8404E /* AssetBalance.swift */,
 				7BF509F722D8B95300582783 /* Transaction */,
 				7BF50A0922D8B95300582783 /* AddressBook.swift */,
 				7BF50A0A22D8B95300582783 /* Alias.swift */,
@@ -7955,10 +7958,9 @@
 				7BF50A7D22D8B95400582783 /* DataTransactionRealm.swift in Sources */,
 				7BF50A9A22D8B95400582783 /* Wallet+Mapper.swift in Sources */,
 				7BF50A8122D8B95400582783 /* AssetBalanceSettings.swift in Sources */,
-				7BF50A7622D8B95400582783 /* Transaction.swift in Sources */,
-				7BF50A6E22D8B95400582783 /* ScriptTransaction.swift in Sources */,
 				7BF50A7622D8B95400582783 /* TransactionRealm.swift in Sources */,
-				7B896FE623F34FA000F45A70 /* AccountBalanceRepositoryLocal.swift in Sources */,
+				7BF50A6E22D8B95400582783 /* ScriptTransactionRealm..swift in Sources */,
+				7BF50A7622D8B95400582783 /* TransactionRealm.swift in Sources */,
 				7BF50A6E22D8B95400582783 /* ScriptTransactionRealm..swift in Sources */,
 				7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */,
 				7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */,
@@ -8016,6 +8018,7 @@
 				7BF50A9822D8B95400582783 /* ExchangeTransaction+Mapper.swift in Sources */,
 				7BF50A8222D8B95400582783 /* DexAssetPair.swift in Sources */,
 				7BF50AC622D8B95400582783 /* NodePlugin.swift in Sources */,
+				7B64D6FA246C233F00F8404E /* AssetBalance.swift in Sources */,
 				7B22A9C724643CE0005EAC9C /* adcash_withdrawals.pb.swift in Sources */,
 				7BF50AC722D8B95400582783 /* MoyaProvider+Helper.swift in Sources */,
 				7BF50AC822D8B95400582783 /* SentryNetworkLoggerPlugin.swift in Sources */,

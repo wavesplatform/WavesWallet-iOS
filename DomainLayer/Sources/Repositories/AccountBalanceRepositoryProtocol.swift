@@ -16,5 +16,5 @@ public protocol AccountBalanceRepositoryProtocol {
     
     func balance(by serverEnviroment: ServerEnvironment,
                  assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance>
+                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<AssetBalance>
 }
