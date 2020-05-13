@@ -9,15 +9,18 @@
 import UIKit
 
 public final class ZoomFlowLayout: UICollectionViewFlowLayout {
+    private enum Constants {
+        static let startScallingOffset: CGFloat = 50
+        static let minimumScaleCoef: CGFloat = 0.3
+    }
+    
     public override func prepare() {
         guard let collectionView = collectionView else { return }
         scrollDirection = .horizontal
-        minimumLineSpacing = 10
-        minimumInteritemSpacing = 10
         
         collectionView.decelerationRate = .fast
         
-        let inset = collectionView.bounds.size.width / 2 - itemSize.width / 2 - 5
+        let inset = collectionView.bounds.size.width / 2 - itemSize.width / 2 - minimumInteritemSpacing / 2
         collectionView.contentInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
     }
     
@@ -108,11 +111,3 @@ public final class ZoomFlowLayout: UICollectionViewFlowLayout {
         return CGPoint(x: newOffsetX, y: proposedContentOffset.y)
     }
 }
-
-extension ZoomFlowLayout {
-    private enum Constants {
-        static let startScallingOffset: CGFloat = 50
-        static let minimumScaleCoef: CGFloat = 0.3
-    }
-}
-

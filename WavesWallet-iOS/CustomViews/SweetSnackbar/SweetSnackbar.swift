@@ -165,7 +165,10 @@ final class SweetSnackbar: NSObject {
                            delay: 0,
                            options: [.curveEaseInOut, .beginFromCurrentState],
                            animations: {
-                               view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
+                               view.frame = CGRect(x: 0,
+                                                   y: bounds.height - size.height,
+                                                   width: bounds.width,
+                                                   height: size.height)
                            }, completion: { _ in
                                self.applyBehaviorDismiss(snack: package, isNewSnack: false)
             })

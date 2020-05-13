@@ -24,7 +24,7 @@ open class UICollectionViewContainerCell<T>: UICollectionViewCell, Reusable wher
 
     private let contentConstraints = ContainerContentConstraints()
 
-    /// Do not call super when overriding this method
+    /// Нет необходимости вызывать super метод в сабклассе
     open class func makeViewInstanse() -> T {
         T()
     }
@@ -41,7 +41,7 @@ open class UICollectionViewContainerCell<T>: UICollectionViewCell, Reusable wher
         _initialSetup()
     }
 
-    /// Override this method in subClasses for setup during init() time. It's not necessary to call super when overriding
+    /// Необходимо переопределить метод в сабклассе для настройки контейнера во время инициализации. Вызывать super метод нет необходимости
     open func initialSetup() {}
 
     private func _initialSetup() {
