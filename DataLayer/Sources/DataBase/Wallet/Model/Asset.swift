@@ -35,6 +35,8 @@ final class AssetRealm: Object {
     @objc dynamic var hasScript: Bool = false
     @objc dynamic var minSponsoredFee: Int64 = 0
     @objc dynamic var gatewayType: String?
+    @objc dynamic var isStablecoin: Bool = false
+    @objc dynamic var isQualified: Bool = false
     
     override class func primaryKey() -> String? {
         return "id"

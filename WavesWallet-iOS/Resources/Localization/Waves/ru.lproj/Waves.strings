@@ -229,10 +229,15 @@
 "general.tabbar.title.history" = "История";
 "general.tabbar.title.profile" = "Профиль";
 "general.tabbar.title.wallet" = "Кошелёк";
-"general.ticker.title.cryptocurrency" = "Криптовалюта";
+
+"general.ticker.title.spam" = "SUSPICIOUS";
+"general.ticker.title.cryptocurrency" = "GATEWAY";
+"general.ticker.title.qualified" = "QUALIFIED";
+"general.ticker.title.stablecoin" = "STABLECOIN";
 "general.ticker.title.fiatmoney" = "Фиатные деньги";
-"general.ticker.title.spam" = "ПОДОЗРИТЕЛЬНЫЙ";
 "general.ticker.title.wavestoken" = "Waves токены";
+
+
 "general.tost.saveBackup.subtitle" = "Сохраните свою секретную фразу (SEED) в безопасном месте, это единственный способ восстановить ваш аккаунт";
 "general.tost.saveBackup.title" = "Сохраните секретную фразу (SEED)";
 "hello.button.continue" = "Продолжить";

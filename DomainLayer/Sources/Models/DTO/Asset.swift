@@ -47,6 +47,8 @@ public struct Asset: Mutating, Equatable, Hashable {
     public let hasScript: Bool
     public var minSponsoredFee: Int64
     public let gatewayType: DomainLayer.DTO.GatewayType?
+    public let isStablecoin: Bool
+    public let isQualified: Bool
 
     public init(id: String,
                 gatewayId: String?,
@@ -72,7 +74,9 @@ public struct Asset: Mutating, Equatable, Hashable {
                 iconLogoUrl: String?,
                 hasScript: Bool,
                 minSponsoredFee: Int64,
-                gatewayType: String?) {
+                gatewayType: String?,
+                isStablecoin: Bool,
+                isQualified: Bool) {
         self.id = id
         self.gatewayId = gatewayId
         self.wavesId = wavesId
@@ -98,6 +102,8 @@ public struct Asset: Mutating, Equatable, Hashable {
         self.hasScript = hasScript
         self.minSponsoredFee = minSponsoredFee
         self.gatewayType = DomainLayer.DTO.GatewayType(rawValue: gatewayType ?? "")
+        self.isStablecoin = isStablecoin
+        self.isQualified = isQualified
     }
 }
 

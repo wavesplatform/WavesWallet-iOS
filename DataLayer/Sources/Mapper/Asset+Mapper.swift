@@ -37,6 +37,8 @@ extension AssetRealm {
         self.iconLogoUrl = asset.iconLogoUrl
         self.hasScript = asset.hasScript
         self.minSponsoredFee = asset.minSponsoredFee
+        self.isQualified = asset.isQualified
+        self.isStablecoin = asset.isStablecoin
     }
 }
 
@@ -68,6 +70,8 @@ extension Asset {
                   iconLogoUrl: asset.iconLogoUrl,
                   hasScript: asset.hasScript,
                   minSponsoredFee: asset.minSponsoredFee,
-                  gatewayType: asset.gatewayType)            
+                  gatewayType: asset.gatewayType,
+                  isStablecoin: asset.isStablecoin,
+                  isQualified: asset.isQualified)
     }
 }

@@ -216,6 +216,8 @@ fileprivate extension Asset {
                   iconLogoUrl: info?.iconUrls?.default,
                   hasScript: asset.hasScript,
                   minSponsoredFee: asset.minSponsoredFee ?? 0,
-                  gatewayType: info?.gatewayType)
+                  gatewayType: info?.gatewayType,
+                  isStablecoin: info?.isStablecoin ?? false,
+                  isQualified: info?.isQualified ?? false)
     }
 }

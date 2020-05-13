@@ -74,7 +74,9 @@ extension Asset {
                      iconLogoUrl: "",
                      hasScript: false,
                      minSponsoredFee: 0,
-                     gatewayType: nil)
+                     gatewayType: nil,
+                     isStablecoin: false,
+                     isQualified: false)
     }
     
     static func mockBTC() -> Asset {
@@ -102,6 +104,8 @@ extension Asset {
                      iconLogoUrl: "",
                      hasScript: false,
                      minSponsoredFee: 0,
-                     gatewayType: nil)
+                     gatewayType: nil,
+                     isStablecoin: false,
+                     isQualified: false)
     }
 }
