@@ -159,12 +159,12 @@ final class TransactionsDAOImp: TransactionsDAO {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: address.address) else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -238,12 +238,12 @@ final class TransactionsDAOImp: TransactionsDAO {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: address.address) else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -307,7 +307,7 @@ final class TransactionsDAOImp: TransactionsDAO {
     func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -329,7 +329,7 @@ final class TransactionsDAOImp: TransactionsDAO {
     func isHasTransaction(by id: String, accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
             let object = realm.object(ofType: AnyTransactionRealm.self, forPrimaryKey: id)
@@ -354,7 +354,7 @@ final class TransactionsDAOImp: TransactionsDAO {
     func isHasTransactions(by ids: [String], accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -377,7 +377,7 @@ final class TransactionsDAOImp: TransactionsDAO {
         Observable.create { observer -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -397,7 +397,7 @@ final class TransactionsDAOImp: TransactionsDAO {
             } catch let e {
                 SweetLogger.error(e)
                 observer.onNext(false)
-                observer.onError(AccountBalanceRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
             }
 
             return Disposables.create()

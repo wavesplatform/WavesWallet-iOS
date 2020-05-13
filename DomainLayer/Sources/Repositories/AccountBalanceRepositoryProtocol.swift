@@ -9,11 +9,6 @@
 import Foundation
 import RxSwift
 
-
-public enum AccountBalanceRepositoryError: Error {
-    case fail
-}
-
 public protocol AccountBalanceRepositoryProtocol {
 
     func balances(by serverEnviroment: ServerEnvironment,
@@ -21,11 +16,5 @@ public protocol AccountBalanceRepositoryProtocol {
     
     func balance(by serverEnviroment: ServerEnvironment,
                  assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<AssetBalance>
-
-    func deleteBalances(_ balances:[AssetBalance], accountAddress: String) -> Observable<Bool>
-    func saveBalances(_ balances:[AssetBalance], accountAddress: String) -> Observable<Bool>
-    func saveBalance(_ balance: AssetBalance, accountAddress: String) -> Observable<Bool>
-    
-    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[AssetBalance]>
+                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance>
 }

@@ -12,8 +12,7 @@ public protocol RepositoriesFactoryProtocol {
 
     var assetsRepositoryLocal: AssetsRepositoryProtocol { get }
     var assetsRepositoryRemote: AssetsRepositoryProtocol { get }
-
-    var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol { get }
+    
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
 
     var transactionsDAO: TransactionsDAO { get }

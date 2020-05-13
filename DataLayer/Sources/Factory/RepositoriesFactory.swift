@@ -34,9 +34,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                accountSettingsRepository: accountSettingsRepository,
                                environmentRepository: environmentRepository,
                                wavesSDKServices: servicesFactory.wavesSDKServices)
-
-    public private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
-
+    
     public private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol =
         AccountBalanceRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
 

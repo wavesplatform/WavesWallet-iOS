@@ -458,7 +458,6 @@
 		7B896FE323F34FA000F45A70 /* AliasesRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4B22D8B95400582783 /* AliasesRepositoryLocal.swift */; };
 		7B896FE423F34FA000F45A70 /* WalletSeedRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4822D8B95400582783 /* WalletSeedRepositoryLocal.swift */; };
 		7B896FE523F34FA000F45A70 /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4D22D8B95400582783 /* AssetsBalanceSettingsRepositoryLocal.swift */; };
-		7B896FE623F34FA000F45A70 /* AccountBalanceRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A3E22D8B95400582783 /* AccountBalanceRepositoryLocal.swift */; };
 		7B896FE723F3500700F45A70 /* MatcherRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */; };
 		7B896FE823F3502A00F45A70 /* WidgetSettingsRepositoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */; };
 		7B8D5D7024093608008D013F /* StakingTrasnferTypes+Deposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D5D6F24093608008D013F /* StakingTrasnferTypes+Deposit.swift */; };
@@ -659,7 +658,6 @@
 		7BF50A7D22D8B95400582783 /* DataTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0822D8B95300582783 /* DataTransactionRealm.swift */; };
 		7BF50A7E22D8B95400582783 /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0922D8B95300582783 /* AddressBook.swift */; };
 		7BF50A7F22D8B95400582783 /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0A22D8B95300582783 /* Alias.swift */; };
-		7BF50A8022D8B95400582783 /* AssetBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0B22D8B95300582783 /* AssetBalance.swift */; };
 		7BF50A8122D8B95400582783 /* AssetBalanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0C22D8B95300582783 /* AssetBalanceSettings.swift */; };
 		7BF50A8222D8B95400582783 /* DexAssetPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0D22D8B95300582783 /* DexAssetPair.swift */; };
 		7BF50A8322D8B95400582783 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0E22D8B95300582783 /* Asset.swift */; };
@@ -2061,7 +2059,6 @@
 		7BF50A0822D8B95300582783 /* DataTransactionRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTransactionRealm.swift; sourceTree = "<group>"; };
 		7BF50A0922D8B95300582783 /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		7BF50A0A22D8B95300582783 /* Alias.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
-		7BF50A0B22D8B95300582783 /* AssetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalance.swift; sourceTree = "<group>"; };
 		7BF50A0C22D8B95300582783 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		7BF50A0D22D8B95300582783 /* DexAssetPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexAssetPair.swift; sourceTree = "<group>"; };
 		7BF50A0E22D8B95300582783 /* Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
@@ -2104,7 +2101,6 @@
 		7BF50A3922D8B95400582783 /* RepositoriesFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesFactory.swift; sourceTree = "<group>"; };
 		7BF50A3B22D8B95400582783 /* AddressBookRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookRepository.swift; sourceTree = "<group>"; };
 		7BF50A3D22D8B95400582783 /* AccountBalanceRepositoryRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryRemote.swift; sourceTree = "<group>"; };
-		7BF50A3E22D8B95400582783 /* AccountBalanceRepositoryLocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryLocal.swift; sourceTree = "<group>"; };
 		7BF50A4022D8B95400582783 /* MatcherRepositoryRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryRemote.swift; sourceTree = "<group>"; };
 		7BF50A4122D8B95400582783 /* LastTradesRepositoryRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTradesRepositoryRemote.swift; sourceTree = "<group>"; };
 		7BF50A4222D8B95400582783 /* DexOrderBookRepositoryRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexOrderBookRepositoryRemote.swift; sourceTree = "<group>"; };
@@ -4331,7 +4327,6 @@
 				7BF50A3222D8B95400582783 /* AccountSettingsRepository.swift */,
 				7BF50A4B22D8B95400582783 /* AliasesRepositoryLocal.swift */,
 				7BF50A4D22D8B95400582783 /* AssetsBalanceSettingsRepositoryLocal.swift */,
-				7BF50A3E22D8B95400582783 /* AccountBalanceRepositoryLocal.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -4754,7 +4749,6 @@
 				7BF509F722D8B95300582783 /* Transaction */,
 				7BF50A0922D8B95300582783 /* AddressBook.swift */,
 				7BF50A0A22D8B95300582783 /* Alias.swift */,
-				7BF50A0B22D8B95300582783 /* AssetBalance.swift */,
 				7BF50A0C22D8B95300582783 /* AssetBalanceSettings.swift */,
 				7BF50A0D22D8B95300582783 /* DexAssetPair.swift */,
 				7BF50A0E22D8B95300582783 /* Asset.swift */,
@@ -7961,6 +7955,8 @@
 				7BF50A7D22D8B95400582783 /* DataTransactionRealm.swift in Sources */,
 				7BF50A9A22D8B95400582783 /* Wallet+Mapper.swift in Sources */,
 				7BF50A8122D8B95400582783 /* AssetBalanceSettings.swift in Sources */,
+				7BF50A7622D8B95400582783 /* Transaction.swift in Sources */,
+				7BF50A6E22D8B95400582783 /* ScriptTransaction.swift in Sources */,
 				7BF50A7622D8B95400582783 /* TransactionRealm.swift in Sources */,
 				7B896FE623F34FA000F45A70 /* AccountBalanceRepositoryLocal.swift in Sources */,
 				7BF50A6E22D8B95400582783 /* ScriptTransactionRealm..swift in Sources */,
@@ -7978,7 +7974,6 @@
 				875393272423BB2F00394762 /* WEGatewayRepository.swift in Sources */,
 				7BF50AC222D8B95400582783 /* TransactionSenderAssistant.swift in Sources */,
 				7BF50ABD22D8B95400582783 /* TransactionFeeRulesResourceAPI.swift in Sources */,
-				7BF50A8022D8B95400582783 /* AssetBalance.swift in Sources */,
 				7BF50A8D22D8B95400582783 /* AssetScriptTransaction+Mapper.swift in Sources */,
 				7B896FDE23F34FA000F45A70 /* DexRealmRepositoryLocal.swift in Sources */,
 				7BF50A8B22D8B95400582783 /* ReissueTransaction+Mapper.swift in Sources */,
