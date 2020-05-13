@@ -145,7 +145,7 @@ fileprivate extension ProfilePresenter {
             owner.moduleOutput?.accountSetEnabledBiometric(isOn: isOn, wallet: wallet)
 
         case .openFaq:
-            if let url = URL(string: UIGlobalConstants.URL.medium) {
+            if let url = URL(string: UIGlobalConstants.URL.faq) {
                 BrowserViewController.openURL(url)
             }
 

@@ -23,7 +23,7 @@ private typealias Types = AssetsSearch
 final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
     private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
     
     private let assets: [DomainLayer.DTO.Asset]

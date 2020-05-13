@@ -13,11 +13,11 @@ import WavesSDK
 public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUseCaseProtocol {
     private let repositories: RepositoriesFactoryProtocol
     private let useCases: UseCasesFactoryProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     init(repositories: RepositoriesFactoryProtocol,
          useCases: UseCasesFactoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.repositories = repositories
         self.useCases = useCases
         self.serverEnvironmentUseCase = serverEnvironmentUseCase

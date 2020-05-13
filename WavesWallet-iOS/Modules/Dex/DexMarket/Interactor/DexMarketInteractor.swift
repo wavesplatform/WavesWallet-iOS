@@ -30,7 +30,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     private let correctionPairsUseCase: CorrectionPairsUseCaseProtocol = UseCasesFactory.instance.correctionPairsUseCase
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         return auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in

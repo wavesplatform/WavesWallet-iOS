@@ -17,13 +17,13 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
     private let authorizationService: AuthorizationUseCaseProtocol
     private let devConfig: DevelopmentConfigsRepositoryProtocol
     private let accountBalanceService: AccountBalanceUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     private let wavesSDKServices: WavesSDKServices
 
     init(authorizationService: AuthorizationUseCaseProtocol,
          devConfig: DevelopmentConfigsRepositoryProtocol,
          accountBalanceService: AccountBalanceUseCaseProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase,
+         serverEnvironmentUseCase: ServerEnvironmentRepository,
          wavesSDKServices: WavesSDKServices) {
         self.authorizationService = authorizationService
         self.devConfig = devConfig

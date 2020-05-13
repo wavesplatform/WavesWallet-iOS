@@ -37,7 +37,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
     private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let orderbookInteractor = UseCasesFactory.instance.oderbook
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     init(kind: TransactionCard.Kind) {
         self.kind = kind

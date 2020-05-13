@@ -153,10 +153,7 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
         return useCase
     }()
 
-    public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentUseCase = {
-        let useCase = ServerEnvironmentUseCaseImp(serverTimestampRepository: repositories.serverTimestampRepository,
-                                                  environmentRepository: repositories.environmentRepository)
-
-        return useCase
+    public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentRepository = {
+        return repositories.serverEnvironmentUseCase
     }()
 }

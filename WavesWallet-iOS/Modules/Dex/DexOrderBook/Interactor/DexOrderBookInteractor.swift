@@ -24,7 +24,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     private let authorization: AuthorizationUseCaseProtocol
     private let assetsInteractor: AssetsUseCaseProtocol
     private let assetsRepositoryLocal: AssetsRepositoryProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     private let pair: DexTraderContainer.DTO.Pair
 
@@ -35,7 +35,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
          authorization: AuthorizationUseCaseProtocol,
          assetsInteractor: AssetsUseCaseProtocol,
          assetsRepositoryLocal: AssetsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.pair = pair
         self.accountBalance = accountBalance
         self.dexOrderBookRepository = dexOrderBookRepository

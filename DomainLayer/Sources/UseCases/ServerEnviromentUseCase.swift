@@ -29,44 +29,6 @@ public struct ServerEnvironment: Hashable {
     }
 }
 
-public protocol ServerEnvironmentUseCase {
+public protocol ServerEnvironmentRepository {
     func serverEnvironment() -> Observable<ServerEnvironment>
-}
-
-public final class ServerEnvironmentUseCaseImp: ServerEnvironmentUseCase {
-    
-    private let serverTimestampRepository: ServerTimestampRepository
-    private let environmentRepository: EnvironmentRepositoryProtocol
-    
-    init(serverTimestampRepository: ServerTimestampRepository,
-         environmentRepository: EnvironmentRepositoryProtocol) {
-        
-        self.serverTimestampRepository = serverTimestampRepository
-        self.environmentRepository = environmentRepository  
-    }
-    
-    public func serverEnvironment() -> Observable<ServerEnvironment> {
-        
-        let walletEnvironment = self.environmentRepository.walletEnvironment()
-        
-        return walletEnvironment
-            .flatMap { walletEnvironment -> Observable<ServerEnvironment> in
-                
-                let environmentKind = self.environmentRepository.environmentKind
-                
-                let serverEnvironment = ServerEnvironment(kind: environmentKind,
-                                                          servers: walletEnvironment.servers,
-                                                          timestampServerDiff: 0,
-                                                          aliasScheme: walletEnvironment.aliasScheme)
-                
-                return self
-                    .serverTimestampRepository
-                    .timestampServerDiff(serverEnvironment: serverEnvironment)
-                    .map { ServerEnvironment(kind: environmentKind,
-                                             servers: walletEnvironment.servers,
-                                             timestampServerDiff: $0,
-                                             aliasScheme: walletEnvironment.aliasScheme)
-                    }
-        }
-    }
 }
