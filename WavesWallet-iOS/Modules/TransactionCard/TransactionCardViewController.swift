@@ -28,10 +28,10 @@ protocol TransactionCardModuleOutput: AnyObject {
     func transactionCardAddContact(address: String)
     func transactionCardEditContact(contact: DomainLayer.DTO.Contact)
 
-    func transactionCardResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
-    func transactionCardCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction)
+    func transactionCardResendTransaction(_ transaction: SmartTransaction)
+    func transactionCardCancelLeasing(_ transaction: SmartTransaction)
     func transactionCardCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder)
-    func transactionCardViewOnExplorer(_ transaction: DomainLayer.DTO.SmartTransaction)
+    func transactionCardViewOnExplorer(_ transaction: SmartTransaction)
 
     func transactionCardViewDismissCard()
 }

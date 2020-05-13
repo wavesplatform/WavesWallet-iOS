@@ -19,7 +19,7 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
     
     func updateAssetSettings(assets: [WalletSort.DTO.Asset]) {
         
-        let settings = assets.map {DomainLayer.DTO.AssetBalanceSettings(assetId: $0.id,
+        let settings = assets.map {AssetBalanceSettings(assetId: $0.id,
                                                                         sortLevel: $0.sortLevel,
                                                                         isHidden: $0.isHidden,
                                                                         isFavorite: $0.isFavorite)}

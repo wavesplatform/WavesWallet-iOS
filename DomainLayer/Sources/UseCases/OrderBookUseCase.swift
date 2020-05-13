@@ -15,12 +15,12 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
     private let orderBookRepository: DexOrderBookRepositoryProtocol
     private let assetsInteractor: AssetsUseCaseProtocol
     private let authorizationInteractor: AuthorizationUseCaseProtocol
-    private let serverEnvironment: ServerEnvironmentUseCase
+    private let serverEnvironment: ServerEnvironmentRepository
     
     init(orderBookRepository: DexOrderBookRepositoryProtocol,
          assetsInteractor: AssetsUseCaseProtocol,
          authorizationInteractor: AuthorizationUseCaseProtocol,
-         serverEnvironment: ServerEnvironmentUseCase) {
+         serverEnvironment: ServerEnvironmentRepository) {
         
         self.orderBookRepository = orderBookRepository
         self.assetsInteractor = assetsInteractor
@@ -59,7 +59,7 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
             })
     }
     
-    private func mapAssetsToSmartSettings(assets: [DomainLayer.DTO.Asset],
+    private func mapAssetsToSmartSettings(assets: [Asset],
                                           baseSettings: DomainLayer.DTO.Dex.SettingsOrderFee) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee {
         
         var sortedAssets = assets.sorted(by: {$0.displayName < $1.displayName})

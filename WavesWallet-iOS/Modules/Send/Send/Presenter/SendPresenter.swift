@@ -102,7 +102,7 @@ final class SendPresenter: SendPresenterProtocol {
     }
     
     private struct GateQuery: Hashable {
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let address: String
         let amount: Money
     }

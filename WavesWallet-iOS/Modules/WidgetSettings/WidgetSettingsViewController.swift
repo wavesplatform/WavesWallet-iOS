@@ -35,7 +35,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
 
     private var interval: DomainLayer.DTO.Widget.Interval?
     private var style: DomainLayer.DTO.Widget.Style?
-    private var assets: [DomainLayer.DTO.Asset] = []
+    private var assets: [Asset] = []
 
     private var minCountAssets: Int = 0
     private var maxCountAssets: Int = 0

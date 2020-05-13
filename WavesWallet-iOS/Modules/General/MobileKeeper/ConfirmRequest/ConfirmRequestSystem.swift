@@ -107,7 +107,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
             break
             
         case let .prepareRequest(assets, prepareRequest):
-            let map = assets.reduce(into: [String: DomainLayer.DTO.Asset]()) { result, asset in
+            let map = assets.reduce(into: [String: Asset]()) { result, asset in
                 result[asset.id] = asset
             }
             
@@ -254,12 +254,12 @@ fileprivate extension InvokeScriptTransactionSender.Arg {
 }
 
 fileprivate extension InvokeScriptTransactionSender.Call {
-    func invokeScriptCallArgs(assetsMap: [String: DomainLayer.DTO.Asset],
+    func invokeScriptCallArgs(assetsMap: [String: Asset],
                               signedWallet: DomainLayer.DTO.SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Arg]? {
         args.map { $0.argDTO }
     }
     
-    func invokeScriptCall(assetsMap: [String: DomainLayer.DTO.Asset],
+    func invokeScriptCall(assetsMap: [String: Asset],
                           signedWallet: DomainLayer.DTO.SignedWallet) -> ConfirmRequest.DTO.InvokeScript.Call? {
         
         guard let args = invokeScriptCallArgs(assetsMap: assetsMap, signedWallet: signedWallet) else { return nil }
@@ -270,7 +270,7 @@ fileprivate extension InvokeScriptTransactionSender.Call {
 
 fileprivate extension InvokeScriptTransactionSender {
     
-    func paymentDTO(assetsMap: [String: DomainLayer.DTO.Asset],
+    func paymentDTO(assetsMap: [String: Asset],
                     signedWallet: DomainLayer.DTO.SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Payment] {
         payment.compactMap { payment -> ConfirmRequest.DTO.InvokeScript.Payment? in
             guard let asset = assetsMap[payment.assetId] else { return nil }
@@ -310,7 +310,7 @@ fileprivate extension DataTransactionSender {
 }
 
 fileprivate extension TransactionSenderSpecifications {
-    func transactionDTO(assetsMap: [String: DomainLayer.DTO.Asset],
+    func transactionDTO(assetsMap: [String: Asset],
                         signedWallet: DomainLayer.DTO.SignedWallet) -> ConfirmRequest.DTO.Transaction? {
         
         switch self {

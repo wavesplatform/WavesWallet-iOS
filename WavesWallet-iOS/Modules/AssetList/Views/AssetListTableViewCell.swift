@@ -36,7 +36,7 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
 
 extension AssetListTableViewCell: ViewConfiguration {
     struct Model {
-        let asset: DomainLayer.DTO.Asset
+        let asset:  Asset
         let balance: Money
         let isChecked: Bool
         let isFavourite: Bool

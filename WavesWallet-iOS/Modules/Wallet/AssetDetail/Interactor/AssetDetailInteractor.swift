@@ -30,7 +30,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
     private let pairsPriceRepository: DexPairsPriceRepositoryProtocol = UseCasesFactory.instance.repositories
         .dexPairsPriceRepository
     
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
     
     private let disposeBag: DisposeBag = DisposeBag()
     
@@ -112,10 +112,10 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
         
     }
     
-    func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
+    func transactions(by assetId: String) -> Observable<[SmartTransaction]> {
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+            .flatMap { [weak self] wallet -> Observable<[SmartTransaction]> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -126,7 +126,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
                                                                                           assets: [assetId],
                                                                                           senders: [],
                                                                                           types: TransactionType.all))
-                    .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+                    .flatMap { (txs) -> Observable<[SmartTransaction]> in
                         Observable.just(txs.resultIngoreError ?? [])
                 }
         }
@@ -208,6 +208,8 @@ private extension DomainLayer.DTO.SmartAssetBalance {
                      isGateway: isGateway,
                      sortLevel: sortLevel,
                      icon: icon,
-                     assetBalance: self)
+                     assetBalance: self,
+                     isStablecoin: asset.isStablecoin,
+                     isQualified: asset.isQualified)
     }
 }

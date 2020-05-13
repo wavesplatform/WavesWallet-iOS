@@ -19,7 +19,7 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
     private let massTransferRepository: MassTransferRepositoryProtocol
     private let authUseCase: AuthorizationUseCaseProtocol
     private let assetUseCase: AssetsUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     private let disposeBag = DisposeBag()
     
@@ -27,7 +27,7 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
          enviroment: DevelopmentConfigsRepositoryProtocol,
          authUseCase: AuthorizationUseCaseProtocol,
          assetUseCase: AssetsUseCaseProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
         self.authUseCase = authUseCase
@@ -159,7 +159,7 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
 
 extension PayoutsHistorySystem {
     private typealias MassTransferTuple = (DataService.Response<[DataService.DTO.MassTransferTransaction]>,
-                                           [DomainLayer.DTO.Asset],
+                                           [Asset],
                                            DataService.Query.MassTransferDataQuery)
     
     var performLoading: Feedback {

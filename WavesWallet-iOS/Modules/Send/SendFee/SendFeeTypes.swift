@@ -49,7 +49,7 @@ extension SendFee.DTO {
         let isActive: Bool
     }
     
-    static func calculateSponsoredFee(by asset: DomainLayer.DTO.Asset, wavesFee: Money) -> Money {
+    static func calculateSponsoredFee(by asset: Asset, wavesFee: Money) -> Money {
         
         let sponsorFee = Money(asset.minSponsoredFee, asset.precision).decimalValue
         let value = (wavesFee.decimalValue / Constants.wavesMinFee) * sponsorFee

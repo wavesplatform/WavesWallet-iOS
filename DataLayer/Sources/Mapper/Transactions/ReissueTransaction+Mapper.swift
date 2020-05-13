@@ -10,8 +10,8 @@ import DomainLayer
 import Foundation
 import WavesSDK
 
-extension ReissueTransaction {
-    convenience init(transaction: DomainLayer.DTO.ReissueTransaction) {
+extension ReissueTransactionRealm {
+    convenience init(transaction: ReissueTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -34,9 +34,9 @@ extension ReissueTransaction {
     }
 }
 
-extension DomainLayer.DTO.ReissueTransaction {
+extension ReissueTransaction {
     init(transaction: NodeService.DTO.ReissueTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -56,7 +56,7 @@ extension DomainLayer.DTO.ReissueTransaction {
                   status: status)
     }
 
-    init(transaction: ReissueTransaction) {
+    init(transaction: ReissueTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -72,6 +72,6 @@ extension DomainLayer.DTO.ReissueTransaction {
                   quantity: transaction.quantity,
                   reissuable: transaction.reissuable,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

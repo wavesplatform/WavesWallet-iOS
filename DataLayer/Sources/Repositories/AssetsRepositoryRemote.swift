@@ -43,7 +43,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func assets(serverEnvironment: ServerEnvironment,
                 ids: [String],
-                accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+                accountAddress: String) -> Observable<[Asset]> {
         let wavesServices = wavesSDKServices
             .wavesServices(environment: serverEnvironment)
 
@@ -57,14 +57,14 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             .assets(ids: ids)
 
         return Observable.zip(assetsList, spamAssets, walletEnvironment)
-            .map { assets, spamAssets, walletEnvironment -> [DomainLayer.DTO.Asset] in
+            .map { assets, spamAssets, walletEnvironment -> [Asset] in
 
                 let map = walletEnvironment.hashMapAssets()
                 let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
 
                 let spamIds = spamAssets.reduce(into: [String: Bool]()) { $0[$1] = true }
 
-                return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                return assets.map { Asset(asset: $0,
                                                           info: map[$0.id],
                                                           isSpam: spamIds[$0.id] == true,
                                                           isMyWavesToken: $0.sender == accountAddress,
@@ -74,7 +74,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func searchAssets(serverEnvironment: ServerEnvironment,
                       search: String,
-                      accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+                      accountAddress: String) -> Observable<[Asset]> {
         let wavesServices = wavesSDKServices
             .wavesServices(environment: serverEnvironment)
 
@@ -89,13 +89,13 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 .searchAssets(search: search, limit: Constants.searchAssetsLimit)
 
         return Observable.zip(assetsList, spamAssets, walletEnvironment)
-            .map { assets, spamAssets, walletEnvironment -> [DomainLayer.DTO.Asset] in
+            .map { assets, spamAssets, walletEnvironment -> [Asset] in
 
                 let map = walletEnvironment.hashMapAssets()
                 let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
                 let spamIds = Set(spamAssets)
 
-                return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                return assets.map { Asset(asset: $0,
                                                           info: map[$0.id],
                                                           isSpam: spamIds.contains($0.id),
                                                           isMyWavesToken: $0.sender == accountAddress,
@@ -103,12 +103,12 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             }
     }
 
-    func saveAssets(_: [DomainLayer.DTO.Asset], by _: String) -> Observable<Bool> {
+    func saveAssets(_: [Asset], by _: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func saveAsset(_: DomainLayer.DTO.Asset, by _: String) -> Observable<Bool> {
+    func saveAsset(_: Asset, by _: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
@@ -170,7 +170,7 @@ fileprivate extension WalletEnvironment {
     }
 }
 
-fileprivate extension DomainLayer.DTO.Asset {
+fileprivate extension Asset {
     init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool, isGeneral: Bool) {
         var isWaves = false
         var isFiat = false
@@ -216,6 +216,8 @@ fileprivate extension DomainLayer.DTO.Asset {
                   iconLogoUrl: info?.iconUrls?.default,
                   hasScript: asset.hasScript,
                   minSponsoredFee: asset.minSponsoredFee ?? 0,
-                  gatewayType: info?.gatewayType)
+                  gatewayType: info?.gatewayType,
+                  isStablecoin: info?.isStablecoin ?? false,
+                  isQualified: info?.isQualified ?? false)
     }
 }

@@ -19,7 +19,7 @@ extension ConfirmRequest.DTO.Transaction  {
                                                             info: infoTransactionKindViewModel)
     }
     
-    var feeAsset: DomainLayer.DTO.Asset {
+    var feeAsset: Asset {
         
         switch self {
         case .data(let tx):

@@ -14,7 +14,7 @@ final class AssetsRepositoryMock: AssetsRepositoryProtocol {
     
     func assets(serverEnvironment: ServerEnvironment,
                 ids: [String],
-                accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+                accountAddress: String) -> Observable<[Asset]> {
         
         return Observable.never()
     }
@@ -28,18 +28,18 @@ final class AssetsRepositoryMock: AssetsRepositoryProtocol {
     
     func searchAssets(serverEnvironment: ServerEnvironment,
                       search: String,
-                      accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+                      accountAddress: String) -> Observable<[Asset]> {
         
         return Observable.never()
     }
     
-    func saveAssets(_ assets:[DomainLayer.DTO.Asset],
+    func saveAssets(_ assets:[Asset],
                     by accountAddress: String) -> Observable<Bool> {
         
         return Observable.never()
     }
     
-    func saveAsset(_ asset: DomainLayer.DTO.Asset,
+    func saveAsset(_ asset: Asset,
                    by accountAddress: String) -> Observable<Bool> {
         
         return Observable.never()
@@ -47,9 +47,9 @@ final class AssetsRepositoryMock: AssetsRepositoryProtocol {
 }
 
 
-extension DomainLayer.DTO.Asset {
+extension Asset {
     
-    static func mockWaves() -> DomainLayer.DTO.Asset {
+    static func mockWaves() -> Asset {
         return .init(id: "WAVES",
                      gatewayId: nil,
                      wavesId: "WAVES",
@@ -74,10 +74,12 @@ extension DomainLayer.DTO.Asset {
                      iconLogoUrl: "",
                      hasScript: false,
                      minSponsoredFee: 0,
-                     gatewayType: nil)
+                     gatewayType: nil,
+                     isStablecoin: false,
+                     isQualified: false)
     }
     
-    static func mockBTC() -> DomainLayer.DTO.Asset {
+    static func mockBTC() -> Asset {
         return .init(id: "BTC",
                      gatewayId: nil,
                      wavesId: "BTC",
@@ -102,6 +104,8 @@ extension DomainLayer.DTO.Asset {
                      iconLogoUrl: "",
                      hasScript: false,
                      minSponsoredFee: 0,
-                     gatewayType: nil)
+                     gatewayType: nil,
+                     isStablecoin: false,
+                     isQualified: false)
     }
 }

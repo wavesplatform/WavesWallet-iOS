@@ -11,8 +11,8 @@ import Foundation
 import WavesSDK
 import WavesSDKExtensions
 
-extension ScriptTransaction {
-    convenience init(transaction: DomainLayer.DTO.ScriptTransaction) {
+extension ScriptTransactionRealm {
+    convenience init(transaction: ScriptTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -33,9 +33,9 @@ extension ScriptTransaction {
     }
 }
 
-extension DomainLayer.DTO.ScriptTransaction {
+extension ScriptTransaction {
     init(transaction: NodeService.DTO.SetScriptTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -53,7 +53,7 @@ extension DomainLayer.DTO.ScriptTransaction {
                   status: status)
     }
 
-    init(transaction: ScriptTransaction) {
+    init(transaction: ScriptTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -67,6 +67,6 @@ extension DomainLayer.DTO.ScriptTransaction {
                   proofs: transaction.proofs.toArray(),
                   script: transaction.script,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

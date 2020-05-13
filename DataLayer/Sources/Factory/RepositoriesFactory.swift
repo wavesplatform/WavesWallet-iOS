@@ -10,13 +10,11 @@ import DomainLayer
 import Foundation
 import WavesSDKExtensions
 
-import FirebaseCore
-import FirebaseDatabase
-//import FirebaseAnalytics
-
 import Amplitude_iOS
 import Crashlytics
 import Fabric
+import FirebaseCore
+import FirebaseDatabase
 
 private struct Constants {
     static let firebaseAppWavesPlatform: String = "WavesPlatform"
@@ -36,16 +34,14 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                accountSettingsRepository: accountSettingsRepository,
                                environmentRepository: environmentRepository,
                                wavesSDKServices: servicesFactory.wavesSDKServices)
-
-    public private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
-
+    
     public private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol =
         AccountBalanceRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
 
-    public private(set) lazy var transactionsRepositoryLocal: TransactionsRepositoryProtocol = TransactionsRepositoryLocal()
+    public private(set) lazy var transactionsDAO: TransactionsDAO = TransactionsDAOImp()
 
-    public private(set) lazy var transactionsRepositoryRemote: TransactionsRepositoryProtocol =
-        TransactionsRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
+    public private(set) lazy var transactionsRepository: TransactionsRepositoryProtocol =
+        TransactionsRepository(wavesSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var blockRemote: BlockRepositoryProtocol =
         BlockRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
@@ -56,7 +52,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var walletSeedRepositoryLocal: WalletSeedRepositoryProtocol = WalletSeedRepositoryLocal()
 
     public private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol =
-        AuthenticationRepositoryRemote()
+        AuthenticationRepository(serverEnvironmentRepository: serverEnvironmentUseCase)
 
     public private(set) lazy var accountSettingsRepository: AccountSettingsRepositoryProtocol =
         AccountSettingsRepository(spamAssetsService: self.servicesFactory.spamAssetsService)
@@ -146,11 +142,20 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         StakingBalanceServiceImpl(authorizationService: UseCasesFactory.instance.authorization,
                                   devConfig: UseCasesFactory.instance.repositories.developmentConfigsRepository,
                                   accountBalanceService: UseCasesFactory.instance.accountBalance,
-                                  serverEnvironmentUseCase: UseCasesFactory.instance.serverEnvironmentUseCase,
+                                  serverEnvironmentUseCase: serverEnvironmentUseCase,
                                   wavesSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var serverTimestampRepository: ServerTimestampRepository = {
         ServerTimestampRepositoryImp(timestampServerService: servicesFactory.timestampServerService)
+    }()
+
+    public private(set) lazy var gatewaysWavesRepository: GatewaysWavesRepository = {
+        GatewaysWavesRepositoryImp()
+    }()
+
+    public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentRepository = {
+        ServerEnvironmentRepositoryImp(serverTimestampRepository: serverTimestampRepository,
+                                       environmentRepository: environmentRepository)
     }()
 
     public struct Resources {

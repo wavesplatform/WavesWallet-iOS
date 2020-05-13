@@ -15,7 +15,7 @@ import UITools
 
 final class TransactionCardAssetCell: UITableViewCell, Reusable {
     struct Model {
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
     }
 
     @IBOutlet private var titleLabel: UILabel!
@@ -33,11 +33,10 @@ final class TransactionCardAssetCell: UITableViewCell, Reusable {
         disposeBag = DisposeBag()
     }
 
-    private func loadIcon(asset: DomainLayer.DTO.Asset) {
+    private func loadIcon(asset: Asset) {
         disposeBag = DisposeBag()
 
-        AssetLogo.logo(icon: asset.iconLogo,
-                       style: .large)
+        AssetLogo.logo(icon: asset.iconLogo, style: .large)
             .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconImageView.rx.image)
             .disposed(by: disposeBag)

@@ -6,15 +6,22 @@
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
-import Foundation
+import DomainLayer
 import Extensions
+import Foundation
 
 struct MyOrdersModuleBuilder: ModuleBuilder {
-    
-    func build(input: Void) -> UIViewController {
-        
+    func build(input _: Void) -> UIViewController {
         let vc = StoryboardScene.Dex.myOrdersViewController.instantiate()
-        vc.system = MyOrdersSystem()
+
+        let dexOrderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+        let authorizationUseCase = UseCasesFactory.instance.authorization
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+
+        vc.system = MyOrdersSystem(dexOrderBookRepository: dexOrderBookRepository,
+                                   authorizationUseCase: authorizationUseCase,
+                                   serverEnvironmentUseCase: serverEnvironmentUseCase)
+
         return vc
     }
 }

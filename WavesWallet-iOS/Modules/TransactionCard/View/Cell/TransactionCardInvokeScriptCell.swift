@@ -39,7 +39,7 @@ final class TransactionCardInvokeScriptCell: UITableViewCell, Reusable {
 }
 
 extension TransactionCardInvokeScriptCell: ViewConfiguration {
-    func update(with model: DomainLayer.DTO.SmartTransaction.InvokeScript) {
+    func update(with model: SmartTransaction.InvokeScript) {
         labelScriptAddress.text = model.scriptAddress
         viewPayment.isHidden = model.payment == nil
         paymentBottomOffset.constant = model.payment == nil ? 0 : Constants.paymentBottomOffset

@@ -77,7 +77,7 @@ extension Send.DTO {
         
         struct ResendTransaction {
             let address: String
-            let asset: DomainLayer.DTO.Asset
+            let asset: Asset
             let amount: Money
         }
         

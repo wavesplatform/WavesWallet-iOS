@@ -11,7 +11,7 @@ import Foundation
 import Moya
 import RxSwift
 
-private struct DevelopmentConfigs: Decodable {
+private struct DevelopmentConfigsDTO: Decodable {
     let serviceAvailable: Bool
     let matcherSwapTimestamp: Date
     let matcherSwapAddress: String
@@ -70,7 +70,6 @@ private struct Staking: Decodable {
 }
 
 //TODO: Rename to services
-
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
     private let developmentConfigsProvider: MoyaProvider<ResourceAPI.Service.DevelopmentConfigs> = .anyMoyaProvider()
 
@@ -80,45 +79,45 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
             .catchError { _ in Observable.just(false) }
     }
 
-    public func developmentConfigs() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
+    public func developmentConfigs() -> Observable<DevelopmentConfigs> {
         return developmentConfigsProvider
             .rx
             .request(.get(isDebug: ApplicationDebugSettings.isEnableDebugSettingsTest))
-            .map(DevelopmentConfigs.self,
+            .map(DevelopmentConfigsDTO.self,
                  atKeyPath: nil,
                  using: JSONDecoder.decoderByDateWithSecond(0),
                  failsOnEmptyData: false)
             .asObservable()
-            .map { (config) -> DomainLayer.DTO.DevelopmentConfigs in
+            .map { (config) -> DevelopmentConfigs in
                 let staking = config.staking.map {
-                    DomainLayer.DTO.Staking(type: $0.type,
-                                            neutrinoAssetId: $0.neutrinoAssetId,
-                                            addressByPayoutsAnnualPercent: $0.addressByPayoutsAnnualPercent,
-                                            addressStakingContract: $0.addressStakingContract,
-                                            addressByCalculateProfit: $0.addressByCalculateProfit)
+                    DevelopmentConfigs.Staking(type: $0.type,
+                                               neutrinoAssetId: $0.neutrinoAssetId,
+                                               addressByPayoutsAnnualPercent: $0.addressByPayoutsAnnualPercent,
+                                               addressStakingContract: $0.addressStakingContract,
+                                               addressByCalculateProfit: $0.addressByCalculateProfit)
                 }
 
                 let gatewayMinFee = config
                     .gatewayMinFee
-                    .mapValues { (value) -> [String: DomainLayer.DTO.DevelopmentConfigs.Rate] in
+                    .mapValues { (value) -> [String: DevelopmentConfigs.Rate] in
 
-                        value.mapValues { value -> DomainLayer.DTO.DevelopmentConfigs.Rate in
-                            DomainLayer.DTO.DevelopmentConfigs.Rate(rate: value.rate,
+                        value.mapValues { value -> DevelopmentConfigs.Rate in
+                            DevelopmentConfigs.Rate(rate: value.rate,
                                                                     flat: value.flat)
                         }
                     }
                 
-                let marketPairs = config.marketPairs.compactMap { pair -> DomainLayer.DTO.DevelopmentConfigs.MarketPair? in
+                let marketPairs = config.marketPairs.compactMap { pair -> DevelopmentConfigs.MarketPair? in
                     let splitedPair = pair.split(separator: "/")
                     if splitedPair.isEmpty || splitedPair.count < 2 {
                         return nil
                     } else {
-                        return DomainLayer.DTO.DevelopmentConfigs.MarketPair(amount: String(splitedPair[0]),
+                        return DevelopmentConfigs.MarketPair(amount: String(splitedPair[0]),
                                                                              price: String(splitedPair[1]))
                     }
                 }
                 
-                return DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
+                return DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
                                                           matcherSwapTimestamp: config.matcherSwapTimestamp,
                                                           matcherSwapAddress: config.matcherSwapAddress,
                                                           exchangeClientSecret: config.exchangeClientSecret,

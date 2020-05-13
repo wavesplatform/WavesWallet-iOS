@@ -21,8 +21,8 @@ fileprivate enum Constants {
 final class AssetTransactionsCell: UITableViewCell, Reusable {
     @IBOutlet private var collectionView: UICollectionView!
 
-    fileprivate var transactions: [DomainLayer.DTO.SmartTransaction]?
-    var transactionDidSelect: ((DomainLayer.DTO.SmartTransaction) -> Void)?
+    fileprivate var transactions: [SmartTransaction]?
+    var transactionDidSelect: ((SmartTransaction) -> Void)?
     fileprivate var currentIndex: Int = 0
 
     override func awakeFromNib() {
@@ -46,7 +46,7 @@ final class AssetTransactionsCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension AssetTransactionsCell: ViewConfiguration {
-    func update(with model: [DomainLayer.DTO.SmartTransaction]) {
+    func update(with model: [SmartTransaction]) {
         transactions = model
         collectionView.reloadData()
     }

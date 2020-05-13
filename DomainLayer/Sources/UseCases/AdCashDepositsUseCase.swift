@@ -58,13 +58,13 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
     private let oAuthRepository: WEOAuthRepositoryProtocol
     private let authorizationUseCase: AuthorizationUseCaseProtocol
     private let assetsUseCase: AssetsUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     init(gatewayRepository: WEGatewayRepositoryProtocol,
          oAuthRepository: WEOAuthRepositoryProtocol,
          authorizationUseCase: AuthorizationUseCaseProtocol,
          assetsUseCase: AssetsUseCaseProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.gatewayRepository = gatewayRepository
         self.oAuthRepository = oAuthRepository
         self.authorizationUseCase = authorizationUseCase
@@ -93,7 +93,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                         let assets = self.assetsUseCase
                             .assets(by: [assetId],
                                     accountAddress: signedWallet.address)
-                            .flatMap { assets -> Observable<DomainLayer.DTO.Asset> in
+                            .flatMap { assets -> Observable<Asset> in
                                 guard let asset = assets.first(where: { $0.id == assetId }) else {
                                     return Observable.error(NetworkError.notFound)
                                 }
@@ -154,7 +154,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                 
                 return oauthToken
                     .flatMap { [weak self] token -> Observable<(DomainLayer.DTO.WEGateway.TransferBinding,
-                        DomainLayer.DTO.WEOAuth.Token, ServerEnvironment)> in
+                        WEOAuthTokenDTO, ServerEnvironment)> in
                         
                         guard let self = self else { return Observable.never() }
                         

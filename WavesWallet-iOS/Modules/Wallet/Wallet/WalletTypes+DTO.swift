@@ -23,7 +23,7 @@ extension WalletTypes.DTO {
         }
 
         let balance: Balance
-        let transactions: [DomainLayer.DTO.SmartTransaction]
+        let transactions: [SmartTransaction]
     }
     
     
@@ -49,7 +49,7 @@ extension WalletTypes.DTO {
         let profit: Profit
         var balance: Balance
         let lastPayouts: PayoutsHistoryState.MassTransferTrait
-        let neutrinoAsset: DomainLayer.DTO.Asset?
+        let neutrinoAsset: Asset?
         var landing: Landing?
     }
 }

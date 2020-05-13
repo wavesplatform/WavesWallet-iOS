@@ -9,7 +9,7 @@
 import Foundation
 import Extensions
 
-extension DomainLayer.DTO.Asset {
+extension Asset {
 
     func balance(_ amount: Int64) -> DomainLayer.DTO.Balance {
         return balance(amount, precision: precision)
@@ -28,7 +28,7 @@ extension DomainLayer.DTO.Asset {
     }
 }
 
-extension DomainLayer.DTO.AssetPair {
+extension AssetPair {
 
     var precisionDifference: Int {
         return (priceAsset.precision - amountAsset.precision) + 8

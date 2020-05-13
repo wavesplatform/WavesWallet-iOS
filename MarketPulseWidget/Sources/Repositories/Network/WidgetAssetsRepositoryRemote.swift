@@ -14,26 +14,26 @@ import WavesSDK
 
 
 protocol WidgetAssetsRepositoryProtocol {
-    func assets(by ids: [String]) -> Observable<[DomainLayer.DTO.Asset]>
+    func assets(by ids: [String]) -> Observable<[Asset]>
 }
 
 final class WidgetAssetsRepositoryRemote: WidgetAssetsRepositoryProtocol {
     
     private let assetsDataService: WidgetAssetsDataServiceProtocol = WidgetAssetsDataService()
     
-    func assets(by ids: [String]) -> Observable<[DomainLayer.DTO.Asset]> {
+    func assets(by ids: [String]) -> Observable<[Asset]> {
         
         let walletEnviroment = WalletEnvironment.Mainnet
         
         return assetsDataService
                 .assets(ids: ids)
-                .map({ (assets) -> [DomainLayer.DTO.Asset] in
+                .map({ (assets) -> [Asset] in
                 
                 let map = walletEnviroment.hashMapAssets()
                 let mapGeneralAssets = walletEnviroment.hashMapGeneralAssets()
                 
                 
-                return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                return assets.map { Asset(asset: $0,
                                                           info: map[$0.id],
                                                           isSpam: false,
                                                           isMyWavesToken: false,
@@ -73,7 +73,7 @@ fileprivate extension WalletEnvironment {
 }
 
 
-fileprivate extension DomainLayer.DTO.Asset {
+fileprivate extension Asset {
     
     init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool, isGeneral: Bool) {
         var isWaves = false
@@ -116,6 +116,8 @@ fileprivate extension DomainLayer.DTO.Asset {
                   iconLogoUrl: info?.iconUrls?.default,
                   hasScript: asset.hasScript,
                   minSponsoredFee: asset.minSponsoredFee ?? 0,
-                  gatewayType: info?.gatewayType)
+                  gatewayType: info?.gatewayType,
+                  isStablecoin: info?.isStablecoin ?? false,
+                  isQualified: info?.isQualified ?? false)
     }
 }

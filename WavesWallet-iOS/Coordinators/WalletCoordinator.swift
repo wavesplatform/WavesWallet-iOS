@@ -176,7 +176,7 @@ extension WalletCoordinator: WalletModuleOutput {
             .trackEvent(.staking(.mainShareTap(.facebok)))
     }
     
-    func openTrade(neutrinoAsset: DomainLayer.DTO.Asset) {
+    func openTrade(neutrinoAsset: Asset) {
         
         let coordinator = TradeCoordinator(navigationRouter: self.navigationRouter,
                                            selectedAsset: neutrinoAsset)
@@ -189,7 +189,7 @@ extension WalletCoordinator: WalletModuleOutput {
             .trackEvent(.staking(.mainTradeTap))
     }
     
-    func openBuy(neutrinoAsset: DomainLayer.DTO.Asset) {
+    func openBuy(neutrinoAsset: Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .card)
         coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
@@ -201,7 +201,7 @@ extension WalletCoordinator: WalletModuleOutput {
             .trackEvent(.staking(.mainBuyTap))
     }
     
-    func openDeposit(neutrinoAsset: DomainLayer.DTO.Asset) {
+    func openDeposit(neutrinoAsset: Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .deposit)
         coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
@@ -228,7 +228,7 @@ extension WalletCoordinator: WalletModuleOutput {
 
     }
     
-    func openWithdraw(neutrinoAsset: DomainLayer.DTO.Asset) {
+    func openWithdraw(neutrinoAsset: Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
         coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
@@ -329,7 +329,7 @@ extension WalletCoordinator: WalletModuleOutput {
         UseCasesFactory.instance.analyticManager.trackEvent(.walletLeasing(.leasingStartTap))
     }
 
-    func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
+    func showLeasingTransaction(transactions: [SmartTransaction], index: Int) {
 
         let coordinator = TransactionCardCoordinator(transaction: transactions[index],
                                                      router: navigationRouter)
@@ -360,7 +360,7 @@ extension WalletCoordinator: WalletSearchViewControllerDelegate {
 // MARK: AssetModuleOutput
 
 extension WalletCoordinator: AssetDetailModuleOutput {
-    func showTrade(asset: DomainLayer.DTO.Asset) {
+    func showTrade(asset: Asset) {
         
         let coordinator = TradeCoordinator(navigationRouter: navigationRouter, selectedAsset: asset)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
@@ -382,7 +382,7 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
 
-    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
+    func showTransaction(transactions: [SmartTransaction], index: Int) {
 
         let coordinator = TransactionCardCoordinator(transaction: transactions[index],
                                                      router: navigationRouter)
@@ -411,7 +411,7 @@ extension WalletCoordinator: TransactionCardCoordinatorDelegate {
 
 // MARK: - StartLeasingModuleOutput
 extension WalletCoordinator: StartLeasingModuleOutput {
-    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {}
+    func startLeasingDidSuccess(transaction: SmartTransaction, kind: StartLeasingTypes.Kind) {}
 }
 
 fileprivate extension AssetDetailModuleBuilder.Input {
@@ -443,6 +443,8 @@ fileprivate extension AssetDetailTypes.DTO.Asset.Info {
         sortLevel = asset.settings.sortLevel
         icon = asset.asset.iconLogo
         assetBalance = asset
+        isQualified = asset.asset.isQualified
+        isStablecoin = asset.asset.isStablecoin
     }
 }
 

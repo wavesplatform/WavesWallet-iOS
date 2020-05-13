@@ -21,21 +21,21 @@ extension HistoryTypes.ViewModel {
     }
     
     enum Row {
-        case transaction(DomainLayer.DTO.SmartTransaction)
+        case transaction(SmartTransaction)
         case transactionSkeleton
     }
 }
 
 
 extension HistoryTypes.ViewModel.Section {
-    static func map(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
+    static func map(from transactions: [SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
         return sections(from: transactions)
     }
     
-    static private func sections(from transactions: [DomainLayer.DTO.SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
+    static private func sections(from transactions: [SmartTransaction]) -> [HistoryTypes.ViewModel.Section] {
 
         let calendar = NSCalendar.current
-        let sections = transactions.reduce(into: [Date: [DomainLayer.DTO.SmartTransaction]]()) { result, tx in
+        let sections = transactions.reduce(into: [Date: [SmartTransaction]]()) { result, tx in
 
             let components = calendar.dateComponents([.day, .month, .year], from: tx.timestamp)
             let date = calendar.date(from: components) ?? Date()

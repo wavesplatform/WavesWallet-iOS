@@ -39,7 +39,7 @@ enum DexLastTrades {
         var availableAmountAssetBalance: Money
         var availablePriceAssetBalance: Money
         var availableBalances: [DomainLayer.DTO.SmartAssetBalance]
-        var scriptedAssets: [DomainLayer.DTO.Asset]
+        var scriptedAssets: [Asset]
     }
 }
 
@@ -76,7 +76,7 @@ extension DexLastTrades.DTO {
         let availableAmountAssetBalance: Money
         let availablePriceAssetBalance: Money
         let availableBalances: [DomainLayer.DTO.SmartAssetBalance]
-        let scriptedAssets: [DomainLayer.DTO.Asset]
+        let scriptedAssets: [Asset]
     }
 }
 

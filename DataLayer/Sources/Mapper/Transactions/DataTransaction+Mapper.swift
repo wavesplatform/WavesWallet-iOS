@@ -12,8 +12,8 @@ import Foundation
 import WavesSDK
 import WavesSDKExtensions
 
-extension DataTransaction {
-    convenience init(transaction: DomainLayer.DTO.DataTransaction) {
+extension DataTransactionRealm {
+    convenience init(transaction: DataTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -29,8 +29,8 @@ extension DataTransaction {
             self.proofs.append(objectsIn: proofs)
         }
 
-        let dataList = transaction.data.map { data -> DataTransactionData in
-            let txData = DataTransactionData()
+        let dataList = transaction.data.map { data -> DataTransactionDataRealm in
+            let txData = DataTransactionDataRealm()
             switch data.value {
             case .bool(let value):
                 txData.boolean.value = value
@@ -52,13 +52,13 @@ extension DataTransaction {
     }
 }
 
-extension DomainLayer.DTO.DataTransaction {
+extension DataTransaction {
     init(transaction: NodeService.DTO.DataTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
-        let dataList = transaction.data.map { data -> DomainLayer.DTO.DataTransaction.Data in
+        let dataList = transaction.data.map { data -> DataTransaction.Data in
 
-            var dataValue: DomainLayer.DTO.DataTransaction.Data.Value!
+            var dataValue: DataTransaction.Data.Value!
             switch data.value {
             case .bool(let value):
                 dataValue = .bool(value)
@@ -69,7 +69,7 @@ extension DomainLayer.DTO.DataTransaction {
             case .binary(let value):
                 dataValue = .binary(value)
             }
-            return DomainLayer.DTO.DataTransaction.Data(key: data.key,
+            return DataTransaction.Data(key: data.key,
                                                         value: dataValue,
                                                         type: data.type)
         }
@@ -89,10 +89,10 @@ extension DomainLayer.DTO.DataTransaction {
                   chainId: transaction.chainId)
     }
 
-    init(transaction: DataTransaction) {
-        let dataList = transaction.data.toArray().map { data -> DomainLayer.DTO.DataTransaction.Data in
+    init(transaction: DataTransactionRealm) {
+        let dataList = transaction.data.toArray().map { data -> DataTransaction.Data in
 
-            var dataValue: DomainLayer.DTO.DataTransaction.Data.Value!
+            var dataValue: DataTransaction.Data.Value!
 
             if let value = data.binary {
                 dataValue = .binary(value)
@@ -104,7 +104,7 @@ extension DomainLayer.DTO.DataTransaction {
                 dataValue = .bool(value)
             }
 
-            return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
+            return DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
         }
 
         // TODO: Chain id
@@ -119,7 +119,7 @@ extension DomainLayer.DTO.DataTransaction {
                   proofs: transaction.proofs.toArray(),
                   data: dataList,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed,
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed,
                   chainId: "")
     }
 }

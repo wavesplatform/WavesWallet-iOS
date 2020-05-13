@@ -16,7 +16,7 @@ protocol StartLeasingErrorDelegate: AnyObject {
 }
 
 protocol StartLeasingModuleOutput: AnyObject {
-    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind)
+    func startLeasingDidSuccess(transaction: SmartTransaction, kind: StartLeasingTypes.Kind)
 }
 
 enum StartLeasingTypes {

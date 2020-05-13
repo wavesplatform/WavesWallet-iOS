@@ -19,7 +19,7 @@ private enum Constants {
 final class SendConfirmationViewController: UIViewController {
 
     struct Input {
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let address: String
         let displayAddress: String
         let fee: Money
@@ -51,6 +51,7 @@ final class SendConfirmationViewController: UIViewController {
     
     private var isShowError = false
     
+    var interactor: SendInteractorProtocol!
     var input: Input!
     weak var resultDelegate: SendResultDelegate?
 
@@ -89,6 +90,7 @@ final class SendConfirmationViewController: UIViewController {
     @IBAction private func confirmTapped(_ sender: Any) {
         
         let vc = StoryboardScene.Send.sendLoadingViewController.instantiate()
+        vc.interactor = interactor
         vc.delegate = resultDelegate
         vc.input = input
         navigationController?.pushViewController(vc, animated: true)

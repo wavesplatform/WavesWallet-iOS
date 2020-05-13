@@ -26,6 +26,8 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         struct Asset {
             enum Kind {
                 case fiat
+                case qualified
+                case stablecoin
                 case wavesToken
                 case spam
                 case gateway
@@ -154,13 +156,21 @@ fileprivate extension AssetsSegmentedControl {
         switch asset.kind {
         case .fiat:
             detailLabel.text = Localizable.Waves.General.Ticker.Title.fiatmoney
+
         case .gateway:
             detailLabel.text = Localizable.Waves.General.Ticker.Title.cryptocurrency
+
         case .spam:
             tickerView.update(with: .init(text: Localizable.Waves.General.Ticker.Title.spam,
                                           style: .normal))
         case .wavesToken:
             detailLabel.text = Localizable.Waves.General.Ticker.Title.wavestoken
+
+        case .qualified:
+            detailLabel.text = Localizable.Waves.General.Ticker.Title.qualified
+
+        case .stablecoin:
+            detailLabel.text = Localizable.Waves.General.Ticker.Title.stablecoin
         }
     }
 }

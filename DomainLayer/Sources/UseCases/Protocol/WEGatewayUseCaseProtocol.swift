@@ -10,8 +10,9 @@ import Foundation
 import RxSwift
 import Extensions
 
+//TODO: После переходна grpc надо бы его удалить
 public protocol WEGatewayUseCaseProtocol {
     
-    func receiveBinding(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding>
-    func sendBinding(asset: DomainLayer.DTO.Asset, address: String, amount: Money) -> Observable<DomainLayer.DTO.WEGateway.SendBinding>
+    func receiveBinding(asset: Asset) -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding>
+    func sendBinding(asset: Asset, address: String, amount: Money) -> Observable<DomainLayer.DTO.WEGateway.SendBinding>
 }

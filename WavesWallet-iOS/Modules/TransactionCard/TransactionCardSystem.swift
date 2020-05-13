@@ -37,7 +37,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
     private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let orderbookInteractor = UseCasesFactory.instance.oderbook
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     init(kind: TransactionCard.Kind) {
         self.kind = kind
@@ -363,10 +363,10 @@ private extension TransactionCardSystem {
             }
     }
 
-    private func getAsset(_ assetID: String) -> Observable<DomainLayer.DTO.Asset> {
+    private func getAsset(_ assetID: String) -> Observable<Asset> {
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap { [weak self] (wallet) -> Observable<DomainLayer.DTO.Asset> in
+            .flatMap { [weak self] (wallet) -> Observable<Asset> in
                 guard let self = self else { return Observable.empty() }
                 return self
                     .assetsInteractor
@@ -377,8 +377,8 @@ private extension TransactionCardSystem {
     }
 }
 
-private extension DomainLayer.DTO.SmartTransaction.MassTransfer {
-    func findTransfer(by address: String) -> DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer? {
+private extension SmartTransaction.MassTransfer {
+    func findTransfer(by address: String) -> SmartTransaction.MassTransfer.Transfer? {
         return transfers.first { $0.recipient.address == address }
     }
 
@@ -391,7 +391,7 @@ private extension DomainLayer.DTO.SmartTransaction.MassTransfer {
     }
 }
 
-private extension DomainLayer.DTO.SmartTransaction {
+private extension SmartTransaction {
     var massTransferAny: MassTransfer? {
         switch kind {
         case let .massSent(massTransfer):

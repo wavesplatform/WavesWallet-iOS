@@ -12,7 +12,7 @@ import Extensions
 import DomainLayer
 
 protocol StartLeasingInteractorProtocol {
-    func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction>
+    func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<SmartTransaction>
     func getFee() -> Observable<Money>
     func validateAlis(alias: String) -> Observable<Bool>
 }

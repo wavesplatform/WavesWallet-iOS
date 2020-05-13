@@ -30,7 +30,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     private let correctionPairsUseCase: CorrectionPairsUseCaseProtocol = UseCasesFactory.instance.correctionPairsUseCase
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         return auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
@@ -122,8 +122,8 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
 
 private extension DexMarketInteractor {
     func searchPairs(
-        firstSearchAssets: Observable<[DomainLayer.DTO.Asset]>,
-        secondSearchAssets: Observable<[DomainLayer.DTO.Asset]>,
+        firstSearchAssets: Observable<[Asset]>,
+        secondSearchAssets: Observable<[Asset]>,
         address: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         return Observable.zip(firstSearchAssets, secondSearchAssets)
             .flatMap { [weak self] (firstAssets, secondAssets) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
@@ -135,7 +135,7 @@ private extension DexMarketInteractor {
             }
     }
 
-    func correctionAndSearchPairs(firstAssets: [DomainLayer.DTO.Asset], secondAssets: [DomainLayer.DTO.Asset],
+    func correctionAndSearchPairs(firstAssets: [Asset], secondAssets: [Asset],
                                   address: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         var pairs: [DomainLayer.DTO.CorrectionPairs.Pair] = []
         let allAssets = firstAssets + secondAssets
@@ -175,7 +175,7 @@ private extension DexMarketInteractor {
                             let volume: Double
                         }
                         var smartPairs: [SmartVolumePair] = []
-                        let allAssetsMap = allAssets.reduce(into: [String: DomainLayer.DTO.Asset].init()) {
+                        let allAssetsMap = allAssets.reduce(into: [String: Asset].init()) {
                             $0[$1.id] = $1
                         }
                         let localPairsMap = localPairs.reduce(into: [String: DomainLayer.DTO.Dex.FavoritePair].init()) {
@@ -239,7 +239,7 @@ private extension DexMarketInteractor {
                 guard let self = self else { return Observable.empty() }
 
                 var dexPairs: [DomainLayer.DTO.Dex.Pair] = []
-                let assetsMap = assets.reduce(into: [String: DomainLayer.DTO.Asset].init()) {
+                let assetsMap = assets.reduce(into: [String: Asset].init()) {
                     $0[$1.id] = $1
                 }
 

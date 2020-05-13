@@ -11,8 +11,8 @@ import Foundation
 import WavesSDK
 import WavesSDKExtensions
 
-extension MassTransferTransaction {
-    convenience init(transaction: DomainLayer.DTO.MassTransferTransaction) {
+extension MassTransferTransactionRealm {
+    convenience init(transaction: MassTransferTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -34,8 +34,8 @@ extension MassTransferTransaction {
         }
         let transfers = transaction
             .transfers
-            .map { model -> MassTransferTransactionTransfer in
-                let info = MassTransferTransactionTransfer()
+            .map { model -> MassTransferTransactionTransferRealm in
+                let info = MassTransferTransactionTransferRealm()
                 info.recipient = model.recipient
                 info.amount = model.amount
                 return info
@@ -47,12 +47,12 @@ extension MassTransferTransaction {
     }
 }
 
-extension DomainLayer.DTO.MassTransferTransaction {
+extension MassTransferTransaction {
     init(transaction: NodeService.DTO.MassTransferTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         
-        let transfers: [DomainLayer.DTO.MassTransferTransaction.Transfer] = transaction
+        let transfers: [MassTransferTransaction.Transfer] = transaction
             .transfers
             .map { .init(recipient: $0.recipient.normalizeAddress(aliasScheme: aliasScheme), amount: $0.amount) }
 
@@ -76,11 +76,11 @@ extension DomainLayer.DTO.MassTransferTransaction {
         self.status = status
     }
 
-    init(transaction: MassTransferTransaction) {
+    init(transaction: MassTransferTransactionRealm) {
         let transfers = transaction
             .transfers
             .toArray()
-            .map { DomainLayer.DTO.MassTransferTransaction.Transfer(recipient: $0.recipient, amount: $0.amount) }
+            .map { MassTransferTransaction.Transfer(recipient: $0.recipient, amount: $0.amount) }
 
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -97,6 +97,6 @@ extension DomainLayer.DTO.MassTransferTransaction {
                   totalAmount: transaction.totalAmount,
                   transfers: transfers,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

@@ -62,7 +62,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     private let assetInteractor = UseCasesFactory.instance.assets
     private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
     private let auth = UseCasesFactory.instance.authorization
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
     weak var delegate: AddressInputViewDelegate?
     var decimals: Int = 0

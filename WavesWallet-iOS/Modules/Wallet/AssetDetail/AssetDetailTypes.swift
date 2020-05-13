@@ -25,7 +25,7 @@ extension AssetDetailTypes {
             case none
             case empty
             case loading
-            case transaction([DomainLayer.DTO.SmartTransaction])
+            case transaction([SmartTransaction])
 
             var isLoading: Bool {
                 switch self {
@@ -45,19 +45,19 @@ extension AssetDetailTypes {
     enum Event {
         case readyView
         case changedAsset(id: String)
-        case setTransactions([DomainLayer.DTO.SmartTransaction])
+        case setTransactions([SmartTransaction])
         case setAssets([DTO.PriceAsset])
         case refreshing
         case tapFavorite(on: Bool)
         case tapSend
         case tapReceive
         case tapExchange
-        case tapTransaction(DomainLayer.DTO.SmartTransaction)
+        case tapTransaction(SmartTransaction)
         case tapHistory
         case showReceive(DomainLayer.DTO.SmartAssetBalance)
         case showSend(DomainLayer.DTO.SmartAssetBalance)
         case tapBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?)
-        case showTrade(DomainLayer.DTO.Asset)
+        case showTrade(Asset)
     }
 
     struct DisplayState: DataSourceProtocol, Mutating {
@@ -103,7 +103,7 @@ extension AssetDetailTypes.ViewModel {
         case viewHistory
         case viewHistoryDisabled
         case viewHistorySkeleton
-        case lastTransactions([DomainLayer.DTO.SmartTransaction])
+        case lastTransactions([SmartTransaction])
         case transactionSkeleton
         case assetInfo(AssetDetailTypes.DTO.Asset.Info)
         case tokenBurn(AssetDetailTypes.DTO.Asset.Info)
@@ -143,6 +143,8 @@ extension AssetDetailTypes.DTO {
             let sortLevel: Float
             let icon: AssetLogo.Icon
             var assetBalance: DomainLayer.DTO.SmartAssetBalance
+            let isStablecoin: Bool
+            let isQualified: Bool
         }
 
         struct Balance: Codable {

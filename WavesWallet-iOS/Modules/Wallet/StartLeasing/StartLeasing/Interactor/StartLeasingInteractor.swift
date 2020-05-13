@@ -15,15 +15,15 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
-    func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction> {
+    func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<SmartTransaction> {
         let sender = LeaseTransactionSender(recipient: order.recipient,
                                             amount: order.amount.amount,
                                             fee: order.fee.amount)
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap { (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
+            .flatMap { (wallet) -> Observable<SmartTransaction> in
                 self.transactionInteractor
                     .send(by: .lease(sender), wallet: wallet)
             }

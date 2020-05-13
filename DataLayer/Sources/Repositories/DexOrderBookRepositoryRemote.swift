@@ -313,18 +313,19 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     
     // MARK: - Markets Sort
     
+//TODO: Remove call realm
     private extension DexOrderBookRepositoryRemote {
         func sort(pairs: [DomainLayer.DTO.Dex.SmartPair], realm: Realm) -> [DomainLayer.DTO.Dex.SmartPair] {
             var sortedPairs: [DomainLayer.DTO.Dex.SmartPair] = []
             
             let generalBalances = realm
-                .objects(Asset.self)
+                .objects(AssetRealm.self)
                 .filter(NSPredicate(format: "isGeneral == true"))
                 .toArray()
-                .reduce(into: [String: Asset]()) { $0[$1.id] = $1 }
+                .reduce(into: [String: AssetRealm]()) { $0[$1.id] = $1 }
             
             let settingsList = realm
-                .objects(AssetBalanceSettings.self)
+                .objects(AssetBalanceSettingsRealm.self)
                 .toArray()
                 .filter { asset -> Bool in
                     generalBalances[asset.assetId]?.isGeneral == true

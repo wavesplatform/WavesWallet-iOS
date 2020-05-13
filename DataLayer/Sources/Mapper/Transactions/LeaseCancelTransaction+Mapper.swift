@@ -10,8 +10,8 @@ import DomainLayer
 import Foundation
 import WavesSDK
 
-extension LeaseCancelTransaction {
-    convenience init(transaction: DomainLayer.DTO.LeaseCancelTransaction) {
+extension LeaseCancelTransactionRealm {
+    convenience init(transaction: LeaseCancelTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -31,25 +31,25 @@ extension LeaseCancelTransaction {
         chainId.value = transaction.chainId
         leaseId = transaction.leaseId
         if let lease = transaction.lease {
-            if let leaseFromBD = realm?.object(ofType: LeaseTransaction.self, forPrimaryKey: leaseId) {
+            if let leaseFromBD = realm?.object(ofType: LeaseTransactionRealm.self, forPrimaryKey: leaseId) {
                 self.lease = leaseFromBD
             } else {
-                self.lease = LeaseTransaction(transaction: lease)
+                self.lease = LeaseTransactionRealm(transaction: lease)
             }
         }
         status = transaction.status.rawValue
     }
 }
 
-extension DomainLayer.DTO.LeaseCancelTransaction {
+extension LeaseCancelTransaction {
     init(transaction: NodeService.DTO.LeaseCancelTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         
-        var leaseTx: DomainLayer.DTO.LeaseTransaction?
+        var leaseTx: LeaseTransaction?
 
         if let lease = transaction.lease {
-            leaseTx = DomainLayer.DTO.LeaseTransaction(transaction: lease,
+            leaseTx = LeaseTransaction(transaction: lease,
                                                        status: .completed,
                                                        aliasScheme: aliasScheme)
         }
@@ -71,11 +71,11 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
                   status: status)
     }
 
-    init(transaction: LeaseCancelTransaction) {
-        var leaseTx: DomainLayer.DTO.LeaseTransaction?
+    init(transaction: LeaseCancelTransactionRealm) {
+        var leaseTx: LeaseTransaction?
 
         if let lease = transaction.lease {
-            leaseTx = DomainLayer.DTO.LeaseTransaction(transaction: lease)
+            leaseTx = LeaseTransaction(transaction: lease)
         }
 
         self.init(type: transaction.type,
@@ -92,6 +92,6 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
                   leaseId: transaction.leaseId,
                   lease: leaseTx,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

@@ -80,7 +80,7 @@ public class WidgetSettingsUseCase: WidgetSettingsUseCaseProtocol {
             })
     }
     
-    public func removeAsset(_ asset: DomainLayer.DTO.Asset) -> Observable<Bool> {
+    public func removeAsset(_ asset: Asset) -> Observable<Bool> {
         
         return useCases
             .widgetSettingsInizialization

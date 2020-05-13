@@ -17,14 +17,14 @@ fileprivate enum Constants {
 }
 
 protocol HistoryInteractorProtocol {
-    func transactions(input: HistoryModuleInput) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>>
+    func transactions(input: HistoryModuleInput) -> Observable<Sync<[SmartTransaction]>>
 }
 
 final class HistoryInteractor: HistoryInteractorProtocol {
     private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
-    func transactions(input: HistoryModuleInput) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> {
+    func transactions(input: HistoryModuleInput) -> Observable<Sync<[SmartTransaction]>> {
         var specifications: TransactionsSpecifications!
 
         switch input.type {
@@ -49,10 +49,10 @@ final class HistoryInteractor: HistoryInteractorProtocol {
     }
 
     private func loadingTransactions(specifications: TransactionsSpecifications)
-        -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> {
+        -> SyncObservable<[SmartTransaction]> {
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap { [weak self] (wallet) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> in
+            .flatMap { [weak self] (wallet) -> SyncObservable<[SmartTransaction]> in
                 guard let self = self else { return Observable.never() }
 
                 return self

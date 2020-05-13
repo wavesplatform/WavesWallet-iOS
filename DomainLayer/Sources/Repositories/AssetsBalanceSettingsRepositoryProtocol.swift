@@ -21,9 +21,9 @@ public extension Float {
 }
 
 public protocol AssetsBalanceSettingsRepositoryProtocol {
-    func settings(by accountAddress: String, ids: [String]) -> Observable<[String: DomainLayer.DTO.AssetBalanceSettings]>
-    func settings(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
-    func listenerSettings(by accountAddress: String, ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
-    func saveSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
+    func settings(by accountAddress: String, ids: [String]) -> Observable<[String: AssetBalanceSettings]>
+    func settings(by accountAddress: String) -> Observable<[AssetBalanceSettings]>
+    func listenerSettings(by accountAddress: String, ids: [String]) -> Observable<[AssetBalanceSettings]>
+    func saveSettings(by accountAddress: String, settings: [AssetBalanceSettings]) -> Observable<Bool>
     func removeBalancesSettting(actualIds: [String], accountAddress: String) -> Observable<Bool>
 }

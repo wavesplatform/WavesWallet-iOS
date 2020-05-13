@@ -242,6 +242,7 @@ final class SendViewController: UIViewController {
         
         
         let vc = StoryboardScene.Send.sendConfirmationViewController.instantiate()
+        vc.interactor = presenter.interactor
         vc.resultDelegate = self
         vc.input = .init(asset: asset,
                          address: address,
@@ -1029,7 +1030,7 @@ private extension SendViewController {
         return false
     }
 
-    var validationAddressAsset: DomainLayer.DTO.Asset? {
+    var validationAddressAsset: Asset? {
         if selectedAsset == nil {
             switch inputModel! {
             case .resendTransaction(let tx):
@@ -1054,11 +1055,11 @@ private extension SendViewController {
         }
     }
 
-    func canInputOnlyLocalAddressOrAlias(_ asset: DomainLayer.DTO.Asset) -> Bool {
+    func canInputOnlyLocalAddressOrAlias(_ asset: Asset) -> Bool {
          return asset.isWaves || asset.isWavesToken || asset.isFiat
     }
     
-    func isCryptoCurrencyAsset(_ asset: DomainLayer.DTO.Asset) -> Bool {
+    func isCryptoCurrencyAsset(_ asset: Asset) -> Bool {
         return asset.isGateway && !asset.isFiat
     }
     

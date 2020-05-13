@@ -17,7 +17,7 @@ protocol DexScriptAssetMessageModuleOutput: AnyObject {
 struct DexScriptAssetMessageModuleBuilder: ModuleBuilderOutput {
     
     struct Input {
-        let assets: [DomainLayer.DTO.Asset]
+        let assets: [Asset]
         let amountAsset: String
         let priceAsset: String
         let continueAction: (() -> Void)?

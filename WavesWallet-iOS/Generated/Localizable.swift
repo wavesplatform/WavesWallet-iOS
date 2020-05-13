@@ -1387,15 +1387,21 @@ internal enum Localizable {
       internal enum Ticker {
 
         internal enum Title {
-          /// Cryptocurrency
+          /// GATEWAY
           internal static var cryptocurrency: String { Localizable.tr("Waves", "general.ticker.title.cryptocurrency") }
           internal static var cryptocurrencyKey: String { "general.ticker.title.cryptocurrency" }
           /// Fiat Money
           internal static var fiatmoney: String { Localizable.tr("Waves", "general.ticker.title.fiatmoney") }
           internal static var fiatmoneyKey: String { "general.ticker.title.fiatmoney" }
+          /// QUALIFIED
+          internal static var qualified: String { Localizable.tr("Waves", "general.ticker.title.qualified") }
+          internal static var qualifiedKey: String { "general.ticker.title.qualified" }
           /// SUSPICIOUS
           internal static var spam: String { Localizable.tr("Waves", "general.ticker.title.spam") }
           internal static var spamKey: String { "general.ticker.title.spam" }
+          /// STABLECOIN
+          internal static var stablecoin: String { Localizable.tr("Waves", "general.ticker.title.stablecoin") }
+          internal static var stablecoinKey: String { "general.ticker.title.stablecoin" }
           /// Waves Token
           internal static var wavestoken: String { Localizable.tr("Waves", "general.ticker.title.wavestoken") }
           internal static var wavestokenKey: String { "general.ticker.title.wavestoken" }

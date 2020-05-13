@@ -11,24 +11,25 @@ import RxSwift
 import Extensions
 import WavesSDK
 
+//TODO: После переходна grpc надо бы его удалить
 final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
     
     private let gatewayRepository: WEGatewayRepositoryProtocol
     private let oAuthRepository: WEOAuthRepositoryProtocol
     private let authorizationUseCase: AuthorizationUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     init(gatewayRepository: WEGatewayRepositoryProtocol,
          oAuthRepository: WEOAuthRepositoryProtocol,
          authorizationUseCase: AuthorizationUseCaseProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.gatewayRepository = gatewayRepository
         self.oAuthRepository = oAuthRepository
         self.authorizationUseCase = authorizationUseCase
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
     
-    func receiveBinding(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> {
+    func receiveBinding(asset: Asset) -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> {
         
         let serverEnvironment = self.serverEnvironmentUseCase.serverEnvironment()
         let wallet = authorizationUseCase.authorizedWallet()
@@ -66,7 +67,7 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
         }
     }
     
-    func sendBinding(asset: DomainLayer.DTO.Asset,
+    func sendBinding(asset: Asset,
                      address: String,
                      amount: Money) -> Observable<DomainLayer.DTO.WEGateway.SendBinding> {
         
@@ -111,7 +112,7 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
         }
     }
     
-    private func calculateFee(asset: DomainLayer.DTO.Asset,
+    private func calculateFee(asset: Asset,
                               amount: Money,
                               transferBinding: DomainLayer.DTO.WEGateway.TransferBinding) -> Money {
                         

@@ -16,7 +16,7 @@ import WavesSDKExtensions
 
 private struct Leasing {
     let balance: DomainLayer.DTO.SmartAssetBalance
-    let transaction: [DomainLayer.DTO.SmartTransaction]
+    let transaction: [SmartTransaction]
     let walletAddress: String
 }
 
@@ -29,7 +29,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceUseCaseProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     private let leasingInteractor: TransactionsUseCaseProtocol
     private let walletsRepository: WalletsRepositoryProtocol
@@ -47,7 +47,7 @@ final class WalletInteractor: WalletInteractorProtocol {
          applicationVersionUseCase: ApplicationVersionUseCaseProtocol,
          leasingInteractor: TransactionsUseCaseProtocol,
          walletsRepository: WalletsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
         self.assetUseCase = assetUseCase
@@ -114,7 +114,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     func staking() -> Observable<WalletTypes.DTO.Staking> {
         let obtainNeutrinoAsset = Observable.zip(authorizationInteractor.authorizedWallet(),
                                                  enviroment.developmentConfigs())
-            .flatMap { [weak self] signedWallet, config -> Observable<(assets: [DomainLayer.DTO.Asset], accountAddress: String)> in
+            .flatMap { [weak self] signedWallet, config -> Observable<(assets: [Asset], accountAddress: String)> in
                 guard let strongSelf = self else { return Observable.never() }
 
                 let neutrinoId = config.staking.first?.neutrinoAssetId ?? ""
@@ -197,7 +197,7 @@ private extension WalletInteractor {
             .flatMap(weak: self) { owner, wallet -> Observable<Leasing> in
 
                 let transactions = owner.leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
-                    .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+                    .flatMap { (txs) -> Observable<[SmartTransaction]> in
                         Observable.just(txs.resultIngoreError ?? [])
                     }
 
@@ -221,7 +221,7 @@ private extension WalletInteractor {
 
                 let precision = leasing.balance.asset.precision
 
-                let incomingLeasingTxs = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
+                let incomingLeasingTxs = leasing.transaction.map { tx -> SmartTransaction.Leasing? in
                     if case let .incomingLeasing(leasing) = tx.kind {
                         return leasing
                     } else {
@@ -230,7 +230,7 @@ private extension WalletInteractor {
                 }
                 .compactMap { $0 }
 
-                let startedLeasingTxsBase = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction? in
+                let startedLeasingTxsBase = leasing.transaction.map { tx -> SmartTransaction? in
                     if case .startedLeasing = tx.kind {
                         return tx
                     } else {
@@ -239,7 +239,7 @@ private extension WalletInteractor {
                 }
                 .compactMap { $0 }
 
-                let startedLeasingTxs = startedLeasingTxsBase.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
+                let startedLeasingTxs = startedLeasingTxsBase.map { tx -> SmartTransaction.Leasing? in
                     if case let .startedLeasing(leasing) = tx.kind {
                         return leasing
                     } else {
@@ -277,7 +277,7 @@ private extension WalletInteractor {
     }
 
     private typealias MassTransferTuple = (DataService.Response<[DataService.DTO.MassTransferTransaction]>,
-                                           [DomainLayer.DTO.Asset],
+                                           [Asset],
                                            DataService.Query.MassTransferDataQuery)
 
     private static func prepareStartOf2020Year() -> Date? {

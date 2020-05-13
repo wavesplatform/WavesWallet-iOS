@@ -49,6 +49,8 @@ public struct WalletEnvironment: Decodable, Hashable {
         public let addressRegEx: String
         public let iconUrls: Icon?
         public let gatewayType: String?
+        public let isStablecoin: Bool?
+        public let isQualified: Bool?
     }
     
     public struct Servers: Decodable, Hashable {
@@ -66,9 +68,11 @@ public struct WalletEnvironment: Decodable, Hashable {
         public let gatewayUrl: URL
         public let authUrl: URL
         public let gateways: Gateways
-        //
-        public let wavesExchangeApiUrl: URL?
-        public let wavesExchangeGrpcAddress: URL?
+        
+        public let wavesExchangePublicApiUrl: URL
+        public let wavesExchangeInternalApiUrl: URL
+        public let wavesExchangeGrpcAddress: String
+        public let firebaseAuthApiUrl: URL
         
         public init(nodeUrl: URL,
                     dataUrl: URL,
@@ -78,7 +82,9 @@ public struct WalletEnvironment: Decodable, Hashable {
                     authUrl: URL,
                     gateways: Gateways,
                     wavesExchangeApiUrl: URL,
-                    wavesExchangeGrpcAddress: URL) {
+                    wavesExchangeGrpcAddress: String,
+                    firebaseAuthApiUrl: URL,
+                    wavesExchangeInternalApiUrl: URL) {
             
             self.nodeUrl = nodeUrl
             self.dataUrl = dataUrl
@@ -87,8 +93,10 @@ public struct WalletEnvironment: Decodable, Hashable {
             self.gatewayUrl = gatewayUrl
             self.authUrl = authUrl
             self.gateways = gateways
-            self.wavesExchangeApiUrl = wavesExchangeApiUrl
+            self.wavesExchangePublicApiUrl = wavesExchangeApiUrl
             self.wavesExchangeGrpcAddress = wavesExchangeGrpcAddress
+            self.wavesExchangeInternalApiUrl = wavesExchangeInternalApiUrl
+            self.firebaseAuthApiUrl = firebaseAuthApiUrl
         }
     }
     

@@ -26,7 +26,7 @@ extension WalletTypes.ViewModel {
         case balanceSkeleton
         case historySkeleton
         case balance(WalletTypes.DTO.Leasing.Balance)
-        case leasingTransaction(DomainLayer.DTO.SmartTransaction)
+        case leasingTransaction(SmartTransaction)
         case historyCell(HistoryCellType)
         case quickNote
         case stakingBalance(WalletTypes.DTO.Staking.Balance)
@@ -68,7 +68,7 @@ extension WalletTypes.ViewModel.Row {
             }
         }
 
-    var leasingTransaction: DomainLayer.DTO.SmartTransaction? {
+    var leasingTransaction: SmartTransaction? {
         switch self {
         case .leasingTransaction(let tx):
             return tx

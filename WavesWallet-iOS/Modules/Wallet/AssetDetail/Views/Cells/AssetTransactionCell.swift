@@ -24,7 +24,7 @@ final class AssetTransactionCell: UICollectionViewCell, NibReusable, ViewConfigu
         }()
     }
 
-    func update(with model: DomainLayer.DTO.SmartTransaction) {
+    func update(with model: SmartTransaction) {
         transactionView.update(with: model)
     }
 }

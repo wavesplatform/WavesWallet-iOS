@@ -32,5 +32,6 @@ public protocol UseCasesFactoryProtocol {
     
     var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol { get }
     
-    var serverEnvironmentUseCase: ServerEnvironmentUseCase { get }
+    @available(*, deprecated, message: "You need use RepositoryFactory.")
+    var serverEnvironmentUseCase: ServerEnvironmentRepository { get }
 }

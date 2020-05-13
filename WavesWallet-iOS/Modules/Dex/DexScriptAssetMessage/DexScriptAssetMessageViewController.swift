@@ -97,7 +97,7 @@ private extension DexScriptAssetMessageViewController {
         }
     }
     
-    func setup(imageViewIcon: UIImageView, asset: DomainLayer.DTO.Asset) {
+    func setup(imageViewIcon: UIImageView, asset: Asset) {
         
         AssetLogo.logo(icon: asset.iconLogo,
                        style: .large)

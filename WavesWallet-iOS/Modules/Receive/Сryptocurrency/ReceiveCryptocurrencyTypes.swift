@@ -15,7 +15,7 @@ enum ReceiveCryptocurrency {
     enum DTO {}
     
     enum Event {
-        case generateAddress(asset: DomainLayer.DTO.Asset)
+        case generateAddress(asset: Asset)
         case addressDidGenerate(ResponseType<DTO.DisplayInfo>)        
     }
     
@@ -29,7 +29,7 @@ enum ReceiveCryptocurrency {
         var isNeedGenerateAddress: Bool
         var action: Action
         var displayInfo: DTO.DisplayInfo?
-        var asset: DomainLayer.DTO.Asset?
+        var asset: Asset?
     }
 }
 
@@ -42,7 +42,7 @@ extension ReceiveCryptocurrency.DTO {
         }
         
         let addresses: [Address]
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let minAmount: Money
         let maxAmount: Money?
         

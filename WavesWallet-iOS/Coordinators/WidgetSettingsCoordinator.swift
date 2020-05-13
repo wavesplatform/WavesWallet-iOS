@@ -14,12 +14,12 @@ import WavesSDKExtensions
 
 private enum StatePopover {
     case none
-    case syncAssets([DomainLayer.DTO.Asset])
+    case syncAssets([Asset])
 }
 
 private enum WidgetState {
     case none
-    case callback(([DomainLayer.DTO.Asset]) -> Void)
+    case callback(([Asset]) -> Void)
 }
 
 final class WidgetSettingsCoordinator: Coordinator {
@@ -76,7 +76,7 @@ final class WidgetSettingsCoordinator: Coordinator {
 // MARK: AssetsSearchModuleOutput
 
 extension WidgetSettingsCoordinator: AssetsSearchModuleOutput {
-    func assetsSearchSelectedAssets(_ assets: [DomainLayer.DTO.Asset]) {
+    func assetsSearchSelectedAssets(_ assets: [Asset]) {
         self.statePopover = .syncAssets(assets)
     }
     
@@ -95,10 +95,10 @@ extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
         })
     }
     
-    func widgetSettingsSyncAssets(_ current: [DomainLayer.DTO.Asset],
+    func widgetSettingsSyncAssets(_ current: [Asset],
                                   minCountAssets: Int,
                                   maxCountAssets: Int,
-                                  callback: @escaping (([DomainLayer.DTO.Asset]) -> Void)) {
+                                  callback: @escaping (([Asset]) -> Void)) {
         let vc = AssetsSearchViewBuilder(output: self)
             .build(input: .init(assets: current, minCountAssets: minCountAssets, maxCountAssets: maxCountAssets))
         

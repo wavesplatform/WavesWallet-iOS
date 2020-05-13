@@ -19,26 +19,28 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
         let auth = UseCasesFactory.instance.authorization
         let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
         let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
-        let transactionInteractor = UseCasesFactory.instance.transactions        
+        let transactionInteractor = UseCasesFactory.instance.transactions
         let orderBookInteractor = UseCasesFactory.instance.oderbook
         let developmentConfig = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
         let addressRepository = UseCasesFactory.instance.repositories.addressRepository
         let accountBalance = UseCasesFactory.instance.accountBalance
         let assetRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
-        let transactionRepositoryRemote = UseCasesFactory.instance.repositories.transactionsRepositoryRemote
-        
-        let interactor = DexCreateOrderInteractor(authorization: auth, 
+        let transactionRepository = UseCasesFactory.instance.repositories.transactionsRepository
+        let assetsInteractors = UseCasesFactory.instance.assets
+
+        let interactor = DexCreateOrderInteractor(authorization: auth,
                                                   addressRepository: addressRepository,
                                                   accountBalance: accountBalance,
                                                   matcherRepository: matcherRepository,
                                                   dexOrderBookRepository: orderBookRepository,
                                                   transactionInteractor: transactionInteractor,
-                                                  transactionsRepositoryRemote: transactionRepositoryRemote,
+                                                  transactionsRepository: transactionRepository,
                                                   assetsRepository: assetRepository,
                                                   orderBookInteractor: orderBookInteractor,
                                                   developmentConfig: developmentConfig,
-                                                  serverEnvironmentUseCase: serverEnvironmentUseCase)
+                                                  serverEnvironmentUseCase: serverEnvironmentUseCase,
+                                                  assetsInteractors: assetsInteractors)
 
         let presenter = DexCreateOrderPresenter(interactor: interactor, pair: pair)
 

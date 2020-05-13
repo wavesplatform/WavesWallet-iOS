@@ -24,7 +24,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     private let authorization: AuthorizationUseCaseProtocol
     private let assetsInteractor: AssetsUseCaseProtocol
     private let assetsRepositoryLocal: AssetsRepositoryProtocol
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     private let pair: DexTraderContainer.DTO.Pair
 
@@ -35,7 +35,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
          authorization: AuthorizationUseCaseProtocol,
          assetsInteractor: AssetsUseCaseProtocol,
          assetsRepositoryLocal: AssetsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.pair = pair
         self.accountBalance = accountBalance
         self.dexOrderBookRepository = dexOrderBookRepository
@@ -95,7 +95,7 @@ private extension DexOrderBookInteractor {
                         lastTransactionInfo: DomainLayer.DTO.Dex.LastTrade?,
                         header: DexOrderBook.ViewModel.Header,
                         balances: [DomainLayer.DTO.SmartAssetBalance],
-                        scriptedAssets: [DomainLayer.DTO.Asset]) -> DexOrderBook.DTO.DisplayData {
+                        scriptedAssets: [Asset]) -> DexOrderBook.DTO.DisplayData {
         let itemsBids = info.bids
         let itemsAsks = info.asks
 
@@ -200,12 +200,12 @@ private extension DexOrderBookInteractor {
             }
     }
 
-    func getScriptedAssets() -> Observable<[DomainLayer.DTO.Asset]> {
+    func getScriptedAssets() -> Observable<[Asset]> {
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = authorization.authorizedWallet()
 
         return Observable.zip(serverEnvironment, wallet)
-            .flatMap { [weak self] serverEnvironment, wallet -> Observable<[DomainLayer.DTO.Asset]> in
+            .flatMap { [weak self] serverEnvironment, wallet -> Observable<[Asset]> in
                 guard let self = self else { return Observable.empty() }
 
                 let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
@@ -217,7 +217,7 @@ private extension DexOrderBookInteractor {
                         $0.filter { $0.hasScript }
                             .sorted { first, _ -> Bool in first.id == self.pair.amountAsset.id }
                     }
-                    .catchError { [weak self] (_) -> Observable<[DomainLayer.DTO.Asset]> in
+                    .catchError { [weak self] (_) -> Observable<[Asset]> in
                         guard let self = self else { return Observable.empty() }
 
                         return self.assetsInteractor.assets(by: ids, accountAddress: wallet.address)

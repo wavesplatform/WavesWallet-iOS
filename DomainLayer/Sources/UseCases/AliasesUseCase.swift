@@ -13,13 +13,13 @@ import Extensions
 
 final class AliasesUseCase: AliasesUseCaseProtocol {
     
-    private let serverEnvironmentUseCase: ServerEnvironmentUseCase
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     private let aliasesRepository: AliasesRepositoryProtocol
     private let aliasesRepositoryLocal: AliasesRepositoryProtocol
     
     init(aliasesRepositoryRemote: AliasesRepositoryProtocol,
          aliasesRepositoryLocal: AliasesRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentUseCase) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.aliasesRepository = aliasesRepositoryRemote
         self.aliasesRepositoryLocal = aliasesRepositoryLocal
         self.serverEnvironmentUseCase = serverEnvironmentUseCase

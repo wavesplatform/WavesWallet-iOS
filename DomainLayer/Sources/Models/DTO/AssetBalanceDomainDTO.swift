@@ -17,12 +17,12 @@ public extension DomainLayer.DTO {
         public var totalBalance: Int64
         public var leasedBalance: Int64
         public var inOrderBalance: Int64
-        public var settings: DomainLayer.DTO.AssetBalanceSettings
-        public var asset: DomainLayer.DTO.Asset
+        public var settings: AssetBalanceSettings
+        public var asset: Asset
         public var modified: Date
         public let sponsorBalance: Int64
 
-        public init(assetId: String, totalBalance: Int64, leasedBalance: Int64, inOrderBalance: Int64, settings: DomainLayer.DTO.AssetBalanceSettings, asset: DomainLayer.DTO.Asset, modified: Date, sponsorBalance: Int64) {
+        public init(assetId: String, totalBalance: Int64, leasedBalance: Int64, inOrderBalance: Int64, settings: AssetBalanceSettings, asset: Asset, modified: Date, sponsorBalance: Int64) {
             self.assetId = assetId
             self.totalBalance = totalBalance
             self.leasedBalance = leasedBalance
@@ -34,39 +34,40 @@ public extension DomainLayer.DTO {
         }
     }
 
-    struct AssetBalance: Mutating {
+}
 
-        public let assetId: String
-        public var totalBalance: Int64
-        public var leasedBalance: Int64
-        public var inOrderBalance: Int64
-        public var modified: Date
-        public let sponsorBalance: Int64
-        public let minSponsoredAssetFee: Int64
+ public struct AssetBalance: Mutating {
 
-        public init(assetId: String, totalBalance: Int64, leasedBalance: Int64, inOrderBalance: Int64, modified: Date, sponsorBalance: Int64, minSponsoredAssetFee: Int64) {
-            self.assetId = assetId
-            self.totalBalance = totalBalance
-            self.leasedBalance = leasedBalance
-            self.inOrderBalance = inOrderBalance
-            self.modified = modified
-            self.sponsorBalance = sponsorBalance
-            self.minSponsoredAssetFee = minSponsoredAssetFee
-        }
+    public let assetId: String
+    public var totalBalance: Int64
+    public var leasedBalance: Int64
+    public var inOrderBalance: Int64
+    public var modified: Date
+    public let sponsorBalance: Int64
+    public let minSponsoredAssetFee: Int64
+
+    public init(assetId: String, totalBalance: Int64, leasedBalance: Int64, inOrderBalance: Int64, modified: Date, sponsorBalance: Int64, minSponsoredAssetFee: Int64) {
+        self.assetId = assetId
+        self.totalBalance = totalBalance
+        self.leasedBalance = leasedBalance
+        self.inOrderBalance = inOrderBalance
+        self.modified = modified
+        self.sponsorBalance = sponsorBalance
+        self.minSponsoredAssetFee = minSponsoredAssetFee
     }
+}
 
-    struct AssetBalanceSettings: Mutating {
-        public let assetId: String
-        public var sortLevel: Float
-        public var isHidden: Bool
-        public var isFavorite: Bool
+public struct AssetBalanceSettings: Mutating {
+    public let assetId: String
+    public var sortLevel: Float
+    public var isHidden: Bool
+    public var isFavorite: Bool
 
-        public init(assetId: String, sortLevel: Float, isHidden: Bool, isFavorite: Bool) {
-            self.assetId = assetId
-            self.sortLevel = sortLevel
-            self.isHidden = isHidden
-            self.isFavorite = isFavorite
-        }
+    public init(assetId: String, sortLevel: Float, isHidden: Bool, isFavorite: Bool) {
+        self.assetId = assetId
+        self.sortLevel = sortLevel
+        self.isHidden = isHidden
+        self.isFavorite = isFavorite
     }
 }
 

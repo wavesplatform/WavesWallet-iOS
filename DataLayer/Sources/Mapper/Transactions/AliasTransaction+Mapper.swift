@@ -10,8 +10,8 @@ import DomainLayer
 import Foundation
 import WavesSDK
 
-extension AliasTransaction {
-    convenience init(transaction: DomainLayer.DTO.AliasTransaction) {
+extension AliasTransactionRealm {
+    convenience init(transaction: AliasTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -31,9 +31,9 @@ extension AliasTransaction {
     }
 }
 
-extension DomainLayer.DTO.AliasTransaction {
+extension AliasTransaction {
     init(transaction: NodeService.DTO.AliasTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -50,7 +50,7 @@ extension DomainLayer.DTO.AliasTransaction {
                   status: status)
     }
 
-    init(transaction: AliasTransaction) {
+    init(transaction: AliasTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -63,6 +63,6 @@ extension DomainLayer.DTO.AliasTransaction {
                   proofs: transaction.proofs.toArray(),
                   alias: transaction.alias,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

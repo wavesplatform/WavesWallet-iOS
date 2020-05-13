@@ -41,7 +41,7 @@ final class HistoryCoordinator: Coordinator {
 
 extension HistoryCoordinator: HistoryModuleOutput {
     
-    func showTransaction(transaction: DomainLayer.DTO.SmartTransaction) {
+    func showTransaction(transaction: SmartTransaction) {
         let coordinator = TransactionCardCoordinator(transaction: transaction,
                                                      router: navigationRouter)
 

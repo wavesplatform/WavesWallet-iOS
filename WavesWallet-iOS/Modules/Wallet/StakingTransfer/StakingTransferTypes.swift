@@ -35,7 +35,7 @@ extension StakingTransfer.DTO {
     enum Data: Hashable {
         
         struct Transfer: Hashable {
-            let asset: DomainLayer.DTO.Asset
+            let asset: Asset
             let balance: DomainLayer.DTO.Balance
             let transactionFeeBalance: DomainLayer.DTO.Balance
             let avaliableBalanceForFee: DomainLayer.DTO.Balance
@@ -51,7 +51,7 @@ extension StakingTransfer.DTO {
         }
         
         struct Card: Hashable {
-            let asset: DomainLayer.DTO.Asset
+            let asset: Asset
             let minAmount: DomainLayer.DTO.Balance
             let maxAmount: DomainLayer.DTO.Balance
         }
@@ -97,8 +97,8 @@ extension StakingTransfer {
         case showCard(StakingTransfer.DTO.Data.Card)
         case showDeposit(StakingTransfer.DTO.Data.Transfer)
         case showWithdraw(StakingTransfer.DTO.Data.Transfer)
-        case completedSendWithdraw(DomainLayer.DTO.SmartTransaction)
-        case completedSendDeposit(DomainLayer.DTO.SmartTransaction)
+        case completedSendWithdraw(SmartTransaction)
+        case completedSendDeposit(SmartTransaction)
         case completedSendCard(URL)
         case handlerError(NetworkError)
         case tapSendButton
@@ -146,10 +146,10 @@ extension StakingTransfer {
                 case none
                 case update(_ updateRows: UpdateRows?, error: DisplayError?)
                 case completedDeposit(_ updateRows: UpdateRows?,
-                    transactions: DomainLayer.DTO.SmartTransaction,
+                    transactions: SmartTransaction,
                     amount: DomainLayer.DTO.Balance)
                 case completedWithdraw(_ updateRows: UpdateRows?,
-                    transactions: DomainLayer.DTO.SmartTransaction,
+                    transactions: SmartTransaction,
                     amount: DomainLayer.DTO.Balance)
                 case completedCard(_ updateRows: UpdateRows?, url: URL, amount: DomainLayer.DTO.Balance)
                 
