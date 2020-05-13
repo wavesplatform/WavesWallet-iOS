@@ -396,8 +396,6 @@
 		7B83A7DA22D8C7500038180D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B83A7D922D8C7500038180D /* Assets.xcassets */; };
 		7B83A7DD22D8C7500038180D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B83A7DB22D8C7500038180D /* LaunchScreen.storyboard */; };
 		7B83A7E922D8D72F0038180D /* Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B83A7E822D8D72F0038180D /* Extensions.framework */; };
-		7B848A69230076AE0092AD18 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A68230076AE0092AD18 /* Localizable.swift */; };
-		7B848A6B230077550092AD18 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A6A230077540092AD18 /* Images.swift */; };
 		7B848A6D2301784B0092AD18 /* WidgetSettingsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A6C2301784B0092AD18 /* WidgetSettingsUseCaseProtocol.swift */; };
 		7B848A6F230178B70092AD18 /* WidgetSettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */; };
 		7B848A7123018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A7023018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift */; };
@@ -805,6 +803,8 @@
 		87ED7274246C735A002CAD29 /* BuyCryptoProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726E246C735A002CAD29 /* BuyCryptoProtocols.swift */; };
 		87ED7275246C735A002CAD29 /* BuyCryptoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */; };
 		87ED7276246C735A002CAD29 /* BuyCryptoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */; };
+		87ED7279246C9D36002CAD29 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7277246C9D36002CAD29 /* Images.swift */; };
+		87ED727A246C9D36002CAD29 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7278246C9D36002CAD29 /* Localizable.swift */; };
 		87F09D512417CD6E001E2394 /* MassTransferRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */; };
 		87F09D532417CE79001E2394 /* MassTransferRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */; };
 		87FA5D0324223B95002F282D /* AccountPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA5CFC24223B94002F282D /* AccountPassword.swift */; };
@@ -1834,8 +1834,6 @@
 		7B83A7DC22D8C7500038180D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B83A7DE22D8C7500038180D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B83A7E822D8D72F0038180D /* Extensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Extensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B848A68230076AE0092AD18 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
-		7B848A6A230077540092AD18 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		7B848A6C2301784B0092AD18 /* WidgetSettingsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsUseCase.swift; sourceTree = "<group>"; };
 		7B848A7023018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsInizializationUseCaseProtocol.swift; sourceTree = "<group>"; };
@@ -2230,6 +2228,8 @@
 		87ED726E246C735A002CAD29 /* BuyCryptoProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoProtocols.swift; sourceTree = "<group>"; };
 		87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoBuilder.swift; sourceTree = "<group>"; };
 		87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoInteractor.swift; sourceTree = "<group>"; };
+		87ED7277246C9D36002CAD29 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		87ED7278246C9D36002CAD29 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryRemote.swift; sourceTree = "<group>"; };
 		87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryProtocol.swift; sourceTree = "<group>"; };
 		87FA5CFC24223B94002F282D /* AccountPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPassword.swift; sourceTree = "<group>"; };
@@ -4158,8 +4158,8 @@
 		7B848A67230076AE0092AD18 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				7B848A6A230077540092AD18 /* Images.swift */,
-				7B848A68230076AE0092AD18 /* Localizable.swift */,
+				87ED7277246C9D36002CAD29 /* Images.swift */,
+				87ED7278246C9D36002CAD29 /* Localizable.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -7985,7 +7985,6 @@
 				7B896FE723F3500700F45A70 /* MatcherRepositoryLocal.swift in Sources */,
 				E958572122F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift in Sources */,
 				E991F8FF22E8CFC1008D1AE4 /* MarketPulseWidgetInteractor.swift in Sources */,
-				7B848A6B230077550092AD18 /* Images.swift in Sources */,
 				E958572022F3BBA0007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift in Sources */,
 				E958571322F2E73D007A0178 /* WidgetSettings.swift in Sources */,
 				E96DE1862317F07B005E1FD9 /* WidgetAssetsDataTarget.swift in Sources */,
@@ -8002,13 +8001,14 @@
 				E92A116D2317D12F004EC6A1 /* WidgetDataServiceTypes.swift in Sources */,
 				E92A11832317E7A9004EC6A1 /* WidgetAssetsRepositoryRemote.swift in Sources */,
 				E96DE1912318076A005E1FD9 /* WidgetAnalyticManager.swift in Sources */,
+				87ED727A246C9D36002CAD29 /* Localizable.swift in Sources */,
 				E92A11812317E10C004EC6A1 /* WidgetMatcherSettingService.swift in Sources */,
 				E984BB732319367400D60C38 /* WidgetPublicKeyMatcherService.swift in Sources */,
 				7B737BD3239680F700BEE392 /* WidgetMatcherDataTarget.swift in Sources */,
+				87ED7279246C9D36002CAD29 /* Images.swift in Sources */,
 				E92A11852317E883004EC6A1 /* WidgetAssetsDataService.swift in Sources */,
 				E92A11682317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift in Sources */,
 				E95310B322E8507500F72809 /* MarketPulseWidgetCell.swift in Sources */,
-				7B848A69230076AE0092AD18 /* Localizable.swift in Sources */,
 				E92A11752317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift in Sources */,
 				E92A11772317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift in Sources */,
 				E984BB6F23184EE100D60C38 /* WidgetTransactionsRepositoryRemote.swift in Sources */,
