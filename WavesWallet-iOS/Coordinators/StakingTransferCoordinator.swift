@@ -65,7 +65,7 @@ final class StakingTransferCoordinator: Coordinator {
     }
     
     
-    private func showTransactionCompleted(transaction: DomainLayer.DTO.SmartTransaction,
+    private func showTransactionCompleted(transaction: SmartTransaction,
                                           kind: StakingTransactionCompletedVC.Model.Kind) {
         
         let vc = StakingTransactionCompletedBuilder().build(input: .init(kind: kind))
@@ -173,7 +173,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
                                       toViewController: self.router.viewController)
     }
     
-    func stakingTransferDidSendDeposit(transaction: DomainLayer.DTO.SmartTransaction,
+    func stakingTransferDidSendDeposit(transaction: SmartTransaction,
                                        amount: DomainLayer.DTO.Balance) {
         removeModalFromCoordinator(completion: { [weak self] in
             
@@ -182,7 +182,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
         })
     }
     
-    func stakingTransferDidSendWithdraw(transaction: DomainLayer.DTO.SmartTransaction,
+    func stakingTransferDidSendWithdraw(transaction: SmartTransaction,
                                         amount: DomainLayer.DTO.Balance) {
         
         removeModalFromCoordinator(completion: { [weak self] in

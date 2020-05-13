@@ -13,7 +13,7 @@ import Extensions
 struct AssetsSearchViewBuilder: ModuleBuilderOutput {
     
     struct Input {
-        let assets: [DomainLayer.DTO.Asset]
+        let assets: [Asset]
         let minCountAssets: Int
         let maxCountAssets: Int
     }

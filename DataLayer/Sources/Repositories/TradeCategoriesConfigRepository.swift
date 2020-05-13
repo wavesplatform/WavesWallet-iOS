@@ -83,7 +83,7 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                         let lang = Language.currentLanguage.code
                         let defaultLang = Language.defaultLanguage.code
 
-                        let assetsMap = assets.reduce(into: [String: DomainLayer.DTO.Asset].init(),
+                        let assetsMap = assets.reduce(into: [String: Asset].init(),
                                                       { $0[$1.id] = $1 })
                         
                         return categories.map {

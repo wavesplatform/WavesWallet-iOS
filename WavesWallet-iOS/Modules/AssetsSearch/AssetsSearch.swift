@@ -36,13 +36,13 @@ enum AssetsSearch {
                 case none
                 case initialAssets
                 case search(String)
-                case selected([DomainLayer.DTO.Asset])
+                case selected([Asset])
             }
             
             var action: Action
             var invalidAction: Action?
-            var assets: [DomainLayer.DTO.Asset]
-            var selectAssets: [String: DomainLayer.DTO.Asset]
+            var assets: [Asset]
+            var selectAssets: [String: Asset]
             var minSelectAssets: Int
             var maxSelectAssets: Int
             var isInitial: Bool
@@ -56,7 +56,7 @@ enum AssetsSearch {
         case viewDidAppear
         case search(String)
         case select(IndexPath)
-        case assets([DomainLayer.DTO.Asset])
+        case assets([Asset])
         case handlerError(Error)
         case empty
         case refresh
@@ -74,7 +74,7 @@ enum AssetsSearch {
 
 extension AssetsSearch.Row {
     
-    var asset: DomainLayer.DTO.Asset? {
+    var asset: Asset? {
         switch self {
         case .asset(let model):
             return model.asset

@@ -8,81 +8,70 @@
 
 import Foundation
 
-public extension DomainLayer.DTO {
-
-    enum TransactionStatus: Int, Decodable {
-        case activeNow
-        case completed
-        case unconfirmed
-    }
-
-    enum AnyTransaction {
-        case unrecognised(DomainLayer.DTO.UnrecognisedTransaction)
-        case issue(DomainLayer.DTO.IssueTransaction)
-        case transfer(DomainLayer.DTO.TransferTransaction)
-        case reissue(DomainLayer.DTO.ReissueTransaction)
-        case burn(DomainLayer.DTO.BurnTransaction)
-        case exchange(DomainLayer.DTO.ExchangeTransaction)
-        case lease(DomainLayer.DTO.LeaseTransaction)
-        case leaseCancel(DomainLayer.DTO.LeaseCancelTransaction)
-        case alias(DomainLayer.DTO.AliasTransaction)
-        case massTransfer(DomainLayer.DTO.MassTransferTransaction)
-        case data(DomainLayer.DTO.DataTransaction)
-        case script(DomainLayer.DTO.ScriptTransaction)
-        case assetScript(DomainLayer.DTO.AssetScriptTransaction)
-        case sponsorship(DomainLayer.DTO.SponsorshipTransaction)
-        case invokeScript(DomainLayer.DTO.InvokeScriptTransaction)
-    }
+public enum AnyTransaction {
+    case unrecognised(UnrecognisedTransaction)
+    case issue(IssueTransaction)
+    case transfer(TransferTransaction)
+    case reissue(ReissueTransaction)
+    case burn(BurnTransaction)
+    case exchange(ExchangeTransaction)
+    case lease(LeaseTransaction)
+    case leaseCancel(LeaseCancelTransaction)
+    case alias(AliasTransaction)
+    case massTransfer(MassTransferTransaction)
+    case data(DataTransaction)
+    case script(ScriptTransaction)
+    case assetScript(AssetScriptTransaction)
+    case sponsorship(SponsorshipTransaction)
+    case invokeScript(InvokeScriptTransaction)
 }
 
-//TODO: Protocol
-public extension DomainLayer.DTO.AnyTransaction {
-
-    var status: DomainLayer.DTO.TransactionStatus {
+public extension AnyTransaction {
+    var status: TransactionStatus {
         switch self {
-        case .unrecognised(let tx):
+        case let .unrecognised(tx):
             return tx.status
 
-        case .issue(let tx):
+        case let .issue(tx):
             return tx.status
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             return tx.status
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             return tx.status
 
-        case .burn(let tx):
+        case let .burn(tx):
             return tx.status
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return tx.status
 
-        case .lease(let tx):
+        case let .lease(tx):
             return tx.status
 
-        case .leaseCancel(let tx):
+        case let .leaseCancel(tx):
             return tx.status
 
-        case .alias(let tx):
+        case let .alias(tx):
             return tx.status
 
-        case .massTransfer(let tx):
+        case let .massTransfer(tx):
             return tx.status
 
-        case .data(let tx):
+        case let .data(tx):
             return tx.status
 
-        case .script(let tx):
+        case let .script(tx):
             return tx.status
 
-        case .assetScript(let tx):
+        case let .assetScript(tx):
             return tx.status
 
-        case .sponsorship(let tx):
+        case let .sponsorship(tx):
             return tx.status
 
-        case .invokeScript(let tx):
+        case let .invokeScript(tx):
             return tx.status
         }
     }
@@ -109,149 +98,148 @@ public extension DomainLayer.DTO.AnyTransaction {
 
     var id: String {
         switch self {
-        case .unrecognised(let tx):
+        case let .unrecognised(tx):
             return tx.id
 
-        case .issue(let tx):
+        case let .issue(tx):
             return tx.id
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             return tx.id
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             return tx.id
 
-        case .burn(let tx):
+        case let .burn(tx):
             return tx.id
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return tx.id
 
-        case .lease(let tx):
+        case let .lease(tx):
             return tx.id
 
-        case .leaseCancel(let tx):
+        case let .leaseCancel(tx):
             return tx.id
 
-        case .alias(let tx):
-            return tx.id
-            
-        case .massTransfer(let tx):
+        case let .alias(tx):
             return tx.id
 
-        case .data(let tx):
+        case let .massTransfer(tx):
             return tx.id
 
-        case .script(let tx):
+        case let .data(tx):
             return tx.id
 
-        case .assetScript(let tx):
+        case let .script(tx):
             return tx.id
 
-        case .sponsorship(let tx):
+        case let .assetScript(tx):
             return tx.id
 
-        case .invokeScript(let tx):
+        case let .sponsorship(tx):
+            return tx.id
+
+        case let .invokeScript(tx):
             return tx.id
         }
     }
 
     var timestamp: Date {
         switch self {
-        case .unrecognised(let tx):
+        case let .unrecognised(tx):
             return tx.timestamp
 
-        case .issue(let tx):
+        case let .issue(tx):
             return tx.timestamp
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             return tx.timestamp
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             return tx.timestamp
 
-        case .burn(let tx):
+        case let .burn(tx):
             return tx.timestamp
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return tx.timestamp
 
-        case .lease(let tx):
+        case let .lease(tx):
             return tx.timestamp
 
-        case .leaseCancel(let tx):
+        case let .leaseCancel(tx):
             return tx.timestamp
 
-        case .alias(let tx):
+        case let .alias(tx):
             return tx.timestamp
 
-        case .massTransfer(let tx):
+        case let .massTransfer(tx):
             return tx.timestamp
 
-        case .data(let tx):
+        case let .data(tx):
             return tx.timestamp
 
-        case .script(let tx):
+        case let .script(tx):
             return tx.timestamp
 
-        case .assetScript(let tx):
+        case let .assetScript(tx):
             return tx.timestamp
 
-        case .sponsorship(let tx):
+        case let .sponsorship(tx):
             return tx.timestamp
-            
-        case .invokeScript(let tx):
+
+        case let .invokeScript(tx):
             return tx.timestamp
         }
     }
 
     var modified: Date {
         switch self {
-        case .unrecognised(let tx):
+        case let .unrecognised(tx):
             return tx.modified
 
-        case .issue(let tx):
+        case let .issue(tx):
             return tx.modified
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             return tx.modified
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             return tx.modified
 
-        case .burn(let tx):
+        case let .burn(tx):
             return tx.modified
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return tx.modified
 
-        case .lease(let tx):
+        case let .lease(tx):
             return tx.modified
 
-        case .leaseCancel(let tx):
+        case let .leaseCancel(tx):
             return tx.modified
 
-        case .alias(let tx):
+        case let .alias(tx):
             return tx.modified
 
-        case .massTransfer(let tx):
+        case let .massTransfer(tx):
             return tx.modified
 
-        case .data(let tx):
+        case let .data(tx):
             return tx.modified
 
-        case .script(let tx):
+        case let .script(tx):
             return tx.modified
 
-        case .assetScript(let tx):
+        case let .assetScript(tx):
             return tx.modified
 
-        case .sponsorship(let tx):
+        case let .sponsorship(tx):
             return tx.modified
-            
-        case .invokeScript(let tx):
+
+        case let .invokeScript(tx):
             return tx.modified
         }
     }
 }
-

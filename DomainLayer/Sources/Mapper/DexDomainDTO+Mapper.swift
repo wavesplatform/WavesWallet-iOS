@@ -80,7 +80,7 @@ public extension DomainLayer.DTO.Dex.MyOrder {
     }
 }
 
-public extension DomainLayer.DTO.Asset {
+public extension Asset {
     
     var dexAsset: DomainLayer.DTO.Dex.Asset {
         return .init(id: id,

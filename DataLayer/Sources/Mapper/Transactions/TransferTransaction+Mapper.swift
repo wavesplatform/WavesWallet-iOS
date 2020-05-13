@@ -12,8 +12,8 @@ import Foundation
 import WavesSDK
 import WavesSDKExtensions
 
-extension TransferTransaction {
-    convenience init(transaction: DomainLayer.DTO.TransferTransaction) {
+extension TransferTransactionRealm {
+    convenience init(transaction: TransferTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -39,9 +39,9 @@ extension TransferTransaction {
     }
 }
 
-extension DomainLayer.DTO.TransferTransaction {
+extension TransferTransaction {
     init(transaction: NodeService.DTO.TransferTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -63,7 +63,7 @@ extension DomainLayer.DTO.TransferTransaction {
                   status: status)
     }
 
-    init(transaction: TransferTransaction) {
+    init(transaction: TransferTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -81,6 +81,6 @@ extension DomainLayer.DTO.TransferTransaction {
                   amount: transaction.amount,
                   attachment: transaction.attachment,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

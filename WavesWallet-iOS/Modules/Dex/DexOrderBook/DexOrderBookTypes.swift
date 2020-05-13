@@ -39,7 +39,7 @@ enum DexOrderBook {
         var availablePriceAssetBalance: Money
         var availableAmountAssetBalance: Money
         var availableBalances: [DomainLayer.DTO.SmartAssetBalance]
-        var scriptedAssets: [DomainLayer.DTO.Asset]
+        var scriptedAssets: [Asset]
 
     }
 }
@@ -88,7 +88,7 @@ extension DexOrderBook.DTO {
         let availablePriceAssetBalance: Money
         let availableAmountAssetBalance: Money
         let availableBalances: [DomainLayer.DTO.SmartAssetBalance]
-        let scriptedAssets: [DomainLayer.DTO.Asset]
+        let scriptedAssets: [Asset]
     }
     
     struct DisplayData {

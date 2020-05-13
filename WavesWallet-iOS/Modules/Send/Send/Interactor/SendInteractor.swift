@@ -130,7 +130,7 @@ final class SendInteractor: SendInteractorProtocol {
 
     func send(fee: Money,
               recipient: String,
-              asset: DomainLayer.DTO.Asset,
+              asset: Asset,
               amount: Money,
               attachment: String,
               feeAssetID: String,
@@ -206,7 +206,7 @@ final class SendInteractor: SendInteractorProtocol {
 }
 
 extension SendInteractor {
-    func gateWayInfo(asset: DomainLayer.DTO.Asset,
+    func gateWayInfo(asset: Asset,
                      address: String,
                      amount: Money) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         guard let gateWayType = asset.gatewayType else { return Observable.empty() }

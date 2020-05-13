@@ -19,7 +19,7 @@ private enum Constants {
 final class SendConfirmationViewController: UIViewController {
 
     struct Input {
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let address: String
         let displayAddress: String
         let fee: Money

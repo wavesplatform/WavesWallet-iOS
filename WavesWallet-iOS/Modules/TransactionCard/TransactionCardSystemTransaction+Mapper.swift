@@ -16,7 +16,7 @@ private enum Constants {
 
 private typealias Types = TransactionCard
 
-extension DomainLayer.DTO.SmartTransaction {
+extension SmartTransaction {
     func sections(core: TransactionCard.State.Core) -> [TransactionCard.Section] {
         switch kind {
         case let .sent(transfer):
@@ -113,10 +113,10 @@ extension DomainLayer.DTO.SmartTransaction {
     }
 }
 
-private extension DomainLayer.DTO.SmartTransaction {
+private extension SmartTransaction {
     // MARK: - Sent Sections
 
-    func sentSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) -> [Types.Section] {
+    func sentSection(transfer: SmartTransaction.Transfer, core: TransactionCard.State.Core) -> [Types.Section] {
         transferSection(transfer: transfer,
                         generalTitle: Localizable.Waves.Transactioncard.Title.sent,
                         addressTitle: Localizable.Waves.Transactioncard.Title.sentTo,
@@ -127,7 +127,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Receive Sections
 
-    func receiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
+    func receiveSection(transfer: SmartTransaction.Transfer,
                         core: TransactionCard.State.Core) -> [Types.Section] {
         if transfer.hasSponsorship {
             return receivedSponsorshipSection(transfer: transfer)
@@ -142,7 +142,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - SpamReceive Sections
 
-    func spamReceiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
+    func spamReceiveSection(transfer: SmartTransaction.Transfer,
                             core: TransactionCard.State.Core) -> [Types.Section] {
         transferSection(transfer: transfer,
                         generalTitle: Localizable.Waves.Transactioncard.Title.spamReceived,
@@ -153,7 +153,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - SelfTransfer Sections
 
-    func selfTransferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
+    func selfTransferSection(transfer: SmartTransaction.Transfer,
                              core: TransactionCard.State.Core) -> [Types.Section] {
         transferSection(transfer: transfer,
                         generalTitle: Localizable.Waves.Transactioncard.Title.selfTransfer,
@@ -164,7 +164,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Sponsorship Sections
 
-    func sponsorshipSection(asset: DomainLayer.DTO.SmartTransaction.Asset,
+    func sponsorshipSection(asset: Asset,
                             isEnabled: Bool) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
@@ -217,7 +217,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Set Asset Script Sections
 
-    func setAssetScriptSection(asset: DomainLayer.DTO.SmartTransaction.Asset) -> [Types.Section] {
+    func setAssetScriptSection(asset: Asset) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(
@@ -250,7 +250,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Received Sponsorship Sections
 
-    func receivedSponsorshipSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer) -> [Types.Section] {
+    func receivedSponsorshipSection(transfer: SmartTransaction.Transfer) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
@@ -292,7 +292,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - invokescript
 
-    func invokeScriptSection(tx: DomainLayer.DTO.SmartTransaction.InvokeScript,
+    func invokeScriptSection(tx: SmartTransaction.InvokeScript,
                              title: String,
                              subTitle: String) -> [Types.Section] {
         var rows: [Types.Row] = .init()
@@ -355,7 +355,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Issue Sections
 
-    func issueSection(transfer: DomainLayer.DTO.SmartTransaction.Issue,
+    func issueSection(transfer: SmartTransaction.Issue,
                       title: String,
                       balanceSign: DomainLayer.DTO.Balance.Sign) -> [Types.Section] {
         var rows: [Types.Row] = .init()
@@ -399,7 +399,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Exchange Sections
 
-    func exchangeSection(transfer: DomainLayer.DTO.SmartTransaction.Exchange) -> [Types.Section] {
+    func exchangeSection(transfer: SmartTransaction.Exchange) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
         let myOrder = transfer.myOrder
@@ -454,7 +454,7 @@ private extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    func rowExchangeFeeModel(tx: DomainLayer.DTO.SmartTransaction.Exchange) -> TransactionCardExchangeFeeCell.Model {
+    func rowExchangeFeeModel(tx: SmartTransaction.Exchange) -> TransactionCardExchangeFeeCell.Model {
         var fee1: BalanceLabel.Model
         var fee2: BalanceLabel.Model?
 
@@ -474,7 +474,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Leasing Sections
 
-    func leasingSection(transfer: DomainLayer.DTO.SmartTransaction.Leasing,
+    func leasingSection(transfer: SmartTransaction.Leasing,
                         title: String,
                         titleContact: String = "",
                         needCancelLeasing: Bool,
@@ -532,7 +532,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Mass Received Sections
 
-    func massReceivedSection(transfer: DomainLayer.DTO.SmartTransaction.MassReceive,
+    func massReceivedSection(transfer: SmartTransaction.MassReceive,
                              core: Types.State.Core) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
@@ -546,7 +546,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
         let isSpam = transfer.asset.isSpam
 
-        var visibleRecipients: [DomainLayer.DTO.SmartTransaction.MassReceive.Transfer] = transfer.transfers
+        var visibleRecipients: [SmartTransaction.MassReceive.Transfer] = transfer.transfers
 
         if core.showingAllRecipients == false {
             visibleRecipients = Array(transfer.transfers.prefix(Constants.maxVisibleRecipients))
@@ -590,7 +590,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - MassSent Sections
 
-    func massSentSection(transfer: DomainLayer.DTO.SmartTransaction.MassTransfer,
+    func massSentSection(transfer: SmartTransaction.MassTransfer,
                          core: Types.State.Core) -> [Types.Section] {
         var rows: [Types.Row] = .init()
 
@@ -602,7 +602,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
         rows.append(contentsOf: [.general(rowGeneralModel)])
 
-        var visibleTransfers: [DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer] = transfer.transfers
+        var visibleTransfers: [SmartTransaction.MassTransfer.Transfer] = transfer.transfers
 
         if core.showingAllRecipients == false {
             visibleTransfers = Array(transfer.transfers.prefix(Constants.maxVisibleRecipients))
@@ -650,7 +650,7 @@ private extension DomainLayer.DTO.SmartTransaction {
 
     // MARK: - Transfer Sections
 
-    func transferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
+    func transferSection(transfer: SmartTransaction.Transfer,
                          generalTitle: String,
                          addressTitle: String,
                          balanceSign: DomainLayer.DTO.Balance.Sign,
@@ -779,7 +779,7 @@ extension Types.State.Core {
     }
 }
 
-extension DomainLayer.DTO.SmartTransaction.MassReceive.Transfer {
+extension SmartTransaction.MassReceive.Transfer {
     func createTransactionCardAddressCell(isSpam: Bool, core: TransactionCard.State.Core) -> TransactionCardAddressCell.Model {
         let address = recipient.address
 
@@ -801,7 +801,7 @@ extension DomainLayer.DTO.SmartTransaction.MassReceive.Transfer {
     }
 }
 
-extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
+extension SmartTransaction.MassTransfer.Transfer {
     func createTransactionCardMassSentRecipientModel(currency: DomainLayer.DTO.Balance.Currency,
                                                      number: Int,
                                                      core: TransactionCard.State.Core)
@@ -828,7 +828,7 @@ extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
     }
 }
 
-private extension DomainLayer.DTO.SmartTransaction {
+private extension SmartTransaction {
     var isSelfTransfer: Bool {
         switch kind {
         case .selfTransfer:

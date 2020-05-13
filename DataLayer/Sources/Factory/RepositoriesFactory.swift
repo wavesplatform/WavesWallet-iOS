@@ -38,10 +38,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol =
         AccountBalanceRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
 
-    public private(set) lazy var transactionsRepositoryLocal: TransactionsRepositoryProtocol = TransactionsRepositoryLocal()
+    public private(set) lazy var transactionsDAO: TransactionsDAO = TransactionsDAOImp()
 
-    public private(set) lazy var transactionsRepositoryRemote: TransactionsRepositoryProtocol =
-        TransactionsRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
+    public private(set) lazy var transactionsRepository: TransactionsRepositoryProtocol =
+        TransactionsRepository(wavesSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var blockRemote: BlockRepositoryProtocol =
         BlockRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)

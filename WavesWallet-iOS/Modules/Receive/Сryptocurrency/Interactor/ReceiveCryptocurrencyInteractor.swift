@@ -43,7 +43,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         self.weOAuthRepository = weOAuthRepository
     }
 
-    func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
+    func generateAddress(asset: Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()
         let environment = environmentRepository.walletEnvironment()
@@ -155,7 +155,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 }
 
 private extension Array where Element == ReceiveCryptocurrency.DTO.DisplayInfo.Address {
-    func addressesSort(asset _: DomainLayer.DTO.Asset) -> [Element] {
+    func addressesSort(asset _: Asset) -> [Element] {
         return self
     }
 }

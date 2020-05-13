@@ -27,7 +27,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     }
 
     func balances(by serverEnviroment: ServerEnvironment,
-                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[AssetBalance]> {
         let walletAddress = wallet.address
         let assetsBalance = self.assetsBalance(by: serverEnviroment,
                                                walletAddress: walletAddress)
@@ -41,12 +41,12 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
         return Observable
             .zip(assetsBalance, accountBalance, matcherBalances)
-            .map { DomainLayer.DTO.AssetBalance.map(assets: $0.0, account: $0.1, matcherBalances: $0.2) }
+            .map { AssetBalance.map(assets: $0.0, account: $0.1, matcherBalances: $0.2) }
     }
 
     func balance(by serverEnviroment: ServerEnvironment,
                  assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance> {
+                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<AssetBalance> {
         let matcherBalances = self.matcherBalances(by: serverEnviroment,
                                                    walletAddress: wallet.address,
                                                    wallet: wallet)
@@ -58,9 +58,9 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
             return Observable
                 .zip(accountBalance,
                      matcherBalances)
-                .map { accountBalance, matcher -> DomainLayer.DTO.AssetBalance in
+                .map { accountBalance, matcher -> AssetBalance in
                     let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
-                    return DomainLayer.DTO.AssetBalance(accountBalance: accountBalance, inOrderBalance: inOrderBalance)
+                    return AssetBalance(accountBalance: accountBalance, inOrderBalance: inOrderBalance)
                 }
         } else {
             let assetBalance = self.assetBalance(by: serverEnviroment,
@@ -74,31 +74,31 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                 .zip(assetBalance,
                      matcherBalances,
                      sponsorBalance)
-                .map { assetBalance, matcher, sponsorBalance -> DomainLayer.DTO.AssetBalance in
+                .map { assetBalance, matcher, sponsorBalance -> AssetBalance in
                     let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
-                    return DomainLayer.DTO.AssetBalance(model: assetBalance,
+                    return AssetBalance(model: assetBalance,
                                                         inOrderBalance: inOrderBalance,
                                                         sponsoredAssetDetail: sponsorBalance)
                 }
         }
     }
 
-    func deleteBalances(_: [DomainLayer.DTO.AssetBalance], accountAddress _: String) -> Observable<Bool> {
+    func deleteBalances(_: [AssetBalance], accountAddress _: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func saveBalances(_: [DomainLayer.DTO.AssetBalance], accountAddress _: String) -> Observable<Bool> {
+    func saveBalances(_: [AssetBalance], accountAddress _: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func saveBalance(_: DomainLayer.DTO.AssetBalance, accountAddress _: String) -> Observable<Bool> {
+    func saveBalance(_: AssetBalance, accountAddress _: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func listenerOfUpdatedBalances(by _: String) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func listenerOfUpdatedBalances(by _: String) -> Observable<[AssetBalance]> {
         assertMethodDontSupported()
         return Observable.never()
     }
@@ -198,7 +198,7 @@ private extension AccountBalanceRepositoryRemote {
     }
 }
 
-private extension DomainLayer.DTO.AssetBalance {
+private extension AssetBalance {
     init(accountBalance: NodeService.DTO.AddressBalance, inOrderBalance: Int64) {
         self.init(assetId: WavesSDKConstants.wavesAssetId,
                   totalBalance: accountBalance.balance,
@@ -231,14 +231,14 @@ private extension DomainLayer.DTO.AssetBalance {
 
     static func map(assets: NodeService.DTO.AddressAssetsBalance,
                     account: NodeService.DTO.AddressBalance,
-                    matcherBalances: [String: Int64]) -> [DomainLayer.DTO.AssetBalance] {
+                    matcherBalances: [String: Int64]) -> [AssetBalance] {
         let assetsBalance = assets.balances.map {
-            DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0)
+            AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0)
         }
-        let accountBalance = DomainLayer.DTO.AssetBalance(accountBalance: account,
+        let accountBalance = AssetBalance(accountBalance: account,
                                                           inOrderBalance: matcherBalances[WavesSDKConstants.wavesAssetId] ?? 0)
 
-        var list = [DomainLayer.DTO.AssetBalance]()
+        var list = [AssetBalance]()
         list.append(contentsOf: assetsBalance)
         list.append(accountBalance)
 

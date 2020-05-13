@@ -10,5 +10,5 @@ import Foundation
 import DomainLayer
 
 protocol HistoryModuleOutput: class {
-    func showTransaction(transaction: DomainLayer.DTO.SmartTransaction)
+    func showTransaction(transaction: SmartTransaction)
 }

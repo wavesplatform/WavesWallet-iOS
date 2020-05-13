@@ -13,9 +13,9 @@ import WavesSDK
 import WavesSDKExtensions
 
 extension NodeService.DTO.Transaction {
-    func anyTransaction(status: DomainLayer.DTO.TransactionStatus,
+    func anyTransaction(status: TransactionStatus,
                         scheme: String,
-                        aliasScheme: String) -> DomainLayer.DTO.AnyTransaction {
+                        aliasScheme: String) -> AnyTransaction {
         switch self {
         case .unrecognised(let transaction):
             return .unrecognised(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
@@ -66,10 +66,10 @@ extension NodeService.DTO.Transaction {
 }
 
 extension NodeService.DTO.TransactionContainers {
-    func anyTransactions(status: DomainLayer.DTO.TransactionStatus,
+    func anyTransactions(status: TransactionStatus,
                          scheme: String,
-                         aliasScheme: String) -> [DomainLayer.DTO.AnyTransaction] {
-        var anyTransactions = [DomainLayer.DTO.AnyTransaction]()
+                         aliasScheme: String) -> [AnyTransaction] {
+        var anyTransactions = [AnyTransaction]()
 
         for transaction in self.transactions {
             anyTransactions.append(transaction.anyTransaction(status: status, scheme: scheme, aliasScheme: aliasScheme))
@@ -79,8 +79,8 @@ extension NodeService.DTO.TransactionContainers {
     }
 }
 
-extension DomainLayer.DTO.AnyTransaction {
-    var leaseTransaction: DomainLayer.DTO.LeaseTransaction? {
+extension AnyTransaction {
+    var leaseTransaction: LeaseTransaction? {
         switch self {
         case .lease(let tx):
             return tx
@@ -90,57 +90,57 @@ extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
-    var transaction: Transaction {
+    var transaction: TransactionRealm {
         switch self {
         case .unrecognised(let tx):
-            return UnrecognisedTransaction(transaction: tx)
+            return UnrecognisedTransactionRealm(transaction: tx)
 
         case .issue(let tx):
-            return IssueTransaction(transaction: tx)
+            return IssueTransactionRealm(transaction: tx)
 
         case .transfer(let tx):
-            return TransferTransaction(transaction: tx)
+            return TransferTransactionRealm(transaction: tx)
 
         case .reissue(let tx):
-            return ReissueTransaction(transaction: tx)
+            return ReissueTransactionRealm(transaction: tx)
 
         case .burn(let tx):
-            return BurnTransaction(transaction: tx)
+            return BurnTransactionRealm(transaction: tx)
 
         case .exchange(let tx):
-            return ExchangeTransaction(transaction: tx)
+            return ExchangeTransactionRealm(transaction: tx)
 
         case .lease(let tx):
-            return LeaseTransaction(transaction: tx)
+            return LeaseTransactionRealm(transaction: tx)
 
         case .leaseCancel(let tx):
-            return LeaseCancelTransaction(transaction: tx)
+            return LeaseCancelTransactionRealm(transaction: tx)
 
         case .alias(let tx):
-            return AliasTransaction(transaction: tx)
+            return AliasTransactionRealm(transaction: tx)
 
         case .massTransfer(let tx):
-            return MassTransferTransaction(transaction: tx)
+            return MassTransferTransactionRealm(transaction: tx)
 
         case .data(let tx):
-            return DataTransaction(transaction: tx)
+            return DataTransactionRealm(transaction: tx)
 
         case .script(let tx):
-            return ScriptTransaction(transaction: tx)
+            return ScriptTransactionRealm(transaction: tx)
 
         case .assetScript(let tx):
-            return AssetScriptTransaction(transaction: tx)
+            return AssetScriptTransactionRealm(transaction: tx)
 
         case .sponsorship(let tx):
-            return SponsorshipTransaction(transaction: tx)
+            return SponsorshipTransactionRealm(transaction: tx)
 
         case .invokeScript(let tx):
-            return InvokeScriptTransaction(transaction: tx)
+            return InvokeScriptTransactionRealm(transaction: tx)
         }
     }
 
-    func anyTransaction(from: Transaction) -> AnyTransaction {
-        let any = AnyTransaction()
+    func anyTransaction(from: TransactionRealm) -> AnyTransactionRealm {
+        let any = AnyTransactionRealm()
         any.type = from.type
         any.id = from.id
         any.sender = from.sender
@@ -154,49 +154,49 @@ extension DomainLayer.DTO.AnyTransaction {
 
         switch self {
         case .unrecognised:
-            any.unrecognisedTransaction = from as? UnrecognisedTransaction
+            any.unrecognisedTransaction = from as? UnrecognisedTransactionRealm
 
         case .issue:
-            any.issueTransaction = from as? IssueTransaction
+            any.issueTransaction = from as? IssueTransactionRealm
 
         case .transfer:
-            any.transferTransaction = from as? TransferTransaction
+            any.transferTransaction = from as? TransferTransactionRealm
 
         case .reissue:
-            any.reissueTransaction = from as? ReissueTransaction
+            any.reissueTransaction = from as? ReissueTransactionRealm
 
         case .burn:
-            any.burnTransaction = from as? BurnTransaction
+            any.burnTransaction = from as? BurnTransactionRealm
 
         case .exchange:
-            any.exchangeTransaction = from as? ExchangeTransaction
+            any.exchangeTransaction = from as? ExchangeTransactionRealm
 
         case .lease:
-            any.leaseTransaction = from as? LeaseTransaction
+            any.leaseTransaction = from as? LeaseTransactionRealm
 
         case .leaseCancel:
-            any.leaseCancelTransaction = from as? LeaseCancelTransaction
+            any.leaseCancelTransaction = from as? LeaseCancelTransactionRealm
 
         case .alias:
-            any.aliasTransaction = from as? AliasTransaction
+            any.aliasTransaction = from as? AliasTransactionRealm
 
         case .massTransfer:
-            any.massTransferTransaction = from as? MassTransferTransaction
+            any.massTransferTransaction = from as? MassTransferTransactionRealm
 
         case .data:
-            any.dataTransaction = from as? DataTransaction
+            any.dataTransaction = from as? DataTransactionRealm
 
         case .script:
-            any.scriptTransaction = from as? ScriptTransaction
+            any.scriptTransaction = from as? ScriptTransactionRealm
 
         case .assetScript:
-            any.assetScriptTransaction = from as? AssetScriptTransaction
+            any.assetScriptTransaction = from as? AssetScriptTransactionRealm
 
         case .sponsorship:
-            any.sponsorshipTransaction = from as? SponsorshipTransaction
+            any.sponsorshipTransaction = from as? SponsorshipTransactionRealm
 
         case .invokeScript:
-            any.invokeScriptTransaction = from as? InvokeScriptTransaction
+            any.invokeScriptTransaction = from as? InvokeScriptTransactionRealm
         }
 
         return any

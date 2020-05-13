@@ -12,7 +12,7 @@ import WavesSDKExtensions
 
 public protocol AssetsBalanceSettingsUseCaseProtocol {
     
-    func settings(by accountAddress: String, assets: [DomainLayer.DTO.Asset]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
+    func settings(by accountAddress: String, assets: [Asset]) -> Observable<[AssetBalanceSettings]>
     func setFavorite(by accountAddress: String, assetId: String, isFavorite: Bool) -> Observable<Bool>
-    func updateAssetsSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
+    func updateAssetsSettings(by accountAddress: String, settings: [AssetBalanceSettings]) -> Observable<Bool>
 }

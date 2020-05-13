@@ -20,7 +20,7 @@ private enum Constants {
 final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
     
     struct Model {
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
         let isLock: Bool
     }
     

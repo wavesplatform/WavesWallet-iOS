@@ -12,8 +12,8 @@ import RxCocoa
 import Extensions
 
 public protocol AddressInteractorProtocol {
-    func address(by ids: [String], myAddress: String) -> Observable<[DomainLayer.DTO.Address]>
-    func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[DomainLayer.DTO.Address]>
+    func address(by ids: [String], myAddress: String) -> Observable<[Address]>
+    func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[Address]>
 }
 
 final class AddressUseCase: AddressInteractorProtocol {
@@ -28,10 +28,10 @@ final class AddressUseCase: AddressInteractorProtocol {
         self.aliasesInteractor = aliasesInteractor
     }
 
-    func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[DomainLayer.DTO.Address]> {
+    func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[Address]> {
         return aliasesInteractor
             .aliases(by: myAddress)
-            .flatMapLatest { [weak self] (sync) -> SyncObservable<[DomainLayer.DTO.Address]> in
+            .flatMapLatest { [weak self] (sync) -> SyncObservable<[Address]> in
 
                 guard let self = self else { return Observable.never() }
 
@@ -39,10 +39,10 @@ final class AddressUseCase: AddressInteractorProtocol {
 
                     return self
                         .localAddress(myAliases: remote, ids: ids, accountAddress: myAddress)
-                        .map({ accounts -> Sync<[DomainLayer.DTO.Address]> in
+                        .map({ accounts -> Sync<[Address]> in
                             return .remote(accounts)
                         })
-                        .catchError({ (localError) -> SyncObservable<[DomainLayer.DTO.Address]> in
+                        .catchError({ (localError) -> SyncObservable<[Address]> in
                             return .error(localError)
                         })
 
@@ -50,10 +50,10 @@ final class AddressUseCase: AddressInteractorProtocol {
 
                     return self
                         .localAddress(myAliases: local.result, ids: ids, accountAddress: myAddress)
-                        .map({ accounts -> Sync<[DomainLayer.DTO.Address]> in
+                        .map({ accounts -> Sync<[Address]> in
                             return .local(accounts, error: local.error)
                         })
-                        .catchError({ (localError) -> SyncObservable<[DomainLayer.DTO.Address]> in
+                        .catchError({ (localError) -> SyncObservable<[Address]> in
                             return .error(local.error)
                         })
                 } else if let error = sync.error {
@@ -65,20 +65,20 @@ final class AddressUseCase: AddressInteractorProtocol {
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
     }
 
-    private func localAddress(myAliases: [DomainLayer.DTO.Alias], ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Address]> {
+    private func localAddress(myAliases: [DomainLayer.DTO.Alias], ids: [String], accountAddress: String) -> Observable<[Address]> {
 
         return Observable.merge(addressBookRepository.listListener(by: accountAddress),
                                 addressBookRepository.list(by: accountAddress))
-            .flatMap({ (contacts) -> Observable<[DomainLayer.DTO.Address]> in
+            .flatMap({ (contacts) -> Observable<[Address]> in
 
                 let maps = contacts.reduce(into: [String : DomainLayer.DTO.Contact](), { (result, contact) in
                     result[contact.address] = contact
                 })
 
-                let accounts = ids.map({ address -> DomainLayer.DTO.Address in
+                let accounts = ids.map({ address -> Address in
 
                     let isMyAccount = accountAddress == address || myAliases.map { $0.name }.contains(address)
-                    return DomainLayer.DTO.Address(address: address,
+                    return Address(address: address,
                                                    contact: maps[address],
                                                    isMyAccount: isMyAccount,
                                                    aliases: isMyAccount == true ? myAliases : [])
@@ -88,10 +88,10 @@ final class AddressUseCase: AddressInteractorProtocol {
             })
     }
 
-    func address(by ids: [String], myAddress: String) -> Observable<[DomainLayer.DTO.Address]> {
+    func address(by ids: [String], myAddress: String) -> Observable<[Address]> {
 
         return self.addressSync(by: ids, myAddress: myAddress)
-            .flatMap({ (sync) -> Observable<[DomainLayer.DTO.Address]> in
+            .flatMap({ (sync) -> Observable<[Address]> in
 
                 if let remote = sync.resultIngoreError {
                     return Observable.just(remote)

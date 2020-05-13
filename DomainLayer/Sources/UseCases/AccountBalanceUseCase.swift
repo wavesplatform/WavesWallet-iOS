@@ -83,12 +83,12 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
 // MARK: Privet methods
 
 private extension AccountBalanceUseCase {
-    private func assetBalances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    private func assetBalances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[AssetBalance]> {
         
         let serverEnviroment = serverEnvironmentUseCase
             .serverEnvironment()
         
-        let balances = serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<[DomainLayer.DTO.AssetBalance]> in
+        let balances = serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<[AssetBalance]> in
             guard let self = self else { return Observable.never() }
             return self.balanceRepositoryRemote.balances(by: serverEnviroment, wallet: wallet)
         })
@@ -97,12 +97,12 @@ private extension AccountBalanceUseCase {
             .walletEnvironment()
 
         return Observable.zip(balances, environment)
-            .map { (arg) -> [DomainLayer.DTO.AssetBalance] in
+            .map { (arg) -> [AssetBalance] in
                 let (balances, environment) = arg
 
                 let generalBalances = environment
                     .generalAssets
-                    .map { DomainLayer.DTO.AssetBalance(info: $0) }
+                    .map { AssetBalance(info: $0) }
 
                 var newBalances = balances
                 for generalBalance in generalBalances {
@@ -115,12 +115,12 @@ private extension AccountBalanceUseCase {
     }
 
     private func assetBalance(by wallet: DomainLayer.DTO.SignedWallet,
-                              assetId: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+                              assetId: String) -> Observable<AssetBalance> {
         
         let serverEnviroment = serverEnvironmentUseCase
             .serverEnvironment()
         
-        return serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<DomainLayer.DTO.AssetBalance> in
+        return serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<AssetBalance> in
             guard let self = self else { return Observable.never() }
             return self.balanceRepositoryRemote.balance(by: serverEnviroment,
                                                         assetId: assetId,
@@ -129,10 +129,10 @@ private extension AccountBalanceUseCase {
     }
 
     private func modifyBalances(by wallet: DomainLayer.DTO.SignedWallet,
-                                balances: [DomainLayer.DTO.AssetBalance]) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+                                balances: [AssetBalance]) -> Observable<[AssetBalance]> {
         let activeTransactions = leasingInteractor
             .activeLeasingTransactionsSync(by: wallet.address)
-            .flatMap { txs -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+            .flatMap { txs -> Observable<[SmartTransaction]> in
 
                 switch txs {
                 case let .remote(model):
@@ -145,8 +145,8 @@ private extension AccountBalanceUseCase {
                     return Observable.error(error)
                 }
             }
-            .map { (txs) -> [DomainLayer.DTO.SmartTransaction.Leasing] in
-                txs.map { (tx) -> DomainLayer.DTO.SmartTransaction.Leasing? in
+            .map { (txs) -> [SmartTransaction.Leasing] in
+                txs.map { (tx) -> SmartTransaction.Leasing? in
                     if case let .startedLeasing(txLease) = tx.kind, tx.sender.isMyAccount == true {
                         return txLease
                     } else {
@@ -157,7 +157,7 @@ private extension AccountBalanceUseCase {
             }
 
         return activeTransactions
-            .flatMapLatest { (leasing) -> Observable<[DomainLayer.DTO.AssetBalance]> in
+            .flatMapLatest { (leasing) -> Observable<[AssetBalance]> in
                 let amount = leasing.reduce(into: Int64(0)) { $0 = $0 + $1.balance.money.amount }
                 let newBalances = balances.mutate(transform: { balance in
                     if balance.assetId == WavesSDKConstants.wavesAssetId {
@@ -169,21 +169,21 @@ private extension AccountBalanceUseCase {
     }
 
     private struct MappingQuery {
-        let balances: [DomainLayer.DTO.AssetBalance]
-        let assets: [String: DomainLayer.DTO.Asset]
-        let settings: [String: DomainLayer.DTO.AssetBalanceSettings]
+        let balances: [AssetBalance]
+        let assets: [String: Asset]
+        let settings: [String: AssetBalanceSettings]
     }
 
 
     private func prepareMappingBalancesToSmartBalances(by wallet: DomainLayer.DTO.SignedWallet,
-                                                       balances: [DomainLayer.DTO.AssetBalance]) -> Observable<MappingQuery> {
+                                                       balances: [AssetBalance]) -> Observable<MappingQuery> {
         let assetsIDs = balances.reduce(into: Set<String>()) { result, assetBalance in
             result.insert(assetBalance.assetId)
         }
 
         let assets = assetsInteractor
             .assetsSync(by: Array(assetsIDs), accountAddress: wallet.address)
-            .flatMap { (assets) -> Observable<[DomainLayer.DTO.Asset]> in
+            .flatMap { (assets) -> Observable<[Asset]> in
 
                 switch assets {
                 case let .remote(model):
@@ -204,11 +204,11 @@ private extension AccountBalanceUseCase {
 
                 let settings = self.assetsBalanceSettings
                     .settings(by: wallet.address, assets: assets)
-                    .map { (balances) -> [String: DomainLayer.DTO.AssetBalanceSettings] in
-                        balances.reduce(into: [String: DomainLayer.DTO.AssetBalanceSettings]()) { $0[$1.assetId] = $1 }
+                    .map { (balances) -> [String: AssetBalanceSettings] in
+                        balances.reduce(into: [String: AssetBalanceSettings]()) { $0[$1.assetId] = $1 }
                     }
 
-                let mapAssets = assets.reduce(into: [String: DomainLayer.DTO.Asset]()) { $0[$1.id] = $1 }
+                let mapAssets = assets.reduce(into: [String: Asset]()) { $0[$1.id] = $1 }
 
                 return settings.map { MappingQuery(balances: balances,
                                                    assets: mapAssets,
@@ -251,7 +251,7 @@ private extension AccountBalanceUseCase {
     private func remoteBalance(by wallet: DomainLayer.DTO.SignedWallet,
                                assetId: String) -> Observable<DomainLayer.DTO.SmartAssetBalance> {
         let assetBalance = self.assetBalance(by: wallet, assetId: assetId)
-            .map { (balance) -> [DomainLayer.DTO.AssetBalance] in
+            .map { (balance) -> [AssetBalance] in
                 [balance]
             }
 
@@ -267,9 +267,9 @@ private extension AccountBalanceUseCase {
 
     private func remoteBalances(
         by wallet: DomainLayer.DTO.SignedWallet,
-        assetBalances: Observable<[DomainLayer.DTO.AssetBalance]>) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+        assetBalances: Observable<[AssetBalance]>) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return assetBalances
-            .flatMapLatest { [weak self] balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
+            .flatMapLatest { [weak self] balances -> Observable<[AssetBalance]> in
                 guard let self = self else { return Observable.never() }
                 return self.modifyBalances(by: wallet, balances: balances)
             }
@@ -306,7 +306,7 @@ private extension AccountBalanceUseCase {
 
 // MARK: Mapper
 
-private extension DomainLayer.DTO.AssetBalance {
+private extension AssetBalance {
     init(info: WalletEnvironment.AssetInfo) {
         assetId = info.assetId
         totalBalance = 0

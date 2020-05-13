@@ -162,27 +162,27 @@ final class StakingTransferInteractor {
             .map { $0.url }
     }
     
-    func sendDeposit(amount: Money, assetId: String) -> Observable<DomainLayer.DTO.SmartTransaction> {
+    func sendDeposit(amount: Money, assetId: String) -> Observable<SmartTransaction> {
         
         return sendInvokeTrasnfer(amount: amount,
                                   assetId: assetId,
                                   isDeposit: true)
     }
     
-    func sendWithdraw(amount: Money, assetId: String) -> Observable<DomainLayer.DTO.SmartTransaction> {
+    func sendWithdraw(amount: Money, assetId: String) -> Observable<SmartTransaction> {
         
         return sendInvokeTrasnfer(amount: amount,
                                   assetId: assetId,
                                   isDeposit: false)
     }
             
-    private func sendInvokeTrasnfer(amount: Money, assetId: String, isDeposit: Bool) -> Observable<DomainLayer.DTO.SmartTransaction> {
+    private func sendInvokeTrasnfer(amount: Money, assetId: String, isDeposit: Bool) -> Observable<SmartTransaction> {
         
         let developmentConfigs = self.developmentConfigsRepository.developmentConfigs()
         let authorizedWallet = self.authorizationUseCase.authorizedWallet()
         
         return Observable.zip(developmentConfigs, authorizedWallet)
-            .flatMap { [weak self] configs, wallet -> Observable<DomainLayer.DTO.SmartTransaction> in
+            .flatMap { [weak self] configs, wallet -> Observable<SmartTransaction> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -233,7 +233,7 @@ final class StakingTransferInteractor {
 
 
 //TODO: Move
-extension DomainLayer.DTO.Asset {
+extension Asset {
     
     func balance(_ balance: Int64) -> DomainLayer.DTO.Balance {
         return .init(currency: .init(title: self.name,

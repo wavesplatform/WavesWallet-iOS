@@ -106,11 +106,11 @@ final class StartLeasingLoadingViewController: UIViewController {
         }
     }
     
-    private func cancelOrderRequest(cancelOrder: StartLeasingTypes.DTO.CancelOrder) -> Observable<DomainLayer.DTO.SmartTransaction> {
+    private func cancelOrderRequest(cancelOrder: StartLeasingTypes.DTO.CancelOrder) -> Observable<SmartTransaction> {
         
         return authorization
             .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
+            .flatMap({ [weak self] (wallet) -> Observable<SmartTransaction> in
 
                 guard let self = self else { return Observable.empty() }
                 let specific = CancelLeaseTransactionSender(leaseId: cancelOrder.leasingTX, fee: cancelOrder.fee.amount)

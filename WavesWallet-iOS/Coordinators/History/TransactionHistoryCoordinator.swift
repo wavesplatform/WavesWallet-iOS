@@ -19,13 +19,13 @@ final class TransactionHistoryCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let transactions: [DomainLayer.DTO.SmartTransaction]
+    private let transactions: [SmartTransaction]
     private let currentIndex: Int
     private let router: NavigationRouter
 
     private var lastDisplay: Display?
 
-    init(transactions: [DomainLayer.DTO.SmartTransaction],
+    init(transactions: [SmartTransaction],
          currentIndex: Int,
          router: NavigationRouter) {
         self.router = router
@@ -92,13 +92,13 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 // MARK: - StartLeasingModuleOutput
 
 extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
-    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {}
+    func startLeasingDidSuccess(transaction: SmartTransaction, kind: StartLeasingTypes.Kind) {}
 }
 
 // MARK: AddAddressBookModuleOutput
 
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
-    func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+    func transactionHistoryResendTransaction(_ transaction: SmartTransaction) {
         switch transaction.kind {
         case .sent(let tx):
             router.dismiss(animated: false)
@@ -114,7 +114,7 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
         }
     }
 
-    func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
+    func transactionHistoryCancelLeasing(_ transaction: SmartTransaction) {
         switch transaction.kind {
         case .startedLeasing(let leasing):
             router.dismiss(animated: false)

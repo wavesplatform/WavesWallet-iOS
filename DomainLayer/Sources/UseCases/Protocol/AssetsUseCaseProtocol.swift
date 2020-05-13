@@ -11,6 +11,6 @@ import RxSwift
 import Extensions
 
 public protocol AssetsUseCaseProtocol {
-    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]>
-    func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]>
+    func assets(by ids: [String], accountAddress: String) -> Observable<[Asset]>
+    func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[Asset]>
 }

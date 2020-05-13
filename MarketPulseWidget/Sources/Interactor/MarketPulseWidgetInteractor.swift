@@ -106,7 +106,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                               assetsQuery)
             .flatMap { yesterdayRates, nowRates, assetsRemote -> Observable<[MarketPulse.DTO.Asset]> in
                        
-                let assetsRemoteMap = assetsRemote.reduce(into: [String: DomainLayer.DTO.Asset](), {
+                let assetsRemoteMap = assetsRemote.reduce(into: [String: Asset](), {
                     $0[$1.id] = $1
                 })
                 

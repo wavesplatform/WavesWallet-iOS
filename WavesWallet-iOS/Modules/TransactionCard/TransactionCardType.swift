@@ -60,9 +60,9 @@ enum TransactionCard {
 
     enum Kind {
         case order(DomainLayer.DTO.Dex.MyOrder)
-        case transaction(DomainLayer.DTO.SmartTransaction)
+        case transaction(SmartTransaction)
 
-        var transaction: DomainLayer.DTO.SmartTransaction? {
+        var transaction: SmartTransaction? {
             switch self {
             case .transaction(let tx):
                 return tx
@@ -115,7 +115,7 @@ enum TransactionCard {
         case asset(TransactionCardAssetCell.Model)
         case sponsorshipDetail(TransactionCardSponsorshipDetailCell.Model)
         case keyLoading(TransactionCardKeyLoadingCell.Model)
-        case invokeScript(DomainLayer.DTO.SmartTransaction.InvokeScript)
+        case invokeScript(SmartTransaction.InvokeScript)
         case orderFilled(TransactionCardOrderFilledCell.Model)
         case exchangeFee(TransactionCardExchangeFeeCell.Model)
     }

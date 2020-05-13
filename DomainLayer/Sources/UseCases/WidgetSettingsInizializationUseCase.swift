@@ -43,7 +43,7 @@ public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUs
         return repositories
             .environmentRepository
             .walletEnvironment()
-            .flatMap { [weak self] walletEnviroment -> Observable<[DomainLayer.DTO.Asset]> in
+            .flatMap { [weak self] walletEnviroment -> Observable<[Asset]> in
 
                 guard let self = self else { return Observable.never() }
                 let assets = walletEnviroment.generalAssets.prefix(DomainLayer.DTO.Widget.defaultCountAssets)

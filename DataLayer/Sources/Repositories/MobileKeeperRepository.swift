@@ -64,7 +64,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
         case .send:
 
             return repositoriesFactory
-                .transactionsRepositoryRemote
+                .transactionsRepository
                 .send(serverEnvironment: serverEnvironment,
                       specifications: prepareRequest.request.transaction,
                       wallet: prepareRequest.signedWallet)
@@ -434,7 +434,7 @@ private extension TransactionSenderSpecifications {
     }
 }
 
-private extension DomainLayer.DTO.DataTransaction {
+private extension DataTransaction {
     var dataTransactionNodeService: NodeService.DTO.DataTransaction {
         let data = self.data.map { (element) -> NodeService.DTO.DataTransaction.Data in
 
@@ -473,7 +473,7 @@ private extension DomainLayer.DTO.DataTransaction {
     }
 }
 
-private extension DomainLayer.DTO.InvokeScriptTransaction {
+private extension InvokeScriptTransaction {
     var invokeScriptTransactionNodeService: NodeService.DTO.InvokeScriptTransaction {
         var call: NodeService.DTO.InvokeScriptTransaction.Call?
 
@@ -527,7 +527,7 @@ private extension DomainLayer.DTO.InvokeScriptTransaction {
     }
 }
 
-private extension DomainLayer.DTO.AnyTransaction {
+private extension AnyTransaction {
     // TODO: Incorect chainID
     var transactionNodeService: NodeService.DTO.Transaction? {
         switch self {

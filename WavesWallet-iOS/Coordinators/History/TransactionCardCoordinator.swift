@@ -50,7 +50,7 @@ final class TransactionCardCoordinator: Coordinator {
 
     weak var delegate: TransactionCardCoordinatorDelegate?
 
-    convenience init(transaction: DomainLayer.DTO.SmartTransaction,
+    convenience init(transaction: SmartTransaction,
                      router: Router) {
         self.init(kind: .transaction(transaction),
                   router: router)
@@ -81,7 +81,7 @@ final class TransactionCardCoordinator: Coordinator {
 
 extension TransactionCardCoordinator: StartLeasingModuleOutput {
 
-    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
+    func startLeasingDidSuccess(transaction: SmartTransaction, kind: StartLeasingTypes.Kind) {
         
         switch kind {
         case .cancel(_):
@@ -132,7 +132,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         delegate?.transactionCardCoordinatorCanceledOrder(order)
     }
 
-    func transactionCardCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
+    func transactionCardCancelLeasing(_ transaction: SmartTransaction) {
         guard let leasing = transaction.startedLeasing else { return }
 
         let cancelOrder = StartLeasingTypes.DTO.CancelOrder(leasingTX: transaction.id,
@@ -143,7 +143,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         self.modalRouter.pushViewController(vc)
     }
 
-    func transactionCardResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
+    func transactionCardResendTransaction(_ transaction: SmartTransaction) {
         guard let tx = transaction.sent else { return }
 
 
@@ -154,7 +154,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         self.modalRouter.pushViewController(send)
     }
 
-    func transactionCardViewOnExplorer(_ transaction: DomainLayer.DTO.SmartTransaction) {
+    func transactionCardViewOnExplorer(_ transaction: SmartTransaction) {
 
         var url: URL?
         if ApplicationDebugSettings.isEnableStage {
@@ -190,9 +190,9 @@ extension TransactionCardCoordinator: AddAddressBookModuleOutput {
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction {
+fileprivate extension SmartTransaction {
 
-    var startedLeasing: DomainLayer.DTO.SmartTransaction.Leasing? {
+    var startedLeasing: SmartTransaction.Leasing? {
 
         switch kind {
         case .startedLeasing(let leasing):
@@ -203,7 +203,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         }
     }
 
-    var sent: DomainLayer.DTO.SmartTransaction.Transfer? {
+    var sent: SmartTransaction.Transfer? {
 
         switch kind {
         case .sent(let tx):

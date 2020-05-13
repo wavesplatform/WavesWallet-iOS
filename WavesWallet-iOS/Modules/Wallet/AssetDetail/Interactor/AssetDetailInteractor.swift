@@ -112,10 +112,10 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
         
     }
     
-    func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]> {
+    func transactions(by assetId: String) -> Observable<[SmartTransaction]> {
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+            .flatMap { [weak self] wallet -> Observable<[SmartTransaction]> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -126,7 +126,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
                                                                                           assets: [assetId],
                                                                                           senders: [],
                                                                                           types: TransactionType.all))
-                    .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+                    .flatMap { (txs) -> Observable<[SmartTransaction]> in
                         Observable.just(txs.resultIngoreError ?? [])
                 }
         }

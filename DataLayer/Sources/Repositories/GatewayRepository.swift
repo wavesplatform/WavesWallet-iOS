@@ -19,7 +19,7 @@ final class GatewayRepository: GatewayRepositoryProtocol {
     
     func startWithdrawProcess(serverEnvironment: ServerEnvironment,
                               address: String,
-                              asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> {
+                              asset: Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> {
         let startProcess = Gateway.Service.StartProcess(userAddress: address, assetId: asset.id)
         
         
@@ -46,7 +46,7 @@ final class GatewayRepository: GatewayRepositoryProtocol {
     
     func startDepositProcess(serverEnvironment: ServerEnvironment,
                              address: String,
-                             asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess> {
+                             asset: Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess> {
         
         let startProcess = Gateway.Service.StartProcess(userAddress: address, assetId: asset.id)
         

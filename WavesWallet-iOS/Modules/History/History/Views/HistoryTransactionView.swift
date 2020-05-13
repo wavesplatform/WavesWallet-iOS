@@ -39,7 +39,7 @@ final class HistoryTransactionView: UIView, NibOwnerLoadable {
 }
 
 fileprivate extension HistoryTransactionView {
-    func update(with asset: DomainLayer.DTO.Asset, balance: DomainLayer.DTO.Balance, sign: DomainLayer.DTO.Balance.Sign = .none) {
+    func update(with asset: Asset, balance: DomainLayer.DTO.Balance, sign: DomainLayer.DTO.Balance.Sign = .none) {
         labelValue.attributedText = styleForBalance(balance, sign: sign, ticker: balance.currency.ticker, isSpam: asset.isSpam)
 
         if asset.isSpam {
@@ -58,7 +58,7 @@ fileprivate extension HistoryTransactionView {
         }
     }
 
-    func update(with tx: DomainLayer.DTO.SmartTransaction.Exchange) {
+    func update(with tx: SmartTransaction.Exchange) {
         var text = ""
         let balance = tx.amount
         let sign: DomainLayer.DTO.Balance.Sign!
@@ -94,9 +94,9 @@ fileprivate extension HistoryTransactionView {
 }
 
 extension HistoryTransactionView: ViewConfiguration {
-    typealias Model = DomainLayer.DTO.SmartTransaction
+    typealias Model = SmartTransaction
 
-    func update(with model: DomainLayer.DTO.SmartTransaction) {
+    func update(with model: SmartTransaction) {
         imageViewIcon.image = model.image
         labelTitle.text = model.title
         tickerView.isHidden = true
@@ -175,7 +175,7 @@ extension HistoryTransactionView: ViewConfiguration {
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartTransaction {
+fileprivate extension SmartTransaction {
     var title: String {
         switch kind {
         case let .receive(tx):

@@ -49,8 +49,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     }()
 
     public private(set) lazy var transactions: TransactionsUseCaseProtocol = {
-        let interactor = TransactionsUseCase(transactionsRepositoryLocal: repositories.transactionsRepositoryLocal,
-                                             transactionsRepositoryRemote: repositories.transactionsRepositoryRemote,
+        let interactor = TransactionsUseCase(transactionsDAO: repositories.transactionsDAO,
+                                             transactionsRepositoryRemote: repositories.transactionsRepository,
                                              assetsInteractors: self.assets,
                                              addressInteractors: self.address,
                                              addressRepository: repositories.addressRepository,

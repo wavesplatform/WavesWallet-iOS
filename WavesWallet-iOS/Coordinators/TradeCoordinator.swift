@@ -81,9 +81,9 @@ class TradeCoordinator: Coordinator {
 
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning(dismiss: nil)
 
-    private var selectedAsset: DomainLayer.DTO.Asset?
+    private var selectedAsset: Asset?
 
-    init(navigationRouter: NavigationRouter, selectedAsset: DomainLayer.DTO.Asset? = nil) {
+    init(navigationRouter: NavigationRouter, selectedAsset: Asset? = nil) {
         self.navigationRouter = navigationRouter
         self.selectedAsset = selectedAsset
     }
@@ -173,7 +173,7 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
                         availableBalances: [DomainLayer.DTO.SmartAssetBalance],
-                        scriptedAssets: [DomainLayer.DTO.Asset]) {
+                        scriptedAssets: [Asset]) {
         
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
@@ -195,7 +195,7 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
                              availableBalances: [DomainLayer.DTO.SmartAssetBalance],
-                             scriptedAssets: [DomainLayer.DTO.Asset]) {
+                             scriptedAssets: [Asset]) {
         
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
@@ -225,7 +225,7 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                         availablePriceAssetBalance: Money,
                         availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                         inputMaxSum: Bool,
-                        scriptedAssets: [DomainLayer.DTO.Asset]) {
+                        scriptedAssets: [Asset]) {
         let sum = inputMaxSum ? bidAsk.sum : nil
         
         showCreateOrderController(amountAsset: amountAsset,
@@ -251,7 +251,7 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
                              availableBalances: [DomainLayer.DTO.SmartAssetBalance],
-                             scriptedAssets: [DomainLayer.DTO.Asset]) {
+                             scriptedAssets: [Asset]) {
         
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
@@ -278,7 +278,7 @@ private extension TradeCoordinator {
                                    availableAmountAssetBalance: Money,
                                    availablePriceAssetBalance: Money,
                                    availableBalances: [DomainLayer.DTO.SmartAssetBalance],
-                                   scriptedAssets: [DomainLayer.DTO.Asset],
+                                   scriptedAssets: [Asset],
                                    sum: Money?) {
         var lastPrice: Money?
         if let last = last, last.amount > 0 {

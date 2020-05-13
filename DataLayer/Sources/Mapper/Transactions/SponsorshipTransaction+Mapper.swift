@@ -11,8 +11,8 @@ import Foundation
 import WavesSDK
 import WavesSDKExtensions
 
-extension SponsorshipTransaction {
-    convenience init(transaction: DomainLayer.DTO.SponsorshipTransaction) {
+extension SponsorshipTransactionRealm {
+    convenience init(transaction: SponsorshipTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -34,9 +34,9 @@ extension SponsorshipTransaction {
     }
 }
 
-extension DomainLayer.DTO.SponsorshipTransaction {
+extension SponsorshipTransaction {
     init(transaction: NodeService.DTO.SponsorshipTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -54,7 +54,7 @@ extension DomainLayer.DTO.SponsorshipTransaction {
                   status: status)
     }
 
-    init(transaction: SponsorshipTransaction) {
+    init(transaction: SponsorshipTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -68,6 +68,6 @@ extension DomainLayer.DTO.SponsorshipTransaction {
                   assetId: transaction.assetId,
                   minSponsoredAssetFee: transaction.minSponsoredAssetFee.value,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

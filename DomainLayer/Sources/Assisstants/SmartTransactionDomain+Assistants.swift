@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension DomainLayer.DTO.SmartTransaction.Exchange {
+public extension SmartTransaction.Exchange {
     var myOrder: Order {
         if order1.sender.isMyAccount && order2.sender.isMyAccount {
             return order1.timestamp > order2.timestamp ? order1 : order2

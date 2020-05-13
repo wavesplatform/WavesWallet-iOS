@@ -15,7 +15,7 @@ import Extensions
 final class TransactionCardAssetCell: UITableViewCell, Reusable {
 
     struct Model {
-        let asset: DomainLayer.DTO.Asset
+        let asset: Asset
     }
 
     @IBOutlet private var titleLabel: UILabel!
@@ -35,7 +35,7 @@ final class TransactionCardAssetCell: UITableViewCell, Reusable {
         disposeBag = DisposeBag()
     }
 
-    private func loadIcon(asset: DomainLayer.DTO.Asset) {
+    private func loadIcon(asset: Asset) {
 
         disposeBag = DisposeBag()
 

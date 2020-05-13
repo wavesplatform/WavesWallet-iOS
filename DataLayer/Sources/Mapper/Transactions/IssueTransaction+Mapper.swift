@@ -11,8 +11,8 @@ import Foundation
 import WavesSDK
 import WavesSDKExtensions
 
-extension IssueTransaction {
-    convenience init(transaction: DomainLayer.DTO.IssueTransaction) {
+extension IssueTransactionRealm {
+    convenience init(transaction: IssueTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -39,9 +39,9 @@ extension IssueTransaction {
     }
 }
 
-extension DomainLayer.DTO.IssueTransaction {
+extension IssueTransaction {
     init(transaction: NodeService.DTO.IssueTransaction,
-         status: DomainLayer.DTO.TransactionStatus,
+         status: TransactionStatus,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -65,7 +65,7 @@ extension DomainLayer.DTO.IssueTransaction {
                   status: status)
     }
 
-    init(transaction: IssueTransaction) {
+    init(transaction: IssueTransactionRealm) {
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -85,6 +85,6 @@ extension DomainLayer.DTO.IssueTransaction {
                   description: transaction.assetDescription,
                   script: transaction.script,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

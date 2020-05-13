@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-final class Asset: Object {
+final class AssetRealm: Object {
     @objc dynamic var id: String = ""
     @objc dynamic var wavesId: String?
     @objc dynamic var gatewayId: String?
