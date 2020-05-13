@@ -28,6 +28,7 @@
 		87ED7229246B6B49002CAD29 /* ContainerContentConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7228246B6B49002CAD29 /* ContainerContentConstraints.swift */; };
 		87ED722D246B6B84002CAD29 /* UITableViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED722C246B6B84002CAD29 /* UITableViewCellContainer.swift */; };
 		87ED722F246B6BB4002CAD29 /* UICollectionViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */; };
+		87ED7232246B7202002CAD29 /* ZoomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7231246B7202002CAD29 /* ZoomFlowLayout.swift */; };
 		FFB670B1FC15E843126D6F0F /* Pods_WavesUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D4BC507E3B0AD674153F228 /* Pods_WavesUIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		87ED7228246B6B49002CAD29 /* ContainerContentConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerContentConstraints.swift; sourceTree = "<group>"; };
 		87ED722C246B6B84002CAD29 /* UITableViewCellContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellContainer.swift; sourceTree = "<group>"; };
 		87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellContainer.swift; sourceTree = "<group>"; };
+		87ED7231246B7202002CAD29 /* ZoomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomFlowLayout.swift; sourceTree = "<group>"; };
 		A63F83980BD24EF172B1AD4F /* Pods-WavesUIKit.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.test-dev.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.test-dev.xcconfig"; sourceTree = "<group>"; };
 		A996E98DCF8D1F935604EA1A /* Pods-WavesUIKit.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.release-dev.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.release-dev.xcconfig"; sourceTree = "<group>"; };
 		C14AFAF9CDCA109517EC3290 /* Pods-WavesUIKit.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		87145069246242A200A17BA9 /* WavesUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				87ED7230246B71F2002CAD29 /* FlowLayouts */,
 				87ED722B246B6B7A002CAD29 /* Containers */,
 				8714506A246242A200A17BA9 /* WavesUIKit.h */,
 				8714506B246242A200A17BA9 /* Info.plist */,
@@ -204,6 +207,14 @@
 				87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */,
 			);
 			path = Containers;
+			sourceTree = "<group>";
+		};
+		87ED7230246B71F2002CAD29 /* FlowLayouts */ = {
+			isa = PBXGroup;
+			children = (
+				87ED7231246B7202002CAD29 /* ZoomFlowLayout.swift */,
+			);
+			path = FlowLayouts;
 			sourceTree = "<group>";
 		};
 		F4C9BADFAA66D4CB1C96C025 /* Pods */ = {
@@ -370,6 +381,7 @@
 			files = (
 				87ED722F246B6BB4002CAD29 /* UICollectionViewCellContainer.swift in Sources */,
 				87ED722D246B6B84002CAD29 /* UITableViewCellContainer.swift in Sources */,
+				87ED7232246B7202002CAD29 /* ZoomFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
