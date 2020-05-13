@@ -6,7 +6,6 @@
 //  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
-import Extensions
 import UIKit
 import UITools
 

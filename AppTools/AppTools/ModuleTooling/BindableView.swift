@@ -11,5 +11,5 @@ public protocol BindableView: AnyObject {
     associatedtype ViewInput
     
     func getOutput() -> ViewOutput
-    func bindView(input: ViewInput)
+    func bindWith(_ input: ViewInput)
 }

@@ -799,6 +799,12 @@
 		87D683B0241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */; };
 		87ED7225246B57D6002CAD29 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; };
 		87ED7226246B57D6002CAD29 /* UITools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		87ED7271246C735A002CAD29 /* BuyCryptoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */; };
+		87ED7272246C735A002CAD29 /* BuyCryptoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */; };
+		87ED7273246C735A002CAD29 /* BuyCryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */; };
+		87ED7274246C735A002CAD29 /* BuyCryptoProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726E246C735A002CAD29 /* BuyCryptoProtocols.swift */; };
+		87ED7275246C735A002CAD29 /* BuyCryptoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */; };
+		87ED7276246C735A002CAD29 /* BuyCryptoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */; };
 		87F09D512417CD6E001E2394 /* MassTransferRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */; };
 		87F09D532417CE79001E2394 /* MassTransferRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */; };
 		87FA5D0324223B95002F282D /* AccountPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA5CFC24223B94002F282D /* AccountPassword.swift */; };
@@ -2218,6 +2224,12 @@
 		87D683AD241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsTransactionsSkeletonCell.swift; sourceTree = "<group>"; };
 		87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PayoutsTransactionsSkeletonCell.xib; sourceTree = "<group>"; };
 		87ED7224246B57D6002CAD29 /* UITools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UITools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoPresenter.swift; sourceTree = "<group>"; };
+		87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BuyCryptoViewController.storyboard; sourceTree = "<group>"; };
+		87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoViewController.swift; sourceTree = "<group>"; };
+		87ED726E246C735A002CAD29 /* BuyCryptoProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoProtocols.swift; sourceTree = "<group>"; };
+		87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoBuilder.swift; sourceTree = "<group>"; };
+		87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoInteractor.swift; sourceTree = "<group>"; };
 		87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryRemote.swift; sourceTree = "<group>"; };
 		87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryProtocol.swift; sourceTree = "<group>"; };
 		87FA5CFC24223B94002F282D /* AccountPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPassword.swift; sourceTree = "<group>"; };
@@ -3418,6 +3430,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				87ED7233246C195D002CAD29 /* BuyCrypto */,
 				87FA5CF524223B29002F282D /* Account */,
 				E9D36DB52175C754001E6DF0 /* AssetList */,
 				7B26A88422ED16A400E7B024 /* AssetsSearch */,
@@ -5053,6 +5066,19 @@
 				87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */,
 			);
 			path = PayoutsTransactionSkeletonCell;
+			sourceTree = "<group>";
+		};
+		87ED7233246C195D002CAD29 /* BuyCrypto */ = {
+			isa = PBXGroup;
+			children = (
+				87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */,
+				87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */,
+				87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */,
+				87ED726E246C735A002CAD29 /* BuyCryptoProtocols.swift */,
+				87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */,
+				87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */,
+			);
+			path = BuyCrypto;
 			sourceTree = "<group>";
 		};
 		87FA5CF524223B29002F282D /* Account */ = {
@@ -7122,6 +7148,7 @@
 				0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */,
 				87FA5D3724223C04002F282D /* NewAccount.storyboard in Resources */,
 				7BDA6AF422315466001DE71C /* ContactDetailView.xib in Resources */,
+				87ED7272246C735A002CAD29 /* BuyCryptoViewController.storyboard in Resources */,
 				87FA5D9D24223F98002F282D /* Asset.storyboard in Resources */,
 				87FA5D3B24223C0B002F282D /* NewAccountAvatarView.xib in Resources */,
 				7B9DC3142382C04700DCCA75 /* Sentry-io-Info.plist in Resources */,
@@ -8245,6 +8272,7 @@
 				0AF922F6212E1234003BA067 /* SegmentedControl.swift in Sources */,
 				E9B087AC2163886800937644 /* DexOrderBookModuleBuilder.swift in Sources */,
 				E96FEA29226F27BC00C0EE22 /* WalletSortCell.swift in Sources */,
+				87ED7276246C735A002CAD29 /* BuyCryptoInteractor.swift in Sources */,
 				0A59331821870ABB0059A77A /* AliasesViewController.swift in Sources */,
 				7B85E62623FD3C4500365829 /* ModalTableControllerDelegate.swift in Sources */,
 				0A14E3EF21875AF500EA7E91 /* CreateAliasViewController.swift in Sources */,
@@ -8403,6 +8431,7 @@
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
+				87ED7271246C735A002CAD29 /* BuyCryptoPresenter.swift in Sources */,
 				E9D36DCB2175C755001E6DF0 /* ReceiveCryptocurrencyPresenter.swift in Sources */,
 				0ADD802621F22FFA0075FC59 /* AppCoordinator.swift in Sources */,
 				7BD6E10822E5AE7000BAAFC8 /* DebugInfoCell.swift in Sources */,
@@ -8544,6 +8573,8 @@
 				E9B087A02163886800937644 /* DexChartHeaderView.swift in Sources */,
 				7B8FA1F023FEA05300C4C3EF /* BalanceInputField.swift in Sources */,
 				0A14E3EA21871B9000EA7E91 /* AliasesAliasCell.swift in Sources */,
+				87ED7275246C735A002CAD29 /* BuyCryptoBuilder.swift in Sources */,
+				87ED7273246C735A002CAD29 /* BuyCryptoViewController.swift in Sources */,
 				87FA5D0924223B95002F282D /* AccountPasswordViewController.swift in Sources */,
 				7BFB480A22FC742F002B19F8 /* DisplayError.swift in Sources */,
 				E9983F2423ACBC7400859136 /* MyOrdersTypes.swift in Sources */,
@@ -8576,6 +8607,7 @@
 				7B49911C22F8754A005B7123 /* AssetsSearch.swift in Sources */,
 				E9DC661D23ECA06600889AA3 /* StakingBalanceCell.swift in Sources */,
 				87FA5D9E24223F98002F282D /* AssetDetailViewController.swift in Sources */,
+				87ED7274246C735A002CAD29 /* BuyCryptoProtocols.swift in Sources */,
 				87FA5D5F24223CF4002F282D /* ActionSheet.swift in Sources */,
 				E9B087992163886800937644 /* DexChartPresenter.swift in Sources */,
 				7BD6E10C22E5B6D700BAAFC8 /* DebugSwitchCell.swift in Sources */,
