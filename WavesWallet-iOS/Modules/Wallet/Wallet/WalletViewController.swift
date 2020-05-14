@@ -306,7 +306,7 @@ extension WalletViewController {
                            isHasAppUpdate: Bool) {
         if hasData, !hasAddingViewBanners {
             hasAddingViewBanners = true
-            if isHasAppUpdate {
+            if isHasAppUpdate && isDisplayInvesting == false {
                 let view = WalletUpdateAppView.loadFromNib()
                 scrolledTablesComponent.addTopView(view, animation: false)
                 
