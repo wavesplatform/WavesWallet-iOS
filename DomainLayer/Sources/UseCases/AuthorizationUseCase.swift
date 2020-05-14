@@ -200,18 +200,15 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                 let seed = signedWallet.seed
 
                 self.seedRepositoryMemory.append(seed)
-
-                let auuidBytes = WavesCrypto.shared.blake2b256(input: wallet.address.toBytes)
-                let auuid = WavesCrypto.shared.base64encode(input: auuidBytes)
-
-                self.analyticManager.setAUUID(auuid)
-
+                
                 let updateUserUID = self.updateUserUID(signedWallet: signedWallet)
                 let setIsLoggedIn = self.setIsLoggedIn(wallet: wallet)
 
                 return Observable.zip(setIsLoggedIn, updateUserUID)
-                    .flatMap { _, uuid -> Observable<AuthorizationVerifyAccessStatus> in
-                        Observable.just(AuthorizationVerifyAccessStatus.completed(signedWallet))
+                    .flatMap { [weak self] _, uid -> Observable<AuthorizationVerifyAccessStatus> in
+                        
+                        self?.analyticManager.setUID(uid: uid)
+                        return Observable.just(AuthorizationVerifyAccessStatus.completed(signedWallet))
                     }
             }
             .map { (status) -> AuthorizationAuthStatus in
