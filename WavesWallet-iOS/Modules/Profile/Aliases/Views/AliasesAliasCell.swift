@@ -6,16 +6,16 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 46
 }
 
 final class AliasesAliasCell: UITableViewCell, Reusable {
-
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var copyButton: PasteboardButton!
@@ -25,7 +25,7 @@ final class AliasesAliasCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         copyButton.copiedText = { [weak self] in
-            return self?.titleLabel.text
+            self?.titleLabel.text
         }
     }
 }
@@ -33,7 +33,6 @@ final class AliasesAliasCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension AliasesAliasCell: ViewConfiguration {
-
     struct Model {
         let title: String
     }
@@ -46,9 +45,7 @@ extension AliasesAliasCell: ViewConfiguration {
 // MARK: ViewCalculateHeight
 
 extension AliasesAliasCell: ViewCalculateHeight {
-
-    static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
-        return Constants.height
+    static func viewHeight(model _: Model, width _: CGFloat) -> CGFloat {
+        Constants.height
     }
 }
-

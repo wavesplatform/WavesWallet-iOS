@@ -6,19 +6,19 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class TooltipButtonCell: UITableViewCell, Reusable {
-    
-    @IBOutlet var button: UIButton!
-    
+    @IBOutlet private var button: UIButton!
+
     var didTap: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     @IBAction func handlerTap() {
         didTap?()
     }

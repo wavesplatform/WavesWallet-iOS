@@ -6,28 +6,28 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
-import Extensions
 import DomainLayer
+import Extensions
 import RxSwift
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 56
 }
 
 final class DexMarketSearchCell: UITableViewCell, NibReusable {
-
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
     @IBOutlet private weak var iconFav: UIImageView!
     @IBOutlet private weak var iconAsset1: UIImageView!
     @IBOutlet private weak var iconAsset2: UIImageView!
-    
+
     private var disposeBag = DisposeBag()
 
     override func awakeFromNib() {
         super.awakeFromNib()
-    
+
         iconAsset1.addAssetPairIconShadow()
         iconAsset2.addAssetPairIconShadow()
     }
@@ -40,19 +40,16 @@ final class DexMarketSearchCell: UITableViewCell, NibReusable {
     }
 }
 
-
 extension DexMarketSearchCell: ViewConfiguration {
-    
     func update(with model: DexMarket.DTO.Pair) {
-        
         let title = model.smartPair.amountAsset.shortName + " / " + model.smartPair.priceAsset.shortName
-        
+
         let attr = NSMutableAttributedString(string: title)
-        
+
         if let asset = model.selectedAsset {
             labelTitle.textColor = .black
             labelTitle.font = UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: .semibold)
-            
+
             var searchAssetString: String {
                 if model.smartPair.amountAsset.id == asset.id {
                     return asset.shortName + " /"
@@ -61,22 +58,22 @@ extension DexMarketSearchCell: ViewConfiguration {
             }
             let range = (title as NSString).range(of: searchAssetString)
             attr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.basic500,
-                                NSAttributedString.Key.font: UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: .medium)],
+                                NSAttributedString.Key.font: UIFont
+                                    .systemFont(ofSize: labelTitle.font.pointSize, weight: .medium)],
                                range: range)
-        }
-        else {
+        } else {
             labelTitle.textColor = .basic500
         }
-        
+
         labelTitle.attributedText = attr
         labelSubtitle.text = model.smartPair.amountAsset.name + " / " + model.smartPair.priceAsset.name
         iconFav.image = model.smartPair.isChecked ? Images.starSearchSmallActive.image : Images.starSearchSmall.image
-        
+
         AssetLogo.logo(icon: model.smartPair.amountAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: iconAsset1.rx.image)
             .disposed(by: disposeBag)
-             
+
         AssetLogo.logo(icon: model.smartPair.priceAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: iconAsset2.rx.image)

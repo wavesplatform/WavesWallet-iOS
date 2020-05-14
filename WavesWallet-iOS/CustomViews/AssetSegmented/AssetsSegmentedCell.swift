@@ -6,13 +6,13 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import DomainLayer
 import Extensions
+import RxSwift
+import UIKit
+import UITools
 
 final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
-
     struct Model {
         let icon: AssetLogo.Icon
         let isHiddenArrow: Bool
@@ -35,7 +35,6 @@ final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 // MARK: ViewConfiguration
 
 extension AssetsSegmentedCell: ViewConfiguration {
-
     func update(with model: AssetsSegmentedCell.Model) {
         imageArrow.isHidden = model.isHiddenArrow
 
@@ -44,7 +43,7 @@ extension AssetsSegmentedCell: ViewConfiguration {
         AssetLogo.logo(icon: model.icon,
                        style: .large)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (image) in
+            .subscribe(onNext: { [weak self] image in
                 guard let self = self else { return }
                 self.imageViewIcon.image = image
             })

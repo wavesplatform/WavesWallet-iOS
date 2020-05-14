@@ -6,22 +6,15 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class StakingLastPayoutsTitleCell: UITableViewCell, NibReusable {
-
     @IBOutlet private weak var labelTitle: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
-
-}
-
-extension StakingLastPayoutsTitleCell: ViewConfiguration {
-    
-    func update(with model: Void) {
         labelTitle.text = Localizable.Waves.Wallet.Stakingpayouts.lastPayouts
     }
 }

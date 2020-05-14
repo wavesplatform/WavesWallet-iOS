@@ -6,26 +6,24 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
-
+import UIKit
+import UITools
 
 final class ActionSheetElementCell: UITableViewCell, Reusable {
-    
     struct Model {
         let title: String
         let isSelected: Bool
     }
-    
+
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var iconImageView: UIImageView!
 }
 
 extension ActionSheetElementCell: ViewConfiguration {
-    
     func update(with model: ActionSheetElementCell.Model) {
         titleLabel.text = model.title
-        
+
         if model.isSelected {
             iconImageView.image = Images.on.image
         } else {

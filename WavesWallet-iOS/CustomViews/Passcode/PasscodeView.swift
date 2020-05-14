@@ -8,6 +8,7 @@
 
 import Extensions
 import UIKit
+import UITools
 
 private enum Constants {
     static let delayRemovedNumberSmall: TimeInterval = 0.15

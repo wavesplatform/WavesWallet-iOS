@@ -6,18 +6,18 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 private enum Constants {
-    static let okBackgroundColor = UIColor(red: 74 / 255, green: 173 / 255, blue: 2 / 255, alpha: 0.1)
-    static let warningBackgroundColor = UIColor(red: 248 / 255, green: 183 / 255, blue: 0 / 255, alpha: 0.1)
+    static let okBackgroundColor = UIColor(red: 74 / 255, green: 173 / 255, blue: 2 / 255, alpha: 0.1) // хард код цвета
+    static let warningBackgroundColor = UIColor(red: 248 / 255, green: 183 / 255, blue: 0 / 255, alpha: 0.1) // хард код цвета
     static let cornerRadius: Float = 2
 }
 
 final class TransactionCardStatusCell: UITableViewCell, Reusable {
-
     enum Model {
         case activeNow
         case unconfirmed
@@ -30,21 +30,19 @@ final class TransactionCardStatusCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        statusContainer.cornerRadius = Constants.cornerRadius        
+        statusContainer.cornerRadius = Constants.cornerRadius
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        separatorInset = .init(top: 0, left: self.bounds.width, bottom: 0, right: 0)
+        separatorInset = .init(top: 0, left: bounds.width, bottom: 0, right: 0)
     }
 }
 
 // MARK: ViewConfiguration
 
 extension TransactionCardStatusCell: ViewConfiguration {
-
     func update(with model: Model) {
-        
         keyLabel.text = Localizable.Waves.Transactioncard.Title.status
 
         switch model {
@@ -65,4 +63,3 @@ extension TransactionCardStatusCell: ViewConfiguration {
         }
     }
 }
-

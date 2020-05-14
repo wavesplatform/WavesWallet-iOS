@@ -6,10 +6,11 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import WavesSDKExtensions
-import WavesSDK
 import Extensions
+import UIKit
+import UITools
+import WavesSDK
+import WavesSDKExtensions
 
 private enum Constants {
     static let smallRightOffset: CGFloat = 14
@@ -17,12 +18,10 @@ private enum Constants {
 }
 
 protocol TransactionFeeViewDelegate: AnyObject {
-    
     func transactionFeeViewDidTap()
 }
 
 final class TransactionFeeView: UIView, NibOwnerLoadable {
-
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var labelLocalization: UILabel!
     @IBOutlet private weak var labelFee: UILabel!
@@ -30,42 +29,40 @@ final class TransactionFeeView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var iconArrows: UIImageView!
     @IBOutlet private weak var rightTickerPadding: NSLayoutConstraint!
     @IBOutlet private weak var labelTickerCustom: UILabel!
-    
+
     weak var delegate: TransactionFeeViewDelegate?
-    
+
     private var isCustomTicker = false
-    
+
     var isSelectedAssetFee = false {
         didSet {
             updateUI()
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         loadNibContent()
         labelLocalization.text = Localizable.Waves.Transactionfee.Label.transactionFee
         updateUI()
     }
-    
-    @IBAction private func buttontTapped(_ sender: Any) {
+
+    @IBAction private func buttontTapped(_: Any) {
         delegate?.transactionFeeViewDidTap()
     }
-    
+
     private func updateUI() {
-        
         if isSelectedAssetFee {
             rightTickerPadding.constant = Constants.bigRightOffset
             iconArrows.isHidden = false
-        }
-        else {
+        } else {
             rightTickerPadding.constant = Constants.smallRightOffset
             iconArrows.isHidden = true
         }
         labelTicker.isHidden = isCustomTicker
         labelTickerCustom.isHidden = !isCustomTicker
     }
-    
+
     func showLoadingState() {
         isHidden = false
         labelFee.isHidden = true
@@ -75,7 +72,7 @@ final class TransactionFeeView: UIView, NibOwnerLoadable {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
-    
+
     func hideLoadingState() {
         labelTicker.isHidden = isCustomTicker
         labelTickerCustom.isHidden = !isCustomTicker
@@ -86,15 +83,14 @@ final class TransactionFeeView: UIView, NibOwnerLoadable {
 }
 
 extension TransactionFeeView: ViewConfiguration {
-    
     struct Model {
         let fee: Money
         let assetName: String?
     }
-    
+
     func update(with model: Model) {
         labelFee.text = model.fee.displayText
-        
+
         isCustomTicker = model.assetName != nil && model.assetName != WavesSDKConstants.wavesAssetId
         updateUI()
 

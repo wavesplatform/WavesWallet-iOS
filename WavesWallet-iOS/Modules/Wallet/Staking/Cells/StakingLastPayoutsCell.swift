@@ -9,6 +9,7 @@
 import DomainLayer
 import Extensions
 import UIKit
+import UITools
 
 final class PayoutsFlowLayout: UICollectionViewFlowLayout {
     override func prepare() {
@@ -18,7 +19,7 @@ final class PayoutsFlowLayout: UICollectionViewFlowLayout {
 
     private func initialSetup() {
         sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 8, right: 16)
-        
+
         minimumInteritemSpacing = 8
     }
 
@@ -44,12 +45,13 @@ final class PayoutsFlowLayout: UICollectionViewFlowLayout {
 
         return attributes
     }
-    
+
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint,
-                                      withScrollingVelocity velocity: CGPoint) -> CGPoint {
+                                      withScrollingVelocity _: CGPoint) -> CGPoint {
         guard let collectionView = collectionView else { return .zero }
 
-        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
+        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: collectionView.frame.width,
+                                height: collectionView.frame.height)
         guard let rectAttributes = super.layoutAttributesForElements(in: targetRect) else { return .zero }
 
         var offsetAdjustment = CGFloat.greatestFiniteMagnitude
@@ -64,8 +66,8 @@ final class PayoutsFlowLayout: UICollectionViewFlowLayout {
 
         return CGPoint(x: proposedContentOffset.x + offsetAdjustment, y: proposedContentOffset.y)
     }
-    
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+
+    override func shouldInvalidateLayout(forBoundsChange _: CGRect) -> Bool {
         true
     }
 }
@@ -74,11 +76,11 @@ final class PayoutsFlowLayout: UICollectionViewFlowLayout {
 final class StakingLastPayoutsCell: UITableViewCell, NibReusable {
     private enum Constants {
         static let collectionViewSpacing: CGFloat = 16
-        
+
         /// Магический коэффициент чтобы при скроле карточек расчитать верный уклон пользователя (подобран вручную + stackOverflow)
         static let scrollСoef: CGFloat = 0.5
     }
-    
+
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var collectionViewLayout: UICollectionViewFlowLayout!
 
@@ -114,7 +116,7 @@ extension StakingLastPayoutsCell: ViewConfiguration {
     func update(with model: [PayoutTransactionVM]) {
         lastPayouts = model
         collectionView.reloadData()
-        
+
         // необходимо чтоб список не поехал в сторону (временное решение)
         collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: false)
     }
@@ -123,7 +125,7 @@ extension StakingLastPayoutsCell: ViewConfiguration {
 // MARK: UICollectionViewDataSource
 
 extension StakingLastPayoutsCell: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         lastPayouts.count
     }
 
@@ -133,7 +135,7 @@ extension StakingLastPayoutsCell: UICollectionViewDataSource {
         if let viewModel = lastPayouts[safe: indexPath.row] {
             cell.update(with: viewModel)
         }
-        
+
         return cell
     }
 }

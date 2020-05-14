@@ -8,6 +8,7 @@
 
 import Extensions
 import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 174
@@ -36,7 +37,5 @@ extension AssetBalanceSpamCell: ViewConfiguration {
 }
 
 extension AssetBalanceSpamCell: ViewHeight {
-    static func viewHeight() -> CGFloat {
-        return Constants.height
-    }
+    static func viewHeight() -> CGFloat { Constants.height }
 }

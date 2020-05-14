@@ -6,26 +6,25 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
+import Crashlytics
 import DomainLayer
 import Extensions
-import Crashlytics
+import Foundation
+import UIKit
+import UITools
 
 enum Debug {
-
     struct DisplayState: DataSourceProtocol {
         var sections: [Section]
     }
 }
 
 extension Debug {
-    
     struct Enviroment {
         let name: String
         let chainId: String
     }
-    
+
     enum Row {
         case enviroments(_ enviroments: [Enviroment], _ current: Enviroment)
         case stageSwitch(_ isOn: Bool)
@@ -37,87 +36,81 @@ extension Debug {
         case info(_ version: String, _ deviceId: String)
         case crash
     }
-    
+
     struct Section: SectionProtocol {
-        
         enum Kind {
             case enviroment
             case other
         }
-        
+
         var rows: [Row]
         var kind: Kind
     }
 }
 
 protocol DebugViewControllerDelegate: AnyObject {
-    
     func dissmissDebugVC(isNeedRelaunchApp: Bool)
-    
+
     func relaunchApplication()
 }
 
 final class DebugViewController: UIViewController {
-    
     @IBOutlet private var tableView: UITableView!
-    
+
     private lazy var displayState: Debug.DisplayState = createDisplaState()
-    
+
     private var isNeedRelaunchApp: Bool = false
-    
+
     private var environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
-    
+
     var delegate: DebugViewControllerDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Debug"
+        title = "Debug"
         setupBigNavigationBar()
         removeTopBarLine()
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .done,
-                                                                     target: self,
-                                                                     action: #selector(handlerDoneButton))
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                            target: self,
+                                                            action: #selector(handlerDoneButton))
     }
-    
+
     @objc private func handlerDoneButton() {
-        self.delegate?.dissmissDebugVC(isNeedRelaunchApp: isNeedRelaunchApp)
+        delegate?.dissmissDebugVC(isNeedRelaunchApp: isNeedRelaunchApp)
     }
 }
 
 // MARK: UITableViewDelegate
 
 extension DebugViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
         ProfileHeaderView.viewHeight()
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let view: ProfileHeaderView = tableView.dequeueAndRegisterHeaderFooter()
-        
+
         let section = displayState[section]
-        
+
         switch section.kind {
         case .enviroment:
             view.update(with: "Enviroment")
-            
+
         case .other:
             view.update(with: "Other")
         }
-        
+
         return view
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+
+    func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let row = displayState[indexPath]
-        
+
         switch row {
         case .enviroments:
             return DebugEnviromentsCell.cellHeight()
-            
+
         case .stageSwitch,
              .notificationDevSwitch,
              .versionTestSwitch,
@@ -126,7 +119,7 @@ extension DebugViewController: UITableViewDelegate {
              .developmentConfigsSwitch,
              .crash:
             return DebugSwitchCell.cellHeight()
-            
+
         case .info:
             return DebugInfoCell.cellHeight()
         }
@@ -136,95 +129,93 @@ extension DebugViewController: UITableViewDelegate {
 // MARK: UITableViewDataSource
 
 extension DebugViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = displayState[indexPath]
-        
+
         switch row {
-            
         case .crash:
             let cell: DebugSwitchCell = tableView.dequeueCell()
             cell.update(with: .init(title: "Crash",
                                     isOn: false))
-            
-            cell.switchChangedValue = { isOn in
+
+            cell.switchChangedValue = { _ in
                 Crashlytics.sharedInstance().crash()
             }
-            
+
             return cell
-            
-        case .developmentConfigsSwitch(let isOn):
-            
+
+        case let .developmentConfigsSwitch(isOn):
+
             let cell: DebugSwitchCell = tableView.dequeueCell()
             cell.update(with: .init(title: "Development Configs",
                                     isOn: isOn))
-            
+
             cell.switchChangedValue = { isOn in
                 ApplicationDebugSettings.setEnableDebugSettingsTest(isEnable: isOn)
             }
-            
+
             return cell
-            
-        case .stageSwitch(let isOn):
-            
+
+        case let .stageSwitch(isOn):
+
             let cell: DebugSwitchCell = tableView.dequeueCell()
             cell.update(with: .init(title: "Enable Stage",
                                     isOn: isOn))
-            
+
             cell.switchChangedValue = { isOn in
-                
+
                 ApplicationDebugSettings.setupIsEnableStage(isEnable: isOn)
             }
             return cell
-            
-        case .notificationDevSwitch(let isOn):
-            
+
+        case let .notificationDevSwitch(isOn):
+
             let cell: DebugSwitchCell = tableView.dequeueCell()
             cell.update(with: .init(title: "Notification Test",
                                     isOn: isOn))
-            
+
             cell.switchChangedValue = { isOn in
                 ApplicationDebugSettings.setEnableNotificationsSettingTest(isEnable: isOn)
             }
             return cell
-            
-        case .enviromentTestSwitch(let isOn):
-            
+
+        case let .enviromentTestSwitch(isOn):
+
             let cell: DebugSwitchCell = tableView.dequeueCell()
             cell.update(with: .init(title: "Enviroment Test",
                                     isOn: isOn))
-            
+
             cell.switchChangedValue = { isOn in
                 ApplicationDebugSettings.setEnableEnviromentTest(isEnable: isOn)
             }
             return cell
-            
-        case .versionTestSwitch(let isOn):
-            
+
+        case let .versionTestSwitch(isOn):
+
             let cell: DebugSwitchCell = tableView.dequeueCell()
             cell.update(with: .init(title: "Version Test",
                                     isOn: isOn))
-            
-            cell.switchChangedValue = { isOn in                
+
+            cell.switchChangedValue = { isOn in
                 ApplicationDebugSettings.setEnableVersionUpdateTest(isEnable: isOn)
             }
             return cell
-        
-        case .tradeCategoriesConfig(let isOn):
+
+        case let .tradeCategoriesConfig(isOn):
             let cell: DebugSwitchCell = tableView.dequeueCell()
             cell.update(with: .init(title: "Trade categories config Test",
                                     isOn: isOn))
-            
+
             cell.switchChangedValue = { isOn in
                 ApplicationDebugSettings.setEnableTradeCategoriesConfigTest(isEnable: isOn)
             }
             return cell
-            
+
         case let .enviroments(envriroments, current):
-            
+
             let cell: DebugEnviromentsCell = tableView.dequeueCell()
             cell.update(with: DebugEnviromentsCell.Model(chainId: current.chainId, name: current.name))
-            
+
             cell.buttonDidTap = { [weak self] in
                 self?.pickEnvriroments(envriroments, current: current)
             }
@@ -232,9 +223,9 @@ extension DebugViewController: UITableViewDataSource {
 
         case let .info(version, deviceId):
             let cell: DebugInfoCell = tableView.dequeueCell()
-            
-            cell.update(with: DebugInfoCell.Model.init(version: version,
-                                                       deviceId: deviceId))
+
+            cell.update(with: DebugInfoCell.Model(version: version,
+                                                  deviceId: deviceId))
             cell.deleteButtonDidTap = { [weak self] in
                 self?.deleteAllData()
             }
@@ -242,82 +233,76 @@ extension DebugViewController: UITableViewDataSource {
             return cell
         }
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         displayState[section].rows.count
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+
+    func numberOfSections(in _: UITableView) -> Int {
         displayState.sections.count
     }
 }
 
 private extension DebugViewController {
-    
     func pickEnvriroments(_ envriroments: [Debug.Enviroment], current: Debug.Enviroment) {
-
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         controller.addAction(cancel)
-        
+
         for value in envriroments {
-            
-            let action = UIAlertAction(title: value.name, style: .default) { [weak self] action in
+            let action = UIAlertAction(title: value.name, style: .default) { [weak self] _ in
                 self?.changeEnviroment(value)
             }
-            
+
             action.isEnabled = current.chainId != value.chainId
             controller.addAction(action)
         }
-        
-        self.present(controller, animated: true, completion: nil)
+
+        present(controller, animated: true, completion: nil)
     }
-    
+
     func changeEnviroment(_ enviroment: Debug.Enviroment) {
-        
-        let kind = WalletEnvironment.Kind.init(rawValue: enviroment.chainId) ?? .mainnet
-        
+        let kind = WalletEnvironment.Kind(rawValue: enviroment.chainId) ?? .mainnet
+
         environmentRepository.environmentKind = kind
-        
-        self.isNeedRelaunchApp = true
-        self.displayState = createDisplaState()
-        self.tableView.reloadData()
+
+        isNeedRelaunchApp = true
+        displayState = createDisplaState()
+        tableView.reloadData()
     }
-    
+
     func createDisplaState() -> Debug.DisplayState {
-        
         let version = Bundle.main.versionAndBuild
-        
+
         let isEnableStage = ApplicationDebugSettings.isEnableStage
         let isEnableNotificationsSettingDev = ApplicationDebugSettings.isEnableNotificationsSettingTest
         let isEnableEnviromentTest = ApplicationDebugSettings.isEnableEnviromentTest
         let isEnableVersionUpdateTest = ApplicationDebugSettings.isEnableVersionUpdateTest
         let isEnableDebugSettingsTest = ApplicationDebugSettings.isEnableDebugSettingsTest
         let isEnableTradeCategoriesConfigTest = ApplicationDebugSettings.isEnableTradeCategoriesConfigTest
-        
+
         let mainNet: Debug.Enviroment = .init(name: "Mainnet",
                                               chainId: "W")
-        
+
         let testNet: Debug.Enviroment = .init(name: "Testnet",
                                               chainId: "T")
-        
+
         let stageNet: Debug.Enviroment = .init(name: "Stagenet",
                                                chainId: "S")
-        
+
         var current: Debug.Enviroment!
-        
+
         switch environmentRepository.environmentKind {
-            
         case .mainnet:
             current = mainNet
-            
+
         case .stagenet:
             current = stageNet
-            
+
         case .testnet:
             current = testNet
         }
-                
+
         let sections: [Debug.Section] = [.init(rows: [Debug.Row.enviroments([mainNet,
                                                                              testNet,
                                                                              stageNet],
@@ -332,32 +317,31 @@ private extension DebugViewController {
                                                       .tradeCategoriesConfig(isEnableTradeCategoriesConfigTest),
                                                       .info(version, UIDevice.uuid)],
                                                kind: .other)]
-        
+
         let state = Debug.DisplayState(sections: sections)
         return state
     }
-    
+
     func deleteAllData() {
-        
-        self.delegate?.relaunchApplication()
-        
+        delegate?.relaunchApplication()
+
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let cachesDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
         let trashDirectory = NSSearchPathForDirectoriesInDomains(.trashDirectory, .userDomainMask, true)
         let userDirectory = NSSearchPathForDirectoriesInDomains(.userDirectory, .userDomainMask, true)
-        
+
         var paths: [String] = []
-        
+
         paths.append(contentsOf: documentDirectory)
         paths.append(contentsOf: cachesDirectory)
         paths.append(contentsOf: trashDirectory)
         paths.append(contentsOf: userDirectory)
-        
+
         paths.forEach { file in
             clearFolder(tempFolderPath: file)
         }
     }
-    
+
     func clearFolder(tempFolderPath: String) {
         let fileManager = FileManager.default
         do {

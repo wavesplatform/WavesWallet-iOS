@@ -6,13 +6,13 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import Reachability
-import WavesSDKExtensions
 import Extensions
+import Reachability
+import UIKit
+import UITools
+import WavesSDKExtensions
 
 final class GlobalErrorView: UIView, NibOwnerLoadable {
-
     @IBOutlet private var iconImageView: UIImageView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
@@ -28,7 +28,6 @@ final class GlobalErrorView: UIView, NibOwnerLoadable {
     }
 
     @IBAction func handlerActionRetry() {
-
         let instance = ReachabilityService.instance
         if instance.connection != .none {
             retryDidTap?()
@@ -38,23 +37,21 @@ final class GlobalErrorView: UIView, NibOwnerLoadable {
     @IBAction func handlerActionSendReport() {
         sendReportDidTap?()
     }
-
 }
 
 // MARK: ViewConfiguration
 
 extension GlobalErrorView: ViewConfiguration {
-
     struct Model {
         enum Kind {
             case internetNotWorking
             case serverError
         }
+
         let kind: Kind
     }
 
     func update(with model: GlobalErrorView.Model) {
-
         switch model.kind {
         case .internetNotWorking:
             iconImageView.image = Images.userimgDisconnect80Multy.image

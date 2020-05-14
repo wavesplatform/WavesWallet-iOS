@@ -6,27 +6,25 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
+import UIKit
+import UITools
 
 final class AssetTransactionCell: UICollectionViewCell, NibReusable, ViewConfiguration {
-
     @IBOutlet private var transactionView: HistoryTransactionView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         backgroundView = {
             let view = UIView()
             view.backgroundColor = .basic50
             return view
         }()
-        
     }
 
     func update(with model: SmartTransaction) {
         transactionView.update(with: model)
     }
 }
-

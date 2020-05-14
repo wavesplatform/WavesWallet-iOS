@@ -6,55 +6,53 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 56
 }
 
 final class DebugEnviromentsCell: UITableViewCell, Reusable {
-    
     struct Model {
         let chainId: String
         let name: String
     }
-    
+
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var button: UIButton!
-    
+
     var buttonDidTap: (() -> Void)?
-    
+
     class func cellHeight() -> CGFloat {
         return Constants.height
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         containerView.addTableCellShadowStyle()
     }
-    
+
     @IBAction func handlerTapButton() {
         buttonDidTap?()
     }
-    
+
     private func createLogo(chainId: String) -> UIImage? {
-        
         let size = CGSize(width: 28, height: 28)
-        
+
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.saveGState()
-        
+
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
         context.clip()
-        
-        
+
         context.setFillColor(UIColor.submit400.cgColor)
         context.fill(rect)
-        
+
         if let first = chainId.first {
             let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
             let symbol = String(first).uppercased()
@@ -65,7 +63,7 @@ final class DebugEnviromentsCell: UITableViewCell, Reusable {
                                                                    .font: font,
                                                                    .paragraphStyle: style])
             let sizeStr = attributedString.size()
-            
+
             attributedString.draw(with: CGRect(x: (size.width - sizeStr.width) * 0.5,
                                                y: (size.height - sizeStr.height) * 0.5,
                                                width: sizeStr.width,
@@ -73,8 +71,7 @@ final class DebugEnviromentsCell: UITableViewCell, Reusable {
                                   options: [.usesLineFragmentOrigin],
                                   context: nil)
         }
-        
-        
+
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
@@ -84,11 +81,8 @@ final class DebugEnviromentsCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension DebugEnviromentsCell: ViewConfiguration {
-    
     func update(with model: DebugEnviromentsCell.Model) {
         button.setImage(createLogo(chainId: model.chainId), for: .normal)
         button.setTitle(model.name, for: .normal)
     }
 }
-
-

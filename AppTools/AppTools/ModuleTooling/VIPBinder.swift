@@ -14,7 +14,7 @@ public enum VIPBinder {
             let viewOutput = view.getOutput()
             let interactorOutput = interactor.transform(viewOutput)
             let presenterOutput = presenter.transform(interactorOutput)
-            view.bindView(input: presenterOutput)
+            view.bindWith(presenterOutput)
     }
     
     public static func bind<I: IOTransformer, P: IOTransformer, V: BindableView>(interactor: I, presenter: P, view: V)
@@ -23,7 +23,7 @@ public enum VIPBinder {
             let viewOutput = view.getOutput()
             let interactorOutput = interactor.transform(viewOutput)
             let presenterOutput = presenter.transform(interactorOutput)
-            view.bindView(input: presenterOutput)
+            view.bindWith(presenterOutput)
             
             return (interactorOutput, presenterOutput, viewOutput)
     }

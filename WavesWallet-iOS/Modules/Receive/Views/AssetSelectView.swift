@@ -11,6 +11,7 @@ import DomainLayer
 import Extensions
 import RxSwift
 import UIKit
+import UITools
 import WavesSDK
 
 private enum Constants {

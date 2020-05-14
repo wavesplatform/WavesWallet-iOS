@@ -6,11 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
-import RxSwift
 import DomainLayer
 import Extensions
+import Foundation
+import RxSwift
+import UIKit
+import UITools
 
 private enum Constants {
     static let movedRowAlpha: CGFloat = 0.9
@@ -18,20 +19,19 @@ private enum Constants {
 }
 
 final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
-    
     struct Model {
         let asset: Asset
         let isLock: Bool
     }
-    
+
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var iconImageView: UIImageView!
     @IBOutlet private var iconImageContainerView: UIView!
     @IBOutlet private weak var viewDelete: UIView!
-    
-    var deleteAction:((UITableViewCell) -> Void)?
-    
+
+    var deleteAction: ((UITableViewCell) -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -39,21 +39,21 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
 
         containerView.addTableCellShadowStyle(offset: Constants.shadowOffSet)
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         if alpha <= Constants.movedRowAlpha {
             containerView.backgroundColor = .white
             containerView.addTableCellShadowStyle(offset: Constants.shadowOffSet)
         }
     }
-    
-    @IBAction private func deleteTapped(_ sender: Any) {
+
+    @IBAction private func deleteTapped(_: Any) {
         deleteAction?(self)
     }
 }
@@ -61,9 +61,7 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension WidgetSettingsAssetCell: ViewConfiguration {
-    
     func update(with model: Model) {
-        
         nameLabel.text = model.asset.ticker ?? model.asset.displayName
         iconImageContainerView.isHidden = model.isLock == false
         viewDelete.isHidden = model.isLock == true

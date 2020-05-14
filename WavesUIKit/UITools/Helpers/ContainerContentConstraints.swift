@@ -1,14 +1,14 @@
 //
 //  ContainerContentConstraints.swift
-//  WavesWallet-iOS
+//  UITools
 //
-//  Created by vvisotskiy on 05.03.2020.
-//  Copyright © 2020 Waves Platform. All rights reserved.
+//  Created by vvisotskiy on 13.05.2020.
+//  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
 import UIKit
 
-typealias VoidClosure = () -> Void
+public typealias VoidClosure = () -> Void
 
 public final class ContainerContentConstraints {
     

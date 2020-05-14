@@ -1,12 +1,11 @@
 //
 //  NibOwnerLoadable.swift
-//  WavesWallet-iOS
+//  UITools
 //
-//  Created by mefilt on 12.07.2018.
-//  Copyright © 2018 Waves Exchange. All rights reserved.
+//  Created by vvisotskiy on 13.05.2020.
+//  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 public protocol NibOwnerLoadable: class {
@@ -17,7 +16,7 @@ public extension NibOwnerLoadable where Self: UIView {
     func loadNibContent() {
         let views = Self._nib.instantiate(withOwner: self, options: nil)
         if let view = views.first(where: { $0 is UIView }) as? UIView {
-            addSubview(view)            
+            addSubview(view)
             backgroundColor = view.backgroundColor
             view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
@@ -36,18 +35,16 @@ public extension NibOwnerLoadable where Self: UIView {
 
 private extension NibOwnerLoadable {
     static var _nib: UINib {
-        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+        UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
 }
 
 private extension NibOwnerLoadable where Self: Reusable {
     static var _nib: UINib {
-        return UINib(nibName: reuseIdentifier, bundle: Bundle(for: self))
+        UINib(nibName: reuseIdentifier, bundle: Bundle(for: self))
     }
 }
 
 private extension NibOwnerLoadable where Self: NibLoadable {
-    static var _nib: UINib {
-        return nib
-    }
+    static var _nib: UINib { nib }
 }

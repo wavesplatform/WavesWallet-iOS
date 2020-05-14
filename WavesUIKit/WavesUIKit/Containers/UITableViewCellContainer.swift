@@ -1,13 +1,13 @@
 //
 //  UITableViewCellContainer.swift
-//  WavesWallet-iOS
+//  WavesUIKit
 //
-//  Created by vvisotskiy on 05.03.2020.
-//  Copyright © 2020 Waves Platform. All rights reserved.
+//  Created by vvisotskiy on 13.05.2020.
+//  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
-import Extensions
 import UIKit
+import UITools
 
 /// Позволяет использовать NibLoadable View'шки внутри TableView
 /// Нужно создать сабкласс и в качестве Generic-параметра указывать тип View которую хочется переиспользовать

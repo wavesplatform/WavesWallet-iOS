@@ -8,6 +8,7 @@
 
 import Extensions
 import UIKit
+import UITools
 
 private extension UIViewController {
     var _tabBarController: UITabBarController? {
@@ -19,7 +20,7 @@ private extension UIViewController {
     }
 
     var tabBarHeight: CGFloat {
-        return _tabBarController?.tabBar.frame.height ?? 0
+        _tabBarController?.tabBar.frame.height ?? 0
     }
 }
 
@@ -164,24 +165,25 @@ final class SweetSnackbar: NSObject {
                            delay: 0,
                            options: [.curveEaseInOut, .beginFromCurrentState],
                            animations: {
-                            view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
-            }, completion: { _ in
-                self.applyBehaviorDismiss(view: view, viewController: viewController, snack: package, isNewSnack: false)
+                               view.frame = CGRect(x: 0,
+                                                   y: bounds.height - size.height,
+                                                   width: bounds.width,
+                                                   height: size.height)
+                           }, completion: { _ in
+                               self.applyBehaviorDismiss(snack: package, isNewSnack: false)
             })
         })
 
         return key
     }
 
-    private func applyBehaviorDismiss(view: SweetSnackView,
-                                      viewController: UIViewController,
-                                      snack: PackageSnack,
+    private func applyBehaviorDismiss(snack: PackageSnack,
                                       isNewSnack: Bool) {
         switch snack.model.behaviorDismiss {
         case .popToLast:
             break
 
-        case .popToLastWihDuration(let duration):
+        case let .popToLastWihDuration(duration):
             autoHideSnack(snack: snack, duration: duration, isNewSnack: isNewSnack)
 
         case .never:
@@ -250,10 +252,10 @@ final class SweetSnackbar: NSObject {
         }
     }
 
-    override func observeValue(forKeyPath keyPath: String?,
+    override func observeValue(forKeyPath _: String?,
                                of object: Any?,
-                               change: [NSKeyValueChangeKey: Any]?,
-                               context: UnsafeMutableRawPointer?) {
+                               change _: [NSKeyValueChangeKey: Any]?,
+                               context _: UnsafeMutableRawPointer?) {
         guard let snack = lastSnack else { return }
         guard let viewController = snack.viewController else { return }
 
@@ -286,7 +288,7 @@ final class SweetSnackbar: NSObject {
 }
 
 extension SweetSnackbar: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool { true }
+    func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool { true }
 
     @objc func hanlerPanGesture(pan: UIPanGestureRecognizer) {
         guard let snack = lastSnack else { return }
@@ -303,7 +305,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
         switch pan.state {
         case .began:
             lastLocation = location
-            
+
         case .changed:
             let offset = location.y - (lastLocation?.y ?? location.y)
             var yPosition = view.frame.origin.y + offset
@@ -311,7 +313,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
             yPosition = min(yPosition, maxY)
 
             view.frame = CGRect(x: 0, y: yPosition, width: bounds.width, height: size.height)
-            
+
         case .cancelled, .ended:
             var percent = (view.frame.origin.y - minY) / (maxY - minY)
             percent = max(percent, 0)
@@ -324,17 +326,17 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
                     view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
                 })
             }
-            
+
         case .possible: break
-            
+
         case .failed: break
-            
+
         @unknown default:
             break
         }
     }
 
-    @objc func hanlerSwipeGesture(swipe: UISwipeGestureRecognizer) {
+    @objc func hanlerSwipeGesture(swipe _: UISwipeGestureRecognizer) {
         guard let lastSnack = self.lastSnack else { return }
         lastSnack.model.action?.didSwipe(snack: lastSnack.model, view: lastSnack.view, bar: self)
 
@@ -344,7 +346,7 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
         hideLastSnack(isNewSnack: false)
     }
 
-    @objc func hanlerTapGesture(tap: UITapGestureRecognizer) {
+    @objc func hanlerTapGesture(tap _: UITapGestureRecognizer) {
         guard let lastSnack = self.lastSnack else { return }
         lastSnack.model.action?.didTap(snack: lastSnack.model, view: lastSnack.view, bar: self)
 

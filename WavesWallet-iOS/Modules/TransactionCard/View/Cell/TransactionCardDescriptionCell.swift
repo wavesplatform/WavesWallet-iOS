@@ -6,12 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class TransactionCardDescriptionCell: UITableViewCell, Reusable {
-
     struct Model {
         let description: String
     }
@@ -25,19 +25,15 @@ final class TransactionCardDescriptionCell: UITableViewCell, Reusable {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        separatorInset = .init(top: 0, left: self.bounds.width, bottom: 0, right: 0)
+        separatorInset = .init(top: 0, left: bounds.width, bottom: 0, right: 0)
     }
 }
 
 // MARK: ViewConfiguration
 
 extension TransactionCardDescriptionCell: ViewConfiguration {
-
     func update(with model: TransactionCardDescriptionCell.Model) {
-
         titleLabel.text = Localizable.Waves.Transactioncard.Title.description
         descriptionLabel.text = model.description
     }
 }
-
-

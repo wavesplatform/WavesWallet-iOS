@@ -6,11 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class AmountSkeletonView: SkeletonView, NibOwnerLoadable {
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -20,10 +20,9 @@ final class AmountSkeletonView: SkeletonView, NibOwnerLoadable {
         isHidden = false
         startAnimation()
     }
-    
+
     func stop() {
         isHidden = true
         stopAnimation()
     }
 }
-

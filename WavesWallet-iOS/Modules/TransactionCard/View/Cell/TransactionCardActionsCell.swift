@@ -6,16 +6,16 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 private enum Constants {
     static let duration: TimeInterval = 2
 }
 
 final class TransactionCardActionsCell: UITableViewCell, Reusable {
-
     struct Model {
         enum Button {
             case viewOnExplorer
@@ -30,23 +30,20 @@ final class TransactionCardActionsCell: UITableViewCell, Reusable {
     }
 
     @IBOutlet private var actionsControl: ActionsControl!
-    
+
     var tapOnButton: ((Model.Button) -> Void)?
 }
 
 // MARK: ViewConfiguration
 
 extension TransactionCardActionsCell: ViewConfiguration {
-
     func update(with model: TransactionCardActionsCell.Model) {
-
-
         let buttons = model.buttons.map { [weak self] (button) -> ActionsControl.Model.Button in
 
-            return button.createAction({ [weak self] (button) in
+            button.createAction { [weak self] button in
                 guard let self = self else { return }
                 self.tapOnButton?(button)
-            })
+            }
         }
 
         actionsControl.update(with: .init(buttons: buttons))
@@ -54,7 +51,6 @@ extension TransactionCardActionsCell: ViewConfiguration {
 }
 
 private extension TransactionCardActionsCell.Model.Button {
-
     func createAction(_ handler: @escaping (TransactionCardActionsCell.Model.Button) -> Void) -> ActionsControl.Model.Button {
         switch self {
         case .viewOnExplorer:
@@ -82,9 +78,9 @@ private extension TransactionCardActionsCell.Model.Button {
             }
 
         case .cancelOrder:
-            return cancelOrderButton({
+            return cancelOrderButton {
                 handler(self)
-            })
+            }
         }
     }
 
@@ -95,7 +91,7 @@ private extension TransactionCardActionsCell.Model.Button {
                      text: Localizable.Waves.Transactioncard.Title.cancelLeasing,
                      icon: Images.tCloselease18.image,
                      effectsOnTap: [.impactOccurred]) {
-                        action()
+            action()
         }
     }
 
@@ -107,42 +103,42 @@ private extension TransactionCardActionsCell.Model.Button {
                      icon: Images.tCloselease18.image,
                      effectsOnTap: [.impactOccurred,
                                     .loading]) {
-                        action()
+            action()
         }
     }
 
     func sendAgainButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .warning600,
-                    selectedBackgroundColor: .warning400,
-                    textColor: .white,
-                    text: Localizable.Waves.Transactioncard.Title.sendAgain,
-                    icon: Images.tResend18.image,
-                    effectsOnTap: []) {
+                     selectedBackgroundColor: .warning400,
+                     textColor: .white,
+                     text: Localizable.Waves.Transactioncard.Title.sendAgain,
+                     icon: Images.tResend18.image,
+                     effectsOnTap: []) {
             action()
         }
     }
 
     func viewOnExplorer(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
-                    selectedBackgroundColor: .basic200,
-                    textColor: .black,
-                    text: Localizable.Waves.Transactioncard.Title.viewOnExplorer,
-                    icon: Images.viewexplorer18Black.image,
-                    effectsOnTap: [.impactOccurred]) {
+                     selectedBackgroundColor: .basic200,
+                     textColor: .black,
+                     text: Localizable.Waves.Transactioncard.Title.viewOnExplorer,
+                     icon: Images.viewexplorer18Black.image,
+                     effectsOnTap: [.impactOccurred]) {
             action()
         }
     }
 
     func copyTxId(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
-                    selectedBackgroundColor: .basic200,
-                    textColor: .black,
-                    text: Localizable.Waves.Transactioncard.Title.copyTXID,
-                    icon: Images.copy18Black.image,
-                    effectsOnTap: [.changeIconForTime(Images.checkSuccess.image, Constants.duration),
-                                   .changeTitleForTime(Localizable.Waves.Transactioncard.Title.copied, Constants.duration),
-                                   .changeTitleColorForTime(.success400, Constants.duration),
-                                   .impactOccurred]) {
+                     selectedBackgroundColor: .basic200,
+                     textColor: .black,
+                     text: Localizable.Waves.Transactioncard.Title.copyTXID,
+                     icon: Images.copy18Black.image,
+                     effectsOnTap: [.changeIconForTime(Images.checkSuccess.image, Constants.duration),
+                                    .changeTitleForTime(Localizable.Waves.Transactioncard.Title.copied, Constants.duration),
+                                    .changeTitleColorForTime(.success400, Constants.duration),
+                                    .impactOccurred]) {
             action()
         }
     }
@@ -157,10 +153,7 @@ private extension TransactionCardActionsCell.Model.Button {
                                     .changeTitleForTime(Localizable.Waves.Transactioncard.Title.copied, Constants.duration),
                                     .changeTitleColorForTime(.success400, Constants.duration),
                                     .impactOccurred]) {
-                        action()
+            action()
         }
     }
-
 }
-
-

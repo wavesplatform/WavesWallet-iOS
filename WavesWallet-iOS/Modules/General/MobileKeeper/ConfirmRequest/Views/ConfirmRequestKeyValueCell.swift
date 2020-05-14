@@ -6,20 +6,20 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class ConfirmRequestKeyValueCell: UITableViewCell, Reusable {
-    
     struct Model {
         let title: String
         let value: String
     }
-    
+
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var valueLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -30,9 +30,8 @@ final class ConfirmRequestKeyValueCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension ConfirmRequestKeyValueCell: ViewConfiguration {
-    
     func update(with model: Model) {
-        self.titleLabel.text = model.title
-        self.valueLabel.text = model.value
+        titleLabel.text = model.title
+        valueLabel.text = model.value
     }
 }

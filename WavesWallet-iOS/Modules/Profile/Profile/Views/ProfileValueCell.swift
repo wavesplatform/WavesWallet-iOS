@@ -6,26 +6,26 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 56
 }
 
 final class ProfileValueCell: UITableViewCell, Reusable {
-
     struct Model {
         let title: String
     }
 
     @IBOutlet private weak var labelTitle: UILabel!
-    @IBOutlet private weak var containerView: UIView!    
+    @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var iconArrow: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        containerView.addTableCellShadowStyle()        
+        containerView.addTableCellShadowStyle()
     }
 
     class func cellHeight() -> CGFloat {
@@ -36,7 +36,6 @@ final class ProfileValueCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension ProfileValueCell: ViewConfiguration {
-
     func update(with model: ProfileValueCell.Model) {
         labelTitle.text = model.title
     }

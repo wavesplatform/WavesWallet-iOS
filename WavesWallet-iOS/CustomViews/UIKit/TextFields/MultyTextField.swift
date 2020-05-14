@@ -6,32 +6,31 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constans {
     static let animationDuration: TimeInterval = 0.24
 }
 
 private extension UITextView {
-
     func alignTextVerticallyInContainer() {
         guard let font = font else { return }
 
-        if self.contentSize.height < self.bounds.size.height {
+        if contentSize.height < bounds.size.height {
             return
         }
 
         let text = (self.text.isEmpty ? "" : self.text) ?? ""
-        let height = text.maxHeightMultiline(font: font, forWidth: self.bounds.size.width)
-        var topCorrect = (self.bounds.size.height - height) / 2
-        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
-        self.textContainerInset.top = topCorrect
+        let height = text.maxHeightMultiline(font: font, forWidth: bounds.size.width)
+        var topCorrect = (bounds.size.height - height) / 2
+        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect
+        textContainerInset.top = topCorrect
     }
 }
 
 final class MultyTextView: UITextView {
-
     override func layoutSubviews() {
         super.layoutSubviews()
         alignTextVerticallyInContainer()
@@ -39,7 +38,6 @@ final class MultyTextView: UITextView {
 }
 
 final class MultyTextField: UIView, NibOwnerLoadable {
-
     struct Model {
         let title: String
         let placeholder: String?
@@ -74,7 +72,7 @@ final class MultyTextField: UIView, NibOwnerLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         textViewValue.textContainerInset = .zero
         textViewValue.textContainer.lineFragmentPadding = 0
         textViewValue.delegate = self
@@ -83,7 +81,6 @@ final class MultyTextField: UIView, NibOwnerLoadable {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
-
 
     @discardableResult override func becomeFirstResponder() -> Bool { textViewValue.becomeFirstResponder() }
 
@@ -94,7 +91,6 @@ final class MultyTextField: UIView, NibOwnerLoadable {
     }
 
     @objc private func textFieldChanged() {
-
         if isValidValue == false {
             checkValidValue()
         }
@@ -109,9 +105,9 @@ final class MultyTextField: UIView, NibOwnerLoadable {
         titleLabel.isHidden = isHiddenTitleLabel
 
         if !self.isHiddenTitleLabel {
-            self.titleLabel.alpha = 0
+            titleLabel.alpha = 0
         } else {
-            self.titleLabel.alpha = 1
+            titleLabel.alpha = 1
         }
 
         UIView.animate(withDuration: Constans.animationDuration) {
@@ -143,6 +139,7 @@ final class MultyTextField: UIView, NibOwnerLoadable {
 }
 
 // MARK: ViewConfiguration
+
 extension MultyTextField: ViewConfiguration {
     func update(with model: MultyTextField.Model) {
         titleLabel.text = model.title
@@ -157,9 +154,8 @@ extension MultyTextField: ViewConfiguration {
 // MARK: UITextViewDelegate
 
 extension MultyTextField: UITextViewDelegate {
-
     private func updateTextView(_ text: String?) {
-        self.originalText = text
+        originalText = text
         checkValidValue(text)
         // обратить внимание!!!
         let isEmptyText = !(text?.isEmpty ?? false)
@@ -173,8 +169,7 @@ extension MultyTextField: UITextViewDelegate {
         textView.alignTextVerticallyInContainer()
     }
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-
+    func textView(_: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             checkValidValue()
             if isValidValue {
@@ -190,7 +185,7 @@ extension MultyTextField: UITextViewDelegate {
         } else {
             updateTextView(text)
         }
-        
+
         return false
     }
 }

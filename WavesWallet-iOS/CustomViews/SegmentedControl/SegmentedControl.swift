@@ -6,14 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 fileprivate enum Constants {
-    static let imageEdgeInsetsForButtonWithIcon = UIEdgeInsets.init(top: 0, left: -8, bottom: 0, right: 8)
-    static let contentEdgeInsetsForButtonWithIcon = UIEdgeInsets.init(top: 0, left: 16, bottom: 0, right: 8)
-    static let contentEdgeInsetsForButtonOnlyText = UIEdgeInsets.init(top: 0, left: 24, bottom: 0, right: 24)
+    static let imageEdgeInsetsForButtonWithIcon = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 8)
+    static let contentEdgeInsetsForButtonWithIcon = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 8)
+    static let contentEdgeInsetsForButtonOnlyText = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
     static let cornerRadius: CGFloat = 2
     static let height: CGFloat = 30
 }
@@ -41,7 +42,7 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
         get {
             return scrollView.selectedButtonIndex
         }
-        set (newValue) {
+        set {
             scrollView.selectedWith(index: newValue, animated: false)
         }
     }
@@ -61,15 +62,14 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
         scrollView.changedValue = { [weak self] _ in
             guard let self = self else { return }
             self.sendActions(for: .valueChanged)
-            
         }
     }
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: Constants.height)
     }
-    
-    func setSelectedIndex(_ index: Int, animation: Bool) {
+
+    func setSelectedIndex(_ index: Int, animation _: Bool) {
         guard selectedIndex != index else { return }
         scrollView.selectedWith(index: index, animated: true)
     }
@@ -80,7 +80,7 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
 extension SegmentedControl: ViewAnimatableConfiguration {
     typealias Model = [SegmentedControl.Button]
 
-    func update(with model: [SegmentedControl.Button], animated: Bool) {
+    func update(with model: [SegmentedControl.Button], animated _: Bool) {
         self.model = model
 
         scrollView.removeAllButtons()
@@ -100,7 +100,7 @@ extension SegmentedControl: ViewAnimatableConfiguration {
 fileprivate final class SegmentedControlButton: UIButton, ViewConfiguration {
     private var model: SegmentedControl.Button?
 
-    func update(with model: SegmentedControl.Button) { 
+    func update(with model: SegmentedControl.Button) {
         self.model = model
         setTitle(model.name, for: .normal)
         setBackgroundImage(UIColor.clear.image, for: .normal)
@@ -118,7 +118,7 @@ fileprivate final class SegmentedControlButton: UIButton, ViewConfiguration {
         } else {
             setImage(nil, for: .normal)
             setImage(nil, for: .selected)
-            imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+            imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             contentEdgeInsets = Constants.contentEdgeInsetsForButtonOnlyText
         }
 

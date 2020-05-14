@@ -6,18 +6,18 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class ConfirmRequestButtonsCell: UITableViewCell, Reusable {
-    
     @IBOutlet private var rejectButton: UIButton!
     @IBOutlet private var approveButton: UIButton!
-    
+
     var rejectButtonDidTap: (() -> Void)?
     var approveButtonDidTap: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -25,11 +25,11 @@ final class ConfirmRequestButtonsCell: UITableViewCell, Reusable {
         rejectButton.setTitle(Localizable.Waves.Keeper.Button.reject, for: .normal)
         approveButton.setTitle(Localizable.Waves.Keeper.Button.approve, for: .normal)
     }
-    
+
     @IBAction func rejectHadlerTouch() {
         rejectButtonDidTap?()
     }
-    
+
     @IBAction func approveHadlerTouch() {
         approveButtonDidTap?()
     }

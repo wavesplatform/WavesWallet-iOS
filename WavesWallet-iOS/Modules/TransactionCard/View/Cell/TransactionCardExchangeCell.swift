@@ -1,4 +1,4 @@
-    //
+//
 //  TransactionCardExchangeCell.swift
 //  WavesWallet-iOS
 //
@@ -6,14 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-    import Extensions
+import UITools
 
 final class TransactionCardExchangeCell: UITableViewCell, Reusable {
-
     struct Model {
-
         enum Kind {
             case sell(BalanceLabel.Model)
             case buy(BalanceLabel.Model)
@@ -42,15 +41,13 @@ final class TransactionCardExchangeCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardExchangeCell: ViewConfiguration {
-
     func update(with model: TransactionCardExchangeCell.Model) {
-
         switch model.amount {
-        case .buy(let model):
+        case let .buy(model):
             firstTitleLabel.text = Localizable.Waves.Transactioncard.Title.Exchange.buy
             firstBalanceLabel.update(with: model)
 
-        case .sell(let model):
+        case let .sell(model):
             firstTitleLabel.text = Localizable.Waves.Transactioncard.Title.Exchange.sell
             firstBalanceLabel.update(with: model)
         }
@@ -59,5 +56,3 @@ extension TransactionCardExchangeCell: ViewConfiguration {
         priceBalanceLabel.update(with: model.price)
     }
 }
-
-

@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let cornerRadii = CGSize(width: 2, height: 2)
@@ -15,7 +16,6 @@ private enum Constants {
 }
 
 final class ProfileBackupPhraseCell: UITableViewCell, Reusable {
-
     struct Model {
         let isBackedUp: Bool
         let title: String
@@ -49,7 +49,6 @@ final class ProfileBackupPhraseCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension ProfileBackupPhraseCell: ViewConfiguration {
-
     func update(with model: ProfileBackupPhraseCell.Model) {
         labelTitle.text = model.title
         if model.isBackedUp {

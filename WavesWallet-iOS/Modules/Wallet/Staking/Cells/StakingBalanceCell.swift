@@ -9,6 +9,7 @@
 import DeviceKit
 import Extensions
 import UIKit
+import UITools
 
 private enum Constants {
     static let progressBarPadding: CGFloat = 32
@@ -120,7 +121,7 @@ extension StakingBalanceCell: ViewConfiguration {
         if stakingPercent < Constants.progressBarMinSmallPercent {
             stakingPercent = Constants.progressBarMinSmallPercent
         }
-        
+
         if stakingPercent.isNaN {
             stakingPercent = 0
         }

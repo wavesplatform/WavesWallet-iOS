@@ -102,6 +102,13 @@ internal enum StoryboardScene {
 
     internal static let saveBackupPhraseViewController = SceneType<WavesWallet_iOS.SaveBackupPhraseViewController>(storyboard: Backup.self, identifier: "SaveBackupPhraseViewController")
   }
+  internal enum BuyCryptoViewController: StoryboardType {
+    internal static let storyboardName = "BuyCryptoViewController"
+
+    internal static let initialScene = InitialSceneType<BuyCryptoViewController>(storyboard: BuyCryptoViewController.self)
+
+    internal static let buyCryptoViewController = SceneType<BuyCryptoViewController>(storyboard: BuyCryptoViewController.self, identifier: "BuyCryptoViewController")
+  }
   internal enum ChangePassword: StoryboardType {
     internal static let storyboardName = "ChangePassword"
 

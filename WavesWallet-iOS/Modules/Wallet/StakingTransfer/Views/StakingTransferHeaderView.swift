@@ -6,8 +6,9 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private struct Constants {
     static let cornerRadius: CGFloat = 12
@@ -16,11 +17,10 @@ private struct Constants {
 }
 
 final class StakingTransferHeaderView: UIView, NibLoadable {
-
     struct Model {
         let title: String
     }
-    
+
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var gradientView: UIView!
     @IBOutlet private weak var topBackgroundView: UIView!
@@ -31,7 +31,7 @@ final class StakingTransferHeaderView: UIView, NibLoadable {
             self.separatorView.isHidden = self.isHiddenSepatator
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         separatorView.isHidden = true
@@ -40,13 +40,12 @@ final class StakingTransferHeaderView: UIView, NibLoadable {
         layer.cornerRadius = Constants.cornerRadius
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         topBackgroundView.layer.cornerRadius = Constants.cornerRadius
-        topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]        
+        topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 }
 
 extension StakingTransferHeaderView: ViewConfiguration {
-    
     func update(with model: StakingTransferHeaderView.Model) {
-        self.labelTitle.text = model.title
+        labelTitle.text = model.title
     }
 }

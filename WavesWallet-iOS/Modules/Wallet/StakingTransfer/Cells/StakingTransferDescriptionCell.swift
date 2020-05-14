@@ -6,20 +6,20 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import Foundation
 import Extensions
-import UIKit
+import Foundation
 import TTTAttributedLabel
+import UIKit
+import UITools
 
 final class StakingTransferDescriptionCell: UITableViewCell, NibReusable {
-                        
-    @IBOutlet var titleLabel: TTTAttributedLabel!
-    
+    @IBOutlet private var titleLabel: TTTAttributedLabel!
+
     var didSelectLinkWith: ((URL) -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         titleLabel.activeLinkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.linkAttributes = NSMutableAttributedString.urlAttributted()
         titleLabel.delegate = self
@@ -29,10 +29,8 @@ final class StakingTransferDescriptionCell: UITableViewCell, NibReusable {
 // MARK: ViewConfiguration
 
 extension StakingTransferDescriptionCell: ViewConfiguration {
- 
     func update(with model: NSAttributedString) {
-                
-        titleLabel.text = model                
+        titleLabel.text = model
         titleLabel.addLinks(from: model)
     }
 }
@@ -40,11 +38,9 @@ extension StakingTransferDescriptionCell: ViewConfiguration {
 // MARK: TTTAttributedLabelDelegate
 
 extension StakingTransferDescriptionCell: TTTAttributedLabelDelegate {
-    
-    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-        
+    func attributedLabel(_: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         guard let url = url else { return }
-        
-        self.didSelectLinkWith?(url)
+
+        didSelectLinkWith?(url)
     }
 }

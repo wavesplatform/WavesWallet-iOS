@@ -12,6 +12,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let historyDateFormatterKey: String = "historyDateFormatterKey"
@@ -22,8 +23,8 @@ fileprivate enum Constants {
 final class HistoryViewController: UIViewController {
     typealias Types = HistoryTypes
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var segmentedControl: WalletSegmentedControl!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var segmentedControl: WalletSegmentedControl!
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var emptyTextLabel: UILabel!
     @IBOutlet weak var globalErrorView: GlobalErrorView!

@@ -6,9 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
+import UIKit
+import UITools
 
 private enum Constansts {
     static let height: CGFloat = 76
@@ -16,20 +17,14 @@ private enum Constansts {
 }
 
 final class HistoryTransactionCell: UITableViewCell, Reusable {
-
     @IBOutlet private(set) var transactionView: HistoryTransactionView!
 
-    class func cellHeight() -> CGFloat {
-        return Constansts.height
-    }
-    
-    class func lastCellHeight() -> CGFloat {
-        return Constansts.height + Constansts.lastCellOffset
-    }
+    class func cellHeight() -> CGFloat { Constansts.height }
+
+    class func lastCellHeight() -> CGFloat { Constansts.height + Constansts.lastCellOffset }
 }
 
 extension HistoryTransactionCell: ViewConfiguration {
-    
     func update(with model: SmartTransaction) {
         transactionView.update(with: model)
     }

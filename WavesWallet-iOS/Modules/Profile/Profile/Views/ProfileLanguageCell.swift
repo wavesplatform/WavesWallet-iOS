@@ -6,15 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 56
 }
 
 final class ProfileLanguageCell: UITableViewCell, Reusable {
-
     struct Model {
         let languageIcon: UIImage
     }
@@ -37,7 +37,6 @@ final class ProfileLanguageCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension ProfileLanguageCell: ViewConfiguration {
-
     func update(with model: ProfileLanguageCell.Model) {
         iconLanguage.image = model.languageIcon
         labelTitle.text = Localizable.Waves.Profile.Cell.Language.title

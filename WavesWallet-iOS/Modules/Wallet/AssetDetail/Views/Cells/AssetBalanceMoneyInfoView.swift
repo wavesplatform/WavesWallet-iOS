@@ -8,6 +8,7 @@
 
 import Extensions
 import UIKit
+import UITools
 
 final class AssetBalanceMoneyInfoView: UIView, NibOwnerLoadable, ViewConfiguration {
     struct Model {

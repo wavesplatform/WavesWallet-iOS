@@ -6,10 +6,11 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import DomainLayer
 import Extensions
+import RxSwift
+import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let height: CGFloat = 56
@@ -24,19 +25,19 @@ final class WalletSortCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var switchControl: UISwitch!
     @IBOutlet private weak var viewShadow: UIView!
-        
+
     private var disposeBag = DisposeBag()
     private var assetType = AssetType.list
-    
+
     private var isHiddenWhiteContainer = false
     private var isMovingAnimation = false
-    
+
     var isBlockedCell = false
-    
+
     var changedValueSwitchControl: (() -> Void)?
-    var favouriteButtonTapped:(() -> Void)?
-    var didBlockAllActions:(() -> Void)?
-    
+    var favouriteButtonTapped: (() -> Void)?
+    var didBlockAllActions: (() -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -47,8 +48,7 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         switchControl.addTarget(self, action: #selector(changedValueSwitchAction), for: .valueChanged)
         buttonFav.addTarget(self, action: #selector(favouriteTapped), for: .touchUpInside)
     }
-    
-  
+
     override func prepareForReuse() {
         super.prepareForReuse()
         imageIcon.image = nil
@@ -58,39 +58,36 @@ final class WalletSortCell: UITableViewCell, NibReusable {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if alpha <= Constants.movedRowAlpha && !isMovingAnimation {
+        if alpha <= Constants.movedRowAlpha, !isMovingAnimation {
             updateBackground()
         }
     }
-    
+
     @objc private func favouriteTapped() {
         if isBlockedCell {
             return
         }
-        
+
         didBlockAllActions?()
 
         favouriteButtonTapped?()
         ImpactFeedbackGenerator.impactOccurred()
-        
+
         if assetType == .favourite {
-            buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
-        }
-        else {
-            buttonFav.setImage(Images.favorite14Submit300.image , for: .normal)
+            buttonFav.setImage(Images.iconFavEmpty.image, for: .normal)
+        } else {
+            buttonFav.setImage(Images.favorite14Submit300.image, for: .normal)
         }
         switchControl.setOn(true, animated: true)
-        
+
         if assetType == .list {
             showBackgroundContentWithAnimation(isVisible: false)
-        }
-        else if assetType == .favourite {
+        } else if assetType == .favourite {
             showBackgroundContentWithAnimation(isVisible: true)
         }
     }
-    
+
     @objc private func changedValueSwitchAction() {
-        
         if isBlockedCell {
             return
         }
@@ -98,34 +95,32 @@ final class WalletSortCell: UITableViewCell, NibReusable {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.delaySwitch) {
             self.changedValueSwitchControl?()
-            
-            self.buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
-           
+
+            self.buttonFav.setImage(Images.iconFavEmpty.image, for: .normal)
+
             if self.assetType == .hidden {
                 self.showBackgroundContentWithAnimation(isVisible: true)
-            }
-            else if self.assetType == .list {
+            } else if self.assetType == .list {
                 self.showBackgroundContentWithAnimation(isVisible: false)
             }
         }
     }
-    
+
     func showAnimationToFavoriteState() {
         isMovingAnimation = true
-        buttonFav.setImage(Images.favorite14Submit300.image , for: .normal)
+        buttonFav.setImage(Images.favorite14Submit300.image, for: .normal)
         showBackgroundContentWithAnimation(isVisible: false)
-
     }
-    
+
     func showAnimationToHiddenState() {
         isMovingAnimation = true
-        buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
+        buttonFav.setImage(Images.iconFavEmpty.image, for: .normal)
         showBackgroundContentWithAnimation(isVisible: false)
     }
-    
+
     func showAnimationToListState() {
         isMovingAnimation = true
-        buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
+        buttonFav.setImage(Images.iconFavEmpty.image, for: .normal)
         showBackgroundContentWithAnimation(isVisible: true)
     }
 }
@@ -137,24 +132,20 @@ extension WalletSortCell: ViewHeight {
 }
 
 private extension WalletSortCell {
-    
     func updateBackground() {
-
         if assetType == .favourite || assetType == .hidden {
             viewShadow.alpha = 0
             isHiddenWhiteContainer = true
 
         } else {
-         
             viewShadow.alpha = 1
             viewShadow.backgroundColor = .white
             viewShadow.addTableCellShadowStyle()
             isHiddenWhiteContainer = false
         }
     }
-    
+
     func showBackgroundContentWithAnimation(isVisible: Bool) {
-        
         if isVisible {
             if !isHiddenWhiteContainer {
                 return
@@ -165,8 +156,7 @@ private extension WalletSortCell {
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.viewShadow.alpha = 1
             }
-        }
-        else {
+        } else {
             if isHiddenWhiteContainer {
                 return
             }
@@ -179,14 +169,14 @@ private extension WalletSortCell {
 }
 
 // MARK: ViewConfiguration
+
 extension WalletSortCell: ViewConfiguration {
-    
     enum AssetType {
         case favourite
         case list
         case hidden
     }
-    
+
     struct Model {
         let name: String
         let isMyWavesToken: Bool
@@ -198,25 +188,23 @@ extension WalletSortCell: ViewConfiguration {
         let isSponsored: Bool
         let hasScript: Bool
         let type: AssetType
-        
     }
-    
+
     func update(with model: Model) {
-        
         isMovingAnimation = false
-        
+
         let image = model.isFavorite ? Images.favorite14Submit300.image : Images.iconFavEmpty.image
-        buttonFav.setImage(image , for: .normal)
+        buttonFav.setImage(image, for: .normal)
         labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
                                                                            isMyAsset: model.isMyWavesToken)
-    
+
         switchControl.isHidden = !model.isVisibility
         switchControl.isOn = !model.isHidden
         assetType = model.type
-        
+
         isBlockedCell = false
         updateBackground()
-        
+
         AssetLogo.logo(icon: model.icon,
                        style: .medium)
             .observeOn(MainScheduler.instance)

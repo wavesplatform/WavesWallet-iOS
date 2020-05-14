@@ -6,21 +6,21 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import Foundation
 import Extensions
-import UIKit
+import Foundation
 import TTTAttributedLabel
+import UIKit
+import UITools
 
 final class StakingTransferButtonCell: UITableViewCell, NibReusable {
-                        
     @IBOutlet private var button: BlueButton!
-    
+
     var didTouchButton: (() -> Void)? {
         didSet {
             button.didTouchButton = didTouchButton
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         button.didTouchButton = didTouchButton
@@ -30,9 +30,7 @@ final class StakingTransferButtonCell: UITableViewCell, NibReusable {
 // MARK: ViewConfiguration
 
 extension StakingTransferButtonCell: ViewConfiguration {
- 
     func update(with model: BlueButton.Model) {
         button.update(with: model)
     }
 }
-

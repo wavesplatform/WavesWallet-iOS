@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let padding: CGFloat = 16
@@ -21,7 +22,6 @@ fileprivate enum Constants {
 }
 
 final class WalletQuickNoteCell: UITableViewCell, NibReusable {
-
     typealias Model = Void
 
     @IBOutlet private weak var viewContent: UIView!
@@ -37,7 +37,6 @@ final class WalletQuickNoteCell: UITableViewCell, NibReusable {
     }
 
     class func cellHeight(with width: CGFloat) -> CGFloat {
-        
         let font = UIFont.systemFont(ofSize: 13)
         let text1 = Localizable.Waves.Wallet.Label.Quicknote.Description.first
         let text2 = Localizable.Waves.Wallet.Label.Quicknote.Description.second
@@ -45,7 +44,9 @@ final class WalletQuickNoteCell: UITableViewCell, NibReusable {
 
         var height = text1.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2)
         height += Constants.paddingSeparatorTop + Constants.separatorHeight + Constants.paddingSecondTitleTop
-        height += text2.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2 - Constants.pictureSize - Constants.paddingPictureRight)
+        height += text2
+            .maxHeightMultiline(font: font,
+                                forWidth: width - Constants.padding * 2 - Constants.pictureSize - Constants.paddingPictureRight)
         height += Constants.paddingSeparatorTop + Constants.separatorHeight + Constants.paddingThirdTitleTop
         height += text3.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2)
         return height + Constants.paddingThirdTitleBottom
@@ -65,8 +66,7 @@ extension WalletQuickNoteCell: Localization {
 // MARK: ViewConfiguration
 
 extension WalletQuickNoteCell: ViewConfiguration {
-
-    func update(with model: Void) {
+    func update(with _: Void) {
         setupLocalization()
     }
 }

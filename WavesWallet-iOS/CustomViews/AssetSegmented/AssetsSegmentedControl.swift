@@ -11,6 +11,7 @@ import Extensions
 import Foundation
 import InfiniteCollectionView
 import UIKit
+import UITools
 import UPCarouselFlowLayout
 
 fileprivate enum Constants {

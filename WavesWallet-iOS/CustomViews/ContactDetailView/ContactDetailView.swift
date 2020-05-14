@@ -6,12 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class ContactDetailView: UIView, NibOwnerLoadable {
-
     struct Model {
         let title: String
         let address: String
@@ -19,11 +19,8 @@ final class ContactDetailView: UIView, NibOwnerLoadable {
     }
 
     @IBOutlet private var titleLabel: UILabel!
-
     @IBOutlet private var nameLabel: UILabel!
-
     @IBOutlet private var addressLabel: UILabel!
-
     @IBOutlet private var stackView: UIStackView!
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,20 +36,18 @@ final class ContactDetailView: UIView, NibOwnerLoadable {
 // MARK: ViewConfiguration
 
 extension ContactDetailView: ViewConfiguration {
-
     func update(with model: Model) {
-
-        self.titleLabel.text = model.title
+        titleLabel.text = model.title
 
         if let name = model.name {
-            self.nameLabel.text = name
-            self.nameLabel.isHidden = false
-            self.addressLabel.font = UIFont.systemFont(ofSize: 10)
+            nameLabel.text = name
+            nameLabel.isHidden = false
+            addressLabel.font = UIFont.systemFont(ofSize: 10)
         } else {
-            self.nameLabel.isHidden = true
-            self.addressLabel.font = UIFont.systemFont(ofSize: 13)
+            nameLabel.isHidden = true
+            addressLabel.font = UIFont.systemFont(ofSize: 13)
         }
 
-        self.addressLabel.text = model.address
+        addressLabel.text = model.address
     }
 }

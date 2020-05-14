@@ -6,22 +6,20 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
-import RxSwift
 import DomainLayer
 import Extensions
+import Foundation
+import RxSwift
+import UIKit
+import UITools
 
 final class TransactionCardAssetCell: UITableViewCell, Reusable {
-
     struct Model {
         let asset: Asset
     }
 
     @IBOutlet private var titleLabel: UILabel!
-
     @IBOutlet private var nameLabel: UILabel!
-
     @IBOutlet private var iconImageView: UIImageView!
 
     private var disposeBag = DisposeBag()
@@ -36,11 +34,9 @@ final class TransactionCardAssetCell: UITableViewCell, Reusable {
     }
 
     private func loadIcon(asset: Asset) {
-
         disposeBag = DisposeBag()
 
-        AssetLogo.logo(icon: asset.iconLogo,
-                       style: .large)
+        AssetLogo.logo(icon: asset.iconLogo, style: .large)
             .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconImageView.rx.image)
             .disposed(by: disposeBag)
@@ -50,12 +46,9 @@ final class TransactionCardAssetCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardAssetCell: ViewConfiguration {
-
     func update(with model: Model) {
-        
         titleLabel.text = Localizable.Waves.Transactioncard.Title.asset
         nameLabel.text = model.asset.displayName
         loadIcon(asset: model.asset)
     }
 }
-

@@ -6,8 +6,9 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private struct Constants {
     static let cornerRadius: CGFloat = 12
@@ -16,7 +17,6 @@ private struct Constants {
 }
 
 final class TransactionCardHeaderView: UIView, NibLoadable {
-
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var gradientView: UIView!
     @IBOutlet private weak var topBackgroundView: UIView!
@@ -29,7 +29,7 @@ final class TransactionCardHeaderView: UIView, NibLoadable {
     }
 
     override func awakeFromNib() {
-        super.awakeFromNib()        
+        super.awakeFromNib()
         isUserInteractionEnabled = false
         backgroundColor = .clear
         layer.cornerRadius = Constants.cornerRadius

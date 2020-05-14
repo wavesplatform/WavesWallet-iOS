@@ -8,6 +8,7 @@
 
 import Extensions
 import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let heightViewWithoutBalances: CGFloat = 208

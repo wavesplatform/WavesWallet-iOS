@@ -6,9 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import Extensions
+import RxSwift
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 62
@@ -16,16 +17,15 @@ private enum Constants {
 }
 
 final class CreateAliasInputCell: UITableViewCell, Reusable {
-
     @IBOutlet private var inputTextField: InputTextField!
     @IBOutlet private weak var viewFeeError: UIView!
     @IBOutlet private weak var labelFeeError: UILabel!
-    
+
     var disposeBag: DisposeBag = DisposeBag()
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.disposeBag = DisposeBag()
+        disposeBag = DisposeBag()
     }
 
     override func awakeFromNib() {
@@ -39,40 +39,36 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
     }
 
     lazy var textFieldShouldReturn: Observable<Void> = {
-
-        return Observable.create({ [weak self] observer -> Disposable in
+        Observable.create { [weak self] observer -> Disposable in
             guard let self = self else { return Disposables.create() }
             self.inputTextField.textFieldShouldReturn = { [weak self] _ in
                 observer.onNext(())
             }
             return Disposables.create()
-        })
+        }
     }()
 
     lazy var textFieldChangedValue: Observable<String?> = {
-
-        return Observable.create({ [weak self] observer -> Disposable in
+        Observable.create { [weak self] observer -> Disposable in
             guard let self = self else { return Disposables.create() }
-            self.inputTextField.changedValue = { [weak self] isValidData, text in
+            self.inputTextField.changedValue = { [weak self] _, text in
                 observer.onNext(text)
             }
             return Disposables.create()
-        })
+        }
     }()
 
     var error: String? {
-
         get {
-            return self.inputTextField.error
+            return inputTextField.error
         }
 
         set {
-            self.inputTextField.error = newValue
+            inputTextField.error = newValue
         }
     }
 
     private func setupTextField() {
-
         inputTextField.autocapitalizationType = nil
 
         let title = Localizable.Waves.Createalias.Cell.Input.Textfiled.Input.title
@@ -89,7 +85,6 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension CreateAliasInputCell: ViewConfiguration {
-
     struct Model {
         let text: String?
         let error: String?
@@ -106,18 +101,14 @@ extension CreateAliasInputCell: ViewConfiguration {
 // MARK: ViewCalculateHeight
 
 extension CreateAliasInputCell: ViewCalculateHeight {
-
-    static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
-        
+    static func viewHeight(model: Model, width _: CGFloat) -> CGFloat {
         return Constants.height + (model.isValidFee ? 0 : Constants.errorFeeHeight)
     }
 }
 
-
 // MARK: Localization
 
 extension CreateAliasInputCell: Localization {
-
     func setupLocalization() {
         labelFeeError.text = Localizable.Waves.Send.Label.Error.notFundsFee
     }

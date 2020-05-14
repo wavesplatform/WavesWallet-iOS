@@ -11,6 +11,7 @@ import Extensions
 import Foundation
 import RxSwift
 import UIKit
+import UITools
 
 private typealias Types = TransactionCard
 
@@ -119,18 +120,18 @@ final class TransactionCardScroll: ModalTableView {
 private final class ArrowButton: UIButton {}
 
 final class TransactionCardViewController: ModalScrollViewController, DataSourceProtocol {
-    @IBOutlet var tableView: TransactionCardScroll!
+    @IBOutlet private var tableView: TransactionCardScroll!
 
     override var scrollView: UIScrollView {
-        return tableView!
+        tableView
     }
 
     private var rootView: TransactionCardView {
-        return view as! TransactionCardView
+        view as! TransactionCardView
     }
 
     fileprivate var arrowButton: UIButton {
-        return tableView.arrowButton
+        tableView.arrowButton
     }
 
     fileprivate let cardHeaderView: TransactionCardHeaderView = TransactionCardHeaderView.loadView() as! TransactionCardHeaderView
@@ -166,11 +167,11 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     // MARK: ModalScrollViewContext
 
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return size.height
+        size.height
     }
 
     override func bottomScrollInset(for _: CGSize) -> CGFloat {
-        return Constants.sizeArrowButton.height + Constants.bottomPaddingArrowButton
+        Constants.sizeArrowButton.height + Constants.bottomPaddingArrowButton
     }
 
     override func viewDidLayoutSubviews() {

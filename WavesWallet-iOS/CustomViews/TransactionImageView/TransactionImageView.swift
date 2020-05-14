@@ -6,12 +6,12 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class TransactionImageView: UIView, NibOwnerLoadable {
-
     typealias Model = UIImage
 
     @IBOutlet private var imageView: UIImageView!
@@ -25,7 +25,6 @@ final class TransactionImageView: UIView, NibOwnerLoadable {
 // MARK: ViewConfiguration
 
 extension TransactionImageView: ViewConfiguration {
-
     func update(with model: TransactionImageView.Model) {
         imageView.image = model
     }

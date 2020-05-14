@@ -11,6 +11,7 @@ import Extensions
 import Foundation
 import RxSwift
 import UIKit
+import UITools
 
 private struct Constants {
     static let headerHeight: CGFloat = 42

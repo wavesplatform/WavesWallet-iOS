@@ -1,9 +1,9 @@
 //
-//  UICollectionView.swift
-//  WavesWallet-iOS
+//  UICollectionView+Reusable.swift
+//  UITools
 //
-//  Created by mefilt on 08.08.2018.
-//  Copyright © 2018 Waves Exchange. All rights reserved.
+//  Created by vvisotskiy on 13.05.2020.
+//  Copyright © 2020 WAVES PLATFORM LTD. All rights reserved.
 //
 
 import UIKit

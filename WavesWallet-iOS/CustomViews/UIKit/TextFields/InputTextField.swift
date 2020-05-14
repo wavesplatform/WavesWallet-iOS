@@ -8,6 +8,7 @@
 
 import Extensions
 import UIKit
+import UITools
 
 final class InputTextField: UIView, NibOwnerLoadable {
     enum Kind {
@@ -257,7 +258,7 @@ extension InputTextField: ViewConfiguration {
 // MARK: UITextFieldDelegate
 
 extension InputTextField: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_: UITextField) {
         DispatchQueue.main.async {
             self.textFieldValue.selectedTextRange = self.textFieldValue.textRange(from: self.textFieldValue.endOfDocument,
                                                                                   to: self.textFieldValue.endOfDocument)
@@ -265,11 +266,11 @@ extension InputTextField: UITextFieldDelegate {
         separatorView.backgroundColor = .submit400
     }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_: UITextField) {
         separatorView.backgroundColor = .accent100
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_: UITextField) -> Bool {
         checkValidValue()
         if isValidValue {
             textFieldShouldReturn?(self)

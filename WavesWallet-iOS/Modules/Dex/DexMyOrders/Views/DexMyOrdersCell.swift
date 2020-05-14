@@ -6,11 +6,12 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
 import Extensions
-import RxSwift
 import MGSwipeTableCell
+import RxSwift
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 90
@@ -18,7 +19,6 @@ private enum Constants {
 }
 
 final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
-
     @IBOutlet private weak var imageViewIcon1: UIImageView!
     @IBOutlet private weak var imageViewIcon2: UIImageView!
     @IBOutlet private weak var labelDate: UILabel!
@@ -35,14 +35,14 @@ final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
     @IBOutlet private weak var labelFilledPercent: UILabel!
     @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var labelFilled: UILabel!
-    
+
     @IBOutlet private var labels: [UILabel]!
-    
+
     private var disposeBag = DisposeBag()
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         for label in labels {
             label.font = UIFont.robotoRegular(size: label.font.pointSize)
         }
@@ -50,7 +50,7 @@ final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
         imageViewIcon1.addAssetPairIconShadow()
         imageViewIcon2.addAssetPairIconShadow()
     }
-    
+
     private func setupLocalization() {
         labelAmountTitle.text = Localizable.Waves.Dexmyorders.Label.amount
         labelSumTitle.text = Localizable.Waves.Dexmyorders.Label.sum
@@ -58,7 +58,7 @@ final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
         labelPriceTitle.text = Localizable.Waves.Dexmyorders.Label.price
         labelStatusTitle.text = Localizable.Waves.Dexmyorders.Label.status
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         imageViewIcon1.image = nil
@@ -74,16 +74,14 @@ extension DexMyOrdersCell: ViewHeight {
 }
 
 extension DexMyOrdersCell: ViewConfiguration {
-    
     struct Model {
         let order: DomainLayer.DTO.Dex.MyOrder
         let index: Int
     }
-    
+
     func update(with model: Model) {
-                
         let order = model.order
-        
+
         labelAssets.text = order.amountAsset.shortName + "/" + order.priceAsset.shortName
         labelAmount.text = order.amount.displayText
         labelSum.text = order.totalBalance.money.displayText
@@ -102,12 +100,12 @@ extension DexMyOrdersCell: ViewConfiguration {
         if order.status == .cancelled {
             contentView.alpha = Constants.canceledAlpha
         }
-        
+
         AssetLogo.logo(icon: order.amountAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon1.rx.image)
             .disposed(by: disposeBag)
-        
+
         AssetLogo.logo(icon: order.priceAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon2.rx.image)
@@ -116,19 +114,19 @@ extension DexMyOrdersCell: ViewConfiguration {
 }
 
 // MARK: - DomainLayer.DTO.Dex.MyOrder
+
 fileprivate extension DomainLayer.DTO.Dex.MyOrder {
-    
     var statusText: String {
         switch status {
         case .accepted:
             return Localizable.Waves.Dexmyorders.Label.Status.accepted
-            
+
         case .partiallyFilled:
             return Localizable.Waves.Dexmyorders.Label.Status.partiallyFilled
-            
+
         case .cancelled:
             return Localizable.Waves.Dexmyorders.Label.Status.cancelled
-            
+
         case .filled:
             return Localizable.Waves.Dexmyorders.Label.Status.filled
         }

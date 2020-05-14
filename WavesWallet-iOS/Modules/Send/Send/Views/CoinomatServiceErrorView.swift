@@ -6,8 +6,9 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let spaceBetweenTitles: CGFloat = 6
@@ -15,24 +16,23 @@ private enum Constants {
 }
 
 final class CoinomatServiceErrorView: UIView, NibOwnerLoadable {
-
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         labelTitle.text = Localizable.Waves.Coinomat.temporarilyUnavailable
         labelSubtitle.text = Localizable.Waves.Coinomat.tryAgain
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         var height: CGFloat = 0
         height += labelTitle.text?.maxHeight(font: labelTitle.font, forWidth: frame.size.width - Constants.leftOffset) ?? 0
         height += Constants.spaceBetweenTitles
@@ -43,8 +43,7 @@ final class CoinomatServiceErrorView: UIView, NibOwnerLoadable {
 
 private extension CoinomatServiceErrorView {
     var heightConstraint: NSLayoutConstraint {
-        
-        if let constraint = constraints.first(where: {$0.firstAttribute == .height}) {
+        if let constraint = constraints.first(where: { $0.firstAttribute == .height }) {
             return constraint
         }
         return NSLayoutConstraint()

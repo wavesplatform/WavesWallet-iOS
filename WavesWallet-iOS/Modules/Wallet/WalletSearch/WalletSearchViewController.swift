@@ -12,6 +12,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import UITools
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3

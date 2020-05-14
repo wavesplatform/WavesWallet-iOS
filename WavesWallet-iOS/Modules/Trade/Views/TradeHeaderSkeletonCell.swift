@@ -6,23 +6,21 @@
 //  Copyright © 2020 Waves.Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 38
 }
 
 final class TradeHeaderSkeletonCell: SkeletonTableCell, NibReusable {
-
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
 }
 
 extension TradeHeaderSkeletonCell: ViewHeight {
-    
     static func viewHeight() -> CGFloat {
         return Constants.height
     }

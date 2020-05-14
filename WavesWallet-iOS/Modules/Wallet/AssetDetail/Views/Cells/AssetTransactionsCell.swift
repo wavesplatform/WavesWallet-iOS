@@ -9,6 +9,7 @@
 import DomainLayer
 import Extensions
 import UIKit
+import UITools
 
 fileprivate enum Constants {
     static let collectionViewSpacing: CGFloat = 16
@@ -67,7 +68,8 @@ extension AssetTransactionsCell: UICollectionViewDelegate {
 extension AssetTransactionsCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout,
                         sizeForItemAt _: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - Constants.contentInsetHorizontal, height: AssetTransactionsCell.cellHeight())
+        return CGSize(width: collectionView.frame.width - Constants.contentInsetHorizontal,
+                      height: AssetTransactionsCell.cellHeight())
     }
 }
 

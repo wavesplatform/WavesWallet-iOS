@@ -6,16 +6,15 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 final class WidgetSettingsSkeletonCell: SkeletonTableCell, Reusable {
-    
-    @IBOutlet weak var viewContainer: UIView!
-    
+    @IBOutlet private weak var viewContainer: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
     }
 }
-

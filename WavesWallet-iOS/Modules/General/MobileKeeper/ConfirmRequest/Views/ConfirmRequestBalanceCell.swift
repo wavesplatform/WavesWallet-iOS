@@ -6,20 +6,20 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class ConfirmRequestBalanceCell: UITableViewCell, Reusable {
-    
     struct Model {
         let title: String
         let feeBalance: BalanceLabel.Model
     }
-    
+
     @IBOutlet private var balanceTitleLabel: UILabel!
     @IBOutlet private var balanceLabel: BalanceLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -30,10 +30,8 @@ final class ConfirmRequestBalanceCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension ConfirmRequestBalanceCell: ViewConfiguration {
-    
     func update(with model: Model) {
-        self.balanceTitleLabel.text = model.title
-        self.balanceLabel.update(with: model.feeBalance)
+        balanceTitleLabel.text = model.title
+        balanceLabel.update(with: model.feeBalance)
     }
 }
-

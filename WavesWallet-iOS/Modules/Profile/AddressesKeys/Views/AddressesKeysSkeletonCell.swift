@@ -6,27 +6,20 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 60
 }
 
 final class AddressesKeysSkeletonCell: SkeletonTableCell, Reusable {
-
-    @IBOutlet var viewContent: UIView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    @IBOutlet private var viewContent: UIView!
 }
 
 // MARK: ViewHeight
 
 extension AddressesKeysSkeletonCell: ViewHeight {
-
-    static func viewHeight() -> CGFloat {
-        return Constants.height
-    }
+    static func viewHeight() -> CGFloat { Constants.height }
 }

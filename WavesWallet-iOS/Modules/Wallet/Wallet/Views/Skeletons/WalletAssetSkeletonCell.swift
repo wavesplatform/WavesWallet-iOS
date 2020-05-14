@@ -6,9 +6,10 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import UIKit
-import Extensions
+import UITools
 
 final class WalletAssetSkeletonCell: SkeletonTableCell, NibReusable {
     @IBOutlet private weak var viewContent: UIView!
@@ -21,5 +22,5 @@ final class WalletAssetSkeletonCell: SkeletonTableCell, NibReusable {
 
     class func cellHeight() -> CGFloat {
         return 76
-    }    
+    }
 }

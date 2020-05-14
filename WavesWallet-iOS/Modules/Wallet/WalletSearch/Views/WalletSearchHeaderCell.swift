@@ -6,17 +6,17 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import Extensions
+import UIKit
+import UITools
 
 private enum Constants {
     static let height: CGFloat = 52
 }
 
 final class WalletSearchHeaderCell: UITableViewCell, NibReusable {
-
     @IBOutlet private weak var labelTitle: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,12 +30,11 @@ final class WalletSearchHeaderCell: UITableViewCell, NibReusable {
 }
 
 extension WalletSearchHeaderCell: ViewConfiguration {
-
     func update(with model: WalletSearch.ViewModel.Kind) {
         switch model {
         case .hidden:
             labelTitle.text = Localizable.Waves.Walletsearch.Label.hiddenTokens
-        
+
         case .spam:
             labelTitle.text = Localizable.Waves.Walletsearch.Label.suspiciousTokens
         default:
@@ -45,7 +44,6 @@ extension WalletSearchHeaderCell: ViewConfiguration {
 }
 
 extension WalletSearchHeaderCell: ViewHeight {
- 
     static func viewHeight() -> CGFloat {
         return Constants.height
     }

@@ -10,6 +10,7 @@ import Extensions
 import RxSwift
 import UIKit
 import UITools
+import WavesUIKit
 
 final class PayoutsTransactionCollectionViewCell: UICollectionViewContainerCell<PayoutsTransactionView>, ViewConfiguration {
     private var disposeBag = DisposeBag()

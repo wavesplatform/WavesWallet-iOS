@@ -6,13 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import DomainLayer
 import Extensions
+import Foundation
+import UIKit
+import UITools
 
 final class TransactionCardAddressCell: UITableViewCell, Reusable {
-
     struct Model {
         let contact: DomainLayer.DTO.Contact?
         let contactDetail: ContactDetailView.Model
@@ -21,13 +21,9 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
     }
 
     @IBOutlet private var contactDetailView: ContactDetailView!
-
     @IBOutlet private var copyButton: PasteboardButton!
-
     @IBOutlet private var addressBookButton: AddressBookButton!
-
     @IBOutlet private var spamView: TickerView!
-
     @IBOutlet private var stackView: UIStackView!
 
     private var model: Model?
@@ -50,7 +46,7 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
         spamView.isHidden = isHidden
     }
 
-    @IBAction private func actionAddressBookButton(_ sender: Any) {
+    @IBAction private func actionAddressBookButton(_: Any) {
         tapAddressBookButton?(!(model?.isEditName ?? false))
     }
 }
@@ -58,9 +54,7 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
 // MARK: ViewConfiguration
 
 extension TransactionCardAddressCell: ViewConfiguration {
-
     func update(with model: Model) {
-
         self.model = model
 
         contactDetailView.update(with: model.contactDetail)
@@ -72,4 +66,3 @@ extension TransactionCardAddressCell: ViewConfiguration {
         setHiddenSpam(!model.isSpam)
     }
 }
-
