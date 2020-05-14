@@ -117,7 +117,7 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
                                                       token: token,
                                                       query: adCashDepositsRegisterOrder),
                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                .filterSuccessfulStatusAndRedirectCodes()
+            .filterSuccessfulStatusAndRedirectCodes()
                 .map(RegisterOrderResponse.self)
                 .map { response -> DomainLayer.DTO.WEGateway.Order? in
                     guard let url = response.createAdCashUrl(amount: amount, currency: Constants.currencyForLink) else {

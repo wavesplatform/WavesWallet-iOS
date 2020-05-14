@@ -39,8 +39,7 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
                 
                 guard let self = self else { return Observable.never() }
                                 
-                let oauthToken = self.oAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
-                                                                 signedWallet: signedWallet)
+                let oauthToken = self.oAuthRepository.oauthToken(signedWallet: signedWallet)
                 
                 return oauthToken
                     .flatMap { [weak self] token -> Observable<DomainLayer.DTO.WEGateway.ReceiveBinding> in
@@ -79,8 +78,7 @@ final class WEGatewayUseCase: WEGatewayUseCaseProtocol {
                 
                 guard let self = self else { return Observable.never() }
                                 
-                let oauthToken = self.oAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
-                                                                 signedWallet: signedWallet)
+                let oauthToken = self.oAuthRepository.oauthToken(signedWallet: signedWallet)
                 
                 return oauthToken
                     .flatMap { [weak self] token -> Observable<DomainLayer.DTO.WEGateway.SendBinding> in
