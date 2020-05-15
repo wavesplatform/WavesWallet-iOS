@@ -74,7 +74,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                               remoteAuthenticationRepository: repositories.authenticationRepositoryRemote,
                                               accountSettingsRepository: repositories.accountSettingsRepository,
                                               localizable: self.authorizationInteractorLocalizable,
-                                              analyticManager: self.analyticManager)
+                                              analyticManager: self.analyticManager,
+                                              userRepository: self.repositories.userRepository)
 
         return interactor
     }()
@@ -137,16 +138,16 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     }()
 
     public private(set) lazy var weGatewayUseCase: WEGatewayUseCaseProtocol = {
-        let useCase = WEGatewayUseCase(gatewayRepository: repositories.weGatewayRepositoryProtocol,
-                                       oAuthRepository: repositories.weOAuthRepositoryProtocol,
+        let useCase = WEGatewayUseCase(gatewayRepository: repositories.weGatewayRepository,
+                                       oAuthRepository: repositories.weOAuthRepository,
                                        authorizationUseCase: self.authorization,
                                        serverEnvironmentUseCase: serverEnvironmentUseCase)
         return useCase
     }()
 
     public private(set) lazy var adCashDepositsUseCase: AdCashDepositsUseCaseProtocol = {
-        let useCase = ACashDepositsUseCase(gatewayRepository: repositories.weGatewayRepositoryProtocol,
-                                           oAuthRepository: repositories.weOAuthRepositoryProtocol,
+        let useCase = ACashDepositsUseCase(gatewayRepository: repositories.weGatewayRepository,
+                                           oAuthRepository: repositories.weOAuthRepository,
                                            authorizationUseCase: self.authorization,
                                            assetsUseCase: self.assets,
                                            serverEnvironmentUseCase: serverEnvironmentUseCase)

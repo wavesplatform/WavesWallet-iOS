@@ -82,8 +82,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                 
                 guard let self = self else { return Observable.never() }
                 
-                let oauthToken = self.oAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
-                                                                 signedWallet: signedWallet)
+                let oauthToken = self.oAuthRepository.oauthToken(signedWallet: signedWallet)
                 
                 return oauthToken
                     .flatMap { [weak self] token -> Observable<DomainLayer.DTO.AdCashDeposits.RequirementsOrder> in
@@ -149,8 +148,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                                                 
                 let oauthToken = self
                     .oAuthRepository
-                    .oauthToken(serverEnvironment: serverEnvironment,
-                                signedWallet: signedWallet)
+                    .oauthToken(signedWallet: signedWallet)
                 
                 return oauthToken
                     .flatMap { [weak self] token -> Observable<(DomainLayer.DTO.WEGateway.TransferBinding,

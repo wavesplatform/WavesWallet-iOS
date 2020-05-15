@@ -6,10 +6,10 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import DomainLayer
 import Amplitude_iOS
+import DomainLayer
 import FirebaseAnalytics
+import Foundation
 import WavesSDKCrypto
 
 private struct Constants {
@@ -17,20 +17,23 @@ private struct Constants {
 }
 
 public final class AnalyticManager: AnalyticManagerProtocol {
+    private var uid: String?
 
-    private var auuid: String? = nil
-    
-    public func setAUUID(_ AUUID: String) {
-        self.auuid = AUUID
+    public func setUID(uid: String) {
+        self.uid = uid
     }
-    
+
     public func trackEvent(_ event: AnalyticManagerEvent) {
-        
         var params = event.params
-        if let auuid = auuid {
-            params[Constants.AUUIDKey] = auuid
+        if let uid = uid {
+            params["userId"] = uid
+            Amplitude.instance()?.setUserId(uid)
+            Analytics.setUserID(uid)
         }
-        
+
+        params["userType"] = "seed"
+        params["platform"] = "iOS"
+
         Amplitude.instance().logEvent(event.name, withEventProperties: params)
         Analytics.logEvent(event.name.replacingOccurrences(of: " ", with: "_"), parameters: params)
     }
