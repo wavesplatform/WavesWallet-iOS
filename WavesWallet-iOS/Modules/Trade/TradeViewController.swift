@@ -56,7 +56,7 @@ final class TradeViewController: UIViewController {
                                                   style: .plain,
                                                   target: self,
                                                   action: #selector(searchTapped))
-        let ordersBarButtonItem = UIBarButtonItem(image: Images.orders.image,
+        let ordersBarButtonItem = UIBarButtonItem(image: Images.deleteAllOrders22.image,
                                                   style: .plain,
                                                   target: self,
                                                   action: #selector(myOrdersTapped))

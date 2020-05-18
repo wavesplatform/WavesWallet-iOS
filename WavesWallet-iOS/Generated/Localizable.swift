@@ -3365,7 +3365,7 @@ internal enum Localizable {
           }
 
           internal enum Button {
-            /// Continue
+            /// Ok
             internal static var ok: String { Localizable.tr("Waves", "trade.message.pairlocked.button.ok") }
             internal static var okKey: String { "trade.message.pairlocked.button.ok" }
           }
