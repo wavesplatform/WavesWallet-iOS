@@ -11,6 +11,7 @@
         <!--Wallet Search View Controller-->
         <scene sceneID="WfG-aF-iag">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iDg-yc-HaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="WalletSearchViewController" id="U1L-Tr-bv8" customClass="WalletSearchViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wOo-tk-Klb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -109,14 +110,13 @@
                         <outlet property="viewContainer" destination="OFc-Rb-M50" id="PZ6-u2-vSd"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iDg-yc-HaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1617" y="-206"/>
         </scene>
         <!--Investment View Controller-->
         <scene sceneID="3sz-9F-DHT">
             <objects>
-                <viewController storyboardIdentifier="WalletViewController" id="gTi-Ra-bdn" customClass="InvestmentViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InvestmentViewController" id="gTi-Ra-bdn" customClass="InvestmentViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Edc-9e-W4D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -155,6 +155,7 @@
         <!--Wallet Sort View Controller-->
         <scene sceneID="Dlr-77-jMR">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mba-pA-XIg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="WalletSortViewController" id="j3k-WB-cWa" customClass="WalletSortViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YHI-cs-EXF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -195,7 +196,6 @@
                         <outlet property="tableView" destination="4dn-NV-8ah" id="pr3-TU-bko"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mba-pA-XIg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-916" y="-206"/>
         </scene>

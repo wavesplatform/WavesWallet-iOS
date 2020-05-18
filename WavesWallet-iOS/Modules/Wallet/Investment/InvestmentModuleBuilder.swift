@@ -16,7 +16,7 @@ struct InvestmentModuleBuilder: ModuleBuilderOutput {
 
     // input it ts isDisplayInvesting
     func build(input: Bool) -> InvestmentViewController {
-        let vc = StoryboardScene.Wallet.walletViewController.instantiate()
+        let vc = StoryboardScene.Investment.investmentViewController.instantiate()
 
         let presenter = InvestmentPresenter(kind: input == true ? .staking : .assets)
 
