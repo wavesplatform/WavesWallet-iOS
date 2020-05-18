@@ -23,7 +23,6 @@ public enum AssetLogo {
                     url: String?,
                     isSponsored: Bool,
                     hasScript: Bool) {
-            
             self.assetId = assetId
             self.name = name
             self.url = url

@@ -14,39 +14,46 @@ import UITools
 
 final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable {
     var interactor: BuyCryptoInteractable?
-    
+
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollContainerView: UIView!
+    @IBOutlet private weak var spentLabel: UILabel!
+    @IBOutlet private weak var fiatCollectionView: UICollectionView!
+    @IBOutlet private weak var fiatAmountTextField: RoundedTextField!
+    @IBOutlet private weak var fiatSeparatorImageView: UIImageView!
+    @IBOutlet private weak var buyLabel: UILabel!
+    @IBOutlet private weak var cryptoCollectionView: UICollectionView!
+    @IBOutlet private weak var buyButton: BlueButton!
+    @IBOutlet private weak var infoTextView: UITextView!
+
     private var presenterOutput: BuyCryptoPresenterOutput?
     private let viewOutput = VCOutput()
-
-    private var underlyingView: View { view as! View }
-
-    override func loadView() {
-        view = View()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         bindIfNeeded()
+        initialSetup()
     }
-}
 
-// MARK: - Underlying view
-
-extension BuyCryptoViewController {
-    private final class View: UIView {
-        let disposeBag = DisposeBag()
-
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            initialSetup()
+    private func initialSetup() {
+        navigationItem.largeTitleDisplayMode = .never
+        
+        scrollContainerView.backgroundColor = .basic50
+        fiatCollectionView.backgroundColor = .basic50
+        cryptoCollectionView.backgroundColor = .basic50
+        
+        do {
+            fiatSeparatorImageView.contentMode = .scaleAspectFill
+            fiatSeparatorImageView.image = Images.separateLineWithArrow.image
         }
 
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            initialSetup()
-        }
+        fiatAmountTextField.setError("Error!!!!")
+        fiatAmountTextField.setPlaceholder("Amount")
 
-        private func initialSetup() {}
+        do {
+            infoTextView.layer.borderColor = UIColor.basic300.cgColor
+            infoTextView.layer.borderWidth = 1
+        }
     }
 }
 
