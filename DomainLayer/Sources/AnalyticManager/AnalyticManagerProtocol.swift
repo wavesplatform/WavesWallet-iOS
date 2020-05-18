@@ -36,6 +36,7 @@ public protocol AnalyticManagerEventInfo {
 
 public protocol AnalyticManagerProtocol {
     
+    // Уникальный индфикатор пользователя   
     func setUID(uid: String)
     
     func trackEvent(_ event: AnalyticManagerEvent)

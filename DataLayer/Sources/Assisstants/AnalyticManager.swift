@@ -30,7 +30,7 @@ public final class AnalyticManager: AnalyticManagerProtocol {
             Amplitude.instance()?.setUserId(uid)
             Analytics.setUserID(uid)
         }
-
+        
         params["userType"] = "seed"
         params["platform"] = "iOS"
 
