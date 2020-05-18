@@ -3054,7 +3054,7 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		0A4C9A2620ED3A180095A417 /* Wallet */ = {
+		0A4C9A2620ED3A180095A417 /* Investment */ = {
 			isa = PBXGroup;
 			children = (
 				7B975CA92472E05F00F7DE89 /* Model */,
@@ -3066,7 +3066,7 @@
 				E95E14FE22A07364003552B8 /* InvestmentDisplayData.swift */,
 				871D7262242CC94100F89403 /* InvestmenLandingSetting.swift */,
 			);
-			path = Wallet;
+			path = Investment;
 			sourceTree = "<group>";
 		};
 		0A59331921870AC60059A77A /* Aliases */ = {
@@ -3241,7 +3241,7 @@
 				7B85E61A23FD309B00365829 /* StakingTransfer */,
 				E95B47D421638B11004D4E39 /* StartLeasing */,
 				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
-				0A4C9A2620ED3A180095A417 /* Wallet */,
+				0A4C9A2620ED3A180095A417 /* Investment */,
 				0A97975F2108A11A00407F67 /* Wallet.storyboard */,
 				E94231EE22A40A010087F82F /* WalletSearch */,
 				E9657026219360770052F0FC /* WalletSort */,
