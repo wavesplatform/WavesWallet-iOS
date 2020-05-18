@@ -10,10 +10,10 @@ import Foundation
 import RxSwift
 import DomainLayer
 
-protocol WalletInteractorProtocol {
+protocol InvestmentInteractorProtocol {
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
-    func leasing() -> Observable<WalletTypes.DTO.Leasing>
-    func staking() -> Observable<WalletTypes.DTO.Staking>
+    func leasing() -> Observable<InvestmentLeasingVM>
+    func staking() -> Observable<InvestmentStakingVM>
     func isShowCleanWalletBanner() -> Observable<Bool>
     func setCleanWalletBanner() -> Observable<Bool>
     func isHasAppUpdate() -> Observable<Bool>

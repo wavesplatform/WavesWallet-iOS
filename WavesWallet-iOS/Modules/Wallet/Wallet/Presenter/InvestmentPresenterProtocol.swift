@@ -7,15 +7,15 @@
 //
 
 import Foundation
-import RxSwift
 import RxCocoa
 import RxFeedback
+import RxSwift
 
-protocol WalletPresenterProtocol {
-    typealias Feedback = (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event>
+protocol InvestmentPresenterProtocol {
+    typealias Feedback = (Driver<InvestmentState>) -> Signal<InvestmentEvent>
 
-    var interactor: WalletInteractorProtocol! { get set }
-    var moduleOutput: WalletModuleOutput? { get set }
+    var interactor: InvestmentInteractorProtocol! { get set }
+    var moduleOutput: InvestmentModuleOutput? { get set }
 
     func system(feedbacks: [Feedback])
 }

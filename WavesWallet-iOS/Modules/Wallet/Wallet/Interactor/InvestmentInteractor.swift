@@ -20,7 +20,7 @@ private struct Leasing {
     let walletAddress: String
 }
 
-final class WalletInteractor: WalletInteractorProtocol {
+final class InvestmentInteractor: InvestmentInteractorProtocol {
     private let enviroment: DevelopmentConfigsRepositoryProtocol
     private let massTransferRepository: MassTransferRepositoryProtocol
     private let assetUseCase: AssetsUseCaseProtocol
@@ -30,7 +30,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
-    
+
     private let leasingInteractor: TransactionsUseCaseProtocol
     private let walletsRepository: WalletsRepositoryProtocol
     private let stakingBalanceService: StakingBalanceService
@@ -107,11 +107,11 @@ final class WalletInteractor: WalletInteractorProtocol {
             }
     }
 
-    func leasing() -> Observable<WalletTypes.DTO.Leasing> {
+    func leasing() -> Observable<InvestmentLeasingVM> {
         return Observable.merge(leasing(isNeedUpdate: true))
     }
 
-    func staking() -> Observable<WalletTypes.DTO.Staking> {
+    func staking() -> Observable<InvestmentStakingVM> {
         let obtainNeutrinoAsset = Observable.zip(authorizationInteractor.authorizedWallet(),
                                                  enviroment.developmentConfigs())
             .flatMap { [weak self] signedWallet, config -> Observable<(assets: [Asset], accountAddress: String)> in
@@ -132,16 +132,16 @@ final class WalletInteractor: WalletInteractorProtocol {
                  obtainLastPayoutsTransactions(),
                  stakingBalanceService.totalStakingBalance(),
                  obtainNeutrinoAsset)
-            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance, neutrinoAsset -> WalletTypes.DTO.Staking in
+            .map { config, yearPercentMassTransfer, totalProfitMassTransfer, lastPayoutsTransactions, stakingBalance, neutrinoAsset -> InvestmentStakingVM in
 
                 let walletAddress = lastPayoutsTransactions.walletAddress
 
-                let profitPercent = WalletInteractor.getTotalProfitPercent(transactions: yearPercentMassTransfer.data,
+                let profitPercent = InvestmentInteractor.getTotalProfitPercent(transactions: yearPercentMassTransfer.data,
                                                                            walletAddress: config.staking.first?
                                                                                .addressByCalculateProfit ?? "")
 
                 let totalProfitTransactions = totalProfitMassTransfer.massTransferTransactions.transactions
-                let totalProfit = WalletInteractor.getTotalProfit(transactions: totalProfitTransactions,
+                let totalProfit = InvestmentInteractor.getTotalProfit(transactions: totalProfitTransactions,
                                                                   walletAddress: walletAddress)
 
                 let totalBalanceCurrency = DomainLayer.DTO.Balance
@@ -150,7 +150,7 @@ final class WalletInteractor: WalletInteractorProtocol {
 
                 let totalBalance = DomainLayer.DTO.Balance(currency: totalBalanceCurrency, money: totalBalanceMoney)
 
-                let profit = WalletTypes.DTO.Staking.Profit(percent: profitPercent, total: totalBalance)
+                let profit = InvestmentStakingVM.Profit(percent: profitPercent, total: totalBalance)
 
                 let stakingCurrencyBalance = DomainLayer.DTO.Balance.Currency(title: "", ticker: stakingBalance.assetTicker)
 
@@ -165,9 +165,9 @@ final class WalletInteractor: WalletInteractorProtocol {
                 let inStakingBalanceMoney = Money(stakingBalance.depositeBalance, stakingBalance.precision)
                 let inStakingBalance = DomainLayer.DTO.Balance(currency: stakingCurrencyBalance, money: inStakingBalanceMoney)
 
-                let balance = WalletTypes.DTO.Staking.Balance(total: totalStakingBalance,
-                                                              available: availableStakingBalance,
-                                                              inStaking: inStakingBalance)
+                let balance = InvestmentStakingVM.Balance(total: totalStakingBalance,
+                                                          available: availableStakingBalance,
+                                                          inStaking: inStakingBalance)
 
                 let isShowedLanding = WalletLandingSetting.value[neutrinoAsset.accountAddress] ?? false
 
@@ -175,23 +175,23 @@ final class WalletInteractor: WalletInteractorProtocol {
 
                 let minimumDeposit = DomainLayer.DTO.Balance(currency: totalBalanceCurrency,
                                                              money: Money(10000, stakingBalance.precision))
-                let landing = WalletTypes.DTO.Staking.Landing(percent: profitPercent,
-                                                              minimumDeposit: minimumDeposit)
+                let landing = InvestmentStakingVM.Landing(percent: profitPercent,
+                                                          minimumDeposit: minimumDeposit)
 
-                return WalletTypes.DTO.Staking(accountAddress: neutrinoAsset.accountAddress,
-                                               profit: profit,
-                                               balance: balance,
-                                               lastPayouts: lastPayoutsTransactions,
-                                               neutrinoAsset: neutrinoAsset.assets.first,
-                                               landing: showLandingIfNeeded ? landing : nil)
+                return InvestmentStakingVM(accountAddress: neutrinoAsset.accountAddress,
+                                           profit: profit,
+                                           balance: balance,
+                                           lastPayouts: lastPayoutsTransactions,
+                                           neutrinoAsset: neutrinoAsset.assets.first,
+                                           landing: showLandingIfNeeded ? landing : nil)
             }
     }
 }
 
 // MARK: Assistants
 
-private extension WalletInteractor {
-    func leasing(isNeedUpdate _: Bool) -> Observable<WalletTypes.DTO.Leasing> {
+private extension InvestmentInteractor {
+    func leasing(isNeedUpdate _: Bool) -> Observable<InvestmentLeasingVM> {
         let collection = authorizationInteractor
             .authorizedWallet()
             .flatMap(weak: self) { owner, wallet -> Observable<Leasing> in
@@ -217,7 +217,7 @@ private extension WalletInteractor {
             }
 
         return collection
-            .map { leasing -> WalletTypes.DTO.Leasing in
+            .map { leasing -> InvestmentLeasingVM in
 
                 let precision = leasing.balance.asset.precision
 
@@ -263,16 +263,13 @@ private extension WalletInteractor {
                 let leasedInMoney: Money = .init(leaseInAmount,
                                                  precision)
 
-                let leasingBalance: WalletTypes
-                    .DTO
-                    .Leasing
-                    .Balance = .init(totalMoney: totalMoney,
-                                     avaliableMoney: avaliableMoney,
-                                     leasedMoney: leasedMoney,
-                                     leasedInMoney: leasedInMoney)
+                let leasingBalance =  InvestmentLeasingVM.Balance(totalMoney: totalMoney,
+                                                                  avaliableMoney: avaliableMoney,
+                                                                  leasedMoney: leasedMoney,
+                                                                  leasedInMoney: leasedInMoney)
 
-                return WalletTypes.DTO.Leasing(balance: leasingBalance,
-                                               transactions: startedLeasingTxsBase)
+                return InvestmentLeasingVM(balance: leasingBalance,
+                                           transactions: startedLeasingTxsBase)
             }
     }
 
@@ -327,13 +324,13 @@ private extension WalletInteractor {
             }
             .flatMap { [weak self] query -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
                 guard let self = self else { return Observable.never() }
-                
+
                 return self.serverEnvironmentUseCase
                     .serverEnvironment()
                     .flatMap { [weak self] serverEnvironment -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
-                        
+
                         guard let self = self else { return Observable.never() }
-                        
+
                         return self.massTransferRepository
                             .obtainPayoutsHistory(serverEnvironment: serverEnvironment,
                                                   query: query)
@@ -343,7 +340,7 @@ private extension WalletInteractor {
 
     /// Общий доход (Синяя карточка)
     private func obtainTotalProfit() -> Observable<PayoutsHistoryState.MassTransferTrait> {
-        let timeStart = WalletInteractor.prepareStartOf2020Year().map { "\($0.millisecondsSince1970)" }
+        let timeStart = InvestmentInteractor.prepareStartOf2020Year().map { "\($0.millisecondsSince1970)" }
         let timeEnd = "\(Date().millisecondsSince1970)"
 
         return performLastPayoutsTransactionRequest(timeStart: timeStart, timeEnd: timeEnd)
@@ -388,7 +385,7 @@ private extension WalletInteractor {
                 guard let self = self else { return Observable.never() }
 
                 let queryCache = Observable.just(query)
-                
+
                 let massTransferTransactions = self
                     .serverEnvironmentUseCase
                     .serverEnvironment()
@@ -421,7 +418,7 @@ private extension WalletInteractor {
     }
 }
 
-extension WalletInteractor {
+extension InvestmentInteractor {
     private static func getTotalProfitPercent(transactions: [DataService.DTO.MassTransferTransaction],
                                               walletAddress: String) -> Double {
         // (ариф.сред. из транзакций) * 365

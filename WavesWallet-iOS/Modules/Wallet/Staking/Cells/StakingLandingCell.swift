@@ -131,7 +131,7 @@ extension StakingLandingCell: Localization {
 // MARK: ViewConfiguration
 
 extension StakingLandingCell: ViewConfiguration {
-    func update(with model: WalletTypes.DTO.Staking.Landing) {
+    func update(with model: InvestmentStakingVM.Landing) {
         self.model = model
 
         let minimumDeposit = Money(model.minimumDeposit.money.amount, 0)

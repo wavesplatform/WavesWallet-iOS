@@ -76,7 +76,7 @@ extension WalletLeasingBalanceCell: Localization {
 // MARK: ViewConfiguration
 
 extension WalletLeasingBalanceCell: ViewConfiguration {
-    func update(with model: WalletTypes.DTO.Leasing.Balance) {
+    func update(with model: InvestmentLeasingVM.Balance) {
         setupLocalization()
         availableMoney = model.avaliableMoney
 
@@ -112,7 +112,7 @@ extension WalletLeasingBalanceCell: ViewConfiguration {
 }
 
 extension WalletLeasingBalanceCell: ViewCalculateHeight {
-    static func viewHeight(model: WalletTypes.DTO.Leasing.Balance, width _: CGFloat) -> CGFloat {
+    static func viewHeight(model: InvestmentLeasingVM.Balance, width _: CGFloat) -> CGFloat {
         if model.avaliableMoney.isZero, model.leasedMoney.isZero, model.totalMoney.isZero {
             return Constants.height - Constants.blockLeasedTotalBalanceHeight
         }

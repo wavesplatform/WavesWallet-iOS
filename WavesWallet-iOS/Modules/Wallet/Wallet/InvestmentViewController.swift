@@ -14,28 +14,15 @@ import RxSwift
 import UIKit
 import UITools
 
-private extension WalletTypes.DisplayState.Kind {
-    var name: String {
-        switch self {
-        case .assets:
-            return Localizable.Waves.Wallet.Segmentedcontrol.assets
-        case .leasing:
-            return Localizable.Waves.Wallet.Segmentedcontrol.leasing
-        case .staking:
-            return Localizable.Waves.Wallet.Segmentedcontrol.staking
-        }
-    }
-}
-
 // TODO: refactor all module
-final class WalletViewController: UIViewController {
+final class InvestmentViewController: UIViewController {
     @IBOutlet private weak var scrolledTablesComponent: ScrolledContainerView!
     @IBOutlet var globalErrorView: GlobalErrorView!
 
-    private var displayData: WalletDisplayData!
+    private var displayData: InvestmentDisplayData!
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private var displays: [WalletTypes.DisplayState.Kind] = []
+    private var displays: [InvestmentDisplayState.Kind] = []
 
     private var isRefreshing: Bool = false
     private var snackError: String?
@@ -55,9 +42,9 @@ final class WalletViewController: UIViewController {
                                                    target: nil,
                                                    action: nil)
 
-    private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
+    private let sendEvent: PublishRelay<InvestmentEvent> = PublishRelay<InvestmentEvent>()
 
-    var presenter: WalletPresenterProtocol!
+    var presenter: InvestmentPresenterProtocol!
 
     var isDisplayInvesting: Bool = false {
         didSet {
@@ -84,8 +71,8 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        displayData = WalletDisplayData(scrolledTablesComponent: scrolledTablesComponent,
-                                        displays: displays)
+        displayData = InvestmentDisplayData(scrolledTablesComponent: scrolledTablesComponent,
+                                            displays: displays)
         displayData.isDisplayInvesting = isDisplayInvesting
 
         scrolledTablesComponent.scrollViewDelegate = self
@@ -138,7 +125,7 @@ final class WalletViewController: UIViewController {
     }
 
     var isAssetDisplay: Bool {
-        scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue
+        scrolledTablesComponent.visibleTableView.tag == InvestmentDisplayState.Kind.assets.rawValue
     }
 
     // TODO: Refactor method. I dont know how its work
@@ -153,7 +140,7 @@ final class WalletViewController: UIViewController {
 
 // MARK: - MainTabBarControllerProtocol
 
-extension WalletViewController: MainTabBarControllerProtocol {
+extension InvestmentViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
         scrolledTablesComponent.scrollToTop()
@@ -162,7 +149,7 @@ extension WalletViewController: MainTabBarControllerProtocol {
 
 // MARK: - UIScrollViewDelegate
 
-extension WalletViewController: UIScrollViewDelegate {
+extension InvestmentViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == scrolledTablesComponent {
             setupSearchBarOffset()
@@ -178,7 +165,7 @@ extension WalletViewController: UIScrollViewDelegate {
 
 // MARK: - ScrolledContainerViewDelegate
 
-extension WalletViewController: ScrolledContainerViewDelegate {
+extension InvestmentViewController: ScrolledContainerViewDelegate {
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
         setupButons(kind: displays[index])
         sendEvent.accept(.changeDisplay(displays[index]))
@@ -191,15 +178,15 @@ extension WalletViewController: ScrolledContainerViewDelegate {
 
 // MARK: UIGestureRecognizerDelegate
 
-extension WalletViewController: UIGestureRecognizerDelegate {
+extension InvestmentViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool { true }
 }
 
 // MARK: Bind UI
 
-extension WalletViewController {
+extension InvestmentViewController {
     func setupSystem() {
-        let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
+        let feedback: InvestmentPresenterProtocol.Feedback = bind(self) { owner, state in
 
             let subscriptions = owner.subscriptions(state: state)
             let events = owner.events()
@@ -208,21 +195,21 @@ extension WalletViewController {
                             events: events)
         }
 
-        let readyViewFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
+        let readyViewFeedback: InvestmentPresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
             return self
                 .rx
                 .viewWillAppear
-                .map { _ in WalletTypes.Event.viewWillAppear }
+                .map { _ in InvestmentEvent.viewWillAppear }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
-        let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
+        let viewDidDisappearFeedback: InvestmentPresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
             return self
                 .rx
                 .viewDidDisappear
-                .map { _ in WalletTypes.Event.viewDidDisappear }
+                .map { _ in InvestmentEvent.viewDidDisappear }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
@@ -231,39 +218,39 @@ extension WalletViewController {
                                      viewDidDisappearFeedback])
     }
 
-    func events() -> [Signal<WalletTypes.Event>] {
+    func events() -> [Signal<InvestmentEvent>] {
         let sortTapEvent = buttonHistory
             .rx
             .tap
-            .map { WalletTypes.Event.tapHistory }
+            .map { InvestmentEvent.tapHistory }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let addressTapEvent = buttonAddress
             .rx
             .tap
-            .map { WalletTypes.Event.tapAddressButton }
+            .map { InvestmentEvent.tapAddressButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let actionMenuTapEvent = buttonActionMenu
             .rx
             .tap
-            .map { WalletTypes.Event.tapActionMenuButton }
+            .map { InvestmentEvent.tapActionMenuButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let refreshEvent = scrolledTablesComponent
             .rx
             .didRefreshing(refreshControl: scrolledTablesComponent.refreshControl!)
-            .map { _ in WalletTypes.Event.refresh }
+            .map { _ in InvestmentEvent.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let tapEvent = displayData
             .tapSection
-            .map { WalletTypes.Event.tapSection($0) }
+            .map { InvestmentEvent.tapSection($0) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let changedSpamList = NotificationCenter.default.rx
             .notification(.changedSpamList)
-            .map { _ in WalletTypes.Event.refresh }
+            .map { _ in InvestmentEvent.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let recieverEvents = sendEvent.asSignal()
@@ -277,7 +264,7 @@ extension WalletViewController {
                 actionMenuTapEvent]
     }
 
-    func subscriptions(state: Driver<WalletTypes.State>) -> [Disposable] {
+    func subscriptions(state: Driver<InvestmentState>) -> [Disposable] {
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
@@ -305,7 +292,7 @@ extension WalletViewController {
                            isHasAppUpdate: Bool) {
         if hasData, !hasAddingViewBanners {
             hasAddingViewBanners = true
-            if isHasAppUpdate && !isDisplayInvesting {
+            if isHasAppUpdate, !isDisplayInvesting {
                 let view = WalletUpdateAppView.loadFromNib()
                 scrolledTablesComponent.addTopView(view, animation: false)
 
@@ -325,7 +312,7 @@ extension WalletViewController {
         }
     }
 
-    func updateView(with state: WalletTypes.DisplayState) {
+    func updateView(with state: InvestmentDisplayState) {
         displayData.apply(assetsSections: state.assets.visibleSections,
                           leasingSections: state.leasing.visibleSections,
                           stakingSections: state.staking.visibleSections,
@@ -406,7 +393,7 @@ extension WalletViewController {
 
 // MARK: Setup Methods
 
-private extension WalletViewController {
+private extension InvestmentViewController {
     func setupSearchBarOffset() {
         if isSmallNavigationBar, isNeedSetupSearchBarPosition {
             let diff = (scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight()) -
@@ -433,7 +420,7 @@ private extension WalletViewController {
         }
     }
 
-    func setupButons(kind _: WalletTypes.DisplayState.Kind) {
+    func setupButons(kind _: InvestmentDisplayState.Kind) {
         navigationItem.leftBarButtonItems = [buttonAddress]
         navigationItem.rightBarButtonItems = [buttonHistory, buttonActionMenu]
     }
@@ -451,7 +438,7 @@ private extension WalletViewController {
 
 // MARK: - WalletLeasingBalanceCellDelegate
 
-extension WalletViewController: WalletLeasingBalanceCellDelegate {
+extension InvestmentViewController: WalletLeasingBalanceCellDelegate {
     func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money) {
         sendEvent.accept(.showStartLease(availableMoney))
     }
@@ -459,7 +446,7 @@ extension WalletViewController: WalletLeasingBalanceCellDelegate {
 
 // MARK: WalletDisplayDataDelegate
 
-extension WalletViewController: WalletDisplayDataDelegate {
+extension InvestmentViewController: WalletDisplayDataDelegate {
     func startStakingTapped() {
         sendEvent.accept(.startStaking)
     }
@@ -511,9 +498,9 @@ extension WalletViewController: WalletDisplayDataDelegate {
     }
 }
 
-// MARK: - WalletTypes.DisplayState.Kind
+// MARK: - DisplayStateKind
 
-private extension WalletTypes.DisplayState.Kind {
+private extension InvestmentDisplayState.Kind {
     var segmentedItem: NewSegmentedControl.SegmentedItem {
         switch self {
         case .assets, .leasing:

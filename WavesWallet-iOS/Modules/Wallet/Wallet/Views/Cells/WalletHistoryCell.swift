@@ -31,7 +31,7 @@ final class WalletHistoryCell: UITableViewCell, NibReusable {
 // MARK: ViewConfiguration
 
 extension WalletHistoryCell: ViewConfiguration {
-    func update(with model: WalletTypes.ViewModel.Row.HistoryCellType) {
+    func update(with model: InvestmentRow.HistoryCellType) {
         switch model {
         case .leasing:
             titleLabel.text = Localizable.Waves.Wallet.Label.viewHistory

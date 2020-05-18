@@ -11,14 +11,14 @@ import Extensions
 import UIKit
 import WavesSDK
 
-struct WalletModuleBuilder: ModuleBuilderOutput {
-    var output: WalletModuleOutput
+struct InvestmentModuleBuilder: ModuleBuilderOutput {
+    var output: InvestmentModuleOutput
 
     // input it ts isDisplayInvesting
-    func build(input: Bool) -> WalletViewController {
+    func build(input: Bool) -> InvestmentViewController {
         let vc = StoryboardScene.Wallet.walletViewController.instantiate()
 
-        let presenter = WalletPresenter(kind: input == true ? .staking : .assets)
+        let presenter = InvestmentPresenter(kind: input == true ? .staking : .assets)
 
         let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let authUseCase = UseCasesFactory.instance.authorization
@@ -28,7 +28,7 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
         let stakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
-        let interactor = WalletInteractor(enviroment: enviroment,
+        let interactor = InvestmentInteractor(enviroment: enviroment,
                                           massTransferRepository: massTransferRepository,
                                           assetUseCase: assetsUseCase,
                                           stakingBalanceService: stakingBalanceService,
