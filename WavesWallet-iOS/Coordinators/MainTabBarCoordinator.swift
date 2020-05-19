@@ -48,6 +48,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let analyticManager: AnalyticManagerProtocol = UseCasesFactory.instance.analyticManager
     private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
+    private let userRepository: UserRepository = UseCasesFactory.instance.repositories.userRepository
 
     private let navigationRouterWallet: NavigationRouter = {
 
@@ -190,15 +191,19 @@ private extension MainTabBarCoordinator {
     }
     
     private func handlerActionButton() {
-        
+            
         authorizationInteractor
             .authorizedWallet()
-            .observeOn(MainScheduler.asyncInstance)        
-            .subscribe(onNext: { [weak self] wallet in
+            .flatMap { [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.SignedWallet, uid: String)> in
+                guard let self = self else { return Observable.never() }
+                return self.userRepository.userUID(wallet: wallet).map { (wallet: wallet, uid: $0) }
+            }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] wallet, uid in
         
                 self?.analyticManager.trackEvent(.intercom(.intercomButtonTap))
                                 
-                Intercom.registerUser(withUserId: wallet.address)
+                Intercom.registerUser(withUserId: "\(uid)_\(wallet.address.suffix(4))")
                 
                 var value = IntercomInitial.value
                 if let deviceToken = value.apns {                    

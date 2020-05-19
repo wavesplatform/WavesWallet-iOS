@@ -15,34 +15,38 @@ import WavesSDKCrypto
 import WavesSDKExtensions
 
 private struct Token: Codable {
-    let accessToken: String    
+    let accessToken: String
     private enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
     }
 }
 
 final class WEOAuthRepository: WEOAuthRepositoryProtocol {
-    
-    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
-    
     private let weOAuth: MoyaProvider<WEOAuthTarget> = .anyMoyaProvider()
 
-    init(developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
+    private let serverEnvironmentRepository: ServerEnvironmentRepository
+
+    init(developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol,
+         serverEnvironmentRepository: ServerEnvironmentRepository) {
         self.developmentConfigsRepository = developmentConfigsRepository
+        self.serverEnvironmentRepository = serverEnvironmentRepository
     }
 
-    func oauthToken(serverEnvironment: ServerEnvironment,
-                    signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<WEOAuthTokenDTO> {
-        return developmentConfigsRepository.developmentConfigs()
-            .flatMap { [weak self] developmentConfigs -> Observable<WEOAuthTokenDTO> in
+    func oauthToken(signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<WEOAuthTokenDTO> {
+        let serverEnvironment = serverEnvironmentRepository.serverEnvironment()
+        let developmentConfigs = developmentConfigsRepository.developmentConfigs()
+
+        return Observable.zip(developmentConfigs, serverEnvironment)
+            .flatMap { [weak self] developmentConfigs, serverEnvironment -> Observable<WEOAuthTokenDTO> in
                 guard let self = self else { return Observable.empty() }
 
                 let url = serverEnvironment.servers.wavesExchangePublicApiUrl
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
 
                 let token: WEOAuthTokenQuery = self.createOAuthToken(signedWallet: signedWallet,
-                                                                       chainId: serverEnvironment.kind.chainId,
-                                                                       exchangeClientSecret: exchangeClientSecret)
+                                                                     chainId: serverEnvironment.kind.chainId,
+                                                                     exchangeClientSecret: exchangeClientSecret)
                 return self
                     .weOAuth
                     .rx
@@ -61,8 +65,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
 
     private func createOAuthToken(signedWallet: DomainLayer.DTO.SignedWallet,
                                   chainId: String,
-                                  exchangeClientSecret: String) -> WEOAuthTokenQuery {
-
+                                  exchangeClientSecret _: String) -> WEOAuthTokenQuery {
         let clientId = "waves.exchange"
         let time = Int64(round(Date().timeIntervalSince1970 + (60 * 60 * 24 * 7))) // Token for a week
         let timeString = "\(chainId):\(clientId):\(time)"

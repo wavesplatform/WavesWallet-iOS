@@ -224,7 +224,7 @@ extension SendInteractor {
                 guard let self = self else { return Observable.never() }
 
                 return self.weOAuthRepository
-                    .oauthToken(serverEnvironment: serverEnvironment, signedWallet: wallet)
+                    .oauthToken(signedWallet: wallet)
                     .map { (serverEnvironment, $0, wallet) }
                 }
                 .flatMap { [weak self] serverEnvironment, token, _ -> Observable<ResponseType<Send.DTO.GatewayInfo>> in

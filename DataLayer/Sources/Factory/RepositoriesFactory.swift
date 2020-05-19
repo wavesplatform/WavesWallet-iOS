@@ -34,7 +34,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                accountSettingsRepository: accountSettingsRepository,
                                environmentRepository: environmentRepository,
                                wavesSDKServices: servicesFactory.wavesSDKServices)
-    
+
     public private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol =
         AccountBalanceRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
 
@@ -132,11 +132,12 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         MassTransferRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
     }()
 
-    public private(set) lazy var weGatewayRepositoryProtocol: WEGatewayRepositoryProtocol =
+    public private(set) lazy var weGatewayRepository: WEGatewayRepositoryProtocol =
         WEGatewayRepository(developmentConfigsRepository: developmentConfigsRepository)
 
-    public private(set) lazy var weOAuthRepositoryProtocol: WEOAuthRepositoryProtocol =
-        WEOAuthRepository(developmentConfigsRepository: developmentConfigsRepository)
+    public private(set) lazy var weOAuthRepository: WEOAuthRepositoryProtocol =
+        WEOAuthRepository(developmentConfigsRepository: developmentConfigsRepository,
+                          serverEnvironmentRepository: serverEnvironmentUseCase)
 
     public private(set) lazy var stakingBalanceService: StakingBalanceService =
         StakingBalanceServiceImpl(authorizationService: UseCasesFactory.instance.authorization,
@@ -156,6 +157,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentRepository = {
         ServerEnvironmentRepositoryImp(serverTimestampRepository: serverTimestampRepository,
                                        environmentRepository: environmentRepository)
+    }()
+
+    public private(set) lazy var userRepository: UserRepository = {
+        UserRepositoryImp(serverEnvironmentRepository: serverEnvironmentUseCase, weOAuthRepository: weOAuthRepository)
     }()
 
     public struct Resources {

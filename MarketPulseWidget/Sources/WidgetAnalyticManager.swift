@@ -33,11 +33,10 @@ final class WidgetAnalyticManagerInitialization {
 
     
 final class WidgetAnalyticManager: AnalyticManagerProtocol {
-
+        
     static let shared = WidgetAnalyticManager()
-    
-    func setAUUID(_ AUUID: String) {}
-    
+        
+    func setUID(uid: String) {}
     func trackEvent(_ event: AnalyticManagerEvent) {
         Amplitude.instance().logEvent(event.name, withEventProperties: event.params)        
     }

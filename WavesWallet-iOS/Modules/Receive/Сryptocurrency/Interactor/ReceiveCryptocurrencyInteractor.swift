@@ -93,8 +93,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                         }
                 case .exchange:
 
-                    return self.weOAuthRepository.oauthToken(serverEnvironment: serverEnvironment,
-                                                             signedWallet: wallet)
+                    return self.weOAuthRepository.oauthToken(signedWallet: wallet)                        
                         .flatMap { [weak self] token -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
 
                             guard let self = self else { return Observable.never() }

@@ -25,7 +25,7 @@ struct SendModuleBuilder: ModuleBuilder {
         let weGatewayUseCase = UseCasesFactory.instance.weGatewayUseCase
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
         
-        let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepositoryProtocol
+        let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
         
         let interactor: SendInteractorProtocol = SendInteractor(gatewaysWavesRepository: gatewaysWavesRepository,
                                                                 assetsUseCase: assetsUseCase,
