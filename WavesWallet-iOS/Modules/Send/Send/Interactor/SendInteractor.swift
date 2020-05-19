@@ -218,14 +218,13 @@ extension SendInteractor {
             let authorizedWallet = authorizationUseCase.authorizedWallet()
 
             return Observable.zip(serverEnvironment, authorizedWallet)
-                .flatMap { [weak self] serverEnvironment, wallet -> Observable<(ServerEnvironment, WEOAuthTokenDTO,
-                                                                                DomainLayer.DTO.SignedWallet)> in
+                .flatMap { [weak self] serverEnvironment, wallet -> Observable<(ServerEnvironment, WEOAuthTokenDTO, SignedWallet)> in
 
-                guard let self = self else { return Observable.never() }
+                    guard let self = self else { return Observable.never() }
 
-                return self.weOAuthRepository
-                    .oauthToken(signedWallet: wallet)
-                    .map { (serverEnvironment, $0, wallet) }
+                    return self.weOAuthRepository
+                        .oauthToken(signedWallet: wallet)
+                        .map { (serverEnvironment, $0, wallet) }
                 }
                 .flatMap { [weak self] serverEnvironment, token, _ -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
 

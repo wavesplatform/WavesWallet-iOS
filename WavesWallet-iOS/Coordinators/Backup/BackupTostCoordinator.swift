@@ -76,7 +76,7 @@ final class BackupTostCoordinator: Coordinator {
             .disposed(by: disposeBag)
     }
 
-    private func showBackupTostIfNeed(signedWallet: DomainLayer.DTO.SignedWallet) {
+    private func showBackupTostIfNeed(signedWallet: SignedWallet) {
 
         guard let topViewController = navigationRouter.navigationController.topViewController else { return }
         guard signedWallet.wallet.isBackedUp == false else { return }
@@ -118,10 +118,10 @@ final private class BackupContainer: Coordinator {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorization: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let signedWallet: DomainLayer.DTO.SignedWallet
+    private let signedWallet: SignedWallet
     private let navigationRouter: NavigationRouter
 
-    init(navigationRouter: NavigationRouter, signedWallet: DomainLayer.DTO.SignedWallet) {
+    init(navigationRouter: NavigationRouter, signedWallet: SignedWallet) {
         self.signedWallet = signedWallet
         self.navigationRouter = navigationRouter
     }
@@ -130,7 +130,7 @@ final private class BackupContainer: Coordinator {
         showBackup(signedWallet: signedWallet)
     }
 
-    private func showBackup(signedWallet: DomainLayer.DTO.SignedWallet) {
+    private func showBackup(signedWallet: SignedWallet) {
 
         let seed = signedWallet.seedWords
         let backup = BackupCoordinator(seed: seed,

@@ -20,7 +20,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
 
-    func wallets() -> Observable<[DomainLayer.DTO.Wallet]> {
+    func wallets() -> Observable<[Wallet]> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -35,7 +35,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
             let objects = realm.objects(WalletItem.self)
                 .toArray()
-                .map { DomainLayer.DTO.Wallet(wallet: $0) }
+                .map { Wallet(wallet: $0) }
 
             observer.onNext(objects)
             observer.onCompleted()
@@ -44,7 +44,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func wallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
+    func wallet(by publicKey: String) -> Observable<Wallet> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -69,7 +69,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func walletEncryption(by publicKey: String) -> Observable<DomainLayer.DTO.WalletEncryption> {
+    func walletEncryption(by publicKey: String) -> Observable<WalletEncryption> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -82,7 +82,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            if let object = realm.object(ofType: WalletEncryption.self, forPrimaryKey: publicKey) {
+            if let object = realm.object(ofType: WalletEncryptionRealm.self, forPrimaryKey: publicKey) {
                 observer.onNext(.init(wallet: object))
                 observer.onCompleted()
             } else {
@@ -93,8 +93,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func saveWalletEncryption(_ walletEncryption: DomainLayer.DTO.WalletEncryption)
-        -> Observable<DomainLayer.DTO.WalletEncryption> {
+    func saveWalletEncryption(_ walletEncryption: WalletEncryption) -> Observable<WalletEncryption> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -109,7 +108,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
             do {
                 try realm.write {
-                    realm.add(WalletEncryption(wallet: walletEncryption), update: .all)
+                    realm.add(WalletEncryptionRealm(wallet: walletEncryption), update: .all)
                 }
                 observer.onNext(walletEncryption)
                 observer.onCompleted()
@@ -138,7 +137,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
             }
 
             do {
-                if let object = realm.object(ofType: WalletEncryption.self, forPrimaryKey: publicKey) {
+                if let object = realm.object(ofType: WalletEncryptionRealm.self, forPrimaryKey: publicKey) {
                     try realm.write {
                         realm.delete(object)
                     }
@@ -159,7 +158,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func saveWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
+    func saveWallet(_ wallet: Wallet) -> Observable<Wallet> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -188,7 +187,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func saveWallets(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<[DomainLayer.DTO.Wallet]> {
+    func saveWallets(_ wallets: [Wallet]) -> Observable<[Wallet]> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -218,7 +217,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func removeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+    func removeWallet(_ wallet: Wallet) -> Observable<Bool> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -260,7 +259,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func wallets(specifications: WalletsRepositorySpecifications) -> Observable<[DomainLayer.DTO.Wallet]> {
+    func wallets(specifications: WalletsRepositorySpecifications) -> Observable<[Wallet]> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -276,7 +275,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
             let objects = realm.objects(WalletItem.self)
                 .filter("isLoggedIn == %@", specifications.isLoggedIn)
                 .toArray()
-                .map { DomainLayer.DTO.Wallet(wallet: $0) }
+                .map { Wallet(wallet: $0) }
 
             observer.onNext(objects)
             observer.onCompleted()
@@ -285,7 +284,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func listenerWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet> {
+    func listenerWallet(by publicKey: String) -> Observable<Wallet> {
         // TODO: - .bind(to: observer) странное поведение
         Observable.create { [weak self] observer -> Disposable in
 
@@ -303,9 +302,9 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
             // TODO: - .bind(to: observer) странное поведение
             let collection = Observable.collection(from: result)
-            let disposable = collection.flatMap { items -> Observable<DomainLayer.DTO.Wallet> in
+            let disposable = collection.flatMap { items -> Observable<Wallet> in
                 if let item = items.toArray().first(where: { $0.publicKey == publicKey }) {
-                    return Observable.just(DomainLayer.DTO.Wallet(wallet: item))
+                    return Observable.just(Wallet(wallet: item))
                 }
                 return Observable.empty()
             }

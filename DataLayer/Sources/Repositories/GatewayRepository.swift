@@ -14,19 +14,16 @@ import RxSwift
 import WavesSDK
 
 final class GatewayRepository: GatewayRepositoryProtocol {
-    
     private let gatewayProvider: MoyaProvider<Gateway.Service> = .anyMoyaProvider()
-    
+
     func startWithdrawProcess(serverEnvironment: ServerEnvironment,
                               address: String,
                               asset: Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> {
         let startProcess = Gateway.Service.StartProcess(userAddress: address, assetId: asset.id)
-        
-        
+
         let url = serverEnvironment.servers.gatewayUrl
-        
-        return self
-            .gatewayProvider
+
+        return gatewayProvider
             .rx
             .request(.startWithdrawProcess(baseURL: url, withdrawProcess: startProcess),
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
@@ -40,46 +37,43 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                     maxAmount: Money(startWithdraw.maxAmount, asset.precision),
                     fee: Money(startWithdraw.fee, asset.precision),
                     processId: startWithdraw.processId)
-        }
-        
+            }
     }
-    
+
     func startDepositProcess(serverEnvironment: ServerEnvironment,
                              address: String,
                              asset: Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess> {
-        
         let startProcess = Gateway.Service.StartProcess(userAddress: address, assetId: asset.id)
-        
+
         let url = serverEnvironment.servers.gatewayUrl
-        
-        return self.gatewayProvider.rx
+
+        return gatewayProvider.rx
             .request(.startDepositProcess(baseURL: url, depositProcess: startProcess),
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Gateway.DTO.Deposit.self)
             .asObservable()
             .map { (startDeposit) -> DomainLayer.DTO.Gateway.StartDepositProcess in
-                
+
                 DomainLayer.DTO.Gateway.StartDepositProcess(
                     address: startDeposit.address,
                     minAmount: Money(startDeposit.minAmount, asset.precision),
                     maxAmount: Money(startDeposit.maxAmount, asset.precision))
-        }        
+            }
     }
-    
+
     func send(serverEnvironment: ServerEnvironment,
               specifications: TransactionSenderSpecifications,
-              wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool> {
-        
+              wallet: SignedWallet) -> Observable<Bool> {
         let url = serverEnvironment.servers.gatewayUrl
-        
+
         let specs = specifications.broadcastSpecification(serverEnvironment: serverEnvironment,
                                                           wallet: wallet,
                                                           specifications: specifications)
-        
+
         guard let broadcastSpecification = specs else { return Observable.empty() }
-        
-        return self.gatewayProvider.rx
+
+        return gatewayProvider.rx
             .request(.send(baseURL: url, transaction: broadcastSpecification, accountAddress: wallet.address),
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()

@@ -101,9 +101,9 @@ public extension DomainLayer.DTO.MobileKeeper {
         public let timestamp: Date
         public let proof: Bytes
         public let txId: String
-        public let signedWallet: DomainLayer.DTO.SignedWallet
+        public let signedWallet: SignedWallet
         
-        public init(request: Request, timestamp: Date, proof: Bytes, txId: String, signedWallet: DomainLayer.DTO.SignedWallet) {
+        public init(request: Request, timestamp: Date, proof: Bytes, txId: String, signedWallet: SignedWallet) {
             self.request = request
             self.timestamp = timestamp
             self.proof = proof
@@ -124,7 +124,7 @@ public protocol MobileKeeperRepositoryProtocol {
     
     
     func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
-                        signedWallet: DomainLayer.DTO.SignedWallet,
+                        signedWallet: SignedWallet,
                         timestamp: Date) -> Observable<DomainLayer.DTO.MobileKeeper.PrepareRequest>
                                         
     func completeRequest(serverEnvironment: ServerEnvironment,

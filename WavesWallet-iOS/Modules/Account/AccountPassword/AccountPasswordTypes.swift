@@ -6,46 +6,43 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
 import DomainLayer
 import Extensions
+import Foundation
 
 enum AccountPasswordTypes {
-    enum DTO { }
+    enum DTO {}
 }
 
 extension AccountPasswordTypes.DTO {
     enum Kind {
-        case logIn(DomainLayer.DTO.Wallet)
-        case verifyAccess(DomainLayer.DTO.Wallet)
+        case logIn(Wallet)
+        case verifyAccess(Wallet)
     }
 }
 
 extension AccountPasswordTypes {
-
     struct State: Mutating {
-
         enum Query {
-            case logIn(wallet: DomainLayer.DTO.Wallet, password: String)
-            case verifyAccess(wallet: DomainLayer.DTO.Wallet, password: String)
-            case authorizationCompleted(DomainLayer.DTO.Wallet, String)
-            case verifyAccessCompleted(DomainLayer.DTO.SignedWallet, String)
+            case logIn(wallet: Wallet, password: String)
+            case verifyAccess(wallet: Wallet, password: String)
+            case authorizationCompleted(Wallet, String)
+            case verifyAccessCompleted(SignedWallet, String)
         }
 
         var displayState: DisplayState
         var kind: AccountPasswordTypes.DTO.Kind
-        var query: Query?        
+        var query: Query?
     }
 
     enum Event {
-        case completedLogIn(DomainLayer.DTO.Wallet, password: String)
-        case completedVerifyAccess(DomainLayer.DTO.SignedWallet, password: String)
+        case completedLogIn(Wallet, password: String)
+        case completedVerifyAccess(SignedWallet, password: String)
         case handlerError(AccountPasswordInteractorError)
         case tapLogIn(password: String)
     }
 
     struct DisplayState: Mutating {
-
         enum Error {
             case incorrectPassword
         }

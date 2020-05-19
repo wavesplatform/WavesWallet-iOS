@@ -17,8 +17,8 @@ protocol AccountPasswordModuleInput {
 }
 
 protocol AccountPasswordModuleOutput: AnyObject {
-    func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String)
-    func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String)
+    func accountPasswordAuthorizationCompleted(wallet: Wallet, password: String)
+    func accountPasswordVerifyAccess(signedWallet: SignedWallet, password: String)
 }
 
 protocol AccountPasswordPresenterProtocol {
@@ -31,7 +31,7 @@ protocol AccountPasswordPresenterProtocol {
 }
 
 private struct LogInQuery: Equatable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
     let password: String
 }
 

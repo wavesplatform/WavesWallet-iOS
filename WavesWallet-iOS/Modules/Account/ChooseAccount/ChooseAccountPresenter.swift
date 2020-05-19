@@ -13,8 +13,8 @@ import RxSwift
 import DomainLayer
 
 protocol ChooseAccountModuleOutput: AnyObject {
-    func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) -> Void
-    func userEditAccount(wallet: DomainLayer.DTO.Wallet) -> Void
+    func userChooseAccount(wallet: Wallet, passcodeNotCreated: Bool) -> Void
+    func userEditAccount(wallet: Wallet) -> Void
     func chooseAccountDidTapBack()
     func chooseAccountDidTapAddAccount()
 }
@@ -32,7 +32,7 @@ protocol ChooseAccountPresenterProtocol {
 }
 
 private struct DeleteWalletQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
     let indexPath: IndexPath
 }
 
@@ -98,7 +98,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
     }
 
     private func hasPermissionQuery() -> Feedback {
-        return react(request: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> Wallet? in
             if let action = state.action, case .openWallet(let wallet) = action {
                 return wallet
             }

@@ -21,7 +21,7 @@ fileprivate enum Constants {
 
 struct TimestampSignature: SignatureProtocol {
 
-    private(set) var signedWallet: DomainLayer.DTO.SignedWallet
+    private(set) var signedWallet: SignedWallet
     
     private(set) var timestamp: Int64
     
@@ -39,9 +39,8 @@ struct TimestampSignature: SignatureProtocol {
 }
 
 extension TimestampSignature {
-    init(signedWallet: DomainLayer.DTO.SignedWallet, timestampServerDiff: Int64) {
-        self.init(signedWallet: signedWallet,
-                  timestamp: Date().millisecondsSince1970(timestampDiff: timestampServerDiff))
+    init(signedWallet: SignedWallet, timestampServerDiff: Int64) {
+        self.init(signedWallet: signedWallet, timestamp: Date().millisecondsSince1970(timestampDiff: timestampServerDiff))
     }
 }
 
@@ -78,7 +77,7 @@ struct CreateOrderSignature: SignatureProtocol {
         case V3 = 3
     }
     
-    private(set) var signedWallet: DomainLayer.DTO.SignedWallet
+    private(set) var signedWallet: SignedWallet
     
     private(set) var timestamp: Int64
 
@@ -128,7 +127,7 @@ struct CreateOrderSignature: SignatureProtocol {
 
 struct CancelOrderSignature: SignatureProtocol {
     
-    private(set) var signedWallet: DomainLayer.DTO.SignedWallet
+    private(set) var signedWallet: SignedWallet
     
     private(set) var orderId: String
     

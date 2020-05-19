@@ -6,17 +6,16 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
 import DomainLayer
+import UIKit
 
 protocol PasscodeCoordinatorDelegate: AnyObject {
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet)
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet)
+    func passcodeCoordinatorAuthorizationCompleted(wallet: Wallet)
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: SignedWallet)
     func passcodeCoordinatorWalletLogouted()
 }
 
 final class PasscodeCoordinator: Coordinator {
-
     enum BehaviorPresentation {
         case push(NavigationRouter, dissmissToRoot: Bool)
         case modal(Router)
@@ -40,10 +39,9 @@ final class PasscodeCoordinator: Coordinator {
     private let kind: PasscodeTypes.DTO.Kind
     private let behaviorPresentation: BehaviorPresentation
 
-
     weak var delegate: PasscodeCoordinatorDelegate?
 
-    init(kind: PasscodeTypes.DTO.Kind, behaviorPresentation: BehaviorPresentation)  {
+    init(kind: PasscodeTypes.DTO.Kind, behaviorPresentation: BehaviorPresentation) {
         self.kind = kind
         self.behaviorPresentation = behaviorPresentation
 
@@ -51,18 +49,17 @@ final class PasscodeCoordinator: Coordinator {
         case .modal:
             mainNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
 
-        case .push(let router, _):
+        case let .push(router, _):
             mainNavigationRouter = router
         }
     }
 
     func start() {
-
         let vc = PasscodeModuleBuilder(output: self)
             .build(input: .init(kind: kind, hasBackButton: behaviorPresentation.isPush))
 
         switch behaviorPresentation {
-        case .modal(let router):
+        case let .modal(router):
 
             mainNavigationRouter.pushViewController(vc)
             router.present(mainNavigationRouter.navigationController, animated: true, completion: nil)
@@ -79,23 +76,23 @@ final class PasscodeCoordinator: Coordinator {
         removeFromParentCoordinator()
 
         switch behaviorPresentation {
-        case .modal(let router):
+        case let .modal(router):
             router.dismiss(animated: true, completion: nil)
 
-        case .push(_, let dissmissToRoot):
+        case let .push(_, dissmissToRoot):
             if dissmissToRoot {
-                self.mainNavigationRouter.popToRootViewController(animated: true)
+                mainNavigationRouter.popToRootViewController(animated: true)
             } else {
-                self.mainNavigationRouter.popViewController()
+                mainNavigationRouter.popViewController()
             }
         }
     }
 }
 
 // MARK: PasscodeOutput
-extension PasscodeCoordinator: PasscodeModuleOutput {
 
-    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) {
+extension PasscodeCoordinator: PasscodeModuleOutput {
+    func passcodeVerifyAccessCompleted(_ wallet: SignedWallet) {
         delegate?.passcodeCoordinatorVerifyAcccesCompleted(signedWallet: wallet)
     }
 
@@ -103,8 +100,7 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
         dissmiss()
     }
 
-    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
-
+    func passcodeLogInCompleted(passcode: String, wallet: Wallet, isNewWallet: Bool) {
         if isNewWallet, BiometricType.enabledBiometric != .none {
             let vc = UseTouchIDModuleBuilder(output: self)
                 .build(input: .init(passcode: passcode, wallet: wallet))
@@ -121,21 +117,20 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
     }
 
     func passcodeLogInByPassword() {
-
         switch kind {
-        case .verifyAccess(let wallet):
+        case let .verifyAccess(wallet):
             showAccountPassword(kind: .verifyAccess(wallet))
 
-        case .logIn(let wallet):
+        case let .logIn(wallet):
             showAccountPassword(kind: .logIn(wallet))
 
-        case .changePasscode(let wallet):
+        case let .changePasscode(wallet):
             showAccountPassword(kind: .verifyAccess(wallet))
 
-        case .setEnableBiometric(_, let wallet):
+        case let .setEnableBiometric(_, wallet):
             showAccountPassword(kind: .verifyAccess(wallet))
 
-        case .changePassword(let wallet, _, _):
+        case let .changePassword(wallet, _, _):
             showAccountPassword(kind: .verifyAccess(wallet))
 
         default:
@@ -144,7 +139,6 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
     }
 
     func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
-
         let vc = AccountPasswordModuleBuilder(output: self)
             .build(input: .init(kind: kind))
         mainNavigationRouter.pushViewController(vc)
@@ -152,10 +146,9 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
 }
 
 // MARK: AccountPasswordModuleOutput
+
 extension PasscodeCoordinator: AccountPasswordModuleOutput {
-
-    func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String) {
-
+    func accountPasswordVerifyAccess(signedWallet: SignedWallet, password: String) {
         let vc = PasscodeModuleBuilder(output: self)
             .build(input: .init(kind: .changePasscodeByPassword(signedWallet.wallet,
                                                                 password: password),
@@ -163,8 +156,7 @@ extension PasscodeCoordinator: AccountPasswordModuleOutput {
         mainNavigationRouter.pushViewController(vc)
     }
 
-    func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
-
+    func accountPasswordAuthorizationCompleted(wallet: Wallet, password: String) {
         let vc = PasscodeModuleBuilder(output: self)
             .build(input: .init(kind: .changePasscodeByPassword(wallet,
                                                                 password: password),
@@ -175,17 +167,15 @@ extension PasscodeCoordinator: AccountPasswordModuleOutput {
 }
 
 // MARK: UseTouchIDModuleOutput
+
 extension PasscodeCoordinator: UseTouchIDModuleOutput {
-
-    func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet) {
-
+    func userSkipRegisterBiometric(wallet: Wallet) {
         mainNavigationRouter.dismiss(animated: true, completion: nil)
         delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
         dissmiss()
     }
 
-    func userRegisteredBiometric(wallet: DomainLayer.DTO.Wallet) {
-
+    func userRegisteredBiometric(wallet: Wallet) {
         mainNavigationRouter.dismiss(animated: true, completion: nil)
         delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
         dissmiss()

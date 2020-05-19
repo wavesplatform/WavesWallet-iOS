@@ -9,8 +9,8 @@
 import Foundation
 import DomainLayer
 
-extension WalletEncryption {
-    convenience init(wallet: DomainLayer.DTO.WalletEncryption) {
+extension WalletEncryptionRealm {
+    convenience init(wallet: WalletEncryption) {
         self.init()
         self.publicKey = wallet.publicKey
         self.secret = wallet.kind.secret
@@ -18,11 +18,10 @@ extension WalletEncryption {
     }
 }
 
-extension DomainLayer.DTO.WalletEncryption {
-
-    init(wallet: WalletEncryption) {
+extension WalletEncryption {
+    init(wallet: WalletEncryptionRealm) {
         
-        var kind: DomainLayer.DTO.WalletEncryption.Kind = .none
+        var kind: WalletEncryption.Kind = .none
         
         if let secret = wallet.secret {
             kind = .passcode(secret: secret)
@@ -36,7 +35,7 @@ extension DomainLayer.DTO.WalletEncryption {
 
 extension WalletItem {
 
-    convenience init(wallet: DomainLayer.DTO.Wallet) {
+    public convenience init(wallet: Wallet) {
         self.init()
         self.publicKey = wallet.publicKey
         self.name = wallet.name
@@ -49,7 +48,7 @@ extension WalletItem {
     }
 }
 
-extension DomainLayer.DTO.Wallet {
+extension Wallet {
 
     init(wallet: WalletItem) {
 
@@ -66,7 +65,7 @@ extension DomainLayer.DTO.Wallet {
 
 extension SeedItem {
 
-    convenience init(seed: DomainLayer.DTO.WalletSeed) {
+    public convenience init(seed: WalletSeed) {
         self.init()
         self.publicKey = seed.publicKey
         self.address = seed.address
@@ -74,10 +73,9 @@ extension SeedItem {
     }
 }
 
-extension DomainLayer.DTO.WalletSeed {
+extension WalletSeed {
 
     init(seed: SeedItem) {
-        
         self.init(publicKey: seed.publicKey,
                   seed: seed.seed,
                   address: seed.address)

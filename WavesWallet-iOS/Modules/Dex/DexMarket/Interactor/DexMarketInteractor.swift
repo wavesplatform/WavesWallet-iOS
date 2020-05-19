@@ -209,7 +209,7 @@ private extension DexMarketInteractor {
             }
     }
 
-    func defaultPairs(wallet: DomainLayer.DTO.SignedWallet,
+    func defaultPairs(wallet: SignedWallet,
                       environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         let spamURL = environment.servers.spamUrl.relativeString
 

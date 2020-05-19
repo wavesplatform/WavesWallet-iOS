@@ -94,9 +94,8 @@ final class TransactionsRepository: TransactionsRepositoryProtocol {
         .asObservable()
     }
     
-    func send(serverEnvironment: ServerEnvironment,
-              specifications: TransactionSenderSpecifications,
-              wallet: DomainLayer.DTO.SignedWallet) -> Observable<AnyTransaction> {
+    func send(serverEnvironment: ServerEnvironment, specifications: TransactionSenderSpecifications, wallet: SignedWallet)
+        -> Observable<AnyTransaction> {
         
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnvironment)
                                         

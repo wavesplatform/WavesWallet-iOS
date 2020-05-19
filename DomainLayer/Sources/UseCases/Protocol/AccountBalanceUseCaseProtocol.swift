@@ -15,8 +15,7 @@ public enum AccountBalanceUseCaseError: Error {
 
 public protocol AccountBalanceUseCaseProtocol {
     func balances() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
-    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
-    func balance(by assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartAssetBalance>
+    func balances(by wallet: SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
+    func balance(by assetId: String, wallet: SignedWallet) -> Observable<DomainLayer.DTO.SmartAssetBalance>
     func balance(by assetId: String) -> Observable<DomainLayer.DTO.SmartAssetBalance>
 }

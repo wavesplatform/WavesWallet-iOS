@@ -18,7 +18,7 @@ public struct WEOAuthTokenDTO {
 }
 
 public protocol WEOAuthRepositoryProtocol {
-    func oauthToken(signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<WEOAuthTokenDTO>
+    func oauthToken(signedWallet: SignedWallet) -> Observable<WEOAuthTokenDTO>
 }
 
 

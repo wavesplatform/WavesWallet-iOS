@@ -17,7 +17,7 @@ protocol NetworkSettingsModuleOutput: AnyObject {
 }
 
 protocol NetworkSettingsModuleInput {
-    var wallet: DomainLayer.DTO.Wallet { get }
+    var wallet: Wallet { get }
 }
 
 protocol NetworkSettingsPresenterProtocol {
@@ -270,7 +270,7 @@ private extension NetworkSettingsPresenter {
 // MARK: UI State
 
 private extension NetworkSettingsPresenter {
-    func initialState(wallet: DomainLayer.DTO.Wallet) -> Types.State {
+    func initialState(wallet: Wallet) -> Types.State {
         return Types.State(wallet: wallet,
                            accountSettings: nil,
                            environment: nil,

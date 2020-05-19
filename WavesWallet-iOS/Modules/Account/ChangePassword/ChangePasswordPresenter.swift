@@ -13,11 +13,11 @@ import RxSwift
 import DomainLayer
 
 protocol ChangePasswordModuleOutput: AnyObject {
-    func changePasswordCompleted(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String)
+    func changePasswordCompleted(wallet: Wallet, newPassword: String, oldPassword: String)
 }
 
 protocol ChangePasswordModuleInput {
-    var wallet: DomainLayer.DTO.Wallet { get }
+    var wallet: Wallet { get }
 }
 
 protocol ChangePasswordPresenterProtocol {
@@ -29,7 +29,7 @@ protocol ChangePasswordPresenterProtocol {
 }
 
 private struct CheckPasswordQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
     let password: String
 }
 
@@ -219,7 +219,7 @@ private extension ChangePasswordPresenter {
 
 private extension ChangePasswordPresenter {
 
-    func initialState(wallet: DomainLayer.DTO.Wallet) -> Types.State {
+    func initialState(wallet: Wallet) -> Types.State {
         return Types.State(wallet: wallet,
                            displayState: initialDisplayState(),
                            query: nil,

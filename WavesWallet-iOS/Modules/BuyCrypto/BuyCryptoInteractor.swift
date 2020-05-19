@@ -123,10 +123,9 @@ extension BuyCryptoInteractor {
                 }
         }
 
-        private func obtainOAuthTokenWithServerEnvironment(signedWallet: DomainLayer.DTO.SignedWallet,
-                                                           serverEnvironment: ServerEnvironment)
+        private func obtainOAuthTokenWithServerEnvironment(signedWallet: SignedWallet, serverEnvironment: ServerEnvironment)
             -> Observable<(WEOAuthTokenDTO, ServerEnvironment)> {
-            oauthRepository.oauthToken(serverEnvironment: serverEnvironment, signedWallet: signedWallet)
+            oauthRepository.oauthToken(signedWallet: signedWallet)
                 .map { token -> (WEOAuthTokenDTO, ServerEnvironment) in (token, serverEnvironment) }
         }
     }
