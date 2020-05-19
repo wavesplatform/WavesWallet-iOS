@@ -111,13 +111,9 @@ final class WalletViewController: UIViewController {
         scrolledTablesComponent.reloadData()
     }
 
-    var isAssetDisplay: Bool {
-        scrolledTablesComponent.visibleTableView.tag == WalletDisplayState.Kind.assets.rawValue
-    }
-
     // TODO: Refactor method. I dont know how its work
     var isNeedSetupSearchBarPosition: Bool {
-        return displayData.isAssetsSectionsHaveSearch && isAssetDisplay &&
+        return displayData.isAssetsSectionsHaveSearch &&
             scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
             scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent
             .topOffset + WalletSearchTableViewCell.viewHeight() &&

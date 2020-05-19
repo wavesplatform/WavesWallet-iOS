@@ -400,7 +400,7 @@ final class InvestmentPresenter: InvestmentPresenterProtocol {
                 state.staking = staking
                 return
             }
-//
+
             state.action = .update
 
             let sections = InvestmentSection.map(from: staking, hasSkingLanding: state.hasSkipLanding)
@@ -417,10 +417,6 @@ final class InvestmentPresenter: InvestmentPresenterProtocol {
         case let .showStartLease(money):
             moduleOutput?.showStartLease(availableMoney: money)
             state.action = .none
-
-//        case let .presentSearch(startPoint):
-//            moduleOutput?.presentSearchScreen(from: startPoint, assets: state.assets)
-//            state.action = .none
 
         case .updateApp:
             moduleOutput?.openAppStore()
