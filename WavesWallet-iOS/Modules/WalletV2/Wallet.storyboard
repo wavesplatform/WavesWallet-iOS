@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Wallet Search View Controller-->
+        <scene sceneID="2wv-z3-8h9">
+            <objects>
+                <viewController storyboardIdentifier="WalletSearchViewController" id="V8r-Nj-4JA" customClass="WalletSearchViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EQy-MA-wNU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqo-RU-Mtk">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="znO-Rw-fZP">
+                                        <rect key="frame" x="0.0" y="56" width="414" height="796"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="V8r-Nj-4JA" id="TgM-3x-Hsq"/>
+                                            <outlet property="delegate" destination="V8r-Nj-4JA" id="Edn-lh-tHO"/>
+                                        </connections>
+                                    </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blf-US-DTN">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Of-pw-U83">
+                                                <rect key="frame" x="16" y="10" width="322" height="36"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ij9-gv-wQK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="322" height="36"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="ij9-gv-wQK" secondAttribute="trailing" id="LML-oa-gE6"/>
+                                                    <constraint firstAttribute="height" constant="36" id="Rly-aL-qqN"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ij9-gv-wQK" secondAttribute="bottom" id="azP-bj-uIW"/>
+                                                    <constraint firstItem="ij9-gv-wQK" firstAttribute="leading" secondItem="6Of-pw-U83" secondAttribute="leading" id="hmr-Gx-PTs"/>
+                                                    <constraint firstItem="ij9-gv-wQK" firstAttribute="top" secondItem="6Of-pw-U83" secondAttribute="top" id="m4h-tt-Jv6"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4j-Pt-ak1">
+                                                <rect key="frame" x="354" y="11.5" width="60" height="33"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="tdQ-bL-KaQ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelTapped:" destination="V8r-Nj-4JA" eventType="touchUpInside" id="hOx-jv-PgN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="0zm-Fp-iPa"/>
+                                            <constraint firstItem="6Of-pw-U83" firstAttribute="leading" secondItem="blf-US-DTN" secondAttribute="leading" constant="16" id="Smy-T9-ZrR"/>
+                                            <constraint firstItem="t4j-Pt-ak1" firstAttribute="centerY" secondItem="ij9-gv-wQK" secondAttribute="centerY" id="TcF-Ov-rcB"/>
+                                            <constraint firstAttribute="trailing" secondItem="t4j-Pt-ak1" secondAttribute="trailing" id="Vsq-6n-J5f"/>
+                                            <constraint firstItem="t4j-Pt-ak1" firstAttribute="leading" secondItem="6Of-pw-U83" secondAttribute="trailing" constant="16" id="e6L-Wy-9Jp"/>
+                                            <constraint firstItem="6Of-pw-U83" firstAttribute="top" secondItem="blf-US-DTN" secondAttribute="top" constant="10" id="qdr-ad-trz"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="znO-Rw-fZP" firstAttribute="top" secondItem="blf-US-DTN" secondAttribute="bottom" id="2Ox-1y-Jtl"/>
+                                    <constraint firstItem="blf-US-DTN" firstAttribute="leading" secondItem="tqo-RU-Mtk" secondAttribute="leading" id="GDN-VX-Sze"/>
+                                    <constraint firstItem="znO-Rw-fZP" firstAttribute="leading" secondItem="tqo-RU-Mtk" secondAttribute="leading" id="Vek-5z-D97"/>
+                                    <constraint firstAttribute="trailing" secondItem="blf-US-DTN" secondAttribute="trailing" id="gcS-Kd-zVb"/>
+                                    <constraint firstItem="blf-US-DTN" firstAttribute="top" secondItem="tqo-RU-Mtk" secondAttribute="top" id="kHA-nF-pei"/>
+                                    <constraint firstAttribute="bottom" secondItem="znO-Rw-fZP" secondAttribute="bottom" id="xWC-ee-4iW"/>
+                                    <constraint firstAttribute="trailing" secondItem="znO-Rw-fZP" secondAttribute="trailing" id="yBE-Re-DGv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tqo-RU-Mtk" firstAttribute="leading" secondItem="EQy-MA-wNU" secondAttribute="leading" id="4gZ-iG-bog"/>
+                            <constraint firstItem="tqo-RU-Mtk" firstAttribute="top" secondItem="RBW-wd-Y1Y" secondAttribute="top" id="XhN-xu-5ch"/>
+                            <constraint firstAttribute="bottom" secondItem="tqo-RU-Mtk" secondAttribute="bottom" id="p8F-Zb-shW"/>
+                            <constraint firstItem="RBW-wd-Y1Y" firstAttribute="trailing" secondItem="tqo-RU-Mtk" secondAttribute="trailing" id="ptG-1F-V5A"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RBW-wd-Y1Y"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCancel" destination="t4j-Pt-ak1" id="g5m-Ah-kbW"/>
+                        <outlet property="buttonCancelPosition" destination="Vsq-6n-J5f" id="Di4-Fc-MWn"/>
+                        <outlet property="buttonCancelWidth" destination="tdQ-bL-KaQ" id="srZ-jg-LYu"/>
+                        <outlet property="searchBarContainer" destination="blf-US-DTN" id="Plw-ci-rwF"/>
+                        <outlet property="tableView" destination="znO-Rw-fZP" id="YIJ-Tv-MpJ"/>
+                        <outlet property="textFieldSearch" destination="ij9-gv-wQK" id="Gnu-vU-QyO"/>
+                        <outlet property="viewContainer" destination="tqo-RU-Mtk" id="Rzx-1u-HLC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U14-Yi-fdF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1617" y="-206"/>
+        </scene>
+        <!--Wallet View Controller-->
+        <scene sceneID="zlD-cR-rTf">
+            <objects>
+                <viewController storyboardIdentifier="WalletViewController" id="xip-Yb-XDE" customClass="WalletViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="y7d-SH-Ca7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iUA-Ki-5kC" customClass="ScrolledContainerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                            </scrollView>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNh-6O-cSe" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Y89-mw-nMR" firstAttribute="bottom" secondItem="iUA-Ki-5kC" secondAttribute="bottom" id="8aN-tQ-Qml"/>
+                            <constraint firstItem="zNh-6O-cSe" firstAttribute="bottom" secondItem="iUA-Ki-5kC" secondAttribute="bottom" id="9q3-Px-LJA"/>
+                            <constraint firstItem="Y89-mw-nMR" firstAttribute="trailing" secondItem="iUA-Ki-5kC" secondAttribute="trailing" id="FQG-VQ-7LQ"/>
+                            <constraint firstItem="zNh-6O-cSe" firstAttribute="top" secondItem="iUA-Ki-5kC" secondAttribute="top" id="KZ0-Fz-5Yz"/>
+                            <constraint firstItem="iUA-Ki-5kC" firstAttribute="top" secondItem="y7d-SH-Ca7" secondAttribute="top" id="TtZ-EH-MvL"/>
+                            <constraint firstItem="iUA-Ki-5kC" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="au7-IE-m2h"/>
+                            <constraint firstItem="zNh-6O-cSe" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="pPj-yo-GSi"/>
+                            <constraint firstAttribute="trailing" secondItem="zNh-6O-cSe" secondAttribute="trailing" id="zwf-aU-W67"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Y89-mw-nMR"/>
+                    </view>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <connections>
+                        <outlet property="globalErrorView" destination="zNh-6O-cSe" id="kJB-nN-1jk"/>
+                        <outlet property="scrolledTablesComponent" destination="iUA-Ki-5kC" id="2by-Z4-U5k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gwd-ab-zJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2345" y="-206"/>
+        </scene>
+        <!--Wallet Sort View Controller-->
+        <scene sceneID="Avm-dS-T4F">
+            <objects>
+                <viewController storyboardIdentifier="WalletSortViewController" id="zkB-u6-kjr" customClass="WalletSortViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lvd-SX-EuL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7JJ-3l-QYy" customClass="TableViewNoShadow" customModule="Extensions">
+                                <rect key="frame" x="0.0" y="0.0" width="399" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="zkB-u6-kjr" id="eod-qx-PQb"/>
+                                    <outlet property="delegate" destination="zkB-u6-kjr" id="PhO-g5-d96"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EET-Df-KNM" customClass="WalletSortSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="3IO-s9-0Pb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7JJ-3l-QYy" firstAttribute="top" secondItem="lvd-SX-EuL" secondAttribute="top" id="1Mt-7k-iQ6"/>
+                            <constraint firstItem="EET-Df-KNM" firstAttribute="top" secondItem="wbg-kW-YLx" secondAttribute="top" id="9Vp-c8-IKX"/>
+                            <constraint firstItem="EET-Df-KNM" firstAttribute="leading" secondItem="wbg-kW-YLx" secondAttribute="leading" id="UdQ-Bx-gT6"/>
+                            <constraint firstItem="wbg-kW-YLx" firstAttribute="trailing" secondItem="7JJ-3l-QYy" secondAttribute="trailing" constant="15" id="f4z-lh-f9M"/>
+                            <constraint firstItem="wbg-kW-YLx" firstAttribute="trailing" secondItem="EET-Df-KNM" secondAttribute="trailing" id="fI0-0X-wCq"/>
+                            <constraint firstItem="7JJ-3l-QYy" firstAttribute="leading" secondItem="wbg-kW-YLx" secondAttribute="leading" id="w7V-8G-bbg"/>
+                            <constraint firstAttribute="bottom" secondItem="7JJ-3l-QYy" secondAttribute="bottom" id="yal-Tp-iWy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wbg-kW-YLx"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="EET-Df-KNM" id="jKe-YJ-hez"/>
+                        <outlet property="segmentedTopPosition" destination="9Vp-c8-IKX" id="Y66-a7-cGf"/>
+                        <outlet property="tableView" destination="7JJ-3l-QYy" id="Gab-qO-EXJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ET4-TH-Qvs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-916" y="-206"/>
+        </scene>
+    </scenes>
+</document>

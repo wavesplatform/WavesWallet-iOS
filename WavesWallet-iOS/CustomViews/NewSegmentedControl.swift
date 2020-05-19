@@ -188,12 +188,15 @@ private extension NewSegmentedControl {
                                                       bottom: 0,
                                                       right: 0)
                 
-                let label = UILabel(frame: .init(x: width - tickerWidth - Constants.deltaTitleWidth / 2,
+                let label = UILabel(frame: .init(x: width - tickerWidth - Constants.deltaTitleWidth / 2 + 4,
                                                  y: Constants.titleEdgeInsets.top,
                                                  width: tickerWidth,
                                                  height: Constants.Ticker.height))
                 label.backgroundColor = .submit300
                 label.layer.cornerRadius = Constants.Ticker.cornerRadius
+                label.translatesAutoresizingMaskIntoConstraints = true
+                label.lineBreakMode = .byTruncatingTail
+                label.numberOfLines = 1
                 label.clipsToBounds = true
                 label.textColor = .white
                 label.font = Constants.Ticker.font
