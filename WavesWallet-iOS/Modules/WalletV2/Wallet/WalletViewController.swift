@@ -23,7 +23,6 @@ private extension WalletDisplayState.Kind {
     }
 }
 
-// TODO: refactor all module
 final class WalletViewController: UIViewController {
     @IBOutlet private weak var scrolledTablesComponent: ScrolledContainerView!
     @IBOutlet var globalErrorView: GlobalErrorView!
@@ -387,7 +386,7 @@ private extension WalletViewController {
         }
     }
 
-    func setupLanguages() {        
+    func setupLanguages() {
         navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
     }
 

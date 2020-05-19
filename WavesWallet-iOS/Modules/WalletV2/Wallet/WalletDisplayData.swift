@@ -19,14 +19,12 @@ private enum Constants {
 protocol WalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
     func showSearchVC(fromStartPosition: CGFloat)
-    func sortButtonTapped()    
+    func sortButtonTapped()
 }
 
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletSectionVM
     private var assetsSections: [Section] = []
-    private var leasingSections: [Section] = []
-    private var stakingSections: [Section] = []
 
     private weak var scrolledTablesComponent: ScrolledContainerView!
     private let displays: [WalletDisplayState.Kind]
@@ -47,7 +45,7 @@ final class WalletDisplayData: NSObject {
                animateType: WalletDisplayState.ContentAction,
                completed: @escaping (() -> Void)) {
         self.assetsSections = assetsSections
-    
+
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             completed()
@@ -99,7 +97,7 @@ final class WalletDisplayData: NSObject {
 // MARK: Private
 
 private extension WalletDisplayData {
-    private func sections(by tableView: UITableView) -> [Section] {
+    private func sections(by _: UITableView) -> [Section] {
         return assetsSections
     }
 
@@ -119,7 +117,7 @@ private extension WalletDisplayData {
 extension WalletDisplayData: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
-                
+
         switch item {
         case .search:
             let cell = tableView.dequeueAndRegisterCell() as WalletSearchTableViewCell
@@ -160,12 +158,11 @@ extension WalletDisplayData: UITableViewDataSource {
 extension WalletDisplayData: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
-        switch item {        
-
+        switch item {
         case .assetSkeleton:
             let skeletonCell: AssetSkeletonCell? = cell as? AssetSkeletonCell
             skeletonCell?.startAnimation()
-        
+
         default:
             break
         }
@@ -184,7 +181,7 @@ extension WalletDisplayData: UITableViewDelegate {
             }
             return view
         }
-        
+
         return nil
     }
 
@@ -227,7 +224,7 @@ extension WalletDisplayData: UITableViewDelegate {
 
         case .assetSkeleton:
             return AssetSkeletonCell.cellHeight()
-            
+
         case .hidden:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -243,12 +240,11 @@ extension WalletDisplayData: UITableViewDelegate {
 }
 
 private extension WalletSectionVM {
-
     var header: String? {
         switch kind {
         case .info:
             return Localizable.Waves.Wallet.Section.quickNote
-        
+
         case let .spam(count):
             return Localizable.Waves.Wallet.Section.spamAssets(count)
 
