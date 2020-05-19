@@ -32,14 +32,14 @@ protocol WalletDisplayDataDelegate: AnyObject {
 }
 
 // Refactor method
-final class WalletDisplayData: NSObject {
-    private typealias Section = WalletTypes.ViewModel.Section
+final class InvestmentDisplayData: NSObject {
+    private typealias Section = InvestmentSection
     private var assetsSections: [Section] = []
     private var leasingSections: [Section] = []
     private var stakingSections: [Section] = []
 
     private weak var scrolledTablesComponent: ScrolledContainerView!
-    private let displays: [WalletTypes.DisplayState.Kind]
+    private let displays: [InvestmentDisplayState.Kind]
 
     weak var delegate: WalletDisplayDataDelegate?
     weak var balanceCellDelegate: WalletLeasingBalanceCellDelegate?
@@ -50,16 +50,16 @@ final class WalletDisplayData: NSObject {
     internal var isDisplayInvesting: Bool = false
 
     init(scrolledTablesComponent: ScrolledContainerView,
-         displays: [WalletTypes.DisplayState.Kind]) {
+         displays: [InvestmentDisplayState.Kind]) {
         self.displays = displays
         super.init()
         self.scrolledTablesComponent = scrolledTablesComponent
     }
 
-    func apply(assetsSections: [WalletTypes.ViewModel.Section],
-               leasingSections: [WalletTypes.ViewModel.Section],
-               stakingSections: [WalletTypes.ViewModel.Section],
-               animateType: WalletTypes.DisplayState.ContentAction,
+    func apply(assetsSections: [InvestmentSection],
+               leasingSections: [InvestmentSection],
+               stakingSections: [InvestmentSection],
+               animateType: InvestmentDisplayState.ContentAction,
                completed: @escaping (() -> Void)) {
         self.assetsSections = assetsSections
         self.leasingSections = leasingSections
@@ -115,7 +115,7 @@ final class WalletDisplayData: NSObject {
 
 // MARK: Private
 
-private extension WalletDisplayData {
+private extension InvestmentDisplayData {
     private func sections(by tableView: UITableView) -> [Section] {
         if isDisplayInvesting {
             if tableView.tag == 0 {
@@ -145,7 +145,7 @@ private extension WalletDisplayData {
 
 // MARK: UITableViewDelegate
 
-extension WalletDisplayData: UITableViewDataSource {
+extension InvestmentDisplayData: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
 
@@ -257,7 +257,7 @@ extension WalletDisplayData: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 
-extension WalletDisplayData: UITableViewDelegate {
+extension InvestmentDisplayData: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
         switch item {
@@ -411,32 +411,3 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 }
 
-private extension WalletTypes.ViewModel.Section {
-    var stakingHeader: WalletTypes.DTO.Staking.Profit? {
-        switch kind {
-        case let .staking(profit):
-            return profit
-        default:
-            return nil
-        }
-    }
-
-    var header: String? {
-        switch kind {
-        case .info:
-            return Localizable.Waves.Wallet.Section.quickNote
-
-        case let .transactions(count):
-            return Localizable.Waves.Wallet.Section.activeNow(count)
-
-        case let .spam(count):
-            return Localizable.Waves.Wallet.Section.spamAssets(count)
-
-        case let .hidden(count):
-            return Localizable.Waves.Wallet.Section.hiddenAssets(count)
-
-        default:
-            return nil
-        }
-    }
-}

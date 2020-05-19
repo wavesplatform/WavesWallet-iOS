@@ -126,7 +126,7 @@ final class StakingHeaderView: UITableViewHeaderFooterView, NibReusable, Resetab
 }
 
 extension StakingHeaderView: ViewConfiguration {
-    func update(with model: WalletTypes.DTO.Staking.Profit) {
+    func update(with model: InvestmentStakingVM.Profit) {
         setupLocalization()
 
         let backgroundColor = UIColor.white.withAlphaComponent(0.15)

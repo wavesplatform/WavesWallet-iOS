@@ -100,7 +100,7 @@ extension StakingBalanceCell: Localization {
 // MARK: ViewConfiguration
 
 extension StakingBalanceCell: ViewConfiguration {
-    func update(with model: WalletTypes.DTO.Staking.Balance) {
+    func update(with model: InvestmentStakingVM.Balance) {
         setupLocalization()
 
         let inStakingBalance = model.inStaking.money

@@ -22,8 +22,8 @@ final class WalletCoordinator: Coordinator {
 
     weak var parent: Coordinator?
 
-    private lazy var walletViewContoller: WalletViewController = {
-        return WalletModuleBuilder(output: self).build(input: self.isDisplayInvesting)
+    private lazy var walletViewContoller: InvestmentViewController = {
+        return InvestmentModuleBuilder(output: self).build(input: self.isDisplayInvesting)
     }()
 
     private var navigationRouter: NavigationRouter
@@ -117,7 +117,7 @@ final class WalletCoordinator: Coordinator {
 
 // MARK: WalletModuleOutput
 
-extension WalletCoordinator: WalletModuleOutput {
+extension WalletCoordinator: InvestmentModuleOutput {
     
     func showAccountHistory() {
         let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .all)

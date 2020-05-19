@@ -11,7 +11,7 @@ import UIKit
 import DomainLayer
 import Extensions
 
-protocol WalletModuleOutput: AnyObject {
+protocol InvestmentModuleOutput: AnyObject {
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance])
     func showMyAddress()
     func showHistoryForLeasing()
