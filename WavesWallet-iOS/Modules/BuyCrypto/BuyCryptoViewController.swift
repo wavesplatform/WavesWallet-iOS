@@ -25,13 +25,11 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     @IBOutlet private weak var cryptoCollectionView: UICollectionView!
     @IBOutlet private weak var buyButton: BlueButton!
     @IBOutlet private weak var infoTextView: UITextView!
-
-    private var presenterOutput: BuyCryptoPresenterOutput?
-    private let viewOutput = VCOutput()
+    
+    private let didTapRetry = PublishRelay<Void>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindIfNeeded()
         initialSetup()
     }
 
@@ -61,24 +59,15 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
 extension BuyCryptoViewController: BindableView {
     func getOutput() -> BuyCryptoViewOutput {
-        BuyCryptoViewOutput()
+        let viewWillAppear = rx.viewWillAppear.mapAsVoid()
+        
+        return BuyCryptoViewOutput(viewWillAppear: ControlEvent<Void>(events: viewWillAppear),
+                                   didTapRetry: didTapRetry.asControlEvent())
     }
 
     func bindWith(_ input: BuyCryptoPresenterOutput) {
-        presenterOutput = input
-        bindIfNeeded()
+        
     }
-
-    private func bindIfNeeded() {
-        guard let input = presenterOutput, isViewLoaded else { return }
-        // ...
-    }
-}
-
-// MARK: - ViewOutput
-
-extension BuyCryptoViewController {
-    private struct VCOutput {}
 }
 
 // MARK: - StoryboardInstantiatable

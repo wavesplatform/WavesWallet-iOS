@@ -17,6 +17,7 @@
 		8769B59C2464466C00124484 /* PublishObservableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B59B2464466C00124484 /* PublishObservableWrapper.swift */; };
 		8769B59F246446CC00124484 /* PublishControlEventWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B59E246446CC00124484 /* PublishControlEventWrapper.swift */; };
 		8769B5A12464475300124484 /* WithLatestFrom+BothValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B5A02464475300124484 /* WithLatestFrom+BothValue.swift */; };
+		87ED72842472AC3B002CAD29 /* StateTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED72832472AC3B002CAD29 /* StateTrait.swift */; };
 		92586C2530794E52F54C277E /* Pods_AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2E09101C0977A48EAB3198 /* Pods_AppTools.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		8769B59B2464466C00124484 /* PublishObservableWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishObservableWrapper.swift; sourceTree = "<group>"; };
 		8769B59E246446CC00124484 /* PublishControlEventWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishControlEventWrapper.swift; sourceTree = "<group>"; };
 		8769B5A02464475300124484 /* WithLatestFrom+BothValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WithLatestFrom+BothValue.swift"; sourceTree = "<group>"; };
+		87ED72832472AC3B002CAD29 /* StateTrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTrait.swift; sourceTree = "<group>"; };
 		B4F20B210F7DFE62B748D5BE /* Pods-AppTools.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTools.release-dev.xcconfig"; path = "Target Support Files/Pods-AppTools/Pods-AppTools.release-dev.xcconfig"; sourceTree = "<group>"; };
 		EE2E09101C0977A48EAB3198 /* Pods_AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -119,6 +121,7 @@
 				8769B58C246443AA00124484 /* BindableView.swift */,
 				8769B58E246443C400124484 /* IOTransformer.swift */,
 				8769B590246443DA00124484 /* VIPBinder.swift */,
+				87ED72832472AC3B002CAD29 /* StateTrait.swift */,
 			);
 			path = ModuleTooling;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87ED72842472AC3B002CAD29 /* StateTrait.swift in Sources */,
 				8769B591246443DA00124484 /* VIPBinder.swift in Sources */,
 				8769B58D246443AA00124484 /* BindableView.swift in Sources */,
 				8769B59F246446CC00124484 /* PublishControlEventWrapper.swift in Sources */,
