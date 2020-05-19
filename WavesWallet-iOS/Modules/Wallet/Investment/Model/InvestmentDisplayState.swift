@@ -280,20 +280,6 @@ extension InvestmentDisplayState.ContentAction {
     }
 }
 
-
-
-//private extension InvestmentDisplayState.Kind {
-//    var name: String {
-//        switch self {
-//        case .assets:
-//            return Localizable.Waves.Wallet.Segmentedcontrol.assets
-//        case .leasing:
-//            return Localizable.Waves.Wallet.Segmentedcontrol.leasing
-//        case .staking:
-//            return Localizable.Waves.Wallet.Segmentedcontrol.staking
-//        }
-//    }
-//}
 extension InvestmentDisplayState.Kind {
     var name: String {
         switch self {

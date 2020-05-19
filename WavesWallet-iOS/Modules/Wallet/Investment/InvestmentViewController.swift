@@ -117,9 +117,7 @@ final class InvestmentViewController: UIViewController {
         for view in scrolledTablesComponent.topContents {
             if let updateView = view as? WalletUpdateAppView {
                 updateView.update(with: ())
-            } else if let clearView = view as? WalletClearAssetsView {
-                clearView.update(with: ())
-            }
+            } 
         }
         scrolledTablesComponent.reloadData()
     }

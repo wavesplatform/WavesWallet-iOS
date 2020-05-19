@@ -477,7 +477,6 @@
 		7B9393D222DF5835006634A6 /* Extensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7B83A7E822D8D72F0038180D /* Extensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393F722DF8982006634A6 /* DexCreateOrderInvalidPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */; };
 		7B9542C423FB2CF50079AB18 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B06B22FC784F008BA3F4 /* Balance.swift */; };
-		7B975CAB2472E08100F7DE89 /* DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B975CAA2472E08100F7DE89 /* DisplayState.swift */; };
 		7B975CAD2472F00600F7DE89 /* InvestmentDisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B975CAC2472F00600F7DE89 /* InvestmentDisplayState.swift */; };
 		7B975CAF2472F02B00F7DE89 /* InvestmentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B975CAE2472F02B00F7DE89 /* InvestmentState.swift */; };
 		7B975CB12472F03B00F7DE89 /* InvestmentEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B975CB02472F03B00F7DE89 /* InvestmentEvent.swift */; };
@@ -1041,8 +1040,6 @@
 		E9618D1422EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */; };
 		E9618D1622EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9618D1522EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift */; };
 		E9618D1922F0473000FB7F06 /* MarketPulseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */; };
-		E96358A422A73D62008A3395 /* WalletClearAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96358A322A73D62008A3395 /* WalletClearAssetsView.swift */; };
-		E96358A622A73D70008A3395 /* WalletClearAssetsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96358A522A73D70008A3395 /* WalletClearAssetsView.xib */; };
 		E9642C8F21CB32570065A1BD /* CoinomatServiceErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9642C8E21CB32570065A1BD /* CoinomatServiceErrorView.swift */; };
 		E9642C9121CB326A0065A1BD /* CoinomatServiceErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */; };
 		E965702321935F2F0052F0FC /* DexCreateOrderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965702221935F2F0052F0FC /* DexCreateOrderInteractor.swift */; };
@@ -1903,7 +1900,6 @@
 		7B922D8C2402C4AB00271443 /* StakingTransferHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StakingTransferHeaderView.swift; sourceTree = "<group>"; };
 		7B922D8D2402C4AC00271443 /* StakingTransferHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StakingTransferHeaderView.xib; sourceTree = "<group>"; };
 		7B922D9C2402E31900271443 /* StakingTransferTypes+Initial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StakingTransferTypes+Initial.swift"; sourceTree = "<group>"; };
-		7B975CAA2472E08100F7DE89 /* DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayState.swift; sourceTree = "<group>"; };
 		7B975CAC2472F00600F7DE89 /* InvestmentDisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentDisplayState.swift; sourceTree = "<group>"; };
 		7B975CAE2472F02B00F7DE89 /* InvestmentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentState.swift; sourceTree = "<group>"; };
 		7B975CB02472F03B00F7DE89 /* InvestmentEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentEvent.swift; sourceTree = "<group>"; };
@@ -2507,8 +2503,6 @@
 		E95F734323DA9AB500A94674 /* TradeTypes+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TradeTypes+Mapper.swift"; sourceTree = "<group>"; };
 		E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E9618D1522EF936800FB7F06 /* MarketPulseSettingsDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseSettingsDomainDTO.swift; sourceTree = "<group>"; };
-		E96358A322A73D62008A3395 /* WalletClearAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletClearAssetsView.swift; sourceTree = "<group>"; };
-		E96358A522A73D70008A3395 /* WalletClearAssetsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletClearAssetsView.xib; sourceTree = "<group>"; };
 		E9642C8E21CB32570065A1BD /* CoinomatServiceErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatServiceErrorView.swift; sourceTree = "<group>"; };
 		E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoinomatServiceErrorView.xib; sourceTree = "<group>"; };
 		E965702221935F2F0052F0FC /* DexCreateOrderInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInteractor.swift; sourceTree = "<group>"; };
@@ -3486,8 +3480,6 @@
 				0AF92216212E0F1F003BA067 /* WalletHeaderView.swift */,
 				E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */,
 				E98F1D2E22A5E2F200B4A8C4 /* WalletUpdateAppView.xib */,
-				E96358A322A73D62008A3395 /* WalletClearAssetsView.swift */,
-				E96358A522A73D70008A3395 /* WalletClearAssetsView.xib */,
 				0AF92217212E0F1F003BA067 /* Cells */,
 				0AF9221F212E0F1F003BA067 /* Skeletons */,
 				0AF92223212E0F1F003BA067 /* WalletSegmentedControl.swift */,
@@ -4417,7 +4409,6 @@
 		7B975CA92472E05F00F7DE89 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7B975CAA2472E08100F7DE89 /* DisplayState.swift */,
 				7B975CAC2472F00600F7DE89 /* InvestmentDisplayState.swift */,
 				7B975CAE2472F02B00F7DE89 /* InvestmentState.swift */,
 				7B975CB02472F03B00F7DE89 /* InvestmentEvent.swift */,
@@ -7319,7 +7310,6 @@
 				87FA5D0824223B95002F282D /* AccountPassword.storyboard in Resources */,
 				87FA5DBF24223FBE002F282D /* AssetBalanceSpamCell.xib in Resources */,
 				7BDA6AE2223025AD001DE71C /* BalanceLabel.xib in Resources */,
-				E96358A622A73D70008A3395 /* WalletClearAssetsView.xib in Resources */,
 				0AF92303212E1424003BA067 /* Waves.strings in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
 				E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */,
@@ -8225,7 +8215,6 @@
 				E9B087E22163886800937644 /* DexCreateOrderModuleBuilder.swift in Sources */,
 				E9D36DF32175C755001E6DF0 /* AssetListPresenter.swift in Sources */,
 				7B0D1B7F2401CA1000442B7B /* StakingTransferDescriptionCell.swift in Sources */,
-				7B975CAB2472E08100F7DE89 /* DisplayState.swift in Sources */,
 				87FA5D4424223C1F002F282D /* PasscodeTypes.swift in Sources */,
 				E965702321935F2F0052F0FC /* DexCreateOrderInteractor.swift in Sources */,
 				87FA5D8324223E0C002F282D /* AddressBookModuleOutput.swift in Sources */,
@@ -8548,7 +8537,6 @@
 				0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */,
 				87FA5D3624223C04002F282D /* NewAccountViewController.swift in Sources */,
 				8752A2682412799900B968C7 /* PayoutsHistoryTypes.swift in Sources */,
-				E96358A422A73D62008A3395 /* WalletClearAssetsView.swift in Sources */,
 				0AE491F62107A529009223DB /* InvestmentInteractorProtocol.swift in Sources */,
 				E941219A23CED5D4002858A0 /* TradeSystem.swift in Sources */,
 				7BDA6AF622316078001DE71C /* TransactionCardMassSentRecipientCell.swift in Sources */,
