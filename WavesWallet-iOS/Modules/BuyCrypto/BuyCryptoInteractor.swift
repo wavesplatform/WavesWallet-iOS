@@ -1,4 +1,4 @@
-// 
+//
 //  BuyCryptoInteractor.swift
 //  WavesWallet-iOS
 //
@@ -7,28 +7,27 @@
 //
 
 import AppTools
+import DomainLayer
 import RxCocoa
 import RxSwift
 
 final class BuyCryptoInteractor: BuyCryptoInteractable {
     private let presenter: BuyCryptoPresentable
-    
+
     private let stateTransformTrait: StateTransformTrait<BuyCryptoState>
-    
+
     private let apiResponse = ApiResponse()
-    
+
     private let disposeBag = DisposeBag()
-    
+
     init(presenter: BuyCryptoPresentable) {
         self.presenter = presenter
-        
+
         let _state = BehaviorRelay<BuyCryptoState>(value: .isLoading)
-        self.stateTransformTrait = StateTransformTrait(_state: _state, disposeBag: disposeBag)
+        stateTransformTrait = StateTransformTrait(_state: _state, disposeBag: disposeBag)
     }
-    
-    private func performInitialLoading() {
-        
-    }
+
+    private func performInitialLoading() {}
 }
 
 // MARK: - IOTransformer
@@ -39,15 +38,15 @@ extension BuyCryptoInteractor: IOTransformer {
             .take(1)
             .subscribe(onNext: { [weak self] in self?.performInitialLoading() })
             .disposed(by: disposeBag)
-        
+
         StateTransform.fromIsLoadingToACashAssetsLoaded(stateTransformTrait: stateTransformTrait,
                                                         didLoadACashAssets: apiResponse.didLoadACashAssets)
-        
+
         StateTransform.fromIsLoadingToLoadingError(stateTransformTrait: stateTransformTrait,
                                                    aCashAssetsLoadingError: apiResponse.aCashAssetsLoadingError)
-        
+
         StateTransform.fromLoadingErrorToIsLoading(stateTransformTrait: stateTransformTrait, didTapRetry: input.didTapRetry)
-        
+
         return BuyCryptoInteractorOutput(readOnlyState: stateTransformTrait.readOnlyState)
     }
 }
@@ -55,10 +54,8 @@ extension BuyCryptoInteractor: IOTransformer {
 extension BuyCryptoInteractor {
     private enum StateTransform {
         static func fromIsLoadingToACashAssetsLoaded(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                     didLoadACashAssets: Observable<Void>) {
-            
-        }
-        
+                                                     didLoadACashAssets: Observable<Void>) {}
+
         static func fromIsLoadingToLoadingError(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                                 aCashAssetsLoadingError: Observable<Error>) {
             let fromIsLoadingToLoadingError = aCashAssetsLoadingError
@@ -67,12 +64,12 @@ extension BuyCryptoInteractor {
                     case .isLoading: return true
                     default: return false
                     }
-            }
-            .map { BuyCryptoState.loadingError($0.localizedDescription) }
-            
+                }
+                .map { BuyCryptoState.loadingError($0.localizedDescription) }
+
             fromIsLoadingToLoadingError.bind(to: stateTransformTrait._state).disposed(by: stateTransformTrait.disposeBag)
         }
-        
+
         static func fromLoadingErrorToIsLoading(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                                 didTapRetry: ControlEvent<Void>) {
             let fromLoadingErrorToIsLoading = didTapRetry
@@ -81,9 +78,9 @@ extension BuyCryptoInteractor {
                     case .loadingError: return true
                     default: return false
                     }
-            }
-            .map { BuyCryptoState.isLoading }
-            
+                }
+                .map { BuyCryptoState.isLoading }
+
             fromLoadingErrorToIsLoading.bind(to: stateTransformTrait._state).disposed(by: stateTransformTrait.disposeBag)
         }
     }
@@ -93,6 +90,44 @@ extension BuyCryptoInteractor {
 
 extension BuyCryptoInteractor {
     private final class Networker {
-        
+        private let serverEnvironmentRepository: ServerEnvironmentRepository
+        private let authorizationService: AuthorizationUseCaseProtocol
+        private let oauthRepository: WEOAuthRepositoryProtocol
+        private let gatewaysWavesRepository: GatewaysWavesRepository
+
+        init(serverEnvironmentRepository: ServerEnvironmentRepository,
+             authorizationService: AuthorizationUseCaseProtocol,
+             oauthRepository: WEOAuthRepositoryProtocol,
+             gatewaysWavesRepository: GatewaysWavesRepository) {
+            self.serverEnvironmentRepository = serverEnvironmentRepository
+            self.authorizationService = authorizationService
+            self.oauthRepository = oauthRepository
+            self.gatewaysWavesRepository = gatewaysWavesRepository
+        }
+
+        func getAssetsBindings() -> Observable<[GatewaysAssetBinding]> {
+            Observable.zip(authorizationService.authorizedWallet(), serverEnvironmentRepository.serverEnvironment())
+                .flatMap { [weak self] signedWallet, serverEnvironment -> Observable<(WEOAuthTokenDTO, ServerEnvironment)> in
+                    guard let sself = self else { return Observable.never() }
+
+                    return sself.obtainOAuthTokenWithServerEnvironment(signedWallet: signedWallet,
+                                                                       serverEnvironment: serverEnvironment)
+                }
+                .flatMap { [weak self] token, serverEnvironment -> Observable<[GatewaysAssetBinding]> in
+                    guard let sself = self else { return Observable.never() }
+                    let request = AssetBindingsRequest(direction: .deposit)
+
+                    return sself.gatewaysWavesRepository.assetBindingsRequest(serverEnvironment: serverEnvironment,
+                                                                              oAToken: token,
+                                                                              request: request)
+                }
+        }
+
+        private func obtainOAuthTokenWithServerEnvironment(signedWallet: DomainLayer.DTO.SignedWallet,
+                                                           serverEnvironment: ServerEnvironment)
+            -> Observable<(WEOAuthTokenDTO, ServerEnvironment)> {
+            oauthRepository.oauthToken(serverEnvironment: serverEnvironment, signedWallet: signedWallet)
+                .map { token -> (WEOAuthTokenDTO, ServerEnvironment) in (token, serverEnvironment) }
+        }
     }
 }
