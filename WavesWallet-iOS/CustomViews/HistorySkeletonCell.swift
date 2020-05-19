@@ -1,5 +1,5 @@
 //
-//  WalletHistorySkeletonCell.swift
+//  HistorySkeletonCell.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 17.07.2018.
@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import UITools
 
-final class WalletHistorySkeletonCell: SkeletonTableCell, NibReusable {
+final class HistorySkeletonCell: SkeletonTableCell, NibReusable {
     @IBOutlet private weak var viewContent: UIView!
 
     override func awakeFromNib() {

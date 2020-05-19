@@ -15,11 +15,6 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
-private enum ReactQuery {
-    case new
-    case refresh
-}
-
 final class InvestmentPresenter: InvestmentPresenterProtocol {
     var interactor: InvestmentInteractorProtocol!
     weak var moduleOutput: InvestmentModuleOutput?

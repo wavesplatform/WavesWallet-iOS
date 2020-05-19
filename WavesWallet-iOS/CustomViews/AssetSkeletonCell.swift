@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import UITools
 
-final class WalletAssetSkeletonCell: SkeletonTableCell, NibReusable {
+final class AssetSkeletonCell: SkeletonTableCell, NibReusable {
     @IBOutlet private weak var viewContent: UIView!
 
     override func awakeFromNib() {

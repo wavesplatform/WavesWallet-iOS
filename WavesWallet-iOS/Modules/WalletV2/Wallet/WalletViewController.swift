@@ -14,15 +14,11 @@ import RxSwift
 import UIKit
 import UITools
 
-private extension WalletTypes.DisplayState.Kind {
+private extension WalletDisplayState.Kind {
     var name: String {
         switch self {
         case .assets:
-            return Localizable.Waves.Wallet.Segmentedcontrol.assets
-        case .leasing:
-            return Localizable.Waves.Wallet.Segmentedcontrol.leasing
-        case .staking:
-            return Localizable.Waves.Wallet.Segmentedcontrol.staking
+            return Localizable.Waves.Wallet.Segmentedcontrol.assets        
         }
     }
 }
@@ -35,7 +31,7 @@ final class WalletViewController: UIViewController {
     private var displayData: WalletDisplayData!
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private var displays: [WalletTypes.DisplayState.Kind] = []
+    private var displays: [WalletDisplayState.Kind] = [.assets]
 
     private var isRefreshing: Bool = false
     private var snackError: String?
@@ -55,27 +51,9 @@ final class WalletViewController: UIViewController {
                                                    target: nil,
                                                    action: nil)
 
-    private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
+    private let sendEvent: PublishRelay<WalletEvent> = PublishRelay<WalletEvent>()
 
     var presenter: WalletPresenterProtocol!
-
-    var isDisplayInvesting: Bool = false {
-        didSet {
-            if false {
-                displays = [.staking, .leasing]
-            } else {
-                displays = [.assets]
-            }
-        }
-    }
-
-    public func completedDepositBalance(balance: DomainLayer.DTO.Balance) {
-        sendEvent.accept(.completedDepositBalance(balance: balance))
-    }
-
-    public func completedWithdrawBalance(balance: DomainLayer.DTO.Balance) {
-        sendEvent.accept(.completedWithdrawBalance(balance: balance))
-    }
 
     public func refreshData() {
         sendEvent.accept(.refresh)
@@ -135,7 +113,7 @@ final class WalletViewController: UIViewController {
     }
 
     var isAssetDisplay: Bool {
-        scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue
+        scrolledTablesComponent.visibleTableView.tag == WalletDisplayState.Kind.assets.rawValue
     }
 
     // TODO: Refactor method. I dont know how its work
@@ -210,7 +188,7 @@ extension WalletViewController {
             return self
                 .rx
                 .viewWillAppear
-                .map { _ in WalletTypes.Event.viewWillAppear }
+                .map { _ in WalletEvent.viewWillAppear }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
@@ -219,7 +197,7 @@ extension WalletViewController {
             return self
                 .rx
                 .viewDidDisappear
-                .map { _ in WalletTypes.Event.viewDidDisappear }
+                .map { _ in WalletEvent.viewDidDisappear }
                 .asSignal(onErrorSignalWith: Signal.empty())
         }
 
@@ -228,39 +206,39 @@ extension WalletViewController {
                                      viewDidDisappearFeedback])
     }
 
-    func events() -> [Signal<WalletTypes.Event>] {
+    func events() -> [Signal<WalletEvent>] {
         let sortTapEvent = buttonHistory
             .rx
             .tap
-            .map { WalletTypes.Event.tapHistory }
+            .map { WalletEvent.tapHistory }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let addressTapEvent = buttonAddress
             .rx
             .tap
-            .map { WalletTypes.Event.tapAddressButton }
+            .map { WalletEvent.tapAddressButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let actionMenuTapEvent = buttonActionMenu
             .rx
             .tap
-            .map { WalletTypes.Event.tapActionMenuButton }
+            .map { WalletEvent.tapActionMenuButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let refreshEvent = scrolledTablesComponent
             .rx
             .didRefreshing(refreshControl: scrolledTablesComponent.refreshControl!)
-            .map { _ in WalletTypes.Event.refresh }
+            .map { _ in WalletEvent.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let tapEvent = displayData
             .tapSection
-            .map { WalletTypes.Event.tapSection($0) }
+            .map { WalletEvent.tapSection($0) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let changedSpamList = NotificationCenter.default.rx
             .notification(.changedSpamList)
-            .map { _ in WalletTypes.Event.refresh }
+            .map { _ in WalletEvent.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let recieverEvents = sendEvent.asSignal()
@@ -274,7 +252,7 @@ extension WalletViewController {
                 actionMenuTapEvent]
     }
 
-    func subscriptions(state: Driver<WalletTypes.State>) -> [Disposable] {
+    func subscriptions(state: Driver<WalletState>) -> [Disposable] {
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
@@ -288,7 +266,6 @@ extension WalletViewController {
             }
 
             self.addTopViewBanners(hasData: state.hasData,
-                                   isShowCleanWalletBanner: state.isShowCleanWalletBanner,
                                    isHasAppUpdate: state.isHasAppUpdate)
 
             self.updateView(with: state.displayState)
@@ -298,11 +275,10 @@ extension WalletViewController {
     }
 
     func addTopViewBanners(hasData: Bool,
-                           isShowCleanWalletBanner: Bool,
                            isHasAppUpdate: Bool) {
         if hasData, !hasAddingViewBanners {
             hasAddingViewBanners = true
-            if isHasAppUpdate && !isDisplayInvesting {
+            if isHasAppUpdate {
                 let view = UpdateAppView.loadFromNib()
                 scrolledTablesComponent.addTopView(view, animation: false)
 
@@ -313,10 +289,8 @@ extension WalletViewController {
         }
     }
 
-    func updateView(with state: WalletTypes.DisplayState) {
+    func updateView(with state: WalletDisplayState) {
         displayData.apply(assetsSections: state.assets.visibleSections,
-                          leasingSections: state.leasing.visibleSections,
-                          stakingSections: state.staking.visibleSections,
                           animateType: state.animateType) { [weak self] in
 
             if state.isRefreshing == false {
@@ -413,22 +387,17 @@ private extension WalletViewController {
         }
     }
 
-    func setupLanguages() {
-        if isDisplayInvesting {
-            navigationItem.title = Localizable.Waves.Investment.Navigationbar.title
-        } else {
-            navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
-        }
+    func setupLanguages() {        
+        navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
     }
 
-    func setupButons(kind _: WalletTypes.DisplayState.Kind) {
+    func setupButons(kind _: WalletDisplayState.Kind) {
         navigationItem.leftBarButtonItems = [buttonAddress]
         navigationItem.rightBarButtonItems = [buttonHistory, buttonActionMenu]
     }
 
     func setupTableView() {
         displayData.delegate = self
-        displayData.balanceCellDelegate = self
     }
 
     func setupSegmetedControl() {
@@ -437,55 +406,10 @@ private extension WalletViewController {
     }
 }
 
-// MARK: - InvestmentLeasingBalanceCellDelegate
-
-extension WalletViewController: InvestmentLeasingBalanceCellDelegate {
-    func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money) {
-        sendEvent.accept(.showStartLease(availableMoney))
-    }
-}
-
 // MARK: WalletDisplayDataDelegate
 
 extension WalletViewController: WalletDisplayDataDelegate {
-    func startStakingTapped() {
-        sendEvent.accept(.startStaking)
-    }
-
-    func showPayout(payout _: PayoutTransactionVM) {}
-
-    func openTw(_ sharedText: String) {
-        sendEvent.accept(.openTw(sharedText))
-    }
-
-    func openFb(_ sharedText: String) {
-        sendEvent.accept(.openFb(sharedText))
-    }
-
-    func openVk(_ sharedText: String) {
-        sendEvent.accept(.openVk(sharedText))
-    }
-
-    func openStakingFaq(fromLanding: Bool) {
-        sendEvent.accept(.openStakingFaq(fromLanding: fromLanding))
-    }
-
-    func withdrawTapped() {
-        sendEvent.accept(.openWithdraw)
-    }
-
-    func depositTapped() {
-        sendEvent.accept(.openDeposit)
-    }
-
-    func tradeTapped() {
-        sendEvent.accept(.openTrade)
-    }
-
-    func buyTapped() {
-        sendEvent.accept(.openBuy)
-    }
-
+    
     func showSearchVC(fromStartPosition: CGFloat) {
         sendEvent.accept(.presentSearch(startPoint: fromStartPosition))
     }
@@ -501,14 +425,11 @@ extension WalletViewController: WalletDisplayDataDelegate {
 
 // MARK: - WalletTypes.DisplayState.Kind
 
-private extension WalletTypes.DisplayState.Kind {
+private extension WalletDisplayState.Kind {
     var segmentedItem: NewSegmentedControl.SegmentedItem {
         switch self {
-        case .assets, .leasing:
+        case .assets:
             return .title(name)
-
-        case .staking:
-            return .ticker(.init(title: name, ticker: Localizable.Waves.Wallet.Segmentedcontrol.new.uppercased()))
         }
     }
 }
