@@ -69,7 +69,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func walletEncryption(by publicKey: String) -> Observable<WalletEncryption> {
+    func walletEncryption(by publicKey: String) -> Observable<DomainWalletEncryption> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -82,7 +82,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            if let object = realm.object(ofType: WalletEncryptionRealm.self, forPrimaryKey: publicKey) {
+            if let object = realm.object(ofType: WalletEncryption.self, forPrimaryKey: publicKey) {
                 observer.onNext(.init(wallet: object))
                 observer.onCompleted()
             } else {
@@ -93,7 +93,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
         }
     }
 
-    func saveWalletEncryption(_ walletEncryption: WalletEncryption) -> Observable<WalletEncryption> {
+    func saveWalletEncryption(_ walletEncryption: DomainWalletEncryption) -> Observable<DomainWalletEncryption> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -108,7 +108,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
             do {
                 try realm.write {
-                    realm.add(WalletEncryptionRealm(wallet: walletEncryption), update: .all)
+                    realm.add(WalletEncryption(wallet: walletEncryption), update: .all)
                 }
                 observer.onNext(walletEncryption)
                 observer.onCompleted()
@@ -137,7 +137,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
             }
 
             do {
-                if let object = realm.object(ofType: WalletEncryptionRealm.self, forPrimaryKey: publicKey) {
+                if let object = realm.object(ofType: WalletEncryption.self, forPrimaryKey: publicKey) {
                     try realm.write {
                         realm.delete(object)
                     }

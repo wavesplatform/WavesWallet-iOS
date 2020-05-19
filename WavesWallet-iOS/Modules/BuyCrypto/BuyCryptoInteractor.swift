@@ -14,20 +14,38 @@ import RxSwift
 final class BuyCryptoInteractor: BuyCryptoInteractable {
     private let presenter: BuyCryptoPresentable
 
+    private let networker: Networker
+
     private let stateTransformTrait: StateTransformTrait<BuyCryptoState>
 
     private let apiResponse = ApiResponse()
 
     private let disposeBag = DisposeBag()
 
-    init(presenter: BuyCryptoPresentable) {
+    init(presenter: BuyCryptoPresentable,
+         serverEnvironment: ServerEnvironmentRepository,
+         authorizationService: AuthorizationUseCaseProtocol,
+         oauthRepository: WEOAuthRepositoryProtocol,
+         gatewayWavesRepository: GatewaysWavesRepository) {
         self.presenter = presenter
 
         let _state = BehaviorRelay<BuyCryptoState>(value: .isLoading)
         stateTransformTrait = StateTransformTrait(_state: _state, disposeBag: disposeBag)
+
+        networker = Networker(serverEnvironmentRepository: serverEnvironment,
+                              authorizationService: authorizationService,
+                              oauthRepository: oauthRepository,
+                              gatewaysWavesRepository: gatewayWavesRepository)
     }
 
-    private func performInitialLoading() {}
+    private func performInitialLoading() {
+        networker.getAssetsBindings { [weak self] result in
+            switch result {
+            case let .success(bindings): self?.apiResponse.$didLoadACashAssets.accept(bindings)
+            case let .failure(error): self?.apiResponse.$aCashAssetsLoadingError.accept(error)
+            }
+        }
+    }
 }
 
 // MARK: - IOTransformer
@@ -54,7 +72,18 @@ extension BuyCryptoInteractor: IOTransformer {
 extension BuyCryptoInteractor {
     private enum StateTransform {
         static func fromIsLoadingToACashAssetsLoaded(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                     didLoadACashAssets: Observable<Void>) {}
+                                                     didLoadACashAssets: Observable<[GatewaysAssetBinding]>) {
+            let fromIsLoadingToACashAssetsLoaded = didLoadACashAssets
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+                    switch state {
+                    case .isLoading: return true
+                    default: return false
+                    }
+                }
+                .map { BuyCryptoState.aCashAssetsLoaded($0) }
+
+            fromIsLoadingToACashAssetsLoaded.bind(to: stateTransformTrait._state).disposed(by: stateTransformTrait.disposeBag)
+        }
 
         static func fromIsLoadingToLoadingError(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                                 aCashAssetsLoadingError: Observable<Error>) {
@@ -95,6 +124,8 @@ extension BuyCryptoInteractor {
         private let oauthRepository: WEOAuthRepositoryProtocol
         private let gatewaysWavesRepository: GatewaysWavesRepository
 
+        private let disposeBag = DisposeBag()
+
         init(serverEnvironmentRepository: ServerEnvironmentRepository,
              authorizationService: AuthorizationUseCaseProtocol,
              oauthRepository: WEOAuthRepositoryProtocol,
@@ -105,7 +136,7 @@ extension BuyCryptoInteractor {
             self.gatewaysWavesRepository = gatewaysWavesRepository
         }
 
-        func getAssetsBindings() -> Observable<[GatewaysAssetBinding]> {
+        func getAssetsBindings(completion: @escaping (Result<[GatewaysAssetBinding], Error>) -> Void) {
             Observable.zip(authorizationService.authorizedWallet(), serverEnvironmentRepository.serverEnvironment())
                 .flatMap { [weak self] signedWallet, serverEnvironment -> Observable<(WEOAuthTokenDTO, ServerEnvironment)> in
                     guard let sself = self else { return Observable.never() }
@@ -121,6 +152,9 @@ extension BuyCryptoInteractor {
                                                                               oAToken: token,
                                                                               request: request)
                 }
+                .subscribe(onNext: { bindings in completion(.success(bindings)) },
+                           onError: { error in completion(.failure(error)) })
+                .disposed(by: disposeBag)
         }
 
         private func obtainOAuthTokenWithServerEnvironment(signedWallet: SignedWallet, serverEnvironment: ServerEnvironment)

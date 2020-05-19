@@ -27,9 +27,9 @@ public protocol WalletsRepositoryProtocol {
     func listenerWallet(by publicKey: String) -> Observable<Wallet>
 
 
-    func walletEncryption(by publicKey: String) -> Observable<WalletEncryption>
+    func walletEncryption(by publicKey: String) -> Observable<DomainWalletEncryption>
 
-    func saveWalletEncryption(_ walletEncryption: WalletEncryption) -> Observable<WalletEncryption>
+    func saveWalletEncryption(_ walletEncryption: DomainWalletEncryption) -> Observable<DomainWalletEncryption>
 
     func removeWalletEncryption(by publicKey: String) -> Observable<Bool>;
 }

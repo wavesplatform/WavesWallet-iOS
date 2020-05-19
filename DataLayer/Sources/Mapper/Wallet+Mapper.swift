@@ -9,8 +9,8 @@
 import Foundation
 import DomainLayer
 
-extension WalletEncryptionRealm {
-    convenience init(wallet: WalletEncryption) {
+extension WalletEncryption {
+    convenience init(wallet: DomainWalletEncryption) {
         self.init()
         self.publicKey = wallet.publicKey
         self.secret = wallet.kind.secret
@@ -18,10 +18,10 @@ extension WalletEncryptionRealm {
     }
 }
 
-extension WalletEncryption {
-    init(wallet: WalletEncryptionRealm) {
+extension DomainWalletEncryption {
+    init(wallet: WalletEncryption) {
         
-        var kind: WalletEncryption.Kind = .none
+        var kind: DomainWalletEncryption.Kind = .none
         
         if let secret = wallet.secret {
             kind = .passcode(secret: secret)

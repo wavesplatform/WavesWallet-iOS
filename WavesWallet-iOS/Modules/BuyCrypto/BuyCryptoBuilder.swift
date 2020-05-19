@@ -7,18 +7,26 @@
 //
 
 import AppTools
+import DomainLayer
 import UITools
 
 final class BuyCryptoBuilder: BuyCryptoBuildable {
     func build() -> BuyCryptoViewController {
         // MARK: - Dependency
 
-        // let dependency = ...
-
+        let serverEnvironment = UseCasesFactory.instance.repositories.serverEnvironmentUseCase
+        let authorizationService = UseCasesFactory.instance.authorization
+        let oauthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
+        let gatewayWavesRepository = UseCasesFactory.instance.repositories.gatewaysWavesRepository
+        
         // MARK: - Instantiating
 
         let presenter = BuyCryptoPresenter()
-        let interactor = BuyCryptoInteractor(presenter: presenter)
+        let interactor = BuyCryptoInteractor(presenter: presenter,
+                                             serverEnvironment: serverEnvironment,
+                                             authorizationService: authorizationService,
+                                             oauthRepository: oauthRepository,
+                                             gatewayWavesRepository: gatewayWavesRepository)
         let viewController = BuyCryptoViewController.instantiateFromStoryboard()
         viewController.interactor = interactor
 

@@ -39,7 +39,7 @@ public struct Wallet: Mutating, Hashable {
     }
 }
 
-public struct WalletEncryption: Mutating {
+public struct DomainWalletEncryption: Mutating {
     public enum Kind {
         case passcode(secret: String)
         case none

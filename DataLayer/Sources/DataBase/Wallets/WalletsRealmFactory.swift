@@ -20,7 +20,7 @@ private enum SchemaVersions: UInt64 {
 enum WalletsRealmFactory {
     static func walletsConfig(scheme: String) -> Realm.Configuration? {
         var config = Realm.Configuration()
-        config.objectTypes = [WalletEncryptionRealm.self, WalletItem.self]
+        config.objectTypes = [WalletEncryption.self, WalletItem.self]
         config.schemaVersion = UInt64(SchemaVersions.currentVersion.rawValue)
         
         guard let fileURL = config.fileURL else {

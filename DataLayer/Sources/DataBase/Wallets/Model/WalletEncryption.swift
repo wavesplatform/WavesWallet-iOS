@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class WalletEncryptionRealm: Object {
+class WalletEncryption: Object {
 
     @objc dynamic var publicKey: String = ""    
     @objc dynamic var seedId: String = ""

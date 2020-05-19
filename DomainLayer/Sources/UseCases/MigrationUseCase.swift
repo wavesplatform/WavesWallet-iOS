@@ -169,7 +169,7 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
         }
     }
 
-    private func addedWalletEncryption(wallet: Wallet, seedId: String) -> Observable<WalletEncryption> {
+    private func addedWalletEncryption(wallet: Wallet, seedId: String) -> Observable<DomainWalletEncryption> {
         self.walletsRepository.saveWalletEncryption(.init(publicKey: wallet.publicKey, kind: .none, seedId: seedId))
     }
 }

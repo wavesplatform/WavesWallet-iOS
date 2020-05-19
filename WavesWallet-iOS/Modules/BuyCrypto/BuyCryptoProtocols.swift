@@ -7,6 +7,7 @@
 //
 
 import AppTools
+import DomainLayer
 import RxCocoa
 import RxSwift
 
@@ -29,12 +30,12 @@ enum BuyCryptoState {
     case loadingError(String)
     
     /// Состояние загруженного экрана (загружены
-    case aCashAssetsLoaded
+    case aCashAssetsLoaded([GatewaysAssetBinding])
 }
 
 extension BuyCryptoInteractor {
     struct ApiResponse {
-        @PublishObservable var didLoadACashAssets: Observable<Void>
+        @PublishObservable var didLoadACashAssets: Observable<[GatewaysAssetBinding]>
         @PublishObservable var aCashAssetsLoadingError: Observable<Error>
     }
 }

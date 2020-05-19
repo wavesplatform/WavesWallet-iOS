@@ -54,7 +54,7 @@ private extension AuthorizationUseCase {
         }
     }
 
-    func changePasscodeByPasswordData(password: String, walletEncryption: WalletEncryption)
+    func changePasscodeByPasswordData(password: String, walletEncryption: DomainWalletEncryption)
         -> Observable<ChangePasscodeByPasswordData> {
         return Observable.create { observer -> Disposable in
 
@@ -74,7 +74,7 @@ private extension AuthorizationUseCase {
         }
     }
 
-    func changePasswordData(_ wallet: Wallet, password: String, walletEncryption: WalletEncryption)
+    func changePasswordData(_ wallet: Wallet, password: String, walletEncryption: DomainWalletEncryption)
         -> Observable<ChangePasswordData> {
         Observable.create { observer -> Disposable in
 
@@ -331,7 +331,7 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
         return verifyAccessWalletUsingPasscode(passcode, wallet: wallet)
             .sweetDebug("Verify acccess")
 
-            .flatMap { [weak self] _ -> Observable<WalletEncryption> in
+            .flatMap { [weak self] _ -> Observable<DomainWalletEncryption> in
                 guard let self = self else { return Observable.error(AuthorizationUseCaseError.fail) }
                 return self.localWalletRepository.walletEncryption(by: wallet.publicKey)
             }
@@ -367,7 +367,7 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                 guard let self = self else { return Observable.never() }
                 return self
                     .localWalletRepository
-                    .saveWalletEncryption(WalletEncryption(publicKey: passwordData.wallet.publicKey,
+                    .saveWalletEncryption(DomainWalletEncryption(publicKey: passwordData.wallet.publicKey,
                                                            kind: .passcode(secret: passwordData.secret),
                                                            seedId: passwordData.seedId))
                     .map { _ in passwordData }
@@ -488,7 +488,7 @@ extension AuthorizationUseCase {
 
                 let saveSeed = self
                     .localWalletRepository
-                    .saveWalletEncryption(WalletEncryption(publicKey: publicKey,
+                    .saveWalletEncryption(DomainWalletEncryption(publicKey: publicKey,
                                                            kind: .passcode(secret: secret),
                                                            seedId: seedId))
                 return saveSeed.map { _ in data }
@@ -1005,7 +1005,7 @@ fileprivate extension AuthorizationUseCase {
     private func getPasswordByPasscode(_ passcode: String, wallet: Wallet) -> Observable<String> {
         return remoteAuthenticationRepository
             .auth(with: wallet.id, passcode: passcode)
-            .flatMap { [weak self] keyForPassword -> Observable<(String, WalletEncryption)> in
+            .flatMap { [weak self] keyForPassword -> Observable<(String, DomainWalletEncryption)> in
                 guard let self = self else { return Observable.error(AuthorizationUseCaseError.fail) }
                 return self.localWalletRepository.walletEncryption(by: wallet.publicKey).map { (keyForPassword, $0) }
             }
