@@ -117,7 +117,7 @@
         <scene sceneID="zlD-cR-rTf">
             <objects>
                 <viewController storyboardIdentifier="WalletViewController" id="xip-Yb-XDE" customClass="WalletViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="y7d-SH-Ca7">
+                    <view key="view" contentMode="scaleToFill" id="y7d-SH-Ca7" customClass="WalletView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -132,6 +132,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="100" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VY6-F6-8iS">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGQ-2Q-f1z">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -142,17 +146,26 @@
                             <constraint firstItem="Y89-mw-nMR" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VY6-F6-8iS" secondAttribute="bottom" id="Lmp-0V-IFb"/>
                             <constraint firstItem="VY6-F6-8iS" firstAttribute="top" secondItem="y7d-SH-Ca7" secondAttribute="top" id="N8i-Sq-ljg"/>
                             <constraint firstItem="zNh-6O-cSe" firstAttribute="top" secondItem="Y89-mw-nMR" secondAttribute="top" id="cnd-j8-Mh2"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="bottom" secondItem="VY6-F6-8iS" secondAttribute="bottom" id="hH8-wM-aKn"/>
                             <constraint firstItem="Y89-mw-nMR" firstAttribute="trailing" secondItem="c3t-fU-Tc2" secondAttribute="trailing" id="kKO-yB-jBZ"/>
                             <constraint firstItem="zNh-6O-cSe" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="pPj-yo-GSi"/>
                             <constraint firstItem="zNh-6O-cSe" firstAttribute="bottom" secondItem="Y89-mw-nMR" secondAttribute="bottom" id="qxd-S6-bri"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="top" secondItem="VY6-F6-8iS" secondAttribute="top" id="uBy-dy-1gA"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="leading" secondItem="VY6-F6-8iS" secondAttribute="leading" id="vUK-hf-waT"/>
                             <constraint firstItem="Y89-mw-nMR" firstAttribute="bottom" secondItem="c3t-fU-Tc2" secondAttribute="bottom" id="yCs-hg-4YA"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="trailing" secondItem="VY6-F6-8iS" secondAttribute="trailing" id="zJ9-aZ-FXJ"/>
                             <constraint firstAttribute="trailing" secondItem="zNh-6O-cSe" secondAttribute="trailing" id="zwf-aU-W67"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Y89-mw-nMR"/>
+                        <connections>
+                            <outlet property="stackView" destination="VY6-F6-8iS" id="Xeu-pn-VhV"/>
+                            <outlet property="tableView" destination="c3t-fU-Tc2" id="nTO-xd-a0Q"/>
+                        </connections>
                     </view>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="globalErrorView" destination="zNh-6O-cSe" id="kJB-nN-1jk"/>
+                        <outlet property="rootView" destination="y7d-SH-Ca7" id="OMo-sD-13A"/>
                         <outlet property="stackView" destination="VY6-F6-8iS" id="rGz-R2-dBc"/>
                         <outlet property="tableView" destination="c3t-fU-Tc2" id="YE0-CT-wKq"/>
                     </connections>

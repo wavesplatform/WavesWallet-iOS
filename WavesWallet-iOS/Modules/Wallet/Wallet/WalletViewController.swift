@@ -14,9 +14,41 @@ import RxSwift
 import UIKit
 import UITools
 
+final class WalletView: UIView {
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var stackView: UIStackView!
+
+    private let walletSearchView: WalletSearchView = WalletSearchView.loadFromNib()
+
+    private var hasAddingViewBanners: Bool = false
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        stackView.addArrangedSubview(walletSearchView)
+    }
+
+    override func layoutSubviews() {}
+
+    func showAppStoreBanner() {
+        
+        guard hasAddingViewBanners == false else { return }
+        hasAddingViewBanners = true
+
+        let view = UpdateAppView.loadFromNib()
+        stackView.insertArrangedSubview(view, at: 0)
+
+        view.viewTapped = { [weak self] in
+//            self?.sendEvent.accept(.updateApp)
+        }
+    }
+}
+
 final class WalletViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stackView: UIStackView!
+    @IBOutlet private weak var rootView: WalletView!
+
     @IBOutlet var globalErrorView: GlobalErrorView!
 
     private var displayData: WalletDisplayData!
@@ -26,7 +58,6 @@ final class WalletViewController: UIViewController {
 
     private var isRefreshing: Bool = false
     private var snackError: String?
-    private var hasAddingViewBanners: Bool = false
 
     private let buttonAddress = UIBarButtonItem(image: Images.walletScanner.image,
                                                 style: .plain,
@@ -60,6 +91,7 @@ final class WalletViewController: UIViewController {
         setupBigNavigationBar()
         setupTableView()
         setupSystem()
+        
 
         globalErrorView.retryDidTap = { [weak self] in
             self?.sendEvent.accept(.refresh)
@@ -213,35 +245,20 @@ extension WalletViewController {
                 return
             }
 
-            self.addTopViewBanners(hasData: state.hasData,
-                                   isHasAppUpdate: state.isHasAppUpdate)
+            guard hasData else { return }
+            guard isHasAppUpdate else { return }
+
+            if hasData, isHasAppUpdate {
+                self.rootView.showAppStoreBanner()
+            }
+
+//            self.addTopViewBanners(hasData: state.hasData,
+//                                   isHasAppUpdate: state.isHasAppUpdate)
 
             self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]
-    }
-
-    func addTopViewBanners(hasData: Bool, isHasAppUpdate : Bool) {
-        
-        guard hasAddingViewBanners == false else { return }
-        
-//        if hasData, !hasAddingViewBanners {
-            
-//
-//        let view = UpdateAppView.loadFromNib()
-////                scrolledTablesComponent.addTopView(view, animation: false)
-//
-////            var arrangedSubviews = stackView.arrangedSubviews
-////            arrangedSubviews.insert(view, at: 0)
-//        stackView.addArrangedSubview(view)
-//
-//
-//        print("stackView \(stackView.frame)")
-//        view.viewTapped = { [weak self] in
-//            self?.sendEvent.accept(.updateApp)
-//        }
-//        }
     }
 
     func updateView(with state: WalletDisplayState) {

@@ -3484,7 +3484,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				7B975CA82472D2CB00F7DE89 /* WalletV2 */,
+				7B975CA82472D2CB00F7DE89 /* Wallet */,
 				87ED7233246C195D002CAD29 /* BuyCrypto */,
 				87FA5CF524223B29002F282D /* Account */,
 				E9D36DB52175C754001E6DF0 /* AssetList */,
@@ -4412,7 +4412,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		7B975CA82472D2CB00F7DE89 /* WalletV2 */ = {
+		7B975CA82472D2CB00F7DE89 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
 				7B975D122473D8CF00F7DE89 /* Wallet */,
@@ -4424,7 +4424,7 @@
 				E9657026219360770052F0FC /* WalletSort */,
 				7B975D102473D85C00F7DE89 /* Wallet.storyboard */,
 			);
-			path = WalletV2;
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		7B975CA92472E05F00F7DE89 /* Model */ = {

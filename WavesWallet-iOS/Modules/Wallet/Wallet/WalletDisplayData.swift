@@ -26,7 +26,6 @@ protocol WalletDisplayDataDelegate: AnyObject {
 }
 
 final class WalletDisplayData: NSObject {
-    private typealias Section = WalletSectionVM
     
     weak var tableView: UITableView!
     private var assetsSections: [Section] = []
