@@ -108,28 +108,15 @@ extension WalletViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate _: Bool) {
         if scrollView == tableView {}
     }
-}
 
-// MARK: - ScrolledContainerViewDelegate
-
-extension WalletViewController: ScrolledContainerViewDelegate {
-    func scrolledContainerViewDidScrollToIndex(_ index: Int) {
-        setupButons(kind: displays[index])
-        sendEvent.accept(.changeDisplay(displays[index]))
-
-        DispatchQueue.main.async {
-            if self.tableView.refreshControl?.isRefreshing == true {
-                self.tableView?.refreshControl?.endRefreshing()
-            }
-        }
-    }
+    func scrollViewDidScroll(_: UIScrollView) {}
 }
 
 // MARK: UIGestureRecognizerDelegate
 
-extension WalletViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool { true }
-}
+// extension WalletViewController: UIGestureRecognizerDelegate {
+//    func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool { true }
+// }
 
 // MARK: Bind UI
 
@@ -235,21 +222,25 @@ extension WalletViewController {
         return [subscriptionSections]
     }
 
-    func addTopViewBanners(hasData: Bool,
-                           isHasAppUpdate: Bool) {
-//        if hasData, !hasAddingViewBanners, isHasAppUpdate {
-//            hasAddingViewBanners = true
-
-            let view = UpdateAppView.loadFromNib()
-//                scrolledTablesComponent.addTopView(view, animation: false)
-
-//            var arrangedSubviews = stackView.arrangedSubviews
-//            arrangedSubviews.insert(view, at: 0)
-            stackView.insertArrangedSubview(view, at: 0)
+    func addTopViewBanners(hasData: Bool, isHasAppUpdate : Bool) {
         
-            view.viewTapped = { [weak self] in
-                self?.sendEvent.accept(.updateApp)
-            }
+        guard hasAddingViewBanners == false else { return }
+        
+//        if hasData, !hasAddingViewBanners {
+            
+//
+//        let view = UpdateAppView.loadFromNib()
+////                scrolledTablesComponent.addTopView(view, animation: false)
+//
+////            var arrangedSubviews = stackView.arrangedSubviews
+////            arrangedSubviews.insert(view, at: 0)
+//        stackView.addArrangedSubview(view)
+//
+//
+//        print("stackView \(stackView.frame)")
+//        view.viewTapped = { [weak self] in
+//            self?.sendEvent.accept(.updateApp)
+//        }
 //        }
     }
 

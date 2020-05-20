@@ -15,36 +15,36 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pP-hd-7mc">
-                    <rect key="frame" x="16" y="73.5" width="382" height="86"/>
+                    <rect key="frame" x="16" y="0.0" width="382" height="233"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgRocket48" translatesAutoresizingMaskIntoConstraints="NO" id="0WM-LP-C3E">
-                            <rect key="frame" x="14" y="19" width="48" height="48"/>
+                            <rect key="frame" x="14" y="92.5" width="48" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="3Pq-yK-6Ql"/>
                                 <constraint firstAttribute="width" constant="48" id="XnL-vg-iD5"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It's time to update your app!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpJ-2f-VVo">
-                            <rect key="frame" x="76" y="14" width="273" height="16"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="It's time to update your app!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpJ-2f-VVo">
+                            <rect key="frame" x="76" y="14" width="273" height="163"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowright14Basic200" translatesAutoresizingMaskIntoConstraints="NO" id="V7b-Bn-Ycv">
-                            <rect key="frame" x="354" y="36" width="14" height="14"/>
+                            <rect key="frame" x="354" y="109.5" width="14" height="14"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="14" id="bDg-Rl-ghE"/>
                                 <constraint firstAttribute="height" constant="14" id="twP-4d-Rd0"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXq-mu-5iE">
-                            <rect key="frame" x="76" y="36" width="273" height="36"/>
+                            <rect key="frame" x="76" y="183" width="273" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOW-UR-eb9">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="86"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="233"/>
                             <connections>
                                 <action selector="buttonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="A4B-hL-MsI"/>
                             </connections>
@@ -77,7 +77,8 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="2pP-hd-7mc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dxZ-Xd-Wfw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="2pP-hd-7mc" secondAttribute="bottom" id="1t0-bz-O5X"/>
+                <constraint firstItem="2pP-hd-7mc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="KBP-ml-6jZ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2pP-hd-7mc" secondAttribute="trailing" constant="16" id="nDh-e5-8oW"/>
                 <constraint firstItem="2pP-hd-7mc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="tv5-dL-F2r"/>
             </constraints>

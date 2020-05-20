@@ -4481,8 +4481,8 @@
 				E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */,
 				0AF92219212E0F1F003BA067 /* WalletTableAssetsCell.swift */,
 				E95E14F0229FF152003552B8 /* WalletTableAssetsCell.xib */,
-				7B875E2C2475459F00670AB8 /* SmartButtonsView.xib */,
 				7B875E2E247545C900670AB8 /* SmartButtonsView.swift */,
+				7B875E2C2475459F00670AB8 /* SmartButtonsView.xib */,
 				7B875E30247545D700670AB8 /* WalletSearchView.swift */,
 				7B875E32247545E800670AB8 /* WalletSearchView.xib */,
 			);

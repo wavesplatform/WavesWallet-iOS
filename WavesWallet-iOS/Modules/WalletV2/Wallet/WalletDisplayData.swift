@@ -20,6 +20,9 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
     func showSearchVC(fromStartPosition: CGFloat)
     func sortButtonTapped()
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate _: Bool)
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
 final class WalletDisplayData: NSObject {
@@ -27,8 +30,7 @@ final class WalletDisplayData: NSObject {
     
     weak var tableView: UITableView!
     private var assetsSections: [Section] = []
-
-    private weak var scrolledTablesComponent: ScrolledContainerView!
+    
     private let displays: [WalletDisplayState.Kind]
     
     weak var delegate: WalletDisplayDataDelegate?
@@ -78,19 +80,16 @@ final class WalletDisplayData: NSObject {
 
         case let .collapsed(index):
 
-//            scrolledTablesComponent.reloadSectionWithCloseAnimation(section: index)
             tableView.beginUpdates()
             tableView.reloadSections([index], with: .fade)
             tableView.endUpdates()
 
         case let .expanded(index):
 
-//            scrolledTablesComponent.reloadSectionWithOpenAnimation(section: index)
             tableView.beginUpdates()
             tableView.reloadSections([index], with: .fade)
             tableView.endUpdates()
             
-
         default:
             break
         }
@@ -124,6 +123,24 @@ private extension WalletDisplayData {
 
             delegate?.showSearchVC(fromStartPosition: rectInSuperview.origin.y)
         }
+    }
+}
+
+
+// MARK: UIScrollViewDelegate
+
+extension WalletDisplayData: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewDidEndDecelerating(scrollView)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate: Bool) {
+        self.delegate?.scrollViewDidEndDragging(scrollView, willDecelerate: willDecelerate)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewDidScroll(scrollView)
     }
 }
 
