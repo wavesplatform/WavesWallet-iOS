@@ -636,7 +636,6 @@
 		7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F322D8B95300582783 /* SeedItem.swift */; };
 		7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F522D8B95300582783 /* WalletRealmFactory.swift */; };
 		7BF50A6D22D8B95400582783 /* LeaseTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F822D8B95300582783 /* LeaseTransactionRealm.swift */; };
-		7BF50A6E22D8B95400582783 /* ScriptTransactionRealm..swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F922D8B95300582783 /* ScriptTransactionRealm..swift */; };
 		7BF50A6F22D8B95400582783 /* IssueTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509FA22D8B95300582783 /* IssueTransactionRealm.swift */; };
 		7BF50A7022D8B95400582783 /* AssetScriptTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509FB22D8B95300582783 /* AssetScriptTransactionRealm.swift */; };
 		7BF50A7122D8B95400582783 /* UnrecognisedTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509FC22D8B95300582783 /* UnrecognisedTransactionRealm.swift */; };
@@ -644,7 +643,6 @@
 		7BF50A7322D8B95400582783 /* LeaseCancelTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509FE22D8B95300582783 /* LeaseCancelTransactionRealm.swift */; };
 		7BF50A7422D8B95400582783 /* InvokeScriptTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509FF22D8B95300582783 /* InvokeScriptTransactionRealm.swift */; };
 		7BF50A7522D8B95400582783 /* BurnTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0022D8B95300582783 /* BurnTransactionRealm.swift */; };
-		7BF50A7622D8B95400582783 /* TransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0122D8B95300582783 /* TransactionRealm.swift */; };
 		7BF50A7722D8B95400582783 /* TransferTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0222D8B95300582783 /* TransferTransactionRealm.swift */; };
 		7BF50A7822D8B95400582783 /* ExchangeTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0322D8B95300582783 /* ExchangeTransactionRealm.swift */; };
 		7BF50A7922D8B95400582783 /* AliasTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0422D8B95300582783 /* AliasTransactionRealm.swift */; };
@@ -7957,10 +7955,6 @@
 				7BF50A7D22D8B95400582783 /* DataTransactionRealm.swift in Sources */,
 				7BF50A9A22D8B95400582783 /* Wallet+Mapper.swift in Sources */,
 				7BF50A8122D8B95400582783 /* AssetBalanceSettings.swift in Sources */,
-				7BF50A7622D8B95400582783 /* TransactionRealm.swift in Sources */,
-				7BF50A6E22D8B95400582783 /* ScriptTransactionRealm..swift in Sources */,
-				7BF50A7622D8B95400582783 /* TransactionRealm.swift in Sources */,
-				7BF50A6E22D8B95400582783 /* ScriptTransactionRealm..swift in Sources */,
 				7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */,
 				7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */,
 				7B22A9C524643CE0005EAC9C /* gateways_waves_api.pb.swift in Sources */,
