@@ -24,21 +24,32 @@ protocol WalletDisplayDataDelegate: AnyObject {
 
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletSectionVM
+    
+    weak var tableView: UITableView!
     private var assetsSections: [Section] = []
 
     private weak var scrolledTablesComponent: ScrolledContainerView!
     private let displays: [WalletDisplayState.Kind]
-
+    
     weak var delegate: WalletDisplayDataDelegate?
 
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
-    init(scrolledTablesComponent: ScrolledContainerView,
-         displays: [WalletDisplayState.Kind]) {
+    init(tableView: UITableView, displays: [WalletDisplayState.Kind]) {
         self.displays = displays
         super.init()
-        self.scrolledTablesComponent = scrolledTablesComponent
+        self.tableView = tableView
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
+        tableView.backgroundColor = .clear
+//        tableView.contentInset.top = segmentedHeight
+//        tableView.scrollIndicatorInsets.top = segmentedHeight
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
     }
 
     func apply(assetsSections: [WalletSectionVM],
@@ -58,23 +69,30 @@ final class WalletDisplayData: NSObject {
         case let .refresh(animated):
 
             if animated {
-                UIView.transition(with: scrolledTablesComponent,
+                UIView.transition(with: tableView,
                                   duration: Constants.animationDuration,
                                   options: [.transitionCrossDissolve],
                                   animations: {
-                                      self.scrolledTablesComponent.reloadData()
+                                      self.tableView.reloadData()
                 }, completion: nil)
             } else {
-                scrolledTablesComponent.reloadData()
+                tableView.reloadData()
             }
 
         case let .collapsed(index):
 
-            scrolledTablesComponent.reloadSectionWithCloseAnimation(section: index)
+//            scrolledTablesComponent.reloadSectionWithCloseAnimation(section: index)
+            tableView.beginUpdates()
+            tableView.reloadSections([index], with: .fade)
+            tableView.endUpdates()
 
         case let .expanded(index):
 
-            scrolledTablesComponent.reloadSectionWithOpenAnimation(section: index)
+//            scrolledTablesComponent.reloadSectionWithOpenAnimation(section: index)
+            tableView.beginUpdates()
+            tableView.reloadSections([index], with: .fade)
+            tableView.endUpdates()
+            
 
         default:
             break
@@ -102,9 +120,9 @@ private extension WalletDisplayData {
     }
 
     private func searchTapped(_ cell: UITableViewCell) {
-        if let indexPath = scrolledTablesComponent.visibleTableView.indexPath(for: cell) {
-            let rectInTableView = scrolledTablesComponent.visibleTableView.rectForRow(at: indexPath)
-            let rectInSuperview = scrolledTablesComponent.visibleTableView
+        if let indexPath = tableView.indexPath(for: cell) {
+            let rectInTableView = tableView.rectForRow(at: indexPath)
+            let rectInSuperview = tableView
                 .convert(rectInTableView, to: AppDelegate.shared().window)
 
             delegate?.showSearchVC(fromStartPosition: rectInSuperview.origin.y)
