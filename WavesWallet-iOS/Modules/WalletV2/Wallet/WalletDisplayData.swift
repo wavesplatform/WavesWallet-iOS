@@ -43,10 +43,7 @@ final class WalletDisplayData: NSObject {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.isScrollEnabled = false
         tableView.backgroundColor = .clear
-//        tableView.contentInset.top = segmentedHeight
-//        tableView.scrollIndicatorInsets.top = segmentedHeight
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
         tableView.sectionHeaderHeight = UITableView.automaticDimension

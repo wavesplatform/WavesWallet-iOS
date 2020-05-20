@@ -16,7 +16,7 @@ import UITools
 
 final class WalletViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var scrolledTablesComponent: ScrolledContainerView!
+    @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet var globalErrorView: GlobalErrorView!
 
     private var displayData: WalletDisplayData!
@@ -56,13 +56,6 @@ final class WalletViewController: UIViewController {
         displayData = WalletDisplayData(tableView: tableView,
                                         displays: displays)
 
-//        scrolledTablesComponent.scrollViewDelegate = self
-//        scrolledTablesComponent.containerViewDelegate = self
-//
-//        scrolledTablesComponent.setup(segmentedItems: displays.map { $0.segmentedItem },
-//                                      tableDataSource: displayData,
-//                                      tableDelegate: displayData)
-
         setupLanguages()
         setupBigNavigationBar()
         setupTableView()
@@ -72,43 +65,27 @@ final class WalletViewController: UIViewController {
             self?.sendEvent.accept(.refresh)
         }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changedLanguage),
+                                               name: .changedLanguage,
+                                               object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         removeTopBarLine()
-//        for table in tableView {
         tableView.startSkeletonCells()
-//        }
-//        scrolledTablesComponent.viewControllerWillAppear()
         navigationController?.navigationBar.backgroundColor = view.backgroundColor
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        scrolledTablesComponent.viewControllerWillDissapear()
         navigationController?.navigationBar.backgroundColor = nil
     }
 
     @objc func changedLanguage() {
         setupLanguages()
-
-//        for view in scrolledTablesComponent.topContents {
-//            if let updateView = view as? UpdateAppView {
-//                updateView.update(with: ())
-//            }
-//        }
-//        scrolledTablesComponent.reloadData()
-    }
-
-    // TODO: Refactor method. I dont know how its work
-    var isNeedSetupSearchBarPosition: Bool {
-        return displayData.isAssetsSectionsHaveSearch &&
-            scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
-            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent
-            .topOffset + WalletSearchTableViewCell.viewHeight() &&
-            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
+        tableView.reloadData()
     }
 }
 
@@ -117,13 +94,7 @@ final class WalletViewController: UIViewController {
 extension WalletViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
-//        tableView.scrollToTop()
-        var offset = 0
-        if tableView.refreshControl?.isRefreshing == true {
-//            offset -= tableView.refreshControl?.frame.size.height ?? 0
-        }
-
-        tableView.setContentOffset(.init(x: 0, y: offset), animated: true)
+        tableView.setContentOffset(.init(x: 0, y: 0), animated: true)
     }
 }
 
@@ -131,15 +102,11 @@ extension WalletViewController: MainTabBarControllerProtocol {
 
 extension WalletViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView == tableView {
-            setupSearchBarOffset()
-        }
+        if scrollView == tableView {}
     }
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate _: Bool) {
-        if scrollView == tableView {
-            setupSearchBarOffset()
-        }
+        if scrollView == tableView {}
     }
 }
 
@@ -151,12 +118,8 @@ extension WalletViewController: ScrolledContainerViewDelegate {
         sendEvent.accept(.changeDisplay(displays[index]))
 
         DispatchQueue.main.async {
-//            self.scrolledTablesComponent.endRefreshing()
             if self.tableView.refreshControl?.isRefreshing == true {
-//                    if isSmallNavBar {
-//                        firstAvailableViewController().setupSmallNavigationBar()
-//                    }
-//                self.tableView?.
+                self.tableView?.refreshControl?.endRefreshing()
             }
         }
     }
@@ -274,26 +237,29 @@ extension WalletViewController {
 
     func addTopViewBanners(hasData: Bool,
                            isHasAppUpdate: Bool) {
-        if hasData, !hasAddingViewBanners {
-            hasAddingViewBanners = true
-            if isHasAppUpdate {
-                let view = UpdateAppView.loadFromNib()
-                scrolledTablesComponent.addTopView(view, animation: false)
+//        if hasData, !hasAddingViewBanners, isHasAppUpdate {
+//            hasAddingViewBanners = true
 
-                view.viewTapped = { [weak self] in
-                    self?.sendEvent.accept(.updateApp)
-                }
+            let view = UpdateAppView.loadFromNib()
+//                scrolledTablesComponent.addTopView(view, animation: false)
+
+//            var arrangedSubviews = stackView.arrangedSubviews
+//            arrangedSubviews.insert(view, at: 0)
+            stackView.insertArrangedSubview(view, at: 0)
+        
+            view.viewTapped = { [weak self] in
+                self?.sendEvent.accept(.updateApp)
             }
-        }
+//        }
     }
 
     func updateView(with state: WalletDisplayState) {
         displayData.apply(assetsSections: state.assets.visibleSections,
                           animateType: state.animateType) { [weak self] in
 
-//            if state.isRefreshing == false {
-//                self?.scrolledTablesComponent.endRefreshing()
-//            }
+            if self?.tableView.refreshControl?.isRefreshing == true {
+                self?.tableView?.refreshControl?.endRefreshing()
+            }
         }
 
         switch state.animateType {
@@ -303,8 +269,7 @@ extension WalletViewController {
         default:
             break
         }
-//        scrolledTablesComponent.setSelectedIndex(displays.firstIndex(of: state.kind) ?? 0,
-//                                                 animation: false)
+
         setupButons(kind: state.kind)
     }
 
@@ -367,24 +332,6 @@ extension WalletViewController {
 // MARK: Setup Methods
 
 private extension WalletViewController {
-    func setupSearchBarOffset() {
-//        if isSmallNavigationBar, isNeedSetupSearchBarPosition {
-//            let diff = (scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight()) -
-//                (scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset)
-//
-//            var offset: CGFloat = 0
-//            if diff > WalletSearchTableViewCell.viewHeight() / 2 {
-//                offset = -scrolledTablesComponent.smallTopOffset
-//            } else {
-//                offset = -scrolledTablesComponent.smallTopOffset + WalletSearchTableViewCell.viewHeight()
-//            }
-//            offset += scrolledTablesComponent.topOffset
-//            setupSmallNavigationBar()
-//
-//            scrolledTablesComponent.setContentOffset(.init(x: 0, y: offset), animated: true)
-//        }
-    }
-
     func setupLanguages() {
         navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
     }

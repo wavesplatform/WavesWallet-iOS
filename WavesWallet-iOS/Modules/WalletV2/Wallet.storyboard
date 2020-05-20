@@ -122,9 +122,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c3t-fU-Tc2">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="100" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VY6-F6-8iS">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                            </stackView>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNh-6O-cSe" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -133,7 +136,10 @@
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="c3t-fU-Tc2" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="00l-xZ-IIE"/>
-                            <constraint firstItem="c3t-fU-Tc2" firstAttribute="top" secondItem="Y89-mw-nMR" secondAttribute="top" id="KPG-98-QCx"/>
+                            <constraint firstItem="VY6-F6-8iS" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="38F-N2-m9s"/>
+                            <constraint firstItem="c3t-fU-Tc2" firstAttribute="top" secondItem="y7d-SH-Ca7" secondAttribute="top" id="KPG-98-QCx"/>
+                            <constraint firstItem="Y89-mw-nMR" firstAttribute="trailing" secondItem="VY6-F6-8iS" secondAttribute="trailing" id="KgS-Ec-b8E"/>
+                            <constraint firstItem="VY6-F6-8iS" firstAttribute="top" secondItem="y7d-SH-Ca7" secondAttribute="top" id="N8i-Sq-ljg"/>
                             <constraint firstItem="zNh-6O-cSe" firstAttribute="top" secondItem="Y89-mw-nMR" secondAttribute="top" id="cnd-j8-Mh2"/>
                             <constraint firstItem="Y89-mw-nMR" firstAttribute="trailing" secondItem="c3t-fU-Tc2" secondAttribute="trailing" id="kKO-yB-jBZ"/>
                             <constraint firstItem="zNh-6O-cSe" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="pPj-yo-GSi"/>
@@ -146,6 +152,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="globalErrorView" destination="zNh-6O-cSe" id="kJB-nN-1jk"/>
+                        <outlet property="stackView" destination="VY6-F6-8iS" id="rGz-R2-dBc"/>
                         <outlet property="tableView" destination="c3t-fU-Tc2" id="YE0-CT-wKq"/>
                     </connections>
                 </viewController>

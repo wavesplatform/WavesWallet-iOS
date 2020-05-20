@@ -437,6 +437,10 @@
 		7B85E63D23FD7BCE00365829 /* StakingTransferButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E63C23FD7BCE00365829 /* StakingTransferButtonCell.xib */; };
 		7B85E63F23FD7BFB00365829 /* StakingTransferButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E63E23FD7BFB00365829 /* StakingTransferButtonCell.swift */; };
 		7B85E64123FD821B00365829 /* StakingTransferSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E64023FD821B00365829 /* StakingTransferSystem.swift */; };
+		7B875E2D2475459F00670AB8 /* SmartButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B875E2C2475459F00670AB8 /* SmartButtonsView.xib */; };
+		7B875E2F247545C900670AB8 /* SmartButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B875E2E247545C900670AB8 /* SmartButtonsView.swift */; };
+		7B875E31247545D700670AB8 /* WalletSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B875E30247545D700670AB8 /* WalletSearchView.swift */; };
+		7B875E33247545E800670AB8 /* WalletSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B875E32247545E800670AB8 /* WalletSearchView.xib */; };
 		7B88185F2304279A00AB0549 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47FC22FC742F002B19F8 /* Language.swift */; };
 		7B8818602304474E00AB0549 /* AuthorizationInteractorLocalizableImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47F822FC742E002B19F8 /* AuthorizationInteractorLocalizableImp.swift */; };
 		7B88186223044B7F00AB0549 /* Language+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B88186123044B7F00AB0549 /* Language+List.swift */; };
@@ -1905,6 +1909,10 @@
 		7B85E63C23FD7BCE00365829 /* StakingTransferButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingTransferButtonCell.xib; sourceTree = "<group>"; };
 		7B85E63E23FD7BFB00365829 /* StakingTransferButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferButtonCell.swift; sourceTree = "<group>"; };
 		7B85E64023FD821B00365829 /* StakingTransferSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferSystem.swift; sourceTree = "<group>"; };
+		7B875E2C2475459F00670AB8 /* SmartButtonsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SmartButtonsView.xib; sourceTree = "<group>"; };
+		7B875E2E247545C900670AB8 /* SmartButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartButtonsView.swift; sourceTree = "<group>"; };
+		7B875E30247545D700670AB8 /* WalletSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchView.swift; sourceTree = "<group>"; };
+		7B875E32247545E800670AB8 /* WalletSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSearchView.xib; sourceTree = "<group>"; };
 		7B88186123044B7F00AB0549 /* Language+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Language+List.swift"; sourceTree = "<group>"; };
 		7B881875230590BB00AB0549 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
 		7B8818772305926E00AB0549 /* WidgetSettingsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -4473,6 +4481,10 @@
 				E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */,
 				0AF92219212E0F1F003BA067 /* WalletTableAssetsCell.swift */,
 				E95E14F0229FF152003552B8 /* WalletTableAssetsCell.xib */,
+				7B875E2C2475459F00670AB8 /* SmartButtonsView.xib */,
+				7B875E2E247545C900670AB8 /* SmartButtonsView.swift */,
+				7B875E30247545D700670AB8 /* WalletSearchView.swift */,
+				7B875E32247545E800670AB8 /* WalletSearchView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -7256,6 +7268,7 @@
 				E96FEA26226E962300C0EE22 /* WalletSortEmptyAssetsCell.xib in Resources */,
 				E9B087BF2163886800937644 /* SearchBarView.xib in Resources */,
 				7B9DC31A2382C04700DCCA75 /* Appsflyer-Info.plist in Resources */,
+				7B875E33247545E800670AB8 /* WalletSearchView.xib in Resources */,
 				7B85E63723FD7AB500365829 /* StakingTransferScrollButtonsCell.xib in Resources */,
 				0AA8CAD421527672000D09E6 /* PasscodeView.xib in Resources */,
 				7B9DC3202382C04700DCCA75 /* environment_stagenet_test.json in Resources */,
@@ -7359,6 +7372,7 @@
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
 				7B60E2BE2316CC0500113C38 /* ConfirmRequestTransactionKindView.xib in Resources */,
+				7B875E2D2475459F00670AB8 /* SmartButtonsView.xib in Resources */,
 				E97A283623D0585B00C4C8C4 /* TradeHeaderSkeletonCell.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
 				87FA5D0824223B95002F282D /* AccountPassword.storyboard in Resources */,
@@ -8271,6 +8285,7 @@
 				E9D36DF32175C755001E6DF0 /* AssetListPresenter.swift in Sources */,
 				7B0D1B7F2401CA1000442B7B /* StakingTransferDescriptionCell.swift in Sources */,
 				87FA5D4424223C1F002F282D /* PasscodeTypes.swift in Sources */,
+				7B875E2F247545C900670AB8 /* SmartButtonsView.swift in Sources */,
 				E965702321935F2F0052F0FC /* DexCreateOrderInteractor.swift in Sources */,
 				87FA5D8324223E0C002F282D /* AddressBookModuleOutput.swift in Sources */,
 				7BFB480622FC742F002B19F8 /* BiometricType.swift in Sources */,
@@ -8424,6 +8439,7 @@
 				0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */,
 				0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */,
 				E92703C6226FDD0C0022D5F0 /* WalletSortPresenter.swift in Sources */,
+				7B875E31247545D700670AB8 /* WalletSearchView.swift in Sources */,
 				E9B087DE2163886800937644 /* DexCreateOrderViewController.swift in Sources */,
 				0A14E3F721875F5600EA7E91 /* CreateAliasInputCell.swift in Sources */,
 				E95B6B13219C345B00A85B5D /* TokenBurnConfirmationIDView.swift in Sources */,
