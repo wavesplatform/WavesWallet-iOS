@@ -623,6 +623,8 @@
 		7BDC6D7922C3CD8400614E6B /* InputScrollButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC6D7822C3CD8400614E6B /* InputScrollButtonsView.swift */; };
 		7BE09AB22313E31300A038AD /* MobileKeeperCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */; };
 		7BE09AD323140F0900A038AD /* MobileKeeper.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */; };
+		7BE7B489247572DB0066F87D /* ScriptTransactionRealm..swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F922D8B95300582783 /* ScriptTransactionRealm..swift */; };
+		7BE7B48A247572DB0066F87D /* TransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0122D8B95300582783 /* TransactionRealm.swift */; };
 		7BEDB6B324573E1F00605B4D /* WavesSDKServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */; };
 		7BEDB6B52457428A00605B4D /* SpamAssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */; };
 		7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */; };
@@ -7915,6 +7917,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BE7B489247572DB0066F87D /* ScriptTransactionRealm..swift in Sources */,
+				7BE7B48A247572DB0066F87D /* TransactionRealm.swift in Sources */,
 				7B896FDF23F34FA000F45A70 /* AssetsRepositoryLocal.swift in Sources */,
 				7B896FDC23F34FA000F45A70 /* MatcherRepositoryLocal.swift in Sources */,
 				E9618D1922F0473000FB7F06 /* MarketPulseTypes.swift in Sources */,
