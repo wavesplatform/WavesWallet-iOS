@@ -619,6 +619,16 @@
 		7BE09AD323140F0900A038AD /* MobileKeeper.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */; };
 		7BE7B489247572DB0066F87D /* ScriptTransactionRealm..swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F922D8B95300582783 /* ScriptTransactionRealm..swift */; };
 		7BE7B48A247572DB0066F87D /* TransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A0122D8B95300582783 /* TransactionRealm.swift */; };
+		7BE7B4902476975F0066F87D /* DomainLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF50AD722D8BB0C00582783 /* DomainLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B4912476975F0066F87D /* DataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF50AD322D8BB0100582783 /* DataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B492247698740066F87D /* Extensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7B83A7E822D8D72F0038180D /* Extensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B49424769A9E0066F87D /* WavesSDKCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF66F8F23F2D846004CAC8B /* WavesSDKCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B49524769A9E0066F87D /* WavesSDKExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF66F9123F2D846004CAC8B /* WavesSDKExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B49624769A9E0066F87D /* WavesSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF66F8723F2D13C004CAC8B /* WavesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B49724769BBB0066F87D /* AppTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714505A2462402600A17BA9 /* AppTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B49924769D210066F87D /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450572462402200A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B49A24769EBD0066F87D /* UITools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BE7B49B24769EC50066F87D /* WavesUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508F246243A000A17BA9 /* WavesUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7BEDB6B324573E1F00605B4D /* WavesSDKServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B224573E1F00605B4D /* WavesSDKServices.swift */; };
 		7BEDB6B52457428A00605B4D /* SpamAssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B42457428A00605B4D /* SpamAssetsService.swift */; };
 		7BEDB6B92458846C00605B4D /* GatewaysWavesRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDB6B82458846B00605B4D /* GatewaysWavesRepositoryImp.swift */; };
@@ -798,7 +808,6 @@
 		87566699242B668600E9F177 /* StakingBalanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87566698242B668600E9F177 /* StakingBalanceService.swift */; };
 		87D683AF241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D683AD241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift */; };
 		87D683B0241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */; };
-		87ED7225246B57D6002CAD29 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; };
 		87ED7271246C735A002CAD29 /* BuyCryptoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */; };
 		87ED7272246C735A002CAD29 /* BuyCryptoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */; };
 		87ED7273246C735A002CAD29 /* BuyCryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */; };
@@ -1363,6 +1372,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7BE7B49B24769EC50066F87D /* WavesUIKit.framework in Embed Frameworks */,
+				7BE7B49A24769EBD0066F87D /* UITools.framework in Embed Frameworks */,
+				7BE7B49924769D210066F87D /* StandartTools.framework in Embed Frameworks */,
+				7BE7B49724769BBB0066F87D /* AppTools.framework in Embed Frameworks */,
+				7BE7B49424769A9E0066F87D /* WavesSDKCrypto.framework in Embed Frameworks */,
+				7BE7B49524769A9E0066F87D /* WavesSDKExtensions.framework in Embed Frameworks */,
+				7BE7B49624769A9E0066F87D /* WavesSDK.framework in Embed Frameworks */,
+				7BE7B492247698740066F87D /* Extensions.framework in Embed Frameworks */,
+				7BE7B4902476975F0066F87D /* DomainLayer.framework in Embed Frameworks */,
+				7BE7B4912476975F0066F87D /* DataLayer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2811,7 +2830,6 @@
 			files = (
 				E953CE3E22EB19D5001D5800 /* DomainLayer.framework in Frameworks */,
 				E953CE3F22EB19D5001D5800 /* Extensions.framework in Frameworks */,
-				87ED7225246B57D6002CAD29 /* UITools.framework in Frameworks */,
 				E9B190A922E7CD99008220B7 /* NotificationCenter.framework in Frameworks */,
 				4938FEF69D70416D72FBD158 /* Pods_MarketPulseWidget.framework in Frameworks */,
 			);
@@ -8930,7 +8948,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4016;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -9023,7 +9041,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4016;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -10161,7 +10179,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4016;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -10223,7 +10241,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4015;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -10570,7 +10588,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4016;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -10873,7 +10891,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4016;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -11212,7 +11230,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4015;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -11287,7 +11305,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4015;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11354,7 +11372,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4015;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11422,7 +11440,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4015;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11490,7 +11508,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4015;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11558,7 +11576,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4015;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -11714,7 +11732,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4016;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -11752,7 +11770,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4016;
+				CURRENT_PROJECT_VERSION = 4017;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
