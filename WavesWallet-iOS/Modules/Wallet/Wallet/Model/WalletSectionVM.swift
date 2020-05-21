@@ -46,7 +46,6 @@ extension WalletSectionVM {
             .map { WalletRowVM.asset($0) }
 
         var sections: [WalletSectionVM] = [WalletSectionVM]()
-        sections.append(.init(kind: .search, items: [.search], isExpanded: true))
         sections.append(generalSection)
 
         if !hiddenItems.isEmpty {

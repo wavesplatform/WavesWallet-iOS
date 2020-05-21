@@ -17,21 +17,34 @@ import UITools
 final class WalletView: UIView {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stackView: UIStackView!
+    @IBOutlet private weak var topLayoutConstraint: NSLayoutConstraint!
 
-    private let walletSearchView: WalletSearchView = WalletSearchView.loadFromNib()
+    private let walletSearchView = WalletSearchView.loadFromNib()
+
+    private let smartBarView = SmartBarView()
 
     private var hasAddingViewBanners: Bool = false
 
+    private var isSmartBarViewCollapsed: Bool = false
+
+    var updateAppViewTapped: (() -> Void)?
+    var sendViewTapped: (() -> Void)?
+    var receiveViewTapped: (() -> Void)?
+    var cardViewTapped: (() -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         stackView.addArrangedSubview(walletSearchView)
+        stackView.addArrangedSubview(smartBarView)
     }
 
-    override func layoutSubviews() {}
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        tableView.contentInset = .init(top: stackView.frame.height + 24, left: 0, bottom: 0, right: 0)
+    }
 
     func showAppStoreBanner() {
-        
         guard hasAddingViewBanners == false else { return }
         hasAddingViewBanners = true
 
@@ -39,8 +52,75 @@ final class WalletView: UIView {
         stackView.insertArrangedSubview(view, at: 0)
 
         view.viewTapped = { [weak self] in
+            self?.updateAppViewTapped?()
 //            self?.sendEvent.accept(.updateApp)
         }
+    }
+
+    private var lastContentOffset: CGFloat?
+
+    func scrollViewDidScroll(scrollView: UIScrollView, navigationController _: UINavigationController?) {
+
+        let value = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+
+        var percent = value / smartBarView.maxHeighBeetwinImageAndDownSide()
+        percent = min(1, percent)
+        percent = max(0, percent)
+        smartBarView.percent = percent
+
+        print("percent scroll \(percent)")
+        
+        if value < 0 {
+            topLayoutConstraint.constant = abs(value)
+        }
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
+
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        
+    }
+
+    func finish(_ scrollView: UIScrollView) {
+        let value = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+
+        var percent = value / smartBarView.maxHeighBeetwinImageAndDownSide()
+        percent = min(1, percent)
+        percent = max(0, percent)
+
+        print("percent \(percent)")
+
+        if percent > 0.45 {
+            print("Close")
+            smartBarView.close()
+        } else {
+            print("open")
+            smartBarView.open()
+        }
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        finish(scrollView)
+
+        print("scrollViewDidEndDecelerating")
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate: Bool) {
+//        guard let lastContentOffset = lastContentOffset else {
+//            return
+//        }
+//
+//        let offSet = scrollView.contentOffset.y - lastContentOffset
+//
+        print("scrollViewDidEndDragging \(willDecelerate)")
+
+        if willDecelerate {
+            return
+        }
+
+        finish(scrollView)
     }
 }
 
@@ -91,7 +171,6 @@ final class WalletViewController: UIViewController {
         setupBigNavigationBar()
         setupTableView()
         setupSystem()
-        
 
         globalErrorView.retryDidTap = { [weak self] in
             self?.sendEvent.accept(.refresh)
@@ -126,22 +205,8 @@ final class WalletViewController: UIViewController {
 extension WalletViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
-        tableView.setContentOffset(.init(x: 0, y: 0), animated: true)
+        tableView.setContentOffset(.init(x: 0, y: tableView.contentInset.top), animated: true)
     }
-}
-
-// MARK: - UIScrollViewDelegate
-
-extension WalletViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView == tableView {}
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate _: Bool) {
-        if scrollView == tableView {}
-    }
-
-    func scrollViewDidScroll(_: UIScrollView) {}
 }
 
 // MARK: UIGestureRecognizerDelegate
@@ -245,10 +310,10 @@ extension WalletViewController {
                 return
             }
 
-            guard hasData else { return }
-            guard isHasAppUpdate else { return }
+//            guard hasData else { return }
+//            guard isHasAppUpdate else { return }
 
-            if hasData, isHasAppUpdate {
+            if state.hasData, state.isHasAppUpdate {
                 self.rootView.showAppStoreBanner()
             }
 
@@ -370,6 +435,26 @@ extension WalletViewController: WalletDisplayDataDelegate {
 
     func tableViewDidSelect(indexPath: IndexPath) {
         sendEvent.accept(.tapRow(indexPath))
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        rootView.scrollViewDidEndDecelerating(scrollView)
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate: Bool) {
+        rootView.scrollViewDidEndDragging(scrollView, willDecelerate: willDecelerate)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        rootView.scrollViewDidScroll(scrollView: scrollView, navigationController: navigationController)
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        rootView.scrollViewWillBeginDragging(scrollView)
+    }
+
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        rootView.scrollViewWillBeginDecelerating(scrollView)
     }
 }
 

@@ -20,6 +20,8 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
     func showSearchVC(fromStartPosition: CGFloat)
     func sortButtonTapped()
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView)
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate _: Bool)
     func scrollViewDidScroll(_ scrollView: UIScrollView)
@@ -28,7 +30,7 @@ protocol WalletDisplayDataDelegate: AnyObject {
 final class WalletDisplayData: NSObject {
     
     weak var tableView: UITableView!
-    private var assetsSections: [Section] = []
+    private var assetsSections: [WalletSectionVM] = []
     
     private let displays: [WalletDisplayState.Kind]
     
@@ -110,7 +112,7 @@ final class WalletDisplayData: NSObject {
 // MARK: Private
 
 private extension WalletDisplayData {
-    private func sections(by _: UITableView) -> [Section] {
+    private func sections(by _: UITableView) -> [WalletSectionVM] {
         return assetsSections
     }
 
@@ -140,6 +142,14 @@ extension WalletDisplayData: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.delegate?.scrollViewDidScroll(scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewWillBeginDecelerating(scrollView)
     }
 }
 
