@@ -436,6 +436,102 @@
       "gatewayId": "TRY",
       "gatewayType": "coinomat",
       "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/usd_flag_48.png"
+      },
+      "assetId": "USD",
+      "displayName": "USD",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "USD",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/eur_flag_48.png"
+      },
+      "assetId": "EUR",
+      "displayName": "EUR",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "EUR",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/rub_flag_48.png"
+      },
+      "assetId": "RUR",
+      "displayName": "RUB",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "RUR",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/gbp_flag_48.png"
+      },
+      "assetId": "GBP",
+      "displayName": "GBP",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "GBP",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/uah_flag_48.png"
+      },
+      "assetId": "UAH",
+      "displayName": "UAH",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "UAH",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": ""
+      },
+      "assetId": "KZT",
+      "displayName": "KZT",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "KZT",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/brl_flag_48.png"
+      },
+      "assetId": "BRL",
+      "displayName": "BRL",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "BRL",
+      "gatewayId": "",
+      "addressRegEx": ""
+    },
+    {
+      "iconUrls": {
+        "default": "https://configs.waves.exchange/icons/try_flag_48.png"
+      },
+      "assetId": "TRY",
+      "displayName": "TRY",
+      "isFiat": true,
+      "isGateway": false,
+      "wavesId": "TRY",
+      "gatewayId": "",
+      "addressRegEx": ""
     }
   ]
 }

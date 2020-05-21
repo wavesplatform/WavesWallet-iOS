@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8714504124623DED00A17BA9 /* AppTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8714503F24623DED00A17BA9 /* AppTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871450542462400700A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; };
-		871450552462400700A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8769B58D246443AA00124484 /* BindableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B58C246443AA00124484 /* BindableView.swift */; };
 		8769B58F246443C400124484 /* IOTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B58E246443C400124484 /* IOTransformer.swift */; };
 		8769B591246443DA00124484 /* VIPBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B590246443DA00124484 /* VIPBinder.swift */; };
@@ -27,7 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				871450552462400700A17BA9 /* StandartTools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,7 +385,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 68EE6ADA43CC920B0AC539B5 /* Pods-AppTools.dev-debug.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -418,7 +416,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23BA4823204D21953301B6F8 /* Pods-AppTools.dev-adhoc.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -505,7 +503,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 39A3B50B517A4C8C5668A494 /* Pods-AppTools.release-prod.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -592,7 +590,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F6F008BCDCF443A335894A8 /* Pods-AppTools.release-adhoc.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -679,7 +677,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B4F20B210F7DFE62B748D5BE /* Pods-AppTools.release-dev.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -695,6 +693,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.AppTools;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -766,7 +765,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 649DDBCE325E95A42E5381A0 /* Pods-AppTools.test-dev.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -782,6 +781,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.AppTools;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -853,7 +853,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 526DB813BE08615B969789AD /* Pods-AppTools.test-prod.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;

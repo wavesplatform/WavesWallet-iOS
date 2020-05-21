@@ -10,15 +10,10 @@
 		8714506C246242A200A17BA9 /* WavesUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8714506A246242A200A17BA9 /* WavesUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871450852462432200A17BA9 /* UITools.h in Headers */ = {isa = PBXBuildFile; fileRef = 871450832462432200A17BA9 /* UITools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87145098246243D500A17BA9 /* AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87145096246243D500A17BA9 /* AppTools.framework */; };
-		87145099246243D500A17BA9 /* AppTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 87145096246243D500A17BA9 /* AppTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8714509A246243D500A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87145097246243D500A17BA9 /* StandartTools.framework */; };
-		8714509B246243D500A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 87145097246243D500A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8714509F246243E100A17BA9 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871450812462432200A17BA9 /* UITools.framework */; };
-		871450A0246243E100A17BA9 /* UITools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450812462432200A17BA9 /* UITools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871450A3246243E100A17BA9 /* AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509D246243E100A17BA9 /* AppTools.framework */; };
-		871450A4246243E100A17BA9 /* AppTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509D246243E100A17BA9 /* AppTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871450A5246243E100A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509E246243E100A17BA9 /* StandartTools.framework */; };
-		871450A6246243E200A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509E246243E100A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871450A92462440000A17BA9 /* ResetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871450A82462440000A17BA9 /* ResetableView.swift */; };
 		87ED721B246B535E002CAD29 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721A246B535E002CAD29 /* NibLoadable.swift */; };
 		87ED721D246B5418002CAD29 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721C246B5418002CAD29 /* Reusable.swift */; };
@@ -50,8 +45,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				87145099246243D500A17BA9 /* AppTools.framework in Embed Frameworks */,
-				8714509B246243D500A17BA9 /* StandartTools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,9 +55,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				871450A6246243E200A17BA9 /* StandartTools.framework in Embed Frameworks */,
-				871450A4246243E100A17BA9 /* AppTools.framework in Embed Frameworks */,
-				871450A0246243E100A17BA9 /* UITools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -846,6 +836,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -933,6 +924,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1034,7 +1026,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1118,7 +1110,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1196,7 +1188,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1274,7 +1266,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1352,7 +1344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1410,6 +1402,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.UITools;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1430,7 +1423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1488,6 +1481,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.UITools;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1508,7 +1502,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1566,6 +1560,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.UITools;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -469,17 +469,11 @@
 		7B922D8F2402C4AC00271443 /* StakingTransferHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B922D8D2402C4AC00271443 /* StakingTransferHeaderView.xib */; };
 		7B922D9D2402E31900271443 /* StakingTransferTypes+Initial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B922D9C2402E31900271443 /* StakingTransferTypes+Initial.swift */; };
 		7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; };
-		7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393C822DF5827006634A6 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624722DC973E0029DA37 /* WavesSDK.framework */; };
-		7B9393C922DF5827006634A6 /* WavesSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624722DC973E0029DA37 /* WavesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393CA22DF5827006634A6 /* WavesSDKCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624922DC973E0029DA37 /* WavesSDKCrypto.framework */; };
-		7B9393CB22DF5827006634A6 /* WavesSDKCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624922DC973E0029DA37 /* WavesSDKCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393CD22DF582D006634A6 /* DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF50AD722D8BB0C00582783 /* DomainLayer.framework */; };
-		7B9393CE22DF582D006634A6 /* DomainLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF50AD722D8BB0C00582783 /* DomainLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393CF22DF5830006634A6 /* DataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF50AD322D8BB0100582783 /* DataLayer.framework */; };
-		7B9393D022DF5830006634A6 /* DataLayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF50AD322D8BB0100582783 /* DataLayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393D122DF5835006634A6 /* Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B83A7E822D8D72F0038180D /* Extensions.framework */; };
-		7B9393D222DF5835006634A6 /* Extensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7B83A7E822D8D72F0038180D /* Extensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393F722DF8982006634A6 /* DexCreateOrderInvalidPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */; };
 		7B9542C423FB2CF50079AB18 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B06B22FC784F008BA3F4 /* Balance.swift */; };
 		7B97B07222FC784F008BA3F4 /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B03822FC784F008BA3F4 /* CALayer+Shadow.swift */; };
@@ -759,13 +753,9 @@
 		8710569D24336992005022DD /* ExchangeTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8710569C24336992005022DD /* ExchangeTitleView.xib */; };
 		8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8710569E2433699D005022DD /* ExchangeTitleView.swift */; };
 		871450582462402200A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871450572462402200A17BA9 /* StandartTools.framework */; };
-		871450592462402200A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450572462402200A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8714505B2462402600A17BA9 /* AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714505A2462402600A17BA9 /* AppTools.framework */; };
-		8714505C2462402600A17BA9 /* AppTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714505A2462402600A17BA9 /* AppTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87145090246243A000A17BA9 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508E246243A000A17BA9 /* UITools.framework */; };
-		87145091246243A000A17BA9 /* UITools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508E246243A000A17BA9 /* UITools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87145092246243A000A17BA9 /* WavesUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508F246243A000A17BA9 /* WavesUIKit.framework */; };
-		87145093246243A000A17BA9 /* WavesUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508F246243A000A17BA9 /* WavesUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871D7263242CC94100F89403 /* Wallet+TSUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* Wallet+TSUD.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
@@ -809,7 +799,6 @@
 		87D683AF241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D683AD241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift */; };
 		87D683B0241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */; };
 		87ED7225246B57D6002CAD29 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; };
-		87ED7226246B57D6002CAD29 /* UITools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		87ED7271246C735A002CAD29 /* BuyCryptoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */; };
 		87ED7272246C735A002CAD29 /* BuyCryptoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */; };
 		87ED7273246C735A002CAD29 /* BuyCryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */; };
@@ -1374,16 +1363,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8714505C2462402600A17BA9 /* AppTools.framework in Embed Frameworks */,
-				871450592462402200A17BA9 /* StandartTools.framework in Embed Frameworks */,
-				7B9393C922DF5827006634A6 /* WavesSDK.framework in Embed Frameworks */,
-				7B9393D022DF5830006634A6 /* DataLayer.framework in Embed Frameworks */,
-				87145093246243A000A17BA9 /* WavesUIKit.framework in Embed Frameworks */,
-				7B9393D222DF5835006634A6 /* Extensions.framework in Embed Frameworks */,
-				7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */,
-				7B9393CE22DF582D006634A6 /* DomainLayer.framework in Embed Frameworks */,
-				7B9393CB22DF5827006634A6 /* WavesSDKCrypto.framework in Embed Frameworks */,
-				87145091246243A000A17BA9 /* UITools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1394,7 +1373,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				87ED7226246B57D6002CAD29 /* UITools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4663,13 +4641,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		7BDDFA74230B2E75007A179B /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		7BE09AD123140EF800A038AD /* MobileKeeper */ = {
 			isa = PBXGroup;
 			children = (
@@ -6705,7 +6676,6 @@
 				E9B190AA22E7CD99008220B7 /* MarketPulseWidget */,
 				34D3652B38B4C48A2B987569 /* Pods */,
 				F7E954E51EA8FE0700A804DE /* Products */,
-				7BDDFA74230B2E75007A179B /* Recovered References */,
 				F7E954E61EA8FE0700A804DE /* WavesWallet-iOS */,
 			);
 			sourceTree = "<group>";
