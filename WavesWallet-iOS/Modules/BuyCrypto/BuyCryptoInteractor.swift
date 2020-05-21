@@ -23,26 +23,26 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
     private let disposeBag = DisposeBag()
 
     init(presenter: BuyCryptoPresentable,
-         serverEnvironment: ServerEnvironmentRepository,
          authorizationService: AuthorizationUseCaseProtocol,
-         oauthRepository: WEOAuthRepositoryProtocol,
-         gatewayWavesRepository: GatewaysWavesRepository) {
+         environmentRepository: EnvironmentRepositoryProtocol,
+         gatewayWavesRepository: GatewaysWavesRepository,
+         adCashGRPCService: AdCashGRPCService) {
         self.presenter = presenter
 
         let _state = BehaviorRelay<BuyCryptoState>(value: .isLoading)
         stateTransformTrait = StateTransformTrait(_state: _state, disposeBag: disposeBag)
 
-        networker = Networker(serverEnvironmentRepository: serverEnvironment,
-                              authorizationService: authorizationService,
-                              oauthRepository: oauthRepository,
-                              gatewaysWavesRepository: gatewayWavesRepository)
+        networker = Networker(authorizationService: authorizationService,
+                              environmentRepository: environmentRepository,
+                              gatewaysWavesRepository: gatewayWavesRepository,
+                              adCashGRPCService: adCashGRPCService)
     }
 
     private func performInitialLoading() {
-        networker.getAssetsBindings { [weak self] result in
+        networker.getAssets { [weak self] result in
             switch result {
-            case let .success(bindings): self?.apiResponse.$didLoadACashAssets.accept(bindings)
-            case let .failure(error): self?.apiResponse.$aCashAssetsLoadingError.accept(error)
+            case .success(let assets): self?.apiResponse.$didLoadACashAssets.accept(assets)
+            case .failure(let error): self?.apiResponse.$aCashAssetsLoadingError.accept(error)
             }
         }
     }
@@ -72,7 +72,7 @@ extension BuyCryptoInteractor: IOTransformer {
 extension BuyCryptoInteractor {
     private enum StateTransform {
         static func fromIsLoadingToACashAssetsLoaded(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                     didLoadACashAssets: Observable<[GatewaysAssetBinding]>) {
+                                                     didLoadACashAssets: Observable<[BuyCryptoInteractor.Asset]>) {
             let fromIsLoadingToACashAssetsLoaded = didLoadACashAssets
                 .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
                     switch state {
@@ -118,49 +118,68 @@ extension BuyCryptoInteractor {
 // MARK: - NetWorker
 
 extension BuyCryptoInteractor {
+    struct Asset {
+        public let name: String
+        public let id: String
+        public let isCrypto: Bool
+        public let decimals: Int32
+        
+        public let assetInfo: WalletEnvironment.AssetInfo
+    }
+    
     private final class Networker {
-        private let serverEnvironmentRepository: ServerEnvironmentRepository
         private let authorizationService: AuthorizationUseCaseProtocol
-        private let oauthRepository: WEOAuthRepositoryProtocol
+        private let environmentRepository: EnvironmentRepositoryProtocol
         private let gatewaysWavesRepository: GatewaysWavesRepository
+        private let adCashGRPCService: AdCashGRPCService
 
         private let disposeBag = DisposeBag()
 
-        init(serverEnvironmentRepository: ServerEnvironmentRepository,
-             authorizationService: AuthorizationUseCaseProtocol,
-             oauthRepository: WEOAuthRepositoryProtocol,
-             gatewaysWavesRepository: GatewaysWavesRepository) {
-            self.serverEnvironmentRepository = serverEnvironmentRepository
+        init(authorizationService: AuthorizationUseCaseProtocol,
+             environmentRepository: EnvironmentRepositoryProtocol,
+             gatewaysWavesRepository: GatewaysWavesRepository,
+             adCashGRPCService: AdCashGRPCService) {
             self.authorizationService = authorizationService
-            self.oauthRepository = oauthRepository
+            self.environmentRepository = environmentRepository
             self.gatewaysWavesRepository = gatewaysWavesRepository
+            self.adCashGRPCService = adCashGRPCService
         }
 
-        func getAssetsBindings(completion: @escaping (Result<[GatewaysAssetBinding], Error>) -> Void) {
-            Observable.zip(authorizationService.authorizedWallet(), serverEnvironmentRepository.serverEnvironment())
-                .flatMap { [weak self] signedWallet, serverEnvironment -> Observable<(WEOAuthTokenDTO, ServerEnvironment)> in
-                    guard let sself = self else { return Observable.never() }
-
-                    return sself.obtainOAuthTokenWithServerEnvironment(signedWallet: signedWallet,
-                                                                       serverEnvironment: serverEnvironment)
-                }
-                .flatMap { [weak self] token, serverEnvironment -> Observable<[GatewaysAssetBinding]> in
-                    guard let sself = self else { return Observable.never() }
-                    let request = AssetBindingsRequest(direction: .deposit)
-
-                    return sself.gatewaysWavesRepository.assetBindingsRequest(serverEnvironment: serverEnvironment,
-                                                                              oAToken: token,
-                                                                              request: request)
-                }
-                .subscribe(onNext: { bindings in completion(.success(bindings)) },
+        func getAssets(completion: @escaping (Result<[BuyCryptoInteractor.Asset], Error>) -> Void) {
+            Observable.zip(authorizationService.authorizedWallet(), environmentRepository.walletEnvironment())
+                .subscribe(onNext: { [weak self] in
+                    self?.getACashAssets(signedWallet: $0, walletEnvironment: $1, completion: completion)
+                },
                            onError: { error in completion(.failure(error)) })
                 .disposed(by: disposeBag)
         }
-
-        private func obtainOAuthTokenWithServerEnvironment(signedWallet: SignedWallet, serverEnvironment: ServerEnvironment)
-            -> Observable<(WEOAuthTokenDTO, ServerEnvironment)> {
-            oauthRepository.oauthToken(signedWallet: signedWallet)
-                .map { token -> (WEOAuthTokenDTO, ServerEnvironment) in (token, serverEnvironment) }
+        
+        private func getACashAssets(signedWallet: SignedWallet,
+                                    walletEnvironment: WalletEnvironment,
+                                    completion: @escaping (Result<[BuyCryptoInteractor.Asset], Error>) -> Void) {
+            let completionAdapter: (Result<[ACashAsset], Error>) -> Void = { result in
+                switch result {
+                case .success(let assets):
+                    let newAssets = assets.compactMap { asset -> BuyCryptoInteractor.Asset? in
+                        if let assetInfo = walletEnvironment.assets?.first(where: { $0.wavesId == asset.id }) {
+                            return .init(name: asset.name,
+                                         id: asset.id,
+                                         isCrypto: asset.kind == .crypto,
+                                         decimals: asset.decimals,
+                                         assetInfo: assetInfo)
+                        } else {
+                            return nil
+                        }
+                    }
+                    
+                    completion(.success(newAssets))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+                
+            }
+            
+            adCashGRPCService.getACashAssets(signedWallet: signedWallet, completion: completionAdapter)
         }
     }
 }

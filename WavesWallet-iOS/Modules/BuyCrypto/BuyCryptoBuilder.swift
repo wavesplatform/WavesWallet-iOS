@@ -14,19 +14,19 @@ final class BuyCryptoBuilder: BuyCryptoBuildable {
     func build() -> BuyCryptoViewController {
         // MARK: - Dependency
 
-        let serverEnvironment = UseCasesFactory.instance.repositories.serverEnvironmentUseCase
         let authorizationService = UseCasesFactory.instance.authorization
-        let oauthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
         let gatewayWavesRepository = UseCasesFactory.instance.repositories.gatewaysWavesRepository
+        let adCashGRPCService = UseCasesFactory.instance.repositories.adCashGRPCService
+        let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
         
         // MARK: - Instantiating
 
         let presenter = BuyCryptoPresenter()
         let interactor = BuyCryptoInteractor(presenter: presenter,
-                                             serverEnvironment: serverEnvironment,
                                              authorizationService: authorizationService,
-                                             oauthRepository: oauthRepository,
-                                             gatewayWavesRepository: gatewayWavesRepository)
+                                             environmentRepository: environmentRepository,
+                                             gatewayWavesRepository: gatewayWavesRepository,
+                                             adCashGRPCService: adCashGRPCService)
         let viewController = BuyCryptoViewController.instantiateFromStoryboard()
         viewController.interactor = interactor
 

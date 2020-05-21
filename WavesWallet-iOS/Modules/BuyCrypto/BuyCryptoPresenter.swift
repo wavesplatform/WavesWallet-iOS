@@ -7,6 +7,7 @@
 //
 
 import AppTools
+import DomainLayer
 import RxCocoa
 import RxSwift
 
@@ -42,6 +43,22 @@ extension BuyCryptoPresenter: IOTransformer {
                 }
         }
         .asSignalIgnoringError()
+        
+        let fiatAssets = input.readOnlyState
+            .compactMap { state -> [BuyCryptoInteractor.Asset]? in
+                switch state {
+                case .aCashAssetsLoaded(let assets): return assets.filter { !$0.isCrypto }
+                default: return nil
+                }
+        }
+        
+        let cryptoAssets = input.readOnlyState
+            .compactMap { state -> [BuyCryptoInteractor.Asset]? in
+            switch state {
+            case .aCashAssetsLoaded(let assets): return assets.filter { $0.isCrypto }
+            default: return nil
+            }
+        }
         
         let validationError = Signal<String?>.never()
         

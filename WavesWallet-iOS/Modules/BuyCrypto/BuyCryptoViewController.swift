@@ -37,8 +37,12 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         navigationItem.largeTitleDisplayMode = .never
         
         scrollContainerView.backgroundColor = .basic50
+        
         fiatCollectionView.backgroundColor = .basic50
+        fiatCollectionView.registerCell(type: ImageViewCollectionViewCell.self)
+        
         cryptoCollectionView.backgroundColor = .basic50
+        cryptoCollectionView.registerCell(type: ImageViewCollectionViewCell.self)
         
         do {
             fiatSeparatorImageView.contentMode = .scaleAspectFill
@@ -49,6 +53,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         fiatAmountTextField.setPlaceholder("Amount")
 
         do {
+            infoTextView.isScrollEnabled = false
             infoTextView.layer.borderColor = UIColor.basic300.cgColor
             infoTextView.layer.borderWidth = 1
         }

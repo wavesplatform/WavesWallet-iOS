@@ -30,12 +30,12 @@ enum BuyCryptoState {
     case loadingError(String)
     
     /// Состояние загруженного экрана (загружены
-    case aCashAssetsLoaded([GatewaysAssetBinding])
+    case aCashAssetsLoaded([BuyCryptoInteractor.Asset])
 }
 
 extension BuyCryptoInteractor {
     struct ApiResponse {
-        @PublishObservable var didLoadACashAssets: Observable<[GatewaysAssetBinding]>
+        @PublishObservable var didLoadACashAssets: Observable<[BuyCryptoInteractor.Asset]>
         @PublishObservable var aCashAssetsLoadingError: Observable<Error>
     }
 }
