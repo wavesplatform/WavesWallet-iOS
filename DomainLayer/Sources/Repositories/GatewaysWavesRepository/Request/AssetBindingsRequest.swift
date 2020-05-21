@@ -24,7 +24,10 @@ public struct AssetBindingsRequest {
     public let includesExternalAssetTicker: String?
     public let includesWavesAsset: String?
 
-    public init(assetType: AssetType, direction: Direction, includesExternalAssetTicker: String? = nil, includesWavesAsset: String? = nil) {
+    public init(assetType: AssetType,
+                direction: Direction,
+                includesExternalAssetTicker: String? = nil,
+                includesWavesAsset: String? = nil) {
         self.assetType = assetType
         self.direction = direction
         self.includesExternalAssetTicker = includesExternalAssetTicker

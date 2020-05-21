@@ -215,17 +215,21 @@ extension WalletCoordinator: WalletModuleOutput {
     
     func openActionMenu() {
 
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.wavesQuickAction(.wavesActionPanel))
+//        UseCasesFactory
+//            .instance
+//            .analyticManager
+//            .trackEvent(.wavesQuickAction(.wavesActionPanel))
+//
+//        let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
+//        vc.moduleOutput = self
+//        let popup = PopupViewController()
+//        popup.contentHeight = 204
+//        popup.present(contentViewController: vc)
         
-        let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
-        vc.moduleOutput = self
-        let popup = PopupViewController()
-        popup.contentHeight = 204
-        popup.present(contentViewController: vc)
-
+        let buyCrypto = BuyCryptoBuilder()
+        let viewController = buyCrypto.build()
+        
+        navigationRouter.pushViewController(viewController)
     }
     
     func openWithdraw(neutrinoAsset: Asset) {

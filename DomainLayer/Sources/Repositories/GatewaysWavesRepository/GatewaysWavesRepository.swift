@@ -17,17 +17,22 @@ public enum GatewaysWavesError: Error {
 }
 
 public protocol GatewaysWavesRepository {
+    
+    ///
     func assetBindingsRequest(serverEnvironment: ServerEnvironment,
                               oAToken: WEOAuthTokenDTO,
                               request: AssetBindingsRequest) -> Observable<[GatewaysAssetBinding]>
 
+    ///
     func withdrawalTransferBinding(serverEnvironment: ServerEnvironment,
                                    oAToken: WEOAuthTokenDTO,
                                    request: TransferBindingRequest) -> Observable<GatewaysTransferBinding>
 
+    ///
     func depositTransferBinding(serverEnvironment: ServerEnvironment,
                                 oAToken: WEOAuthTokenDTO,
                                 request: TransferBindingRequest) -> Observable<GatewaysTransferBinding>
 
+    /// 
     func calculateFee(amount: Int64, direction: AssetBindingsRequest.Direction, assetBinding: GatewaysAssetBinding) -> Money
 }

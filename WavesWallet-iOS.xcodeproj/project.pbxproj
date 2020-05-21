@@ -818,6 +818,7 @@
 		87ED7276246C735A002CAD29 /* BuyCryptoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */; };
 		87ED7279246C9D36002CAD29 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7277246C9D36002CAD29 /* Images.swift */; };
 		87ED727A246C9D36002CAD29 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7278246C9D36002CAD29 /* Localizable.swift */; };
+		87ED727F246D7BAF002CAD29 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED727E246D7BAF002CAD29 /* RoundedTextField.swift */; };
 		87F09D512417CD6E001E2394 /* MassTransferRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */; };
 		87F09D532417CE79001E2394 /* MassTransferRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */; };
 		87FA5D0324223B95002F282D /* AccountPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA5CFC24223B94002F282D /* AccountPassword.swift */; };
@@ -2256,6 +2257,7 @@
 		87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoInteractor.swift; sourceTree = "<group>"; };
 		87ED7277246C9D36002CAD29 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		87ED7278246C9D36002CAD29 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		87ED727E246D7BAF002CAD29 /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryRemote.swift; sourceTree = "<group>"; };
 		87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryProtocol.swift; sourceTree = "<group>"; };
 		87FA5CFC24223B94002F282D /* AccountPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPassword.swift; sourceTree = "<group>"; };
@@ -5150,14 +5152,23 @@
 		87ED7233246C195D002CAD29 /* BuyCrypto */ = {
 			isa = PBXGroup;
 			children = (
-				87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */,
-				87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */,
-				87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */,
-				87ED726E246C735A002CAD29 /* BuyCryptoProtocols.swift */,
+				87ED727D246D7B34002CAD29 /* TextField */,
 				87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */,
 				87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */,
+				87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */,
+				87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */,
+				87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */,
+				87ED726E246C735A002CAD29 /* BuyCryptoProtocols.swift */,
 			);
 			path = BuyCrypto;
+			sourceTree = "<group>";
+		};
+		87ED727D246D7B34002CAD29 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				87ED727E246D7BAF002CAD29 /* RoundedTextField.swift */,
+			);
+			path = TextField;
 			sourceTree = "<group>";
 		};
 		87FA5CF524223B29002F282D /* Account */ = {
@@ -8525,6 +8536,7 @@
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
+				87ED727F246D7BAF002CAD29 /* RoundedTextField.swift in Sources */,
 				87ED7271246C735A002CAD29 /* BuyCryptoPresenter.swift in Sources */,
 				E9D36DCB2175C755001E6DF0 /* ReceiveCryptocurrencyPresenter.swift in Sources */,
 				0ADD802621F22FFA0075FC59 /* AppCoordinator.swift in Sources */,
