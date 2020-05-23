@@ -36,6 +36,7 @@ public struct WalletEnvironment: Decodable, Hashable {
         
     public struct AssetInfo: Decodable, Hashable {
         
+        // TODO: подумать над такими обертками и убрать подобные? 
         public struct Icon: Decodable, Hashable {
             public let `default`: String?
         }

@@ -65,7 +65,11 @@ extension BuyCryptoInteractor: IOTransformer {
 
         StateTransform.fromLoadingErrorToIsLoading(stateTransformTrait: stateTransformTrait, didTapRetry: input.didTapRetry)
 
-        return BuyCryptoInteractorOutput(readOnlyState: stateTransformTrait.readOnlyState)
+        // didSelectFiatItem и didSelectCryptoItem проходят транзитом через интерактор
+        // в presenter необходимо изменять title(ы) на лейблах и кнопке
+        return BuyCryptoInteractorOutput(readOnlyState: stateTransformTrait.readOnlyState,
+                                         didSelectFiatItem: input.didSelectFiatItem,
+                                         didSelectCryptoItem: input.didSelectCryptoItem)
     }
 }
 

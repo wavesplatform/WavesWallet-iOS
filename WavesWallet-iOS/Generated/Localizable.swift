@@ -523,6 +523,12 @@ internal enum Localizable {
       }
     }
 
+    internal enum Buycrypto {
+      /// Amount
+      internal static var amountPlaceholder: String { Localizable.tr("Waves", "buyCrypto.amountPlaceholder") }
+      internal static var amountPlaceholderKey: String { "buyCrypto.amountPlaceholder" }
+    }
+
     internal enum Cameraaccess {
 
       internal enum Alert {

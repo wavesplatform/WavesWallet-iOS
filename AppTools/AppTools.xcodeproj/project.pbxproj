@@ -10,6 +10,8 @@
 		8714504124623DED00A17BA9 /* AppTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8714503F24623DED00A17BA9 /* AppTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871450542462400700A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; };
 		871450552462400700A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 871450532462400700A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		875C0A7D24781C5D00685A04 /* TitledModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A7C24781C5D00685A04 /* TitledModel.swift */; };
+		875C0A7F24781CFE00685A04 /* TitledBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A7E24781CFE00685A04 /* TitledBool.swift */; };
 		8769B58D246443AA00124484 /* BindableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B58C246443AA00124484 /* BindableView.swift */; };
 		8769B58F246443C400124484 /* IOTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B58E246443C400124484 /* IOTransformer.swift */; };
 		8769B591246443DA00124484 /* VIPBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769B590246443DA00124484 /* VIPBinder.swift */; };
@@ -46,6 +48,8 @@
 		8714503F24623DED00A17BA9 /* AppTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTools.h; sourceTree = "<group>"; };
 		8714504024623DED00A17BA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		871450532462400700A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		875C0A7C24781C5D00685A04 /* TitledModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledModel.swift; sourceTree = "<group>"; };
+		875C0A7E24781CFE00685A04 /* TitledBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledBool.swift; sourceTree = "<group>"; };
 		8769B58C246443AA00124484 /* BindableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableView.swift; sourceTree = "<group>"; };
 		8769B58E246443C400124484 /* IOTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOTransformer.swift; sourceTree = "<group>"; };
 		8769B590246443DA00124484 /* VIPBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIPBinder.swift; sourceTree = "<group>"; };
@@ -107,12 +111,22 @@
 		8714503E24623DED00A17BA9 /* AppTools */ = {
 			isa = PBXGroup;
 			children = (
+				875C0A7B24781C4E00685A04 /* Models */,
 				8769B5922464449E00124484 /* ModuleTooling+Rx */,
 				8769B58B2464439700124484 /* ModuleTooling */,
 				8714503F24623DED00A17BA9 /* AppTools.h */,
 				8714504024623DED00A17BA9 /* Info.plist */,
 			);
 			path = AppTools;
+			sourceTree = "<group>";
+		};
+		875C0A7B24781C4E00685A04 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				875C0A7C24781C5D00685A04 /* TitledModel.swift */,
+				875C0A7E24781CFE00685A04 /* TitledBool.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		8769B58B2464439700124484 /* ModuleTooling */ = {
@@ -254,9 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				87ED72842472AC3B002CAD29 /* StateTrait.swift in Sources */,
+				875C0A7D24781C5D00685A04 /* TitledModel.swift in Sources */,
 				8769B591246443DA00124484 /* VIPBinder.swift in Sources */,
 				8769B58D246443AA00124484 /* BindableView.swift in Sources */,
 				8769B59F246446CC00124484 /* PublishControlEventWrapper.swift in Sources */,
+				875C0A7F24781CFE00685A04 /* TitledBool.swift in Sources */,
 				8769B59C2464466C00124484 /* PublishObservableWrapper.swift in Sources */,
 				8769B5A12464475300124484 /* WithLatestFrom+BothValue.swift in Sources */,
 				8769B59A2464455400124484 /* Observable+Extensions.swift in Sources */,

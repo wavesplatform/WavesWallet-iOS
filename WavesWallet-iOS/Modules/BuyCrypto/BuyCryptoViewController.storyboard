@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vKn-9P-Ny8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vKn-9P-Ny8">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -34,8 +34,8 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="54O-F0-vEF"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ch7-K5-AMl" customClass="ZoomFlowLayout" customModule="WavesUIKit">
-                                                    <size key="itemSize" width="128" height="128"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ch7-K5-AMl" customClass="ZoomFlowLayout" customModule="WavesUIKit">
+                                                    <size key="itemSize" width="0.0" height="0.0"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -67,8 +67,8 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="gRK-WJ-4Yn"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3br-B0-wyg" customClass="ZoomFlowLayout" customModule="WavesUIKit">
-                                                    <size key="itemSize" width="128" height="128"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3br-B0-wyg" customClass="ZoomFlowLayout" customModule="WavesUIKit">
+                                                    <size key="itemSize" width="0.0" height="0.0"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -148,9 +148,11 @@
                         <outlet property="buyButton" destination="78v-yA-QC2" id="3wW-py-bd7"/>
                         <outlet property="buyLabel" destination="aEk-RO-ToY" id="yi2-Yl-PmS"/>
                         <outlet property="cryptoCollectionView" destination="JRY-Gm-ISS" id="Fb3-qE-my3"/>
+                        <outlet property="cryptoZoomLayout" destination="3br-B0-wyg" id="B8i-Xu-ciV"/>
                         <outlet property="fiatAmountTextField" destination="cPN-Yl-YxU" id="E3M-X2-Dgq"/>
                         <outlet property="fiatCollectionView" destination="DKn-xW-87h" id="VH4-Fx-HBD"/>
                         <outlet property="fiatSeparatorImageView" destination="8dW-bx-3eO" id="pRT-qL-PqO"/>
+                        <outlet property="fiatZoomLayout" destination="Ch7-K5-AMl" id="LQc-22-ubH"/>
                         <outlet property="infoTextView" destination="VAY-Od-8jE" id="BrU-1v-0E7"/>
                         <outlet property="scrollContainerView" destination="p2J-il-HLx" id="2Xi-ZZ-SOc"/>
                         <outlet property="scrollView" destination="g16-wN-rxB" id="zyj-w2-pnW"/>

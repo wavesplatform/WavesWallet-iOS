@@ -9,4 +9,14 @@
 import UIKit
 import WavesUIKit
 
-typealias ImageViewCollectionViewCell = UICollectionViewContainerCell<UIImageView>
+final class ImageViewCollectionViewCell: UICollectionViewContainerCell<UIImageView> {
+    
+    override func initialSetup() {
+        view.contentMode = .scaleAspectFit
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        view.image = nil
+    }
+}
