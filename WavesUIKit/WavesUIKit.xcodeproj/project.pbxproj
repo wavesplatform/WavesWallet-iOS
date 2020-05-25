@@ -20,6 +20,8 @@
 		871450A5246243E100A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509E246243E100A17BA9 /* StandartTools.framework */; };
 		871450A6246243E200A17BA9 /* StandartTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509E246243E100A17BA9 /* StandartTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		871450A92462440000A17BA9 /* ResetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871450A82462440000A17BA9 /* ResetableView.swift */; };
+		875C0A89247BBFE500685A04 /* UIView+isVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A88247BBFE500685A04 /* UIView+isVisible.swift */; };
+		875C0A8B247BC15100685A04 /* UIView+AddStretchToBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A8A247BC15100685A04 /* UIView+AddStretchToBounds.swift */; };
 		87ED721B246B535E002CAD29 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721A246B535E002CAD29 /* NibLoadable.swift */; };
 		87ED721D246B5418002CAD29 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721C246B5418002CAD29 /* Reusable.swift */; };
 		87ED721F246B5684002CAD29 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721E246B5684002CAD29 /* NibOwnerLoadable.swift */; };
@@ -88,6 +90,8 @@
 		8714509D246243E100A17BA9 /* AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714509E246243E100A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		871450A82462440000A17BA9 /* ResetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetableView.swift; sourceTree = "<group>"; };
+		875C0A88247BBFE500685A04 /* UIView+isVisible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+isVisible.swift"; sourceTree = "<group>"; };
+		875C0A8A247BC15100685A04 /* UIView+AddStretchToBounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddStretchToBounds.swift"; sourceTree = "<group>"; };
 		87ED721A246B535E002CAD29 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		87ED721C246B5418002CAD29 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		87ED721E246B5684002CAD29 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 		871450822462432200A17BA9 /* UITools */ = {
 			isa = PBXGroup;
 			children = (
+				875C0A87247BBFD000685A04 /* Extensions */,
 				87ED7219246B534E002CAD29 /* Helpers */,
 				87145094246243B600A17BA9 /* ResetableView */,
 				871450832462432200A17BA9 /* UITools.h */,
@@ -187,6 +192,15 @@
 				2D4BC507E3B0AD674153F228 /* Pods_WavesUIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		875C0A87247BBFD000685A04 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				875C0A88247BBFE500685A04 /* UIView+isVisible.swift */,
+				875C0A8A247BC15100685A04 /* UIView+AddStretchToBounds.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		87ED7219246B534E002CAD29 /* Helpers */ = {
@@ -395,8 +409,10 @@
 				87ED7221246B5706002CAD29 /* UITableView+Reusable.swift in Sources */,
 				87ED721D246B5418002CAD29 /* Reusable.swift in Sources */,
 				87ED721F246B5684002CAD29 /* NibOwnerLoadable.swift in Sources */,
+				875C0A89247BBFE500685A04 /* UIView+isVisible.swift in Sources */,
 				87ED7223246B5728002CAD29 /* UICollectionView+Reusable.swift in Sources */,
 				87ED7229246B6B49002CAD29 /* ContainerContentConstraints.swift in Sources */,
+				875C0A8B247BC15100685A04 /* UIView+AddStretchToBounds.swift in Sources */,
 				871450A92462440000A17BA9 /* ResetableView.swift in Sources */,
 				87ED721B246B535E002CAD29 /* NibLoadable.swift in Sources */,
 				87ED7241246C678F002CAD29 /* UIViewController+Storyboard.swift in Sources */,

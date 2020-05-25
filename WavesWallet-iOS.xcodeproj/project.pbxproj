@@ -808,6 +808,7 @@
 		87566699242B668600E9F177 /* StakingBalanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87566698242B668600E9F177 /* StakingBalanceService.swift */; };
 		875C0A82247B233C00685A04 /* BuyCryptoSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A81247B233C00685A04 /* BuyCryptoSkeletonView.swift */; };
 		875C0A84247B234E00685A04 /* BuyCryptoSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C0A83247B234E00685A04 /* BuyCryptoSkeletonView.xib */; };
+		875C0A86247BB81B00685A04 /* BuyCryptoInteractor+Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A85247BB81B00685A04 /* BuyCryptoInteractor+Networker.swift */; };
 		876604782476A376001F0FA4 /* ImageViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876604772476A376001F0FA4 /* ImageViewCollectionViewCell.swift */; };
 		87D683AF241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D683AD241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift */; };
 		87D683B0241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */; };
@@ -2249,6 +2250,7 @@
 		87566698242B668600E9F177 /* StakingBalanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingBalanceService.swift; sourceTree = "<group>"; };
 		875C0A81247B233C00685A04 /* BuyCryptoSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyCryptoSkeletonView.swift; sourceTree = "<group>"; };
 		875C0A83247B234E00685A04 /* BuyCryptoSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyCryptoSkeletonView.xib; sourceTree = "<group>"; };
+		875C0A85247BB81B00685A04 /* BuyCryptoInteractor+Networker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuyCryptoInteractor+Networker.swift"; sourceTree = "<group>"; };
 		876604772476A376001F0FA4 /* ImageViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		8796A4D5244DBB8C00027E9C /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796A4E6244DC6BA00027E9C /* Pods_StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5186,6 +5188,7 @@
 				87ED727D246D7B34002CAD29 /* TextField */,
 				87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */,
 				87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */,
+				875C0A85247BB81B00685A04 /* BuyCryptoInteractor+Networker.swift */,
 				87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */,
 				87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */,
 				87ED726C246C735A002CAD29 /* BuyCryptoViewController.storyboard */,
@@ -8171,6 +8174,7 @@
 				7B9393F722DF8982006634A6 /* DexCreateOrderInvalidPriceView.swift in Sources */,
 				E9F78A3F229E990D0065324B /* ScrolledContainerView.swift in Sources */,
 				7B0D1B852402AA0500442B7B /* BlueButton.swift in Sources */,
+				875C0A86247BB81B00685A04 /* BuyCryptoInteractor+Networker.swift in Sources */,
 				875C0A82247B233C00685A04 /* BuyCryptoSkeletonView.swift in Sources */,
 				0A751D38221715F80024D523 /* AppNewsCoordinator.swift in Sources */,
 				E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */,

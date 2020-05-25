@@ -1,4 +1,4 @@
-// 
+//
 //  BuyCryptoViewController.swift
 //  WavesWallet-iOS
 //
@@ -6,18 +6,20 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import StandartTools
 import AppTools
-import RxCocoa
 import Extensions
+import Kingfisher
+import RxCocoa
 import RxSwift
+import StandartTools
 import UIKit
 import UITools
-import Kingfisher
 import WavesUIKit
 
 final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable {
     var interactor: BuyCryptoInteractable?
+
+    private let buyCryptoSkeletonView = BuyCryptoSkeletonView.loadFromNib()
 
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var scrollContainerView: UIView!
@@ -31,44 +33,50 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     @IBOutlet private weak var cryptoZoomLayout: ZoomFlowLayout!
     @IBOutlet private weak var buyButton: BlueButton!
     @IBOutlet private weak var infoTextView: UITextView!
-    
+
+    private var presenterOutput: BuyCryptoPresenterOutput?
+
     private var fiatAssets: [BuyCryptoPresenter.AssetViewModel] = []
     private var cryptoAssets: [BuyCryptoPresenter.AssetViewModel] = []
-    
+
     private let didSelectFiatItem = PublishRelay<BuyCryptoPresenter.AssetViewModel>()
     private let didSelectCryptoItem = PublishRelay<BuyCryptoPresenter.AssetViewModel>()
     private let didChangeFiatAmount = PublishRelay<String>()
     private let didTapBuy = PublishRelay<Void>()
-    
+
     private let didTapRetry = PublishRelay<Void>()
-    
+
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         initialSetup()
+        bindIfNeeded()
     }
 
     private func initialSetup() {
-        createBackButton()
-        setupBigNavigationBar()
-        
-        view.backgroundColor = .basic50
-        scrollContainerView.backgroundColor = .basic50
-        
-        setupFiatCollectionView()
-        setupCryptoCollectionView()
-        
+        do {
+            createBackButton()
+            setupBigNavigationBar()
+            
+            navigationItem.largeTitleDisplayMode = .never
+
+            view.backgroundColor = .basic50
+            scrollContainerView.backgroundColor = .basic50
+        }
+
         do {
             fiatSeparatorImageView.contentMode = .scaleAspectFill
             fiatSeparatorImageView.image = Images.separateLineWithArrow.image
         }
-
+        
+        setupFiatCollectionView()
+        setupCryptoCollectionView()
         fiatAmountTextField.setPlaceholder(Localizable.Waves.Buycrypto.amountPlaceholder)
-
         setupInfoTextView()
     }
-    
+
     private func setupFiatCollectionView() {
         fiatZoomLayout.minimumLineSpacing = 24
         fiatZoomLayout.minimumInteritemSpacing = 0
@@ -80,7 +88,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         fiatCollectionView.dataSource = self
         fiatCollectionView.delegate = self
     }
-    
+
     private func setupCryptoCollectionView() {
         fiatZoomLayout.minimumLineSpacing = 24
         cryptoZoomLayout.minimumInteritemSpacing = 0
@@ -92,7 +100,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         cryptoCollectionView.dataSource = self
         cryptoCollectionView.delegate = self
     }
-    
+
     private func setupInfoTextView() {
         let infoTextViewBorder = CAShapeLayer()
         infoTextViewBorder.strokeColor = UIColor.basic300.cgColor
@@ -101,7 +109,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         infoTextViewBorder.fillColor = nil
         infoTextViewBorder.path = UIBezierPath(rect: infoTextView.bounds).cgPath
         infoTextView.layer.addSublayer(infoTextViewBorder)
-        
+
         infoTextView.isEditable = false
         infoTextView.isSelectable = false
         infoTextView.isScrollEnabled = false
@@ -114,7 +122,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 extension BuyCryptoViewController: BindableView {
     func getOutput() -> BuyCryptoViewOutput {
         let viewWillAppear = rx.viewWillAppear.mapAsVoid()
-        
+
         return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem.asControlEvent(),
                                    didSelectCryptoItem: didSelectCryptoItem.asControlEvent(),
                                    didChangeFiatAmount: didChangeFiatAmount.asControlEvent(),
@@ -124,30 +132,49 @@ extension BuyCryptoViewController: BindableView {
     }
 
     func bindWith(_ input: BuyCryptoPresenterOutput) {
+        presenterOutput = input
+        bindIfNeeded()
+    }
+
+    private func bindIfNeeded() {
+        guard let input = presenterOutput, isViewLoaded else { return }
+
+        input.contentVisible.drive(onNext: { [weak self] isVisible in
+            self?.scrollContainerView.isVisible = isVisible
+        }).disposed(by: disposeBag)
+
+        input.isLoadingIndicator.drive(onNext: { [weak self] isLoading in
+            guard let sself = self else { return }
+            if isLoading {
+                sself.view.addStretchToBounds(sself.buyCryptoSkeletonView)
+                sself.buyCryptoSkeletonView.startAnimation(to: .right)
+            } else {
+                sself.buyCryptoSkeletonView.stopAnimation()
+                sself.buyCryptoSkeletonView.removeFromSuperview()
+            }
+        }).disposed(by: disposeBag)
+
         input.fiatItems.drive(onNext: { [weak self] assets in
             self?.fiatAssets = assets
             self?.fiatCollectionView.reloadData()
-            
+
             if let selectedFiat = assets.first {
                 self?.didSelectFiatItem.accept(selectedFiat)
             }
         }).disposed(by: disposeBag)
-        
+
         input.cryptoItems.drive(onNext: { [weak self] assets in
             self?.cryptoAssets = assets
             self?.cryptoCollectionView.reloadData()
-            
+
             if let selectedCrypto = assets.first {
                 self?.didSelectCryptoItem.accept(selectedCrypto)
             }
         }).disposed(by: disposeBag)
-        
-//        input.fiatTitle.drive(spentLabel.rx.text).disposed(by: disposeBag)
-//        input.cryptoTitle.drive(buyLabel.rx.text).disposed(by: disposeBag)
-        
-        input.fiatTitle.drive(onNext: { [weak self] title in self?.spentLabel.text = title }).disposed(by: disposeBag)
-        input.cryptoTitle.drive(onNext: { [weak self] title in self?.buyLabel.text = title }).disposed(by: disposeBag)
-        
+
+        input.fiatTitle.drive(spentLabel.rx.text).disposed(by: disposeBag)
+        input.cryptoTitle.drive(buyLabel.rx.text).disposed(by: disposeBag)
+
         input.buyButtonModel.drive(onNext: { [weak self] titledBool in
             let buttonStatus = titledBool.isOn ? BlueButton.Model.Status.active : BlueButton.Model.Status.disabled
             let buttonModel = BlueButton.Model(title: titledBool.title, status: buttonStatus)
@@ -159,7 +186,7 @@ extension BuyCryptoViewController: BindableView {
 // MARK: - UICollectionViewDataSource
 
 extension BuyCryptoViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         if collectionView === fiatCollectionView {
             return fiatAssets.count
         } else if collectionView == cryptoCollectionView {
@@ -168,10 +195,10 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
             return 0
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ImageViewCollectionViewCell = collectionView.dequeueCellForIndexPath(indexPath: indexPath)
-        
+
         if collectionView === fiatCollectionView {
             let asset = fiatAssets[indexPath.row]
             AssetLogo
@@ -187,7 +214,7 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
         } else {
             assertionFailure("Unknow collection view in BuyCryptoViewController \(#function)")
         }
-        
+
         return cell
     }
 }
@@ -196,7 +223,7 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView === fiatCollectionView {
             let currentItemOffset = fiatCollectionView.contentInset.left + fiatCollectionView.contentOffset.x
-            
+
             let centerFiatCollectionViewPoint = CGPoint(x: currentItemOffset, y: fiatCollectionView.bounds.midY)
             if let indexPath = fiatCollectionView.indexPathForItem(at: centerFiatCollectionViewPoint) {
                 let fiatAsset = fiatAssets[indexPath.item]
