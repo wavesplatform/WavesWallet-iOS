@@ -54,37 +54,63 @@ extension BuyCryptoPresenter: IOTransformer {
 
         let validationError = Signal<String?>.never()
 
+        let fiatTitle = input.didSelectFiatItem
+            .filteredByState(input.readOnlyState) { state -> Bool in
+                switch state {
+                case .aCashAssetsLoaded: return true
+                default: return false
+                }
+            }
+            .map { Localizable.Waves.Buycrypto.iSpent($0.name) }
+            .asDriver(onErrorJustReturn: Localizable.Waves.Buycrypto.iSpent(""))
+
         let fiatAssets = input.readOnlyState
             .compactMap { state -> [AssetViewModel]? in
                 switch state {
                 case let .aCashAssetsLoaded(assets):
-                    return assets.filter { !$0.isCrypto }
-                        .map { Helper.makeAssetViewModel(from: $0) }
+                    return assets.fiatAssets.map { Helper.makeAssetViewModel(from: $0) }
                 default: return nil
                 }
             }
             .asDriver(onErrorJustReturn: [])
+
+        let cryptoTitle = input.didSelectCryptoItem
+            .filteredByState(input.readOnlyState) { state -> Bool in
+                switch state {
+                case .aCashAssetsLoaded: return true
+                default: return false
+                }
+            }
+            .map { Localizable.Waves.Buycrypto.iBuy($0.name) }
+            .asDriver(onErrorJustReturn: Localizable.Waves.Buycrypto.iBuy(""))
 
         let cryptoAssets = input.readOnlyState
             .compactMap { state -> [AssetViewModel]? in
                 switch state {
                 case let .aCashAssetsLoaded(assets):
-                    return assets.filter { $0.isCrypto }
-                        .map { Helper.makeAssetViewModel(from: $0) }
+                    return assets.cryptoAssets.map { Helper.makeAssetViewModel(from: $0) }
                 default: return nil
                 }
             }
             .asDriver(onErrorJustReturn: [])
-        
-        let buyButtonModel = Driver<TitledBool>.just(TitledBool(title: "Buy", isOn: false))
+
+        let buyButtonModel = input.didSelectCryptoItem
+            .filteredByState(input.readOnlyState) { state -> Bool in
+                switch state {
+                case .aCashAssetsLoaded: return true
+                default: return false
+                }
+            }
+            .map { TitledBool(title: Localizable.Waves.Buycrypto.buy($0.name), isOn: false) }
+            .asDriver(onErrorJustReturn: TitledBool(title: Localizable.Waves.Buycrypto.buy(""), isOn: false))
 
         return BuyCryptoPresenterOutput(contentVisible: contentVisible,
                                         isLoadingIndicator: isLoadingIndicator,
                                         error: showError,
                                         validationError: validationError,
-                                        fiatTitle: Driver<String>.never(),
+                                        fiatTitle: fiatTitle,
                                         fiatItems: fiatAssets,
-                                        cryptoTitle: Driver<String>.never(),
+                                        cryptoTitle: cryptoTitle,
                                         cryptoItems: cryptoAssets,
                                         buyButtonModel: buyButtonModel,
                                         detailsInfo: Driver<String>.never())
@@ -93,14 +119,24 @@ extension BuyCryptoPresenter: IOTransformer {
 
 extension BuyCryptoPresenter {
     private enum Helper {
-        static func makeAssetViewModel(from model: BuyCryptoInteractor.Asset) -> AssetViewModel {
-            let icon = AssetLogo.Icon(assetId: model.id,
-                                      name: model.name,
-                                      url: model.assetInfo.iconUrls?.default,
-                                      isSponsored: false, // уточнить эти моменты
-                                      hasScript: true) //
+        static func makeAssetViewModel(from fiatAsset: BuyCryptoInteractor.FiatAsset) -> AssetViewModel {
+            let icon = AssetLogo.Icon(assetId: fiatAsset.id,
+                                      name: fiatAsset.name,
+                                      url: fiatAsset.assetInfo.iconUrls?.default,
+                                      isSponsored: false,
+                                      hasScript: false)
 
-            return AssetViewModel(id: model.id, name: model.name, icon: icon, iconStyle: .large)
+            return AssetViewModel(id: fiatAsset.id, name: fiatAsset.name, icon: icon, iconStyle: .large)
+        }
+
+        static func makeAssetViewModel(from cryptoAsset: BuyCryptoInteractor.CryptoAsset) -> AssetViewModel {
+            let icon = AssetLogo.Icon(assetId: cryptoAsset.name,
+                                      name: cryptoAsset.id,
+                                      url: cryptoAsset.assetInfo.iconUrls?.default,
+                                      isSponsored: false,
+                                      hasScript: false)
+
+            return AssetViewModel(id: cryptoAsset.id, name: cryptoAsset.name, icon: icon, iconStyle: .large)
         }
     }
 }

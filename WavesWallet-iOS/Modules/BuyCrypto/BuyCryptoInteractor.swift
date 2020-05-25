@@ -25,6 +25,7 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
     init(presenter: BuyCryptoPresentable,
          authorizationService: AuthorizationUseCaseProtocol,
          environmentRepository: EnvironmentRepositoryProtocol,
+         assetsUseCase: AssetsUseCaseProtocol,
          gatewayWavesRepository: GatewaysWavesRepository,
          adCashGRPCService: AdCashGRPCService) {
         self.presenter = presenter
@@ -35,14 +36,15 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
         networker = Networker(authorizationService: authorizationService,
                               environmentRepository: environmentRepository,
                               gatewaysWavesRepository: gatewayWavesRepository,
+                              assetsUseCase: assetsUseCase,
                               adCashGRPCService: adCashGRPCService)
     }
 
     private func performInitialLoading() {
         networker.getAssets { [weak self] result in
             switch result {
-            case .success(let assets): self?.apiResponse.$didLoadACashAssets.accept(assets)
-            case .failure(let error): self?.apiResponse.$aCashAssetsLoadingError.accept(error)
+            case let .success(assets): self?.apiResponse.$didLoadACashAssets.accept(assets)
+            case let .failure(error): self?.apiResponse.$aCashAssetsLoadingError.accept(error)
             }
         }
     }
@@ -76,7 +78,7 @@ extension BuyCryptoInteractor: IOTransformer {
 extension BuyCryptoInteractor {
     private enum StateTransform {
         static func fromIsLoadingToACashAssetsLoaded(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                     didLoadACashAssets: Observable<[BuyCryptoInteractor.Asset]>) {
+                                                     didLoadACashAssets: Observable<AssetsInfo>) {
             let fromIsLoadingToACashAssetsLoaded = didLoadACashAssets
                 .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
                     switch state {
@@ -121,20 +123,14 @@ extension BuyCryptoInteractor {
 
 // MARK: - NetWorker
 
+import Moya
+
 extension BuyCryptoInteractor {
-    struct Asset {
-        public let name: String
-        public let id: String
-        public let isCrypto: Bool
-        public let decimals: Int32
-        
-        public let assetInfo: WalletEnvironment.AssetInfo
-    }
-    
     private final class Networker {
         private let authorizationService: AuthorizationUseCaseProtocol
         private let environmentRepository: EnvironmentRepositoryProtocol
         private let gatewaysWavesRepository: GatewaysWavesRepository
+        private let assetsUseCase: AssetsUseCaseProtocol
         private let adCashGRPCService: AdCashGRPCService
 
         private let disposeBag = DisposeBag()
@@ -142,48 +138,82 @@ extension BuyCryptoInteractor {
         init(authorizationService: AuthorizationUseCaseProtocol,
              environmentRepository: EnvironmentRepositoryProtocol,
              gatewaysWavesRepository: GatewaysWavesRepository,
+             assetsUseCase: AssetsUseCaseProtocol,
              adCashGRPCService: AdCashGRPCService) {
             self.authorizationService = authorizationService
             self.environmentRepository = environmentRepository
+            self.assetsUseCase = assetsUseCase
             self.gatewaysWavesRepository = gatewaysWavesRepository
             self.adCashGRPCService = adCashGRPCService
         }
 
-        func getAssets(completion: @escaping (Result<[BuyCryptoInteractor.Asset], Error>) -> Void) {
+        func getAssets(completion: @escaping (Result<BuyCryptoInteractor.AssetsInfo, Error>) -> Void) {
             Observable.zip(authorizationService.authorizedWallet(), environmentRepository.walletEnvironment())
-                .subscribe(onNext: { [weak self] in
-                    self?.getACashAssets(signedWallet: $0, walletEnvironment: $1, completion: completion)
+                .subscribe(onNext: { [weak self] signedWallet, walletEnvironment in
+                    self?.getACashAssets(signedWallet: signedWallet, walletEnvironment: walletEnvironment, completion: completion)
                 },
                            onError: { error in completion(.failure(error)) })
                 .disposed(by: disposeBag)
         }
-        
+
         private func getACashAssets(signedWallet: SignedWallet,
                                     walletEnvironment: WalletEnvironment,
-                                    completion: @escaping (Result<[BuyCryptoInteractor.Asset], Error>) -> Void) {
+                                    completion: @escaping (Result<AssetsInfo, Error>) -> Void) {
             let completionAdapter: (Result<[ACashAsset], Error>) -> Void = { result in
                 switch result {
-                case .success(let assets):
-                    let newAssets = assets.compactMap { asset -> BuyCryptoInteractor.Asset? in
-                        if let assetInfo = walletEnvironment.assets?.first(where: { $0.wavesId == asset.id }) {
-                            return .init(name: asset.name,
-                                         id: asset.id,
-                                         isCrypto: asset.kind == .crypto,
-                                         decimals: asset.decimals,
-                                         assetInfo: assetInfo)
-                        } else {
-                            return nil
+                case let .success(assets):
+                    let walletEnvironmentAssets = walletEnvironment.generalAssets + (walletEnvironment.assets ?? [])
+
+                    let fiatAssets = assets.filter { $0.kind == .fiat }
+                        .compactMap { asset -> FiatAsset? in
+                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.wavesId == asset.id }) {
+                                return .init(name: asset.name,
+                                             id: asset.id,
+                                             decimals: asset.decimals,
+                                             assetInfo: assetInfo)
+                            } else {
+                                return nil
+                            }
                         }
-                    }
-                    
-                    completion(.success(newAssets))
-                case .failure(let error):
+
+                    let cryptoAssets = assets.filter { $0.kind == .crypto }
+                        .compactMap { asset -> CryptoAsset? in
+                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.gatewayId == asset.id }) {
+                                return .init(name: asset.name,
+                                             id: asset.id,
+                                             decimals: asset.decimals,
+                                             assetInfo: assetInfo)
+                            } else {
+                                return nil
+                            }
+                        }
+
+                    let assetsInfo = AssetsInfo(fiatAssets: fiatAssets, cryptoAssets: cryptoAssets)
+                    completion(.success(assetsInfo))
+
+                case let .failure(error):
                     completion(.failure(error))
                 }
-                
             }
-            
+
             adCashGRPCService.getACashAssets(signedWallet: signedWallet, completion: completionAdapter)
         }
+
+//        private func getAssets(walletAddress: String,
+//                               ids: [String],
+//                               fiatAssets: [FiatAsset],
+//                               completion: @escaping (Result<AssetsInfo, Error>) -> Void) {
+//            assetsUseCase.assets(by: ids, accountAddress: walletAddress)
+//                .subscribe(onNext: { cryptoAssets in
+//                    let assetsInfo = AssetsInfo(fiatAssets: fiatAssets, cryptoAssets: cryptoAssets)
+//                    completion(.success(assetsInfo))
+//                },
+//                           onError: { error in
+//                            let response = error as? MoyaError
+//                            response?.response?.data
+//                            completion(.failure(error))
+//                })
+//                .disposed(by: disposeBag)
+//        }
     }
 }

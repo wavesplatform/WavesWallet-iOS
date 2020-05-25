@@ -524,9 +524,21 @@ internal enum Localizable {
     }
 
     internal enum Buycrypto {
-      /// Amount
+      /// Enter amount
       internal static var amountPlaceholder: String { Localizable.tr("Waves", "buyCrypto.amountPlaceholder") }
       internal static var amountPlaceholderKey: String { "buyCrypto.amountPlaceholder" }
+      /// Buy %@
+      internal static func buy(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.buy", p1)
+      }
+      /// I buy %@
+      internal static func iBuy(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.iBuy", p1)
+      }
+      /// I spent %@
+      internal static func iSpent(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.iSpent", p1)
+      }
     }
 
     internal enum Cameraaccess {

@@ -1,4 +1,4 @@
-// 
+//
 //  BuyCryptoBuilder.swift
 //  WavesWallet-iOS
 //
@@ -18,20 +18,22 @@ final class BuyCryptoBuilder: BuyCryptoBuildable {
         let gatewayWavesRepository = UseCasesFactory.instance.repositories.gatewaysWavesRepository
         let adCashGRPCService = UseCasesFactory.instance.repositories.adCashGRPCService
         let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
-        
+        let assetsUseCase = UseCasesFactory.instance.assets
+
         // MARK: - Instantiating
 
         let presenter = BuyCryptoPresenter()
         let interactor = BuyCryptoInteractor(presenter: presenter,
                                              authorizationService: authorizationService,
                                              environmentRepository: environmentRepository,
+                                             assetsUseCase: assetsUseCase,
                                              gatewayWavesRepository: gatewayWavesRepository,
                                              adCashGRPCService: adCashGRPCService)
         let viewController = BuyCryptoViewController.instantiateFromStoryboard()
         viewController.interactor = interactor
 
         // MARK: - Binding
-        
+
         VIPBinder.bind(interactor: interactor, presenter: presenter, view: viewController)
 
         return viewController

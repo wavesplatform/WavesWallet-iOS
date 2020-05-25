@@ -30,13 +30,36 @@ enum BuyCryptoState {
     case loadingError(String)
     
     /// Состояние загруженного экрана (загружены
-    case aCashAssetsLoaded([BuyCryptoInteractor.Asset])
+    case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
 }
 
 extension BuyCryptoInteractor {
     struct ApiResponse {
-        @PublishObservable var didLoadACashAssets: Observable<[BuyCryptoInteractor.Asset]>
+        @PublishObservable var didLoadACashAssets: Observable<BuyCryptoInteractor.AssetsInfo>
         @PublishObservable var aCashAssetsLoadingError: Observable<Error>
+    }
+}
+
+extension BuyCryptoInteractor {
+    struct AssetsInfo {
+        let fiatAssets: [FiatAsset]
+        let cryptoAssets: [CryptoAsset] //[Asset]
+    }
+    
+    struct CryptoAsset {
+        let name: String
+        let id: String
+        let decimals: Int32
+        
+        let assetInfo: WalletEnvironment.AssetInfo // Asset
+    }
+    
+    struct FiatAsset {
+        let name: String
+        let id: String
+        let decimals: Int32
+        
+        let assetInfo: WalletEnvironment.AssetInfo
     }
 }
 

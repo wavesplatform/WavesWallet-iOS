@@ -826,4 +826,7 @@
 "trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
 "trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";
 
-"buyCrypto.amountPlaceholder" = "Amount";
+"buyCrypto.amountPlaceholder" = "Enter amount";
+"buyCrypto.iSpent" = "I spent %@";
+"buyCrypto.iBuy" = "I buy %@";
+"buyCrypto.buy" = "Buy %@";

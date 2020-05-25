@@ -50,8 +50,10 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     }
 
     private func initialSetup() {
-        navigationItem.largeTitleDisplayMode = .never
+        createBackButton()
+        setupBigNavigationBar()
         
+        view.backgroundColor = .basic50
         scrollContainerView.backgroundColor = .basic50
         
         setupFiatCollectionView()
@@ -64,11 +66,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
         fiatAmountTextField.setPlaceholder(Localizable.Waves.Buycrypto.amountPlaceholder)
 
-        do {
-            infoTextView.isScrollEnabled = false
-            infoTextView.layer.borderColor = UIColor.basic300.cgColor
-            infoTextView.layer.borderWidth = 1
-        }
+        setupInfoTextView()
     }
     
     private func setupFiatCollectionView() {
@@ -94,6 +92,21 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         cryptoCollectionView.dataSource = self
         cryptoCollectionView.delegate = self
     }
+    
+    private func setupInfoTextView() {
+        let infoTextViewBorder = CAShapeLayer()
+        infoTextViewBorder.strokeColor = UIColor.basic300.cgColor
+        infoTextViewBorder.lineDashPattern = [4, 4]
+        infoTextViewBorder.frame = infoTextView.bounds
+        infoTextViewBorder.fillColor = nil
+        infoTextViewBorder.path = UIBezierPath(rect: infoTextView.bounds).cgPath
+        infoTextView.layer.addSublayer(infoTextViewBorder)
+        
+        infoTextView.isEditable = false
+        infoTextView.isSelectable = false
+        infoTextView.isScrollEnabled = false
+        infoTextView.backgroundColor = .basic50
+    }
 }
 
 // MARK: - BindableView
@@ -111,33 +124,35 @@ extension BuyCryptoViewController: BindableView {
     }
 
     func bindWith(_ input: BuyCryptoPresenterOutput) {
-        input.fiatItems
-            .drive(onNext: { [weak self] assets in
-                self?.fiatAssets = assets
-                self?.fiatCollectionView.reloadData()
-                
-                if let selectedFiat = assets.first {
-                    self?.didSelectFiatItem.accept(selectedFiat)
-                }
-            })
-            .disposed(by: disposeBag)
+        input.fiatItems.drive(onNext: { [weak self] assets in
+            self?.fiatAssets = assets
+            self?.fiatCollectionView.reloadData()
+            
+            if let selectedFiat = assets.first {
+                self?.didSelectFiatItem.accept(selectedFiat)
+            }
+        }).disposed(by: disposeBag)
         
-        input.cryptoItems
-            .drive(onNext: { [weak self] assets in
-                self?.cryptoAssets = assets
-                self?.cryptoCollectionView.reloadData()
-                
-                if let selectedCrypto = assets.first {
-                    self?.didSelectCryptoItem.accept(selectedCrypto)
-                }
-            })
-            .disposed(by: disposeBag)
+        input.cryptoItems.drive(onNext: { [weak self] assets in
+            self?.cryptoAssets = assets
+            self?.cryptoCollectionView.reloadData()
+            
+            if let selectedCrypto = assets.first {
+                self?.didSelectCryptoItem.accept(selectedCrypto)
+            }
+        }).disposed(by: disposeBag)
         
-//        input.buyButtonEnabled
-//            .drive(onNext: { [weak self] isEnabled in
-//                //self?.buyButton.update(with: BlueButton.Model(title: <#T##String#>, status: <#T##BlueButton.Model.Status#>))
-//            })
-//            .disposed(by: disposeBag)
+//        input.fiatTitle.drive(spentLabel.rx.text).disposed(by: disposeBag)
+//        input.cryptoTitle.drive(buyLabel.rx.text).disposed(by: disposeBag)
+        
+        input.fiatTitle.drive(onNext: { [weak self] title in self?.spentLabel.text = title }).disposed(by: disposeBag)
+        input.cryptoTitle.drive(onNext: { [weak self] title in self?.buyLabel.text = title }).disposed(by: disposeBag)
+        
+        input.buyButtonModel.drive(onNext: { [weak self] titledBool in
+            let buttonStatus = titledBool.isOn ? BlueButton.Model.Status.active : BlueButton.Model.Status.disabled
+            let buttonModel = BlueButton.Model(title: titledBool.title, status: buttonStatus)
+            self?.buyButton.update(with: buttonModel)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -170,7 +185,7 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
                 .subscribe(onNext: { [weak cell] in cell?.view.image = $0 })
                 .disposed(by: disposeBag)
         } else {
-            assertionFailure("Unknow collection view in BuyCryptoViewController")
+            assertionFailure("Unknow collection view in BuyCryptoViewController \(#function)")
         }
         
         return cell
@@ -187,14 +202,16 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
                 let fiatAsset = fiatAssets[indexPath.item]
                 didSelectFiatItem.accept(fiatAsset)
             }
-            
-//            fiatCollectionView.visibleCells.forEach {
-////                print("frame = \($0.frame)")
-////                print("frame contains point \($0.frame.contains(centerFiatCollectionViewPoint))")
-//                if $0.frame.contains(centerFiatCollectionViewPoint) {
-//                    print(fiatCollectionView.indexPath(for: $0))
-//                }
-//            }
+        } else if scrollView === cryptoCollectionView {
+            let currentItemOffset = cryptoCollectionView.contentInset.left + cryptoCollectionView.contentOffset.x
+            let centerCryptoCollectionViewPoint = CGPoint(x: currentItemOffset, y: cryptoCollectionView.bounds.midY)
+            if let indexPath = cryptoCollectionView.indexPathForItem(at: centerCryptoCollectionViewPoint) {
+                let cryptoAsset = cryptoAssets[indexPath.item]
+                didSelectCryptoItem.accept(cryptoAsset)
+            }
+        } else {
+            assertionFailure("Unknow collection view in BuyCryptoViewController \(#function)")
+            // impossible case
         }
     }
 }
