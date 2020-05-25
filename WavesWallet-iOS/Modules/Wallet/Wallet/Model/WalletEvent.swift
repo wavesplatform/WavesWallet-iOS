@@ -18,14 +18,7 @@ enum WalletEvent {
     case refresh
     case viewWillAppear
     case viewDidDisappear
-    case tapRow(IndexPath)
     case tapSection(Int)
-    case tapHistory
-    case tapSortButton
-    case tapAddressButton
-    case tapActionMenuButton
     case changeDisplay(WalletDisplayState.Kind)
-    case presentSearch(startPoint: CGFloat)
-    case updateApp
     case isHasAppUpdate(Bool)
 }

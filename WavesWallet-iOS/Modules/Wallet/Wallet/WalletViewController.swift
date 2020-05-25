@@ -14,116 +14,6 @@ import RxSwift
 import UIKit
 import UITools
 
-final class WalletView: UIView {
-    @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var stackView: UIStackView!
-    @IBOutlet private weak var topLayoutConstraint: NSLayoutConstraint!
-
-    private let walletSearchView = WalletSearchView.loadFromNib()
-
-    private let smartBarView = SmartBarView()
-
-    private var hasAddingViewBanners: Bool = false
-
-    private var isSmartBarViewCollapsed: Bool = false
-
-    var updateAppViewTapped: (() -> Void)?
-    var sendViewTapped: (() -> Void)?
-    var receiveViewTapped: (() -> Void)?
-    var cardViewTapped: (() -> Void)?
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        stackView.addArrangedSubview(walletSearchView)
-        stackView.addArrangedSubview(smartBarView)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        tableView.contentInset = .init(top: stackView.frame.height + 24, left: 0, bottom: 0, right: 0)
-    }
-
-    func showAppStoreBanner() {
-        guard hasAddingViewBanners == false else { return }
-        hasAddingViewBanners = true
-
-        let view = UpdateAppView.loadFromNib()
-        stackView.insertArrangedSubview(view, at: 0)
-
-        view.viewTapped = { [weak self] in
-            self?.updateAppViewTapped?()
-//            self?.sendEvent.accept(.updateApp)
-        }
-    }
-
-    private var lastContentOffset: CGFloat?
-
-    func scrollViewDidScroll(scrollView: UIScrollView, navigationController _: UINavigationController?) {
-
-        let value = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-
-        var percent = value / smartBarView.maxHeighBeetwinImageAndDownSide()
-        percent = min(1, percent)
-        percent = max(0, percent)
-        smartBarView.percent = percent
-
-        print("percent scroll \(percent)")
-        
-        if value < 0 {
-            topLayoutConstraint.constant = abs(value)
-        }
-    }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-    }
-
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        
-    }
-
-    func finish(_ scrollView: UIScrollView) {
-        let value = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-
-        var percent = value / smartBarView.maxHeighBeetwinImageAndDownSide()
-        percent = min(1, percent)
-        percent = max(0, percent)
-
-        print("percent \(percent)")
-
-        if percent > 0.45 {
-            print("Close")
-            smartBarView.close()
-        } else {
-            print("open")
-            smartBarView.open()
-        }
-    }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        finish(scrollView)
-
-        print("scrollViewDidEndDecelerating")
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate: Bool) {
-//        guard let lastContentOffset = lastContentOffset else {
-//            return
-//        }
-//
-//        let offSet = scrollView.contentOffset.y - lastContentOffset
-//
-        print("scrollViewDidEndDragging \(willDecelerate)")
-
-        if willDecelerate {
-            return
-        }
-
-        finish(scrollView)
-    }
-}
-
 final class WalletViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var stackView: UIStackView!
@@ -139,23 +29,22 @@ final class WalletViewController: UIViewController {
     private var isRefreshing: Bool = false
     private var snackError: String?
 
-    private let buttonAddress = UIBarButtonItem(image: Images.walletScanner.image,
-                                                style: .plain,
-                                                target: nil,
-                                                action: nil)
-    private let buttonHistory = UIBarButtonItem(image: Images.history21122.image,
-                                                style: .plain,
-                                                target: nil,
-                                                action: nil)
+    private lazy var buttonAddress = UIBarButtonItem(image: Images.walletScanner.image,
+                                                     style: .plain,
+                                                     target: self,
+                                                     action: #selector(didTapButtonAddress))
 
-    private let buttonActionMenu = UIBarButtonItem(image: Images.sendReceive22.image,
-                                                   style: .plain,
-                                                   target: nil,
-                                                   action: nil)
+    private lazy var buttonHistory = UIBarButtonItem(image: Images.history21122.image,
+                                                     style: .plain,
+                                                     target: self,
+                                                     action: #selector(didTapButtonHistory))
 
     private let sendEvent: PublishRelay<WalletEvent> = PublishRelay<WalletEvent>()
+    private var state: WalletState?
 
     var presenter: WalletPresenterProtocol!
+
+    weak var moduleOutput: WalletModuleOutput?
 
     public func refreshData() {
         sendEvent.accept(.refresh)
@@ -176,6 +65,40 @@ final class WalletViewController: UIViewController {
             self?.sendEvent.accept(.refresh)
         }
 
+        rootView.updateAppViewTapped = { [weak self] in
+            self?.moduleOutput?.openAppStore()
+        }
+
+        rootView.walletSearchView.searchTapped = { [weak self] in
+
+            guard let self = self else { return }
+            guard let state = self.state else { return }
+
+            // TODO: Remove Window (Old Code)
+            let window = AppDelegate.shared().window
+            let frame = self.rootView.walletSearchView.frame
+            let fromStartPosition = self.view.convert(frame, to: window).origin.y
+
+            self.moduleOutput?.presentSearchScreen(from: fromStartPosition, assets: state.assets)
+        }
+
+        rootView.walletSearchView.sortTapped = { [weak self] in
+            guard let state = self?.state else { return }
+            self?.moduleOutput?.showWalletSort(balances: state.assets)
+        }
+
+        rootView.smartBarView.sendButton.didTap = { [weak self] in
+            self?.moduleOutput?.openSend()
+        }
+
+        rootView.smartBarView.receiveButton.didTap = { [weak self] in
+            self?.moduleOutput?.openReceive()
+        }
+
+        rootView.smartBarView.cardButton.didTap = { [weak self] in
+            self?.moduleOutput?.openCard()
+        }
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(changedLanguage),
                                                name: .changedLanguage,
@@ -194,9 +117,17 @@ final class WalletViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = nil
     }
 
-    @objc func changedLanguage() {
+    @objc private func changedLanguage() {
         setupLanguages()
         tableView.reloadData()
+    }
+
+    @objc private func didTapButtonAddress() {
+        moduleOutput?.showMyAddress()
+    }
+
+    @objc private func didTapButtonHistory() {
+        moduleOutput?.showAccountHistory()
     }
 }
 
@@ -205,15 +136,9 @@ final class WalletViewController: UIViewController {
 extension WalletViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
-        tableView.setContentOffset(.init(x: 0, y: tableView.contentInset.top), animated: true)
+        tableView.setContentOffset(.init(x: 0, y: -tableView.adjustedContentInset.top), animated: true)
     }
 }
-
-// MARK: UIGestureRecognizerDelegate
-
-// extension WalletViewController: UIGestureRecognizerDelegate {
-//    func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool { true }
-// }
 
 // MARK: Bind UI
 
@@ -252,24 +177,6 @@ extension WalletViewController {
     }
 
     func events() -> [Signal<WalletEvent>] {
-        let sortTapEvent = buttonHistory
-            .rx
-            .tap
-            .map { WalletEvent.tapHistory }
-            .asSignal(onErrorSignalWith: Signal.empty())
-
-        let addressTapEvent = buttonAddress
-            .rx
-            .tap
-            .map { WalletEvent.tapAddressButton }
-            .asSignal(onErrorSignalWith: Signal.empty())
-
-        let actionMenuTapEvent = buttonActionMenu
-            .rx
-            .tap
-            .map { WalletEvent.tapActionMenuButton }
-            .asSignal(onErrorSignalWith: Signal.empty())
-
         let refreshEvent = tableView
             .rx
             .didRefreshing(refreshControl: tableView.refreshControl!)
@@ -290,17 +197,17 @@ extension WalletViewController {
 
         return [refreshEvent,
                 tapEvent,
-                sortTapEvent,
-                addressTapEvent,
                 recieverEvents,
-                changedSpamList,
-                actionMenuTapEvent]
+                changedSpamList]
     }
 
     func subscriptions(state: Driver<WalletState>) -> [Disposable] {
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
+
+            self.state = state
+
             if state.action == .none {
                 return
             }
@@ -310,15 +217,9 @@ extension WalletViewController {
                 return
             }
 
-//            guard hasData else { return }
-//            guard isHasAppUpdate else { return }
-
             if state.hasData, state.isHasAppUpdate {
                 self.rootView.showAppStoreBanner()
             }
-
-//            self.addTopViewBanners(hasData: state.hasData,
-//                                   isHasAppUpdate: state.isHasAppUpdate)
 
             self.updateView(with: state.displayState)
         })
@@ -411,7 +312,7 @@ private extension WalletViewController {
 
     func setupButons(kind _: WalletDisplayState.Kind) {
         navigationItem.leftBarButtonItems = [buttonAddress]
-        navigationItem.rightBarButtonItems = [buttonHistory, buttonActionMenu]
+        navigationItem.rightBarButtonItems = [buttonHistory]
     }
 
     func setupTableView() {
@@ -425,36 +326,52 @@ private extension WalletViewController {
 // MARK: WalletDisplayDataDelegate
 
 extension WalletViewController: WalletDisplayDataDelegate {
-    func showSearchVC(fromStartPosition: CGFloat) {
-        sendEvent.accept(.presentSearch(startPoint: fromStartPosition))
-    }
-
-    func sortButtonTapped() {
-        sendEvent.accept(.tapSortButton)
-    }
-
     func tableViewDidSelect(indexPath: IndexPath) {
-        sendEvent.accept(.tapRow(indexPath))
+        guard let state = state else { return }
+
+        let visibleSections = state.displayState.currentDisplay.visibleSections
+
+        let section = visibleSections[indexPath.section]
+
+        switch section.kind {
+        case .hidden:
+            guard let asset = section.items[indexPath.row].asset else { return }
+            let assets = state.assets.filter { $0.settings.isHidden == true }
+            moduleOutput?.showAsset(with: asset, assets: assets)
+
+        case .spam:
+            guard let asset = section.items[indexPath.row].asset else { return }
+            let assets = state.assets.filter { $0.asset.isSpam == true }
+            moduleOutput?.showAsset(with: asset, assets: assets)
+
+        case .general:
+            guard let asset = section.items[indexPath.row].asset else { return }
+            let assets = state.assets.filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
+            moduleOutput?.showAsset(with: asset, assets: assets)
+
+        default:
+            break
+        }
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        rootView.scrollViewDidEndDecelerating(scrollView)
+        rootView.scrollViewDidEndDecelerating(scrollView, viewController: self)
     }
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate: Bool) {
-        rootView.scrollViewDidEndDragging(scrollView, willDecelerate: willDecelerate)
+        rootView.scrollViewDidEndDragging(scrollView, willDecelerate: willDecelerate, viewController: self)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        rootView.scrollViewDidScroll(scrollView: scrollView, navigationController: navigationController)
+        rootView.scrollViewDidScroll(scrollView: scrollView, viewController: self)
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        rootView.scrollViewWillBeginDragging(scrollView)
+        rootView.scrollViewWillBeginDragging(scrollView, viewController: self)
     }
 
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        rootView.scrollViewWillBeginDecelerating(scrollView)
+        rootView.scrollViewWillBeginDecelerating(scrollView, viewController: self)
     }
 }
 

@@ -20,20 +20,22 @@ private enum Constants {
 
 final class SmartBarButton: UIView {
     private let substrateView = UIView()
+    private let highlightView = UIView()
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
 
     private var topImageConstraint: NSLayoutConstraint?
-    private var leftImageConstraint: NSLayoutConstraint?
-    private var rightImageConstraint: NSLayoutConstraint?
     private var bottomImageToButtonConstraint: NSLayoutConstraint?
+    private var bottomHighlightViewConstraint: NSLayoutConstraint?
 
     private var topTitleConstraint: NSLayoutConstraint?
     private var bottomTitleConstraint: NSLayoutConstraint?
-    private var leftTitleConstraint: NSLayoutConstraint?
-    private var rightTitleConstraint: NSLayoutConstraint?
 
-    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(tap:)))
+    var highlightBackgroundColor: UIColor?
+
+    private lazy var tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didTap(tap:)))
+
+    var didTap: (() -> Void)?
 
     var percent: CGFloat = 0 {
         didSet {
@@ -68,29 +70,32 @@ final class SmartBarButton: UIView {
         imageView.image = icon
         updateDraw()
     }
-    
+
     func heighBeetwinImageAndDownSide() -> CGFloat {
         return calculateHeightText() + Constants.topTitlePadding
     }
 
     @objc private func didTap(tap: UITapGestureRecognizer) {
         switch tap.state {
-        case .began:
-            titleLabel.textColor = .lightText
-            substrateView.backgroundColor = .lightGray
-
+        case .began, .changed:
+                
+            highlightView.backgroundColor = highlightBackgroundColor ?? .lightGray
+            
         case .ended:
             ImpactFeedbackGenerator.impactOccurredOrVibrate()
-            titleLabel.textColor = .black
             substrateView.backgroundColor = .white
+            highlightView.backgroundColor = .clear
+            didTap?()
+            
         default:
-            titleLabel.textColor = .black
+            highlightView.backgroundColor = .clear
             substrateView.backgroundColor = .white
         }
     }
 
-    private func calculateHeightText() -> CGFloat {
+    // MARK: Private
 
+    private func calculateHeightText() -> CGFloat {
         let maxSizeTitle = CGSize(width: frame.width - Constants.leftRightTitlePadding,
                                   height: CGFloat.greatestFiniteMagnitude)
 
@@ -111,7 +116,6 @@ final class SmartBarButton: UIView {
         return CGFloat(ceilf(Float(size)))
     }
 
-    
     // В зависимочти от percent мы интерполируем значение для позиции и параметров view
     private func updateDraw() {
         let invertPercent = (1 - percent)
@@ -123,18 +127,7 @@ final class SmartBarButton: UIView {
 
         topTitleConstraint?.constant = topTitle
         bottomTitleConstraint?.constant = bottomTitle
-
-        if percent == 0 {
-            substrateView.transform = CGAffineTransform.identity
-            titleLabel.transform = CGAffineTransform.identity
-        } else {
-            substrateView.transform = CGAffineTransform(scaleX: invertPercent, y: invertPercent)
-                .concatenating(CGAffineTransform(translationX: 0,
-                                                 y: -imageView.frame.size.height * 0.5 * percent))
-            titleLabel.transform = CGAffineTransform(scaleX: invertPercent, y: invertPercent)
-                .concatenating(CGAffineTransform(translationX: 0,
-                                                 y: -imageView.frame.size.height * 0.5 * percent))
-        }
+        bottomHighlightViewConstraint?.constant = -5 * percent
 
         substrateView.alpha = CGFloat(1 - percent)
         titleLabel.alpha = invertPercent
@@ -144,8 +137,11 @@ final class SmartBarButton: UIView {
     }
 
     private func setup() {
+        tapGesture.minimumPressDuration = 0
         addGestureRecognizer(tapGesture)
 
+        cornerRadius = 10
+        
         substrateView.backgroundColor = .white
         substrateView.translatesAutoresizingMaskIntoConstraints = false
         substrateView.cornerRadius = 10
@@ -155,7 +151,11 @@ final class SmartBarButton: UIView {
                                                  shadowRadius: 4,
                                                  shouldRasterize: true))
         addSubview(substrateView)
-
+        
+        highlightView.translatesAutoresizingMaskIntoConstraints = false
+        highlightView.cornerRadius = 10
+        addSubview(highlightView)
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
@@ -165,10 +165,15 @@ final class SmartBarButton: UIView {
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-
-        bringSubviewToFront(imageView)
-//        imageView.layer.zPosition = 666
-
+                                
+        highlightView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        
+        bottomHighlightViewConstraint = highlightView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+        bottomHighlightViewConstraint?.isActive = true
+        
+        highlightView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive = true
+        highlightView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive = true
+        
         substrateView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         substrateView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         substrateView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive = true
@@ -177,27 +182,21 @@ final class SmartBarButton: UIView {
         imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
-        leftImageConstraint = imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 28)
-        rightImageConstraint = imageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -28)
         topImageConstraint = topAnchor.constraint(equalTo: imageView.topAnchor, constant: -Constants.topImagePadding)
+        
         bottomImageToButtonConstraint = bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0)
+        centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 0).isActive = true
 
-        leftImageConstraint?.isActive = true
-        rightImageConstraint?.isActive = true
         topImageConstraint?.isActive = true
 
-        leftTitleConstraint = titleLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 0)
-        rightTitleConstraint = titleLabel.widthAnchor.constraint(equalTo: widthAnchor,
-                                                                 constant: -Constants.leftRightTitlePadding)
+        titleLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 0).isActive = true
 
         topTitleConstraint = titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor,
                                                              constant: Constants.topTitlePadding)
 
         bottomTitleConstraint = bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor,
                                                         constant: Constants.bottomTitlePadding)
-
-        leftTitleConstraint?.isActive = true
-        rightTitleConstraint?.isActive = true
+        
         topTitleConstraint?.isActive = true
         bottomTitleConstraint?.isActive = true
     }

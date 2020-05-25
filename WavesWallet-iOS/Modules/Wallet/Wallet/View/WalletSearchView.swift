@@ -53,4 +53,3 @@ extension WalletSearchView: ViewHeight {
         return Constants.height
     }
 }
-

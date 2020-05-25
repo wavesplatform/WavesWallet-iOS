@@ -28,7 +28,7 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
                                           applicationVersionUseCase: UseCasesFactory.instance.applicationVersionUseCase)
 
         presenter.interactor = interactor
-        presenter.moduleOutput = output
+        vc.moduleOutput = output
         vc.presenter = presenter
 
         return vc

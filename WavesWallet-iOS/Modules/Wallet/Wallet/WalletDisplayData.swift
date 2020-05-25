@@ -18,8 +18,6 @@ private enum Constants {
 
 protocol WalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
-    func showSearchVC(fromStartPosition: CGFloat)
-    func sortButtonTapped()
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView)
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
@@ -97,36 +95,10 @@ final class WalletDisplayData: NSObject {
         CATransaction.commit()
     }
 
-    var isAssetsSectionsHaveSearch: Bool {
-        return assetsSections.first(where: { (section) -> Bool in
-            switch section.kind {
-            case .search:
-                return true
-            default:
-                return false
-            }
-        }) != nil
-    }
-}
-
-// MARK: Private
-
-private extension WalletDisplayData {
     private func sections(by _: UITableView) -> [WalletSectionVM] {
         return assetsSections
     }
-
-    private func searchTapped(_ cell: UITableViewCell) {
-        if let indexPath = tableView.indexPath(for: cell) {
-            let rectInTableView = tableView.rectForRow(at: indexPath)
-            let rectInSuperview = tableView
-                .convert(rectInTableView, to: AppDelegate.shared().window)
-
-            delegate?.showSearchVC(fromStartPosition: rectInSuperview.origin.y)
-        }
-    }
 }
-
 
 // MARK: UIScrollViewDelegate
 
@@ -160,16 +132,8 @@ extension WalletDisplayData: UITableViewDataSource {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
 
         switch item {
-        case .search:
-            let cell = tableView.dequeueAndRegisterCell() as WalletSearchTableViewCell
-            cell.update(with: ())
-            cell.searchTapped = { [weak self] in
-                self?.searchTapped(cell)
-            }
-
-            cell.sortTapped = { [weak self] in
-                self?.delegate?.sortButtonTapped()
-            }
+        case .separator:
+            let cell = tableView.dequeueAndRegisterCell() as WalletSeparatorViewCell                   
             return cell
 
         case .assetSkeleton:
@@ -257,8 +221,8 @@ extension WalletDisplayData: UITableViewDelegate {
         let row = items[indexPath.row]
 
         switch row {
-        case .search:
-            return WalletSearchTableViewCell.viewHeight()
+        case .separator:
+            return UITableView.automaticDimension
 
         case .asset:
             return WalletTableAssetsCell.cellHeight()
