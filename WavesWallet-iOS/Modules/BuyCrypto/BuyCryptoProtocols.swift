@@ -31,19 +31,28 @@ enum BuyCryptoState {
     
     /// Состояние загруженного экрана (загружены
     case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
+    
+    /// Состояние проверки обменной пары
+    case checkingExchangePair
+    
+    /// Состояние ошибки проверки обменной пары (отображать ошибку)
+    case checkingExchangePairError(Error)
 }
 
 extension BuyCryptoInteractor {
     struct ApiResponse {
         @PublishObservable var didLoadACashAssets: Observable<BuyCryptoInteractor.AssetsInfo>
         @PublishObservable var aCashAssetsLoadingError: Observable<Error>
+        
+        @PublishObservable var didCheckedExchangePair: Observable<Void>
+        @PublishObservable var checkingExchangePairError: Observable<Error>
     }
 }
 
 extension BuyCryptoInteractor {
     struct AssetsInfo {
         let fiatAssets: [FiatAsset]
-        let cryptoAssets: [CryptoAsset] //[Asset]
+        let cryptoAssets: [CryptoAsset]
     }
     
     struct CryptoAsset {
@@ -51,7 +60,7 @@ extension BuyCryptoInteractor {
         let id: String
         let decimals: Int32
         
-        let assetInfo: WalletEnvironment.AssetInfo // Asset
+        let assetInfo: WalletEnvironment.AssetInfo
     }
     
     struct FiatAsset {

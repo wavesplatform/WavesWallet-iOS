@@ -27,7 +27,9 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
          environmentRepository: EnvironmentRepositoryProtocol,
          assetsUseCase: AssetsUseCaseProtocol,
          gatewayWavesRepository: GatewaysWavesRepository,
-         adCashGRPCService: AdCashGRPCService) {
+         adCashGRPCService: AdCashGRPCService,
+         developmentConfigRepository: DevelopmentConfigsRepositoryProtocol,
+         serverEnvironmentRepository: ServerEnvironmentRepository) {
         self.presenter = presenter
 
         let _state = BehaviorRelay<BuyCryptoState>(value: .isLoading)
@@ -37,7 +39,9 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
                               environmentRepository: environmentRepository,
                               gatewaysWavesRepository: gatewayWavesRepository,
                               assetsUseCase: assetsUseCase,
-                              adCashGRPCService: adCashGRPCService)
+                              adCashGRPCService: adCashGRPCService,
+                              developmentConfigRepository: developmentConfigRepository,
+                              serverEnvironmentRepository: serverEnvironmentRepository)
     }
 
     private func performInitialLoading() {
@@ -117,6 +121,34 @@ extension BuyCryptoInteractor {
                 .map { BuyCryptoState.isLoading }
 
             fromLoadingErrorToIsLoading.bind(to: stateTransformTrait._state).disposed(by: stateTransformTrait.disposeBag)
+        }
+
+        static func fromACashAssetsLoadedToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+                                                                didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>) {
+            let combinedSelectingItems = Observable.combineLatest(didSelectFiat.asObservable(), didSelectCrypto.asObservable())
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+                    switch state {
+                    case .aCashAssetsLoaded: return true
+                    default: return false
+                    }
+                }
+        }
+
+        static func fromCheckingExchangePairToCheckingExchangePairError(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                        checkingExchangePairError: Observable<Error>) {
+            let fromCheckingExchangePairToCheckingExchangePairError = checkingExchangePairError
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+                    switch state {
+                    case .checkingExchangePair: return true
+                    default: return false
+                    }
+                }
+                .map { BuyCryptoState.checkingExchangePairError($0) }
+
+            fromCheckingExchangePairToCheckingExchangePairError
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
         }
     }
 }

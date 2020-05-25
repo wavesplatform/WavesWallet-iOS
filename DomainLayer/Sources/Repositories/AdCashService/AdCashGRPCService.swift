@@ -26,6 +26,7 @@ public struct ACashAsset: Codable {
     }
 }
 
+///
 public protocol AdCashGRPCService: AnyObject {
     
     ///
@@ -36,5 +37,5 @@ public protocol AdCashGRPCService: AnyObject {
                                     senderAsset: String,
                                     recipientAsset: String,
                                     senderAssetAmount: Double,
-                                    completion: @escaping (Result<Void, Error>) -> Void)
+                                    completion: @escaping (Result<Double, Error>) -> Void)
 }

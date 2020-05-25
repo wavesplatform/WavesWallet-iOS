@@ -60,7 +60,7 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
                                            senderAsset: String,
                                            recipientAsset: String,
                                            senderAssetAmount: Double,
-                                           completion: @escaping (Result<Void, Error>) -> Void) {
+                                           completion: @escaping (Result<Double, Error>) -> Void) {
         obtainWEOAuthToken(signedWallet: signedWallet)
             .subscribe(onNext: { token, addressGprc in
                 var request = Acash_GetACashAssetsExchangeRateRequest()
@@ -76,10 +76,8 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
                     .response
                     .whenComplete { result in
                         switch result {
-                        case .success(let data):
-                            break
-                        case .failure(let error):
-                            break
+                        case .success(let data): completion(.success(data.rate))
+                        case .failure(let error): completion(.failure(error))
                         }
                 }
             },
