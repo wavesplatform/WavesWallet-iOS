@@ -123,7 +123,7 @@ extension InvestmentViewController: MainTabBarControllerProtocol {
 
 extension InvestmentViewController: ScrolledContainerViewDelegate {
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
-        setupButons(kind: displays[index])
+        setupButons()
         sendEvent.accept(.changeDisplay(displays[index]))
 
         DispatchQueue.main.async {
@@ -238,7 +238,7 @@ extension InvestmentViewController {
         }
         scrolledTablesComponent.setSelectedIndex(displays.firstIndex(of: state.kind) ?? 0,
                                                  animation: false)
-        setupButons(kind: state.kind)
+        setupButons()
     }
 
     func updateErrorView(with state: DisplayErrorState) {
@@ -305,7 +305,7 @@ private extension InvestmentViewController {
         navigationItem.title = Localizable.Waves.Investment.Navigationbar.title
     }
 
-    func setupButons(kind _: InvestmentDisplayState.Kind) {
+    func setupButons() {
         navigationItem.leftBarButtonItems = [buttonAddress]
         navigationItem.rightBarButtonItems = [buttonHistory, buttonActionMenu]
     }
