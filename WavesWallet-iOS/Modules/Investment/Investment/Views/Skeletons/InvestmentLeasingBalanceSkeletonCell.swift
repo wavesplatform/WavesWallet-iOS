@@ -1,5 +1,5 @@
 //
-//  WalletLeasingBalanceSkeletonCell.swift
+//  InvestmentLeasingBalanceSkeletonCell.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 17.07.2018.
@@ -15,7 +15,7 @@ private enum Constants {
     static let height: CGFloat = 290
 }
 
-final class WalletLeasingBalanceSkeletonCell: SkeletonTableCell, NibReusable {
+final class InvestmentLeasingBalanceSkeletonCell: SkeletonTableCell, NibReusable {
     @IBOutlet private weak var viewContent: UIView!
     @IBOutlet private var separatorViews: [SeparatorView]!
 

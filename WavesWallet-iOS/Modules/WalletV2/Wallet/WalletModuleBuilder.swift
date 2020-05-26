@@ -13,31 +13,19 @@ import WavesSDK
 
 struct WalletModuleBuilder: ModuleBuilderOutput {
     var output: WalletModuleOutput
-    
-    func build(input: Void) -> WalletViewController {
+
+    func build(input _: Void) -> WalletViewController {
         let vc = StoryboardScene.Wallet.walletViewController.instantiate()
 
         let presenter = WalletPresenter(kind: .assets)
 
-        let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let authUseCase = UseCasesFactory.instance.authorization
-        let massTransferRepository = UseCasesFactory.instance.repositories.massTransferRepository
-        let assetsUseCase = UseCasesFactory.instance.assets
         let accountSettingsRepository = UseCasesFactory.instance.repositories.accountSettingsRepository
-        let stakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
-        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
-        let interactor = WalletInteractor(enviroment: enviroment,
-                                          massTransferRepository: massTransferRepository,
-                                          assetUseCase: assetsUseCase,
-                                          stakingBalanceService: stakingBalanceService,
-                                          authorizationInteractor: authUseCase,
+        let interactor = WalletInteractor(authorizationInteractor: authUseCase,
                                           accountBalanceInteractor: UseCasesFactory.instance.accountBalance,
                                           accountSettingsRepository: accountSettingsRepository,
-                                          applicationVersionUseCase: UseCasesFactory.instance.applicationVersionUseCase,
-                                          leasingInteractor: UseCasesFactory.instance.transactions,
-                                          walletsRepository: UseCasesFactory.instance.repositories.walletsRepositoryLocal,
-                                          serverEnvironmentUseCase: serverEnvironmentUseCase)
+                                          applicationVersionUseCase: UseCasesFactory.instance.applicationVersionUseCase)
 
         presenter.interactor = interactor
         presenter.moduleOutput = output

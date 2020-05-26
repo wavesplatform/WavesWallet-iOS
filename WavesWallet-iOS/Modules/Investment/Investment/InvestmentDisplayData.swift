@@ -118,10 +118,10 @@ extension InvestmentDisplayData: UITableViewDataSource {
 
         switch item {
         case .historySkeleton:
-            return tableView.dequeueAndRegisterCell() as WalletHistorySkeletonCell
+            return tableView.dequeueAndRegisterCell() as HistorySkeletonCell
 
         case .balanceSkeleton:
-            return tableView.dequeueAndRegisterCell() as WalletLeasingBalanceSkeletonCell
+            return tableView.dequeueAndRegisterCell() as InvestmentLeasingBalanceSkeletonCell
 
         case let .balance(balance):
             let cell: InvestmentLeasingBalanceCell = tableView.dequeueAndRegisterCell()
@@ -209,11 +209,11 @@ extension InvestmentDisplayData: UITableViewDelegate {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
         switch item {
         case .historySkeleton:
-            let skeletonCell: WalletHistorySkeletonCell? = cell as? WalletHistorySkeletonCell
+            let skeletonCell: HistorySkeletonCell? = cell as? HistorySkeletonCell
             skeletonCell?.startAnimation()
             
         case .balanceSkeleton:
-            let skeletonCell: WalletLeasingBalanceSkeletonCell? = cell as? WalletLeasingBalanceSkeletonCell
+            let skeletonCell: InvestmentLeasingBalanceSkeletonCell? = cell as? InvestmentLeasingBalanceSkeletonCell
             skeletonCell?.startAnimation()
         default:
             break
@@ -299,10 +299,10 @@ extension InvestmentDisplayData: UITableViewDelegate {
 
         switch row {
         case .historySkeleton:
-            return WalletHistorySkeletonCell.cellHeight()
+            return HistorySkeletonCell.cellHeight()
 
         case .balanceSkeleton:
-            return WalletLeasingBalanceSkeletonCell.cellHeight()
+            return InvestmentLeasingBalanceSkeletonCell.cellHeight()
 
         case let .balance(balance):
             return InvestmentLeasingBalanceCell.viewHeight(model: balance, width: tableView.frame.size.width)
