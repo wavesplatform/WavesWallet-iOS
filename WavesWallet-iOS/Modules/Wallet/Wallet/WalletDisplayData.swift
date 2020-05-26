@@ -18,27 +18,36 @@ private enum Constants {
 
 protocol WalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
-    func showSearchVC(fromStartPosition: CGFloat)
-    func sortButtonTapped()
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView)
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate _: Bool)
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
 final class WalletDisplayData: NSObject {
-    private typealias Section = WalletSectionVM
-    private var assetsSections: [Section] = []
-
-    private weak var scrolledTablesComponent: ScrolledContainerView!
+    
+    weak var tableView: UITableView!
+    private var assetsSections: [WalletSectionVM] = []
+    
     private let displays: [WalletDisplayState.Kind]
-
+    
     weak var delegate: WalletDisplayDataDelegate?
 
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
-    init(scrolledTablesComponent: ScrolledContainerView,
-         displays: [WalletDisplayState.Kind]) {
+    init(tableView: UITableView, displays: [WalletDisplayState.Kind]) {
         self.displays = displays
         super.init()
-        self.scrolledTablesComponent = scrolledTablesComponent
+        self.tableView = tableView
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
     }
 
     func apply(assetsSections: [WalletSectionVM],
@@ -58,57 +67,61 @@ final class WalletDisplayData: NSObject {
         case let .refresh(animated):
 
             if animated {
-                UIView.transition(with: scrolledTablesComponent,
+                UIView.transition(with: tableView,
                                   duration: Constants.animationDuration,
                                   options: [.transitionCrossDissolve],
                                   animations: {
-                                      self.scrolledTablesComponent.reloadData()
+                                      self.tableView.reloadData()
                 }, completion: nil)
             } else {
-                scrolledTablesComponent.reloadData()
+                tableView.reloadData()
             }
 
         case let .collapsed(index):
 
-            scrolledTablesComponent.reloadSectionWithCloseAnimation(section: index)
+            tableView.beginUpdates()
+            tableView.reloadSections([index], with: .fade)
+            tableView.endUpdates()
 
         case let .expanded(index):
 
-            scrolledTablesComponent.reloadSectionWithOpenAnimation(section: index)
-
+            tableView.beginUpdates()
+            tableView.reloadSections([index], with: .fade)
+            tableView.endUpdates()
+            
         default:
             break
         }
         CATransaction.commit()
     }
 
-    var isAssetsSectionsHaveSearch: Bool {
-        return assetsSections.first(where: { (section) -> Bool in
-            switch section.kind {
-            case .search:
-                return true
-            default:
-                return false
-            }
-        }) != nil
+    private func sections(by _: UITableView) -> [WalletSectionVM] {
+        return assetsSections
     }
 }
 
-// MARK: Private
+// MARK: UIScrollViewDelegate
 
-private extension WalletDisplayData {
-    private func sections(by _: UITableView) -> [Section] {
-        return assetsSections
+extension WalletDisplayData: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewDidEndDecelerating(scrollView)
     }
-
-    private func searchTapped(_ cell: UITableViewCell) {
-        if let indexPath = scrolledTablesComponent.visibleTableView.indexPath(for: cell) {
-            let rectInTableView = scrolledTablesComponent.visibleTableView.rectForRow(at: indexPath)
-            let rectInSuperview = scrolledTablesComponent.visibleTableView
-                .convert(rectInTableView, to: AppDelegate.shared().window)
-
-            delegate?.showSearchVC(fromStartPosition: rectInSuperview.origin.y)
-        }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate: Bool) {
+        self.delegate?.scrollViewDidEndDragging(scrollView, willDecelerate: willDecelerate)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewDidScroll(scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        self.delegate?.scrollViewWillBeginDecelerating(scrollView)
     }
 }
 
@@ -119,16 +132,8 @@ extension WalletDisplayData: UITableViewDataSource {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
 
         switch item {
-        case .search:
-            let cell = tableView.dequeueAndRegisterCell() as WalletSearchTableViewCell
-            cell.update(with: ())
-            cell.searchTapped = { [weak self] in
-                self?.searchTapped(cell)
-            }
-
-            cell.sortTapped = { [weak self] in
-                self?.delegate?.sortButtonTapped()
-            }
+        case .separator:
+            let cell = tableView.dequeueAndRegisterCell() as WalletSeparatorViewCell                   
             return cell
 
         case .assetSkeleton:
@@ -216,8 +221,8 @@ extension WalletDisplayData: UITableViewDelegate {
         let row = items[indexPath.row]
 
         switch row {
-        case .search:
-            return WalletSearchTableViewCell.viewHeight()
+        case .separator:
+            return UITableView.automaticDimension
 
         case .asset:
             return WalletTableAssetsCell.cellHeight()

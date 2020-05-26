@@ -825,3 +825,8 @@
     "trade.message.pairlocked.button.ok" = "Ok";
     "trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
     "trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";
+
+
+"wallet.bar.button.receive" = "Receive";
+"wallet.bar.button.send" = "Send";
+"wallet.bar.button.card" = "Card";

@@ -113,7 +113,27 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
-    
+    func openReceive() {
+        let vc = ReceiveContainerModuleBuilder().build(input: nil)
+        navigationRouter.pushViewController(vc)
+    }
+
+    func openSend() {
+        let vc = SendModuleBuilder().build(input: .empty)
+        navigationRouter.pushViewController(vc)
+    }
+
+    func openCard() {
+        let alert = UIAlertController(title: "Cooming Soon",
+                                      message: "Валля мы тебя любим, тут скоро будет экран", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Вова тебе сюда надо", style: .cancel, handler: nil)
+
+        alert.addAction(cancelAction)
+        
+        navigationRouter.present(alert, animated: true, completion: nil)
+    }
+
     func showAccountHistory() {
         let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .all)
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)

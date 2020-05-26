@@ -19,7 +19,7 @@ enum WalletRowVM {
         case staking
     }
 
-    case search
+    case separator
     case hidden
     case asset(DomainLayer.DTO.SmartAssetBalance)
     case assetSkeleton

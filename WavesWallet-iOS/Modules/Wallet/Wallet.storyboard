@@ -117,40 +117,58 @@
         <scene sceneID="zlD-cR-rTf">
             <objects>
                 <viewController storyboardIdentifier="WalletViewController" id="xip-Yb-XDE" customClass="WalletViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="y7d-SH-Ca7">
+                    <view key="view" contentMode="scaleToFill" id="y7d-SH-Ca7" customClass="WalletView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iUA-Ki-5kC" customClass="ScrolledContainerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c3t-fU-Tc2">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                            </scrollView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c3t-fU-Tc2">
-                                <rect key="frame" x="87" y="342" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNh-6O-cSe" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGQ-2Q-f1z">
+                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="100" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VY6-F6-8iS">
+                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Y89-mw-nMR" firstAttribute="bottom" secondItem="iUA-Ki-5kC" secondAttribute="bottom" id="8aN-tQ-Qml"/>
-                            <constraint firstItem="zNh-6O-cSe" firstAttribute="bottom" secondItem="iUA-Ki-5kC" secondAttribute="bottom" id="9q3-Px-LJA"/>
-                            <constraint firstItem="Y89-mw-nMR" firstAttribute="trailing" secondItem="iUA-Ki-5kC" secondAttribute="trailing" id="FQG-VQ-7LQ"/>
-                            <constraint firstItem="zNh-6O-cSe" firstAttribute="top" secondItem="iUA-Ki-5kC" secondAttribute="top" id="KZ0-Fz-5Yz"/>
-                            <constraint firstItem="iUA-Ki-5kC" firstAttribute="top" secondItem="y7d-SH-Ca7" secondAttribute="top" id="TtZ-EH-MvL"/>
-                            <constraint firstItem="iUA-Ki-5kC" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="au7-IE-m2h"/>
+                            <constraint firstItem="c3t-fU-Tc2" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="00l-xZ-IIE"/>
+                            <constraint firstItem="VY6-F6-8iS" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="38F-N2-m9s"/>
+                            <constraint firstItem="c3t-fU-Tc2" firstAttribute="top" secondItem="y7d-SH-Ca7" secondAttribute="top" id="KPG-98-QCx"/>
+                            <constraint firstItem="Y89-mw-nMR" firstAttribute="trailing" secondItem="VY6-F6-8iS" secondAttribute="trailing" id="KgS-Ec-b8E"/>
+                            <constraint firstItem="Y89-mw-nMR" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VY6-F6-8iS" secondAttribute="bottom" id="Lmp-0V-IFb"/>
+                            <constraint firstItem="VY6-F6-8iS" firstAttribute="top" secondItem="Y89-mw-nMR" secondAttribute="top" id="N8i-Sq-ljg"/>
+                            <constraint firstItem="zNh-6O-cSe" firstAttribute="top" secondItem="Y89-mw-nMR" secondAttribute="top" id="cnd-j8-Mh2"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="bottom" secondItem="VY6-F6-8iS" secondAttribute="bottom" id="hH8-wM-aKn"/>
+                            <constraint firstItem="Y89-mw-nMR" firstAttribute="trailing" secondItem="c3t-fU-Tc2" secondAttribute="trailing" id="kKO-yB-jBZ"/>
                             <constraint firstItem="zNh-6O-cSe" firstAttribute="leading" secondItem="Y89-mw-nMR" secondAttribute="leading" id="pPj-yo-GSi"/>
+                            <constraint firstItem="zNh-6O-cSe" firstAttribute="bottom" secondItem="Y89-mw-nMR" secondAttribute="bottom" id="qxd-S6-bri"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="top" secondItem="Y89-mw-nMR" secondAttribute="top" id="uBy-dy-1gA"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="leading" secondItem="VY6-F6-8iS" secondAttribute="leading" id="vUK-hf-waT"/>
+                            <constraint firstItem="Y89-mw-nMR" firstAttribute="bottom" secondItem="c3t-fU-Tc2" secondAttribute="bottom" id="yCs-hg-4YA"/>
+                            <constraint firstItem="MGQ-2Q-f1z" firstAttribute="trailing" secondItem="VY6-F6-8iS" secondAttribute="trailing" id="zJ9-aZ-FXJ"/>
                             <constraint firstAttribute="trailing" secondItem="zNh-6O-cSe" secondAttribute="trailing" id="zwf-aU-W67"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Y89-mw-nMR"/>
+                        <connections>
+                            <outlet property="stackView" destination="VY6-F6-8iS" id="Xeu-pn-VhV"/>
+                            <outlet property="tableView" destination="c3t-fU-Tc2" id="nTO-xd-a0Q"/>
+                            <outlet property="topLayoutConstraint" destination="N8i-Sq-ljg" id="Yzo-Ki-EKa"/>
+                        </connections>
                     </view>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="globalErrorView" destination="zNh-6O-cSe" id="kJB-nN-1jk"/>
-                        <outlet property="scrolledTablesComponent" destination="iUA-Ki-5kC" id="2by-Z4-U5k"/>
+                        <outlet property="rootView" destination="y7d-SH-Ca7" id="OMo-sD-13A"/>
+                        <outlet property="stackView" destination="VY6-F6-8iS" id="rGz-R2-dBc"/>
+                        <outlet property="tableView" destination="c3t-fU-Tc2" id="YE0-CT-wKq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gwd-ab-zJV" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -17,7 +17,6 @@ import WavesSDKExtensions
 
 final class WalletPresenter: WalletPresenterProtocol {
     var interactor: WalletInteractorProtocol!
-    weak var moduleOutput: WalletModuleOutput?
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let kind: WalletDisplayState.Kind
@@ -149,18 +148,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.currentDisplay = currentDisplay
             state.action = .update
 
-        case .tapSortButton:
-            moduleOutput?.showWalletSort(balances: state.assets)
-            state.action = .none
-
-        case .tapHistory:
-            moduleOutput?.showAccountHistory()
-            state.action = .none
-
-        case .tapAddressButton:
-            moduleOutput?.showMyAddress()
-            state.action = .none
-
         case .refresh:
             if state.displayState.refreshData == .update {
                 state.displayState.refreshData = .refresh
@@ -183,28 +170,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             // скидываем модель текущую так как обновляем ui если он изменился
 
             state.displayState.currentDisplay = currentDisplay
-
-        case let .tapRow(indexPath):
-            state.action = .none
-
-            let section = state.displayState.currentDisplay.visibleSections[indexPath.section]
-
-            switch section.kind {
-            case .hidden:
-                guard let asset = section.items[indexPath.row].asset else { return }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.settings.isHidden == true })
-
-            case .spam:
-                guard let asset = section.items[indexPath.row].asset else { return }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset.isSpam == true })
-
-            case .general:
-                guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset.isSpam != true && $0.settings.isHidden != true } )
-                                    
-            default:
-                break
-            }
 
         case let .tapSection(section):
             state.displayState = state.displayState.toggleCollapse(index: section)
@@ -238,20 +203,8 @@ final class WalletPresenter: WalletPresenterProtocol {
                 state.displayState.listenerRefreshData = state.displayState.refreshData
             }
 
-        case let .presentSearch(startPoint):
-            moduleOutput?.presentSearchScreen(from: startPoint, assets: state.assets)
-            state.action = .none
-
-        case .updateApp:
-            moduleOutput?.openAppStore()
-            state.action = .none
-
         case let .isHasAppUpdate(isHasAppUpdate):
             state.isHasAppUpdate = isHasAppUpdate
-            state.action = .none
-
-        case .tapActionMenuButton:
-            moduleOutput?.openActionMenu()
             state.action = .none
         }
     }

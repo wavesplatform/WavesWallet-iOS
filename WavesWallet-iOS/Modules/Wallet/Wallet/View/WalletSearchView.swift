@@ -1,9 +1,9 @@
 //
-//  WalletSearchTableViewCell.swift
+//  WalletSearchView.swift
 //  WavesWallet-iOS
 //
-//  Created by Pavel Gubin on 5/31/19.
-//  Copyright © 2019 Waves Exchange. All rights reserved.
+//  Created by rprokofev on 20.05.2020.
+//  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
 import Extensions
@@ -15,7 +15,7 @@ private enum Constants {
     static let searchIconFrame: CGRect = .init(x: 0, y: 0, width: 36, height: 24)
 }
 
-final class WalletSearchTableViewCell: UITableViewCell, NibReusable {
+final class WalletSearchView: UIView, NibLoadable {
     @IBOutlet private weak var textField: UITextField!
 
     var searchTapped: (() -> Void)?
@@ -40,7 +40,7 @@ final class WalletSearchTableViewCell: UITableViewCell, NibReusable {
     }
 }
 
-extension WalletSearchTableViewCell: ViewConfiguration {
+extension WalletSearchView: ViewConfiguration {
     func update(with _: Void) {
         textField
             .attributedPlaceholder = NSAttributedString(string: Localizable.Waves.Wallet.Label.search,
@@ -48,7 +48,7 @@ extension WalletSearchTableViewCell: ViewConfiguration {
     }
 }
 
-extension WalletSearchTableViewCell: ViewHeight {
+extension WalletSearchView: ViewHeight {
     static func viewHeight() -> CGFloat {
         return Constants.height
     }

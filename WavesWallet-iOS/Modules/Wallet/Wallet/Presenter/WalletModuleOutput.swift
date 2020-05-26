@@ -19,4 +19,7 @@ protocol WalletModuleOutput: AnyObject {
     func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance])
     func openAppStore()
     func openActionMenu()
+    func openReceive()
+    func openSend()
+    func openCard()
 }
