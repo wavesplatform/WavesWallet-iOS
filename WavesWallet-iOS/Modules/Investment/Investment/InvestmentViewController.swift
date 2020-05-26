@@ -103,7 +103,7 @@ final class InvestmentViewController: UIViewController {
 
         for view in scrolledTablesComponent.topContents {
             if let updateView = view as? UpdateAppView {
-                updateView.update(with: ())
+                updateView.setupLocalization()
             } 
         }
         scrolledTablesComponent.reloadData()

@@ -104,9 +104,9 @@ private extension InvestmentDisplayData {
             return stakingSections
         } else if tableView.tag == 1 {
             return leasingSections
+        } else {
+            return []
         }
-
-        return []
     }
 }
 

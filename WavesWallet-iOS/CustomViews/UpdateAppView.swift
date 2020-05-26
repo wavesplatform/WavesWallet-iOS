@@ -26,7 +26,7 @@ final class UpdateAppView: UIView, NibLoadable {
         super.awakeFromNib()
         viewContainer.layer.borderColor = UIColor.basic200.cgColor
         viewContainer.layer.borderWidth = Constants.borderWith
-        update(with: ())
+        setupLocalization()
     }
 
     @IBAction private func buttonTapped(_: Any) {
@@ -39,8 +39,9 @@ final class UpdateAppView: UIView, NibLoadable {
     }
 }
 
-extension UpdateAppView: ViewConfiguration {
-    func update(with _: Void) {
+extension UpdateAppView: Localization {
+    
+    func setupLocalization() {
         labelTitle.text = Localizable.Waves.Wallet.Updateapp.Label.title
         labelSubtitle.text = Localizable.Waves.Wallet.Updateapp.Label.subtitle
     }

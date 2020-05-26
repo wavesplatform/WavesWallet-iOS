@@ -32,16 +32,16 @@ struct InvestmentState: Mutating {
 extension InvestmentState {
     static func initialState(kind: InvestmentDisplayState.Kind) -> InvestmentState {
         return InvestmentState(assets: [],
-                                 leasing: nil,
-                                 displayState: .initialState(kind: kind),
-                                 action: .none,
-                                 hasSkipLanding: false)
+                               leasing: nil,
+                               displayState: .initialState(kind: kind),
+                               action: .none,
+                               hasSkipLanding: false)
     }
 
     func changeDisplay(state: inout InvestmentState, kind: InvestmentDisplayState.Kind) {
         var display: InvestmentDisplayState.Display!
 
-        switch kind {        
+        switch kind {
         case .leasing:
             display = state.displayState.leasing
         case .staking:
@@ -56,7 +56,6 @@ extension InvestmentState {
 
     var hasData: Bool {
         switch displayState.kind {
-        
         case .leasing:
             return leasing != nil
 

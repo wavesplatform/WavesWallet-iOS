@@ -6,7 +6,6 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
-import Foundation
 import DomainLayer
 import Extensions
 import Foundation
@@ -100,15 +99,15 @@ extension InvestmentDisplayState {
 
 extension InvestmentDisplayState {
     var visibleSections: [InvestmentSection] {
-        return currentDisplay.visibleSections
+        currentDisplay.visibleSections
     }
 
     var animateType: InvestmentDisplayState.ContentAction {
-        return currentDisplay.animateType
+        currentDisplay.animateType
     }
 
     var isRefreshing: Bool {
-        return currentDisplay.isRefreshing
+        currentDisplay.isRefreshing
     }
 }
 
@@ -219,50 +218,39 @@ extension InvestmentDisplayState.Display {
 extension InvestmentDisplayState.ContentAction {
     var isRefresh: Bool {
         switch self {
-        case .refresh:
-            return true
-        default:
-            return false
+        case .refresh: return true
+        default: return false
         }
     }
 
     var isCollapsed: Bool {
         switch self {
-        case .collapsed:
-            return true
-        default:
-            return false
+        case .collapsed: return true
+        default: return false
         }
     }
 
     var isExpanded: Bool {
         switch self {
-        case .expanded:
-            return true
-        default:
-            return false
+        case .expanded: return true
+        default: return false
         }
     }
 
     var sectionIndex: Int? {
         switch self {
-        case let .expanded(section):
-            return section
-        case let .collapsed(section):
-            return section
-        default:
-            return nil
+        case let .expanded(section): return section
+        case let .collapsed(section): return section
+        default: return nil
         }
     }
 }
 
 extension InvestmentDisplayState.Kind {
     var name: String {
-        switch self {        
-        case .leasing:
-            return Localizable.Waves.Wallet.Segmentedcontrol.leasing
-        case .staking:
-            return Localizable.Waves.Wallet.Segmentedcontrol.staking
+        switch self {
+        case .leasing: return Localizable.Waves.Wallet.Segmentedcontrol.leasing
+        case .staking: return Localizable.Waves.Wallet.Segmentedcontrol.staking
         }
     }
 }

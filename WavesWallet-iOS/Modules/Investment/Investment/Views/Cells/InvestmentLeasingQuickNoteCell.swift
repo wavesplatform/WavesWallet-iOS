@@ -22,7 +22,6 @@ fileprivate enum Constants {
 }
 
 final class InvestmentLeasingQuickNoteCell: UITableViewCell, NibReusable {
-    typealias Model = Void
 
     @IBOutlet private weak var viewContent: UIView!
     @IBOutlet private weak var firstTitle: UILabel!
@@ -60,13 +59,5 @@ extension InvestmentLeasingQuickNoteCell: Localization {
         firstTitle.text = Localizable.Waves.Wallet.Label.Quicknote.Description.first
         secondTitle.text = Localizable.Waves.Wallet.Label.Quicknote.Description.second
         thirdTitle.text = Localizable.Waves.Wallet.Label.Quicknote.Description.third
-    }
-}
-
-// MARK: ViewConfiguration
-
-extension InvestmentLeasingQuickNoteCell: ViewConfiguration {
-    func update(with _: Void) {
-        setupLocalization()
     }
 }
