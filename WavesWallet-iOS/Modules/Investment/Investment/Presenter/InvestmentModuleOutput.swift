@@ -24,7 +24,6 @@ protocol InvestmentModuleOutput: AnyObject {
     func openWithdraw(neutrinoAsset: Asset)    
     func openTw(sharedText: String)
     func openVk(sharedText: String)
-    func openFb(sharedText: String)
-    func showPayout(payout: PayoutTransactionVM)
+    func openFb(sharedText: String)    
     func showPayoutsHistory()
 }

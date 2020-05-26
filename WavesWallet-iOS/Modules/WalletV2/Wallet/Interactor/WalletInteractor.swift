@@ -62,8 +62,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
 
     func isHasAppUpdate() -> Observable<Bool> { applicationVersionUseCase.isHasNewVersion() }
-
-    //Remove
+    
     func setCleanWalletBanner() -> Observable<Bool> {
         return authorizationInteractor.authorizedWallet()
             .flatMap { [weak self] (signedWallet) -> Observable<Bool> in

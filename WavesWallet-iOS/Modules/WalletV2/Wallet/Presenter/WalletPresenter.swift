@@ -442,15 +442,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 moduleOutput?.showLeasingTransaction(transactions: leasingTransactions, index: indexPath.row)
                 
             case .staking:
-                let row = section.items[indexPath.row]
-                if case .historyCell(let type) = row {
-                    switch type {
-                    case .staking:
-                        moduleOutput?.showPayoutsHistory()
-                    default:
-                        break
-                    }
-                }
+                break
                 
             default:
                 break

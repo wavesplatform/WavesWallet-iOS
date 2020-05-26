@@ -188,6 +188,7 @@ private extension NewSegmentedControl {
                                                       bottom: 0,
                                                       right: 0)
                 
+                // 4 - отступ слеваы
                 let label = UILabel(frame: .init(x: width - tickerWidth - Constants.deltaTitleWidth / 2 + 4,
                                                  y: Constants.titleEdgeInsets.top,
                                                  width: tickerWidth,

@@ -31,7 +31,6 @@ protocol WalletDisplayDataDelegate: AnyObject {
     func startStakingTapped()
 }
 
-// Refactor method
 final class WalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
     private var assetsSections: [Section] = []
