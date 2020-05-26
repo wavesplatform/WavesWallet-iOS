@@ -1,0 +1,249 @@
+//
+//  WalletTypes+DisplayState.swift
+//  WavesWallet-iOS
+//
+//  Created by Prokofev Ruslan on 16/07/2018.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
+//
+
+import Foundation
+
+extension WalletTypes.DisplayState {
+
+    static func initialState(kind: WalletTypes.DisplayState.Kind) -> WalletTypes.DisplayState {
+        return WalletTypes.DisplayState(kind: kind,
+                                        assets: .initialState(kind: .assets),
+                                        leasing: .initialState(kind: .leasing),
+                                        staking: .initialState(kind: .staking),
+                                        isAppeared: false,
+                                        listenerRefreshData: .none,
+                                        refreshData: .refresh,
+                                        listnerSignal: nil)
+    }
+
+    var currentDisplay: WalletTypes.DisplayState.Display {
+        get {
+            switch kind {
+            case .assets:
+                return assets
+
+            case .leasing:
+                return leasing
+                
+            case .staking:
+                return staking
+            }
+        }
+
+        set {
+            switch kind {
+            case .assets:
+                assets = newValue
+
+            case .leasing:
+                leasing = newValue
+                
+            case .staking:
+                staking = newValue
+            }
+        }
+    }
+
+    func updateCurrentDisplay(_ display: WalletTypes.DisplayState.Display) -> WalletTypes.DisplayState {
+        var newState = self
+        switch kind {
+        case .assets:
+            newState.assets = display
+        case .leasing:
+            newState.leasing = display
+        case .staking:
+            newState.staking = display
+        }
+        return newState
+    }
+}
+
+
+// MARK: Get Methods
+
+extension WalletTypes.DisplayState {
+
+    var visibleSections: [WalletTypes.ViewModel.Section] {
+        return currentDisplay.visibleSections
+    }
+
+    var animateType: WalletTypes.DisplayState.ContentAction {
+        return currentDisplay.animateType
+    }
+
+    var isRefreshing: Bool {
+        return currentDisplay.isRefreshing
+    }
+}
+
+// MARK: Set Methods
+
+extension WalletTypes.DisplayState {
+
+    func toggleCollapse(index: Int) -> WalletTypes.DisplayState {
+        let display = currentDisplay.toggleCollapse(index: index)
+        return updateCurrentDisplay(display)
+    }
+
+    func setIsRefreshing(isRefreshing: Bool) -> WalletTypes.DisplayState {
+        var display = currentDisplay
+        display.isRefreshing = isRefreshing
+        return updateCurrentDisplay(display)
+    }
+
+    func updateDisplay(kind: WalletTypes.DisplayState.Kind, sections: [WalletTypes.ViewModel.Section]) -> WalletTypes.DisplayState {
+
+        let display: WalletTypes.DisplayState.Display
+        
+        switch kind {
+        case .assets:
+            display = assets
+            
+        case .leasing:
+            display = leasing
+            
+        case .staking:
+            display = staking
+        }
+        
+        var collapsedSections = display.collapsedSections
+        sections.enumerated().forEach {
+            if collapsedSections[$0.offset] == nil {
+                collapsedSections[$0.offset] = !$0.element.isExpanded
+            }
+        }
+
+        let newDisplay = WalletTypes.DisplayState.Display(sections: sections,
+                                                          collapsedSections: collapsedSections,
+                                                          isRefreshing: false,
+                                                          animateType: .refresh(animated: false),
+                                                          errorState: .none)
+
+        return mutate {
+            if kind == .assets {
+                $0.assets = newDisplay
+            }
+            else if kind == .leasing {
+                $0.leasing = newDisplay
+            }
+            else if kind == .staking {
+                $0.staking = newDisplay
+            }
+        }
+    }
+}
+
+extension WalletTypes.DisplayState.Display {
+    
+    var visibleSections: [WalletTypes.ViewModel.Section] {
+        return sections.enumerated().map { element -> WalletTypes.ViewModel.Section in
+            var newSection = element.element
+            if collapsedSections[element.offset] == true {
+                newSection.isExpanded = false
+                newSection.items = [.hidden]
+            } else {
+                newSection.isExpanded = true
+            }
+            return newSection
+        }
+    }
+
+    static func initialState(kind: WalletTypes.DisplayState.Kind) -> WalletTypes.DisplayState.Display {
+
+        let sections = skeletonSections(kind: kind)
+
+        return .init(sections: sections,
+                     collapsedSections: [:],
+                     isRefreshing: false,                     
+                     animateType: .refresh(animated: false),
+                     errorState: .none)
+    }
+
+
+    static func skeletonSections(kind: WalletTypes.DisplayState.Kind) -> [WalletTypes.ViewModel.Section] {
+        var section: WalletTypes.ViewModel.Section!
+        if kind == .assets {
+            section = WalletTypes.ViewModel.Section(kind: .skeleton,
+                                                    items: [.assetSkeleton,
+                                                            .assetSkeleton,
+                                                            .assetSkeleton,
+                                                            .assetSkeleton,
+                                                            .assetSkeleton],
+                                                    isExpanded: true)
+        }
+        else if kind == .leasing {
+            section = WalletTypes.ViewModel.Section(kind: .skeleton,
+                                                    items: [.balanceSkeleton,
+                                                            .historySkeleton],
+                                                    isExpanded: true)
+        }
+        else if kind == .staking {
+            section = WalletTypes.ViewModel.Section(kind: .skeleton,
+                                                    items: [.balanceSkeleton,
+                                                            .historySkeleton],
+                                                    isExpanded: true)
+        }
+        return [section]
+    }
+
+    func toggleCollapse(index: Int) -> WalletTypes.DisplayState.Display {
+        var newState = self
+        let isCollapsed = newState.collapsedSections[index] ?? false
+        let newIsCollapsed = !isCollapsed
+        newState.collapsedSections[index] = newIsCollapsed
+        if newIsCollapsed {
+            newState.animateType = .collapsed(index)
+        } else {
+            newState.animateType = .expanded(index)
+        }
+        return newState
+    }
+}
+
+// MARK: Get Methods
+
+extension WalletTypes.DisplayState.ContentAction {
+    
+    var isRefresh: Bool {
+        switch self {
+        case .refresh:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isCollapsed: Bool {
+        switch self {
+        case .collapsed:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isExpanded: Bool {
+        switch self {
+        case .expanded:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var sectionIndex: Int? {
+        switch self {
+        case .expanded(let section):
+            return section
+        case .collapsed(let section):
+            return section
+        default:
+            return nil
+        }
+    }
+}

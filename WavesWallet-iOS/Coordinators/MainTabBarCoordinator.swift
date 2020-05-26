@@ -118,12 +118,10 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         tabBarRouter.setSelectedIndex(2)
         
-        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet,
-                                                  isDisplayInvesting: false)
+        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet)
         addChildCoordinatorAndStart(childCoordinator: walletCoordinator)
 
-        let investingCoordinator = WalletCoordinator(navigationRouter: navigationRouterInvest,
-                                                     isDisplayInvesting: true)
+        let investingCoordinator = InvestmentCoordinator(navigationRouter: navigationRouterInvest)
         
         addChildCoordinatorAndStart(childCoordinator: investingCoordinator)
         

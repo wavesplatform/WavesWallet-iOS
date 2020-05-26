@@ -16,14 +16,14 @@ private enum Constants {
     static let popoverHeight: CGFloat = 378
 }
 
-final class WalletCoordinator: Coordinator {
+final class InvestmentCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
 
     weak var parent: Coordinator?
 
-    private lazy var walletViewContoller: WalletViewController = {
-        return WalletModuleBuilder(output: self).build()
+    private lazy var walletViewContoller: InvestmentViewController = {
+        return InvestmentModuleBuilder(output: self).build()
     }()
 
     private var navigationRouter: NavigationRouter
@@ -37,7 +37,7 @@ final class WalletCoordinator: Coordinator {
     private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
     
     private var hasSendedNewUserWithoutBackupStorageTrack: Bool = false
-    
+
     init(navigationRouter: NavigationRouter) {
         self.navigationRouter = navigationRouter
     }
@@ -115,7 +115,7 @@ final class WalletCoordinator: Coordinator {
 
 // MARK: WalletModuleOutput
 
-extension WalletCoordinator: WalletModuleOutput {
+extension InvestmentCoordinator: InvestmentModuleOutput {
     
     func showAccountHistory() {
         let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .all)
@@ -207,20 +207,6 @@ extension WalletCoordinator: WalletModuleOutput {
             .trackEvent(.staking(.mainDepositTap))
     }
     
-    func openActionMenu() {
-
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.wavesQuickAction(.wavesActionPanel))
-        
-        let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
-        vc.moduleOutput = self
-        let popup = PopupViewController()
-        popup.contentHeight = 204
-        popup.present(contentViewController: vc)
-
-    }
     
     func openWithdraw(neutrinoAsset: Asset) {
         let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
@@ -261,53 +247,7 @@ extension WalletCoordinator: WalletModuleOutput {
         
         RateApp.show()
     }
-    
-    func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance]) {
-        
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.walletHome(.tokenSearch))
-        
-        if let vc = WalletSearchModuleBuilder(output: self).build(input: assets) as? WalletSearchViewController {
-            vc.modalPresentationStyle = .custom
-            navigationRouter.present(vc, animated: false) {
-                vc.showWithAnimation(fromStartPosition: startPoint)
-            }
-        }
-    }
 
-    func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
-        
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.walletHome(.tokenSortingPage))
-        
-        let vc = WalletSortModuleBuilder().build(input: balances)
-        navigationRouter.pushViewController(vc)
-    }
-
-    func showMyAddress() {
-        
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.walletHome(.qrCard))
-        
-        let vc = MyAddressModuleBuilder(output: self).build()
-        self.myAddressVC = vc
-        navigationRouter.pushViewController(vc)
-    }
-
-    func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
-
-        let vc = AssetDetailModuleBuilder(output: self)
-            .build(input: .init(assets: assets,
-                                currentAsset: currentAsset))
-        
-        navigationRouter.pushViewController(vc)
-    }
 
     func showHistoryForLeasing() {
 
@@ -333,209 +273,21 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 }
 
-// MARK: - WalletSearchViewControllerDelegate
-extension WalletCoordinator: WalletSearchViewControllerDelegate {
-    
-    func walletSearchViewControllerDidTapCancel(_ searchController: WalletSearchViewController) {
-        searchController.dismiss()
-    }
-    
-    func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance,
-                                                  assets: [DomainLayer.DTO.SmartAssetBalance]) {
-        
-        navigationRouter.dismiss(animated: false, completion: nil)
-        let vc = AssetDetailModuleBuilder(output: self)
-            .build(input: .init(assets: assets, currentAsset: asset))
-        
-        navigationRouter.pushViewController(vc)
-    }
-}
-
-// MARK: AssetModuleOutput
-
-extension WalletCoordinator: AssetDetailModuleOutput {
-    func showTrade(asset: Asset) {
-        
-        let coordinator = TradeCoordinator(navigationRouter: navigationRouter, selectedAsset: asset)
-        addChildCoordinatorAndStart(childCoordinator: coordinator)
-    }
-    
-
-    func showSend(asset: DomainLayer.DTO.SmartAssetBalance) {
-        let vc = SendModuleBuilder().build(input: .selectedAsset(asset))
-        navigationRouter.pushViewController(vc)
-    }
-    
-    func showReceive(asset: DomainLayer.DTO.SmartAssetBalance) {
-        let vc = ReceiveContainerModuleBuilder().build(input: asset)
-        navigationRouter.pushViewController(vc)
-    }
-    
-    func showHistory(by assetId: String) {
-        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .asset(assetId))
-        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
-    }
-
-    func showTransaction(transactions: [SmartTransaction], index: Int) {
-
-        let coordinator = TransactionCardCoordinator(transaction: transactions[index],
-                                                     router: navigationRouter)
-
-
-        addChildCoordinatorAndStart(childCoordinator: coordinator)
-    }
-    
-    func showBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?) {
-        
-        let vc = StoryboardScene.Asset.tokenBurnViewController.instantiate()
-        vc.asset = asset
-        vc.delegate = delegate
-        navigationRouter.pushViewController(vc)
-        
-        UseCasesFactory.instance.analyticManager.trackEvent(.tokenBurn(.tap))
-    }
-}
-
 // MARK: - TransactionCardCoordinatorDelegate
-extension WalletCoordinator: TransactionCardCoordinatorDelegate {
+extension InvestmentCoordinator: TransactionCardCoordinatorDelegate {
     func transactionCardCoordinatorCanceledLeasing() {
         walletViewContoller.viewWillAppear(false)
     }
 }
 
 // MARK: - StartLeasingModuleOutput
-extension WalletCoordinator: StartLeasingModuleOutput {
+extension InvestmentCoordinator: StartLeasingModuleOutput {
     func startLeasingDidSuccess(transaction: SmartTransaction, kind: StartLeasingTypes.Kind) {}
 }
 
-fileprivate extension AssetDetailModuleBuilder.Input {
-
-    init(assets: [DomainLayer.DTO.SmartAssetBalance],
-         currentAsset: DomainLayer.DTO.SmartAssetBalance) {
-        self.assets = assets.map { .init(asset: $0) }
-        self.currentAsset = .init(asset: currentAsset)
-    }
-}
-
-fileprivate extension AssetDetailTypes.DTO.Asset.Info {
-
-    init(asset: DomainLayer.DTO.SmartAssetBalance) {
-        id = asset.asset.id
-        issuer = asset.asset.sender
-        name = asset.asset.name
-        displayName = asset.asset.displayName
-        description = asset.asset.description
-        issueDate = asset.asset.timestamp
-        isReusable = asset.asset.isReusable
-        isMyWavesToken = asset.asset.isMyWavesToken
-        isWavesToken = asset.asset.isWavesToken
-        isWaves = asset.asset.isWaves
-        isFavorite = asset.settings.isFavorite
-        isFiat = asset.asset.isFiat
-        isSpam = asset.asset.isSpam
-        isGateway = asset.asset.isGateway
-        sortLevel = asset.settings.sortLevel
-        icon = asset.asset.iconLogo
-        assetBalance = asset
-        isQualified = asset.asset.isQualified
-        isStablecoin = asset.asset.isStablecoin
-    }
-}
-
-
-// MARK: MyAddressModuleOutput
-
-extension WalletCoordinator: MyAddressModuleOutput {
-    func myAddressShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
-
-        if aliases.isEmpty {
-            let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
-            controller.delegate = self
-            let popup = PopupViewController()
-            popup.contentHeight = Constants.popoverHeight
-            popup.present(contentViewController: controller)
-            self.currentPopup = popup
-        } else {
-            let controller = AliasesModuleBuilder.init(output: self).build(input: .init(aliases: aliases))
-            let popup = PopupViewController()
-            popup.present(contentViewController: controller)
-            self.currentPopup = popup
-        }
-    }
-}
-
-// MARK: AliasesModuleOutput
-
-extension WalletCoordinator: AliasesModuleOutput {
-    func aliasesCreateAlias() {
-
-        self.currentPopup?.dismissPopup { [weak self] in
-            guard let self = self else { return }
-
-            let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationRouter.pushViewController(vc)
-            
-            UseCasesFactory.instance.analyticManager.trackEvent(.alias(.aliasCreateVcard))
-        }
-    }
-}
-
-// MARK: AliasWithoutViewControllerDelegate
-
-extension WalletCoordinator: AliasWithoutViewControllerDelegate {
-    func aliasWithoutUserTapCreateNewAlias() {
-        self.currentPopup?.dismissPopup { [weak self] in
-            guard let self = self else { return }
-
-            let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationRouter.pushViewController(vc)
-            
-            UseCasesFactory.instance.analyticManager.trackEvent(.alias(.aliasCreateVcard))
-        }
-    }
-}
-
-// MARK: CreateAliasModuleOutput
-
-extension WalletCoordinator: CreateAliasModuleOutput {
-    func createAliasCompletedCreateAlias(_ alias: String) {
-        if let myAddressVC = self.myAddressVC {
-            navigationRouter.popToViewController(myAddressVC)
-        }
-    }
-}
-
-// MARK: - WavesPopupModuleOutput
-
-extension WalletCoordinator: WavesPopupModuleOutput {
-
-    func showSend() {
-                        
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.wavesQuickAction(.wavesActionSend))
-        
-        let vc = SendModuleBuilder().build(input: .empty)
-        navigationRouter.pushViewController(vc)
-    }
-
-    func showReceive() {
-
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.wavesQuickAction(.wavesActionReceive))
-        
-        let vc = ReceiveContainerModuleBuilder().build(input: nil)
-        navigationRouter.pushViewController(vc, animated: true)    
-    }
-}
-
-
 // MARK: StakingTransferCoordinatorDelegate
 
-extension WalletCoordinator: StakingTransferCoordinatorDelegate {
+extension InvestmentCoordinator: StakingTransferCoordinatorDelegate {
         
     func stakingTransferSendDepositCompled(balance: DomainLayer.DTO.Balance) {
         walletViewContoller.completedDepositBalance(balance: balance)

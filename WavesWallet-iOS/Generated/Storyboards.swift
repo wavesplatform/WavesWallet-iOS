@@ -194,10 +194,6 @@ internal enum StoryboardScene {
     internal static let storyboardName = "Investment"
 
     internal static let investmentViewController = SceneType<WavesWallet_iOS.InvestmentViewController>(storyboard: Investment.self, identifier: "InvestmentViewController")
-
-    internal static let walletSearchViewController = SceneType<WavesWallet_iOS.WalletSearchViewController>(storyboard: Investment.self, identifier: "WalletSearchViewController")
-
-    internal static let walletSortViewController = SceneType<WavesWallet_iOS.WalletSortViewController>(storyboard: Investment.self, identifier: "WalletSortViewController")
   }
   internal enum Language: StoryboardType {
     internal static let storyboardName = "Language"
@@ -343,6 +339,15 @@ internal enum StoryboardScene {
     internal static let storyboardName = "UseTouchID"
 
     internal static let useTouchIDViewController = SceneType<WavesWallet_iOS.UseTouchIDViewController>(storyboard: UseTouchID.self, identifier: "UseTouchIDViewController")
+  }
+  internal enum Wallet: StoryboardType {
+    internal static let storyboardName = "Wallet"
+
+    internal static let walletSearchViewController = SceneType<WavesWallet_iOS.WalletSearchViewController>(storyboard: Wallet.self, identifier: "WalletSearchViewController")
+
+    internal static let walletSortViewController = SceneType<WavesWallet_iOS.WalletSortViewController>(storyboard: Wallet.self, identifier: "WalletSortViewController")
+
+    internal static let walletViewController = SceneType<WavesWallet_iOS.WalletViewController>(storyboard: Wallet.self, identifier: "WalletViewController")
   }
   internal enum Waves: StoryboardType {
     internal static let storyboardName = "Waves"
