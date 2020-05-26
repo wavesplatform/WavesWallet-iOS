@@ -52,7 +52,7 @@ final class WalletCoordinator: Coordinator {
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.showLegalOrBackupIfNeed()
+                self.showLegalOrBackupIfNeeded()
             })
             .disposed(by: disposeBag)
 
@@ -97,8 +97,9 @@ final class WalletCoordinator: Coordinator {
         showPushAlertSettings()
     }
 
-    private func showLegalOrBackupIfNeed() {
-        authorization
+    private func showLegalOrBackupIfNeeded() {
+
+        self.authorization
             .authorizedWallet()
             .take(1)
             .subscribe(onNext: { [weak self] _ in

@@ -825,6 +825,6 @@
 "trade.message.pairlocked.subtitle" = "Торговая пара временно отключена. Вы можете отменить свои ордера.";
 "trade.message.pairlocked.button.ok" = "Продолжить";
 
-"wallet.bar.button.receive" = "Receive";
-"wallet.bar.button.send" = "Send";
-"wallet.bar.button.card" = "Card";
+"wallet.bar.button.receive" = "Получить";
+"wallet.bar.button.send" = "Отправить";
+"wallet.bar.button.card" = "Карта";                

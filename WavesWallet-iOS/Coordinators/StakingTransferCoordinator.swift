@@ -199,7 +199,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
                                                               assetTicker: amount.currency.displayText)
         
         UseCasesFactory
-            .instance
+            .instance   
             .analyticManager
             .trackEvent(.staking(event))
         

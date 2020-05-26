@@ -33,7 +33,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     }
 
     func isHasAppUpdate() -> Observable<Bool> { applicationVersionUseCase.isHasNewVersion() }
-
+        
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return authorizationInteractor
             .authorizedWallet()
