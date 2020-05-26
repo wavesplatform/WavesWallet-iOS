@@ -49,18 +49,18 @@ final class SmartBarView: UIView {
         shadowView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(shadowView)
 
-        shadowView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        shadowView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         shadowView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive = true
         shadowView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive = true
-        shadowView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        shadowView.topAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
 
         clipsToBounds = false
         shadowView.clipsToBounds = false
         stackView.clipsToBounds = false
         shadowView.setupShadow(options: .init(offset: CGSize(width: 0, height: 2),
                                               color: .black,
-                                              opacity: 0.12,
-                                              shadowRadius: 4,
+                                              opacity: 0.26 ,
+                                              shadowRadius: 2,
                                               shouldRasterize: true))
 
         stackView.addArrangedSubview(sendButton)
