@@ -190,6 +190,11 @@ internal enum StoryboardScene {
 
     internal static let importAccountViewController = SceneType<WavesWallet_iOS.ImportAccountViewController>(storyboard: Import.self, identifier: "ImportAccountViewController")
   }
+  internal enum Investment: StoryboardType {
+    internal static let storyboardName = "Investment"
+
+    internal static let investmentViewController = SceneType<WavesWallet_iOS.InvestmentViewController>(storyboard: Investment.self, identifier: "InvestmentViewController")
+  }
   internal enum Language: StoryboardType {
     internal static let storyboardName = "Language"
 
