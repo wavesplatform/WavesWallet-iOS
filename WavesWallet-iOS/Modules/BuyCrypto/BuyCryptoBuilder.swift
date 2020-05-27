@@ -21,6 +21,7 @@ final class BuyCryptoBuilder: BuyCryptoBuildable {
         let assetsUseCase = UseCasesFactory.instance.assets
         let developmentConfigRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let serverEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
+        let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
 
         // MARK: - Instantiating
 
@@ -32,7 +33,8 @@ final class BuyCryptoBuilder: BuyCryptoBuildable {
                                              gatewayWavesRepository: gatewayWavesRepository,
                                              adCashGRPCService: adCashGRPCService,
                                              developmentConfigRepository: developmentConfigRepository,
-                                             serverEnvironmentRepository: serverEnvironmentRepository)
+                                             serverEnvironmentRepository: serverEnvironmentRepository,
+                                             weOAuthRepository: weOAuthRepository)
         let viewController = BuyCryptoViewController.instantiateFromStoryboard()
         viewController.interactor = interactor
 

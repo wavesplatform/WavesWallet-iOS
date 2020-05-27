@@ -52,12 +52,13 @@ extension BuyCryptoPresenter: IOTransformer {
             }
             .asSignalIgnoringError()
 
-        let validationError = Signal<String?>.never()
+        let validationError = input.validationError.map { $0?.localizedDescription }
 
         let fiatTitle = input.didSelectFiatItem
             .filteredByState(input.readOnlyState) { state -> Bool in
                 switch state {
                 case .aCashAssetsLoaded: return true
+                case .checkingExchangePair: return true
                 default: return false
                 }
             }
@@ -78,6 +79,7 @@ extension BuyCryptoPresenter: IOTransformer {
             .filteredByState(input.readOnlyState) { state -> Bool in
                 switch state {
                 case .aCashAssetsLoaded: return true
+                case .checkingExchangePair: return true
                 default: return false
                 }
             }

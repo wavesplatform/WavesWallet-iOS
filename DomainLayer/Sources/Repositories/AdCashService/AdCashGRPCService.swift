@@ -6,16 +6,26 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
+///
 public struct ACashAsset: Codable {
+    
+    /// <#Description#>
     public enum Kind: Int, Codable {
         case crypto
         case fiat
         case unrecognized
     }
     
+    ///
     public let id: String
+    
+    ///
     public let name: String
+    
+    ///
     public let kind: Kind
+    
+    ///
     public let decimals: Int32
     
     public init(id: String, name: String, kind: Kind, decimals: Int32) {

@@ -41,7 +41,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
     private let didSelectFiatItem = PublishRelay<BuyCryptoPresenter.AssetViewModel>()
     private let didSelectCryptoItem = PublishRelay<BuyCryptoPresenter.AssetViewModel>()
-    private let didChangeFiatAmount = PublishRelay<String>()
+    private let didChangeFiatAmount = PublishRelay<String?>()
     private let didTapBuy = PublishRelay<Void>()
 
     private let didTapRetry = PublishRelay<Void>()
@@ -74,6 +74,12 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         setupFiatCollectionView()
         setupCryptoCollectionView()
         fiatAmountTextField.setPlaceholder(Localizable.Waves.Buycrypto.amountPlaceholder)
+        fiatAmountTextField
+            .text
+            .subscribe(onNext: { [weak self] in
+                self?.didChangeFiatAmount.accept($0)
+            })
+            .disposed(by: disposeBag)
         setupInfoTextView()
     }
 
@@ -179,6 +185,10 @@ extension BuyCryptoViewController: BindableView {
             let buttonStatus = titledBool.isOn ? BlueButton.Model.Status.active : BlueButton.Model.Status.disabled
             let buttonModel = BlueButton.Model(title: titledBool.title, status: buttonStatus)
             self?.buyButton.update(with: buttonModel)
+        }).disposed(by: disposeBag)
+        
+        input.validationError.emit(onNext: { [weak self] errorMessage in
+            self?.fiatAmountTextField.setError(errorMessage)
         }).disposed(by: disposeBag)
     }
 }

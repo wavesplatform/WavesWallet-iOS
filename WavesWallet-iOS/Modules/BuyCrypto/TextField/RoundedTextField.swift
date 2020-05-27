@@ -112,5 +112,7 @@ final class RoundedTextField: UIView, ResetableView {
 }
 
 extension RoundedTextField {
-//    let text = ControlEvent(events: textField.rx.text.compactMap())
+    var text: ControlProperty<String?> {
+        textField.rx.text
+    }
 }

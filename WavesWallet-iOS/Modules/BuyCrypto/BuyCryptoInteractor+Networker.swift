@@ -12,6 +12,13 @@ import RxSwift
 // MARK: - NetWorker
 
 extension BuyCryptoInteractor {
+    struct ExchangeInfo {
+        let minLimit: Decimal
+        let maxLimit: Decimal
+        
+        let rate: Double
+    }
+    
     final class Networker {
         private let authorizationService: AuthorizationUseCaseProtocol
         private let environmentRepository: EnvironmentRepositoryProtocol
@@ -20,6 +27,7 @@ extension BuyCryptoInteractor {
         private let adCashGRPCService: AdCashGRPCService
         private let developmentConfigRepository: DevelopmentConfigsRepositoryProtocol
         private let serverEnvironmentRepository: ServerEnvironmentRepository
+        private let weOAuthRepository: WEOAuthRepositoryProtocol
 
         private let disposeBag = DisposeBag()
 
@@ -29,7 +37,8 @@ extension BuyCryptoInteractor {
              assetsUseCase: AssetsUseCaseProtocol,
              adCashGRPCService: AdCashGRPCService,
              developmentConfigRepository: DevelopmentConfigsRepositoryProtocol,
-             serverEnvironmentRepository: ServerEnvironmentRepository) {
+             serverEnvironmentRepository: ServerEnvironmentRepository,
+             weOAuthRepository: WEOAuthRepositoryProtocol) {
             self.authorizationService = authorizationService
             self.environmentRepository = environmentRepository
             self.assetsUseCase = assetsUseCase
@@ -37,6 +46,7 @@ extension BuyCryptoInteractor {
             self.adCashGRPCService = adCashGRPCService
             self.developmentConfigRepository = developmentConfigRepository
             self.serverEnvironmentRepository = serverEnvironmentRepository
+            self.weOAuthRepository = weOAuthRepository
         }
 
         func getAssets(completion: @escaping (Result<BuyCryptoInteractor.AssetsInfo, Error>) -> Void) {
@@ -93,19 +103,98 @@ extension BuyCryptoInteractor {
         
         /// <#Description#>
         /// - Parameters:
-        ///   - senderAsset: <#senderAsset description#>
-        ///   - recipientAsset: <#recipientAsset description#>
-        func getExchangeRate(senderAsset: String, recipientAsset: String, completion: @escaping (Result<Void, Error>) -> Void) {
-//            Observable.zip(authorizationService.authorizedWallet(), developmentConfig.developmentConfigs())
-//                .catchError { Observable.error($0) }
-//                .subscribe(onNext: { signedWallet, devConfig in
-//
-//                },
-//                           onError: { error in }).disposed(by: disposeBag)
-////            adCashGRPCService.getACashAssetsExchangeRate(signedWallet: <#T##SignedWallet#>, senderAsset: <#T##String#>, recipientAsset: <#T##String#>, senderAssetAmount: <#T##Double#>, completion: <#T##(Result<Void, Error>) -> Void#>)
-//
-//
-//            gatewaysWavesRepository.depositTransferBinding(serverEnvironment: <#T##ServerEnvironment#>, oAToken: <#T##WEOAuthTokenDTO#>, request: <#T##TransferBindingRequest#>)
+        ///   - senderAsset: fiat item
+        ///   - recipientAsset: crypto item
+        func getExchangeRate(senderAsset: String,
+                             recipientAsset: String,
+                             completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
+            Observable.zip(authorizationService.authorizedWallet(),
+                           developmentConfigRepository.developmentConfigs(),
+                           serverEnvironmentRepository.serverEnvironment())
+                .flatMap { [weak self] signedWallet, devConfig, serverEnvironment
+                    -> Observable<(SignedWallet, ServerEnvironment, DevelopmentConfigs, WEOAuthTokenDTO)> in
+                    guard let sself = self else { return Observable.never() }
+                    
+                    return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
+                        .map { (signedWallet, serverEnvironment, devConfig, $0) }
+                }
+                .flatMap { [weak self] signedWallet, serverEnvironment, devConfig, token
+                    -> Observable<(SignedWallet, GatewaysTransferBinding)> in
+                    guard let sself = self else { return Observable.never() }
+                    let transferBindingRequest = TransferBindingRequest(asset: recipientAsset,
+                                                                        recipientAddress: signedWallet.wallet.address)
+                    
+                    return sself.gatewaysWavesRepository.depositTransferBinding(serverEnvironment: serverEnvironment,
+                                                                                oAToken: token,
+                                                                                request: transferBindingRequest)
+                        .map { gatewayTransferBinding -> (SignedWallet, GatewaysTransferBinding) in
+                            (signedWallet, gatewayTransferBinding)
+                        }
+                }
+                .catchError { Observable.error($0) }
+                .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding in
+                    // чтобы получить лимиты для usnd
+                    self?.adCashGRPCService.getACashAssetsExchangeRate(
+                        signedWallet: signedWallet,
+                        senderAsset: senderAsset,
+                        recipientAsset: "USD",
+                        senderAssetAmount: 1) { result in
+                            switch result {
+                            case .success(let rate):
+                                let rateInfo: ExchangeInfo
+                                if recipientAsset != "USDN" {
+                                    let min: Decimal = 100
+                                    let max: Decimal = 1000
+                                    
+                                    rateInfo = ExchangeInfo(minLimit: min, maxLimit: max, rate: rate)
+                                } else {
+                                    let min: Decimal = Decimal(rate) * gatewayTransferBinding.assetBinding.senderAmountMin
+                                    let max: Decimal = Decimal(rate) * gatewayTransferBinding.assetBinding.senderAmountMax
+                                    
+                                    rateInfo = ExchangeInfo(minLimit: min, maxLimit: max, rate: rate)
+                                }
+                                
+                                completion(.success(rateInfo))
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                    }
+                    
+                },
+                           onError: { error in })
+                .disposed(by: disposeBag)
         }
+        
+//        private func getExchangeRates(signedWallet: SignedWallet, senderAsset: String, recipientAsset: String) {
+//            let dispatchGroup = DispatchGroup()
+//
+//            var usdnRateResult: Result<Double, Error>
+//            dispatchGroup.enter()
+//
+//
+//            var iBuyRateResult: Result<Double, Error>
+//            dispatchGroup.enter()
+//            // сколько получит пользователь для отображения в ibuy
+////            adCashGRPCService.getACashAssetsExchangeRate(
+////                signedWallet: signedWallet,
+////                senderAsset: senderAsset,
+////                recipientAsset: recipientAsset,
+////                senderAssetAmount: 1) { result in
+////                    iBuyRateResult = result
+////                    switch result {
+////                    case .success(let rate): break
+////                    case .failure(let error): break
+////                    }
+////                    dispatchGroup.leave()
+////            }
+//
+////            dispatchGroup.notify(queue: .global()) {
+////
+////            }
+//        }
+//
+//        func getUserCryptoExchange() {
+//
+//        }
     }
 }

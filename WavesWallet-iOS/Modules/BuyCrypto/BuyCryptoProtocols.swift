@@ -33,10 +33,22 @@ enum BuyCryptoState {
     case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
     
     /// Состояние проверки обменной пары
-    case checkingExchangePair
+    case checkingExchangePair(senderAsset: String, recipientAsset: String)
     
     /// Состояние ошибки проверки обменной пары (отображать ошибку)
     case checkingExchangePairError(Error)
+    
+    ///
+    case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
+    
+    ///
+    case calculationExchangeCostError(Error)
+    
+    ///
+    case calculatedExchangeCost
+    
+    ///
+    case exchangeInProgress
 }
 
 extension BuyCryptoInteractor {
@@ -44,8 +56,11 @@ extension BuyCryptoInteractor {
         @PublishObservable var didLoadACashAssets: Observable<BuyCryptoInteractor.AssetsInfo>
         @PublishObservable var aCashAssetsLoadingError: Observable<Error>
         
-        @PublishObservable var didCheckedExchangePair: Observable<Void>
+        @PublishObservable var didCheckedExchangePair: Observable<BuyCryptoInteractor.ExchangeInfo>
         @PublishObservable var checkingExchangePairError: Observable<Error>
+        
+        @PublishObservable var didCalculateExchangeCost: Observable<Void>
+        @PublishObservable var calculationExchangeCostError: Observable<Error>
     }
 }
 
@@ -90,6 +105,9 @@ struct BuyCryptoInteractorOutput {
 
     /// Выбранный элемент крипты (usdn, btc и тд)
     let didSelectCryptoItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>
+    
+    /// Сигнал ошибки валидации
+    let validationError: Signal<Error?>
 }
 
 struct BuyCryptoPresenterOutput {
@@ -133,7 +151,7 @@ struct BuyCryptoViewOutput {
     let didSelectCryptoItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>
     
     /// Сигнал изменения поля ввода количества валюты реального мира
-    let didChangeFiatAmount: ControlEvent<String>
+    let didChangeFiatAmount: ControlEvent<String?>
     
     /// Нажатие на кнопку купить
     let didTapBuy: ControlEvent<Void>

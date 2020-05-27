@@ -539,6 +539,44 @@ internal enum Localizable {
       internal static func iSpent(_ p1: String) -> String {
         Localizable.tr("Waves", "buyCrypto.iSpent", p1)
       }
+      /// Max amount is %@
+      internal static func maxAmount(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.maxAmount", p1)
+      }
+      /// Min amount is %@
+      internal static func minAmount(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.minAmount", p1)
+      }
+
+      internal enum Messageinfo {
+        /// After a successful payment on the partners' website, %@ will be credited to your account within a few minutes.
+        internal static func afterPaymentWillBeCreditedToYourAccount(_ p1: String) -> String {
+          Localizable.tr("Waves", "buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount", p1)
+        }
+        /// If you have problems with your payment, please contact support service.
+        internal static var ifYouHaveProblems: String { Localizable.tr("Waves", "buyCrypto.messageInfo.ifYouHaveProblems") }
+        internal static var ifYouHaveProblemsKey: String { "buyCrypto.messageInfo.ifYouHaveProblems" }
+        /// Min amount is %@ or an equivalent amount.
+        internal static func minAmount(_ p1: String) -> String {
+          Localizable.tr("Waves", "buyCrypto.messageInfo.minAmount", p1)
+        }
+        /// The fee is 0%%.
+        internal static var withoutConversionFee: String { Localizable.tr("Waves", "buyCrypto.messageInfo.withoutConversionFee") }
+        internal static var withoutConversionFeeKey: String { "buyCrypto.messageInfo.withoutConversionFee" }
+        /// You can buy %@ with your bank card or by direct transfer to the Advanced Cash account.
+        internal static func youCanBuyWithYourBankCard(_ p1: String) -> String {
+          Localizable.tr("Waves", "buyCrypto.messageInfo.youCanBuyWithYourBankCard", p1)
+        }
+        /// You may be charged an additional conversion fee. The total amount may vary due to the constantly changing rates.
+        internal static var youMayBeChargedAnAdditionalConversionFee: String { Localizable.tr("Waves", "buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee") }
+        internal static var youMayBeChargedAnAdditionalConversionFeeKey: String { "buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee" }
+
+        internal enum Ifyouhaveproblems {
+          /// support
+          internal static var linkWord: String { Localizable.tr("Waves", "buyCrypto.messageInfo.ifYouHaveProblems.linkWord") }
+          internal static var linkWordKey: String { "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" }
+        }
+      }
     }
 
     internal enum Cameraaccess {
