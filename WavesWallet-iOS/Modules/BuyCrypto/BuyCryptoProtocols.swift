@@ -138,8 +138,8 @@ struct BuyCryptoPresenterOutput {
     /// Драйвер с тайтлом и стейтом кнопки
     let buyButtonModel: Driver<TitledBool>
     
-    ///
-    let detailsInfo: Driver<String>
+    /// драйвер с информацией об обмене валюты на крипту
+    let detailsInfo: Driver<BuyCryptoPresenter.ExchangeMessage>
 }
 
 struct BuyCryptoViewOutput {
