@@ -75,10 +75,10 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                      matcherBalances,
                      sponsorBalance)
                 .map { assetBalance, matcher, sponsorBalance -> AssetBalance in
-                    let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[assetId] ?? 0
                     return AssetBalance(model: assetBalance,
-                                                        inOrderBalance: inOrderBalance,
-                                                        sponsoredAssetDetail: sponsorBalance)
+                                        inOrderBalance: inOrderBalance,
+                                        sponsoredAssetDetail: sponsorBalance)
                 }
         }
     }
@@ -236,7 +236,7 @@ private extension AssetBalance {
             AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0)
         }
         let accountBalance = AssetBalance(accountBalance: account,
-                                                          inOrderBalance: matcherBalances[WavesSDKConstants.wavesAssetId] ?? 0)
+                                          inOrderBalance: matcherBalances[WavesSDKConstants.wavesAssetId] ?? 0)
 
         var list = [AssetBalance]()
         list.append(contentsOf: assetsBalance)

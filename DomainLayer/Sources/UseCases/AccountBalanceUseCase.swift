@@ -17,7 +17,6 @@ fileprivate enum Constants {
 }
 
 final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
-    
     private let authorizationInteractor: AuthorizationUseCaseProtocol
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -36,13 +35,12 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
          assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol,
          transactionsInteractor: TransactionsUseCaseProtocol,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
-        
         self.authorizationInteractor = authorizationInteractor
         self.balanceRepositoryRemote = balanceRepositoryRemote
         self.environmentRepository = environmentRepository
         self.assetsInteractor = assetsInteractor
         self.assetsBalanceSettings = assetsBalanceSettings
-        self.leasingInteractor = transactionsInteractor        
+        leasingInteractor = transactionsInteractor
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
@@ -84,14 +82,13 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
 
 private extension AccountBalanceUseCase {
     private func assetBalances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[AssetBalance]> {
-        
         let serverEnviroment = serverEnvironmentUseCase
             .serverEnvironment()
-        
-        let balances = serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<[AssetBalance]> in
+
+        let balances = serverEnviroment.flatMap { [weak self] serverEnviroment -> Observable<[AssetBalance]> in
             guard let self = self else { return Observable.never() }
             return self.balanceRepositoryRemote.balances(by: serverEnviroment, wallet: wallet)
-        })
+        }
 
         let environment = environmentRepository
             .walletEnvironment()
@@ -116,16 +113,15 @@ private extension AccountBalanceUseCase {
 
     private func assetBalance(by wallet: DomainLayer.DTO.SignedWallet,
                               assetId: String) -> Observable<AssetBalance> {
-        
         let serverEnviroment = serverEnvironmentUseCase
             .serverEnvironment()
-        
-        return serverEnviroment.flatMap({ [weak self] serverEnviroment -> Observable<AssetBalance> in
+
+        return serverEnviroment.flatMap { [weak self] serverEnviroment -> Observable<AssetBalance> in
             guard let self = self else { return Observable.never() }
             return self.balanceRepositoryRemote.balance(by: serverEnviroment,
                                                         assetId: assetId,
                                                         wallet: wallet)
-        })
+        }
     }
 
     private func modifyBalances(by wallet: DomainLayer.DTO.SignedWallet,
@@ -173,7 +169,6 @@ private extension AccountBalanceUseCase {
         let assets: [String: Asset]
         let settings: [String: AssetBalanceSettings]
     }
-
 
     private func prepareMappingBalancesToSmartBalances(by wallet: DomainLayer.DTO.SignedWallet,
                                                        balances: [AssetBalance]) -> Observable<MappingQuery> {
