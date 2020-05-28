@@ -97,6 +97,9 @@ extension BuyCryptoInteractor: IOTransformer {
 
         StateTransform.fromCheckingExchangePairToCheckingError(stateTransformTrait: stateTransformTrait,
                                                                checkingExchangePairError: apiResponse.checkingExchangePairError)
+        
+        StateTransform.fromCheckingErrorToCheckingExchangePair(stateTransformTrait: stateTransformTrait,
+                                                               didTapRetry: input.didTapRetry)
 
         StateTransform.fromCheckingExchangeToReadyExchange(stateTransformTrait: stateTransformTrait,
                                                            didCheckedExchangePair: apiResponse.didCheckedExchangePair)
@@ -108,29 +111,8 @@ extension BuyCryptoInteractor: IOTransformer {
         
         // костылик, надо будет подумать как это нормально сделать
         // когда происходит прокручивание ассета число сбрасывать или оставлять это и делать пересчет?
-        let validationError = input.didChangeFiatAmount
-            .filteredByState(stateTransformTrait.readOnlyState) { state -> ExchangeInfo? in
-                switch state {
-                case .readyForExchange(let exchangeInfo): return exchangeInfo
-                default: return nil
-                }
-        }
-        .map { optionalFiatAmount, exchangeInfo -> Error? in
-            guard let fiatAmount = optionalFiatAmount, !fiatAmount.isEmpty else { return nil }
-            
-            guard  let fiatAmountNumber = Decimal(string: fiatAmount) else {
-                return FiatAmountValidationError.isNaN
-            }
-            
-            if fiatAmountNumber > exchangeInfo.maxLimit {
-                return FiatAmountValidationError.moreMax(max: exchangeInfo.maxLimit)
-            } else if fiatAmountNumber < exchangeInfo.minLimit {
-                return FiatAmountValidationError.lessMin(min: exchangeInfo.minLimit)
-            } else {
-                return nil
-            }
-        }
-        .asSignalIgnoringError()
+        let validationError = Helper.makeValidationFiatAmount(readOnlyState: stateTransformTrait.readOnlyState,
+                                                              didChangeFiatAmount: input.didChangeFiatAmount)
 
         // didSelectFiatItem и didSelectCryptoItem проходят транзитом через интерактор
         // в presenter необходимо изменять title(ы) на лейблах и кнопке
@@ -226,15 +208,33 @@ extension BuyCryptoInteractor {
         static func fromCheckingExchangePairToCheckingError(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                                             checkingExchangePairError: Observable<Error>) {
             let fromCheckingExchangePairToCheckingExchangePairError = checkingExchangePairError
-                .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> (String, String)? in
                     switch state {
-                    case .checkingExchangePair: return true
-                    default: return false
+                    case let .checkingExchangePair(senderAsset, recipientAsset): return (senderAsset, recipientAsset)
+                    default: return nil
                     }
                 }
-                .map { BuyCryptoState.checkingExchangePairError($0) }
+            .denestifyTuple()
+            .map { BuyCryptoState.checkingExchangePairError(error: $0, senderAsset: $1, recipientAsset: $2) }
 
             fromCheckingExchangePairToCheckingExchangePairError
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
+        }
+        
+        static func fromCheckingErrorToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                            didTapRetry: ControlEvent<Void>) {
+            let fromCheckingErrorToCheckingExchangePair = didTapRetry
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> (String, String)? in
+                    switch state {
+                    case let .checkingExchangePairError(_,  senderAsset, recipientAsset): return (senderAsset, recipientAsset)
+                    default: return nil
+                    }
+            }
+            .denestifyTuple()
+                .map { BuyCryptoState.checkingExchangePair(senderAsset: $1, recipientAsset: $2) }
+            
+            fromCheckingErrorToCheckingExchangePair
                 .bind(to: stateTransformTrait._state)
                 .disposed(by: stateTransformTrait.disposeBag)
         }
@@ -267,7 +267,7 @@ extension BuyCryptoInteractor {
                     default: return false
                     }
                 }
-                .map { BuyCryptoState.checkingExchangePair(senderAsset: $0.name, recipientAsset: $1.name) }
+                .map { BuyCryptoState.checkingExchangePair(senderAsset: $0.id, recipientAsset: $1.id) }
                 .share()
 
             fromACashAssetsLoadedToCheckingExchangePair

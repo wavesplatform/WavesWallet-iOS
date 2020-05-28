@@ -16,6 +16,7 @@ final class BuyCryptoPresenter: BuyCryptoPresentable {
     struct AssetViewModel {
         let id: String
         let name: String
+        let decimals: Int32
         let icon: AssetLogo.Icon
         let iconStyle: AssetLogo.Style
     }
@@ -58,7 +59,9 @@ extension BuyCryptoPresenter: IOTransformer {
             
             let iBuyCrypto = fiatAmount * Decimal(exchangeInfo.rate)
             
-            return Localizable.Waves.Buycrypto.iBuy("≈ \(iBuyCrypto) \(selectedCrypto.name)")
+            let iBuyCryptoMoney = Money(value: iBuyCrypto, Int(selectedCrypto.decimals))
+            
+            return Localizable.Waves.Buycrypto.iBuy("≈ \(iBuyCryptoMoney.displayText) \(selectedCrypto.name)")
         }
 
         let initialCryptoTitle = StateHelper.makeCryptoTitle(readOnlyState: input.readOnlyState,
@@ -126,8 +129,7 @@ extension BuyCryptoPresenter {
         static func makeShowSnackBarError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
             readOnlyState.compactMap { state -> String? in
                 switch state {
-                case .checkingExchangePairError(let error): return error.localizedDescription
-                case .calculationExchangeCostError(let error): return error.localizedDescription
+                case .checkingExchangePairError(let error, _, _): return error.localizedDescription
                 default: return nil
                 }
             }
@@ -200,14 +202,13 @@ extension BuyCryptoPresenter {
                 case .isLoading: return false
                 case .loadingError: return false
                 case .checkingExchangePairError: return false
-                case .calculationExchangeCostError: return false
                 default: return true
                 }
             }
             .compactMap { fiatAsset -> ExchangeMessage? in
                 guard let link = URL(string: "https://support.waves.exchange/") else { return nil }
                 let message: String
-                if fiatAsset.id == "USD" {
+                if fiatAsset.id == "AC_USD" {
                     message = Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n" +
                         Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
                         Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
@@ -240,21 +241,25 @@ extension BuyCryptoPresenter {
         static func makeAssetViewModel(from fiatAsset: BuyCryptoInteractor.FiatAsset) -> AssetViewModel {
             let icon = AssetLogo.Icon(assetId: fiatAsset.id,
                                       name: fiatAsset.name,
-                                      url: fiatAsset.assetInfo.iconUrls?.default,
+                                      url: fiatAsset.assetInfo?.iconUrls?.default,
                                       isSponsored: false,
                                       hasScript: false)
 
-            return AssetViewModel(id: fiatAsset.id, name: fiatAsset.name, icon: icon, iconStyle: .large)
+            return AssetViewModel(id: fiatAsset.id, name: fiatAsset.name, decimals: 0, icon: icon, iconStyle: .large)
         }
 
         static func makeAssetViewModel(from cryptoAsset: BuyCryptoInteractor.CryptoAsset) -> AssetViewModel {
             let icon = AssetLogo.Icon(assetId: cryptoAsset.name,
                                       name: cryptoAsset.id,
-                                      url: cryptoAsset.assetInfo.iconUrls?.default,
+                                      url: cryptoAsset.assetInfo?.iconUrls?.default,
                                       isSponsored: false,
                                       hasScript: false)
 
-            return AssetViewModel(id: cryptoAsset.id, name: cryptoAsset.name, icon: icon, iconStyle: .large)
+            return AssetViewModel(id: cryptoAsset.id,
+                                  name: cryptoAsset.name,
+                                  decimals: cryptoAsset.decimals,
+                                  icon: icon,
+                                  iconStyle: .large)
         }
     }
 }

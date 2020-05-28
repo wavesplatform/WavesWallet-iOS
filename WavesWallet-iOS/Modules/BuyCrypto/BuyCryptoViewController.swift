@@ -154,8 +154,13 @@ extension BuyCryptoViewController: BindableView {
             .disposed(by: disposeBag)
 
         input.showSnackBarError.emit(onNext: { [weak self] errorMessage in
-            self?.showErrorSnack(title: errorMessage,
-                                 didTap: { [weak self] in self?.didTapRetry.accept(Void()) })
+            guard let sself = self else { return }
+            var keySnackBar = ""
+            keySnackBar = sself.showErrorSnack(title: errorMessage,
+                                 didTap: { [weak self] in
+                                    self?.hideSnack(key: keySnackBar)
+                                    self?.didTapRetry.accept(Void())
+            })
         })
             .disposed(by: disposeBag)
 
@@ -195,17 +200,16 @@ extension BuyCryptoViewController: BindableView {
             .disposed(by: disposeBag)
     }
 
-    private func bindExchangeMessage(message _: BuyCryptoPresenter.ExchangeMessage) {
-//        infoTextView.layer.sublayers?.removeAll()
-//
-//        let attributeString = NSMutableAttributedString(string: message.message)
-//        attributeString.addAttribute(NSAttributedString.Key.foregroundColor,
-//                                     value: UIColor.basic500,
-//                                     range: attributeString.mutableString.range(of: message.message))
-//        attributeString.addAttribute(NSAttributedString.Key.link,
-//                                     value: message.link,
-//                                     range: attributeString.mutableString.range(of: message.linkWord))
-//        infoTextView.attributedText = attributeString
+    private func bindExchangeMessage(message: BuyCryptoPresenter.ExchangeMessage) {
+        let attributeString = NSMutableAttributedString(string: message.message)
+        attributeString.addAttribute(NSAttributedString.Key.foregroundColor,
+                                     value: UIColor.basic500,
+                                     range: attributeString.mutableString.range(of: message.message))
+        attributeString.addAttribute(NSAttributedString.Key.link,
+                                     value: message.link,
+                                     range: attributeString.mutableString.range(of: message.linkWord))
+        infoTextView.attributedText = attributeString
+        infoTextView.layoutIfNeeded()
 
 //        let infoTextViewBorder = CAShapeLayer()
 //        infoTextViewBorder.strokeColor = UIColor.basic300.cgColor

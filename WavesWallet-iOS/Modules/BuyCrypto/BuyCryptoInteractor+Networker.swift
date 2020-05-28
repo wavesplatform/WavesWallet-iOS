@@ -50,9 +50,34 @@ extension BuyCryptoInteractor {
         }
 
         func getAssets(completion: @escaping (Result<BuyCryptoInteractor.AssetsInfo, Error>) -> Void) {
-            Observable.zip(authorizationService.authorizedWallet(), environmentRepository.walletEnvironment())
-                .subscribe(onNext: { [weak self] signedWallet, walletEnvironment in
-                    self?.getACashAssets(signedWallet: signedWallet, walletEnvironment: walletEnvironment, completion: completion)
+            Observable.zip(authorizationService.authorizedWallet(),
+                           environmentRepository.walletEnvironment(),
+                           serverEnvironmentRepository.serverEnvironment())
+                .flatMap { [weak self] signedWallet, walletEnvironment, serverEnvironment
+                    -> Observable<(SignedWallet, WalletEnvironment, ServerEnvironment, WEOAuthTokenDTO)> in
+                    
+                    guard let sself = self else { return Observable.never() }
+                    return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
+                        .map { (signedWallet, walletEnvironment, serverEnvironment, $0) }
+                }
+                .flatMap { [weak self] signedWallet, walletEnvironment, serverEnvironment, token
+                    -> Observable<(SignedWallet, WalletEnvironment, [GatewaysAssetBinding])> in
+                    
+                    guard let sself = self else { return Observable.never() }
+                    let request = AssetBindingsRequest(assetType: nil,
+                                                       direction: .deposit,
+                                                       includesExternalAssetTicker: nil,
+                                                       includesWavesAsset: nil)
+                    return sself.gatewaysWavesRepository.assetBindingsRequest(serverEnvironment: serverEnvironment,
+                                                                       oAToken: token,
+                                                                       request: request)
+                        .map { (signedWallet, walletEnvironment, $0) }
+                }
+                .subscribe(onNext: { [weak self] signedWallet, walletEnvironment, gatewayAssetBindings in
+                    self?.getACashAssets(signedWallet: signedWallet,
+                                         walletEnvironment: walletEnvironment,
+                                         gatewayAssetBindings: gatewayAssetBindings,
+                                         completion: completion)
                 },
                            onError: { error in completion(.failure(error)) })
                 .disposed(by: disposeBag)
@@ -60,12 +85,13 @@ extension BuyCryptoInteractor {
 
         private func getACashAssets(signedWallet: SignedWallet,
                                     walletEnvironment: WalletEnvironment,
+                                    gatewayAssetBindings: [GatewaysAssetBinding],
                                     completion: @escaping (Result<AssetsInfo, Error>) -> Void) {
             let completionAdapter: (Result<[ACashAsset], Error>) -> Void = { result in
                 switch result {
                 case let .success(assets):
                     let walletEnvironmentAssets = walletEnvironment.generalAssets + (walletEnvironment.assets ?? [])
-
+                    
                     let fiatAssets = assets.filter { $0.kind == .fiat }
                         .compactMap { asset -> FiatAsset? in
                             if let assetInfo = walletEnvironmentAssets.first(where: { $0.assetId == asset.id }) {
@@ -74,19 +100,30 @@ extension BuyCryptoInteractor {
                                              decimals: asset.decimals,
                                              assetInfo: assetInfo)
                             } else {
-                                return nil
+                                return .init(name: asset.name,
+                                             id: asset.id,
+                                             decimals: asset.decimals,
+                                             assetInfo: nil)
                             }
                         }
 
                     let cryptoAssets = assets.filter { $0.kind == .crypto }
                         .compactMap { asset -> CryptoAsset? in
-                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.assetId == asset.id }) {
-                                return .init(name: asset.name,
-                                             id: asset.id,
-                                             decimals: asset.decimals,
-                                             assetInfo: assetInfo)
+                            if let assetBinding = gatewayAssetBindings.first(where: {
+                                $0.senderAsset.asset == asset.id.replacingOccurrences(of: "USD", with: "AC_USD")
+                            }),
+                                let assetInfo = walletEnvironmentAssets.first(where: {
+                                    $0.assetId == assetBinding.recipientAsset.asset
+                                }) {
+                                    return .init(name: asset.name,
+                                                 id: asset.id.replacingOccurrences(of: "USD", with: "AC_USD"),
+                                                 decimals: asset.decimals,
+                                                 assetInfo: assetInfo)
                             } else {
-                                return nil
+                                return .init(name: asset.name,
+                                             id: asset.id.replacingOccurrences(of: "USD", with: "AC_USD"),
+                                             decimals: asset.decimals,
+                                             assetInfo: nil)
                             }
                         }
 
@@ -173,7 +210,8 @@ extension BuyCryptoInteractor {
                 case let .success(limitRate):
                     let min: Decimal
                     let max: Decimal
-                    if recipientAsset != "USDN" {
+                    // ac_usd === usnd
+                    if recipientAsset != "AC_USD" {
                         min = 100
                         max = 1000
                     } else {

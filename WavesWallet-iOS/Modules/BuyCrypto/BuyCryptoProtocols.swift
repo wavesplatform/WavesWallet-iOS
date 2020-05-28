@@ -36,16 +36,10 @@ enum BuyCryptoState {
     case checkingExchangePair(senderAsset: String, recipientAsset: String)
     
     /// Состояние ошибки проверки обменной пары (отображать ошибку)
-    case checkingExchangePairError(Error)
+    case checkingExchangePairError(error: Error, senderAsset: String, recipientAsset: String)
     
     ///
     case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
-    
-    ///
-    case calculationExchangeCostError(Error)
-    
-    ///
-    case calculatedExchangeCost
     
     ///
     case exchangeInProgress
@@ -75,7 +69,7 @@ extension BuyCryptoInteractor {
         let id: String
         let decimals: Int32
         
-        let assetInfo: WalletEnvironment.AssetInfo
+        let assetInfo: WalletEnvironment.AssetInfo?
     }
     
     struct FiatAsset {
@@ -83,7 +77,7 @@ extension BuyCryptoInteractor {
         let id: String
         let decimals: Int32
         
-        let assetInfo: WalletEnvironment.AssetInfo
+        let assetInfo: WalletEnvironment.AssetInfo?
     }
 }
 
