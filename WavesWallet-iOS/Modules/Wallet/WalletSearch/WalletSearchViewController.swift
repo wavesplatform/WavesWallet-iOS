@@ -38,8 +38,7 @@ final class WalletSearchViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var textFieldSearch: UITextField!
     @IBOutlet private weak var viewContainer: UIView!
-    @IBOutlet private weak var buttonCancel: UIButton!
-    @IBOutlet private weak var buttonCancelWidth: NSLayoutConstraint!
+    @IBOutlet private weak var buttonCancel: UIButton!    
     @IBOutlet private weak var buttonCancelPosition: NSLayoutConstraint!
     @IBOutlet private weak var searchBarContainer: UIView!
 
@@ -72,7 +71,7 @@ final class WalletSearchViewController: UIViewController {
     }
 
     func dismiss() {
-        buttonCancelPosition.constant = -buttonCancelWidth.constant
+        buttonCancelPosition.constant = -buttonCancel.frame.width
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.viewContainer.frame.origin.y = self.startPosition
             self.view.layoutIfNeeded()
@@ -87,7 +86,7 @@ final class WalletSearchViewController: UIViewController {
 
         let startOffset = viewContainer.frame.origin.y
         viewContainer.frame.origin.y = startPosition
-        buttonCancelPosition.constant = 0
+        buttonCancelPosition.constant = 16
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.view.alpha = 1
             self.view.layoutIfNeeded()
@@ -155,8 +154,22 @@ private extension WalletSearchViewController {
         buttonCancel.setTitle(buttonTitle, for: .normal)
 
         guard let font = buttonCancel.titleLabel?.font else { return }
-        buttonCancelWidth.constant = buttonTitle.maxWidth(font: font) + Constants.deltaButtonWidth
-        buttonCancelPosition.constant = -buttonCancelWidth.constant
+        
+        let paragraph = NSMutableParagraphStyle()
+        
+        paragraph.alignment = .center
+        paragraph.lineBreakMode = .byTruncatingMiddle
+
+        let attributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.paragraphStyle: paragraph]
+
+        let attrString = NSMutableAttributedString(string: buttonTitle, attributes: attributes)
+        let size = attrString.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude,
+                                                        height: CGFloat.greatestFiniteMagnitude),
+                                           options: [.usesDeviceMetrics, .usesLineFragmentOrigin],
+                                           context: nil)
+        
+        buttonCancelPosition.constant = -size.width
     }
 
     func setupSearchBar() {
