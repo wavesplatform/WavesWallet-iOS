@@ -131,8 +131,8 @@ extension BuyCryptoInteractor {
                             (signedWallet, gatewayTransferBinding)
                         }
                 }
-                .catchError {
-                    Observable.error($0)
+                .catchError { error in
+                    Observable.error(error)
                 }
                 .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding in
                     self?.getExchangeLimits(signedWallet: signedWallet,
@@ -141,7 +141,7 @@ extension BuyCryptoInteractor {
                                             recipientAsset: recipientAsset,
                                             completion: { [weak self] result in
                                                 switch result {
-                                                case .success((let min, let max)):
+                                                case let .success((min, max)):
                                                     self?.getExchangeRates(signedWallet: signedWallet,
                                                                            senderAsset: senderAsset,
                                                                            recipientAsset: recipientAsset,
@@ -154,7 +154,7 @@ extension BuyCryptoInteractor {
                     })
 
                 },
-                           onError: { _ in })
+                           onError: { error in completion(.failure(error)) })
                 .disposed(by: disposeBag)
         }
 
