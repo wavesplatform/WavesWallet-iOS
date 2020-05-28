@@ -38,7 +38,7 @@ final class WalletSearchViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var textFieldSearch: UITextField!
     @IBOutlet private weak var viewContainer: UIView!
-    @IBOutlet private weak var buttonCancel: UIButton!    
+    @IBOutlet private weak var buttonCancel: UIButton!  
     @IBOutlet private weak var buttonCancelPosition: NSLayoutConstraint!
     @IBOutlet private weak var searchBarContainer: UIView!
 
