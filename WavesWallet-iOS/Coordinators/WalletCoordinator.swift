@@ -143,20 +143,7 @@ extension WalletCoordinator: WalletModuleOutput {
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
     
-    func openWithdraw(neutrinoAsset: Asset) {
-        let coordinator = StakingTransferCoordinator(router: self.navigationRouter, kind: .withdraw)
-        coordinator.delegate = self
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
-        
-        UseCasesFactory
-        .instance
-        .analyticManager
-            .trackEvent(.staking(.mainWithdrawTap))
-    }
-    
     func openStakingFaq(fromLanding: Bool) {
-        
         
         if fromLanding {
             UseCasesFactory
@@ -170,7 +157,7 @@ extension WalletCoordinator: WalletModuleOutput {
             .trackEvent(.staking(.mainFAQTap))
         }
         
-    BrowserViewController.openURL(URL(string: UIGlobalConstants.URL.stakingFaq)!)
+        BrowserViewController.openURL(URL(string: UIGlobalConstants.URL.stakingFaq)!)
     }
 
     func openActionMenu() {

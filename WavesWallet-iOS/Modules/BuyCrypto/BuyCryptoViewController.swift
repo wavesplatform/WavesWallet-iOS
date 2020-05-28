@@ -59,7 +59,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         do {
             createBackButton()
             setupBigNavigationBar()
-            
+
             navigationItem.largeTitleDisplayMode = .never
 
             view.backgroundColor = .basic50
@@ -70,17 +70,11 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
             fiatSeparatorImageView.contentMode = .scaleAspectFill
             fiatSeparatorImageView.image = Images.separateLineWithArrow.image
         }
-        
+
         setupFiatCollectionView()
         setupCryptoCollectionView()
         fiatAmountTextField.setPlaceholder(Localizable.Waves.Buycrypto.amountPlaceholder)
         fiatAmountTextField.text.bind(to: didChangeFiatAmount).disposed(by: disposeBag)
-//        fiatAmountTextField
-//            .text
-//            .subscribe(onNext: { [weak self] in
-//                self?.didChangeFiatAmount.accept($0)
-//            })
-//            .disposed(by: disposeBag)
         setupInfoTextView()
     }
 
@@ -109,14 +103,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     }
 
     private func setupInfoTextView() {
-        let infoTextViewBorder = CAShapeLayer()
-        infoTextViewBorder.strokeColor = UIColor.basic300.cgColor
-        infoTextViewBorder.lineDashPattern = [4, 4]
-        infoTextViewBorder.frame = infoTextView.bounds
-        infoTextViewBorder.fillColor = nil
-        infoTextViewBorder.path = UIBezierPath(rect: infoTextView.bounds).cgPath
-        infoTextView.layer.addSublayer(infoTextViewBorder)
-
+        infoTextView.text = nil
         infoTextView.isEditable = false
         infoTextView.isSelectable = false
         infoTextView.isScrollEnabled = false
@@ -161,6 +148,17 @@ extension BuyCryptoViewController: BindableView {
             }
         }).disposed(by: disposeBag)
 
+        input.initialError.emit(onNext: { errorMessage in
+            // это терминальная ошибка, тут нужно отобразить zero screen с кнопкой
+        })
+            .disposed(by: disposeBag)
+
+        input.showSnackBarError.emit(onNext: { [weak self] errorMessage in
+            self?.showErrorSnack(title: errorMessage,
+                                 didTap: { [weak self] in self?.didTapRetry.accept(Void()) })
+        })
+            .disposed(by: disposeBag)
+
         input.fiatItems.drive(onNext: { [weak self] assets in
             self?.fiatAssets = assets
             self?.fiatCollectionView.reloadData()
@@ -187,10 +185,35 @@ extension BuyCryptoViewController: BindableView {
             let buttonModel = BlueButton.Model(title: titledBool.title, status: buttonStatus)
             self?.buyButton.update(with: buttonModel)
         }).disposed(by: disposeBag)
-        
+
         input.validationError.emit(onNext: { [weak self] errorMessage in
             self?.fiatAmountTextField.setError(errorMessage)
         }).disposed(by: disposeBag)
+
+        input.detailsInfo
+            .drive(onNext: { [weak self] in self?.bindExchangeMessage(message: $0) })
+            .disposed(by: disposeBag)
+    }
+
+    private func bindExchangeMessage(message _: BuyCryptoPresenter.ExchangeMessage) {
+//        infoTextView.layer.sublayers?.removeAll()
+//
+//        let attributeString = NSMutableAttributedString(string: message.message)
+//        attributeString.addAttribute(NSAttributedString.Key.foregroundColor,
+//                                     value: UIColor.basic500,
+//                                     range: attributeString.mutableString.range(of: message.message))
+//        attributeString.addAttribute(NSAttributedString.Key.link,
+//                                     value: message.link,
+//                                     range: attributeString.mutableString.range(of: message.linkWord))
+//        infoTextView.attributedText = attributeString
+
+//        let infoTextViewBorder = CAShapeLayer()
+//        infoTextViewBorder.strokeColor = UIColor.basic300.cgColor
+//        infoTextViewBorder.lineDashPattern = [4, 4]
+//        infoTextViewBorder.frame = infoTextView.bounds
+//        infoTextViewBorder.fillColor = nil
+//        infoTextViewBorder.path = UIBezierPath(rect: infoTextView.bounds).cgPath
+//        infoTextView.layer.addSublayer(infoTextViewBorder)
     }
 }
 

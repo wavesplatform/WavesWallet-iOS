@@ -129,7 +129,9 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
                         response.transferBinding.gatewaysTransferBinding
                     }
             }
-            .catchError { Observable.error(NetworkError.error(by: $0)) }
+            .catchError {
+                Observable.error(NetworkError.error(by: $0))
+        }
     }
 
     func calculateFee(amount: Int64, direction: AssetBindingsRequest.Direction, assetBinding: GatewaysAssetBinding) -> Money {

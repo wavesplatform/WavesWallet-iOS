@@ -68,7 +68,7 @@ extension BuyCryptoInteractor {
 
                     let fiatAssets = assets.filter { $0.kind == .fiat }
                         .compactMap { asset -> FiatAsset? in
-                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.wavesId == asset.id }) {
+                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.assetId == asset.id }) {
                                 return .init(name: asset.name,
                                              id: asset.id,
                                              decimals: asset.decimals,
@@ -80,7 +80,7 @@ extension BuyCryptoInteractor {
 
                     let cryptoAssets = assets.filter { $0.kind == .crypto }
                         .compactMap { asset -> CryptoAsset? in
-                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.gatewayId == asset.id }) {
+                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.assetId == asset.id }) {
                                 return .init(name: asset.name,
                                              id: asset.id,
                                              decimals: asset.decimals,

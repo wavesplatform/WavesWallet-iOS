@@ -34,7 +34,8 @@ extension BuyCryptoPresenter: IOTransformer {
         let contentVisible = StateHelper.makeContentVisible(readOnlyState: input.readOnlyState)
         let isLoadingIndicator = StateHelper.makeLoadingIndicator(readOnlyState: input.readOnlyState)
 
-        let showError = StateHelper.makeShowError(readOnlyState: input.readOnlyState)
+        let showInitialError = StateHelper.makeShowInitialError(readOnlyState: input.readOnlyState)
+        let showSnackBarError = StateHelper.makeShowSnackBarError(readOnlyState: input.readOnlyState)
         let validationError = input.validationError.map { $0?.localizedDescription }
 
         let fiatTitle = StateHelper.makeFiatTitle(readOnlyState: input.readOnlyState, didSelectFiatItem: input.didSelectFiatItem)
@@ -76,7 +77,8 @@ extension BuyCryptoPresenter: IOTransformer {
 
         return BuyCryptoPresenterOutput(contentVisible: contentVisible,
                                         isLoadingIndicator: isLoadingIndicator,
-                                        error: showError,
+                                        initialError: showInitialError,
+                                        showSnackBarError: showSnackBarError,
                                         validationError: validationError,
                                         fiatTitle: fiatTitle,
                                         fiatItems: fiatAssets,
@@ -111,10 +113,21 @@ extension BuyCryptoPresenter {
             .asDriver(onErrorJustReturn: false)
         }
 
-        static func makeShowError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
+        static func makeShowInitialError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
             readOnlyState.compactMap { state -> String? in
                 switch state {
                 case let .loadingError(errorMessage): return errorMessage
+                default: return nil
+                }
+            }
+            .asSignalIgnoringError()
+        }
+        
+        static func makeShowSnackBarError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
+            readOnlyState.compactMap { state -> String? in
+                switch state {
+                case .checkingExchangePairError(let error): return error.localizedDescription
+                case .calculationExchangeCostError(let error): return error.localizedDescription
                 default: return nil
                 }
             }

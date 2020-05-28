@@ -144,8 +144,11 @@ struct BuyCryptoPresenterOutput {
     /// Драйвер отображения индикатора загрузки
     let isLoadingIndicator: Driver<Bool>
     
-    /// Сигнал отображения ошибки
-    let error: Signal<String>
+    /// Сигнал отображения фатальной ошибки
+    let initialError: Signal<String>
+    
+    /// Сигнал отображения не фатальных ошибок (в снекбаре)
+    let showSnackBarError: Signal<String>
     
     /// Сигнал отображения ошибки валидации
     let validationError: Signal<String?>
