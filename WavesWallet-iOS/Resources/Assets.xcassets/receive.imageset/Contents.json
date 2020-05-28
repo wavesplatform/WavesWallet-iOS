@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "receive.pdf",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "receive.pdf"
     }
   ],
   "info" : {

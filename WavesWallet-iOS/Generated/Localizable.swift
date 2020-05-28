@@ -3819,6 +3819,21 @@ internal enum Localizable {
 
     internal enum Wallet {
 
+      internal enum Bar {
+
+        internal enum Button {
+          /// Card
+          internal static var card: String { Localizable.tr("Waves", "wallet.bar.button.card") }
+          internal static var cardKey: String { "wallet.bar.button.card" }
+          /// Receive
+          internal static var receive: String { Localizable.tr("Waves", "wallet.bar.button.receive") }
+          internal static var receiveKey: String { "wallet.bar.button.receive" }
+          /// Send
+          internal static var send: String { Localizable.tr("Waves", "wallet.bar.button.send") }
+          internal static var sendKey: String { "wallet.bar.button.send" }
+        }
+      }
+
       internal enum Button {
         /// Start Lease
         internal static var startLease: String { Localizable.tr("Waves", "wallet.button.startLease") }

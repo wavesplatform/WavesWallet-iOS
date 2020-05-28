@@ -825,6 +825,10 @@
 "trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
 "trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";
 
+"wallet.bar.button.receive" = "Receive";
+"wallet.bar.button.send" = "Send";
+"wallet.bar.button.card" = "Card";
+
 "buyCrypto.amountPlaceholder" = "Enter amount";
 "buyCrypto.iSpent" = "I spent %@";
 "buyCrypto.iBuy" = "I buy %@";
@@ -839,3 +843,4 @@
 "buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "After a successful payment on the partners' website, %@ will be credited to your account within a few minutes.";
 "buyCrypto.messageInfo.ifYouHaveProblems" = "If you have problems with your payment, please contact support service.";
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "support";
+
