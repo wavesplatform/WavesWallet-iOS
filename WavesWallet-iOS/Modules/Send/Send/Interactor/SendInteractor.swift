@@ -263,13 +263,13 @@ extension SendInteractor {
                                     let fee = self.gatewaysWavesRepository
                                         .calculateFee(amount: amount.amount, direction: .withdraw,
                                                       assetBinding: assetBinding)
-
+                                    
                                     let info = Send.DTO.GatewayInfo(assetName: asset.name,
                                                                     assetShortName: asset.ticker ?? asset.name,
                                                                     minAmount: minAmount,
                                                                     maxAmount: maxAmount,
                                                                     fee: fee,
-                                                                    address: address,
+                                                                    address: transferBinding.addresses.first ?? "",
                                                                     attachment: "")
                                     return ResponseType(output: info,
                                                         error: nil)
