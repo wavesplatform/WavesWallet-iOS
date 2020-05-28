@@ -39,9 +39,32 @@ extension BuyCryptoPresenter: IOTransformer {
 
         let fiatTitle = StateHelper.makeFiatTitle(readOnlyState: input.readOnlyState, didSelectFiatItem: input.didSelectFiatItem)
         let fiatAssets = StateHelper.makeFiatAssets(readOnlyState: input.readOnlyState)
+        
+        let cryptoTitleWithAmount = Observable.combineLatest(input.didChangeFiatAmount.asObservable(),
+                                                             input.didSelectCryptoItem.asObservable())
+            .map { ($0, $1) }
+            .filteredByState(input.readOnlyState) { state -> BuyCryptoInteractor.ExchangeInfo? in
+                switch state {
+                case .readyForExchange(let exchangeInfo): return exchangeInfo
+                default: return nil
+                }
+        }
+        .compactMap { args, exchangeInfo -> String? in
+            let (fiatAmountOptionalString, selectedCrypto) = args
+            guard let fiatAmountString = fiatAmountOptionalString, let fiatAmount = Decimal(string: fiatAmountString) else {
+                return nil
+            }
+            
+            let iBuyCrypto = fiatAmount * Decimal(exchangeInfo.rate)
+            
+            return Localizable.Waves.Buycrypto.iBuy("≈ \(iBuyCrypto) \(selectedCrypto.name)")
+        }
 
-        let cryptoTitle = StateHelper.makeCryptoTitle(readOnlyState: input.readOnlyState,
-                                                      didSelectCryptoItem: input.didSelectCryptoItem)
+        let initialCryptoTitle = StateHelper.makeCryptoTitle(readOnlyState: input.readOnlyState,
+                                                             didSelectCryptoItem: input.didSelectCryptoItem)
+        
+        let cryptoTitle = Observable.merge(cryptoTitleWithAmount, initialCryptoTitle.asObservable())
+            .asDriver(onErrorJustReturn: Localizable.Waves.Buycrypto.iBuy(""))
 
         let cryptoAssets = StateHelper.makeCryptoAssets(readOnlyState: input.readOnlyState)
 

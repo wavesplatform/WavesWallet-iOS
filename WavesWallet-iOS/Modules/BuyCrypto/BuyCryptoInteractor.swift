@@ -68,28 +68,6 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
 // MARK: - IOTransformer
 
 extension BuyCryptoInteractor: IOTransformer {
-    enum FiatAmountValidationError: LocalizedError {
-        case isNaN
-        case lessMin(min: Decimal)
-        case moreMax(max: Decimal)
-        
-        var errorDescription: String? {
-            switch self {
-            case .isNaN: return "isNaN"
-            case .lessMin(let min): return "lessMin \(min)"
-            case .moreMax(let max): return "moreMax \(max)"
-            }
-        }
-        
-        var localizedDescription: String {
-            switch self {
-            case .isNaN: return "isNaN"
-            case .lessMin(let min): return "lessMin \(min)"
-            case .moreMax(let max): return "moreMax \(max)"
-            }
-        }
-    }
-    
     func transform(_ input: BuyCryptoViewOutput) -> BuyCryptoInteractorOutput {
         input.viewWillAppear
             .take(1)
@@ -129,12 +107,12 @@ extension BuyCryptoInteractor: IOTransformer {
                                                                  checkingPairAction: checkingExchangePairEntryAction)
         
         // костылик, надо будет подумать как это нормально сделать
-        let validationError = Observable.combineLatest(input.didChangeFiatAmount.asObservable(),
-                                                       apiResponse.$didCheckedExchangePair)
-            .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+        // когда происходит прокручивание ассета число сбрасывать или оставлять это и делать пересчет?
+        let validationError = input.didChangeFiatAmount
+            .filteredByState(stateTransformTrait.readOnlyState) { state -> ExchangeInfo? in
                 switch state {
-                case .readyForExchange: return true
-                default: return false
+                case .readyForExchange(let exchangeInfo): return exchangeInfo
+                default: return nil
                 }
         }
         .map { optionalFiatAmount, exchangeInfo -> Error? in
@@ -146,8 +124,8 @@ extension BuyCryptoInteractor: IOTransformer {
             
             if fiatAmountNumber > exchangeInfo.maxLimit {
                 return FiatAmountValidationError.moreMax(max: exchangeInfo.maxLimit)
-            } else if fiatAmountNumber > exchangeInfo.minLimit {
-                return FiatAmountValidationError.lessMin(min: exchangeInfo.maxLimit)
+            } else if fiatAmountNumber < exchangeInfo.minLimit {
+                return FiatAmountValidationError.lessMin(min: exchangeInfo.minLimit)
             } else {
                 return nil
             }
@@ -159,6 +137,7 @@ extension BuyCryptoInteractor: IOTransformer {
         return BuyCryptoInteractorOutput(readOnlyState: stateTransformTrait.readOnlyState,
                                          didSelectFiatItem: input.didSelectFiatItem,
                                          didSelectCryptoItem: input.didSelectCryptoItem,
+                                         didChangeFiatAmount: input.didChangeFiatAmount,
                                          validationError: validationError)
     }
 }
@@ -303,6 +282,37 @@ extension BuyCryptoInteractor {
                     }
                 })
                 .disposed(by: stateTransformTrait.disposeBag)
+        }
+    }
+}
+
+extension BuyCryptoInteractor {
+    private enum Helper {
+        static func makeValidationFiatAmount(readOnlyState: Observable<BuyCryptoState>,
+                                             didChangeFiatAmount: ControlEvent<String?>) -> Signal<Error?> {
+            didChangeFiatAmount
+                .filteredByState(readOnlyState) { state -> ExchangeInfo? in
+                    switch state {
+                    case .readyForExchange(let exchangeInfo): return exchangeInfo
+                    default: return nil
+                    }
+            }
+            .map { optionalFiatAmount, exchangeInfo -> Error? in
+                guard let fiatAmount = optionalFiatAmount, !fiatAmount.isEmpty else { return nil }
+                
+                guard  let fiatAmountNumber = Decimal(string: fiatAmount) else {
+                    return FiatAmountValidationError.isNaN
+                }
+                
+                if fiatAmountNumber > exchangeInfo.maxLimit {
+                    return FiatAmountValidationError.moreMax(max: exchangeInfo.maxLimit)
+                } else if fiatAmountNumber < exchangeInfo.minLimit {
+                    return FiatAmountValidationError.lessMin(min: exchangeInfo.minLimit)
+                } else {
+                    return nil
+                }
+            }
+            .asSignalIgnoringError()
         }
     }
 }

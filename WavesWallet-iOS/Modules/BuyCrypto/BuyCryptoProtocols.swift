@@ -87,6 +87,30 @@ extension BuyCryptoInteractor {
     }
 }
 
+extension BuyCryptoInteractor {
+    enum FiatAmountValidationError: LocalizedError {
+        case isNaN
+        case lessMin(min: Decimal)
+        case moreMax(max: Decimal)
+        
+        var errorDescription: String? {
+            switch self {
+            case .isNaN: return "isNaN"
+            case .lessMin(let min): return "lessMin \(min)"
+            case .moreMax(let max): return "moreMax \(max)"
+            }
+        }
+        
+        var localizedDescription: String {
+            switch self {
+            case .isNaN: return "isNaN"
+            case .lessMin(let min): return "lessMin \(min)"
+            case .moreMax(let max): return "moreMax \(max)"
+            }
+        }
+    }
+}
+
 // MARK: - ViewController
 
 protocol BuyCryptoViewControllable {}
@@ -105,6 +129,9 @@ struct BuyCryptoInteractorOutput {
 
     /// Выбранный элемент крипты (usdn, btc и тд)
     let didSelectCryptoItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>
+    
+    /// Сигнал изменения поля ввода количества валюты реального мира (необходимо чтобы в состоянии availableExchange посчитать сколько пользователь получит)
+    let didChangeFiatAmount: ControlEvent<String?>
     
     /// Сигнал ошибки валидации
     let validationError: Signal<Error?>
