@@ -61,7 +61,11 @@ final class TokenBurnLoadingViewController: UIViewController {
                          isFullBurned: isFullBurned,
                          delegate: input.delegate,
                          amount: input.amount)
-        navigationController?.pushViewController(vc, animated: true)
+        
+        //TODO: Move to coordinator
+       var viewControllers = navigationController?.viewControllers.filter { $0 != self } ?? []
+       viewControllers.append(vc)
+       navigationController?.setViewControllers(viewControllers, animated: true)    
     }
     
     override func viewWillAppear(_ animated: Bool) {

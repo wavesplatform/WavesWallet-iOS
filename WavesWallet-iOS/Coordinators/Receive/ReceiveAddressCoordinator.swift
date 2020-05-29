@@ -31,7 +31,10 @@ final class ReceiveAddressCoordinator: Coordinator {
                 
         let vc = ReceiveAddressModuleBuilder(output: self)
             .build(input: generateType.viewModel)
-        navigationRouter.pushViewController(vc, animated: true)
+                
+        var viewControllers = navigationRouter.navigationController.viewControllers.filter { ($0 is ReceiveGenerateAddressViewController) == false }
+        viewControllers.append(vc)
+        navigationRouter.navigationController.setViewControllers(viewControllers, animated: true)
     }
 }
 
