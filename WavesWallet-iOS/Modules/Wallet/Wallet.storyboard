@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -31,10 +31,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Of-pw-U83">
-                                                <rect key="frame" x="16" y="10" width="322" height="36"/>
+                                                <rect key="frame" x="16" y="10" width="313" height="36"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ij9-gv-wQK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="322" height="36"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="313" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
@@ -53,11 +53,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4j-Pt-ak1">
-                                                <rect key="frame" x="354" y="11.5" width="60" height="33"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="tdQ-bL-KaQ"/>
-                                                </constraints>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4j-Pt-ak1">
+                                                <rect key="frame" x="345" y="11.5" width="53" height="33"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Cancel">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,8 +69,9 @@
                                             <constraint firstAttribute="height" constant="56" id="0zm-Fp-iPa"/>
                                             <constraint firstItem="6Of-pw-U83" firstAttribute="leading" secondItem="blf-US-DTN" secondAttribute="leading" constant="16" id="Smy-T9-ZrR"/>
                                             <constraint firstItem="t4j-Pt-ak1" firstAttribute="centerY" secondItem="ij9-gv-wQK" secondAttribute="centerY" id="TcF-Ov-rcB"/>
-                                            <constraint firstAttribute="trailing" secondItem="t4j-Pt-ak1" secondAttribute="trailing" id="Vsq-6n-J5f"/>
+                                            <constraint firstAttribute="trailing" secondItem="t4j-Pt-ak1" secondAttribute="trailing" constant="16" id="Vsq-6n-J5f"/>
                                             <constraint firstItem="t4j-Pt-ak1" firstAttribute="leading" secondItem="6Of-pw-U83" secondAttribute="trailing" constant="16" id="e6L-Wy-9Jp"/>
+                                            <constraint firstItem="t4j-Pt-ak1" firstAttribute="height" secondItem="6Of-pw-U83" secondAttribute="height" multiplier="0.916667" id="lXy-Gg-ZS3"/>
                                             <constraint firstItem="6Of-pw-U83" firstAttribute="top" secondItem="blf-US-DTN" secondAttribute="top" constant="10" id="qdr-ad-trz"/>
                                         </constraints>
                                     </view>
@@ -102,7 +100,6 @@
                     <connections>
                         <outlet property="buttonCancel" destination="t4j-Pt-ak1" id="g5m-Ah-kbW"/>
                         <outlet property="buttonCancelPosition" destination="Vsq-6n-J5f" id="Di4-Fc-MWn"/>
-                        <outlet property="buttonCancelWidth" destination="tdQ-bL-KaQ" id="srZ-jg-LYu"/>
                         <outlet property="searchBarContainer" destination="blf-US-DTN" id="Plw-ci-rwF"/>
                         <outlet property="tableView" destination="znO-Rw-fZP" id="YIJ-Tv-MpJ"/>
                         <outlet property="textFieldSearch" destination="ij9-gv-wQK" id="Gnu-vU-QyO"/>
