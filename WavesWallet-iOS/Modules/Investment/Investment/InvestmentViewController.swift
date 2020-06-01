@@ -31,15 +31,6 @@ final class InvestmentViewController: UIViewController {
                                                 style: .plain,
                                                 target: nil,
                                                 action: nil)
-    private let buttonHistory = UIBarButtonItem(image: Images.history21122.image,
-                                                style: .plain,
-                                                target: nil,
-                                                action: nil)
-
-    private let buttonActionMenu = UIBarButtonItem(image: Images.sendReceive22.image,
-                                                   style: .plain,
-                                                   target: nil,
-                                                   action: nil)
 
     private let sendEvent: PublishRelay<InvestmentEvent> = PublishRelay<InvestmentEvent>()
 
@@ -307,7 +298,6 @@ private extension InvestmentViewController {
 
     func setupButons() {
         navigationItem.leftBarButtonItems = [buttonAddress]
-        navigationItem.rightBarButtonItems = [buttonHistory, buttonActionMenu]
     }
 
     func setupTableView() {

@@ -77,7 +77,7 @@ extension WalletSearch.ViewModel.Section {
                 let asset = smartAsset.asset
                 let searchText = searchString.lowercased()
 
-                return asset.displayName.lowercased().contains(searchText) ||
+                return asset.name.lowercased().contains(searchText) ||
                     asset.id.lowercased() == searchText.replacingOccurrences(of: " ", with: "") ||
                     asset.ticker?.lowercased().contains(searchText) == true
             }

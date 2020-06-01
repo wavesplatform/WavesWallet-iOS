@@ -203,7 +203,7 @@ private extension InvestmentInteractor {
                     .reduce(0) { $0 + $1.balance.money.amount }
 
                 let balance = leasing.balance
-                let totalMoney: Money = .init(balance.totalBalance,
+                let totalMoney: Money = .init(balance.totalBalance - balance.inOrderBalance,
                                               precision)
                 let avaliableMoney: Money = .init(balance.availableBalance,
                                                   precision)
