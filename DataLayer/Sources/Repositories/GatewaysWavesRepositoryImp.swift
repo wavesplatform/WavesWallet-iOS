@@ -33,23 +33,16 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
         }
 
         switch request.direction {
-        case .deposit:
-            requestBindings.direction = .deposit
-
-        case .withdraw:
-            requestBindings.direction = .withdrawal
+        case .deposit: requestBindings.direction = .deposit
+        case .withdraw: requestBindings.direction = .withdrawal
         }
 
         let accessToken = oAToken.accessToken
         let addressGrpc = serverEnvironment.servers.wavesExchangeGrpcAddress
 
         return getWavesAssetBindingsRequest(addressGrpc: addressGrpc, oAToken: accessToken, request: requestBindings)
-            .map { response -> [GatewaysAssetBinding] in
-                response.gatewaysAssetsBinding
-            }
-            .catchError { error -> Observable<[GatewaysAssetBinding]> in
-                Observable.error(NetworkError.error(by: error))
-            }
+            .map { response -> [GatewaysAssetBinding] in response.gatewaysAssetsBinding }
+            .catchError { error -> Observable<[GatewaysAssetBinding]> in .error(NetworkError.error(by: error)) }
     }
 
     func withdrawalTransferBinding(serverEnvironment: ServerEnvironment,

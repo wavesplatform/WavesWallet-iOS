@@ -13,14 +13,20 @@ import RxSwift
 
 // MARK: - Builder
 
-protocol BuyCryptoBuildable {
+protocol BuyCryptoBuildable: AnyObject {
     /// Сборка модуля покупки крипты с помощью валют с карты (евро, доллар и тд)
-    func build() -> BuyCryptoViewController
+    func build(with listener: BuyCryptoListener) -> BuyCryptoViewController
+}
+
+// MARK: - Listener
+
+protocol BuyCryptoListener: AnyObject {
+    func openUrl(_ url: URL)
 }
 
 // MARK: - Interactor
 
-protocol BuyCryptoInteractable {}
+protocol BuyCryptoInteractable: AnyObject {}
 
 enum BuyCryptoState {
     /// Состояние загрузки экрана
@@ -38,10 +44,16 @@ enum BuyCryptoState {
     /// Состояние ошибки проверки обменной пары (отображать ошибку)
     case checkingExchangePairError(error: Error, senderAsset: String, recipientAsset: String)
     
-    ///
+    /// Состояние, когда обмен фиатной валюты в крипто валюту готов
     case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
     
-    ///
+    /// Состояние, когда обмен валюты запущен
+    case exchangeProcessing
+    
+    /// Ошибка начала обмена
+    case exchangeProcessingError
+    
+    /// Обмен в процессе
     case exchangeInProgress
 }
 
@@ -107,11 +119,11 @@ extension BuyCryptoInteractor {
 
 // MARK: - ViewController
 
-protocol BuyCryptoViewControllable {}
+protocol BuyCryptoViewControllable: AnyObject {}
 
 // MARK: - Presenter
 
-protocol BuyCryptoPresentable {}
+protocol BuyCryptoPresentable: AnyObject {}
 
 // MARK: Outputs
 

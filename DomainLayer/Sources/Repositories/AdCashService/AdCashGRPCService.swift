@@ -48,4 +48,12 @@ public protocol AdCashGRPCService: AnyObject {
                                     recipientAsset: String,
                                     senderAssetAmount: Double,
                                     completion: @escaping (Result<Double, Error>) -> Void)
+    
+    ///
+    func deposite(signedWallet: SignedWallet,
+                  senderAsset: String,
+                  recipientAsset: String,
+                  exchangeAddress: String,
+                  amount: Double,
+                  completion: @escaping (Result<String, Error>) -> Void)
 }

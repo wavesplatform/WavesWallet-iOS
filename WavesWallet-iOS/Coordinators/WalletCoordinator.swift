@@ -125,17 +125,9 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func openCard() {
         let buyCrypto = BuyCryptoBuilder()
-        let viewController = buyCrypto.build()
+        let viewController = buyCrypto.build(with: self)
         
         navigationRouter.pushViewController(viewController)
-//        let alert = UIAlertController(title: "Cooming Soon",
-//                                      message: "Валля мы тебя любим, тут скоро будет экран", preferredStyle: .alert)
-//
-//        let cancelAction = UIAlertAction(title: "Вова тебе сюда надо", style: .cancel, handler: nil)
-//
-//        alert.addAction(cancelAction)
-//
-//        navigationRouter.present(alert, animated: true, completion: nil)
     }
 
     func showAccountHistory() {
@@ -226,6 +218,24 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 }
 
+// MARK: - BuyCryptoListener
+
+extension WalletCoordinator: BuyCryptoListener {
+    func openUrl(_ url: URL) {
+        BrowserViewController.openURL(url, toViewController: navigationRouter.navigationController, delegate: self)
+    }
+}
+
+extension WalletCoordinator: BrowserViewControllerDelegate {
+    func browserViewRedirect(url: URL) {
+        
+    }
+    
+    func browserViewDissmiss() {
+        
+    }
+}
+
 // MARK: - WalletSearchViewControllerDelegate
 
 extension WalletCoordinator: WalletSearchViewControllerDelegate {
@@ -297,7 +307,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
     func startLeasingDidSuccess(transaction _: SmartTransaction, kind _: StartLeasingTypes.Kind) {}
 }
 
-fileprivate extension AssetDetailModuleBuilder.Input {
+private extension AssetDetailModuleBuilder.Input {
     init(assets: [DomainLayer.DTO.SmartAssetBalance],
          currentAsset: DomainLayer.DTO.SmartAssetBalance) {
         self.assets = assets.map { .init(asset: $0) }
@@ -305,7 +315,7 @@ fileprivate extension AssetDetailModuleBuilder.Input {
     }
 }
 
-fileprivate extension AssetDetailTypes.DTO.Asset.Info {
+private extension AssetDetailTypes.DTO.Asset.Info {
     init(asset: DomainLayer.DTO.SmartAssetBalance) {
         id = asset.asset.id
         issuer = asset.asset.sender

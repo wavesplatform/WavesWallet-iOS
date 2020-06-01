@@ -73,8 +73,12 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
         setupFiatCollectionView()
         setupCryptoCollectionView()
+        
         fiatAmountTextField.setPlaceholder(Localizable.Waves.Buycrypto.amountPlaceholder)
         fiatAmountTextField.text.bind(to: didChangeFiatAmount).disposed(by: disposeBag)
+        
+        buyButton.didTouchButton = { [weak self] in self?.didTapBuy.accept(Void()) }
+        
         setupInfoTextView()
     }
 

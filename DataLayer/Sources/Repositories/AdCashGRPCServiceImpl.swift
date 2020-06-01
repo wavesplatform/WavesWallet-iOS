@@ -7,6 +7,7 @@
 //
 
 import DomainLayer
+import Extensions
 import GRPC
 import RxSwift
 
@@ -16,15 +17,14 @@ public enum AdCashGRPCServiceError: Error {
 
 // TODO: сделать DAO для токена
 public final class AdCashGRPCServiceImpl: AdCashGRPCService {
-    
     /// Получение токена
     private let weOAuthRepository: WEOAuthRepositoryProtocol
-    
+
     /// Некоторые вспомогательные данные для получения токена
     private let serverEnvironmentRepository: ServerEnvironmentRepository
-    
+
     private let disposeBag = DisposeBag()
-    
+
     public init(weOAuthRepository: WEOAuthRepositoryProtocol, serverEnvironmentRepository: ServerEnvironmentRepository) {
         self.weOAuthRepository = weOAuthRepository
         self.serverEnvironmentRepository = serverEnvironmentRepository
@@ -34,28 +34,28 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
         obtainWEOAuthToken(signedWallet: signedWallet)
             .subscribe(onNext: { token, addressGrpc in
                 let request = Acash_GetACashAssetsRequest()
-                
+
                 let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
-                
+
                 let client: Acash_ACashDepositsClient = grpcClient(address: addressGrpc, eventLoopGroup: group, oAToken: token)
-                
+
                 client.getACashAssets(request)
                     .response
                     .whenComplete { result in
                         switch result {
-                        case .success(let data):
+                        case let .success(data):
                             let assets = data.acashAssets.map { ACashAsset(from: $0) }
                             completion(.success(assets))
-                            
-                        case .failure(let error):
+
+                        case let .failure(error):
                             completion(.failure(error))
                         }
-                }
-             },
+                    }
+            },
                        onError: { error in completion(.failure(error)) })
             .disposed(by: disposeBag)
     }
-    
+
     public func getACashAssetsExchangeRate(signedWallet: SignedWallet,
                                            senderAsset: String,
                                            recipientAsset: String,
@@ -67,24 +67,54 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
                 request.senderAsset = senderAsset
                 request.recipientAsset = recipientAsset
                 request.senderAssetAmount = senderAssetAmount
-                
+
                 let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
-                
+
                 let client: Acash_ACashDepositsClient = grpcClient(address: addressGprc, eventLoopGroup: group, oAToken: token)
-                
+
                 client.getACashAssetsExchangeRate(request)
                     .response
                     .whenComplete { result in
                         switch result {
-                        case .success(let data): completion(.success(data.rate))
-                        case .failure(let error): completion(.failure(error))
+                        case let .success(data): completion(.success(data.rate))
+                        case let .failure(error): completion(.failure(error))
+                        }
+                    }
+            },
+                       onError: { error in completion(.failure(error)) })
+            .disposed(by: disposeBag)
+    }
+
+    public func deposite(signedWallet: SignedWallet,
+                         senderAsset: String,
+                         recipientAsset: String,
+                         exchangeAddress: String,
+                         amount: Double,
+                         completion: @escaping (Result<String, Error>) -> Void) {
+        obtainWEOAuthToken(signedWallet: signedWallet)
+            .subscribe(onNext: { token, address in
+                var request = Acash_RegisterOrderRequest()
+                request.address = exchangeAddress
+                request.amount = amount
+                request.senderAsset = senderAsset
+                request.recipientAsset = recipientAsset
+
+                let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+
+                let client: Acash_ACashDepositsClient = grpcClient(address: address, eventLoopGroup: group, oAToken: token)
+                client.registerOrder(request)
+                    .response
+                    .whenComplete { result in
+                        switch result {
+                        case let .success(response): completion(.success(response.queryParameters))
+                        case let .failure(error): completion(.failure(error))
                         }
                 }
             },
                        onError: { error in completion(.failure(error)) })
             .disposed(by: disposeBag)
     }
-    
+
     private func obtainWEOAuthToken(signedWallet: SignedWallet) -> Observable<(token: String, addressGrpc: String)> {
         serverEnvironmentRepository.serverEnvironment()
             .flatMap { [weak self] serverEnvironment -> Observable<(token: String, addressGrpc: String)> in
@@ -92,8 +122,8 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
                 return strongSelf.weOAuthRepository.oauthToken(signedWallet: signedWallet)
                     .map { ($0.accessToken, serverEnvironment.servers.wavesExchangeGrpcAddress) }
                     .catchError { Observable.error($0) }
-        }
-        .catchError { Observable.error($0) }
+            }
+            .catchError { Observable.error($0) }
     }
 }
 
@@ -105,7 +135,7 @@ private extension ACashAsset {
         case .fiat: kind = .fiat
         case .UNRECOGNIZED: kind = .unrecognized
         }
-        
+
         self.init(id: aCashAsset.id,
                   name: aCashAsset.name,
                   kind: kind,

@@ -11,7 +11,7 @@ import DomainLayer
 import UITools
 
 final class BuyCryptoBuilder: BuyCryptoBuildable {
-    func build() -> BuyCryptoViewController {
+    func build(with listener: BuyCryptoListener) -> BuyCryptoViewController {
         // MARK: - Dependency
 
         let authorizationService = UseCasesFactory.instance.authorization
@@ -35,6 +35,8 @@ final class BuyCryptoBuilder: BuyCryptoBuildable {
                                              developmentConfigRepository: developmentConfigRepository,
                                              serverEnvironmentRepository: serverEnvironmentRepository,
                                              weOAuthRepository: weOAuthRepository)
+        interactor.listener = listener
+
         let viewController = BuyCryptoViewController.instantiateFromStoryboard()
         viewController.interactor = interactor
 
