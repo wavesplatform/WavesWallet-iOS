@@ -21,7 +21,7 @@ protocol BuyCryptoBuildable: AnyObject {
 // MARK: - Listener
 
 protocol BuyCryptoListener: AnyObject {
-    func openUrl(_ url: URL)
+    func openUrl(_ url: URL, delegate: BrowserViewControllerDelegate)
 }
 
 // MARK: - Interactor
@@ -48,14 +48,22 @@ enum BuyCryptoState {
     case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
     
     /// Состояние, когда обмен валюты запущен
-    case exchangeProcessing
+    case processingExchange(amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
     
     /// Ошибка начала обмена
-    case exchangeProcessingError
+    case exchangeProcessingError(Error)
     
-    /// Обмен в процессе
-    case exchangeInProgress
+    /// Обмен в процессе (обмен происходит по урлу)
+    case exchangeInProgress(URL)
+    
+    ///
+    case exchangeSuccessful
+    
+    ///
+    case exchangeFailed
 }
+
+// MARK: - ApiResponse
 
 extension BuyCryptoInteractor {
     struct ApiResponse {
@@ -65,8 +73,21 @@ extension BuyCryptoInteractor {
         @PublishObservable var didCheckedExchangePair: Observable<BuyCryptoInteractor.ExchangeInfo>
         @PublishObservable var checkingExchangePairError: Observable<Error>
         
-        @PublishObservable var didCalculateExchangeCost: Observable<Void>
-        @PublishObservable var calculationExchangeCostError: Observable<Error>
+//        @PublishObservable var didCalculateExchangeCost: Observable<Void>
+//        @PublishObservable var calculationExchangeCostError: Observable<Error>
+        
+        @PublishObservable var didProcessedExchange: Observable<URL>
+        @PublishObservable var processingExchangeError: Observable<Error>
+    }
+}
+
+// MARK: - InternalActions
+
+extension BuyCryptoInteractor {
+    struct InternalActions {
+        @PublishObservable var didClosedWebView: Observable<Void>
+        @PublishObservable var exchangeSuccessful: Observable<Void>
+        @PublishObservable var exchangeFailed: Observable<Void>
     }
 }
 

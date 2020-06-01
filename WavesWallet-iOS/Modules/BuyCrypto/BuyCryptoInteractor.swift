@@ -22,6 +22,8 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
 
     private let apiResponse = ApiResponse()
 
+    private let internalActions = InternalActions()
+
     private let disposeBag = DisposeBag()
 
     init(presenter: BuyCryptoPresentable,
@@ -64,6 +66,21 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
             case let .failure(error): self?.apiResponse.$checkingExchangePairError.accept(error)
             }
         }
+    }
+
+    private func performDepositeProcessing(amount: String, exchangeInfo: ExchangeInfo) {
+        let amount = Double(amount) ?? 0
+
+        networker.deposite(senderAsset: exchangeInfo.senderAsset,
+                           recipientAsset: exchangeInfo.recipientAsset,
+                           exchangeAddress: exchangeInfo.exchangeAddress,
+                           amount: amount,
+                           completion: { [weak self] result in
+                               switch result {
+                               case let .success(url): self?.apiResponse.$didProcessedExchange.accept(url)
+                               case let .failure(error): self?.apiResponse.$processingExchangeError.accept(error)
+                               }
+        })
     }
 }
 
@@ -111,31 +128,23 @@ extension BuyCryptoInteractor: IOTransformer {
                                                                  didSelectCrypto: input.didSelectCryptoItem,
                                                                  checkingPairAction: checkingExchangePairEntryAction)
 
-        input.didTapBuy
-            .withLatestFrom(input.didChangeFiatAmount.compactMap())
-            .filteredByState(stateTransformTrait.readOnlyState) { state -> ExchangeInfo? in
-                switch state {
-                case let .readyForExchange(info): return info
-                default: return nil
-                }
+        let processingEntryAction: (String, ExchangeInfo) -> Void = { [weak self] in
+            self?.performDepositeProcessing(amount: $0, exchangeInfo: $1)
+        }
+        StateTransform.fromReadyToExchangeToExchangeProcessing(stateTransformTrait: stateTransformTrait,
+                                                               didTapBuy: input.didTapBuy,
+                                                               didChangeFiatAmount: input.didChangeFiatAmount,
+                                                               processingEntryAction: processingEntryAction)
+        
+        let openUrlEntryAction: (URL) -> Void = { [weak self] url in
+            DispatchQueue.main.async { [weak self] in
+                guard let sself = self else { return }
+                sself.listener?.openUrl(url, delegate: sself)
             }
-            .subscribe(onNext: { amount, info in
-                let amount = Double(amount) ?? 0
-
-                self.networker.deposite(senderAsset: info.senderAsset,
-                                        recipientAsset: info.recipientAsset,
-                                        exchangeAddress: info.exchangeAddress,
-                                        amount: amount, completion: { [weak self] result in
-                                            switch result {
-                                            case let .success(url):
-                                                self?.listener?.openUrl(url)
-                                                break
-                                            case let .failure(error):
-                                                break
-                                            }
-            })
-        })
-            .disposed(by: disposeBag)
+        }
+        StateTransform.fromExchangeProcessingToExchangeInProgress(stateTransformTrait: stateTransformTrait,
+                                                                  didProcessedExchange: apiResponse.didProcessedExchange,
+                                                                  openUrlEntryAction: openUrlEntryAction)
 
         // костылик, надо будет подумать как это нормально сделать
         // когда происходит прокручивание ассета число сбрасывать или оставлять это и делать пересчет?
@@ -311,6 +320,80 @@ extension BuyCryptoInteractor {
                 })
                 .disposed(by: stateTransformTrait.disposeBag)
         }
+
+        static func fromReadyToExchangeToExchangeProcessing(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                            didTapBuy: ControlEvent<Void>,
+                                                            didChangeFiatAmount: ControlEvent<String?>,
+                                                            processingEntryAction: @escaping (String, ExchangeInfo) -> Void) {
+            let fromReadyToExchangeToExchangeProcessing = didTapBuy
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> ExchangeInfo? in
+                    switch state {
+                    case let .readyForExchange(exchangeInfo): return exchangeInfo
+                    default: return nil
+                    }
+                }
+                .withLatestFrom(didChangeFiatAmount.compactMap(), resultSelector: { args, amount in
+                    let (_, info) = args
+                    return (info, amount)
+                })
+                .map { BuyCryptoState.processingExchange(amount: $1, exchangeInfo: $0) }
+                .share()
+
+            fromReadyToExchangeToExchangeProcessing
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
+
+            fromReadyToExchangeToExchangeProcessing
+                .subscribe(onNext: { state in
+                    switch state {
+                    case let .processingExchange(amount, exchangeInfo): processingEntryAction(amount, exchangeInfo)
+                    default: return
+                    }
+                })
+                .disposed(by: stateTransformTrait.disposeBag)
+        }
+        
+        static func fromExchangeProcessingToExchangeInProgress(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                               didProcessedExchange: Observable<URL>,
+                                                               openUrlEntryAction: @escaping (URL) -> Void) {
+            let fromExchangeProcessingToExchangeInProgress = didProcessedExchange
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+                    switch state {
+                    case .processingExchange: return true
+                    default: return false
+                    }
+            }
+            .map { BuyCryptoState.exchangeInProgress($0) }
+            .share()
+            
+            fromExchangeProcessingToExchangeInProgress
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
+            
+            fromExchangeProcessingToExchangeInProgress
+                .subscribe(onNext: { state in
+                    switch state {
+                    case .exchangeInProgress(let url): openUrlEntryAction(url)
+                    default: return
+                    }
+                }).disposed(by: stateTransformTrait.disposeBag)
+        }
+    }
+}
+
+extension BuyCryptoInteractor: BrowserViewControllerDelegate {
+    func browserViewRedirect(_: BrowserViewController, url: URL) {
+        let link = url.absoluteStringByTrimmingQuery() ?? ""
+
+        if link.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
+            internalActions.$exchangeSuccessful.accept(Void())
+        } else if link.contains(DomainLayerConstants.URL.fiatDepositFail) {
+            internalActions.$exchangeFailed.accept(Void())
+        }
+    }
+
+    func browserViewDismissed(_: BrowserViewController) {
+        internalActions.$didClosedWebView.accept(Void())
     }
 }
 

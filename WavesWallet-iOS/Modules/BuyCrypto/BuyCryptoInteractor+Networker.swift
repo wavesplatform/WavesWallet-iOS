@@ -287,7 +287,8 @@ extension BuyCryptoInteractor {
                     let completionAdapter: (Result<String, Error>) -> Void = { result in
                         switch result {
                         case let .success(queryParams):
-                            let urlString = UIGlobalConstants.URL.advcash + queryParams
+                            
+                            let urlString = DomainLayerConstants.URL.advcash + queryParams
                             if let url = URL(string: urlString) {
                                 completion(.success(url))
                             } else {

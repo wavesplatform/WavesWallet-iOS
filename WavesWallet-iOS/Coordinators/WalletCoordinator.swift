@@ -221,18 +221,8 @@ extension WalletCoordinator: WalletModuleOutput {
 // MARK: - BuyCryptoListener
 
 extension WalletCoordinator: BuyCryptoListener {
-    func openUrl(_ url: URL) {
-        BrowserViewController.openURL(url, toViewController: navigationRouter.navigationController, delegate: self)
-    }
-}
-
-extension WalletCoordinator: BrowserViewControllerDelegate {
-    func browserViewRedirect(url: URL) {
-        
-    }
-    
-    func browserViewDissmiss() {
-        
+    func openUrl(_ url: URL, delegate: BrowserViewControllerDelegate) {
+        BrowserViewController.openURL(url, toViewController: navigationRouter.navigationController, delegate: delegate)
     }
 }
 
