@@ -88,8 +88,9 @@ extension InvestmentLeasingBalanceCell: ViewConfiguration {
 
         labelTotalBalance.attributedText = .styleForBalance(text: model.totalMoney.displayText,
                                                             font: labelTotalBalance.font)
-
-        leasedPercent = CGFloat(model.leasedMoney.amount) / CGFloat(model.avaliableMoney.amount) * 100
+        
+        
+        leasedPercent = CGFloat(model.leasedMoney.amount) / CGFloat(model.totalMoney.amount) * 100
 
         if model.avaliableMoney.isZero, model.leasedMoney.isZero, model.totalMoney.isZero {
             viewContainerLeasedTotalBalance.isHidden = true
