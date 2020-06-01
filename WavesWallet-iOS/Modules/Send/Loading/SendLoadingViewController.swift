@@ -46,7 +46,10 @@ final class SendLoadingViewController: UIViewController {
                          address: input.displayAddress,
                          amountWithoutFee: input.amountWithoutFee)
         
-        navigationController?.pushViewController(vc, animated: true)
+        //TODO: Move to coordinator
+        var viewControllers = navigationController?.viewControllers.filter { $0 != self } ?? []
+        viewControllers.append(vc)
+        navigationController?.setViewControllers(viewControllers    , animated: true)
     }
     
     private func send() {
