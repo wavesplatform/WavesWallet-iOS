@@ -63,6 +63,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
             navigationItem.largeTitleDisplayMode = .never
 
+            scrollView.delegate = self
             view.backgroundColor = .basic50
             scrollContainerView.backgroundColor = .basic50
         }
@@ -315,9 +316,29 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
                 let cryptoAsset = cryptoAssets[indexPath.item]
                 didSelectCryptoItem.accept(cryptoAsset)
             }
+        } 
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         
+        guard scrollView === self.scrollView else { return }
+        
+        let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+        
+        let frame = spentLabel.frame
+    
+        //Выщитываем процент сдвига spentLabel
+        var percent = offset / frame.height
+        percent = max(percent, 0)
+        percent = min(percent, 1)
+                 
+        spentLabel.alpha = 1 - percent
+        self.navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(percent)]
+        
+        if percent > 0 {
+            self.navigationItem.title = spentLabel.text
         } else {
-            assertionFailure("Unknow collection view in BuyCryptoViewController \(#function)")
-            // impossible case
+            self.navigationItem.title = ""
         }
     }
 }
