@@ -54,13 +54,13 @@ enum BuyCryptoState {
     case exchangeProcessingError(Error)
     
     /// Обмен в процессе (обмен происходит по урлу)
-    case exchangeInProgress(URL)
+    case exchangeInProgress(url: URL, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
     
     ///
-    case exchangeSuccessful
+    case exchangeSuccessful(BuyCryptoInteractor.ExchangeInfo)
     
     ///
-    case exchangeFailed
+    case exchangeFailed(BuyCryptoInteractor.ExchangeInfo)
 }
 
 // MARK: - ApiResponse

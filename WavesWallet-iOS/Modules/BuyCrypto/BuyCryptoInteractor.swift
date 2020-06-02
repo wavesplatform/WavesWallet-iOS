@@ -145,6 +145,9 @@ extension BuyCryptoInteractor: IOTransformer {
         StateTransform.fromExchangeProcessingToExchangeInProgress(stateTransformTrait: stateTransformTrait,
                                                                   didProcessedExchange: apiResponse.didProcessedExchange,
                                                                   openUrlEntryAction: openUrlEntryAction)
+        
+        StateTransform.fromExchangeInProgressToReadyForExchange(stateTransformTrait: stateTransformTrait,
+                                                                didClosedWebView: internalActions.didClosedWebView)
 
         // костылик, надо будет подумать как это нормально сделать
         // когда происходит прокручивание ассета число сбрасывать или оставлять это и делать пересчет?
@@ -357,26 +360,42 @@ extension BuyCryptoInteractor {
                                                                didProcessedExchange: Observable<URL>,
                                                                openUrlEntryAction: @escaping (URL) -> Void) {
             let fromExchangeProcessingToExchangeInProgress = didProcessedExchange
-                .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> ExchangeInfo? in
                     switch state {
-                    case .processingExchange: return true
-                    default: return false
+                    case let .processingExchange(_, exchangeInfo): return exchangeInfo
+                    default: return nil
                     }
             }
-            .map { BuyCryptoState.exchangeInProgress($0) }
+            .map { BuyCryptoState.exchangeInProgress(url: $0, exchangeInfo: $1) }
             .share()
-            
+
             fromExchangeProcessingToExchangeInProgress
                 .bind(to: stateTransformTrait._state)
                 .disposed(by: stateTransformTrait.disposeBag)
-            
+
             fromExchangeProcessingToExchangeInProgress
                 .subscribe(onNext: { state in
                     switch state {
-                    case .exchangeInProgress(let url): openUrlEntryAction(url)
+                    case let .exchangeInProgress(url, _): openUrlEntryAction(url)
                     default: return
                     }
                 }).disposed(by: stateTransformTrait.disposeBag)
+        }
+        
+        static func fromExchangeInProgressToReadyForExchange(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                             didClosedWebView: Observable<Void>) {
+            let fromExchangeInProgressToReadyForExchange = didClosedWebView
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> ExchangeInfo? in
+                    switch state {
+                    case let .exchangeInProgress(_, exchangeInfo): return exchangeInfo
+                    default: return nil
+                    }
+            }
+            .map { BuyCryptoState.readyForExchange($1) }
+            
+            fromExchangeInProgressToReadyForExchange
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
         }
     }
 }
