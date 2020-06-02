@@ -9,14 +9,13 @@
 import UIKit
 
 class DottedRoundView: UIView {
-
     @IBInspectable var lineColor: UIColor = UIColor.accent100 {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    @IBInspectable var lineWidth: CGFloat = 0.5 {
+    @IBInspectable var lineWidth: CGFloat = 1 {
         didSet {
             setNeedsDisplay()
         }
@@ -28,23 +27,49 @@ class DottedRoundView: UIView {
         }
     }
 
-    @IBInspectable var dottedCornerRadius: CGFloat = -1
-
-    override func draw(_ rect: CGRect) {
-
+    @IBInspectable var dottedCornerRadius: CGFloat = -1 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable var perDashLength: CGFloat = 4.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable var spaceBetweenDash: CGFloat = 4.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    override func updateConstraints() {
+        super.updateConstraints()
+        setNeedsDisplay()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setNeedsDisplay()
+    }
+    
+    override func draw(_ frame: CGRect) {
         guard isHiddenDottedLine == false else {
             return
         }
-
-        let cornerRadius = self.dottedCornerRadius == -1 ? frame.size.width / 2 : self.dottedCornerRadius
-        let drawPath = CGRect(x: lineWidth / 2,
-                              y: lineWidth / 2,
-                              width: bounds.size.width - lineWidth,
-                              height: bounds.size.height - lineWidth)
+        
+        let cornerRadius = dottedCornerRadius == -1 ? frame.size.width / 2 : dottedCornerRadius
+        let drawPath = CGRect(x: 0,
+                              y: 0,
+                              width: frame.size.width - lineWidth,
+                              height: frame.size.height - lineWidth)
         let path = UIBezierPath(roundedRect: drawPath, cornerRadius: cornerRadius)
-        let dashes: [CGFloat] = [4, 4]
+        
+        let dashes: [CGFloat] = [perDashLength, spaceBetweenDash]
         path.setLineDash(dashes, count: dashes.count, phase: 0)
-        path.lineCapStyle = CGLineCap.butt
+        path.lineCapStyle = .butt
         path.lineWidth = lineWidth
         lineColor.setStroke()
         path.stroke()
