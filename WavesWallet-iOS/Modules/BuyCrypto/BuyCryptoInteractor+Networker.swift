@@ -201,9 +201,12 @@ extension BuyCryptoInteractor {
                             completion(.failure(error))
                         }
                     }
+                    
+                    let devConfigRate = devConfig.gatewayMinFee[recipientAsset]?[senderAsset]
 
                     self?.getExchangeLimits(signedWallet: signedWallet,
                                             gatewayTransferBinding: gatewayTransferBinding,
+                                            devConfigRate: devConfigRate,
                                             senderAsset: senderAsset,
                                             recipientAsset: recipientAsset,
                                             completion: completionAdapter)
@@ -215,6 +218,7 @@ extension BuyCryptoInteractor {
 
         private func getExchangeLimits(signedWallet: SignedWallet,
                                        gatewayTransferBinding: GatewaysTransferBinding,
+                                       devConfigRate: DevelopmentConfigs.Rate?,
                                        senderAsset: String,
                                        recipientAsset: String,
                                        completion: @escaping (Result<(min: Decimal, max: Decimal), Error>) -> Void) {
@@ -224,9 +228,11 @@ extension BuyCryptoInteractor {
                     let min: Decimal
                     let max: Decimal
                     // ac_usd === usnd
-                    if recipientAsset == "AC_USD" {
+                    if let devConfigRate = devConfigRate {
                         // домножить на рейт из конфига
-                        min = Decimal(limitRate) * gatewayTransferBinding.assetBinding.senderAmountMin
+                        let devRate = Decimal(devConfigRate.rate)
+                        let devFlat = Decimal(devConfigRate.flat)
+                        min = Decimal(limitRate) * gatewayTransferBinding.assetBinding.senderAmountMin * devRate + devFlat
                         max = Decimal(limitRate) * gatewayTransferBinding.assetBinding.senderAmountMax
                     } else {
                         min = 100
