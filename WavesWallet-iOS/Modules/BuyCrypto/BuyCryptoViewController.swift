@@ -285,6 +285,20 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
 }
 
 extension BuyCryptoViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                
+        if collectionView === fiatCollectionView {
+            let fiatAsset = fiatAssets[indexPath.item]
+            didSelectFiatItem.accept(fiatAsset)
+        } else {
+            let cryptoAsset = cryptoAssets[indexPath.item]
+            didSelectCryptoItem.accept(cryptoAsset)
+        }
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView === fiatCollectionView {
             let currentItemOffset = fiatCollectionView.contentInset.left + fiatCollectionView.contentOffset.x
