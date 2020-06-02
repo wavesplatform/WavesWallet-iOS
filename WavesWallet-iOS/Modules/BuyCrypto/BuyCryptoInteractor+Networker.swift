@@ -154,8 +154,10 @@ extension BuyCryptoInteractor {
         /// - Parameters:
         ///   - senderAsset: fiat item
         ///   - recipientAsset: crypto item
+        ///   - amount:
         func getExchangeRate(senderAsset: String,
                              recipientAsset: String,
+                             amount: Double,
                              completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             Observable.zip(authorizationService.authorizedWallet(),
                            developmentConfigRepository.developmentConfigs(),
@@ -167,8 +169,8 @@ extension BuyCryptoInteractor {
                     return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
                         .map { (signedWallet, serverEnvironment, devConfig, $0) }
                 }
-                .flatMap { [weak self] signedWallet, serverEnvironment, _, token
-                    -> Observable<(SignedWallet, GatewaysTransferBinding)> in
+                .flatMap { [weak self] signedWallet, serverEnvironment, devConfig, token
+                    -> Observable<(SignedWallet, GatewaysTransferBinding, DevelopmentConfigs)> in
                     guard let sself = self else { return Observable.never() }
                     let transferBindingRequest = TransferBindingRequest(asset: recipientAsset,
                                                                         recipientAddress: signedWallet.wallet.address)
@@ -176,15 +178,14 @@ extension BuyCryptoInteractor {
                     return sself.gatewaysWavesRepository.depositTransferBinding(serverEnvironment: serverEnvironment,
                                                                                 oAToken: token,
                                                                                 request: transferBindingRequest)
-                        .map { gatewayTransferBinding -> (SignedWallet, GatewaysTransferBinding) in
-                            (signedWallet, gatewayTransferBinding)
+                        .map { gatewayTransferBinding -> (SignedWallet, GatewaysTransferBinding, DevelopmentConfigs) in
+                            (signedWallet, gatewayTransferBinding, devConfig)
                         }
                 }
                 .catchError { error in
                     Observable.error(error)
                 }
-                .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding in
-                    //                    gatewayTransferBinding.addresses.first
+                .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding, devConfig in
                     let completionAdapter: (Result<(min: Decimal, max: Decimal), Error>) -> Void = { result in
                         switch result {
                         case let .success((min, max)):
@@ -194,6 +195,7 @@ extension BuyCryptoInteractor {
                                                    recipientAsset: recipientAsset,
                                                    minLimit: min,
                                                    maxLimit: max,
+                                                   amount: amount,
                                                    completion: completion)
                         case let .failure(error):
                             completion(.failure(error))
@@ -222,12 +224,13 @@ extension BuyCryptoInteractor {
                     let min: Decimal
                     let max: Decimal
                     // ac_usd === usnd
-                    if recipientAsset != "AC_USD" {
-                        min = 100
-                        max = 1000
-                    } else {
+                    if recipientAsset == "AC_USD" {
+                        // домножить на рейт из конфига
                         min = Decimal(limitRate) * gatewayTransferBinding.assetBinding.senderAmountMin
                         max = Decimal(limitRate) * gatewayTransferBinding.assetBinding.senderAmountMax
+                    } else {
+                        min = 100
+                        max = 9500
                     }
                     completion(.success((min, max)))
                 case let .failure(error):
@@ -249,14 +252,20 @@ extension BuyCryptoInteractor {
                                       recipientAsset: String,
                                       minLimit: Decimal,
                                       maxLimit: Decimal,
+                                      amount: Double,
                                       completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
-            let minLimitAsNSNumber = minLimit as NSNumber
-            let amount = Double(truncating: minLimitAsNSNumber)
-
             let completionAdapter: (Result<Double, Error>) -> Void = { result in
                 switch result {
                 case let .success(exchangeRate):
-                    let rate = exchangeRate / amount
+                    let rate: Double
+                    if Decimal(amount) < minLimit {
+                        let minLimitAsNSNumber = minLimit as NSNumber
+                        let minLimitDouble = Double(truncating: minLimitAsNSNumber)
+                        rate = exchangeRate / minLimitDouble
+                    } else {
+                        rate = exchangeRate
+                    }
+
                     let rateInfo = ExchangeInfo(senderAsset: senderAsset,
                                                 recipientAsset: recipientAsset,
                                                 exchangeAddress: gatewayTransferBinding.addresses.first ?? "",
@@ -269,11 +278,20 @@ extension BuyCryptoInteractor {
                     completion(.failure(error))
                 }
             }
+            
+            let senderAssetAmount: Double
+            if Decimal(amount) < minLimit {
+                let minLimitAsNSNumber = minLimit as NSNumber
+                senderAssetAmount = Double(truncating: minLimitAsNSNumber)
+            } else {
+                senderAssetAmount = amount
+            }
+            
             // сколько получит пользователь для отображения в ibuy
             adCashGRPCService.getACashAssetsExchangeRate(signedWallet: signedWallet,
                                                          senderAsset: senderAsset,
                                                          recipientAsset: recipientAsset,
-                                                         senderAssetAmount: amount,
+                                                         senderAssetAmount: senderAssetAmount,
                                                          completion: completionAdapter)
         }
 

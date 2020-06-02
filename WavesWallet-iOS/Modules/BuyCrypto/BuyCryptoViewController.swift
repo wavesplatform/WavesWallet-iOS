@@ -33,6 +33,8 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     @IBOutlet private weak var cryptoZoomLayout: ZoomFlowLayout!
     @IBOutlet private weak var buyButton: BlueButton!
     @IBOutlet private weak var infoTextView: UITextView!
+    
+    private let errorView = GlobalErrorView()
 
     private var presenterOutput: BuyCryptoPresenterOutput?
 
@@ -50,7 +52,6 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         initialSetup()
         bindIfNeeded()
     }
@@ -152,23 +153,51 @@ extension BuyCryptoViewController: BindableView {
             }
         }).disposed(by: disposeBag)
 
-        input.initialError.emit(onNext: { errorMessage in
-            // это терминальная ошибка, тут нужно отобразить zero screen с кнопкой
-        })
-            .disposed(by: disposeBag)
+        bindErrors(initialError: input.initialError,
+                   showSnackBarError: input.showSnackBarError,
+                   validationError: input.validationError)
+        
+        bindCarouselItems(fiatItems: input.fiatItems, cryptoItems: input.cryptoItems)
 
-        input.showSnackBarError.emit(onNext: { [weak self] errorMessage in
-            guard let sself = self else { return }
-            var keySnackBar = ""
-            keySnackBar = sself.showErrorSnack(title: errorMessage,
-                                 didTap: { [weak self] in
-                                    self?.hideSnack(key: keySnackBar)
-                                    self?.didTapRetry.accept(Void())
+        input.fiatTitle.drive(spentLabel.rx.text).disposed(by: disposeBag)
+        input.cryptoTitle.drive(buyLabel.rx.text).disposed(by: disposeBag)
+
+        input.buyButtonModel
+            .drive(onNext: { [weak self] model in
+                self?.buyButton.update(with: model)
             })
-        })
             .disposed(by: disposeBag)
 
-        input.fiatItems.drive(onNext: { [weak self] assets in
+        input.detailsInfo
+            .drive(onNext: { [weak self] in self?.bindExchangeMessage(message: $0) })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindErrors(initialError: Signal<String>, showSnackBarError: Signal<String>, validationError: Signal<String?>) {
+        initialError
+            .emit(onNext: { [weak self] errorMessage in self?.showInitialError(errorMessage: errorMessage) })
+            .disposed(by: disposeBag)
+
+        showSnackBarError
+            .emit(onNext: { [weak self] errorMessage in
+                guard let sself = self else { return }
+                var keySnackBar = ""
+                keySnackBar = sself.showErrorSnack(title: errorMessage,
+                                                   didTap: { [weak self] in
+                                                    self?.hideSnack(key: keySnackBar)
+                                                    self?.didTapRetry.accept(Void())
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        validationError
+            .emit(onNext: { [weak self] errorMessage in self?.fiatAmountTextField.setError(errorMessage) })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindCarouselItems(fiatItems: Driver<[BuyCryptoPresenter.AssetViewModel]>,
+                                   cryptoItems: Driver<[BuyCryptoPresenter.AssetViewModel]>) {
+        fiatItems.drive(onNext: { [weak self] assets in
             self?.fiatAssets = assets
             self?.fiatCollectionView.reloadData()
 
@@ -177,7 +206,7 @@ extension BuyCryptoViewController: BindableView {
             }
         }).disposed(by: disposeBag)
 
-        input.cryptoItems.drive(onNext: { [weak self] assets in
+        cryptoItems.drive(onNext: { [weak self] assets in
             self?.cryptoAssets = assets
             self?.cryptoCollectionView.reloadData()
 
@@ -185,23 +214,6 @@ extension BuyCryptoViewController: BindableView {
                 self?.didSelectCryptoItem.accept(selectedCrypto)
             }
         }).disposed(by: disposeBag)
-
-        input.fiatTitle.drive(spentLabel.rx.text).disposed(by: disposeBag)
-        input.cryptoTitle.drive(buyLabel.rx.text).disposed(by: disposeBag)
-
-        input.buyButtonModel.drive(onNext: { [weak self] titledBool in
-            let buttonStatus = titledBool.isOn ? BlueButton.Model.Status.active : BlueButton.Model.Status.disabled
-            let buttonModel = BlueButton.Model(title: titledBool.title, status: buttonStatus)
-            self?.buyButton.update(with: buttonModel)
-        }).disposed(by: disposeBag)
-
-        input.validationError.emit(onNext: { [weak self] errorMessage in
-            self?.fiatAmountTextField.setError(errorMessage)
-        }).disposed(by: disposeBag)
-
-        input.detailsInfo
-            .drive(onNext: { [weak self] in self?.bindExchangeMessage(message: $0) })
-            .disposed(by: disposeBag)
     }
 
     private func bindExchangeMessage(message: BuyCryptoPresenter.ExchangeMessage) {
@@ -222,6 +234,17 @@ extension BuyCryptoViewController: BindableView {
 //        infoTextViewBorder.fillColor = nil
 //        infoTextViewBorder.path = UIBezierPath(rect: infoTextView.bounds).cgPath
 //        infoTextView.layer.addSublayer(infoTextViewBorder)
+    }
+    
+    private func showInitialError(errorMessage: String) {
+        let model = GlobalErrorView.Model(kind: .serverError)
+        view.addStretchToBounds(errorView)
+        errorView.update(with: model)
+        
+        errorView.retryDidTap = { [weak self] in
+            self?.didTapRetry.accept(Void())
+            self?.errorView.removeFromSuperview()
+        }
     }
 }
 

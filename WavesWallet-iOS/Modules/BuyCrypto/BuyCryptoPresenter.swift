@@ -41,34 +41,10 @@ extension BuyCryptoPresenter: IOTransformer {
 
         let fiatTitle = StateHelper.makeFiatTitle(readOnlyState: input.readOnlyState, didSelectFiatItem: input.didSelectFiatItem)
         let fiatAssets = StateHelper.makeFiatAssets(readOnlyState: input.readOnlyState)
-        
-        let cryptoTitleWithAmount = Observable.combineLatest(input.didChangeFiatAmount.asObservable(),
-                                                             input.didSelectCryptoItem.asObservable())
-            .map { ($0, $1) }
-            .filteredByState(input.readOnlyState) { state -> BuyCryptoInteractor.ExchangeInfo? in
-                switch state {
-                case .readyForExchange(let exchangeInfo): return exchangeInfo
-                default: return nil
-                }
-        }
-        .compactMap { args, exchangeInfo -> String? in
-            let (fiatAmountOptionalString, selectedCrypto) = args
-            guard let fiatAmountString = fiatAmountOptionalString, let fiatAmount = Decimal(string: fiatAmountString) else {
-                return nil
-            }
-            
-            let iBuyCrypto = fiatAmount * Decimal(exchangeInfo.rate)
-            
-            let iBuyCryptoMoney = Money(value: iBuyCrypto, Int(selectedCrypto.decimals))
-            
-            return Localizable.Waves.Buycrypto.iBuy("≈ \(iBuyCryptoMoney.displayText) \(selectedCrypto.name)")
-        }
 
-        let initialCryptoTitle = StateHelper.makeCryptoTitle(readOnlyState: input.readOnlyState,
-                                                             didSelectCryptoItem: input.didSelectCryptoItem)
-        
-        let cryptoTitle = Observable.merge(cryptoTitleWithAmount, initialCryptoTitle.asObservable())
-            .asDriver(onErrorJustReturn: Localizable.Waves.Buycrypto.iBuy(""))
+        let cryptoTitle = StateHelper.makeCryptoTitle(readOnlyState: input.readOnlyState,
+                                                      didChangeFiatAmount: input.didChangeFiatAmount,
+                                                      didSelectCryptoItem: input.didSelectCryptoItem)
 
         let cryptoAssets = StateHelper.makeCryptoAssets(readOnlyState: input.readOnlyState)
 
@@ -125,11 +101,11 @@ extension BuyCryptoPresenter {
             }
             .asSignalIgnoringError()
         }
-        
+
         static func makeShowSnackBarError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
             readOnlyState.compactMap { state -> String? in
                 switch state {
-                case .checkingExchangePairError(let error, _, _): return error.localizedDescription
+                case let .checkingExchangePairError(error, _, _, _): return error.localizedDescription
                 default: return nil
                 }
             }
@@ -138,15 +114,15 @@ extension BuyCryptoPresenter {
 
         static func makeFiatTitle(readOnlyState: Observable<BuyCryptoState>,
                                   didSelectFiatItem: ControlEvent<AssetViewModel>) -> Driver<String> {
-            didSelectFiatItem.filteredByState(readOnlyState) { state -> Bool in
-                switch state {
-                case .aCashAssetsLoaded: return true
-                case .checkingExchangePair: return true
-                default: return false
+            Observable.combineLatest(readOnlyState, didSelectFiatItem.asObservable())
+                .compactMap { state, fiatItem -> String? in
+                    switch state {
+                    case .aCashAssetsLoaded, .checkingExchangePair, .readyForExchange:
+                        return Localizable.Waves.Buycrypto.iSpent(fiatItem.name)
+                    default: return nil
+                    }
                 }
-            }
-            .map { Localizable.Waves.Buycrypto.iSpent($0.name) }
-            .asDriver(onErrorJustReturn: Localizable.Waves.Buycrypto.iSpent(""))
+                .asDriver(onErrorJustReturn: Localizable.Waves.Buycrypto.iSpent(""))
         }
 
         static func makeFiatAssets(readOnlyState: Observable<BuyCryptoState>) -> Driver<[AssetViewModel]> {
@@ -160,16 +136,30 @@ extension BuyCryptoPresenter {
         }
 
         static func makeCryptoTitle(readOnlyState: Observable<BuyCryptoState>,
+                                    didChangeFiatAmount: ControlEvent<String?>,
                                     didSelectCryptoItem: ControlEvent<AssetViewModel>) -> Driver<String> {
-            didSelectCryptoItem.filteredByState(readOnlyState) { state -> Bool in
-                switch state {
-                case .aCashAssetsLoaded: return true
-                case .checkingExchangePair: return true
-                default: return false
+            Observable.combineLatest(didChangeFiatAmount.asObservable().startWith(""),
+                                     didSelectCryptoItem.asObservable(),
+                                     readOnlyState)
+                .compactMap { fiatAmountOptionalString, selectedCrypto, state -> String? in
+                    switch state {
+                    case .aCashAssetsLoaded, .checkingExchangePair:
+                        return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
+                    case let .readyForExchange(exchangeInfo):
+                        guard let fiatAmountString = fiatAmountOptionalString,
+                            let fiatAmount = Decimal(string: fiatAmountString) else {
+                            return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
+                        }
+
+                        let iBuyCrypto = fiatAmount * Decimal(exchangeInfo.rate)
+
+                        let iBuyCryptoMoney = Money(value: iBuyCrypto, Int(selectedCrypto.decimals))
+
+                        return Localizable.Waves.Buycrypto.iBuy("≈ \(iBuyCryptoMoney.displayText) \(selectedCrypto.name)")
+                    default: return nil
+                    }
                 }
-            }
-            .map { Localizable.Waves.Buycrypto.iBuy($0.name) }
-            .asDriver(onErrorJustReturn: Localizable.Waves.Buycrypto.iBuy(""))
+                .asDriverIgnoringError()
         }
 
         static func makeCryptoAssets(readOnlyState: Observable<BuyCryptoState>) -> Driver<[AssetViewModel]> {
@@ -184,15 +174,20 @@ extension BuyCryptoPresenter {
         }
 
         static func makeBuyButton(readOnlyState: Observable<BuyCryptoState>,
-                                  didSelectCryptoItem: ControlEvent<AssetViewModel>) -> Driver<TitledBool> {
-            didSelectCryptoItem.filteredByState(readOnlyState) { state -> Bool in
-                switch state {
-                case .aCashAssetsLoaded: return true
-                default: return false
-                }
+                                  didSelectCryptoItem: ControlEvent<AssetViewModel>) -> Driver<BlueButton.Model> {
+            //  -> BlueButton.Model вот так работать не должно. делаю потому что срок горит
+            Observable.combineLatest(didSelectCryptoItem, readOnlyState)
+                .compactMap { cryptoItem, state -> BlueButton.Model? in
+                    switch state {
+                    case .aCashAssetsLoaded: return .init(title: Localizable.Waves.Buycrypto.buy(""), status: .loading)
+                    case .checkingExchangePair: return .init(title: Localizable.Waves.Buycrypto.buy(""), status: .loading)
+                    case .checkingExchangePairError: return .init(title: Localizable.Waves.Buycrypto.buy(""), status: .disabled)
+                    case .readyForExchange:
+                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .active)
+                    default: return nil
+                    }
             }
-            .map { TitledBool(title: Localizable.Waves.Buycrypto.buy($0.name), isOn: false) }
-            .asDriver(onErrorJustReturn: TitledBool(title: Localizable.Waves.Buycrypto.buy(""), isOn: false))
+            .asDriverIgnoringError()
         }
 
         static func makeDetailsInfo(readOnlyState: Observable<BuyCryptoState>,

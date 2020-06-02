@@ -39,10 +39,10 @@ enum BuyCryptoState {
     case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
     
     /// Состояние проверки обменной пары
-    case checkingExchangePair(senderAsset: String, recipientAsset: String)
+    case checkingExchangePair(senderAsset: String, recipientAsset: String, amount: Double)
     
     /// Состояние ошибки проверки обменной пары (отображать ошибку)
-    case checkingExchangePairError(error: Error, senderAsset: String, recipientAsset: String)
+    case checkingExchangePairError(error: Error, senderAsset: String, recipientAsset: String, amount: Double)
     
     /// Состояние, когда обмен фиатной валюты в крипто валюту готов
     case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
@@ -193,7 +193,7 @@ struct BuyCryptoPresenterOutput {
     let cryptoItems: Driver<[BuyCryptoPresenter.AssetViewModel]>
     
     /// Драйвер с тайтлом и стейтом кнопки
-    let buyButtonModel: Driver<TitledBool>
+    let buyButtonModel: Driver<BlueButton.Model>
     
     /// драйвер с информацией об обмене валюты на крипту
     let detailsInfo: Driver<BuyCryptoPresenter.ExchangeMessage>
