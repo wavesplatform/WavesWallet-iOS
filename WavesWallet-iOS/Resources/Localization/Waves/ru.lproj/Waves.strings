@@ -843,3 +843,6 @@
 "buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "После успешной оплаты на сайте партнеров, %@ будет зачислен на ваш аккаунт в течение нескольких минут.";
 "buyCrypto.messageInfo.ifYouHaveProblems" = "Если у вас возникли проблемы с оплатой, пожалуйста, обратитесь в службу поддержки.";
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "поддержки";
+
+
+"asset.cell.balance.button.card" = "Карта";
