@@ -338,6 +338,9 @@ internal enum Localizable {
           internal static var totalBalanceKey: String { "asset.cell.balance.totalBalance" }
 
           internal enum Button {
+            /// Card
+            internal static var card: String { Localizable.tr("Waves", "asset.cell.balance.button.card") }
+            internal static var cardKey: String { "asset.cell.balance.button.card" }
             /// Exchange
             internal static var exchange: String { Localizable.tr("Waves", "asset.cell.balance.button.exchange") }
             internal static var exchangeKey: String { "asset.cell.balance.button.exchange" }

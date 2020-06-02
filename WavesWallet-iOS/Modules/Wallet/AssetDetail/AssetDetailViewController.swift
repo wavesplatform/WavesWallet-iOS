@@ -27,11 +27,14 @@ final class AssetDetailViewController: UIViewController {
 
     private var refreshControl: UIRefreshControl!
     private var isHiddenSegmentedControl = false
+    
+    
     private lazy var favoriteOffBarButton = UIBarButtonItem(
         image: Images.topbarFavoriteOff.image.withRenderingMode(.alwaysOriginal),
         style: .plain,
         target: self,
         action: #selector(tapFavoriteButton(sender:)))
+    
     private lazy var favoriteOnBarButton = UIBarButtonItem(
         image: Images.topbarFavoriteOn.image
             .withRenderingMode(.alwaysOriginal),
@@ -89,6 +92,13 @@ final class AssetDetailViewController: UIViewController {
         if let section = sections.first(where: { $0.assetBalance != nil }),
             let asset = section.assetBalance {
             eventInput.onNext(.showReceive(asset))
+        }
+    }
+    
+    private func showCardController() {
+        if let section = sections.first(where: { $0.assetBalance != nil }),
+            let asset = section.assetBalance {
+            eventInput.onNext(.showCard(asset))
         }
     }
 
@@ -379,9 +389,15 @@ extension AssetDetailViewController: UITableViewDataSource {
                 guard let self = self else { return }
                 self.showReceiveController()
             }
+            
             cell.sendAction = { [weak self] in
                 guard let self = self else { return }
                 self.showSendController()
+            }
+            
+            cell.cardAction = { [weak self] in
+                guard let self = self else { return }
+                self.showCardController()
             }
 
             cell.exchangeAction = { [weak self] in

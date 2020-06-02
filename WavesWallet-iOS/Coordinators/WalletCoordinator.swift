@@ -255,7 +255,11 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         let vc = SendModuleBuilder().build(input: .selectedAsset(asset))
         navigationRouter.pushViewController(vc)
     }
-
+        
+    func showCard(asset: DomainLayer.DTO.SmartAssetBalance) {
+        //TODO: Вооова Чума хочу твой контролер
+    }
+    
     func showReceive(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = ReceiveContainerModuleBuilder().build(input: asset)
         navigationRouter.pushViewController(vc)
