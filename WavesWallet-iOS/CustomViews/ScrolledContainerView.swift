@@ -84,6 +84,7 @@ final class ScrolledContainerView: UIScrollView {
         delegate = self
         
         showsHorizontalScrollIndicator = false
+        showsVerticalScrollIndicator = true 
         contentInsetAdjustmentBehavior = .automatic
         insetsLayoutMarginsFromSafeArea = true
         
@@ -392,7 +393,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         if scrollView.contentOffset.y < -smallTopOffset {
             firstAvailableViewController().setupBigNavigationBar()
         } else if isSmallNavBar {
-            // TODO: Test code from Version 2.9
+            // TODO: Test code from Version 2.9r
             firstAvailableViewController().setupSmallNavigationBar()
         }
         
