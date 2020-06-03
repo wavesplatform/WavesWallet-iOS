@@ -64,6 +64,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
             navigationItem.largeTitleDisplayMode = .never
 
+            scrollView.showsVerticalScrollIndicator = false
             scrollView.delegate = self
             view.backgroundColor = .basic50
             scrollContainerView.backgroundColor = .basic50
