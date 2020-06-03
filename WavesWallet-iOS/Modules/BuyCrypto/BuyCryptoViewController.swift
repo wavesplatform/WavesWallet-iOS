@@ -227,14 +227,6 @@ extension BuyCryptoViewController: BindableView {
                                      range: attributeString.mutableString.range(of: message.linkWord))
         infoTextView.attributedText = attributeString
         infoTextView.layoutIfNeeded()
-
-//        let infoTextViewBorder = CAShapeLayer()
-//        infoTextViewBorder.strokeColor = UIColor.basic300.cgColor
-//        infoTextViewBorder.lineDashPattern = [4, 4]
-//        infoTextViewBorder.frame = infoTextView.bounds
-//        infoTextViewBorder.fillColor = nil
-//        infoTextViewBorder.path = UIBezierPath(rect: infoTextView.bounds).cgPath
-//        infoTextView.layer.addSublayer(infoTextViewBorder)
     }
     
     private func showInitialError(errorMessage: String) {

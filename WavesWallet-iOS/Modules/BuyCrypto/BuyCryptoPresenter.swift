@@ -37,7 +37,7 @@ extension BuyCryptoPresenter: IOTransformer {
 
         let showInitialError = StateHelper.makeShowInitialError(readOnlyState: input.readOnlyState)
         let showSnackBarError = StateHelper.makeShowSnackBarError(readOnlyState: input.readOnlyState)
-        let validationError = input.validationError.map { $0?.localizedDescription }
+        let validationError = StateHelper.makeValidationError(validationError: input.validationError)
 
         let fiatTitle = StateHelper.makeFiatTitle(readOnlyState: input.readOnlyState, didSelectFiatItem: input.didSelectFiatItem)
         let fiatAssets = StateHelper.makeFiatAssets(readOnlyState: input.readOnlyState)
@@ -179,11 +179,18 @@ extension BuyCryptoPresenter {
             Observable.combineLatest(didSelectCryptoItem, readOnlyState)
                 .compactMap { cryptoItem, state -> BlueButton.Model? in
                     switch state {
-                    case .aCashAssetsLoaded: return .init(title: Localizable.Waves.Buycrypto.buy(""), status: .loading)
-                    case .checkingExchangePair: return .init(title: Localizable.Waves.Buycrypto.buy(""), status: .loading)
-                    case .checkingExchangePairError: return .init(title: Localizable.Waves.Buycrypto.buy(""), status: .disabled)
+                    case .aCashAssetsLoaded:
+                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .loading)
+                        
+                    case .checkingExchangePair:
+                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .loading)
+                        
+                    case .checkingExchangePairError:
+                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .disabled)
+                        
                     case .readyForExchange:
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .active)
+                        
                     default: return nil
                     }
             }
@@ -225,6 +232,23 @@ extension BuyCryptoPresenter {
                                        link: link)
             }
             .asDriverIgnoringError()
+        }
+        
+        static func makeValidationError(validationError: Signal<Error?>) -> Signal<String?> {
+            validationError.map { error -> String? in
+                if let error = error as? BuyCryptoInteractor.FiatAmountValidationError {
+                    switch error {
+                    case .isNaN:
+                        return "Is not a number"
+                    case .lessMin(let min):
+                        return Localizable.Waves.Buycrypto.minAmount("\(min)")
+                    case .moreMax(let max):
+                        return Localizable.Waves.Buycrypto.maxAmount("\(max)")
+                    }
+                } else {
+                    return error?.localizedDescription
+                }
+            }
         }
     }
 }

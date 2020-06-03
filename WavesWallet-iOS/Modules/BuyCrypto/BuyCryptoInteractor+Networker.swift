@@ -201,14 +201,13 @@ extension BuyCryptoInteractor {
                             completion(.failure(error))
                         }
                     }
-                    
+
                     let devConfigRate = devConfig.gatewayMinFee[recipientAsset]?[senderAsset]
 
                     self?.getExchangeLimits(signedWallet: signedWallet,
                                             gatewayTransferBinding: gatewayTransferBinding,
                                             devConfigRate: devConfigRate,
                                             senderAsset: senderAsset,
-                                            recipientAsset: recipientAsset,
                                             completion: completionAdapter)
 
                 },
@@ -220,7 +219,6 @@ extension BuyCryptoInteractor {
                                        gatewayTransferBinding: GatewaysTransferBinding,
                                        devConfigRate: DevelopmentConfigs.Rate?,
                                        senderAsset: String,
-                                       recipientAsset: String,
                                        completion: @escaping (Result<(min: Decimal, max: Decimal), Error>) -> Void) {
             let completionAdapter: (Result<Double, Error>) -> Void = { result in
                 switch result {
@@ -284,7 +282,7 @@ extension BuyCryptoInteractor {
                     completion(.failure(error))
                 }
             }
-            
+
             let senderAssetAmount: Double
             if Decimal(amount) < minLimit {
                 let minLimitAsNSNumber = minLimit as NSNumber
@@ -292,7 +290,7 @@ extension BuyCryptoInteractor {
             } else {
                 senderAssetAmount = amount
             }
-            
+
             // сколько получит пользователь для отображения в ibuy
             adCashGRPCService.getACashAssetsExchangeRate(signedWallet: signedWallet,
                                                          senderAsset: senderAsset,
@@ -311,7 +309,7 @@ extension BuyCryptoInteractor {
                     let completionAdapter: (Result<String, Error>) -> Void = { result in
                         switch result {
                         case let .success(queryParams):
-                            
+
                             let urlString = DomainLayerConstants.URL.advcash + queryParams
                             if let url = URL(string: urlString) {
                                 completion(.success(url))
