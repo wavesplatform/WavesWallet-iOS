@@ -399,7 +399,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         let table = visibleTableView
         table.frame.origin.y = tableTopPosition
         table.contentOffset.y = tableTopPosition - table.contentInset.top
-        
+        table.flashScrollIndicators()
         if contentSize.height != visibleContentHeight {
             contentSize.height = visibleContentHeight
         }
