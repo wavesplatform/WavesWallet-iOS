@@ -203,10 +203,10 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                 let setIsLoggedIn = self.setIsLoggedIn(wallet: wallet)
 
                 return Observable.zip(setIsLoggedIn, updateUserUID)
-                    .flatMap { [weak self] _, uid -> Observable<AuthorizationVerifyAccessStatus> in
+                    .flatMap { [weak self] wallet, uid -> Observable<AuthorizationVerifyAccessStatus> in
 
                         self?.analyticManager.setUID(uid: uid)
-                        return Observable.just(AuthorizationVerifyAccessStatus.completed(signedWallet))
+                        return Observable.just(AuthorizationVerifyAccessStatus.completed(.init(wallet: wallet, seed: seed)))
                     }
             }
             .map { (status) -> AuthorizationAuthStatus in
