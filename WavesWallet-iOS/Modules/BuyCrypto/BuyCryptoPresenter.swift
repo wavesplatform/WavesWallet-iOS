@@ -207,10 +207,10 @@ extension BuyCryptoPresenter {
                 default: return true
                 }
             }
-            .compactMap { fiatAsset -> ExchangeMessage? in
-                guard let link = URL(string: "https://support.waves.exchange/") else { return nil }
+            .compactMap { fiatAsset -> ExchangeMessage? in                
+                guard let link = URL(string: UIGlobalConstants.URL.support) else { return nil }
                 let message: String
-                if fiatAsset.id == "AC_USD" {
+                if fiatAsset.id == DomainLayerConstants.acUSDId {
                     message = Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n" +
                         Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
                         Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
