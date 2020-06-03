@@ -794,6 +794,7 @@
 		87145090246243A000A17BA9 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508E246243A000A17BA9 /* UITools.framework */; };
 		87145092246243A000A17BA9 /* WavesUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508F246243A000A17BA9 /* WavesUIKit.framework */; };
 		871D7263242CC94100F89403 /* InvestmenLandingSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* InvestmenLandingSetting.swift */; };
+		874554B82487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874554B72487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
 		8752A2662412799900B968C7 /* PayoutsHistorySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2612412799900B968C7 /* PayoutsHistorySystem.swift */; };
@@ -2243,6 +2244,7 @@
 		8714508E246243A000A17BA9 /* UITools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UITools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714508F246243A000A17BA9 /* WavesUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WavesUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		871D7262242CC94100F89403 /* InvestmenLandingSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmenLandingSetting.swift; sourceTree = "<group>"; };
+		874554B72487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuyCryptoInteractor+StateTransform.swift"; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
 		8752A2612412799900B968C7 /* PayoutsHistorySystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistorySystem.swift; sourceTree = "<group>"; };
@@ -5264,6 +5266,7 @@
 				87ED727D246D7B34002CAD29 /* TextField */,
 				87ED726F246C735A002CAD29 /* BuyCryptoBuilder.swift */,
 				87ED7270246C735A002CAD29 /* BuyCryptoInteractor.swift */,
+				874554B72487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift */,
 				875C0A85247BB81B00685A04 /* BuyCryptoInteractor+Networker.swift */,
 				87ED726B246C735A002CAD29 /* BuyCryptoPresenter.swift */,
 				87ED726D246C735A002CAD29 /* BuyCryptoViewController.swift */,
@@ -8426,6 +8429,7 @@
 				7BFB481722FC742F002B19F8 /* NSAttributedString+Styles.swift in Sources */,
 				E9B088062163886800937644 /* DexCompleteOrderViewController.swift in Sources */,
 				048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */,
+				874554B82487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift in Sources */,
 				875393322423BE5F00394762 /* ReceiveContainerModuleBuilder.swift in Sources */,
 				871D7263242CC94100F89403 /* InvestmenLandingSetting.swift in Sources */,
 				E9802C5523B24AD8003C7BB4 /* Images.swift in Sources */,
@@ -8668,8 +8672,8 @@
 				875393472423BECB00394762 /* TooltipModuleBuilder.swift in Sources */,
 				044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */,
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
-				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
-				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
+				0AF92228212E0F1F003BA067 /* InvestmentLeasingBalanceCell.swift in Sources */,
+				0AF92225212E0F1F003BA067 /* HeaderWithArrowView.swift in Sources */,
 				87ED727F246D7BAF002CAD29 /* RoundedTextField.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* InvestmentLeasingBalanceCell.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* HeaderWithArrowView.swift in Sources */,

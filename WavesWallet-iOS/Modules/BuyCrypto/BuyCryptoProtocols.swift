@@ -21,7 +21,7 @@ protocol BuyCryptoBuildable: AnyObject {
 // MARK: - Listener
 
 protocol BuyCryptoListener: AnyObject {
-    func openUrl(_ url: URL, delegate: BrowserViewControllerDelegate)
+    func openUrl(_ url: URL, delegate: BrowserViewControllerDelegate?)
 }
 
 // MARK: - Interactor
@@ -73,9 +73,6 @@ extension BuyCryptoInteractor {
         @PublishObservable var didCheckedExchangePair: Observable<BuyCryptoInteractor.ExchangeInfo>
         @PublishObservable var checkingExchangePairError: Observable<Error>
         
-//        @PublishObservable var didCalculateExchangeCost: Observable<Void>
-//        @PublishObservable var calculationExchangeCostError: Observable<Error>
-        
         @PublishObservable var didProcessedExchange: Observable<URL>
         @PublishObservable var processingExchangeError: Observable<Error>
     }
@@ -88,6 +85,15 @@ extension BuyCryptoInteractor {
         @PublishObservable var didClosedWebView: Observable<Void>
         @PublishObservable var exchangeSuccessful: Observable<Void>
         @PublishObservable var exchangeFailed: Observable<Void>
+    }
+}
+
+extension BuyCryptoInteractor {
+    struct StateTransformActions {
+        let initialLoadingEntryAction: VoidClosure
+        let checkingExchangePairEntryAction: (String, String, Double) -> Void
+        let processingEntryAction: (String, ExchangeInfo) -> Void
+        let openUrlEntryAction: (URL) -> Void
     }
 }
 
@@ -218,4 +224,7 @@ struct BuyCryptoViewOutput {
     
     /// Нажатие на кнопку "Повторить" на экране ошибки
     let didTapRetry: ControlEvent<Void>
+    
+    /// Нажатие на ссылку в текст вью
+    let didTapURL: ControlEvent<URL>
 }

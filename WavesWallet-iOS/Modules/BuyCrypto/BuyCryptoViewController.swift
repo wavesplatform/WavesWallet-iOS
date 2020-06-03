@@ -45,6 +45,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     private let didSelectCryptoItem = PublishRelay<BuyCryptoPresenter.AssetViewModel>()
     private let didChangeFiatAmount = PublishRelay<String?>()
     private let didTapBuy = PublishRelay<Void>()
+    private let didTapURL = PublishRelay<URL>()
 
     private let didTapRetry = PublishRelay<Void>()
 
@@ -114,6 +115,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         infoTextView.isSelectable = false
         infoTextView.isScrollEnabled = false
         infoTextView.backgroundColor = .basic50
+        infoTextView.delegate = self
     }
 }
 
@@ -128,7 +130,8 @@ extension BuyCryptoViewController: BindableView {
                                    didChangeFiatAmount: didChangeFiatAmount.asControlEvent(),
                                    didTapBuy: didTapBuy.asControlEvent(),
                                    viewWillAppear: ControlEvent<Void>(events: viewWillAppear),
-                                   didTapRetry: didTapRetry.asControlEvent())
+                                   didTapRetry: didTapRetry.asControlEvent(),
+                                   didTapURL: didTapURL.asControlEvent())
     }
 
     func bindWith(_ input: BuyCryptoPresenterOutput) {
@@ -332,6 +335,16 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
         } else {
             self.navigationItem.title = ""
         }
+    }
+}
+
+extension BuyCryptoViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView,
+                  shouldInteractWith URL: URL,
+                  in characterRange: NSRange,
+                  interaction: UITextItemInteraction) -> Bool {
+        
+        return false
     }
 }
 
