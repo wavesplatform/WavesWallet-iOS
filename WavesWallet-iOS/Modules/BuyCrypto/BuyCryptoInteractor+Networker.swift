@@ -161,16 +161,16 @@ extension BuyCryptoInteractor {
                              completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             Observable.zip(authorizationService.authorizedWallet(),
                            developmentConfigRepository.developmentConfigs(),
-                           serverEnvironmentRepository.serverEnvironment())
-                .flatMap { [weak self] signedWallet, devConfig, serverEnvironment
-                    -> Observable<(SignedWallet, ServerEnvironment, DevelopmentConfigs, WEOAuthTokenDTO)> in
+                           serverEnvironmentRepository.serverEnvironment(), environmentRepository.walletEnvironment())
+                .flatMap { [weak self] signedWallet, devConfig, serverEnvironment, walletEnvironment
+                    -> Observable<(SignedWallet, ServerEnvironment, DevelopmentConfigs, WalletEnvironment, WEOAuthTokenDTO)> in
                     guard let sself = self else { return Observable.never() }
 
                     return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
-                        .map { (signedWallet, serverEnvironment, devConfig, $0) }
+                        .map { (signedWallet, serverEnvironment, devConfig, walletEnvironment, $0) }
                 }
-                .flatMap { [weak self] signedWallet, serverEnvironment, devConfig, token
-                    -> Observable<(SignedWallet, GatewaysTransferBinding, DevelopmentConfigs)> in
+                .flatMap { [weak self] signedWallet, serverEnvironment, devConfig, walletEnvironment, token
+                    -> Observable<(SignedWallet, GatewaysTransferBinding, DevelopmentConfigs, WalletEnvironment)> in
                     guard let sself = self else { return Observable.never() }
                     let transferBindingRequest = TransferBindingRequest(asset: recipientAsset,
                                                                         recipientAddress: signedWallet.wallet.address)
@@ -178,14 +178,15 @@ extension BuyCryptoInteractor {
                     return sself.gatewaysWavesRepository.depositTransferBinding(serverEnvironment: serverEnvironment,
                                                                                 oAToken: token,
                                                                                 request: transferBindingRequest)
-                        .map { gatewayTransferBinding -> (SignedWallet, GatewaysTransferBinding, DevelopmentConfigs) in
-                            (signedWallet, gatewayTransferBinding, devConfig)
+                        .map { gatewayTransferBinding
+                            -> (SignedWallet, GatewaysTransferBinding, DevelopmentConfigs, WalletEnvironment) in
+                            (signedWallet, gatewayTransferBinding, devConfig, walletEnvironment)
                         }
                 }
                 .catchError { error in
                     Observable.error(error)
                 }
-                .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding, devConfig in
+                .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding, devConfig, walletEnvironment in
                     let completionAdapter: (Result<(min: Decimal, max: Decimal), Error>) -> Void = { result in
                         switch result {
                         case let .success((min, max)):
@@ -201,8 +202,11 @@ extension BuyCryptoInteractor {
                             completion(.failure(error))
                         }
                     }
-
-                    let devConfigRate = devConfig.gatewayMinFee[recipientAsset]?[senderAsset]
+                    var devConfigRate: DevelopmentConfigs.Rate?
+                    let assets = (walletEnvironment.assets ?? []) + walletEnvironment.generalAssets
+                    if let assetInfo = assets.first(where: { $0.wavesId == recipientAsset }) {
+                        devConfigRate = devConfig.gatewayMinFee[assetInfo.assetId]?[senderAsset.lowercased()]
+                    }
 
                     self?.getExchangeLimits(signedWallet: signedWallet,
                                             gatewayTransferBinding: gatewayTransferBinding,
@@ -227,6 +231,7 @@ extension BuyCryptoInteractor {
                     let max: Decimal
                     // ac_usd === usnd
                     if let devConfigRate = devConfigRate {
+                        
                         // домножить на рейт из конфига
                         let devRate = Decimal(devConfigRate.rate)
                         let devFlat = Decimal(devConfigRate.flat)
