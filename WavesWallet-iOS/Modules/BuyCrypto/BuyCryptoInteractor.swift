@@ -59,7 +59,7 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
         }
     }
 
-    private func checkingExchangePair(senderAsset: String, recipientAsset: String, amount: Double) {
+    private func checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double) {
         networker
             .getExchangeRate(senderAsset: senderAsset, recipientAsset: recipientAsset, amount: amount) { [weak self] result in
                 switch result {

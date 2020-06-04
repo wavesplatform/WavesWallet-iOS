@@ -44,6 +44,7 @@ extension BuyCryptoInteractor {
                                                 didCheckedExchangePair: apiResponse.didCheckedExchangePair)
 
             fromReadyToExchangeToCheckingExchangePair(stateTransformTrait: stateTransformTrait,
+                                                      didLoadACashAssets: apiResponse.didLoadACashAssets,
                                                       didSelectFiat: viewOutput.didSelectFiatItem,
                                                       didSelectCrypto: viewOutput.didSelectCryptoItem,
                                                       didChangeFiatAmount: viewOutput.didChangeFiatAmount,
@@ -116,31 +117,31 @@ extension BuyCryptoInteractor {
                 .subscribe(onNext: { _ in loadingEntryAction() })
                 .disposed(by: stateTransformTrait.disposeBag)
         }
-
-        private static func fromACashAssetsLoadedToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                                        didSelectFiat: ControlEvent<BuyCryptoPresenter
-                                                                            .AssetViewModel>,
-                                                                        didSelectCrypto: ControlEvent<BuyCryptoPresenter
-                                                                            .AssetViewModel>,
-                                                                        didChangeFiatAmount: ControlEvent<String?>,
-                                                                        checkingPairAction: @escaping (String, String, Double)
-                                                                            -> Void) {
+        
+        private static func fromACashAssetsLoadedToCheckingExchangePair(
+            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+            didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+            didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+            didChangeFiatAmount: ControlEvent<String?>,
+            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double) -> Void) {
             let amount = didChangeFiatAmount.map { Double($0 ?? "0") }
 
             let fromACashAssetsLoadedToCheckingExchangePair = Observable.combineLatest(didSelectFiat.asObservable(),
                                                                                        didSelectCrypto.asObservable())
-                .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> AssetsInfo? in
                     switch state {
-                    case .aCashAssetsLoaded: return true
-                    default: return false
+                    case .aCashAssetsLoaded(let assets): return assets
+                    default: return nil
                     }
                 }
-                .withLatestFrom(amount, resultSelector: { selectedItems, fiatAmount
-                        -> (BuyCryptoPresenter.AssetViewModel, BuyCryptoPresenter.AssetViewModel, Double) in
-                    let (fiatItem, cryptoItem) = selectedItems
-                    return (fiatItem, cryptoItem, fiatAmount ?? 0)
+                .denestifyTuple()
+                .withLatestFrom(amount, resultSelector: { assetInfoFromState, fiatAmount -> (FiatAsset, CryptoAsset, Double) in
+                    let (fiatItemVM, cryptoItemVM, assetInfo) = assetInfoFromState
+                    let fiatAsset = assetInfo.fiatAssets.first(where: { $0.id == fiatItemVM.id })!
+                    let cryptoAsset = assetInfo.cryptoAssets.first(where: { $0.id == cryptoItemVM.id })!
+                    return (fiatAsset, cryptoAsset, fiatAmount ?? 0)
                 })
-                .map { BuyCryptoState.checkingExchangePair(senderAsset: $0.id, recipientAsset: $1.id, amount: $2) }
+                .map { BuyCryptoState.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2) }
                 .share()
 
             fromACashAssetsLoadedToCheckingExchangePair
@@ -160,10 +161,10 @@ extension BuyCryptoInteractor {
         private static func fromCheckingExchangePairToCheckingError(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                                                     checkingExchangePairError: Observable<Error>) {
             let fromCheckingExchangePairToCheckingExchangePairError = checkingExchangePairError
-                .filteredByState(stateTransformTrait.readOnlyState) { state -> (String, String, Double)? in
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> (FiatAsset, CryptoAsset, Double)? in
                     switch state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, amount): return (senderAsset, recipientAsset,
-                                                                                                 amount)
+                    case let .checkingExchangePair(senderAsset, recipientAsset, amount):
+                        return (senderAsset, recipientAsset, amount)
                     default: return nil
                     }
                 }
@@ -178,7 +179,7 @@ extension BuyCryptoInteractor {
         private static func fromCheckingErrorToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                                                     didTapRetry: ControlEvent<Void>) {
             let fromCheckingErrorToCheckingExchangePair = didTapRetry
-                .filteredByState(stateTransformTrait.readOnlyState) { state -> (String, String, Double)? in
+                .filteredByState(stateTransformTrait.readOnlyState) { state -> (FiatAsset, CryptoAsset, Double)? in
                     switch state {
                     case let .checkingExchangePairError(_, senderAsset, recipientAsset, amount):
                         return (senderAsset, recipientAsset, amount)
@@ -209,30 +210,33 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
-        private static func fromReadyToExchangeToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                                      didSelectFiat: ControlEvent<BuyCryptoPresenter
-                                                                          .AssetViewModel>,
-                                                                      didSelectCrypto: ControlEvent<BuyCryptoPresenter
-                                                                          .AssetViewModel>,
-                                                                      didChangeFiatAmount: ControlEvent<String?>,
-                                                                      checkingPairAction: @escaping (String, String, Double)
-                                                                          -> Void) {
+        private static func fromReadyToExchangeToCheckingExchangePair(
+            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+            didLoadACashAssets: Observable<AssetsInfo>,
+            didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+            didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+            didChangeFiatAmount: ControlEvent<String?>,
+            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double) -> Void) {
             let fromACashAssetsLoadedToCheckingExchangePair = Observable.combineLatest(didSelectFiat.asObservable(),
-                                                                                       didSelectCrypto.asObservable())
+                                                                                       didSelectCrypto.asObservable(),
+                                                                                       didLoadACashAssets)
                 .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
                     switch state {
                     case .readyForExchange: return true
                     default: return false
                     }
                 }
-                .withLatestFrom(didChangeFiatAmount.asObservable(), resultSelector: { selectedItems, amount
-                        -> (BuyCryptoPresenter.AssetViewModel, BuyCryptoPresenter.AssetViewModel, Double) in
-                    let (fiatItem, cryptoItem) = selectedItems
+                .withLatestFrom(didChangeFiatAmount.asObservable(), resultSelector: { assetsInfo, amount
+                    -> (FiatAsset, CryptoAsset, Double) in
+                    let (fiatItemVM, cryptoItemVM, loadedAssetsInfo) = assetsInfo
+                    
                     let amount = amount.map { Double($0) ?? 0 } ?? 0
-
-                    return (fiatItem, cryptoItem, amount)
+                    let fiatAsset = loadedAssetsInfo.fiatAssets.first(where: { $0.id == fiatItemVM.id })!
+                    let cryptoAsset = loadedAssetsInfo.cryptoAssets.first(where: { $0.id == cryptoItemVM.id })!
+                    
+                    return (fiatAsset, cryptoAsset, amount)
                 })
-                .map { BuyCryptoState.checkingExchangePair(senderAsset: $0.id, recipientAsset: $1.id, amount: $2) }
+                .map { BuyCryptoState.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2) }
                 .share()
 
             fromACashAssetsLoadedToCheckingExchangePair
@@ -249,11 +253,11 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
-        private static func fromReadyToExchangeToExchangeProcessing(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                                    didTapBuy: ControlEvent<Void>,
-                                                                    didChangeFiatAmount: ControlEvent<String?>,
-                                                                    processingEntryAction: @escaping (String, ExchangeInfo)
-                                                                        -> Void) {
+        private static func fromReadyToExchangeToExchangeProcessing(
+            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+            didTapBuy: ControlEvent<Void>,
+            didChangeFiatAmount: ControlEvent<String?>,
+            processingEntryAction: @escaping (String, ExchangeInfo) -> Void) {
             let fromReadyToExchangeToExchangeProcessing = didTapBuy
                 .filteredByState(stateTransformTrait.readOnlyState) { state -> ExchangeInfo? in
                     switch state {
@@ -324,12 +328,10 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
-        private static func fromReadyForExchangeToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                                       didChangeFiatAmount: ControlEvent<String?>,
-                                                                       checkingExchangePairEntryAction: @escaping (
-                                                                           String,
-                                                                           String,
-                                                                           Double) -> Void) {
+        private static func fromReadyForExchangeToCheckingExchangePair(
+            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+            didChangeFiatAmount: ControlEvent<String?>,
+            checkingExchangePairEntryAction: @escaping (FiatAsset, CryptoAsset, Double) -> Void) {
             let amount = didChangeFiatAmount.compactMap().map { Double($0) }.compactMap()
 
             let fromReadyForExchangeToCheckingExchangePair = amount
@@ -339,9 +341,9 @@ extension BuyCryptoInteractor {
                     default: return nil
                     }
                 }
-                .map { amount, info in
+                .map {
                     BuyCryptoState
-                        .checkingExchangePair(senderAsset: info.senderAsset, recipientAsset: info.recipientAsset, amount: amount)
+                        .checkingExchangePair(senderAsset: $1.senderAsset, recipientAsset: $1.recipientAsset, amount: $0)
                 }
                 .share()
 

@@ -29,6 +29,9 @@ protocol BuyCryptoListener: AnyObject {
 protocol BuyCryptoInteractable: AnyObject {}
 
 enum BuyCryptoState {
+    typealias FiatAsset = BuyCryptoInteractor.FiatAsset
+    typealias CryptoAsset = BuyCryptoInteractor.CryptoAsset
+    
     /// Состояние загрузки экрана
     case isLoading
     
@@ -39,10 +42,10 @@ enum BuyCryptoState {
     case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
     
     /// Состояние проверки обменной пары
-    case checkingExchangePair(senderAsset: String, recipientAsset: String, amount: Double)
+    case checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
     
     /// Состояние ошибки проверки обменной пары (отображать ошибку)
-    case checkingExchangePairError(error: Error, senderAsset: String, recipientAsset: String, amount: Double)
+    case checkingExchangePairError(error: Error, senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
     
     /// Состояние, когда обмен фиатной валюты в крипто валюту готов
     case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
@@ -91,7 +94,7 @@ extension BuyCryptoInteractor {
 extension BuyCryptoInteractor {
     struct StateTransformActions {
         let initialLoadingEntryAction: VoidClosure
-        let checkingExchangePairEntryAction: (String, String, Double) -> Void
+        let checkingExchangePairEntryAction: (FiatAsset, CryptoAsset, Double) -> Void
         let processingEntryAction: (String, ExchangeInfo) -> Void
         let openUrlEntryAction: (URL) -> Void
     }
