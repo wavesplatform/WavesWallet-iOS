@@ -10,6 +10,7 @@ import UIKit
 
 private enum Constants {
     static let heightSeparator: CGFloat = 40
+    static let distanceForRefreshInset: CGFloat = 100
 }
 
 final class WalletView: UIView {
@@ -19,17 +20,15 @@ final class WalletView: UIView {
 
     let walletSearchView = WalletSearchView.loadFromNib()
     let smartBarView = SmartBarView()
+    
+    private var lastHeight: CGFloat?
 
-    
-    // Был ли добавлен баннер
-    private var lastHeight: CGFloat? = nil
-    
     // Был ли добавлен баннер
     private var hasAddingViewBanners: Bool = false
-    
-    // Надо ли обновить inset
+
+    // инициализация Inset
     private var initUpdateContentInset: Bool = false
-    //Нужна ли анимация после завершение scrollView
+    // Нужна ли анимация после завершение scrollView
     private var hasNeedAnimatedNextTime: Bool = false
 
     var updateAppViewTapped: (() -> Void)?
@@ -42,7 +41,7 @@ final class WalletView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         if initUpdateContentInset {
             return
         }
@@ -51,17 +50,15 @@ final class WalletView: UIView {
     }
 
     private func ifNeedUpdateContentInset(animated: Bool = false) {
+        let height = stackView.frame.height
 
-        let height = self.stackView.frame.height
-        
         if let lastHeight = self.lastHeight, lastHeight == height {
             return
         }
-                
-        self.lastHeight = height
-        
+
+        lastHeight = height
+
         let animations = {
-                        
             self.tableView.contentInset = .init(top: height, left: 0, bottom: 0, right: 0)
             self.tableView.scrollIndicatorInsets = .init(top: height, left: 0, bottom: 0, right: 0)
         }
@@ -95,14 +92,14 @@ final class WalletView: UIView {
         if value - Constants.heightSeparator > 0 {
             percent = (value - Constants.heightSeparator) / smartBarView.maxHeighBeetwinImageAndDownSide()
         }
-                
+
         percent = min(1.0, percent)
         percent = max(0, percent)
 
         // Если преждевремено закрыли бар, то мы в следущем движенем пальцем должны про анимировать
         hasNeedAnimatedNextTime = percent != 0 && percent != 1
-        
-        ifNeedUpdateContentInset(animated: true)
+
+        ifNeedUpdateContentInset(animated: false)
 
         let animations = {
             if percent > 0.34 {
@@ -117,12 +114,9 @@ final class WalletView: UIView {
                        animations: animations) { _ in }
     }
 
-    func scrollViewDidScroll(scrollView: UIScrollView, viewController _: UIViewController) {
-        
+    func scrollViewDidScroll(scrollView: UIScrollView, viewController: UIViewController) {
         let value = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-        
-        print("value \(value)")
-            
+    
         let height = smartBarView.maxHeighBeetwinImageAndDownSide()
 
         var percent: CGFloat = 0.0
@@ -132,11 +126,11 @@ final class WalletView: UIView {
         }
         percent = min(1.0, percent)
         percent = max(0.0, percent)
-        
+
         let animations = {
             self.smartBarView.percent = percent
         }
-             
+
         if hasNeedAnimatedNextTime {
             UIView.animate(withDuration: 0.18,
                            delay: 0, options: [.beginFromCurrentState],
@@ -148,12 +142,16 @@ final class WalletView: UIView {
         if value < 0 {
             topLayoutConstraint.constant = abs(value)
         }
-        
+
         // Если контента меньше чем экран мы не обноляем inset, а то будет прыгать offset
         if scrollView.contentSize.height > scrollView.frame.height {
-            ifNeedUpdateContentInset(animated: false)
+            // Обновляем inset после сварачивание.
+            // Зищата от частого обновление inset, так как будешь скакать как Москаль
+            if value > Constants.distanceForRefreshInset {
+                ifNeedUpdateContentInset(animated: false)
+            }
         }
-                          
+
         hasNeedAnimatedNextTime = false
     }
 
