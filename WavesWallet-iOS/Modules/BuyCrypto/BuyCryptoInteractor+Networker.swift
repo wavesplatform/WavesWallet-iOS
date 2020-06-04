@@ -122,18 +122,18 @@ extension BuyCryptoInteractor {
                     let cryptoAssets = assets.filter { $0.kind == .crypto }
                         .compactMap { asset -> CryptoAsset? in
                             if let assetBinding = gatewayAssetBindings.first(where: {
-                                $0.senderAsset.asset == asset.id.replacingOccurrences(of: "USD", with: "AC_USD")
+                                $0.senderAsset.asset == asset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId)
                             }),
                                 let assetInfo = walletEnvironmentAssets.first(where: {
                                     $0.assetId == assetBinding.recipientAsset.asset
                                 }) {
                                 return .init(name: asset.name,
-                                             id: asset.id.replacingOccurrences(of: "USD", with: "AC_USD"),
+                                             id: asset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId),
                                              decimals: asset.decimals,
                                              assetInfo: assetInfo)
                             } else {
                                 return .init(name: asset.name,
-                                             id: asset.id.replacingOccurrences(of: "USD", with: "AC_USD"),
+                                             id: asset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId),
                                              decimals: asset.decimals,
                                              assetInfo: nil)
                             }
@@ -293,7 +293,7 @@ extension BuyCryptoInteractor {
                                                          recipientAsset: recipientAsset.id,
                                                          senderAssetAmount: senderAssetAmount,
                                                          completion: completionAdapter)
-        }
+        }   
 
         func deposite(senderAsset: FiatAsset,
                       recipientAsset: CryptoAsset,

@@ -103,7 +103,7 @@ final class WEGatewayRepository: WEGatewayRepositoryProtocol {
             let url = serverEnvironment.servers.gateways.v2
             
             let token = request.token.accessToken
-            let currency = Constants.currencyForAd
+            let currency = DomainLayerConstants.acUSDId
             let amount = request.amount
             let address = request.address
             

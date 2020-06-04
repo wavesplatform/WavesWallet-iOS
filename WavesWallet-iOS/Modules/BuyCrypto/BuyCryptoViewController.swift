@@ -33,7 +33,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     @IBOutlet private weak var cryptoZoomLayout: ZoomFlowLayout!
     @IBOutlet private weak var buyButton: BlueButton!
     @IBOutlet private weak var infoTextView: UITextView!
-    
+
     private let errorView = GlobalErrorView()
 
     private var presenterOutput: BuyCryptoPresenterOutput?
@@ -80,7 +80,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         
         fiatAmountTextField.setPlaceholder(Localizable.Waves.Buycrypto.amountPlaceholder)
         fiatAmountTextField.text.distinctUntilChanged().bind(to: didChangeFiatAmount).disposed(by: disposeBag)
-        
+
         buyButton.didTouchButton = { [weak self] in self?.didTapBuy.accept(Void()) }
         
         setupInfoTextView()
@@ -161,7 +161,7 @@ extension BuyCryptoViewController: BindableView {
         bindErrors(initialError: input.initialError,
                    showSnackBarError: input.showSnackBarError,
                    validationError: input.validationError)
-        
+
         bindCarouselItems(fiatItems: input.fiatItems, cryptoItems: input.cryptoItems)
 
         input.fiatTitle.drive(spentLabel.rx.text).disposed(by: disposeBag)
@@ -177,7 +177,7 @@ extension BuyCryptoViewController: BindableView {
             .drive(onNext: { [weak self] in self?.bindExchangeMessage(message: $0) })
             .disposed(by: disposeBag)
     }
-    
+
     private func bindErrors(initialError: Signal<String>, showSnackBarError: Signal<String>, validationError: Signal<String?>) {
         initialError
             .emit(onNext: { [weak self] errorMessage in self?.showInitialError(errorMessage: errorMessage) })
@@ -189,17 +189,17 @@ extension BuyCryptoViewController: BindableView {
                 var keySnackBar = ""
                 keySnackBar = sself.showErrorSnack(title: errorMessage,
                                                    didTap: { [weak self] in
-                                                    self?.hideSnack(key: keySnackBar)
-                                                    self?.didTapRetry.accept(Void())
+                                                       self?.hideSnack(key: keySnackBar)
+                                                       self?.didTapRetry.accept(Void())
                 })
             })
             .disposed(by: disposeBag)
-        
+
         validationError
             .emit(onNext: { [weak self] errorMessage in self?.fiatAmountTextField.setError(errorMessage) })
             .disposed(by: disposeBag)
     }
-    
+
     private func bindCarouselItems(fiatItems: Driver<[BuyCryptoPresenter.AssetViewModel]>,
                                    cryptoItems: Driver<[BuyCryptoPresenter.AssetViewModel]>) {
         fiatItems.drive(onNext: { [weak self] assets in
@@ -232,16 +232,45 @@ extension BuyCryptoViewController: BindableView {
         infoTextView.attributedText = attributeString
         infoTextView.layoutIfNeeded()
     }
-    
-    private func showInitialError(errorMessage: String) {
+
+    private func showInitialError(errorMessage _: String) {
         let model = GlobalErrorView.Model(kind: .serverError)
         view.addStretchToBounds(errorView)
         errorView.update(with: model)
-        
+
         errorView.retryDidTap = { [weak self] in
             self?.didTapRetry.accept(Void())
             self?.errorView.removeFromSuperview()
         }
+    }
+
+    private func ifNeedhideNavigationTitle(scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+
+        let frame = spentLabel.frame
+
+        // Выщитываем процент сдвига spentLabel
+        var percent = offset / frame.height
+        percent = max(percent, 0)
+        percent = min(percent, 1)
+
+        if percent == 1 {
+            navigationItem.title = spentLabel.text
+        } else {
+            navigationItem.title = ""
+        }
+
+        UIView.animate(withDuration: 0.38, delay: 0, options: [.curveEaseInOut], animations: {
+            if percent == 1 {
+                self.navigationItem
+                    .titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(1)]
+                self.spentLabel.alpha = 0
+            } else {
+                self.navigationItem
+                    .titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0)]
+                self.spentLabel.alpha = 1
+            }
+        }) { _ in }
     }
 }
 
@@ -282,11 +311,9 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
 }
 
 extension BuyCryptoViewController: UICollectionViewDelegate {
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                
+
         if collectionView === fiatCollectionView {
             let fiatAsset = fiatAssets[indexPath.item]
             didSelectFiatItem.accept(fiatAsset)
@@ -295,7 +322,7 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
             didSelectCryptoItem.accept(cryptoAsset)
         }
     }
-    
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView === fiatCollectionView {
             let currentItemOffset = fiatCollectionView.contentInset.left + fiatCollectionView.contentOffset.x
@@ -312,39 +339,32 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
                 let cryptoAsset = cryptoAssets[indexPath.item]
                 didSelectCryptoItem.accept(cryptoAsset)
             }
-        } 
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-         
-        guard scrollView === self.scrollView else { return }
-        
-        let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-        
-        let frame = spentLabel.frame
-    
-        //Выщитываем процент сдвига spentLabel
-        var percent = offset / frame.height
-        percent = max(percent, 0)
-        percent = min(percent, 1)
-                 
-        spentLabel.alpha = 1 - percent
-        self.navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(percent)]
-        
-        if percent > 0 {
-            self.navigationItem.title = spentLabel.text
-        } else {
-            self.navigationItem.title = ""
+        } else if scrollView === self.scrollView {
+            ifNeedhideNavigationTitle(scrollView: scrollView)
         }
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView === self.scrollView {
+            if decelerate {
+                return
+            }
+            ifNeedhideNavigationTitle(scrollView: scrollView)
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView === self.scrollView else { return }
+
+        ifNeedhideNavigationTitle(scrollView: scrollView)
     }
 }
 
 extension BuyCryptoViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView,
-                  shouldInteractWith URL: URL,
-                  in characterRange: NSRange,
-                  interaction: UITextItemInteraction) -> Bool {
-        
+    func textView(_: UITextView,
+                  shouldInteractWith _: URL,
+                  in _: NSRange,
+                  interaction _: UITextItemInteraction) -> Bool {
         return false
     }
 }

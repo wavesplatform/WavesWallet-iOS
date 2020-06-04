@@ -102,7 +102,7 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                         let transferBinding = self
                             .gatewayRepository
                             .transferBinding(serverEnvironment: serverEnvironment,
-                                             request: .init(senderAsset: Constants.ACUSD,
+                                             request: .init(senderAsset: DomainLayerConstants.acUSDId,
                                                             recipientAsset: assetId,
                                                             recipientAddress: signedWallet.address,
                                                             token: token))

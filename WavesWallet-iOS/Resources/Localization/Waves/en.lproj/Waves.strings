@@ -837,11 +837,11 @@
 "buyCrypto.minAmount" = "Min amount is %@";
 "buyCrypto.maxAmount" = "Max amount is %@";
 
-"buyCrypto.messageInfo.withoutConversionFee" = "The fee is 0%%.";
-"buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee" = "You may be charged an additional conversion fee. The total amount may vary due to the constantly changing rates.";
-"buyCrypto.messageInfo.minAmount" = "Min amount is %@ or an equivalent amount.";
-"buyCrypto.messageInfo.youCanBuyWithYourBankCard" = "You can buy %@ with your bank card or by direct transfer to the Advanced Cash account.";
-"buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "After a successful payment on the partners' website, %@ will be credited to your account within a few minutes.";
-"buyCrypto.messageInfo.ifYouHaveProblems" = "If you have problems with your payment, please contact support service.";
+"buyCrypto.messageInfo.withoutConversionFee" = "• The fee is 0%%.";
+"buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee" = "• You may be charged an additional conversion fee. The total amount may vary due to the constantly changing rates.";
+"buyCrypto.messageInfo.minAmount" = "• Min amount is %@ or an equivalent amount.";
+"buyCrypto.messageInfo.youCanBuyWithYourBankCard" = "• You can buy %@ with your bank card or by direct transfer to the Advanced Cash account.";
+"buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "• After a successful payment on the partners' website, %@ will be credited to your account within a few minutes.";
+"buyCrypto.messageInfo.ifYouHaveProblems" = "• If you have problems with your payment, please contact support service.";
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "support";
 

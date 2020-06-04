@@ -42,6 +42,7 @@ final class WalletView: UIView {
         }
         isContentInsetInit = true
         tableView.contentInset = .init(top: ceil(stackView.frame.height + 24), left: 0, bottom: 0, right: 0)
+        tableView.scrollIndicatorInsets = .init(top: ceil(stackView.frame.height + 24), left: 0, bottom: 0, right: 0)
     }
 
     func showAppStoreBanner() {
