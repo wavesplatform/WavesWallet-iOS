@@ -244,7 +244,7 @@ extension BuyCryptoViewController: BindableView {
         }
     }
 
-    private func ifNeedhideNavigationTitle(scrollView: UIScrollView) {
+    private func hideNavigationTitleIfNeeded(scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
 
         let frame = spentLabel.frame
@@ -340,7 +340,7 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
                 didSelectCryptoItem.accept(cryptoAsset)
             }
         } else if scrollView === self.scrollView {
-            ifNeedhideNavigationTitle(scrollView: scrollView)
+            hideNavigationTitleIfNeeded(scrollView: scrollView)
         }
     }
 
@@ -349,14 +349,14 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
             if decelerate {
                 return
             }
-            ifNeedhideNavigationTitle(scrollView: scrollView)
+            hideNavigationTitleIfNeeded(scrollView: scrollView)
         }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView === self.scrollView else { return }
 
-        ifNeedhideNavigationTitle(scrollView: scrollView)
+        hideNavigationTitleIfNeeded(scrollView: scrollView)
     }
 }
 

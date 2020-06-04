@@ -178,7 +178,9 @@ extension WalletDisplayState.Display {
                                               .assetSkeleton],
                                       isExpanded: true)
         }
-        return [section]
+                    
+        return [.init(kind: .separator, items: [.separator], isExpanded: true),
+                section]
     }
 
     func toggleCollapse(index: Int) -> WalletDisplayState.Display {
