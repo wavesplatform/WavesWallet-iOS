@@ -15,7 +15,7 @@ import RxSwift
 
 protocol BuyCryptoBuildable: AnyObject {
     /// Сборка модуля покупки крипты с помощью валют с карты (евро, доллар и тд)
-    func build(with listener: BuyCryptoListener) -> BuyCryptoViewController
+    func build(with listener: BuyCryptoListener, selectedAsset: Asset?) -> BuyCryptoViewController
 }
 
 // MARK: - Listener

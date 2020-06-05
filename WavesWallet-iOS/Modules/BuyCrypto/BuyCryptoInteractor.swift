@@ -34,7 +34,8 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
          adCashGRPCService: AdCashGRPCService,
          developmentConfigRepository: DevelopmentConfigsRepositoryProtocol,
          serverEnvironmentRepository: ServerEnvironmentRepository,
-         weOAuthRepository: WEOAuthRepositoryProtocol) {
+         weOAuthRepository: WEOAuthRepositoryProtocol,
+         selectedAsset: Asset?) {
         self.presenter = presenter
 
         let _state = BehaviorRelay<BuyCryptoState>(value: .isLoading)

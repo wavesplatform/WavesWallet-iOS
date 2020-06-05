@@ -177,11 +177,17 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
             .trackEvent(.staking(.mainTradeTap))
     }
 
-    func openBuy(neutrinoAsset _: Asset) {
-        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .card)
-        coordinator.delegate = self
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
+    func openBuy(neutrinoAsset: Asset) {
+        // тут
+        
+        let buyCryptoBuilder: BuyCryptoBuildable = BuyCryptoBuilder()
+        let buyCryptoVC = buyCryptoBuilder.build(with: self, selectedAsset: neutrinoAsset)
+        navigationRouter.pushViewController(buyCryptoVC)
+        
+//        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .card)
+//        coordinator.delegate = self
+//        addChildCoordinator(childCoordinator: coordinator)
+//        coordinator.start()
 
         UseCasesFactory
             .instance
@@ -255,6 +261,12 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
         coordinator.delegate = self
 
         addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+}
+
+extension InvestmentCoordinator: BuyCryptoListener {
+    func openUrl(_ url: URL, delegate: BrowserViewControllerDelegate?) {
+        BrowserViewController.openURL(url, toViewController: navigationRouter.navigationController, delegate: delegate)
     }
 }
 

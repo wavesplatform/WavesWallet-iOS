@@ -125,7 +125,7 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func openCard() {
         let buyCrypto = BuyCryptoBuilder()
-        let viewController = buyCrypto.build(with: self)
+        let viewController = buyCrypto.build(with: self, selectedAsset: nil)
         
         navigationRouter.pushViewController(viewController)
     }

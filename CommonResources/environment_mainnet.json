@@ -499,7 +499,7 @@
     },
     {
       "iconUrls": {
-        "default": ""
+        "default": "https://configs.waves.exchange/icons/kzt_flag_48.png"
       },
       "assetId": "KZT",
       "displayName": "KZT",

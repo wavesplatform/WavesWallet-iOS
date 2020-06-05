@@ -431,7 +431,6 @@
 		7B85E62023FD311300365829 /* StakingTransfer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E61F23FD311300365829 /* StakingTransfer.storyboard */; };
 		7B85E62623FD3C4500365829 /* ModalTableControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */; };
 		7B85E62823FD56DD00365829 /* StakingTransferTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */; };
-		7B85E62A23FD578900365829 /* StakingTransferCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62923FD578900365829 /* StakingTransferCoordinator.swift */; };
 		7B85E62D23FD684C00365829 /* StakingTransferBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B85E62C23FD684C00365829 /* StakingTransferBalanceCell.swift */; };
 		7B85E62F23FD697200365829 /* StakingTransferBalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E62E23FD697200365829 /* StakingTransferBalanceCell.xib */; };
 		7B85E63123FD6BA400365829 /* StakingTransferInputFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B85E63023FD6BA400365829 /* StakingTransferInputFieldCell.xib */; };
@@ -795,6 +794,7 @@
 		87145092246243A000A17BA9 /* WavesUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714508F246243A000A17BA9 /* WavesUIKit.framework */; };
 		871D7263242CC94100F89403 /* InvestmenLandingSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871D7262242CC94100F89403 /* InvestmenLandingSetting.swift */; };
 		874554B82487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874554B72487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift */; };
+		874554BD248AAC8900BD52D9 /* StakingTransferCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874554BC248AAC8800BD52D9 /* StakingTransferCoordinator.swift */; };
 		8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */; };
 		8752A2652412799900B968C7 /* PayoutsHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */; };
 		8752A2662412799900B968C7 /* PayoutsHistorySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A2612412799900B968C7 /* PayoutsHistorySystem.swift */; };
@@ -1899,7 +1899,6 @@
 		7B85E61F23FD311300365829 /* StakingTransfer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StakingTransfer.storyboard; sourceTree = "<group>"; };
 		7B85E62523FD3C4500365829 /* ModalTableControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTableControllerDelegate.swift; sourceTree = "<group>"; };
 		7B85E62723FD56DD00365829 /* StakingTransferTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferTypes.swift; sourceTree = "<group>"; };
-		7B85E62923FD578900365829 /* StakingTransferCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferCoordinator.swift; sourceTree = "<group>"; };
 		7B85E62C23FD684C00365829 /* StakingTransferBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferBalanceCell.swift; sourceTree = "<group>"; };
 		7B85E62E23FD697200365829 /* StakingTransferBalanceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingTransferBalanceCell.xib; sourceTree = "<group>"; };
 		7B85E63023FD6BA400365829 /* StakingTransferInputFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingTransferInputFieldCell.xib; sourceTree = "<group>"; };
@@ -2245,6 +2244,7 @@
 		8714508F246243A000A17BA9 /* WavesUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WavesUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		871D7262242CC94100F89403 /* InvestmenLandingSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmenLandingSetting.swift; sourceTree = "<group>"; };
 		874554B72487BF3300BD52D9 /* BuyCryptoInteractor+StateTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuyCryptoInteractor+StateTransform.swift"; sourceTree = "<group>"; };
+		874554BC248AAC8800BD52D9 /* StakingTransferCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StakingTransferCoordinator.swift; sourceTree = "<group>"; };
 		8752A25F2412799900B968C7 /* PayoutsHistoryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryBuilder.swift; sourceTree = "<group>"; };
 		8752A2602412799900B968C7 /* PayoutsHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistoryVC.swift; sourceTree = "<group>"; };
 		8752A2612412799900B968C7 /* PayoutsHistorySystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayoutsHistorySystem.swift; sourceTree = "<group>"; };
@@ -3366,18 +3366,18 @@
 		0ADD7FF721F22FFA0075FC59 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				875393562423BFC100394762 /* Reveive */,
-				7B85E62923FD578900365829 /* StakingTransferCoordinator.swift */,
-				E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */,
-				7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */,
 				0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */,
 				0A751D37221715F80024D523 /* AppNewsCoordinator.swift */,
-				E9845D3A2374645900716515 /* PushNotificationsCoordinator.swift */,
-				0ADD7FF821F22FFA0075FC59 /* TradeCoordinator.swift */,
 				E902BBCF236A664300141CF4 /* DexDeepLinkCoordinator.swift */,
+				7B975D332473F86800F7DE89 /* InvestmentCoordinator.swift */,
 				0ADD801C21F22FFA0075FC59 /* MainTabBarCoordinator.swift */,
+				7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */,
+				E9845D3A2374645900716515 /* PushNotificationsCoordinator.swift */,
 				0ADD800E21F22FFA0075FC59 /* QRCodeReaderControllerCoordinator.swift */,
+				E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */,
 				0ADD801821F22FFA0075FC59 /* SlideCoordinator.swift */,
+				874554BC248AAC8800BD52D9 /* StakingTransferCoordinator.swift */,
+				0ADD7FF821F22FFA0075FC59 /* TradeCoordinator.swift */,
 				0ADD800421F22FFA0075FC59 /* WalletCoordinator.swift */,
 				7B8818772305926E00AB0549 /* WidgetSettingsCoordinator.swift */,
 				0ADD801921F22FFA0075FC59 /* Backup */,
@@ -3386,8 +3386,8 @@
 				0ADD801221F22FFA0075FC59 /* History */,
 				0ADD801521F22FFA0075FC59 /* Passcode */,
 				0ADD800F21F22FFA0075FC59 /* Profile */,
+				875393562423BFC100394762 /* Reveive */,
 				7B26A88822ED17EC00E7B024 /* UITest */,
-				7B975D332473F86800F7DE89 /* InvestmentCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -8526,7 +8526,6 @@
 				7B85E64123FD821B00365829 /* StakingTransferSystem.swift in Sources */,
 				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */,
 				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
-				7B85E62A23FD578900365829 /* StakingTransferCoordinator.swift in Sources */,
 				7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */,
 				E9236F212216F48A00A12FD5 /* PopupActionView.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,
@@ -8833,6 +8832,7 @@
 				0AACD59B21A59E7100B30815 /* SweetSnackbar.swift in Sources */,
 				E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */,
 				0ADD803221F22FFB0075FC59 /* AddressesKeysCoordinator.swift in Sources */,
+				874554BD248AAC8900BD52D9 /* StakingTransferCoordinator.swift in Sources */,
 				0AC1251221A758BD00357C93 /* LongInfoPageView.swift in Sources */,
 				8710569F2433699D005022DD /* ExchangeTitleView.swift in Sources */,
 				7B975D312473D9C400F7DE89 /* WalletDisplayData.swift in Sources */,

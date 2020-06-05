@@ -20,7 +20,7 @@ final class InvestmentViewController: UIViewController {
 
     private var displayData: InvestmentDisplayData!
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private var displays: [InvestmentDisplayState.Kind] = [.staking, .leasing]
 
     private var isRefreshing: Bool = false
@@ -35,7 +35,7 @@ final class InvestmentViewController: UIViewController {
     private let sendEvent: PublishRelay<InvestmentEvent> = PublishRelay<InvestmentEvent>()
 
     var presenter: InvestmentPresenterProtocol!
-        
+
     public func completedDepositBalance(balance: DomainLayer.DTO.Balance) {
         sendEvent.accept(.completedDepositBalance(balance: balance))
     }
@@ -53,7 +53,7 @@ final class InvestmentViewController: UIViewController {
 
         displayData = InvestmentDisplayData(scrolledTablesComponent: scrolledTablesComponent,
                                             displays: displays)
-                
+
         scrolledTablesComponent.containerViewDelegate = self
 
         scrolledTablesComponent.setup(segmentedItems: displays.map { $0.segmentedItem },
@@ -95,7 +95,7 @@ final class InvestmentViewController: UIViewController {
         for view in scrolledTablesComponent.topContents {
             if let updateView = view as? UpdateAppView {
                 updateView.setupLocalization()
-            } 
+            }
         }
         scrolledTablesComponent.reloadData()
     }
@@ -166,7 +166,6 @@ extension InvestmentViewController {
     }
 
     func events() -> [Signal<InvestmentEvent>] {
-
         let refreshEvent = scrolledTablesComponent
             .rx
             .didRefreshing(refreshControl: scrolledTablesComponent.refreshControl!)
@@ -179,10 +178,10 @@ extension InvestmentViewController {
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let tapEvent = displayData
-              .tapSection
-              .map { InvestmentEvent.tapSection($0) }
-              .asSignal(onErrorSignalWith: Signal.empty())
-        
+            .tapSection
+            .map { InvestmentEvent.tapSection($0) }
+            .asSignal(onErrorSignalWith: Signal.empty())
+
         let recieverEvents = sendEvent.asSignal()
 
         return [refreshEvent,
@@ -203,7 +202,7 @@ extension InvestmentViewController {
                 self.updateErrorView(with: state.displayState.currentDisplay.errorState)
                 return
             }
-        
+
             self.updateView(with: state.displayState)
         })
 
@@ -291,7 +290,6 @@ extension InvestmentViewController {
 // MARK: Setup Methods
 
 private extension InvestmentViewController {
-    
     func setupLanguages() {
         navigationItem.title = Localizable.Waves.Investment.Navigationbar.title
     }
@@ -359,7 +357,7 @@ extension InvestmentViewController: InvestmentDisplayDataDelegate {
     func buyTapped() {
         sendEvent.accept(.openBuy)
     }
-        
+
     func tableViewDidSelect(indexPath: IndexPath) {
         sendEvent.accept(.tapRow(indexPath))
     }
