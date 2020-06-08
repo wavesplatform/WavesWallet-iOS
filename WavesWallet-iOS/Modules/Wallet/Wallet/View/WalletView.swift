@@ -10,6 +10,7 @@ import UIKit
 
 private enum Constants {
     static let heightSeparator: CGFloat = 40
+    static let distanceForRefreshInset: CGFloat = 100
 }
 
 final class WalletView: UIView {
@@ -19,11 +20,15 @@ final class WalletView: UIView {
 
     let walletSearchView = WalletSearchView.loadFromNib()
     let smartBarView = SmartBarView()
+    
+    private var lastHeight: CGFloat?
 
+    // Был ли добавлен баннер
     private var hasAddingViewBanners: Bool = false
 
-    private var isContentInsetInit: Bool = false
-
+    // инициализация Inset
+    private var initUpdateContentInset: Bool = false
+    // Нужна ли анимация после завершение scrollView
     private var hasNeedAnimatedNextTime: Bool = false
 
     var updateAppViewTapped: (() -> Void)?
@@ -37,12 +42,34 @@ final class WalletView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if isContentInsetInit {
+        if initUpdateContentInset {
             return
         }
-        isContentInsetInit = true
-        tableView.contentInset = .init(top: ceil(stackView.frame.height + 24), left: 0, bottom: 0, right: 0)
-        tableView.scrollIndicatorInsets = .init(top: ceil(stackView.frame.height + 24), left: 0, bottom: 0, right: 0)
+        initUpdateContentInset = true
+        ifNeedUpdateContentInset()
+    }
+
+    private func ifNeedUpdateContentInset(animated: Bool = false) {
+        let height = stackView.frame.height
+
+        if let lastHeight = self.lastHeight, lastHeight == height {
+            return
+        }
+
+        lastHeight = height
+
+        let animations = {
+            self.tableView.contentInset = .init(top: height, left: 0, bottom: 0, right: 0)
+            self.tableView.scrollIndicatorInsets = .init(top: height, left: 0, bottom: 0, right: 0)
+        }
+
+        if animated {
+            UIView.animate(withDuration: 0.18,
+                           delay: 0, options: [],
+                           animations: animations) { _ in }
+        } else {
+            animations()
+        }
     }
 
     func showAppStoreBanner() {
@@ -72,6 +99,8 @@ final class WalletView: UIView {
         // Если преждевремено закрыли бар, то мы в следущем движенем пальцем должны про анимировать
         hasNeedAnimatedNextTime = percent != 0 && percent != 1
 
+        ifNeedUpdateContentInset(animated: false)
+
         let animations = {
             if percent > 0.34 {
                 self.smartBarView.percent = 1
@@ -85,9 +114,9 @@ final class WalletView: UIView {
                        animations: animations) { _ in }
     }
 
-    func scrollViewDidScroll(scrollView: UIScrollView, viewController _: UIViewController) {
-        let value = ceil(scrollView.contentOffset.y) + ceil(scrollView.adjustedContentInset.top)
-
+    func scrollViewDidScroll(scrollView: UIScrollView, viewController: UIViewController) {
+        let value = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+    
         let height = smartBarView.maxHeighBeetwinImageAndDownSide()
 
         var percent: CGFloat = 0.0
@@ -104,7 +133,7 @@ final class WalletView: UIView {
 
         if hasNeedAnimatedNextTime {
             UIView.animate(withDuration: 0.18,
-                           delay: 0, options: [],
+                           delay: 0, options: [.beginFromCurrentState],
                            animations: animations) { _ in }
         } else {
             animations()
@@ -112,6 +141,15 @@ final class WalletView: UIView {
 
         if value < 0 {
             topLayoutConstraint.constant = abs(value)
+        }
+
+        // Если контента меньше чем экран мы не обноляем inset, а то будет прыгать offset
+        if scrollView.contentSize.height > scrollView.frame.height {
+            // Обновляем inset после сварачивание.
+            // Зищата от частого обновление inset, так как будешь скакать как Москаль
+            if value > Constants.distanceForRefreshInset {
+                ifNeedUpdateContentInset(animated: false)
+            }
         }
 
         hasNeedAnimatedNextTime = false
@@ -123,13 +161,14 @@ final class WalletView: UIView {
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate: Bool, viewController _: UIViewController) {
         if willDecelerate {
+            ifNeedUpdateContentInset()
             return
         }
 
         finish(scrollView)
     }
 
-    func scrollViewWillBeginDragging(_: UIScrollView, viewController _: UIViewController) {}
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView, viewController _: UIViewController) {}
 
-    func scrollViewWillBeginDecelerating(_: UIScrollView, viewController _: UIViewController) {}
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView, viewController _: UIViewController) {}
 }
