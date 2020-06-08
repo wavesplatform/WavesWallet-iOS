@@ -121,19 +121,23 @@ extension BuyCryptoInteractor {
 
                     let cryptoAssets = assets.filter { $0.kind == .crypto }
                         .compactMap { asset -> CryptoAsset? in
+                            let assetId = asset.id
+                                .replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId)
+                                .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
+                                .replacingOccurrences(of: "WEST", with: "AC_WEST")
                             if let assetBinding = gatewayAssetBindings.first(where: {
-                                $0.senderAsset.asset == asset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId)
+                                $0.senderAsset.asset == assetId
                             }),
                                 let assetInfo = walletEnvironmentAssets.first(where: {
                                     $0.assetId == assetBinding.recipientAsset.asset
                                 }) {
                                 return .init(name: asset.name,
-                                             id: asset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId),
+                                             id: assetId,
                                              decimals: asset.decimals,
                                              assetInfo: assetInfo)
                             } else {
                                 return .init(name: asset.name,
-                                             id: asset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId),
+                                             id: assetId,
                                              decimals: asset.decimals,
                                              assetInfo: nil)
                             }
@@ -172,89 +176,56 @@ extension BuyCryptoInteractor {
                 .flatMap { [weak self] signedWallet, serverEnvironment, devConfig, token
                     -> Observable<(SignedWallet, GatewaysTransferBinding, DevelopmentConfigs)> in
                     guard let sself = self else { return Observable.never() }
-                    let transferBindingRequest = TransferBindingRequest(asset: recipientAsset.id,
-                                                                        recipientAddress: signedWallet.wallet.address)
+                    let request = TransferBindingRequest(asset: recipientAsset.id, recipientAddress: signedWallet.wallet.address)
 
-                    return sself.gatewaysWavesRepository.depositTransferBinding(serverEnvironment: serverEnvironment,
-                                                                                oAToken: token,
-                                                                                request: transferBindingRequest)
-                        .map { gatewayTransferBinding
-                            -> (SignedWallet, GatewaysTransferBinding, DevelopmentConfigs) in
+                    return sself.gatewaysWavesRepository
+                        .depositTransferBinding(serverEnvironment: serverEnvironment, oAToken: token, request: request)
+                        .map { gatewayTransferBinding -> (SignedWallet, GatewaysTransferBinding, DevelopmentConfigs) in
                             (signedWallet, gatewayTransferBinding, devConfig)
                         }
                 }
-                .catchError { error in
-                    Observable.error(error)
-                }
+                .catchError { Observable.error($0) }
                 .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding, devConfig in
-                    let completionAdapter: (Result<(min: Decimal, max: Decimal), Error>) -> Void = { result in
-                        switch result {
-                        case let .success((min, max)):
-                            self?.getExchangeRates(signedWallet: signedWallet,
-                                                   gatewayTransferBinding: gatewayTransferBinding,
-                                                   senderAsset: senderAsset,
-                                                   recipientAsset: recipientAsset,
-                                                   minLimit: min,
-                                                   maxLimit: max,
-                                                   amount: amount,
-                                                   completion: completion)
-                        case let .failure(error):
-                            completion(.failure(error))
-                        }
-                    }
-                    
                     let devConfigRate = devConfig
                         .gatewayMinFee[recipientAsset.assetInfo?.assetId ?? ""]?[senderAsset.id.lowercased()]
+                    
+                    if recipientAsset.id.lowercased() == "ac_waves" || recipientAsset.id.lowercased() == "ac_west" {
+                        self?.specificExchangeRatesLimits(signedWallet: signedWallet,
+                                                          gatewayTransferBinding: gatewayTransferBinding,
+                                                          devConfigRate: devConfigRate,
+                                                          senderAsset: senderAsset,
+                                                          recipientAsset: recipientAsset,
+                                                          amount: amount,
+                                                          completion: completion)
+                    } else {
+                        let completionAdapter: (Result<(min: Decimal, max: Decimal), Error>) -> Void = { result in
+                            switch result {
+                            case let .success((min, max)):
+                                self?.getExchangeRates(signedWallet: signedWallet,
+                                                       gatewayTransferBinding: gatewayTransferBinding,
+                                                       senderAsset: senderAsset,
+                                                       recipientAsset: recipientAsset,
+                                                       minLimit: min,
+                                                       maxLimit: max,
+                                                       amount: amount,
+                                                       completion: completion)
+                            case let .failure(error):
+                                completion(.failure(error))
+                            }
+                        }
 
-                    self?.getExchangeLimits(signedWallet: signedWallet,
-                                            gatewayTransferBinding: gatewayTransferBinding,
-                                            devConfigRate: devConfigRate,
-                                            senderAsset: senderAsset,
-                                            completion: completionAdapter)
-
+                        self?.getExchangeLimits(signedWallet: signedWallet,
+                                                gatewayTransferBinding: gatewayTransferBinding,
+                                                devConfigRate: devConfigRate,
+                                                senderAsset: senderAsset,
+                                                recipientAsset: recipientAsset,
+                                                completion: completionAdapter)
+                    }
                 },
                            onError: { error in completion(.failure(error)) })
                 .disposed(by: disposeBag)
         }
-
-        private func getExchangeLimits(signedWallet: SignedWallet,
-                                       gatewayTransferBinding: GatewaysTransferBinding,
-                                       devConfigRate: DevelopmentConfigs.Rate?,
-                                       senderAsset: FiatAsset,
-                                       completion: @escaping (Result<(min: Decimal, max: Decimal), Error>) -> Void) {
-            let completionAdapter: (Result<Double, Error>) -> Void = { result in
-                switch result {
-                case let .success(limitRate):
-                    let decimalLimitRate = Decimal(limitRate)
-                    let min: Decimal
-                    let max: Decimal
-                    // ac_usd === usnd
-                    if let devConfigRate = devConfigRate {
-                        // coef необходим чтоб получить правильный минимум и максимум (они приходят в копейках)
-                        let coef = Decimal(pow(10, Double(senderAsset.decimals)))
-
-                        let devRate = Decimal(devConfigRate.rate)
-                        let devFlat = Decimal(devConfigRate.flat)
-                        min = decimalLimitRate * (gatewayTransferBinding.assetBinding.senderAmountMin / coef) * devRate + devFlat
-                        max = decimalLimitRate * (gatewayTransferBinding.assetBinding.senderAmountMax / coef)
-                    } else {
-                        min = 100
-                        max = 9500
-                    }
-                    completion(.success((min, max)))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
-            }
-
-            // чтобы получить лимиты для usnd
-            adCashGRPCService.getACashAssetsExchangeRate(signedWallet: signedWallet,
-                                                         senderAsset: senderAsset.id,
-                                                         recipientAsset: "USD",
-                                                         senderAssetAmount: 1,
-                                                         completion: completionAdapter)
-        }
-
+        
         private func getExchangeRates(signedWallet: SignedWallet,
                                       gatewayTransferBinding: GatewaysTransferBinding,
                                       senderAsset: FiatAsset,
@@ -293,7 +264,120 @@ extension BuyCryptoInteractor {
                                                          recipientAsset: recipientAsset.id,
                                                          senderAssetAmount: senderAssetAmount,
                                                          completion: completionAdapter)
-        }   
+        }
+
+        private func getExchangeLimits(signedWallet: SignedWallet,
+                                       gatewayTransferBinding: GatewaysTransferBinding,
+                                       devConfigRate: DevelopmentConfigs.Rate?,
+                                       senderAsset: FiatAsset,
+                                       recipientAsset: CryptoAsset,
+                                       completion: @escaping (Result<(min: Decimal, max: Decimal), Error>) -> Void) {
+            let completionAdapter: (Result<Double, Error>) -> Void = { result in
+                // ac_usd === usnd
+                switch result {
+                case let .success(limitRate):
+                    let decimalLimitRate = Decimal(limitRate)
+                    var min: Decimal
+                    let max: Decimal
+                    
+                    if recipientAsset.id.lowercased() == "btc" {
+                        min = 100
+                        max = 9500
+                    } else {
+                        // coef необходим чтоб получить правильный минимум и максимум (они приходят в копейках)
+                        let coef = Decimal(pow(10, Double(senderAsset.decimals)))
+
+                        min = decimalLimitRate * (gatewayTransferBinding.assetBinding.senderAmountMin / coef)
+                        max = decimalLimitRate * (gatewayTransferBinding.assetBinding.senderAmountMax / coef)
+                    }
+                    
+                    if let devConfigRate = devConfigRate {
+                        let devRate = Decimal(devConfigRate.rate)
+                        let devFlat = Decimal(devConfigRate.flat)
+                        
+                        min = min * devRate + devFlat
+                    }
+                    completion(.success((min, max)))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+
+            // чтобы получить лимиты для usnd
+            adCashGRPCService.getACashAssetsExchangeRate(signedWallet: signedWallet,
+                                                         senderAsset: senderAsset.id,
+                                                         recipientAsset: "USD",
+                                                         senderAssetAmount: 1,
+                                                         completion: completionAdapter)
+        }
+        
+        private func specificExchangeRatesLimits(signedWallet: SignedWallet,
+                                                 gatewayTransferBinding: GatewaysTransferBinding,
+                                                 devConfigRate: DevelopmentConfigs.Rate?,
+                                                 senderAsset: FiatAsset,
+                                                 recipientAsset: CryptoAsset,
+                                                 amount: Double,
+                                                 completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
+            let senderAmountMin = Double(truncating: gatewayTransferBinding.assetBinding.senderAmountMin as NSNumber)
+            let senderAmountMax = Double(truncating: gatewayTransferBinding.assetBinding.senderAmountMax as NSNumber)
+            
+            var rateForMin: Double?
+            var rateForMax: Double?
+            
+            let dispatchGroup = DispatchGroup()
+            dispatchGroup.enter()
+            adCashGRPCService.getACashAssetsExchangeRate(
+                signedWallet: signedWallet,
+                senderAsset: recipientAsset.id,
+                recipientAsset: "USD",
+                senderAssetAmount: senderAmountMin) { result in
+                    switch result {
+                    case .success(let rate):
+                        rateForMin = rate
+                    case .failure:
+                        rateForMin = 1
+                        // не знаю как поступать в этой ситуации
+                    }
+                    dispatchGroup.leave()
+            }
+            
+            dispatchGroup.enter()
+            adCashGRPCService.getACashAssetsExchangeRate(
+                signedWallet: signedWallet,
+                senderAsset: recipientAsset.id,
+                recipientAsset: "USD",
+                senderAssetAmount: senderAmountMax,
+                completion: { result in
+                    switch result {
+                    case .success(let rate):
+                        rateForMax = rate
+                    case .failure:
+                        rateForMax = 1
+                        // не знаю как поступать в этой ситуации
+                    }
+                    dispatchGroup.leave()
+            })
+            
+            dispatchGroup.notify(queue: .global()) { [weak self] in
+                let decimals = Double(recipientAsset.decimals)
+                let coef = pow(10, decimals)
+                
+                let devRate = devConfigRate?.rate ?? 1
+                let devFlat = Double(devConfigRate?.flat ?? 0)
+                
+                let minLimit = (senderAmountMin / coef) * (rateForMin ?? 1) * devRate + devFlat
+                let maxLimit = (senderAmountMax / coef) * (rateForMax ?? 1)
+                
+                self?.getExchangeRates(signedWallet: signedWallet,
+                                       gatewayTransferBinding: gatewayTransferBinding,
+                                       senderAsset: senderAsset,
+                                       recipientAsset: recipientAsset,
+                                       minLimit: Decimal(minLimit),
+                                       maxLimit: Decimal(maxLimit),
+                                       amount: amount,
+                                       completion: completion)
+            }
+        }
 
         func deposite(senderAsset: FiatAsset,
                       recipientAsset: CryptoAsset,

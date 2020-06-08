@@ -245,10 +245,12 @@ extension BuyCryptoPresenter {
                     switch error {
                     case .isNaN:
                         return "Is not a number"
-                    case let .lessMin(min):
-                        return Localizable.Waves.Buycrypto.minAmount("\(min)")
-                    case let .moreMax(max):
-                        return Localizable.Waves.Buycrypto.maxAmount("\(max)")
+                    case let .lessMin(min, decimals, name):
+                        let money = Money(value: min, decimals)
+                        return Localizable.Waves.Buycrypto.minAmount("\(money.displayText) \(name)")
+                    case let .moreMax(max, decimals, name):
+                        let money = Money(value: max, decimals)
+                        return Localizable.Waves.Buycrypto.maxAmount("\(money.displayText) \(name)")
                     }
                 } else {
                     return error?.localizedDescription

@@ -82,8 +82,8 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         fiatAmountTextField.text.distinctUntilChanged().bind(to: didChangeFiatAmount).disposed(by: disposeBag)
 
         buyButton.didTouchButton = { [weak self] in
-//            self?.didTapBuy.accept(Void())
-            self?.fiatCollectionView.reloadData()
+            self?.didTapBuy.accept(Void())
+//            self?.fiatCollectionView.reloadData()
         }
         
         setupInfoTextView()
@@ -119,6 +119,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         infoTextView.isSelectable = false
         infoTextView.isScrollEnabled = false
         infoTextView.backgroundColor = .basic50
+        infoTextView.keyboardType = .numberPad
         infoTextView.delegate = self
     }
 }

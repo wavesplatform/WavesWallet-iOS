@@ -29,7 +29,7 @@ protocol BuyCryptoListener: AnyObject {
 protocol BuyCryptoInteractable: AnyObject {}
 
 struct BuyCryptoState {
-    let selectedAsset: Asset?
+    let selectedAsset: BuyCryptoInteractor.CryptoAsset?
     let state: State
     
     enum State {
@@ -137,24 +137,8 @@ extension BuyCryptoInteractor {
 extension BuyCryptoInteractor {
     enum FiatAmountValidationError: LocalizedError {
         case isNaN
-        case lessMin(min: Decimal)
-        case moreMax(max: Decimal)
-        
-        var errorDescription: String? {
-            switch self {
-            case .isNaN: return "isNaN"
-            case .lessMin(let min): return "lessMin \(min)"
-            case .moreMax(let max): return "moreMax \(max)"
-            }
-        }
-        
-        var localizedDescription: String {
-            switch self {
-            case .isNaN: return "isNaN"
-            case .lessMin(let min): return "lessMin \(min)"
-            case .moreMax(let max): return "moreMax \(max)"
-            }
-        }
+        case lessMin(min: Decimal, decimals: Int, name: String)
+        case moreMax(max: Decimal, decimals: Int, name: String)
     }
 }
 
