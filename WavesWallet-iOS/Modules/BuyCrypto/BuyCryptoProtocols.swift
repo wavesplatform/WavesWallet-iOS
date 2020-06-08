@@ -28,42 +28,53 @@ protocol BuyCryptoListener: AnyObject {
 
 protocol BuyCryptoInteractable: AnyObject {}
 
-enum BuyCryptoState {
-    typealias FiatAsset = BuyCryptoInteractor.FiatAsset
-    typealias CryptoAsset = BuyCryptoInteractor.CryptoAsset
+struct BuyCryptoState {
+    let selectedAsset: Asset?
+    let state: State
     
-    /// Состояние загрузки экрана
-    case isLoading
-    
-    /// Состояние ошибки (отображение экрана ошибки)
-    case loadingError(String)
-    
-    /// Состояние загруженного экрана (загружены
-    case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
-    
-    /// Состояние проверки обменной пары
-    case checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
-    
-    /// Состояние ошибки проверки обменной пары (отображать ошибку)
-    case checkingExchangePairError(error: Error, senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
-    
-    /// Состояние, когда обмен фиатной валюты в крипто валюту готов
-    case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
-    
-    /// Состояние, когда обмен валюты запущен
-    case processingExchange(amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
-    
-    /// Ошибка начала обмена
-    case exchangeProcessingError(Error)
-    
-    /// Обмен в процессе (обмен происходит по урлу)
-    case exchangeInProgress(url: URL, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
-    
-    ///
-    case exchangeSuccessful(BuyCryptoInteractor.ExchangeInfo)
-    
-    ///
-    case exchangeFailed(BuyCryptoInteractor.ExchangeInfo)
+    enum State {
+        typealias FiatAsset = BuyCryptoInteractor.FiatAsset
+        typealias CryptoAsset = BuyCryptoInteractor.CryptoAsset
+        
+        /// Состояние загрузки экрана
+        case isLoading
+        
+        /// Состояние ошибки (отображение экрана ошибки)
+        case loadingError(Error)
+        
+        /// Состояние загруженного экрана (загружены
+        case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
+        
+        /// Состояние проверки обменной пары
+        case checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
+        
+        /// Состояние ошибки проверки обменной пары (отображать ошибку)
+        case checkingExchangePairError(error: Error, senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
+        
+        /// Состояние, когда обмен фиатной валюты в крипто валюту готов
+        case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
+        
+        /// Состояние, когда обмен валюты запущен
+        case processingExchange(amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
+        
+        /// Ошибка начала обмена
+        case exchangeProcessingError(Error)
+        
+        /// Обмен в процессе (обмен происходит по урлу)
+        case exchangeInProgress(url: URL, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
+        
+        ///
+        case exchangeSuccessful(BuyCryptoInteractor.ExchangeInfo)
+        
+        ///
+        case exchangeFailed(BuyCryptoInteractor.ExchangeInfo)
+    }
+}
+
+extension BuyCryptoState {
+    func copy(newState: State) -> BuyCryptoState {
+        BuyCryptoState(selectedAsset: selectedAsset, state: newState)
+    }
 }
 
 // MARK: - ApiResponse

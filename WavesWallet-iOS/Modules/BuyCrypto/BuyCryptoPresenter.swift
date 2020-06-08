@@ -73,8 +73,8 @@ extension BuyCryptoPresenter: IOTransformer {
 extension BuyCryptoPresenter {
     private enum StateHelper {
         static func makeContentVisible(readOnlyState: Observable<BuyCryptoState>) -> Driver<Bool> {
-            readOnlyState.map { state -> Bool in
-                switch state {
+            readOnlyState.map { buyCryptoState -> Bool in
+                switch buyCryptoState.state {
                 case .isLoading: return false
                 default: return true
                 }
@@ -83,8 +83,8 @@ extension BuyCryptoPresenter {
         }
 
         static func makeLoadingIndicator(readOnlyState: Observable<BuyCryptoState>) -> Driver<Bool> {
-            readOnlyState.map { state -> Bool in
-                switch state {
+            readOnlyState.map { buyCryptoState -> Bool in
+                switch buyCryptoState.state {
                 case .isLoading: return true
                 default: return false
                 }
@@ -93,9 +93,9 @@ extension BuyCryptoPresenter {
         }
 
         static func makeShowInitialError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
-            readOnlyState.compactMap { state -> String? in
-                switch state {
-                case let .loadingError(errorMessage): return errorMessage
+            readOnlyState.compactMap { buyCryptoState -> String? in
+                switch buyCryptoState.state {
+                case let .loadingError(errorMessage): return errorMessage.localizedDescription
                 default: return nil
                 }
             }
@@ -103,8 +103,8 @@ extension BuyCryptoPresenter {
         }
 
         static func makeShowSnackBarError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
-            readOnlyState.compactMap { state -> String? in
-                switch state {
+            readOnlyState.compactMap { buyCryptoState -> String? in
+                switch buyCryptoState.state {
                 case let .checkingExchangePairError(error, _, _, _): return error.localizedDescription
                 default: return nil
                 }
@@ -115,8 +115,8 @@ extension BuyCryptoPresenter {
         static func makeFiatTitle(readOnlyState: Observable<BuyCryptoState>,
                                   didSelectFiatItem: ControlEvent<AssetViewModel>) -> Driver<String> {
             Observable.combineLatest(readOnlyState, didSelectFiatItem.asObservable())
-                .compactMap { state, fiatItem -> String? in
-                    switch state {
+                .compactMap { buyCryptoState, fiatItem -> String? in
+                    switch buyCryptoState.state {
                     case .aCashAssetsLoaded, .checkingExchangePair, .readyForExchange:
                         return Localizable.Waves.Buycrypto.iSpent(fiatItem.name)
                     default: return nil
@@ -126,8 +126,8 @@ extension BuyCryptoPresenter {
         }
 
         static func makeFiatAssets(readOnlyState: Observable<BuyCryptoState>) -> Driver<[AssetViewModel]> {
-            readOnlyState.compactMap { state -> [AssetViewModel]? in
-                switch state {
+            readOnlyState.compactMap { buyCryptoState -> [AssetViewModel]? in
+                switch buyCryptoState.state {
                 case let .aCashAssetsLoaded(assets): return assets.fiatAssets.map { Helper.makeAssetViewModel(from: $0) }
                 default: return nil
                 }
@@ -141,8 +141,8 @@ extension BuyCryptoPresenter {
             Observable.combineLatest(didChangeFiatAmount.asObservable().startWith(""),
                                      didSelectCryptoItem.asObservable(),
                                      readOnlyState)
-                .compactMap { fiatAmountOptionalString, selectedCrypto, state -> String? in
-                    switch state {
+                .compactMap { fiatAmountOptionalString, selectedCrypto, buyCryptoState -> String? in
+                    switch buyCryptoState.state {
                     case .aCashAssetsLoaded, .checkingExchangePair:
                         return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
                     case let .readyForExchange(exchangeInfo):
@@ -163,10 +163,15 @@ extension BuyCryptoPresenter {
         }
 
         static func makeCryptoAssets(readOnlyState: Observable<BuyCryptoState>) -> Driver<[AssetViewModel]> {
-            readOnlyState.compactMap { state -> [AssetViewModel]? in
-                switch state {
+            readOnlyState.compactMap { buyCryptoState -> [AssetViewModel]? in
+                switch buyCryptoState.state {
                 case let .aCashAssetsLoaded(assets):
-                    return assets.cryptoAssets.map { Helper.makeAssetViewModel(from: $0) }
+                    if let selectedAsset = buyCryptoState.selectedAsset {
+                        return [Helper.makeAssetViewModel(from: selectedAsset)]
+                    } else {
+                        return assets.cryptoAssets.map { Helper.makeAssetViewModel(from: $0) }
+                    }
+                    
                 default: return nil
                 }
             }
@@ -177,37 +182,37 @@ extension BuyCryptoPresenter {
                                   didSelectCryptoItem: ControlEvent<AssetViewModel>) -> Driver<BlueButton.Model> {
             //  -> BlueButton.Model вот так работать не должно. делаю потому что срок горит
             Observable.combineLatest(didSelectCryptoItem, readOnlyState)
-                .compactMap { cryptoItem, state -> BlueButton.Model? in
-                    switch state {
+                .compactMap { cryptoItem, buyCryptoState -> BlueButton.Model? in
+                    switch buyCryptoState.state {
                     case .aCashAssetsLoaded:
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .loading)
-                        
+
                     case .checkingExchangePair:
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .loading)
-                        
+
                     case .checkingExchangePairError:
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .disabled)
-                        
+
                     case .readyForExchange:
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .active)
-                        
+
                     default: return nil
                     }
-            }
-            .asDriverIgnoringError()
+                }
+                .asDriverIgnoringError()
         }
 
         static func makeDetailsInfo(readOnlyState: Observable<BuyCryptoState>,
                                     didSelectFiatItem: ControlEvent<AssetViewModel>) -> Driver<ExchangeMessage> {
-            didSelectFiatItem.filteredByState(readOnlyState) { state -> Bool in
-                switch state {
+            didSelectFiatItem.filteredByState(readOnlyState) { buyCryptoState -> Bool in
+                switch buyCryptoState.state {
                 case .isLoading: return false
                 case .loadingError: return false
                 case .checkingExchangePairError: return false
                 default: return true
                 }
             }
-            .compactMap { fiatAsset -> ExchangeMessage? in                
+            .compactMap { fiatAsset -> ExchangeMessage? in
                 guard let link = URL(string: UIGlobalConstants.URL.support) else { return nil }
                 let message: String
                 if fiatAsset.id == DomainLayerConstants.acUSDId {
@@ -233,16 +238,16 @@ extension BuyCryptoPresenter {
             }
             .asDriverIgnoringError()
         }
-        
+
         static func makeValidationError(validationError: Signal<Error?>) -> Signal<String?> {
             validationError.map { error -> String? in
                 if let error = error as? BuyCryptoInteractor.FiatAmountValidationError {
                     switch error {
                     case .isNaN:
                         return "Is not a number"
-                    case .lessMin(let min):
+                    case let .lessMin(min):
                         return Localizable.Waves.Buycrypto.minAmount("\(min)")
-                    case .moreMax(let max):
+                    case let .moreMax(max):
                         return Localizable.Waves.Buycrypto.maxAmount("\(max)")
                     }
                 } else {
@@ -278,6 +283,14 @@ extension BuyCryptoPresenter {
                                   name: cryptoAsset.name,
                                   decimals: cryptoAsset.decimals,
                                   icon: icon,
+                                  iconStyle: .large)
+        }
+        
+        static func makeAssetViewModel(from asset: Asset) -> AssetViewModel {
+            return AssetViewModel(id: asset.id,
+                                  name: asset.name,
+                                  decimals: Int32(asset.precision),
+                                  icon: asset.iconLogo,
                                   iconStyle: .large)
         }
     }

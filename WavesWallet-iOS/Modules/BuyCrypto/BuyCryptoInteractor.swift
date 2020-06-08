@@ -38,7 +38,8 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
          selectedAsset: Asset?) {
         self.presenter = presenter
 
-        let _state = BehaviorRelay<BuyCryptoState>(value: .isLoading)
+        let buyCryptoState = BuyCryptoState(selectedAsset: selectedAsset, state: .isLoading)
+        let _state = BehaviorRelay<BuyCryptoState>(value: buyCryptoState)
         stateTransformTrait = StateTransformTrait(_state: _state, disposeBag: disposeBag)
 
         networker = Networker(authorizationService: authorizationService,
@@ -96,8 +97,8 @@ extension BuyCryptoInteractor: IOTransformer {
             .disposed(by: disposeBag)
 
         input.didTapURL
-            .filteredByState(stateTransformTrait.readOnlyState) { state -> Bool in
-                switch state {
+            .filteredByState(stateTransformTrait.readOnlyState) { buyCryptoState -> Bool in
+                switch buyCryptoState.state {
                 case .readyForExchange, .aCashAssetsLoaded, .checkingExchangePair, .checkingExchangePairError:
                     return true
                 default: return false
@@ -144,13 +145,15 @@ extension BuyCryptoInteractor: IOTransformer {
 }
 
 extension BuyCryptoInteractor: BrowserViewControllerDelegate {
-    func browserViewRedirect(_: BrowserViewController, url: URL) {
+    func browserViewRedirect(_ browserVC: BrowserViewController, url: URL) {
         let link = url.absoluteStringByTrimmingQuery() ?? ""
 
         if link.contains(DomainLayerConstants.URL.fiatDepositSuccess) {
             internalActions.$exchangeSuccessful.accept(Void())
+            browserVC.dismiss(animated: true)
         } else if link.contains(DomainLayerConstants.URL.fiatDepositFail) {
             internalActions.$exchangeFailed.accept(Void())
+            browserVC.dismiss(animated: true)
         }
     }
 
@@ -164,8 +167,8 @@ extension BuyCryptoInteractor {
         static func makeValidationFiatAmount(readOnlyState: Observable<BuyCryptoState>,
                                              didChangeFiatAmount: ControlEvent<String?>) -> Signal<Error?> {
             Observable.combineLatest(didChangeFiatAmount.asObservable(), readOnlyState)
-                .map { optionalFiatAmount, state -> Error? in
-                    switch state {
+                .map { optionalFiatAmount, buyCryptoState -> Error? in
+                    switch buyCryptoState.state {
                     case let .readyForExchange(exchangeInfo):
                         guard let fiatAmount = optionalFiatAmount, !fiatAmount.isEmpty else { return nil }
 
