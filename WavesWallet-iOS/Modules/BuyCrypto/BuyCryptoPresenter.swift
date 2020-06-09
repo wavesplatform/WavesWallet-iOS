@@ -289,7 +289,10 @@ extension BuyCryptoPresenter {
         }
         
         static func makeAssetViewModel(from asset: Asset) -> AssetViewModel {
-            return AssetViewModel(id: asset.id,
+            let wavesId = asset.wavesId?.replacingOccurrences(of: "USDN", with: "AC_USD")
+                .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
+                .replacingOccurrences(of: "WEST", with: "AC_WEST") ?? ""
+            return AssetViewModel(id: wavesId,
                                   name: asset.name,
                                   decimals: Int32(asset.precision),
                                   icon: asset.iconLogo,

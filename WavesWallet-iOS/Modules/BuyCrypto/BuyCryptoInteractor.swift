@@ -37,14 +37,7 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
          weOAuthRepository: WEOAuthRepositoryProtocol,
          selectedAsset: Asset?) {
         self.presenter = presenter
-
         
-        let selectedAsset = selectedAsset.map { asset -> CryptoAsset in
-            CryptoAsset(name: asset.name,
-                        id: asset.wavesId ?? "",
-                        decimals: Int32(asset.precision),
-                        assetInfo: nil)
-        }
         let buyCryptoState = BuyCryptoState(selectedAsset: selectedAsset, state: .isLoading)
         let _state = BehaviorRelay<BuyCryptoState>(value: buyCryptoState)
         stateTransformTrait = StateTransformTrait(_state: _state, disposeBag: disposeBag)

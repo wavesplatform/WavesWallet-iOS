@@ -357,7 +357,7 @@ extension BuyCryptoInteractor {
                     dispatchGroup.leave()
             })
             
-            dispatchGroup.notify(queue: DispatchQueue.global()) { [weak self] in
+            dispatchGroup.notify(queue: DispatchQueue.global(), execute: { [weak self] in
                 let decimals = Double(recipientAsset.decimals)
                 let coef = pow(10, decimals)
                 
@@ -375,7 +375,7 @@ extension BuyCryptoInteractor {
                                        maxLimit: Decimal(maxLimit),
                                        amount: amount,
                                        completion: completion)
-            }
+            })
         }
 
         func deposite(senderAsset: FiatAsset,

@@ -29,7 +29,7 @@ protocol BuyCryptoListener: AnyObject {
 protocol BuyCryptoInteractable: AnyObject {}
 
 struct BuyCryptoState {
-    let selectedAsset: BuyCryptoInteractor.CryptoAsset?
+    let selectedAsset: Asset?
     let state: State
     
     enum State {

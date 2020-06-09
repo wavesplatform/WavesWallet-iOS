@@ -260,7 +260,7 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         
     func showCard(asset: DomainLayer.DTO.SmartAssetBalance) {
         let buyCryptoBuilder = BuyCryptoBuilder()
-        let buyCryptoVC = buyCryptoBuilder.build(with: self, selectedAsset: nil)
+        let buyCryptoVC = buyCryptoBuilder.build(with: self, selectedAsset: asset.asset)
         navigationRouter.pushViewController(buyCryptoVC)
     }
     
