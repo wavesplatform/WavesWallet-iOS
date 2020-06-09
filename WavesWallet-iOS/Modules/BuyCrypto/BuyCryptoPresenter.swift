@@ -304,10 +304,16 @@ extension BuyCryptoPresenter {
                 .replacingOccurrences(of: "WBTC", with: "BTC") // РУСЛАН ОЧЕНЬ ВНИМАТЕЛЬНО ПОСМОТРИ
                 .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
                 .replacingOccurrences(of: "WEST", with: "AC_WEST") ?? ""
+            
+            let iconLogo = AssetLogo.Icon(assetId: asset.iconLogo.assetId,
+                                          name: asset.iconLogo.name,
+                                          url: asset.iconLogo.url,
+                                          isSponsored: false,
+                                          hasScript: asset.iconLogo.hasScript)
             return AssetViewModel(id: wavesId,
                                   name: asset.name,
                                   decimals: Int32(asset.precision),
-                                  icon: asset.iconLogo,
+                                  icon: iconLogo,
                                   iconStyle: .large)
         }
     }
