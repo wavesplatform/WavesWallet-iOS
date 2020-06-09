@@ -117,6 +117,31 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5If-1P-fOE" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="15" y="228.5" width="383" height="1"/>
+                    <color key="backgroundColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="4pS-tt-wOY"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="YES"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dashPattern" value="4"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                            <color key="value" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buyCryptoArrow" translatesAutoresizingMaskIntoConstraints="NO" id="s3e-Wp-KuE">
+                    <rect key="frame" x="191" y="213" width="32" height="32"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="fDn-FH-QIu"/>
+                        <constraint firstAttribute="height" constant="32" id="pFO-Zv-T88"/>
+                    </constraints>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ln-7Q-JqK" customClass="GradientContainerView" customModule="Skeleton">
                     <rect key="frame" x="167" y="279" width="80" height="12"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -165,7 +190,9 @@
                 <constraint firstItem="2Ln-7Q-JqK" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Cr4-ca-sLE"/>
                 <constraint firstItem="Dmf-c7-uzC" firstAttribute="leading" secondItem="1Lk-Gt-BG7" secondAttribute="trailing" constant="30" id="ElT-OF-EEF"/>
                 <constraint firstItem="nOw-tu-7kh" firstAttribute="top" secondItem="Phn-au-z6P" secondAttribute="bottom" constant="24" id="L6h-FD-a8M"/>
+                <constraint firstItem="5If-1P-fOE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="LE6-U2-Lz0"/>
                 <constraint firstItem="xXJ-ve-Sb4" firstAttribute="centerY" secondItem="Phn-au-z6P" secondAttribute="centerY" id="LcA-Ci-3A6"/>
+                <constraint firstItem="5If-1P-fOE" firstAttribute="centerY" secondItem="s3e-Wp-KuE" secondAttribute="centerY" id="Mj8-7D-URt"/>
                 <constraint firstItem="Po2-T8-xPv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PFC-c4-qwo" secondAttribute="bottom" constant="40" id="MyD-b0-nlj"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="PFC-c4-qwo" secondAttribute="trailing" constant="16" id="NDX-bn-Jpm"/>
                 <constraint firstItem="jNF-Yc-lmz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Nhn-fd-HLp"/>
@@ -173,15 +200,18 @@
                 <constraint firstItem="TQ4-Um-cNX" firstAttribute="centerY" secondItem="Dmf-c7-uzC" secondAttribute="centerY" id="PlJ-5o-kBe"/>
                 <constraint firstItem="jNF-Yc-lmz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TJ4-vO-qjG"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="nOw-tu-7kh" secondAttribute="trailing" constant="16" id="Xc1-cw-wzb"/>
+                <constraint firstItem="2Ln-7Q-JqK" firstAttribute="top" secondItem="s3e-Wp-KuE" secondAttribute="bottom" constant="34" id="YCJ-fF-hcj"/>
                 <constraint firstItem="Po2-T8-xPv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="avE-fR-ciM"/>
                 <constraint firstItem="TQ4-Um-cNX" firstAttribute="leading" secondItem="Dmf-c7-uzC" secondAttribute="trailing" constant="30" id="bqb-aq-kvA"/>
                 <constraint firstItem="Phn-au-z6P" firstAttribute="leading" secondItem="xXJ-ve-Sb4" secondAttribute="trailing" constant="30" id="cNt-pW-HEl"/>
+                <constraint firstItem="s3e-Wp-KuE" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="eb3-B1-Er5"/>
                 <constraint firstItem="nOw-tu-7kh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="gAS-fk-hOy"/>
                 <constraint firstItem="Dmf-c7-uzC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kBS-bg-CAO"/>
                 <constraint firstItem="XOl-f7-3uL" firstAttribute="centerY" secondItem="Phn-au-z6P" secondAttribute="centerY" id="lQs-sO-aa4"/>
                 <constraint firstItem="2Ln-7Q-JqK" firstAttribute="top" secondItem="nOw-tu-7kh" secondAttribute="bottom" constant="87" id="pdL-tQ-7GF"/>
                 <constraint firstItem="Phn-au-z6P" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="sqP-Cd-P8N"/>
                 <constraint firstItem="nOw-tu-7kh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="sxe-No-Yen"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5If-1P-fOE" secondAttribute="trailing" constant="16" id="vU6-fg-7EC"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Po2-T8-xPv" secondAttribute="bottom" constant="16" id="xzu-fs-nC9"/>
                 <constraint firstItem="PFC-c4-qwo" firstAttribute="top" secondItem="Dmf-c7-uzC" secondAttribute="bottom" constant="24" id="zks-Yj-8D2"/>
             </constraints>
@@ -202,4 +232,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="90.401785714285708"/>
         </view>
     </objects>
+    <resources>
+        <image name="buyCryptoArrow" width="36" height="36"/>
+    </resources>
 </document>
