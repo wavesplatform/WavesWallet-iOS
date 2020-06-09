@@ -364,8 +364,11 @@ extension BuyCryptoInteractor {
                 let devRate = devConfigRate?.rate ?? 1
                 let devFlat = Double(devConfigRate?.flat ?? 0)
                 
-                let minLimit = (senderAmountMin / coef) * (rateForMin ?? 1) * devRate + devFlat
-                let maxLimit = (senderAmountMax / coef) * (rateForMax ?? 1)
+                var minLimit = (senderAmountMin / coef) / (rateForMin ?? 1)
+                minLimit *= devRate
+                minLimit += devFlat
+                
+                let maxLimit = ((senderAmountMax / coef) / (rateForMax ?? 1))
                 
                 self?.getExchangeRates(signedWallet: signedWallet,
                                        gatewayTransferBinding: gatewayTransferBinding,

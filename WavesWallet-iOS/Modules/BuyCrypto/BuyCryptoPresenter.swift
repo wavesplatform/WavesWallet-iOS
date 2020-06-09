@@ -49,7 +49,9 @@ extension BuyCryptoPresenter: IOTransformer {
         let cryptoAssets = StateHelper.makeCryptoAssets(readOnlyState: input.readOnlyState)
 
         let buyButtonModel = StateHelper.makeBuyButton(readOnlyState: input.readOnlyState,
-                                                       didSelectCryptoItem: input.didSelectCryptoItem)
+                                                       didSelectCryptoItem: input.didSelectCryptoItem,
+                                                       validationError: input.validationError.asObservable(),
+                                                       didChangeFiatAmount: input.didChangeFiatAmount.asObservable())
 
         let detailsInfo = StateHelper.makeDetailsInfo(readOnlyState: input.readOnlyState,
                                                       didSelectFiatItem: input.didSelectFiatItem)
@@ -179,10 +181,16 @@ extension BuyCryptoPresenter {
         }
 
         static func makeBuyButton(readOnlyState: Observable<BuyCryptoState>,
-                                  didSelectCryptoItem: ControlEvent<AssetViewModel>) -> Driver<BlueButton.Model> {
+                                  didSelectCryptoItem: ControlEvent<AssetViewModel>,
+                                  validationError: Observable<Error?>,
+                                  didChangeFiatAmount: Observable<String?>) -> Driver<BlueButton.Model> {
             //  -> BlueButton.Model вот так работать не должно. делаю потому что срок горит
-            Observable.combineLatest(didSelectCryptoItem, readOnlyState)
-                .compactMap { cryptoItem, buyCryptoState -> BlueButton.Model? in
+            Observable.combineLatest(didSelectCryptoItem, readOnlyState, validationError, didChangeFiatAmount)
+                .compactMap { cryptoItem, buyCryptoState, error, amount -> BlueButton.Model? in
+                    guard let amount = amount, !amount.isEmpty else {
+                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .disabled)
+                    }
+                    
                     switch buyCryptoState.state {
                     case .aCashAssetsLoaded:
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .loading)
@@ -194,11 +202,14 @@ extension BuyCryptoPresenter {
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .disabled)
 
                     case .readyForExchange:
-                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .active)
+                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name),
+                                     status: error == nil ? .active : .disabled)
 
-                    default: return nil
+                    default:
+                        return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .disabled)
                     }
                 }
+                .startWith(.init(title: Localizable.Waves.Buycrypto.buy(""), status: .disabled))
                 .asDriverIgnoringError()
         }
 
@@ -253,7 +264,7 @@ extension BuyCryptoPresenter {
                         return Localizable.Waves.Buycrypto.maxAmount("\(money.displayText) \(name)")
                     }
                 } else {
-                    return error?.localizedDescription
+                    return nil
                 }
             }
         }
