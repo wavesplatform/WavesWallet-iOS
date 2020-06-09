@@ -128,9 +128,16 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 extension BuyCryptoViewController: BindableView {
     func getOutput() -> BuyCryptoViewOutput {
         let viewWillAppear = rx.viewWillAppear.mapAsVoid()
-
-        return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem.asControlEvent(),
-                                   didSelectCryptoItem: didSelectCryptoItem.asControlEvent(),
+        
+        let didSelectFiatItem = ControlEvent(events: self.didSelectFiatItem.throttle(RxTimeInterval.seconds(1),
+                                                                                     latest: true,
+                                                                                     scheduler: MainScheduler.instance))
+        let didSelectCryptoItem = ControlEvent(events: self.didSelectCryptoItem.throttle(RxTimeInterval.seconds(1),
+                                                                                         latest: true,
+                                                                                         scheduler: MainScheduler.instance))
+        
+        return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem,
+                                   didSelectCryptoItem: didSelectCryptoItem,
                                    didChangeFiatAmount: didChangeFiatAmount.asControlEvent(),
                                    didTapBuy: didTapBuy.asControlEvent(),
                                    viewWillAppear: ControlEvent<Void>(events: viewWillAppear),
