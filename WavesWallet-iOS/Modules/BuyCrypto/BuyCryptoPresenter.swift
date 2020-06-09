@@ -301,6 +301,7 @@ extension BuyCryptoPresenter {
         
         static func makeAssetViewModel(from asset: Asset) -> AssetViewModel {
             let wavesId = asset.wavesId?.replacingOccurrences(of: "USDN", with: "AC_USD")
+                .replacingOccurrences(of: "WBTC", with: "BTC") // РУСЛАН ОЧЕНЬ ВНИМАТЕЛЬНО ПОСМОТРИ
                 .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
                 .replacingOccurrences(of: "WEST", with: "AC_WEST") ?? ""
             return AssetViewModel(id: wavesId,
