@@ -83,7 +83,6 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
         buyButton.didTouchButton = { [weak self] in
             self?.didTapBuy.accept(Void())
-//            self?.fiatCollectionView.reloadData()
         }
         
         setupInfoTextView()
@@ -366,9 +365,10 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
 
 extension BuyCryptoViewController: UITextViewDelegate {
     func textView(_: UITextView,
-                  shouldInteractWith _: URL,
+                  shouldInteractWith url: URL,
                   in _: NSRange,
                   interaction _: UITextItemInteraction) -> Bool {
+        didTapURL.accept(url)
         return false
     }
 }
