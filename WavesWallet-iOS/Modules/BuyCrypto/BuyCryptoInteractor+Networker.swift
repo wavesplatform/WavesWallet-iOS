@@ -273,7 +273,6 @@ extension BuyCryptoInteractor {
                                        recipientAsset: CryptoAsset,
                                        completion: @escaping (Result<(min: Decimal, max: Decimal), Error>) -> Void) {
             let completionAdapter: (Result<Double, Error>) -> Void = { result in
-                // ac_usd === usnd
                 switch result {
                 case let .success(limitRate):
                     let decimalLimitRate = Decimal(limitRate)
@@ -281,8 +280,8 @@ extension BuyCryptoInteractor {
                     let max: Decimal
                     
                     if recipientAsset.id.lowercased() == "btc" {
-                        min = 100
-                        max = 9500
+                        min = 100 / Decimal(limitRate)
+                        max = 9500 / Decimal(limitRate)
                     } else {
                         // coef необходим чтоб получить правильный минимум и максимум (они приходят в копейках)
                         let coef = Decimal(pow(10, Double(senderAsset.decimals)))
@@ -303,7 +302,7 @@ extension BuyCryptoInteractor {
                 }
             }
 
-            // чтобы получить лимиты для usnd
+            // чтобы получить лимиты в usd
             adCashGRPCService.getACashAssetsExchangeRate(signedWallet: signedWallet,
                                                          senderAsset: senderAsset.id,
                                                          recipientAsset: "USD",
@@ -358,7 +357,7 @@ extension BuyCryptoInteractor {
                     dispatchGroup.leave()
             })
             
-            dispatchGroup.notify(queue: .global()) { [weak self] in
+            dispatchGroup.notify(queue: DispatchQueue.global()) { [weak self] in
                 let decimals = Double(recipientAsset.decimals)
                 let coef = pow(10, decimals)
                 

@@ -178,8 +178,6 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
     }
 
     func openBuy(neutrinoAsset: Asset) {
-        // тут
-        
         let buyCryptoBuilder: BuyCryptoBuildable = BuyCryptoBuilder()
         let buyCryptoVC = buyCryptoBuilder.build(with: self, selectedAsset: neutrinoAsset)
         navigationRouter.pushViewController(buyCryptoVC)

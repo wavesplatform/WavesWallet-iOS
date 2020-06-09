@@ -222,7 +222,9 @@ extension WalletCoordinator: WalletModuleOutput {
 
 extension WalletCoordinator: BuyCryptoListener {
     func openUrl(_ url: URL, delegate: BrowserViewControllerDelegate?) {
-        BrowserViewController.openURL(url, toViewController: navigationRouter.navigationController, delegate: delegate)
+        BrowserViewController.openURL(url,
+                                      toViewController: navigationRouter.navigationController,
+                                      delegate: delegate)
     }
 }
 
@@ -257,7 +259,9 @@ extension WalletCoordinator: AssetDetailModuleOutput {
     }
         
     func showCard(asset: DomainLayer.DTO.SmartAssetBalance) {
-        //TODO: Вооова Чума хочу твой контролер
+        let buyCryptoBuilder = BuyCryptoBuilder()
+        let buyCryptoVC = buyCryptoBuilder.build(with: self, selectedAsset: nil)
+        navigationRouter.pushViewController(buyCryptoVC)
     }
     
     func showReceive(asset: DomainLayer.DTO.SmartAssetBalance) {

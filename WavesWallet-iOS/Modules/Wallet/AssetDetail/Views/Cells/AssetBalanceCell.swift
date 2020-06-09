@@ -62,6 +62,7 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
         sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         receiveButton.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
         exchangeButton.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
+        cardButton.addTarget(self, action: #selector(cardTapped), for: .touchUpInside)
     }
 
     @objc private func exchangeTapped() {
