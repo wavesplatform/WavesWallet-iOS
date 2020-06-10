@@ -180,6 +180,7 @@ extension BuyCryptoViewController: BindableView {
 
         bindCarouselItems(fiatItems: input.fiatItems, cryptoItems: input.cryptoItems)
 
+        input.fiatTitle.drive(navigationItem.rx.title).disposed(by: disposeBag)
         input.fiatTitle.drive(spentLabel.rx.text).disposed(by: disposeBag)
         input.cryptoTitle.drive(buyLabel.rx.text).disposed(by: disposeBag)
 
@@ -239,10 +240,7 @@ extension BuyCryptoViewController: BindableView {
 
     private func bindExchangeMessage(message: NSAttributedString) {
         infoTextView.attributedText = message
-        DispatchQueue.main.async { [weak infoTextViewContainer] in
-            infoTextViewContainer?.setNeedsLayout()
-            infoTextViewContainer?.layoutIfNeeded()
-        }
+        infoTextViewContainer.layoutIfNeeded()
     }
 
     private func showInitialError(errorMessage _: String) {
@@ -257,32 +255,15 @@ extension BuyCryptoViewController: BindableView {
     }
 
     private func hideNavigationTitleIfNeeded(scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-
-        let frame = spentLabel.frame
-
-        // Выщитываем процент сдвига spentLabel
-        var percent = offset / frame.height
-        percent = max(percent, 0)
-        percent = min(percent, 1)
-
-        if percent == 1 {
-            navigationItem.title = spentLabel.text
+        let yOffset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+        let percent: CGFloat
+        if yOffset > 0 {
+            percent = min(yOffset / spentLabel.frame.height, 1)
         } else {
-            navigationItem.title = ""
+            percent = 0
         }
-
-        UIView.animate(withDuration: 0.38, delay: 0, options: [.curveEaseInOut], animations: {
-            if percent == 1 {
-                self.navigationItem
-                    .titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(1)]
-                self.spentLabel.alpha = 0
-            } else {
-                self.navigationItem
-                    .titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0)]
-                self.spentLabel.alpha = 1
-            }
-        })
+        
+        navigationItem.titleTextAttributes = [.foregroundColor: UIColor.black.withAlphaComponent(percent)]
     }
 }
 

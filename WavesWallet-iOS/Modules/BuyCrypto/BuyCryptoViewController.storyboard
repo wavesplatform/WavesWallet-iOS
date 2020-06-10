@@ -94,17 +94,17 @@
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" placeholderIntrinsicWidth="319" placeholderIntrinsicHeight="167.5" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VAY-Od-8jE">
                                                         <rect key="frame" x="12" y="12" width="319" height="165"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="top" secondItem="rR5-qw-oSl" secondAttribute="top" constant="12" id="CEb-nx-cWX"/>
+                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="centerX" secondItem="rR5-qw-oSl" secondAttribute="centerX" id="6Hs-jo-PqE"/>
                                                     <constraint firstAttribute="trailing" secondItem="VAY-Od-8jE" secondAttribute="trailing" constant="12" id="EbL-4o-UWh"/>
-                                                    <constraint firstAttribute="bottom" secondItem="VAY-Od-8jE" secondAttribute="bottom" constant="12" id="Qtn-u8-yTT"/>
+                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="height" secondItem="rR5-qw-oSl" secondAttribute="height" constant="-24" id="pQJ-Zc-k7Q"/>
+                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="centerY" secondItem="rR5-qw-oSl" secondAttribute="centerY" id="ryA-Yv-fbF"/>
                                                     <constraint firstItem="VAY-Od-8jE" firstAttribute="leading" secondItem="rR5-qw-oSl" secondAttribute="leading" constant="12" id="xx9-Gg-Y50"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -140,7 +140,7 @@
                                             <constraint firstItem="78v-yA-QC2" firstAttribute="top" secondItem="JRY-Gm-ISS" secondAttribute="bottom" constant="24" id="ef3-eS-aCQ"/>
                                             <constraint firstAttribute="trailing" secondItem="DKn-xW-87h" secondAttribute="trailing" id="fqS-eB-UYY"/>
                                             <constraint firstItem="cPN-Yl-YxU" firstAttribute="top" secondItem="DKn-xW-87h" secondAttribute="bottom" constant="24" id="fsx-Hz-63F"/>
-                                            <constraint firstAttribute="bottom" secondItem="rR5-qw-oSl" secondAttribute="bottom" constant="16" id="iVP-Rn-HHs"/>
+                                            <constraint firstAttribute="bottom" secondItem="rR5-qw-oSl" secondAttribute="bottom" priority="999" constant="16" id="iVP-Rn-HHs"/>
                                             <constraint firstItem="8dW-bx-3eO" firstAttribute="top" secondItem="cPN-Yl-YxU" secondAttribute="bottom" constant="14" id="m4k-0J-8Kz"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vqQ-Lr-FiC" secondAttribute="trailing" constant="16" id="mG6-B3-YH5"/>
                                             <constraint firstItem="8dW-bx-3eO" firstAttribute="leading" secondItem="p2J-il-HLx" secondAttribute="leading" constant="16" id="r7b-DM-ZJI"/>

@@ -58,6 +58,11 @@ class DottedRoundView: UIView {
         shapeLayer.lineDashPattern = [perDashLength as NSNumber, spaceBetweenDash as NSNumber]
         shapeLayer.frame = rect
         shapeLayer.fillColor = nil
-        shapeLayer.path = UIBezierPath(rect: bounds).cgPath
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let shapeLayer = layer as? CAShapeLayer
+        shapeLayer?.path = UIBezierPath(rect: bounds).cgPath
     }
 }
