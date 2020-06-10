@@ -215,37 +215,37 @@ extension BuyCryptoPresenter {
 
         static func makeDetailsInfo(readOnlyState: Observable<BuyCryptoState>,
                                     didSelectFiatItem: ControlEvent<AssetViewModel>) -> Driver<ExchangeMessage> {
-            didSelectFiatItem.filteredByState(readOnlyState) { buyCryptoState -> Bool in
-                switch buyCryptoState.state {
-                case .isLoading: return false
-                case .loadingError: return false
-                case .checkingExchangePairError: return false
-                default: return true
-                }
-            }
-            .compactMap { fiatAsset -> ExchangeMessage? in
-                guard let link = URL(string: UIGlobalConstants.URL.support) else { return nil }
-                let message: String
-                if fiatAsset.id == DomainLayerConstants.acUSDId {
-                    message = Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.minAmount("10") + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems
+            didSelectFiatItem.withLatestFrom(readOnlyState, resultSelector: latestFromBothValues())
+                .compactMap { fiatAsset, buyCryptoState -> ExchangeMessage? in
+                    guard let link = URL(string: UIGlobalConstants.URL.support) else { return nil }
+                    switch buyCryptoState.state {
+                    case .readyForExchange(let exchangeInfo):
+                        let minLimitMoney = Money(value: exchangeInfo.minLimit, Int(exchangeInfo.senderAsset.decimals))
+                        let message: String
+                        if fiatAsset.id == DomainLayerConstants.acUSDId {
+                            message = Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems
 
-                } else {
-                    message = Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.minAmount("10") + "\n" +
-                        Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems
-                }
+                        } else {
+                            message = Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.minAmount("10") + "\n" +
+                                Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems
+                        }
 
-                let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
+                        let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
 
-                return ExchangeMessage(message: message,
-                                       linkWord: linkWord,
-                                       link: link)
+                        return ExchangeMessage(message: message,
+                                               linkWord: linkWord,
+                                               link: link)
+                        
+                    default: return nil
+                    }
+                    
             }
             .asDriverIgnoringError()
         }
