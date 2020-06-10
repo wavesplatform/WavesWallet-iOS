@@ -50,6 +50,9 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     private let didTapRetry = PublishRelay<Void>()
 
     private let disposeBag = DisposeBag()
+    
+    private var lastTouchedCryptoAssetByIndexPath: IndexPath?
+    private var lastTouchedFiatAssetByIndexPath: IndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -333,6 +336,7 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
         }
     }
 
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView === fiatCollectionView {
             let currentItemOffset = fiatCollectionView.contentInset.left + fiatCollectionView.contentOffset.x
@@ -364,9 +368,27 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView === self.scrollView else { return }
+            
+        if scrollView === fiatCollectionView {
+            let currentItemOffset = fiatCollectionView.contentInset.left + fiatCollectionView.contentOffset.x
 
-        hideNavigationTitleIfNeeded(scrollView: scrollView)
+            let centerFiatCollectionViewPoint = CGPoint(x: currentItemOffset, y: fiatCollectionView.bounds.midY)
+            if let indexPath = fiatCollectionView.indexPathForItem(at: centerFiatCollectionViewPoint),
+                lastTouchedFiatAssetByIndexPath != indexPath {
+                ImpactFeedbackGenerator.impactOccurred()
+                lastTouchedFiatAssetByIndexPath = indexPath
+            }
+        } else if scrollView === cryptoCollectionView {
+            let currentItemOffset = cryptoCollectionView.contentInset.left + cryptoCollectionView.contentOffset.x
+            let centerCryptoCollectionViewPoint = CGPoint(x: currentItemOffset, y: cryptoCollectionView.bounds.midY)
+            if let indexPath = cryptoCollectionView.indexPathForItem(at: centerCryptoCollectionViewPoint),
+                lastTouchedCryptoAssetByIndexPath != indexPath {
+                ImpactFeedbackGenerator.impactOccurred()
+                lastTouchedCryptoAssetByIndexPath = indexPath
+            }
+        } else if scrollView === self.scrollView {
+            hideNavigationTitleIfNeeded(scrollView: scrollView)
+        }
     }
 }
 
