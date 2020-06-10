@@ -32,6 +32,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     @IBOutlet private weak var cryptoCollectionView: UICollectionView!
     @IBOutlet private weak var cryptoZoomLayout: ZoomFlowLayout!
     @IBOutlet private weak var buyButton: BlueButton!
+    @IBOutlet private weak var infoTextViewContainer: UIView!
     @IBOutlet private weak var infoTextView: UITextView!
 
     private let errorView = GlobalErrorView()
@@ -131,17 +132,19 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 extension BuyCryptoViewController: BindableView {
     func getOutput() -> BuyCryptoViewOutput {
         let viewWillAppear = rx.viewWillAppear.mapAsVoid()
-        
+
         let didSelectFiatItem = ControlEvent(events: self.didSelectFiatItem.throttle(RxTimeInterval.seconds(2),
                                                                                      latest: true,
                                                                                      scheduler: MainScheduler.instance))
         let didSelectCryptoItem = ControlEvent(events: self.didSelectCryptoItem.throttle(RxTimeInterval.seconds(2),
                                                                                          latest: true,
                                                                                          scheduler: MainScheduler.instance))
-        
+
+        let didChangeFiatAmount = ControlEvent(events: self.didChangeFiatAmount.startWith(""))
+
         return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem,
                                    didSelectCryptoItem: didSelectCryptoItem,
-                                   didChangeFiatAmount: didChangeFiatAmount.asControlEvent(),
+                                   didChangeFiatAmount: didChangeFiatAmount,
                                    didTapBuy: didTapBuy.asControlEvent(),
                                    viewWillAppear: ControlEvent<Void>(events: viewWillAppear),
                                    didTapRetry: didTapRetry.asControlEvent(),
@@ -234,16 +237,12 @@ extension BuyCryptoViewController: BindableView {
         }).disposed(by: disposeBag)
     }
 
-    private func bindExchangeMessage(message: BuyCryptoPresenter.ExchangeMessage) {
-        let attributeString = NSMutableAttributedString(string: message.message)
-        attributeString.addAttribute(NSAttributedString.Key.foregroundColor,
-                                     value: UIColor.basic500,
-                                     range: attributeString.mutableString.range(of: message.message))
-        attributeString.addAttribute(NSAttributedString.Key.link,
-                                     value: message.link,
-                                     range: attributeString.mutableString.range(of: message.linkWord))
-        infoTextView.attributedText = attributeString
-        infoTextView.layoutIfNeeded()
+    private func bindExchangeMessage(message: NSAttributedString) {
+        infoTextView.attributedText = message
+        DispatchQueue.main.async { [weak infoTextViewContainer] in
+            infoTextViewContainer?.setNeedsLayout()
+            infoTextViewContainer?.layoutIfNeeded()
+        }
     }
 
     private func showInitialError(errorMessage _: String) {
@@ -283,7 +282,7 @@ extension BuyCryptoViewController: BindableView {
                     .titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0)]
                 self.spentLabel.alpha = 1
             }
-        }) { _ in }
+        })
     }
 }
 

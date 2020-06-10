@@ -173,7 +173,7 @@ extension BuyCryptoPresenter {
                     } else {
                         return assets.cryptoAssets.map { Helper.makeAssetViewModel(from: $0) }
                     }
-                    
+
                 default: return nil
                 }
             }
@@ -190,7 +190,7 @@ extension BuyCryptoPresenter {
                     guard let amount = amount, !amount.isEmpty else {
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .disabled)
                     }
-                    
+
                     switch buyCryptoState.state {
                     case .aCashAssetsLoaded:
                         return .init(title: Localizable.Waves.Buycrypto.buy(cryptoItem.name), status: .loading)
@@ -214,40 +214,60 @@ extension BuyCryptoPresenter {
         }
 
         static func makeDetailsInfo(readOnlyState: Observable<BuyCryptoState>,
-                                    didSelectFiatItem: ControlEvent<AssetViewModel>) -> Driver<ExchangeMessage> {
-            didSelectFiatItem.withLatestFrom(readOnlyState, resultSelector: latestFromBothValues())
-                .compactMap { fiatAsset, buyCryptoState -> ExchangeMessage? in
+                                    didSelectFiatItem: ControlEvent<AssetViewModel>) -> Driver<NSAttributedString> {
+            Observable.combineLatest(didSelectFiatItem, readOnlyState)
+                .compactMap { fiatAsset, buyCryptoState -> NSAttributedString? in
                     guard let link = URL(string: UIGlobalConstants.URL.support) else { return nil }
                     switch buyCryptoState.state {
-                    case .readyForExchange(let exchangeInfo):
+                    case let .readyForExchange(exchangeInfo):
                         let minLimitMoney = Money(value: exchangeInfo.minLimit, Int(exchangeInfo.senderAsset.decimals))
-                        let message: String
-                        if fiatAsset.id == DomainLayerConstants.acUSDId {
-                            message = Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems
 
+                        let conversionFee: NSAttributedString
+                        if fiatAsset.id == DomainLayerConstants.acUSDId {
+                            conversionFee = NSAttributedString(
+                                string: Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n",
+                                attributes: [.foregroundColor: UIColor.basic700,
+                                             .font: UIFont.boldSystemFont(ofSize: 12)])
                         } else {
-                            message = Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.minAmount("10") + "\n" +
-                                Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems
+                            conversionFee = NSAttributedString(
+                                string: Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n",
+                                attributes: [.foregroundColor: UIColor.basic700,
+                                             .font: UIFont.boldSystemFont(ofSize: 12)])
                         }
 
-                        let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
+                        let youCanBuyWithYourBankCard = NSAttributedString(
+                            string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
+                            attributes: [.foregroundColor: UIColor.basic500])
+                        let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(
+                            string: Localizable.Waves.Buycrypto.Messageinfo
+                                .afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
+                            attributes: [.foregroundColor: UIColor.basic500])
+                        let minAmount = NSAttributedString(
+                            string: Localizable.Waves.Buycrypto.Messageinfo
+                                .minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
+                            attributes: [.foregroundColor: UIColor.basic500])
 
-                        return ExchangeMessage(message: message,
-                                               linkWord: linkWord,
-                                               link: link)
+                        let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
+                        let ifYouHaveProblems = NSMutableAttributedString(
+                            string: Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems,
+                            attributes: [.foregroundColor: UIColor.basic500])
+                        ifYouHaveProblems.addAttribute(NSAttributedString.Key.link,
+                                                       value: link,
+                                                       range: ifYouHaveProblems.mutableString.range(of: linkWord))
                         
+                        let allTextAttributedString = NSMutableAttributedString()
+                        allTextAttributedString.append(conversionFee)
+                        allTextAttributedString.append(minAmount)
+                        allTextAttributedString.append(youCanBuyWithYourBankCard)
+                        allTextAttributedString.append(afterPaymentWillBeCreditedToYourAccount)
+                        allTextAttributedString.append(ifYouHaveProblems)
+                        
+                        return allTextAttributedString
+
                     default: return nil
                     }
-                    
-            }
-            .asDriverIgnoringError()
+                }
+                .asDriverIgnoringError()
         }
 
         static func makeValidationError(validationError: Signal<Error?>) -> Signal<String?> {
@@ -298,13 +318,13 @@ extension BuyCryptoPresenter {
                                   icon: icon,
                                   iconStyle: .large)
         }
-        
+
         static func makeAssetViewModel(from asset: Asset) -> AssetViewModel {
             let wavesId = asset.wavesId?.replacingOccurrences(of: "USDN", with: "AC_USD")
                 .replacingOccurrences(of: "WBTC", with: "BTC") // РУСЛАН ОЧЕНЬ ВНИМАТЕЛЬНО ПОСМОТРИ
                 .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
                 .replacingOccurrences(of: "WEST", with: "AC_WEST") ?? ""
-            
+
             let iconLogo = AssetLogo.Icon(assetId: asset.iconLogo.assetId,
                                           name: asset.iconLogo.name,
                                           url: asset.iconLogo.url,

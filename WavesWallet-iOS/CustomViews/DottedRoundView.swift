@@ -32,46 +32,32 @@ class DottedRoundView: UIView {
             setNeedsDisplay()
         }
     }
-    
+
     @IBInspectable var perDashLength: CGFloat = 4.0 {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     @IBInspectable var spaceBetweenDash: CGFloat = 4.0 {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override func updateConstraints() {
-        super.updateConstraints()
-        setNeedsDisplay()
+    override class var layerClass: AnyClass {
+        CAShapeLayer.self
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setNeedsDisplay()
-    }
-    
-    override func draw(_ frame: CGRect) {
-        guard isHiddenDottedLine == false else {
+
+    override func draw(_ rect: CGRect) {
+        guard !isHiddenDottedLine, let shapeLayer = layer as? CAShapeLayer else {
             return
         }
         
-        let cornerRadius = dottedCornerRadius == -1 ? frame.size.width / 2 : dottedCornerRadius
-        let drawPath = CGRect(x: 0,
-                              y: 0,
-                              width: frame.size.width - lineWidth,
-                              height: frame.size.height - lineWidth)
-        let path = UIBezierPath(roundedRect: drawPath, cornerRadius: cornerRadius)
-        
-        let dashes: [CGFloat] = [perDashLength, spaceBetweenDash]
-        path.setLineDash(dashes, count: dashes.count, phase: 0)
-        path.lineCapStyle = .butt
-        path.lineWidth = lineWidth
-        lineColor.setStroke()
-        path.stroke()
+        shapeLayer.strokeColor = lineColor.cgColor
+        shapeLayer.lineDashPattern = [perDashLength as NSNumber, spaceBetweenDash as NSNumber]
+        shapeLayer.frame = rect
+        shapeLayer.fillColor = nil
+        shapeLayer.path = UIBezierPath(rect: bounds).cgPath
     }
 }

@@ -226,8 +226,9 @@ extension BuyCryptoInteractor {
                 .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
                     let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo
 
-                    guard let amount = fiatAmountOptional, let fiatAmount = Double(amount) else { return nil }
-
+                    guard let amount = fiatAmountOptional else { return nil }
+                    let fiatAmount = Double(amount) ?? 0
+                    
                     switch buyCryptoState.state {
                     case let .readyForExchange(exchangeInfo):
                         if fiatItemVM.id == exchangeInfo.senderAsset.id, cryptoItemVM.id == exchangeInfo.recipientAsset.id {

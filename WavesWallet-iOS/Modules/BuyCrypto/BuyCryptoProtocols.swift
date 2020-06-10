@@ -200,7 +200,7 @@ struct BuyCryptoPresenterOutput {
     let buyButtonModel: Driver<BlueButton.Model>
     
     /// драйвер с информацией об обмене валюты на крипту
-    let detailsInfo: Driver<BuyCryptoPresenter.ExchangeMessage>
+    let detailsInfo: Driver<NSAttributedString>
 }
 
 struct BuyCryptoViewOutput {
