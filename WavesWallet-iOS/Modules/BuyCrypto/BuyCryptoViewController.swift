@@ -132,10 +132,10 @@ extension BuyCryptoViewController: BindableView {
     func getOutput() -> BuyCryptoViewOutput {
         let viewWillAppear = rx.viewWillAppear.mapAsVoid()
         
-        let didSelectFiatItem = ControlEvent(events: self.didSelectFiatItem.throttle(RxTimeInterval.seconds(1),
+        let didSelectFiatItem = ControlEvent(events: self.didSelectFiatItem.throttle(RxTimeInterval.seconds(2),
                                                                                      latest: true,
                                                                                      scheduler: MainScheduler.instance))
-        let didSelectCryptoItem = ControlEvent(events: self.didSelectCryptoItem.throttle(RxTimeInterval.seconds(1),
+        let didSelectCryptoItem = ControlEvent(events: self.didSelectCryptoItem.throttle(RxTimeInterval.seconds(2),
                                                                                          latest: true,
                                                                                          scheduler: MainScheduler.instance))
         
