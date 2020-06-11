@@ -222,6 +222,7 @@ extension BuyCryptoInteractor {
                                didSelectCrypto.asObservable(),
                                didLoadACashAssets,
                                didChangeFiatAmount.asObservable())
+                .throttle(RxTimeInterval.milliseconds(1500), latest: true, scheduler: MainScheduler.instance)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
                     let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo

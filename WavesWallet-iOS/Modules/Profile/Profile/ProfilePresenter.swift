@@ -43,10 +43,10 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let blockRepository: BlockRepositoryProtocol// = UseCasesFactory.instance.repositories.blockRemote
-    private let authorizationInteractor: AuthorizationUseCaseProtocol// = UseCasesFactory.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol// = UseCasesFactory.instance.repositories.walletsRepositoryLocal
-    private let serverEnvironmentUseCase: ServerEnvironmentRepository// = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let blockRepository: BlockRepositoryProtocol
+    private let authorizationInteractor: AuthorizationUseCaseProtocol
+    private let walletsRepository: WalletsRepositoryProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     
