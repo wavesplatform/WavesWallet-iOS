@@ -853,6 +853,7 @@
 		87ED72892475414B002CAD29 /* AdCashGRPCServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED72882475414B002CAD29 /* AdCashGRPCServiceImpl.swift */; };
 		87F09D512417CD6E001E2394 /* MassTransferRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */; };
 		87F09D532417CE79001E2394 /* MassTransferRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */; };
+		87F545A824926964007147A6 /* DottedRoundTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F545A724926964007147A6 /* DottedRoundTextView.swift */; };
 		87FA5D0324223B95002F282D /* AccountPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA5CFC24223B94002F282D /* AccountPassword.swift */; };
 		87FA5D0424223B95002F282D /* AccountPasswordTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA5CFD24223B94002F282D /* AccountPasswordTypes.swift */; };
 		87FA5D0524223B95002F282D /* AccountPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA5CFE24223B95002F282D /* AccountPasswordPresenter.swift */; };
@@ -2307,6 +2308,7 @@
 		87ED72882475414B002CAD29 /* AdCashGRPCServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCashGRPCServiceImpl.swift; sourceTree = "<group>"; };
 		87F09D502417CD6E001E2394 /* MassTransferRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryRemote.swift; sourceTree = "<group>"; };
 		87F09D522417CE79001E2394 /* MassTransferRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassTransferRepositoryProtocol.swift; sourceTree = "<group>"; };
+		87F545A724926964007147A6 /* DottedRoundTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundTextView.swift; sourceTree = "<group>"; };
 		87FA5CFC24223B94002F282D /* AccountPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPassword.swift; sourceTree = "<group>"; };
 		87FA5CFD24223B94002F282D /* AccountPasswordTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPasswordTypes.swift; sourceTree = "<group>"; };
 		87FA5CFE24223B95002F282D /* AccountPasswordPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPasswordPresenter.swift; sourceTree = "<group>"; };
@@ -5261,7 +5263,7 @@
 		87ED7233246C195D002CAD29 /* BuyCrypto */ = {
 			isa = PBXGroup;
 			children = (
-				87F545A6249262F8007147A6 /* DottedTextField */,
+				87F545A6249262F8007147A6 /* DottedTextView */,
 				875C0A80247B22BD00685A04 /* BuyCryptoSkeletonView */,
 				876604762476A343001F0FA4 /* ImageViewCell */,
 				87ED727D246D7B34002CAD29 /* TextField */,
@@ -5293,11 +5295,12 @@
 			path = AdCashService;
 			sourceTree = "<group>";
 		};
-		87F545A6249262F8007147A6 /* DottedTextField */ = {
+		87F545A6249262F8007147A6 /* DottedTextView */ = {
 			isa = PBXGroup;
 			children = (
+				87F545A724926964007147A6 /* DottedRoundTextView.swift */,
 			);
-			path = DottedTextField;
+			path = DottedTextView;
 			sourceTree = "<group>";
 		};
 		87FA5CF524223B29002F282D /* Account */ = {
@@ -8261,6 +8264,7 @@
 				875C0A86247BB81B00685A04 /* BuyCryptoInteractor+Networker.swift in Sources */,
 				875C0A82247B233C00685A04 /* BuyCryptoSkeletonView.swift in Sources */,
 				0A751D38221715F80024D523 /* AppNewsCoordinator.swift in Sources */,
+				87F545A824926964007147A6 /* DottedRoundTextView.swift in Sources */,
 				E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */,
 				E9443012226E64E900EB6257 /* WalletSortInteractor.swift in Sources */,
 				E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */,

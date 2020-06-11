@@ -32,8 +32,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     @IBOutlet private weak var cryptoCollectionView: UICollectionView!
     @IBOutlet private weak var cryptoZoomLayout: ZoomFlowLayout!
     @IBOutlet private weak var buyButton: BlueButton!
-    @IBOutlet private weak var infoTextViewContainer: UIView!
-    @IBOutlet private weak var infoTextView: UITextView!
+    @IBOutlet private weak var infoTextViewContainer: DottedRoundTextView!
 
     private let errorView = GlobalErrorView()
 
@@ -88,8 +87,6 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         buyButton.didTouchButton = { [weak self] in
             self?.didTapBuy.accept(Void())
         }
-        
-        setupInfoTextView()
     }
 
     private func setupFiatCollectionView() {
@@ -114,15 +111,6 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         cryptoCollectionView.registerCell(type: ImageViewCollectionViewCell.self)
         cryptoCollectionView.dataSource = self
         cryptoCollectionView.delegate = self
-    }
-
-    private func setupInfoTextView() {
-        infoTextView.text = nil
-        infoTextView.isEditable = false
-        infoTextView.isScrollEnabled = false
-        infoTextView.backgroundColor = .basic50
-        infoTextView.keyboardType = .numberPad
-        infoTextView.delegate = self
     }
 }
 
@@ -231,8 +219,12 @@ extension BuyCryptoViewController: BindableView {
     }
 
     private func bindExchangeMessage(message: NSAttributedString) {
-        infoTextView.attributedText = message
-        infoTextViewContainer.layoutIfNeeded()
+//        let huy = NSAttributedString(string: "POOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOP")
+        infoTextViewContainer.setAttiributedStringWithLink(message) { [weak self] url in
+            self?.didTapURL.accept(url)
+        }
+//        infoTextViewContainer.setNeedsLayout()
+//        infoTextViewContainer.layoutIfNeeded()
     }
 
     private func showInitialError(errorMessage _: String) {
@@ -361,16 +353,6 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
         } else if scrollView === self.scrollView {
             hideNavigationTitleIfNeeded(scrollView: scrollView)
         }
-    }
-}
-
-extension BuyCryptoViewController: UITextViewDelegate {
-    func textView(_: UITextView,
-                  shouldInteractWith url: URL,
-                  in _: NSRange,
-                  interaction _: UITextItemInteraction) -> Bool {
-        didTapURL.accept(url)
-        return false
     }
 }
 

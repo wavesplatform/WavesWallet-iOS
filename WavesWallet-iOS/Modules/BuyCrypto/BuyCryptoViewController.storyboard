@@ -88,36 +88,9 @@
                                                     <constraint firstAttribute="height" constant="48" id="fLi-uW-Qqn"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rR5-qw-oSl">
-                                                <rect key="frame" x="16" y="462" width="343" height="189"/>
-                                                <subviews>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" placeholderIntrinsicWidth="319" placeholderIntrinsicHeight="167.5" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VAY-Od-8jE">
-                                                        <rect key="frame" x="12" y="12" width="319" height="165"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    </textView>
-                                                </subviews>
+                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="rR5-qw-oSl" customClass="DottedRoundTextView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="462" width="343" height="0.0"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="centerX" secondItem="rR5-qw-oSl" secondAttribute="centerX" id="6Hs-jo-PqE"/>
-                                                    <constraint firstAttribute="trailing" secondItem="VAY-Od-8jE" secondAttribute="trailing" constant="12" id="EbL-4o-UWh"/>
-                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="height" secondItem="rR5-qw-oSl" secondAttribute="height" constant="-24" id="pQJ-Zc-k7Q"/>
-                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="centerY" secondItem="rR5-qw-oSl" secondAttribute="centerY" id="ryA-Yv-fbF"/>
-                                                    <constraint firstItem="VAY-Od-8jE" firstAttribute="leading" secondItem="rR5-qw-oSl" secondAttribute="leading" constant="12" id="xx9-Gg-Y50"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="dottedCornerRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="perDashLength">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="spaceBetweenDash">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -140,7 +113,7 @@
                                             <constraint firstItem="78v-yA-QC2" firstAttribute="top" secondItem="JRY-Gm-ISS" secondAttribute="bottom" constant="24" id="ef3-eS-aCQ"/>
                                             <constraint firstAttribute="trailing" secondItem="DKn-xW-87h" secondAttribute="trailing" id="fqS-eB-UYY"/>
                                             <constraint firstItem="cPN-Yl-YxU" firstAttribute="top" secondItem="DKn-xW-87h" secondAttribute="bottom" constant="24" id="fsx-Hz-63F"/>
-                                            <constraint firstAttribute="bottom" secondItem="rR5-qw-oSl" secondAttribute="bottom" priority="999" constant="16" id="iVP-Rn-HHs"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rR5-qw-oSl" secondAttribute="bottom" constant="16" id="iVP-Rn-HHs"/>
                                             <constraint firstItem="8dW-bx-3eO" firstAttribute="top" secondItem="cPN-Yl-YxU" secondAttribute="bottom" constant="14" id="m4k-0J-8Kz"/>
                                             <constraint firstAttribute="trailing" secondItem="vqQ-Lr-FiC" secondAttribute="trailing" constant="16" id="mG6-B3-YH5"/>
                                             <constraint firstItem="8dW-bx-3eO" firstAttribute="leading" secondItem="p2J-il-HLx" secondAttribute="leading" constant="16" id="r7b-DM-ZJI"/>
@@ -184,7 +157,6 @@
                         <outlet property="fiatCollectionView" destination="DKn-xW-87h" id="VH4-Fx-HBD"/>
                         <outlet property="fiatSeparatorImageView" destination="8dW-bx-3eO" id="pRT-qL-PqO"/>
                         <outlet property="fiatZoomLayout" destination="Ch7-K5-AMl" id="LQc-22-ubH"/>
-                        <outlet property="infoTextView" destination="VAY-Od-8jE" id="BrU-1v-0E7"/>
                         <outlet property="infoTextViewContainer" destination="rR5-qw-oSl" id="uGx-Fs-xdy"/>
                         <outlet property="scrollContainerView" destination="p2J-il-HLx" id="2Xi-ZZ-SOc"/>
                         <outlet property="scrollView" destination="g16-wN-rxB" id="zyj-w2-pnW"/>
