@@ -119,7 +119,6 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     private func setupInfoTextView() {
         infoTextView.text = nil
         infoTextView.isEditable = false
-        infoTextView.isSelectable = false
         infoTextView.isScrollEnabled = false
         infoTextView.backgroundColor = .basic50
         infoTextView.keyboardType = .numberPad

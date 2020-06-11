@@ -44,25 +44,23 @@ class DottedRoundView: UIView {
             setNeedsDisplay()
         }
     }
-    
-    override class var layerClass: AnyClass {
-        CAShapeLayer.self
-    }
 
-    override func draw(_ rect: CGRect) {
-        guard !isHiddenDottedLine, let shapeLayer = layer as? CAShapeLayer else {
+    override func draw(_: CGRect) {
+        guard isHiddenDottedLine == false else {
             return
         }
-        
-        shapeLayer.strokeColor = lineColor.cgColor
-        shapeLayer.lineDashPattern = [perDashLength as NSNumber, spaceBetweenDash as NSNumber]
-        shapeLayer.frame = rect
-        shapeLayer.fillColor = nil
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let shapeLayer = layer as? CAShapeLayer
-        shapeLayer?.path = UIBezierPath(rect: bounds).cgPath
+
+        let cornerRadius = dottedCornerRadius == -1 ? frame.size.width / 2 : dottedCornerRadius
+        let drawPath = CGRect(x: lineWidth / 2,
+                              y: lineWidth / 2,
+                              width: bounds.size.width - lineWidth,
+                              height: bounds.size.height - lineWidth)
+        let path = UIBezierPath(roundedRect: drawPath, cornerRadius: cornerRadius)
+        let dashes: [CGFloat] = [4, 4]
+        path.setLineDash(dashes, count: dashes.count, phase: 0)
+        path.lineCapStyle = CGLineCap.butt
+        path.lineWidth = lineWidth
+        lineColor.setStroke()
+        path.stroke()
     }
 }

@@ -5261,6 +5261,7 @@
 		87ED7233246C195D002CAD29 /* BuyCrypto */ = {
 			isa = PBXGroup;
 			children = (
+				87F545A6249262F8007147A6 /* DottedTextField */,
 				875C0A80247B22BD00685A04 /* BuyCryptoSkeletonView */,
 				876604762476A343001F0FA4 /* ImageViewCell */,
 				87ED727D246D7B34002CAD29 /* TextField */,
@@ -5290,6 +5291,13 @@
 				87ED7286247540A3002CAD29 /* AdCashGRPCService.swift */,
 			);
 			path = AdCashService;
+			sourceTree = "<group>";
+		};
+		87F545A6249262F8007147A6 /* DottedTextField */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DottedTextField;
 			sourceTree = "<group>";
 		};
 		87FA5CF524223B29002F282D /* Account */ = {
