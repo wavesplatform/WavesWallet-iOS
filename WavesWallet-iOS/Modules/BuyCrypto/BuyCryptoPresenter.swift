@@ -238,15 +238,15 @@ extension BuyCryptoPresenter {
                         }
 
                         let youCanBuyWithYourBankCard = NSAttributedString(
-                            string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
+                            string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(cryptoAsset.name) + "\n",
                             attributes: [.foregroundColor: UIColor.basic500])
                         let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(
                             string: Localizable.Waves.Buycrypto.Messageinfo
-                                .afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
+                                .afterPaymentWillBeCreditedToYourAccount(cryptoAsset.name) + "\n",
                             attributes: [.foregroundColor: UIColor.basic500])
                         let minAmount = NSAttributedString(
                             string: Localizable.Waves.Buycrypto.Messageinfo
-                                .minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
+                                .minAmount("\(minLimitMoney.displayText) \(cryptoAsset.name)") + "\n",
                             attributes: [.foregroundColor: UIColor.basic500])
 
                         let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
