@@ -43,6 +43,13 @@ extension BuyCryptoInteractor {
             fromCheckingExchangeToReadyExchange(stateTransformTrait: stateTransformTrait,
                                                 didCheckedExchangePair: apiResponse.didCheckedExchangePair)
 
+            fromCheckingExchangeToCheckingExchange(stateTransformTrait: stateTransformTrait,
+                                                   didLoadACashAssets: apiResponse.didLoadACashAssets,
+                                                   didSelectFiatItem: viewOutput.didSelectFiatItem,
+                                                   didSelectCryptoItem: viewOutput.didSelectCryptoItem,
+                                                   didChangeFiatAmount: viewOutput.didChangeFiatAmount,
+                                                   checkingPairAction: stateTransformActions.checkingExchangePairEntryAction)
+
             fromReadyToExchangeToCheckingExchangePair(stateTransformTrait: stateTransformTrait,
                                                       didLoadACashAssets: apiResponse.didLoadACashAssets,
                                                       didSelectFiat: viewOutput.didSelectFiatItem,
@@ -210,6 +217,57 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
+        private static func fromCheckingExchangeToCheckingExchange(
+            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+            didLoadACashAssets: Observable<AssetsInfo>,
+            didSelectFiatItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+            didSelectCryptoItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+            didChangeFiatAmount: ControlEvent<String?>,
+            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double) -> Void) {
+            let fromCheckingExchangeToCheckingExchange = Observable
+                .combineLatest(didSelectFiatItem.asObservable(),
+                               didSelectCryptoItem.asObservable(),
+                               didLoadACashAssets,
+                               didChangeFiatAmount.asObservable())
+                .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
+                .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
+                    let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo
+
+                    guard let amount = fiatAmountOptional else { return nil }
+                    let fiatAmount = Double(amount) ?? 0
+
+                    switch buyCryptoState.state {
+                    case let .checkingExchangePair(senderAsset, recipientAsset, _):
+                        if fiatItemVM.id == senderAsset.id, cryptoItemVM.id == recipientAsset.id {
+                            return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: senderAsset,
+                                                                                       recipientAsset: recipientAsset,
+                                                                                       amount: fiatAmount))
+                        } else if let fiatAsset = loadedAssetsInfo.fiatAssets.first(where: { $0.id == fiatItemVM.id }),
+                            let cryptoAsset = loadedAssetsInfo.cryptoAssets.first(where: { $0.id == cryptoItemVM.id }) {
+                            return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: fiatAsset,
+                                                                                       recipientAsset: cryptoAsset,
+                                                                                       amount: fiatAmount))
+                        } else {
+                            return nil
+                        }
+
+                    default: return nil
+                    }
+                }
+                .do(afterNext: { buyCryptoState in
+                    switch buyCryptoState.state {
+                    case let .checkingExchangePair(senderAsset, recipientAsset, amount):
+                        checkingPairAction(senderAsset, recipientAsset, amount)
+
+                    default: return
+                    }
+            })
+
+            fromCheckingExchangeToCheckingExchange
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
+        }
+
         private static func fromReadyToExchangeToCheckingExchangePair(
             stateTransformTrait: StateTransformTrait<BuyCryptoState>,
             didLoadACashAssets: Observable<AssetsInfo>,
@@ -222,14 +280,13 @@ extension BuyCryptoInteractor {
                                didSelectCrypto.asObservable(),
                                didLoadACashAssets,
                                didChangeFiatAmount.asObservable())
-                .throttle(RxTimeInterval.milliseconds(1500), latest: true, scheduler: MainScheduler.instance)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
                     let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo
 
                     guard let amount = fiatAmountOptional else { return nil }
                     let fiatAmount = Double(amount) ?? 0
-                    
+
                     switch buyCryptoState.state {
                     case let .readyForExchange(exchangeInfo):
                         if fiatItemVM.id == exchangeInfo.senderAsset.id, cryptoItemVM.id == exchangeInfo.recipientAsset.id {
@@ -248,7 +305,8 @@ extension BuyCryptoInteractor {
 
                     default: return nil
                     }
-                }.do(afterNext: { buyCryptoState in
+                }
+                .do(afterNext: { buyCryptoState in
                     switch buyCryptoState.state {
                     case let .checkingExchangePair(senderAsset, recipientAsset, amount):
                         checkingPairAction(senderAsset, recipientAsset, amount)
