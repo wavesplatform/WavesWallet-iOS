@@ -43,11 +43,22 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let blockRepository: BlockRepositoryProtocol = UseCasesFactory.instance.repositories.blockRemote
-    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
-    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let blockRepository: BlockRepositoryProtocol// = UseCasesFactory.instance.repositories.blockRemote
+    private let authorizationInteractor: AuthorizationUseCaseProtocol// = UseCasesFactory.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol// = UseCasesFactory.instance.repositories.walletsRepositoryLocal
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository// = UseCasesFactory.instance.serverEnvironmentUseCase
+    
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
+    
+    init(blockRepository: BlockRepositoryProtocol,
+         authorizationInteractor: AuthorizationUseCaseProtocol,
+         walletsRepository: WalletsRepositoryProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
+        self.blockRepository = blockRepository
+        self.authorizationInteractor = authorizationInteractor
+        self.walletsRepository = walletsRepository
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
+    }
 
     weak var moduleOutput: ProfileModuleOutput?
 
