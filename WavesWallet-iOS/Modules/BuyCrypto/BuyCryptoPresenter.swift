@@ -54,7 +54,8 @@ extension BuyCryptoPresenter: IOTransformer {
                                                        didChangeFiatAmount: input.didChangeFiatAmount.asObservable())
 
         let detailsInfo = StateHelper.makeDetailsInfo(readOnlyState: input.readOnlyState,
-                                                      didSelectFiatItem: input.didSelectFiatItem)
+                                                      didSelectFiatItem: input.didSelectFiatItem,
+                                                      didSelectCryptoItem: input.didSelectCryptoItem)
 
         return BuyCryptoPresenterOutput(contentVisible: contentVisible,
                                         isLoadingIndicator: isLoadingIndicator,
@@ -214,16 +215,17 @@ extension BuyCryptoPresenter {
         }
 
         static func makeDetailsInfo(readOnlyState: Observable<BuyCryptoState>,
-                                    didSelectFiatItem: ControlEvent<AssetViewModel>) -> Driver<NSAttributedString> {
-            Observable.combineLatest(didSelectFiatItem, readOnlyState)
-                .compactMap { fiatAsset, buyCryptoState -> NSAttributedString? in
+                                    didSelectFiatItem: ControlEvent<AssetViewModel>,
+                                    didSelectCryptoItem: ControlEvent<AssetViewModel>) -> Driver<NSAttributedString> {
+            Observable.combineLatest(didSelectFiatItem, didSelectCryptoItem, readOnlyState)
+                .compactMap { fiatAsset, cryptoAsset, buyCryptoState -> NSAttributedString? in
                     guard let link = URL(string: UIGlobalConstants.URL.support) else { return nil }
                     switch buyCryptoState.state {
                     case let .readyForExchange(exchangeInfo):
                         let minLimitMoney = Money(value: exchangeInfo.minLimit, Int(exchangeInfo.senderAsset.decimals))
 
                         let conversionFee: NSAttributedString
-                        if fiatAsset.id == DomainLayerConstants.acUSDId {
+                        if cryptoAsset.id == DomainLayerConstants.acUSDId && fiatAsset.id == "USD" {
                             conversionFee = NSAttributedString(
                                 string: Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n",
                                 attributes: [.foregroundColor: UIColor.basic700,
@@ -236,15 +238,15 @@ extension BuyCryptoPresenter {
                         }
 
                         let youCanBuyWithYourBankCard = NSAttributedString(
-                            string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
+                            string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(cryptoAsset.name) + "\n",
                             attributes: [.foregroundColor: UIColor.basic500])
                         let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(
                             string: Localizable.Waves.Buycrypto.Messageinfo
-                                .afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
+                                .afterPaymentWillBeCreditedToYourAccount(cryptoAsset.name) + "\n",
                             attributes: [.foregroundColor: UIColor.basic500])
                         let minAmount = NSAttributedString(
                             string: Localizable.Waves.Buycrypto.Messageinfo
-                                .minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
+                                .minAmount("\(minLimitMoney.displayText) \(cryptoAsset.name)") + "\n",
                             attributes: [.foregroundColor: UIColor.basic500])
 
                         let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
