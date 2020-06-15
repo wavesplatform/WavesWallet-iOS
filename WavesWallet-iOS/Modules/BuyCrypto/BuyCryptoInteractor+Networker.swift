@@ -293,8 +293,8 @@ extension BuyCryptoInteractor {
                         // coef необходим чтоб получить правильный минимум и максимум (они приходят в копейках)
                         let coef = Decimal(pow(10, Double(senderAsset.decimals)))
 
-                        min = decimalLimitRate * (gatewayTransferBinding.assetBinding.senderAmountMin / coef)
-                        max = decimalLimitRate * (gatewayTransferBinding.assetBinding.senderAmountMax / coef)
+                        min = (gatewayTransferBinding.assetBinding.senderAmountMin / coef) / decimalLimitRate
+                        max = (gatewayTransferBinding.assetBinding.senderAmountMax / coef) / decimalLimitRate
                     }
 
                     if let devConfigRate = devConfigRate {
