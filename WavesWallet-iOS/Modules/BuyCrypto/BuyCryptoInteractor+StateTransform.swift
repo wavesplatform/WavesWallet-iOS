@@ -41,6 +41,8 @@ extension BuyCryptoInteractor {
                                                     didTapRetry: viewOutput.didTapRetry)
 
             fromCheckingExchangeToReadyExchange(stateTransformTrait: stateTransformTrait,
+                                                didSelectFiat: viewOutput.didSelectFiatItem,
+                                                didSelectCrypto: viewOutput.didSelectCryptoItem,
                                                 didCheckedExchangePair: apiResponse.didCheckedExchangePair)
 
             fromCheckingExchangeToCheckingExchange(stateTransformTrait: stateTransformTrait,
@@ -202,13 +204,23 @@ extension BuyCryptoInteractor {
         }
 
         private static func fromCheckingExchangeToReadyExchange(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+                                                                didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
                                                                 didCheckedExchangePair: Observable<ExchangeInfo>) {
-            let fromCheckingExchangeToReadyExchange = didCheckedExchangePair
+            let fromCheckingExchangeToReadyExchange = Observable
+                .combineLatest(didSelectFiat, didSelectCrypto, didCheckedExchangePair)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
-                .compactMap { exchangeInfo, buyCryptoState -> BuyCryptoState? in
-                    switch buyCryptoState.state {
-                    case .checkingExchangePair: return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo))
-                    default: return nil
+                .denestifyTuple()
+                .compactMap { fiatItem, cryptoItem, exchangeInfo, buyCryptoState -> BuyCryptoState? in
+                    // необходимо для фильтра, когда ты выбрал какой-то из фиатных или крипто ассетов, но потом поменял выбор но запрос уже ушел
+                    if fiatItem.id == exchangeInfo.senderAsset.id, cryptoItem.id == exchangeInfo.recipientAsset.id {
+                        switch buyCryptoState.state {
+                        case .checkingExchangePair:
+                            return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo))
+                        default: return nil
+                        }
+                    } else {
+                        return nil
                     }
                 }
 
@@ -229,6 +241,7 @@ extension BuyCryptoInteractor {
                                didSelectCryptoItem.asObservable(),
                                didLoadACashAssets,
                                didChangeFiatAmount.asObservable())
+                .throttle(RxTimeInterval.seconds(1), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
                     let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo
@@ -280,6 +293,7 @@ extension BuyCryptoInteractor {
                                didSelectCrypto.asObservable(),
                                didLoadACashAssets,
                                didChangeFiatAmount.asObservable())
+                .throttle(RxTimeInterval.seconds(1), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
                     let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo

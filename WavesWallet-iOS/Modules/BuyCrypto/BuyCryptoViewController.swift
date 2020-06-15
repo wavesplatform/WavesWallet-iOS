@@ -122,7 +122,6 @@ extension BuyCryptoViewController: BindableView {
 
         let didChangeFiatAmount = ControlEvent(events:
             self.didChangeFiatAmount.throttle(RxTimeInterval.milliseconds(500),
-                                              latest: true,
                                               scheduler: MainScheduler.instance).startWith(""))
 
         return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem.asControlEvent(),
