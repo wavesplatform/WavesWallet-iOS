@@ -28,6 +28,7 @@ final class DottedRoundTextView: UIView, ResetableView {
     }
     
     private func initialSetup() {
+        dottedShapeLayer.opacity = 0
         dottedShapeLayer.fillColor = UIColor.clear.cgColor
         dottedShapeLayer.lineWidth = 2
         dottedShapeLayer.lineDashPattern = [4, 4]
@@ -53,6 +54,8 @@ final class DottedRoundTextView: UIView, ResetableView {
                                       didTapLink: @escaping (URL) -> Void) {
         textView.attributedText = text
         self.didTapLink = didTapLink
+        
+        dottedShapeLayer.opacity = 1
     }
     
     override func layoutSubviews() {

@@ -219,66 +219,80 @@ extension BuyCryptoPresenter {
                                     didSelectCryptoItem: ControlEvent<AssetViewModel>) -> Driver<NSAttributedString> {
             Observable.combineLatest(didSelectFiatItem, didSelectCryptoItem, readOnlyState)
                 .compactMap { fiatAsset, cryptoAsset, buyCryptoState -> NSAttributedString? in
-                    let link: URL
-                    
-                    if Language.currentLanguage.code == "ru" {
-                        guard let linkFromUrl = URL(string: UIGlobalConstants.URL.supportRu) else { return nil }
-                        link = linkFromUrl
-                    } else {
-                        guard let linkFromUrl = URL(string: UIGlobalConstants.URL.supportEn) else { return nil }
-                        link = linkFromUrl
-                    }
-
                     switch buyCryptoState.state {
                     case let .readyForExchange(exchangeInfo):
-                        let minLimitMoney = Money(value: exchangeInfo.minLimit, Int(exchangeInfo.senderAsset.decimals))
-
-                        let conversionFee: NSAttributedString
-                        if cryptoAsset.id == DomainLayerConstants.acUSDId, fiatAsset.id == "USD" {
-                            conversionFee = NSAttributedString(
-                                string: Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n",
-                                attributes: [.foregroundColor: UIColor.basic700,
-                                             .font: UIFont.boldSystemFont(ofSize: 12)])
-                        } else {
-                            conversionFee = NSAttributedString(
-                                string: Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n",
-                                attributes: [.foregroundColor: UIColor.basic700,
-                                             .font: UIFont.boldSystemFont(ofSize: 12)])
-                        }
-
-                        let youCanBuyWithYourBankCard = NSAttributedString(
-                            string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
-                            attributes: [.foregroundColor: UIColor.basic500])
-                        let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(
-                            string: Localizable.Waves.Buycrypto.Messageinfo
-                                .afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
-                            attributes: [.foregroundColor: UIColor.basic500])
-                        let minAmount = NSAttributedString(
-                            string: Localizable.Waves.Buycrypto.Messageinfo
-                                .minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
-                            attributes: [.foregroundColor: UIColor.basic500])
-
-                        let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
-                        let ifYouHaveProblems = NSMutableAttributedString(
-                            string: Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems,
-                            attributes: [.foregroundColor: UIColor.basic500])
-                        ifYouHaveProblems.addAttribute(NSAttributedString.Key.link,
-                                                       value: link,
-                                                       range: ifYouHaveProblems.mutableString.range(of: linkWord))
-
-                        let allTextAttributedString = NSMutableAttributedString()
-                        allTextAttributedString.append(conversionFee)
-                        allTextAttributedString.append(minAmount)
-                        allTextAttributedString.append(youCanBuyWithYourBankCard)
-                        allTextAttributedString.append(afterPaymentWillBeCreditedToYourAccount)
-                        allTextAttributedString.append(ifYouHaveProblems)
-
-                        return allTextAttributedString
-
+                        return makeAttributeString(exchangeInfo: exchangeInfo, fiatAsset: fiatAsset, cryptoAsset: cryptoAsset)
+                        
                     default: return nil
                     }
                 }
                 .asDriverIgnoringError()
+        }
+        
+        private static func makeAttributeString(exchangeInfo: BuyCryptoInteractor.ExchangeInfo,
+                                                fiatAsset: AssetViewModel,
+                                                cryptoAsset: AssetViewModel) -> NSAttributedString? {
+            let link: URL
+            if Language.currentLanguage.code == "ru" {
+                guard let linkFromUrl = URL(string: UIGlobalConstants.URL.supportRu) else { return nil }
+                link = linkFromUrl
+            } else {
+                guard let linkFromUrl = URL(string: UIGlobalConstants.URL.supportEn) else { return nil }
+                link = linkFromUrl
+            }
+            
+            let minLimitMoney = Money(value: exchangeInfo.minLimit, Int(exchangeInfo.senderAsset.decimals))
+
+            let conversionFee: NSAttributedString
+            if cryptoAsset.id == DomainLayerConstants.acUSDId, fiatAsset.id == "USD" {
+                conversionFee = NSAttributedString(
+                    string: Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n",
+                    attributes: [.foregroundColor: UIColor.basic700,
+                                 .font: UIFont.boldSystemFont(ofSize: 12)])
+            } else {
+                conversionFee = NSAttributedString(
+                    string: Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n",
+                    attributes: [.foregroundColor: UIColor.basic700,
+                                 .font: UIFont.boldSystemFont(ofSize: 12)])
+            }
+
+            let youCanBuyWithYourBankCard = NSAttributedString(
+                string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
+                attributes: [.foregroundColor: UIColor.basic500])
+            let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(
+                string: Localizable.Waves.Buycrypto.Messageinfo
+                    .afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
+                attributes: [.foregroundColor: UIColor.basic500])
+            let minAmount = NSAttributedString(
+                string: Localizable.Waves.Buycrypto.Messageinfo
+                    .minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
+                attributes: [.foregroundColor: UIColor.basic500])
+
+            let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
+            let ifYouHaveProblems = NSMutableAttributedString(
+                string: Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems,
+                attributes: [.foregroundColor: UIColor.basic500])
+            ifYouHaveProblems.addAttribute(NSAttributedString.Key.link,
+                                           value: link,
+                                           range: ifYouHaveProblems.mutableString.range(of: linkWord))
+
+            let paragrapshStyle = NSMutableParagraphStyle()
+            paragrapshStyle.maximumLineHeight = 14
+            paragrapshStyle.minimumLineHeight = 14
+            paragrapshStyle.lineSpacing = 0.1
+            
+            let allTextAttributedString = NSMutableAttributedString()
+            allTextAttributedString.append(conversionFee)
+            allTextAttributedString.append(minAmount)
+            allTextAttributedString.append(youCanBuyWithYourBankCard)
+            allTextAttributedString.append(afterPaymentWillBeCreditedToYourAccount)
+            allTextAttributedString.append(ifYouHaveProblems)
+            
+            allTextAttributedString.addAttribute(.paragraphStyle,
+            value: paragrapshStyle,
+            range: NSRange(location: 0, length: allTextAttributedString.length))
+
+            return allTextAttributedString
         }
 
         static func makeValidationError(validationError: Signal<Error?>) -> Signal<String?> {
