@@ -53,7 +53,6 @@ final class DottedRoundTextView: UIView, ResetableView {
                                       didTapLink: @escaping (URL) -> Void) {
         textView.attributedText = text
         self.didTapLink = didTapLink
-        
     }
     
     override func layoutSubviews() {

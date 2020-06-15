@@ -137,7 +137,7 @@ private extension NSAttributedString {
             title.addAttributes(NSMutableAttributedString.urlAttributted(),
                                 range: range)
             
-            title.addAttributes([NSAttributedString.Key.link: UIGlobalConstants.URL.support],
+            title.addAttributes([NSAttributedString.Key.link: UIGlobalConstants.URL.supportEn],
                                 range: range)
             
         }
