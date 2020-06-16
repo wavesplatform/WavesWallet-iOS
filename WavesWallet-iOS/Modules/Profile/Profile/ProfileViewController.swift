@@ -22,20 +22,29 @@ final class ProfileViewController: UIViewController {
     fileprivate typealias Types = ProfileTypes
 
     @IBOutlet private var tableView: UITableView!
-    private lazy var logoutItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self,
+    private lazy var logoutItem = UIBarButtonItem(image: Images.topbarLogout.image,
+                                                  style: .plain,
+                                                  target: self,
                                                   action: #selector(logoutTapped))
     private var sections: [Types.ViewModel.Section] = [Types.ViewModel.Section]()
 
     var presenter: ProfilePresenterProtocol!
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
+    
+    private let viewDidAppearEvent = PublishRelay<Void>()
+    private let viewDidDisappearEvent = PublishRelay<Void>()
 
     private let disposeBag = DisposeBag()
+    
+    override func loadView() {
+        super.loadView()
+        setupSystem()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupBigNavigationBar()
-        setupSystem()
         setupLanguages()
         setupTableview()
         NotificationCenter.default.addObserver(self,
@@ -46,6 +55,16 @@ final class ProfileViewController: UIViewController {
                                                selector: #selector(appDidBecomeActive),
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewDidAppearEvent.accept(Void())
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewDidDisappearEvent.accept(Void())
     }
 
     @objc private func logoutTapped() {
@@ -103,19 +122,17 @@ private extension ProfileViewController {
         let readyViewFeedback: ProfilePresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
 
-            return self.rx.viewDidAppear.asObservable()
-                .throttle(1, scheduler: MainScheduler.asyncInstance)
+            return self.viewDidAppearEvent.asObservable()
                 .asSignal(onErrorSignalWith: Signal.empty())
-                .map { _ in Types.Event.viewDidAppear }
+                .map { Types.Event.viewDidAppear }
         }
 
         let viewDidDisappear: ProfilePresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
 
-            return self.rx.viewDidDisappear.asObservable()
-                .throttle(1, scheduler: MainScheduler.asyncInstance)
+            return self.viewDidDisappearEvent.asObservable()
                 .asSignal(onErrorSignalWith: Signal.empty())
-                .map { _ in Types.Event.viewDidDisappear }
+                .map { Types.Event.viewDidDisappear }
         }
 
         presenter.system(feedbacks: [uiFeedback, readyViewFeedback, viewDidDisappear])
