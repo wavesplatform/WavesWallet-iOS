@@ -61,17 +61,9 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     }
 
     private func initialSetup() {
-        do {
-            createBackButton()
-            setupBigNavigationBar()
-
-            navigationItem.largeTitleDisplayMode = .never
-
-            scrollView.showsVerticalScrollIndicator = false
-            scrollView.delegate = self
-            view.backgroundColor = .basic50
-            scrollContainerView.backgroundColor = .basic50
-        }
+        setupNavigationBar()
+        
+        setupScrollView()
 
         do {
             fiatSeparatorImageView.contentMode = .scaleAspectFill
@@ -87,6 +79,19 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
         buyButton.didTouchButton = { [weak self] in
             self?.didTapBuy.accept(Void())
         }
+    }
+    
+    private func setupNavigationBar() {
+        createBackButton()
+        setupBigNavigationBar()
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.delegate = self
+        view.backgroundColor = .basic50
+        scrollContainerView.backgroundColor = .basic50
     }
 
     private func setupFiatCollectionView() {
@@ -120,9 +125,10 @@ extension BuyCryptoViewController: BindableView {
     func getOutput() -> BuyCryptoViewOutput {
         let viewWillAppear = rx.viewWillAppear.mapAsVoid()
 
-        let didChangeFiatAmount = ControlEvent(events:
-            self.didChangeFiatAmount.throttle(RxTimeInterval.milliseconds(500),
-                                              scheduler: MainScheduler.instance).startWith(""))
+        let didChangeFiatWithThrottle = didChangeFiatAmount.throttle(RxTimeInterval.milliseconds(500),
+                                                                     scheduler: MainScheduler.instance).startWith("")
+        
+        let didChangeFiatAmount = ControlEvent(events: didChangeFiatWithThrottle)
 
         return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem.asControlEvent(),
                                    didSelectCryptoItem: didSelectCryptoItem.asControlEvent(),
@@ -221,12 +227,9 @@ extension BuyCryptoViewController: BindableView {
     }
 
     private func bindExchangeMessage(message: NSAttributedString) {
-//        let huy = NSAttributedString(string: "POOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOPPOOOOOOP")
         infoTextViewContainer.setAttiributedStringWithLink(message) { [weak self] url in
             self?.didTapURL.accept(url)
         }
-//        infoTextViewContainer.setNeedsLayout()
-//        infoTextViewContainer.layoutIfNeeded()
     }
 
     private func showInitialError(errorMessage _: String) {
@@ -259,7 +262,7 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         if collectionView === fiatCollectionView {
             return fiatAssets.count
-        } else if collectionView == cryptoCollectionView {
+        } else if collectionView === cryptoCollectionView {
             return cryptoAssets.count
         } else {
             return 0
