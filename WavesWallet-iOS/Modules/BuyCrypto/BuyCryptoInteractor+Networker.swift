@@ -64,12 +64,11 @@ extension BuyCryptoInteractor {
         }
 
         func getAssets(completion: @escaping (Result<BuyCryptoInteractor.AssetsInfo, Error>) -> Void) {
-            Observable.zip(authorizationService.authorizedWallet(),
-                           environmentRepository.walletEnvironment(),
-                           serverEnvironmentRepository.serverEnvironment())
-                .flatMap { [weak self] signedWallet, walletEnvironment, serverEnvironment
+            Observable
+                .zip(obtainRequestRequiredInfo(), environmentRepository.walletEnvironment())
+                .flatMap { [weak self] requestRequiredInfo, walletEnvironment
                     -> Observable<(SignedWallet, WalletEnvironment, ServerEnvironment, WEOAuthTokenDTO)> in
-
+                    let (signedWallet, serverEnvironment, _, _) = requestRequiredInfo
                     guard let sself = self else { return Observable.never() }
 
                     return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
@@ -106,45 +105,27 @@ extension BuyCryptoInteractor {
             let completionAdapter: (Result<[ACashAsset], Error>) -> Void = { result in
                 switch result {
                 case let .success(assets):
-                    let walletEnvironmentAssets = walletEnvironment.generalAssets + (walletEnvironment.assets ?? [])
+                    let allAssets = walletEnvironment.generalAssets + (walletEnvironment.assets ?? [])
 
-                    let fiatAssets = assets.filter { $0.kind == .fiat }
+                    let fiatAssets = assets
+                        .filter { $0.kind == .fiat }
                         .compactMap { asset -> FiatAsset? in
-                            if let assetInfo = walletEnvironmentAssets.first(where: { $0.assetId == asset.id }) {
-                                return .init(name: asset.name,
-                                             id: asset.id,
-                                             decimals: asset.decimals,
-                                             assetInfo: assetInfo)
-                            } else {
-                                return .init(name: asset.name,
-                                             id: asset.id,
-                                             decimals: asset.decimals,
-                                             assetInfo: nil)
-                            }
+                            let assetInfo = allAssets.first(where: { $0.assetId == asset.id })
+                            return .init(name: asset.name,
+                                         id: asset.id,
+                                         decimals: asset.decimals,
+                                         assetInfo: assetInfo)
                         }
 
-                    let cryptoAssets = assets.filter { $0.kind == .crypto }
+                    let cryptoAssets = assets
+                        .filter { $0.kind == .crypto }
                         .compactMap { asset -> CryptoAsset? in
-                            let assetId = asset.id
-                                .replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId)
-                                .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
-                                .replacingOccurrences(of: "WEST", with: "AC_WEST")
-
-                            let assetBinding = gatewayAssetBindings.first(where: { $0.senderAsset.asset == assetId })
-                            if let assetBinding = assetBinding,
-                                let assetInfo = walletEnvironmentAssets.first(where: {
-                                    $0.assetId == assetBinding.recipientAsset.asset
-                                }) {
-                                return .init(name: asset.name,
-                                             id: assetId,
-                                             decimals: asset.decimals,
-                                             assetInfo: assetInfo)
-                            } else {
-                                return .init(name: asset.name,
-                                             id: assetId,
-                                             decimals: asset.decimals,
-                                             assetInfo: nil)
-                            }
+                            let assetBinding = gatewayAssetBindings.first(where: { $0.senderAsset.asset == asset.id })
+                            let assetInfo = allAssets.first(where: { $0.assetId == assetBinding?.recipientAsset.asset })
+                            return .init(name: asset.name,
+                                         id: asset.id,
+                                         decimals: asset.decimals,
+                                         assetInfo: assetInfo)
                         }
 
                     let assetsInfo = AssetsInfo(fiatAssets: fiatAssets, cryptoAssets: cryptoAssets)
@@ -171,67 +152,57 @@ extension BuyCryptoInteractor {
                 exchangeRateDisposables?.dispose()
             }
 
-            exchangeRateDisposables = Observable
-                .zip(authorizationService.authorizedWallet(),
-                     developmentConfigRepository.developmentConfigs(),
-                     serverEnvironmentRepository.serverEnvironment())
-                .flatMap { [weak self] signedWallet, devConfig, serverEnvironment
-                    -> Observable<(SignedWallet, ServerEnvironment, DevelopmentConfigs, WEOAuthTokenDTO)> in
-                    guard let sself = self else { return Observable.never() }
-
-                    return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
-                        .map { (signedWallet, serverEnvironment, devConfig, $0) }
-                }
+            exchangeRateDisposables = obtainRequestRequiredInfo()
                 .flatMap { [weak self] wallet, environments, devConfig, token
                     -> Observable<(SignedWallet, GatewaysTransferBinding, DevelopmentConfigs)> in
-                guard let sself = self else { return Observable.never() }
-                let request = TransferBindingRequest(asset: recipientAsset.id, recipientAddress: wallet.wallet.address)
+                    guard let sself = self else { return Observable.never() }
+                    let request = TransferBindingRequest(asset: recipientAsset.id, recipientAddress: wallet.wallet.address)
 
-                return sself.gatewaysWavesRepository
-                    .depositTransferBinding(serverEnvironment: environments, oAToken: token, request: request)
-                    .map { gatewayTransferBinding -> (SignedWallet, GatewaysTransferBinding, DevelopmentConfigs) in
-                        (wallet, gatewayTransferBinding, devConfig)
-                    }
-            }
-            .catchError { Observable.error($0) }
-            .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding, devConfig in
-                let devConfigRate = devConfig
-                    .gatewayMinFee[recipientAsset.assetInfo?.assetId ?? ""]?[senderAsset.id.lowercased()]
-
-                if recipientAsset.id.lowercased() == "ac_waves" || recipientAsset.id.lowercased() == "ac_west" {
-                    self?.getSpecificExchangeRatesLimits(signedWallet: signedWallet,
-                                                         gatewayTransferBinding: gatewayTransferBinding,
-                                                         devConfigRate: devConfigRate,
-                                                         senderAsset: senderAsset,
-                                                         recipientAsset: recipientAsset,
-                                                         amount: amount,
-                                                         completion: completion)
-                } else {
-                    let completionAdapter: (Result<(min: Decimal, max: Decimal), Error>) -> Void = { result in
-                        switch result {
-                        case let .success((min, max)):
-                            self?.getExchangeRates(signedWallet: signedWallet,
-                                                   gatewayTransferBinding: gatewayTransferBinding,
-                                                   senderAsset: senderAsset,
-                                                   recipientAsset: recipientAsset,
-                                                   minLimit: min,
-                                                   maxLimit: max,
-                                                   amount: amount,
-                                                   completion: completion)
-                        case let .failure(error):
-                            completion(.failure(error))
+                    return sself.gatewaysWavesRepository
+                        .depositTransferBinding(serverEnvironment: environments, oAToken: token, request: request)
+                        .map { gatewayTransferBinding -> (SignedWallet, GatewaysTransferBinding, DevelopmentConfigs) in
+                            (wallet, gatewayTransferBinding, devConfig)
                         }
-                    }
-
-                    self?.getExchangeLimits(signedWallet: signedWallet,
-                                            gatewayTransferBinding: gatewayTransferBinding,
-                                            devConfigRate: devConfigRate,
-                                            senderAsset: senderAsset,
-                                            recipientAsset: recipientAsset,
-                                            completion: completionAdapter)
                 }
-            },
-                       onError: { error in completion(.failure(error)) })
+                .catchError { Observable.error($0) }
+                .subscribe(onNext: { [weak self] signedWallet, gatewayTransferBinding, devConfig in
+                    let devConfigRate = devConfig
+                        .gatewayMinFee[recipientAsset.assetInfo?.assetId ?? ""]?[senderAsset.id.lowercased()]
+
+                    if recipientAsset.id.lowercased() == "ac_waves" || recipientAsset.id.lowercased() == "ac_west" {
+                        self?.getSpecificExchangeRatesLimits(signedWallet: signedWallet,
+                                                             gatewayTransferBinding: gatewayTransferBinding,
+                                                             devConfigRate: devConfigRate,
+                                                             senderAsset: senderAsset,
+                                                             recipientAsset: recipientAsset,
+                                                             amount: amount,
+                                                             completion: completion)
+                    } else {
+                        let completionAdapter: (Result<(min: Decimal, max: Decimal), Error>) -> Void = { result in
+                            switch result {
+                            case let .success((min, max)):
+                                self?.getExchangeRates(signedWallet: signedWallet,
+                                                       gatewayTransferBinding: gatewayTransferBinding,
+                                                       senderAsset: senderAsset,
+                                                       recipientAsset: recipientAsset,
+                                                       minLimit: min,
+                                                       maxLimit: max,
+                                                       amount: amount,
+                                                       completion: completion)
+                            case let .failure(error):
+                                completion(.failure(error))
+                            }
+                        }
+
+                        self?.getExchangeLimits(signedWallet: signedWallet,
+                                                gatewayTransferBinding: gatewayTransferBinding,
+                                                devConfigRate: devConfigRate,
+                                                senderAsset: senderAsset,
+                                                recipientAsset: recipientAsset,
+                                                completion: completionAdapter)
+                    }
+                },
+                           onError: { error in completion(.failure(error)) })
         }
 
         private func getExchangeRates(signedWallet: SignedWallet,
@@ -401,7 +372,6 @@ extension BuyCryptoInteractor {
                     let completionAdapter: (Result<String, Error>) -> Void = { result in
                         switch result {
                         case let .success(queryParams):
-
                             let urlString = DomainLayerConstants.URL.advcash + queryParams
                             if let url = URL(string: urlString) {
                                 completion(.success(url))
@@ -424,12 +394,19 @@ extension BuyCryptoInteractor {
                 .disposed(by: disposeBag)
         }
 
-        private func obtainAuthToken() -> Observable<WEOAuthTokenDTO> {
-            authorizationService.authorizedWallet().flatMap { [weak self] signedWallet -> Observable<WEOAuthTokenDTO> in
-                guard let sself = self else { return Observable.never() }
+        private func obtainRequestRequiredInfo()
+            -> Observable<(SignedWallet, ServerEnvironment, DevelopmentConfigs, WEOAuthTokenDTO)> {
+            Observable
+                .zip(authorizationService.authorizedWallet(),
+                     developmentConfigRepository.developmentConfigs(),
+                     serverEnvironmentRepository.serverEnvironment())
+                .flatMap { [weak self] signedWallet, devConfig, serverEnvironment
+                    -> Observable<(SignedWallet, ServerEnvironment, DevelopmentConfigs, WEOAuthTokenDTO)> in
+                    guard let sself = self else { return Observable.never() }
 
-                return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
-            }
+                    return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
+                        .map { (signedWallet, serverEnvironment, devConfig, $0) }
+                }
         }
     }
 }

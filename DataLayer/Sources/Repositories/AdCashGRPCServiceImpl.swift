@@ -135,8 +135,17 @@ private extension ACashAsset {
         case .fiat: kind = .fiat
         case .UNRECOGNIZED: kind = .unrecognized
         }
+        
+        let assetId: String
+        if aCashAsset.type == .crypto {
+            assetId = aCashAsset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId)
+                .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
+                .replacingOccurrences(of: "WEST", with: "AC_WEST")
+        } else {
+            assetId = aCashAsset.id
+        }
 
-        self.init(id: aCashAsset.id,
+        self.init(id: assetId,
                   name: aCashAsset.name,
                   kind: kind,
                   decimals: aCashAsset.decimals)
