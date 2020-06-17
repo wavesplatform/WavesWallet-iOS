@@ -11,7 +11,7 @@ import UIKit
 import DomainLayer
 
 protocol PasscodeLogInCoordinatorDelegate: AnyObject {
-    func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet)
+    func passcodeCoordinatorLogInCompleted(wallet: Wallet)
     func passcodeCoordinatorWalletLogouted()
 }
 
@@ -30,11 +30,11 @@ final class PasscodeLogInCoordinator: Coordinator {
     private let passcodeNavigationRouter: NavigationRouter
     private let routerKind: RouterKind
 
-    private let wallet: DomainLayer.DTO.Wallet
+    private let wallet: Wallet
 
     weak var delegate: PasscodeLogInCoordinatorDelegate?
 
-    init(wallet: DomainLayer.DTO.Wallet, routerKind: RouterKind) {
+    init(wallet: Wallet, routerKind: RouterKind) {
 
         self.routerKind = routerKind
 
@@ -64,8 +64,7 @@ final class PasscodeLogInCoordinator: Coordinator {
         case .alertWindow, .window:
 
             let vc = PasscodeModuleBuilder(output: self)
-                .build(input: .init(kind: .logIn(wallet),
-                                    hasBackButton: false))
+                .build(input: .init(kind: .logIn(wallet), hasBackButton: false))
 
             guard let windowRouter = self.windowRouter else { break }
             passcodeNavigationRouter.pushViewController(vc)
@@ -73,8 +72,7 @@ final class PasscodeLogInCoordinator: Coordinator {
 
         case .navigation:
             let vc = PasscodeModuleBuilder(output: self)
-                .build(input: .init(kind: .logIn(wallet),
-                                    hasBackButton: true))
+                .build(input: .init(kind: .logIn(wallet), hasBackButton: true))
 
             passcodeNavigationRouter.pushViewController(vc, animated: true) { [weak self] in
                 guard let self = self else { return }
@@ -104,13 +102,13 @@ final class PasscodeLogInCoordinator: Coordinator {
 // MARK: PasscodeOutput
 extension PasscodeLogInCoordinator: PasscodeModuleOutput {
 
-    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) {}
+    func passcodeVerifyAccessCompleted(_ wallet: SignedWallet) {}
 
     func passcodeTapBackButton() {
         dissmiss()
     }
 
-    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
+    func passcodeLogInCompleted(passcode: String, wallet: Wallet, isNewWallet: Bool) {
         delegate?.passcodeCoordinatorLogInCompleted(wallet: wallet)
         dissmiss()
     }
@@ -135,9 +133,9 @@ extension PasscodeLogInCoordinator: PasscodeModuleOutput {
 // MARK: AccountPasswordModuleOutput
 extension PasscodeLogInCoordinator: AccountPasswordModuleOutput {
 
-    func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String) {}
+    func accountPasswordVerifyAccess(signedWallet: SignedWallet, password: String) {}
 
-    func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
+    func accountPasswordAuthorizationCompleted(wallet: Wallet, password: String) {
 
         let vc = PasscodeModuleBuilder(output: self)
             .build(input: .init(kind: .changePasscodeByPassword(wallet,

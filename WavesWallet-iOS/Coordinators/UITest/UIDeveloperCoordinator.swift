@@ -27,18 +27,12 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
                 
-        self.windowRouter.setRootViewController(emptyVC())
-        
-        let coordinator = StakingTransferCoordinator(router: self.windowRouter, kind: .card)
-        
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
-        
-    }
-}
-
-extension UIDeveloperCoordinator: TooltipViewControllerModulOutput {
-    func tooltipDidTapClose() {
+//        self.windowRouter.setRootViewController(emptyVC())
+//
+//        let coordinator = StakingTransferCoordinator(router: self.windowRouter, kind: .card)
+//
+//        addChildCoordinator(childCoordinator: coordinator)
+//        coordinator.start()
         
     }
 }

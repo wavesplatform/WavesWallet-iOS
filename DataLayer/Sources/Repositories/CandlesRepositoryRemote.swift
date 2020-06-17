@@ -241,7 +241,9 @@ private extension CandlesRepositoryRemote {
                                                              staking: [],
                                                              lockedPairs: [],
                                                              gatewayMinFee: [:],
-                                                             marketPairs: [])
+                                                             marketPairs: [],
+                                                             gatewayMinLimit: [:],
+                                                             avaliableGatewayCryptoCurrency: [])
             
             return Observable.just(confing)
         }

@@ -13,13 +13,13 @@ import RxSwift
 import UIKit
 
 protocol UseTouchIDModuleOutput: AnyObject {
-    func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet)
-    func userRegisteredBiometric(wallet: DomainLayer.DTO.Wallet)
+    func userSkipRegisterBiometric(wallet: Wallet)
+    func userRegisteredBiometric(wallet: Wallet)
 }
 
 protocol UseTouchIDModuleInput {
     var passcode: String { get }
-    var wallet: DomainLayer.DTO.Wallet { get }
+    var wallet: Wallet { get }
 }
 
 final class UseTouchIDViewController: UIViewController {

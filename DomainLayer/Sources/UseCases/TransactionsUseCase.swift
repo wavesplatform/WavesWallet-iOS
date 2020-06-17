@@ -107,7 +107,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
          orderBookRepository: DexOrderBookRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.transactionsDAO = transactionsDAO
-        self.transactionsRepository = transactionsRepositoryRemote
+        transactionsRepository = transactionsRepositoryRemote
         self.assetsInteractors = assetsInteractors
         self.addressInteractors = addressInteractors
         self.addressRepository = addressRepository
@@ -204,8 +204,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
             }
     }
 
-    func send(by specifications: TransactionSenderSpecifications,
-              wallet: DomainLayer.DTO.SignedWallet) -> Observable<SmartTransaction> {
+    func send(by specifications: TransactionSenderSpecifications, wallet: SignedWallet) -> Observable<SmartTransaction> {
         let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
 
         return serverEnviroment
@@ -226,9 +225,9 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                 guard let self = self else { return Observable.never() }
 
                 let address = Address(address: wallet.address,
-                                                      contact: nil,
-                                                      isMyAccount: true,
-                                                      aliases: [])
+                                      contact: nil,
+                                      isMyAccount: true,
+                                      aliases: [])
 
                 return self.smartTransactionsSync(SmartTransactionsSyncQuery(address: address,
                                                                              transactions: [tx],
@@ -278,9 +277,9 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
             return self
                 .smartTransactionsSync(SmartTransactionsSyncQuery(address: Address(address: accountAddress,
-                                                                                                   contact: nil,
-                                                                                                   isMyAccount: true,
-                                                                                                   aliases: []),
+                                                                                   contact: nil,
+                                                                                   isMyAccount: true,
+                                                                                   aliases: []),
                                                                   transactions: anyTxs,
                                                                   leaseTransactions: result.txs,
                                                                   senderSpecifications: nil,

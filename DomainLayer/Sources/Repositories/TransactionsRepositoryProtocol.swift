@@ -290,7 +290,7 @@ public protocol TransactionsRepositoryProtocol {
         
     func send(serverEnvironment: ServerEnvironment,
               specifications: TransactionSenderSpecifications,
-              wallet: DomainLayer.DTO.SignedWallet) -> Observable<AnyTransaction>
+              wallet: SignedWallet) -> Observable<AnyTransaction>
 
     func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules>
 }

@@ -33,23 +33,16 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
         }
 
         switch request.direction {
-        case .deposit:
-            requestBindings.direction = .deposit
-
-        case .withdraw:
-            requestBindings.direction = .withdrawal
+        case .deposit: requestBindings.direction = .deposit
+        case .withdraw: requestBindings.direction = .withdrawal
         }
 
         let accessToken = oAToken.accessToken
         let addressGrpc = serverEnvironment.servers.wavesExchangeGrpcAddress
 
         return getWavesAssetBindingsRequest(addressGrpc: addressGrpc, oAToken: accessToken, request: requestBindings)
-            .map { response -> [GatewaysAssetBinding] in
-                response.gatewaysAssetsBinding
-            }
-            .catchError { error -> Observable<[GatewaysAssetBinding]> in
-                Observable.error(NetworkError.error(by: error))
-            }
+            .map { response -> [GatewaysAssetBinding] in response.gatewaysAssetsBinding }
+            .catchError { error -> Observable<[GatewaysAssetBinding]> in .error(NetworkError.error(by: error)) }
     }
 
     func withdrawalTransferBinding(serverEnvironment: ServerEnvironment,
@@ -129,9 +122,9 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
                         response.transferBinding.gatewaysTransferBinding
                     }
             }
-            .catchError { error -> Observable<GatewaysTransferBinding> in
-                Observable.error(NetworkError.error(by: error))
-            }
+            .catchError {
+                Observable.error(NetworkError.error(by: $0))
+        }
     }
 
     func calculateFee(amount: Int64, direction: AssetBindingsRequest.Direction, assetBinding: GatewaysAssetBinding) -> Money {
@@ -157,10 +150,8 @@ final class GatewaysWavesRepositoryImp: GatewaysWavesRepository {
 }
 
 private extension GatewaysWavesRepositoryImp {
-    func getWavesAssetBindingsRequest(
-        addressGrpc: String,
-        oAToken: String,
-        request: Gateways_GetWavesAssetBindingsRequest) -> Observable<Gateways_AssetBindingsResponse> {
+    func getWavesAssetBindingsRequest(addressGrpc: String, oAToken: String, request: Gateways_GetWavesAssetBindingsRequest)
+        -> Observable<Gateways_AssetBindingsResponse> {
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
 
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
@@ -168,7 +159,6 @@ private extension GatewaysWavesRepositoryImp {
                                                                          oAToken: oAToken)
 
         return Observable.create { observer -> Disposable in
-
             do {
                 let response = try gatewaysWavesApiClient
                     .getWavesAssetBindings(request, callOptions: nil)
@@ -188,10 +178,8 @@ private extension GatewaysWavesRepositoryImp {
         }
     }
 
-    func getWithdrawalTransferBinding(
-        addressGrpc: String,
-        oAToken: String,
-        request: Gateways_GetWithdrawalTransferBindingRequest) -> Observable<Gateways_GetTransferBindingResponse> {
+    func getWithdrawalTransferBinding(addressGrpc: String, oAToken: String, request: Gateways_GetWithdrawalTransferBindingRequest)
+        -> Observable<Gateways_GetTransferBindingResponse> {
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
 
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
@@ -219,10 +207,10 @@ private extension GatewaysWavesRepositoryImp {
         }
     }
 
-    func createWithdrawalTransferBinding(
-        addressGrpc: String,
-        oAToken: String,
-        request: Gateways_CreateWithdrawalTransferBindingRequest) -> Observable<Gateways_CreateTransferBindingResponse> {
+    func createWithdrawalTransferBinding(addressGrpc: String,
+                                         oAToken: String,
+                                         request: Gateways_CreateWithdrawalTransferBindingRequest)
+        -> Observable<Gateways_CreateTransferBindingResponse> {
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          eventLoopGroup: group,
@@ -249,10 +237,8 @@ private extension GatewaysWavesRepositoryImp {
         }
     }
 
-    func getDepositTransferBinding(
-        addressGrpc: String,
-        oAToken: String,
-        request: Gateways_GetDepositTransferBindingRequest) -> Observable<Gateways_GetTransferBindingResponse> {
+    func getDepositTransferBinding(addressGrpc: String, oAToken: String, request: Gateways_GetDepositTransferBindingRequest)
+        -> Observable<Gateways_GetTransferBindingResponse> {
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          eventLoopGroup: group,
@@ -279,10 +265,8 @@ private extension GatewaysWavesRepositoryImp {
         }
     }
 
-    func createDepositTransferBinding(
-        addressGrpc: String,
-        oAToken: String,
-        request: Gateways_CreateDepositTransferBindingRequest) -> Observable<Gateways_CreateTransferBindingResponse> {
+    func createDepositTransferBinding(addressGrpc: String, oAToken: String, request: Gateways_CreateDepositTransferBindingRequest)
+        -> Observable<Gateways_CreateTransferBindingResponse> {
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         let gatewaysWavesApiClient: Gateways_WavesApiClient = grpcClient(address: addressGrpc,
                                                                          eventLoopGroup: group,

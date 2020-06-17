@@ -232,7 +232,7 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
         showErrorCashCancelled()
     }
     
-    func browserViewRedirect(url: URL) {
+    func browserViewRedirect(_: BrowserViewController, url: URL) {
         
         let link = url.absoluteStringByTrimmingQuery() ?? ""
         

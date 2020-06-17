@@ -9,14 +9,15 @@
 import Foundation
 
 public enum VIPBinder {
-    public static func bind<I: IOTransformer, P: IOTransformer, V: BindableView>(interactor: I, presenter: P, view: V)
-        where I.Output == P.Input, P.Output == V.ViewInput, V.ViewOutput == I.Input {
-            let viewOutput = view.getOutput()
-            let interactorOutput = interactor.transform(viewOutput)
-            let presenterOutput = presenter.transform(interactorOutput)
-            view.bindWith(presenterOutput)
-    }
+//    public static func bind<I: IOTransformer, P: IOTransformer, V: BindableView>(interactor: I, presenter: P, view: V)
+//        where I.Output == P.Input, P.Output == V.ViewInput, V.ViewOutput == I.Input {
+//            let viewOutput = view.getOutput()
+//            let interactorOutput = interactor.transform(viewOutput)
+//            let presenterOutput = presenter.transform(interactorOutput)
+//            view.bindWith(presenterOutput)
+//    }
     
+    @discardableResult
     public static func bind<I: IOTransformer, P: IOTransformer, V: BindableView>(interactor: I, presenter: P, view: V)
         -> (interactorOutput: I.Output, presenterOutput: P.Output, viewOutput: V.ViewOutput)
         where I.Output == P.Input, P.Output == V.ViewInput, V.ViewOutput == I.Input {

@@ -34,13 +34,13 @@ public enum AuthorizationUseCaseError: Error {
 public enum AuthorizationAuthStatus {
     case detectBiometric
     case waiting
-    case completed(DomainLayer.DTO.Wallet)
+    case completed(Wallet)
 }
 
 public enum AuthorizationVerifyAccessStatus {
     case detectBiometric
     case waiting
-    case completed(DomainLayer.DTO.SignedWallet)
+    case completed(SignedWallet)
 }
 
 public protocol AuthorizationInteractorLocalizableProtocol {
@@ -52,36 +52,36 @@ public protocol AuthorizationInteractorLocalizableProtocol {
 
 public protocol AuthorizationUseCaseProtocol {
 
-    func existWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
-    func wallets() -> Observable<[DomainLayer.DTO.Wallet]>
-    func registerWallet(_ wallet: DomainLayer.DTO.WalletRegistation) -> Observable<DomainLayer.DTO.Wallet>
-    func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
-    func changeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet>
+    func existWallet(by publicKey: String) -> Observable<Wallet>
+    func wallets() -> Observable<[Wallet]>
+    func registerWallet(_ wallet: WalletRegistation) -> Observable<Wallet>
+    func deleteWallet(_ wallet: Wallet) -> Observable<Bool>
+    func changeWallet(_ wallet: Wallet) -> Observable<Wallet>
 
-    func lastWalletLoggedIn() -> Observable<DomainLayer.DTO.Wallet?>
-    func walletsLoggedIn() -> Observable<[DomainLayer.DTO.Wallet]>
+    func lastWalletLoggedIn() -> Observable<Wallet?>
+    func walletsLoggedIn() -> Observable<[Wallet]>
 
     //passcodeNotCreated or permissionDenied
-    func hasPermissionToLoggedIn(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+    func hasPermissionToLoggedIn(_ wallet: Wallet) -> Observable<Bool>
 
     // Return AuthorizationUseCaseError permissionDenied
-    func authorizedWallet() -> Observable<DomainLayer.DTO.SignedWallet>
-    func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
+    func authorizedWallet() -> Observable<SignedWallet>
+    func isAuthorizedWallet(_ wallet: Wallet) -> Observable<Bool>
 
     // Return AuthorizationUseCaseError
-    func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus>
-    func verifyAccess(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationVerifyAccessStatus>
+    func auth(type: AuthorizationType, wallet: Wallet) -> Observable<AuthorizationAuthStatus>
+    func verifyAccess(type: AuthorizationType, wallet: Wallet) -> Observable<AuthorizationVerifyAccessStatus>
 
-    func registerBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationAuthStatus>
-    func unregisterBiometric(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<AuthorizationAuthStatus>
-    func unregisterBiometricUsingBiometric(wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus>
+    func registerBiometric(wallet: Wallet, passcode: String) -> Observable<AuthorizationAuthStatus>
+    func unregisterBiometric(wallet: Wallet, passcode: String) -> Observable<AuthorizationAuthStatus>
+    func unregisterBiometricUsingBiometric(wallet: Wallet) -> Observable<AuthorizationAuthStatus>
 
-    func logout(wallet publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
-    func logout() -> Observable<DomainLayer.DTO.Wallet>
+    func logout(wallet publicKey: String) -> Observable<Wallet>
+    func logout() -> Observable<Wallet>
     func revokeAuth() -> Observable<Bool>
 
-    func changePasscode(wallet: DomainLayer.DTO.Wallet, oldPasscode: String, passcode: String) -> Observable<DomainLayer.DTO.Wallet>
-    func changePasscodeByPassword(wallet: DomainLayer.DTO.Wallet, passcode: String, password: String) -> Observable<DomainLayer.DTO.Wallet>
+    func changePasscode(wallet: Wallet, oldPasscode: String, passcode: String) -> Observable<Wallet>
+    func changePasscodeByPassword(wallet: Wallet, passcode: String, password: String) -> Observable<Wallet>
 
-    func changePassword(wallet: DomainLayer.DTO.Wallet, passcode: String, oldPassword: String, newPassword: String) -> Observable<DomainLayer.DTO.Wallet>
+    func changePassword(wallet: Wallet, passcode: String, oldPassword: String, newPassword: String) -> Observable<Wallet>
 }

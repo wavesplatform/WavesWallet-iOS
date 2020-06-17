@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BuyCryptoSkeletonView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNF-Yc-lmz" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="167" y="44" width="80" height="12"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="DdT-GV-cGY"/>
+                        <constraint firstAttribute="height" constant="12" id="Dj5-0b-jdH"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Phn-au-z6P" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="183" y="72" width="48" height="48"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="6qH-g1-pGV"/>
+                        <constraint firstAttribute="width" constant="48" id="pus-CV-TAU"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXJ-ve-Sb4" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="125" y="82" width="28" height="28"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="0FK-DO-GDo"/>
+                        <constraint firstAttribute="width" constant="28" id="7Je-1G-3XL"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOl-f7-3uL" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="261" y="82" width="28" height="28"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="JMp-bB-XHN"/>
+                        <constraint firstAttribute="width" constant="28" id="wuc-Rg-q5S"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dmf-c7-uzC" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="183" y="307" width="48" height="48"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="7fy-oF-PAe"/>
+                        <constraint firstAttribute="width" constant="48" id="d70-aL-hOZ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Lk-Gt-BG7" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="125" y="317" width="28" height="28"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="8tF-Kz-TQy"/>
+                        <constraint firstAttribute="width" constant="28" id="kko-HV-jeW"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQ4-Um-cNX" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="261" y="317" width="28" height="28"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="Wmx-Nx-rk9"/>
+                        <constraint firstAttribute="height" constant="28" id="cds-tE-Aa3"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOw-tu-7kh" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="16" y="144" width="382" height="48"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="Z7D-H3-J3a"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5If-1P-fOE" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="15" y="228.5" width="383" height="1"/>
+                    <color key="backgroundColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="4pS-tt-wOY"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isDashed" value="YES"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dashPattern" value="4"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="dashPhase">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                            <color key="value" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buyCryptoArrow" translatesAutoresizingMaskIntoConstraints="NO" id="s3e-Wp-KuE">
+                    <rect key="frame" x="191" y="213" width="32" height="32"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="fDn-FH-QIu"/>
+                        <constraint firstAttribute="height" constant="32" id="pFO-Zv-T88"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ln-7Q-JqK" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="167" y="279" width="80" height="12"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="82O-um-oFH"/>
+                        <constraint firstAttribute="width" constant="80" id="NX1-vh-pzp"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Po2-T8-xPv" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="16" y="696" width="382" height="150"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="u0u-Ii-DST"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFC-c4-qwo" customClass="GradientContainerView" customModule="Skeleton">
+                    <rect key="frame" x="16" y="379" width="382" height="48"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="Dip-OX-ZrL"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="Phn-au-z6P" firstAttribute="top" secondItem="jNF-Yc-lmz" secondAttribute="bottom" constant="16" id="22f-2r-Lvz"/>
+                <constraint firstItem="1Lk-Gt-BG7" firstAttribute="centerY" secondItem="Dmf-c7-uzC" secondAttribute="centerY" id="49n-oc-8Jr"/>
+                <constraint firstItem="PFC-c4-qwo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="4N3-aE-aI2"/>
+                <constraint firstItem="Dmf-c7-uzC" firstAttribute="top" secondItem="2Ln-7Q-JqK" secondAttribute="bottom" constant="16" id="5Un-rX-gN5"/>
+                <constraint firstItem="XOl-f7-3uL" firstAttribute="leading" secondItem="Phn-au-z6P" secondAttribute="trailing" constant="30" id="B08-4S-In7"/>
+                <constraint firstItem="2Ln-7Q-JqK" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Cr4-ca-sLE"/>
+                <constraint firstItem="Dmf-c7-uzC" firstAttribute="leading" secondItem="1Lk-Gt-BG7" secondAttribute="trailing" constant="30" id="ElT-OF-EEF"/>
+                <constraint firstItem="nOw-tu-7kh" firstAttribute="top" secondItem="Phn-au-z6P" secondAttribute="bottom" constant="24" id="L6h-FD-a8M"/>
+                <constraint firstItem="5If-1P-fOE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="LE6-U2-Lz0"/>
+                <constraint firstItem="xXJ-ve-Sb4" firstAttribute="centerY" secondItem="Phn-au-z6P" secondAttribute="centerY" id="LcA-Ci-3A6"/>
+                <constraint firstItem="5If-1P-fOE" firstAttribute="centerY" secondItem="s3e-Wp-KuE" secondAttribute="centerY" id="Mj8-7D-URt"/>
+                <constraint firstItem="Po2-T8-xPv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PFC-c4-qwo" secondAttribute="bottom" constant="40" id="MyD-b0-nlj"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="PFC-c4-qwo" secondAttribute="trailing" constant="16" id="NDX-bn-Jpm"/>
+                <constraint firstItem="jNF-Yc-lmz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Nhn-fd-HLp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Po2-T8-xPv" secondAttribute="trailing" constant="16" id="Pkq-Jy-euV"/>
+                <constraint firstItem="TQ4-Um-cNX" firstAttribute="centerY" secondItem="Dmf-c7-uzC" secondAttribute="centerY" id="PlJ-5o-kBe"/>
+                <constraint firstItem="jNF-Yc-lmz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TJ4-vO-qjG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="nOw-tu-7kh" secondAttribute="trailing" constant="16" id="Xc1-cw-wzb"/>
+                <constraint firstItem="2Ln-7Q-JqK" firstAttribute="top" secondItem="s3e-Wp-KuE" secondAttribute="bottom" constant="34" id="YCJ-fF-hcj"/>
+                <constraint firstItem="Po2-T8-xPv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="avE-fR-ciM"/>
+                <constraint firstItem="TQ4-Um-cNX" firstAttribute="leading" secondItem="Dmf-c7-uzC" secondAttribute="trailing" constant="30" id="bqb-aq-kvA"/>
+                <constraint firstItem="Phn-au-z6P" firstAttribute="leading" secondItem="xXJ-ve-Sb4" secondAttribute="trailing" constant="30" id="cNt-pW-HEl"/>
+                <constraint firstItem="s3e-Wp-KuE" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="eb3-B1-Er5"/>
+                <constraint firstItem="nOw-tu-7kh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="gAS-fk-hOy"/>
+                <constraint firstItem="Dmf-c7-uzC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kBS-bg-CAO"/>
+                <constraint firstItem="XOl-f7-3uL" firstAttribute="centerY" secondItem="Phn-au-z6P" secondAttribute="centerY" id="lQs-sO-aa4"/>
+                <constraint firstItem="2Ln-7Q-JqK" firstAttribute="top" secondItem="nOw-tu-7kh" secondAttribute="bottom" constant="87" id="pdL-tQ-7GF"/>
+                <constraint firstItem="Phn-au-z6P" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="sqP-Cd-P8N"/>
+                <constraint firstItem="nOw-tu-7kh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="sxe-No-Yen"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5If-1P-fOE" secondAttribute="trailing" constant="16" id="vU6-fg-7EC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Po2-T8-xPv" secondAttribute="bottom" constant="16" id="xzu-fs-nC9"/>
+                <constraint firstItem="PFC-c4-qwo" firstAttribute="top" secondItem="Dmf-c7-uzC" secondAttribute="bottom" constant="24" id="zks-Yj-8D2"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outletCollection property="views" destination="jNF-Yc-lmz" collectionClass="NSMutableArray" id="qqi-2E-YWJ"/>
+                <outletCollection property="views" destination="Phn-au-z6P" collectionClass="NSMutableArray" id="eZq-YM-Dg5"/>
+                <outletCollection property="views" destination="xXJ-ve-Sb4" collectionClass="NSMutableArray" id="zmf-CU-G6I"/>
+                <outletCollection property="views" destination="XOl-f7-3uL" collectionClass="NSMutableArray" id="cs6-MS-Lur"/>
+                <outletCollection property="views" destination="Dmf-c7-uzC" collectionClass="NSMutableArray" id="DXW-ba-KnR"/>
+                <outletCollection property="views" destination="1Lk-Gt-BG7" collectionClass="NSMutableArray" id="YNF-Kl-GoJ"/>
+                <outletCollection property="views" destination="TQ4-Um-cNX" collectionClass="NSMutableArray" id="rYa-hB-WNW"/>
+                <outletCollection property="views" destination="nOw-tu-7kh" collectionClass="NSMutableArray" id="8V8-be-ok0"/>
+                <outletCollection property="views" destination="PFC-c4-qwo" collectionClass="NSMutableArray" id="pHP-Fw-Etv"/>
+                <outletCollection property="views" destination="2Ln-7Q-JqK" collectionClass="NSMutableArray" id="ko0-3A-bSl"/>
+                <outletCollection property="views" destination="Po2-T8-xPv" collectionClass="NSMutableArray" id="wVm-L4-P3R"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="90.401785714285708"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="buyCryptoArrow" width="36" height="36"/>
+    </resources>
+</document>

@@ -13,13 +13,13 @@ import RxFeedback
 import RxSwift
 
 protocol AddressesKeysModuleOutput: AnyObject {
-    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet,
-                                     callback: @escaping ((DomainLayer.DTO.SignedWallet?) -> Void))
+    func addressesKeysNeedPrivateKey(wallet: Wallet,
+                                     callback: @escaping ((SignedWallet?) -> Void))
     func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias])
 }
 
 protocol AddressesKeysModuleInput {
-    var wallet: DomainLayer.DTO.Wallet { get }
+    var wallet: Wallet { get }
 }
 
 protocol AddressesKeysPresenterProtocol {
@@ -104,7 +104,7 @@ fileprivate extension AddressesKeysPresenter {
     }
 
     func getPrivateKeyQuery() -> Feedback {
-        return react(request: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> Wallet? in
 
             if case .getPrivateKey? = state.query {
                 return state.wallet

@@ -123,7 +123,7 @@ extension ImportAccountPasswordViewController {
                 return Localizable.Waves.Newaccount.Textfield
                     .Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
             } else if let passwordSecond = self?.confirmPasswordTextField.value, passwordSecond.count > 0 && value != passwordSecond {
-                return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
+                return ""
             } else {
                 return nil
             }

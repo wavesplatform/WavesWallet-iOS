@@ -237,6 +237,7 @@ internal enum Images {
   internal static let send48 = ImageAsset(name: "send48")
   internal static let sendReceive22 = ImageAsset(name: "sendReceive22")
   internal static let sendBtn = ImageAsset(name: "send_btn")
+  internal static let separateLineWithArrow = ImageAsset(name: "separateLineWithArrow")
   internal static let settings = ImageAsset(name: "settings")
   internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
   internal static let shareAddress = ImageAsset(name: "share_address")
@@ -567,6 +568,7 @@ internal enum Images {
     send48,
     sendReceive22,
     sendBtn,
+    separateLineWithArrow,
     settings,
     share18Submit400,
     shareAddress,

@@ -23,7 +23,7 @@ extension AddressesKeysTypes {
     }
 
     struct State: Mutating {
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: Wallet
         var aliases: [DomainLayer.DTO.Alias]
         var query: Query?
         var displayState: DisplayState
@@ -33,7 +33,7 @@ extension AddressesKeysTypes {
         case viewWillAppear
         case viewDidDisappear
         case setAliases([DomainLayer.DTO.Alias])
-        case setPrivateKey(DomainLayer.DTO.SignedWallet)
+        case setPrivateKey(SignedWallet)
         case tapShowPrivateKey
         case tapShowInfo
         case completedQuery

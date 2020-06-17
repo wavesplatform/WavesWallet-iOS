@@ -115,3 +115,69 @@ extension ObservableType {
             .compactMap(compactMapAdapter)
     }
 }
+
+// MARK: - Denestify
+
+// swiftlint:disable large_tuple
+
+public func denestify<A, B, C>(tuple: ((A, B), C)) -> (A, B, C) {
+    let ((a, b), c) = tuple
+    return (a, b, c)
+}
+
+public func denestify<A, B, C>(tuple: (A, (B, C))) -> (A, B, C) {
+    let (a, (b, c)) = tuple
+    return (a, b, c)
+}
+
+public func denestify<A, B, C, D>(tuple: ((A, B), (C, D))) -> (A, B, C, D) {
+    let ((a, b), (c, d)) = tuple
+    return (a, b, c, d)
+}
+
+public func denestify<A, B, C, D>(tuple: (A, (B, C), D)) -> (A, B, C, D) {
+    let (a, (b, c), d) = tuple
+    return (a, b, c, d)
+}
+
+public func denestify<A, B, C, D>(tuple: ((A, B, C), D)) -> (A, B, C, D) {
+    let ((a, b, c), d) = tuple
+    return (a, b, c, d)
+}
+
+public func denestify<A, B, C, D>(tuple: (A, (B, C, D))) -> (A, B, C, D) {
+    let (a, (b, c, d)) = tuple
+    return (a, b, c, d)
+}
+
+extension ObservableType {
+    /// Убирает вложенность из картэжей
+    public func denestifyTuple<A, B, C>() -> Observable<(A, B, C)> where Element == ((A, B), C) {
+        map { denestify(tuple: $0) }
+    }
+
+    /// Убирает вложенность из картэжей
+    public func denestifyTuple<A, B, C>() -> Observable<(A, B, C)> where Element == (A, (B, C)) {
+        map { denestify(tuple: $0) }
+    }
+
+    /// Убирает вложенность из картэжей
+    public func denestifyTuple<A, B, C, D>() -> Observable<(A, B, C, D)> where Element == ((A, B), (C, D)) {
+        map { denestify(tuple: $0) }
+    }
+
+    /// Убирает вложенность из картэжей
+    public func denestifyTuple<A, B, C, D>() -> Observable<(A, B, C, D)> where Element == (A, (B, C), D) {
+        map { denestify(tuple: $0) }
+    }
+
+    /// Убирает вложенность из картэжей
+    public func denestifyTuple<A, B, C, D>() -> Observable<(A, B, C, D)> where Element == ((A, B, C), D) {
+        map { denestify(tuple: $0) }
+    }
+
+    /// Убирает вложенность из картэжей
+    public func denestifyTuple<A, B, C, D>() -> Observable<(A, B, C, D)> where Element == (A, (B, C, D)) {
+        map { denestify(tuple: $0) }
+    }
+}

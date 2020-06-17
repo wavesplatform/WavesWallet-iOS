@@ -24,7 +24,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     }
 
     public func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
-                               signedWallet: DomainLayer.DTO.SignedWallet,
+                               signedWallet: SignedWallet,
                                timestamp: Date) -> Observable<DomainLayer.DTO.MobileKeeper.PrepareRequest> {
         guard let signature = request.transactionSignature(signedWallet: signedWallet,
                                                            timestamp: timestamp) else {
@@ -636,7 +636,7 @@ private extension NodeService.Query.Transaction {
 
 private extension DomainLayer.DTO.MobileKeeper.PrepareRequest {
     func completedRequest(response: DomainLayer.DTO.MobileKeeper.Response.Kind,
-                          signedWallet: DomainLayer.DTO.SignedWallet) -> DomainLayer.DTO.MobileKeeper.CompletedRequest {
+                          signedWallet: SignedWallet) -> DomainLayer.DTO.MobileKeeper.CompletedRequest {
         let completedRequest = DomainLayer.DTO.MobileKeeper.CompletedRequest(request: request,
                                                                              timestamp: timestamp,
                                                                              proof: proof,
@@ -650,7 +650,7 @@ private extension DomainLayer.DTO.MobileKeeper.PrepareRequest {
 }
 
 private extension DomainLayer.DTO.MobileKeeper.Request {
-    func transactionSignature(signedWallet: DomainLayer.DTO.SignedWallet,
+    func transactionSignature(signedWallet: SignedWallet,
                               timestamp: Date) -> TransactionSignatureProtocol? {
         let senderPublicKey = signedWallet.publicKey.getPublicKeyStr()
 

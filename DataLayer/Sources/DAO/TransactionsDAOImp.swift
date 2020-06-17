@@ -277,9 +277,9 @@ final class TransactionsDAOImp: TransactionsDAO {
     func activeLeasingTransactions(serverEnvironment _: ServerEnvironment,
                                    accountAddress: String) -> Observable<[LeaseTransaction]> {
         transactions(by: Address(address: accountAddress,
-                                                 contact: nil,
-                                                 isMyAccount: true,
-                                                 aliases: []),
+                                 contact: nil,
+                                 isMyAccount: true,
+                                 aliases: []),
                      specifications: TransactionsSpecifications(page: nil,
                                                                 assets: .init(),
                                                                 senders: .init(),
@@ -299,7 +299,7 @@ final class TransactionsDAOImp: TransactionsDAO {
     func send(
         serverEnvironment _: ServerEnvironment,
         specifications _: TransactionSenderSpecifications,
-        wallet _: DomainLayer.DTO.SignedWallet) -> Observable<AnyTransaction> {
+        wallet _: SignedWallet) -> Observable<AnyTransaction> {
         assertMethodDontSupported()
         return Observable.never()
     }

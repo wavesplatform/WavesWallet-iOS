@@ -21,7 +21,7 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
     func seed(for address: String,
               publicKey: String,
               seedId: String,
-              password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
+              password: String) -> Observable<WalletSeed> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {
@@ -36,7 +36,7 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
                 }
 
                 if let object = realm.object(ofType: SeedItem.self, forPrimaryKey: publicKey) {
-                    observer.onNext(DomainLayer.DTO.WalletSeed(seed: object))
+                    observer.onNext(WalletSeed(seed: object))
                     observer.onCompleted()
                 } else {
                     observer.onError(WalletSeedRepositoryError.notFound)
@@ -50,9 +50,7 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
         }
     }
 
-    func saveSeed(for walletSeed: DomainLayer.DTO.WalletSeed,
-                  seedId: String,
-                  password: String) -> Observable<DomainLayer.DTO.WalletSeed> {
+    func saveSeed(for walletSeed: WalletSeed, seedId: String, password: String) -> Observable<WalletSeed> {
         Observable.create { [weak self] observer -> Disposable in
 
             guard let self = self else {

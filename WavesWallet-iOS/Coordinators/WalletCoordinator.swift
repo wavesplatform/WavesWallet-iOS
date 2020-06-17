@@ -124,19 +124,32 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 
     func openCard() {
-        let alert = UIAlertController(title: "Cooming Soon",
-                                      message: "Валля мы тебя любим, тут скоро будет экран", preferredStyle: .alert)
+        let buyCrypto = BuyCryptoBuilder()
+        let viewController = buyCrypto.build(with: self, selectedAsset: nil)
         
-        let cancelAction = UIAlertAction(title: "Вова тебе сюда надо", style: .cancel, handler: nil)
-
-        alert.addAction(cancelAction)
-        
-        navigationRouter.present(alert, animated: true, completion: nil)
+        navigationRouter.pushViewController(viewController)
     }
 
     func showAccountHistory() {
         let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .all)
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
+    }
+    
+    func openStakingFaq(fromLanding: Bool) {
+        
+        if fromLanding {
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.landingFAQTap))
+        } else {
+            UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.staking(.mainFAQTap))
+        }
+        
+        BrowserViewController.openURL(URL(string: UIGlobalConstants.URL.stakingFaq)!)
     }
 
     func openActionMenu() {
@@ -205,6 +218,16 @@ extension WalletCoordinator: WalletModuleOutput {
     }
 }
 
+// MARK: - BuyCryptoListener
+
+extension WalletCoordinator: BuyCryptoListener {
+    func openUrl(_ url: URL, delegate: BrowserViewControllerDelegate?) {
+        BrowserViewController.openURL(url,
+                                      toViewController: navigationRouter.navigationController,
+                                      delegate: delegate)
+    }
+}
+
 // MARK: - WalletSearchViewControllerDelegate
 
 extension WalletCoordinator: WalletSearchViewControllerDelegate {
@@ -234,7 +257,13 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         let vc = SendModuleBuilder().build(input: .selectedAsset(asset))
         navigationRouter.pushViewController(vc)
     }
-
+        
+    func showCard(asset: DomainLayer.DTO.SmartAssetBalance) {
+        let buyCryptoBuilder = BuyCryptoBuilder()
+        let buyCryptoVC = buyCryptoBuilder.build(with: self, selectedAsset: asset.asset)
+        navigationRouter.pushViewController(buyCryptoVC)
+    }
+    
     func showReceive(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = ReceiveContainerModuleBuilder().build(input: asset)
         navigationRouter.pushViewController(vc)
@@ -276,7 +305,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
     func startLeasingDidSuccess(transaction _: SmartTransaction, kind _: StartLeasingTypes.Kind) {}
 }
 
-fileprivate extension AssetDetailModuleBuilder.Input {
+private extension AssetDetailModuleBuilder.Input {
     init(assets: [DomainLayer.DTO.SmartAssetBalance],
          currentAsset: DomainLayer.DTO.SmartAssetBalance) {
         self.assets = assets.map { .init(asset: $0) }
@@ -284,7 +313,7 @@ fileprivate extension AssetDetailModuleBuilder.Input {
     }
 }
 
-fileprivate extension AssetDetailTypes.DTO.Asset.Info {
+private extension AssetDetailTypes.DTO.Asset.Info {
     init(asset: DomainLayer.DTO.SmartAssetBalance) {
         id = asset.asset.id
         issuer = asset.asset.sender
