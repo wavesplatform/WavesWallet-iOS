@@ -21,6 +21,11 @@ final class GlobalErrorView: UIView, NibOwnerLoadable {
 
     var retryDidTap: (() -> Void)?
     var sendReportDidTap: (() -> Void)?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        loadNibContent()
+    }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

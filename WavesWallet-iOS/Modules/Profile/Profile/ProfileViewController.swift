@@ -26,16 +26,18 @@ final class ProfileViewController: UIViewController {
                                                   style: .plain,
                                                   target: self,
                                                   action: #selector(logoutTapped))
-    private var sections: [Types.ViewModel.Section] = [Types.ViewModel.Section]()
+    private var sections: [Types.ViewModel.Section] = []
 
     var presenter: ProfilePresenterProtocol!
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
-    
+
+    private let globalError = GlobalErrorView()
+
     private let viewDidAppearEvent = PublishRelay<Void>()
     private let viewDidDisappearEvent = PublishRelay<Void>()
 
     private let disposeBag = DisposeBag()
-    
+
     override func loadView() {
         super.loadView()
         setupSystem()
@@ -56,12 +58,12 @@ final class ProfileViewController: UIViewController {
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewDidAppearEvent.accept(Void())
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         viewDidDisappearEvent.accept(Void())
@@ -108,6 +110,7 @@ private extension ProfileViewController {
 
         tableView.contentInset = Constants.contentInset
         tableView.scrollIndicatorInsets = Constants.contentInset
+        tableView.showsVerticalScrollIndicator = false
     }
 }
 
@@ -139,7 +142,7 @@ private extension ProfileViewController {
     }
 
     func events() -> [Signal<Types.Event>] {
-        return [eventInput.asSignal(onErrorSignalWith: Signal.empty())]
+        [eventInput.asSignal(onErrorSignalWith: Signal.empty())]
     }
 
     func subscriptions(state: Driver<Types.State>) -> [Disposable] {
@@ -157,6 +160,22 @@ private extension ProfileViewController {
         sections = state.sections
         if let action = state.action {
             switch action {
+            case .showError:
+                let globalErrorModel = GlobalErrorView.Model(kind: .internetNotWorking)
+                globalError.update(with: globalErrorModel)
+                globalError.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(globalError)
+                NSLayoutConstraint.activate([
+                    globalError.topAnchor.constraint(equalTo: view.topAnchor),
+                    globalError.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    globalError.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    globalError.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                ])
+                globalError.retryDidTap = { [weak self] in
+                    self?.globalError.removeFromSuperview()
+                    self?.eventInput.onNext(.didTapRetry)
+                }
+                
             case .update:
                 navigationItem.rightBarButtonItem = logoutItem
                 tableView.reloadData()
@@ -314,11 +333,11 @@ extension ProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rows.count
+        sections[section].rows.count
     }
 
     func numberOfSections(in _: UITableView) -> Int {
-        return sections.count
+        sections.count
     }
 }
 
@@ -376,20 +395,11 @@ extension ProfileViewController: UITableViewDelegate {
              .supportWavesplatform:
             return ProfileValueCell.cellHeight()
 
-        case .backupPhrase, .pushNotifications:
-            return ProfileBackupPhraseCell.cellHeight()
-
-        case .biometricDisabled:
-            return ProfileDisabledButtomTableCell.cellHeight()
-
-        case .language:
-            return ProfileLanguageCell.cellHeight()
-
-        case .info:
-            return ProfileInfoCell.cellHeight()
-
+        case .backupPhrase, .pushNotifications: return ProfileBackupPhraseCell.cellHeight()
+        case .biometricDisabled: return ProfileDisabledButtomTableCell.cellHeight()
+        case .language: return ProfileLanguageCell.cellHeight()
+        case .info: return ProfileInfoCell.cellHeight()
         case .exchangeTitle: return ExchangeTitleCell.cellHeight()
-
         case .socialNetwork: return SocialNetworkCell.cellHeight()
         }
     }

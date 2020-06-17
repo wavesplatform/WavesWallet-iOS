@@ -15,7 +15,6 @@ enum ProfileTypes {
 }
 
 extension ProfileTypes {
-
     enum Query: Hashable {
         case showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
         case showAddressBook
@@ -50,6 +49,7 @@ extension ProfileTypes {
     enum Event {
         case viewDidAppear
         case viewDidDisappear
+        case showError
         case tapRow(ProfileTypes.ViewModel.Row)
         case setEnabledBiometric(Bool)
         case setBlock(Int64)
@@ -61,14 +61,15 @@ extension ProfileTypes {
         case setPushNotificationsSettings(Bool)
         case updatePushNotificationsSettings
         case didTapDebug
+        case didTapRetry
         case none
     }
 
     struct DisplayState: Mutating, DataSourceProtocol {
-
         enum Action {
             case none
             case update
+            case showError
         }
 
         var sections: [ViewModel.Section]
@@ -78,7 +79,6 @@ extension ProfileTypes {
 }
 
 extension ProfileTypes.ViewModel {
-
     enum Row {
         case addressesKeys
         case addressbook
@@ -101,7 +101,6 @@ extension ProfileTypes.ViewModel {
     }
 
     struct Section: SectionProtocol, Mutating {
-
         enum Kind {
             case general
             case security

@@ -39,17 +39,28 @@ protocol ProfilePresenterProtocol {
 }
 
 final class ProfilePresenter: ProfilePresenterProtocol {
+    weak var moduleOutput: ProfileModuleOutput?
+
     fileprivate typealias Types = ProfileTypes
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
-    private let blockRepository: BlockRepositoryProtocol = UseCasesFactory.instance.repositories.blockRemote
-    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
-    private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let blockRepository: BlockRepositoryProtocol
+    private let authorizationInteractor: AuthorizationUseCaseProtocol
+    private let walletsRepository: WalletsRepositoryProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
+
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
-    weak var moduleOutput: ProfileModuleOutput?
+    init(blockRepository: BlockRepositoryProtocol,
+         authorizationInteractor: AuthorizationUseCaseProtocol,
+         walletsRepository: WalletsRepositoryProtocol,
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
+        self.blockRepository = blockRepository
+        self.authorizationInteractor = authorizationInteractor
+        self.walletsRepository = walletsRepository
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
+    }
 
     func system(feedbacks: [Feedback]) {
         var newFeedbacks = feedbacks
@@ -68,9 +79,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         let system = Driver.system(initialState: initialState,
                                    reduce: ProfilePresenter.reduce,
                                    feedback: newFeedbacks)
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
@@ -106,43 +115,35 @@ fileprivate extension ProfilePresenter {
 
     static func handlerQuery(owner: ProfilePresenter, query: Types.Query) {
         switch query {
-        case let .showAddressesKeys(wallet):
-            owner.moduleOutput?.showAddressesKeys(wallet: wallet)
+        case let .showAddressesKeys(wallet): owner.moduleOutput?.showAddressesKeys(wallet: wallet)
 
-        case .showAddressBook:
-            owner.moduleOutput?.showAddressBook()
+        case .showAddressBook: owner.moduleOutput?.showAddressBook()
 
-        case .showLanguage:
-            owner.moduleOutput?.showLanguage()
+        case .showLanguage: owner.moduleOutput?.showLanguage()
+
+        case .showRateApp: owner.moduleOutput?.showRateApp()
+
+        case .showAlertForEnabledBiometric: owner.moduleOutput?.showAlertForEnabledBiometric()
+
+        case .showFeedback: owner.moduleOutput?.showFeedback()
+
+        case .showSupport: owner.moduleOutput?.showSupport()
+
+        case .didTapDebug: owner.moduleOutput?.openDebug()
+
+        case let .showChangePassword(wallet): owner.moduleOutput?.showChangePassword(wallet: wallet)
+
+        case let .showChangePasscode(wallet): owner.moduleOutput?.showChangePasscode(wallet: wallet)
+
+        case let .showNetwork(wallet): owner.moduleOutput?.showNetwork(wallet: wallet)
+
+        case let .setEnabledBiometric(isOn, wallet):
+            owner.moduleOutput?.accountSetEnabledBiometric(isOn: isOn, wallet: wallet)
 
         case let .showBackupPhrase(wallet):
             owner.moduleOutput?.showBackupPhrase(wallet: wallet) { [weak owner] isBackedUp in
                 owner?.eventInput.onNext(.setBackedUp(isBackedUp))
             }
-
-        case let .showChangePassword(wallet):
-            owner.moduleOutput?.showChangePassword(wallet: wallet)
-
-        case let .showChangePasscode(wallet):
-            owner.moduleOutput?.showChangePasscode(wallet: wallet)
-
-        case let .showNetwork(wallet):
-            owner.moduleOutput?.showNetwork(wallet: wallet)
-
-        case .showRateApp:
-            owner.moduleOutput?.showRateApp()
-
-        case .showAlertForEnabledBiometric:
-            owner.moduleOutput?.showAlertForEnabledBiometric()
-
-        case .showFeedback:
-            owner.moduleOutput?.showFeedback()
-
-        case .showSupport:
-            owner.moduleOutput?.showSupport()
-
-        case let .setEnabledBiometric(isOn, wallet):
-            owner.moduleOutput?.accountSetEnabledBiometric(isOn: isOn, wallet: wallet)
 
         case .openFaq:
             if let url = URL(string: UIGlobalConstants.URL.faq) {
@@ -154,79 +155,70 @@ fileprivate extension ProfilePresenter {
                 BrowserViewController.openURL(url)
             }
 
-        case .didTapDebug:
-            owner.moduleOutput?.openDebug()
-
-        default:
-            break
+        default: break
         }
     }
 
     func registerPushNotificationsQeury() -> Feedback {
-        return react(request: { state -> Bool? in
-            guard let query = state.query else { return nil }
-            if case .registerPushNotifications = query {
-                return true
+        react(request: { state -> Bool? in
+            state.query == .registerPushNotifications
+        },
+              effects: { isRegisterPushNotifications -> Signal<Types.Event> in
+            if isRegisterPushNotifications {
+                return PushNotificationsManager.rx.getNotificationsStatus()
+                    .flatMap { status -> Observable<Bool> in
+                        if status == .notDetermined {
+                            return PushNotificationsManager.rx.registerRemoteNotifications()
+                        } else {
+                            return PushNotificationsManager.rx.openSettings().map { _ in false }
+                        }
+                    }
+                    .map { Types.Event.setPushNotificationsSettings($0) }
+                    .asSignalIgnoringError()
             } else {
-                return nil
+                return Signal.empty()
             }
 
-        }, effects: { _ -> Signal<Types.Event> in
-            PushNotificationsManager.rx.getNotificationsStatus()
-                .flatMap { (status) -> Observable<Bool> in
-                    if status == .notDetermined {
-                        return PushNotificationsManager.rx.registerRemoteNotifications()
-                    } else {
-                        return PushNotificationsManager.rx.openSettings().map { _ in false }
-                    }
-                }
-                .map { Types.Event.setPushNotificationsSettings($0) }
-                .asSignal(onErrorRecover: { _ in
-                    Signal.empty()
-                    })
-           })
+        })
     }
 
     func setPushNotificationsQeury() -> Feedback {
-        return react(request: { state -> Bool? in
-            guard let query = state.query else { return nil }
-            if case .updatePushNotificationsSettings = query {
-                return true
+        react(request: { state -> Bool? in
+            state.query == .updatePushNotificationsSettings
+        },
+              effects: { isUpdatingPushNotificationSettings -> Signal<Types.Event> in
+            if isUpdatingPushNotificationSettings {
+                return PushNotificationsManager.rx.getNotificationsStatus()
+                    .map { Types.Event.setPushNotificationsSettings($0 == .authorized) }
+                    .asSignalIgnoringError()
             } else {
-                return nil
+                return Signal.empty()
             }
 
-        }, effects: { _ -> Signal<Types.Event> in
-            PushNotificationsManager.rx.getNotificationsStatus()
-                .map { Types.Event.setPushNotificationsSettings($0 == .authorized) }
-                .asSignal(onErrorRecover: { _ in
-                    Signal.empty()
-            })
         })
     }
 
     func reactQuries() -> Feedback {
-        return react(request: { state -> Types.Query? in
+        react(request: { state -> Types.Query? in
             ProfilePresenter.needQuery(state)
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-            guard let self = self else { return Signal.empty() }
-            ProfilePresenter.handlerQuery(owner: self, query: query)
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
+            guard let sself = self else { return Signal.empty() }
+            ProfilePresenter.handlerQuery(owner: sself, query: query)
             return Signal.just(.completedQuery)
         })
     }
 
     func handlerEvent() -> Feedback {
-        return react(request: { _ -> Bool? in
-            true
-        }, effects: { [weak self] _ -> Signal<Types.Event> in
-            guard let self = self else { return Signal.empty() }
-            return self.eventInput.asSignal(onErrorSignalWith: Signal.empty())
+        react(request: { _ -> Bool? in true },
+              effects: { [weak self] _ -> Signal<Types.Event> in
+                  guard let sself = self else { return Signal.empty() }
+                  return sself.eventInput.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 
     func setBackupQuery() -> Feedback {
-        return react(request: { state -> DomainLayer.DTO.Wallet? in
-
+        react(request: { state -> DomainLayer.DTO.Wallet? in
             guard let query = state.query else { return nil }
             guard let wallet = state.wallet else { return nil }
             if case let .setBackedUp(isBackedUp) = query {
@@ -236,34 +228,24 @@ fileprivate extension ProfilePresenter {
             } else {
                 return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-        }, effects: { [weak self] wallet -> Signal<Types.Event> in
+            guard let sself = self else { return Signal.empty() }
 
-            guard let self = self else { return Signal.empty() }
-
-            return self
-                .authorizationInteractor
+            return sself.authorizationInteractor
                 .changeWallet(wallet)
-                .map { $0.isBackedUp }
-                .map { Types.Event.setBackedUp($0) }
-                .asSignal(onErrorRecover: { _ in
-                    Signal.empty()
-                })
+                .map { Types.Event.setBackedUp($0.isBackedUp) }
+                .asSignal(onErrorJustReturn: .showError)
         })
     }
 
     func profileQuery() -> Feedback {
-        return react(request: { state -> Bool? in
-
-            if state.displayState.isAppeared == true {
-                return true
-            } else {
-                return nil
-            }
-
-        }, effects: { [weak self] _ -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+        react(request: { state -> Bool? in
+            state.displayState.isAppeared
+        },
+              effects: { [weak self] isAppeared -> Signal<Types.Event> in
+            guard let self = self, isAppeared else { return Signal.empty() }
 
             return self
                 .authorizationInteractor
@@ -273,102 +255,63 @@ fileprivate extension ProfilePresenter {
                     return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
                 }
                 .map { Types.Event.setWallet($0) }
-                .asSignal(onErrorRecover: { _ in
-                    Signal.empty()
-                })
+                .asSignal(onErrorJustReturn: .showError)
         })
     }
 
     func blockQuery() -> Feedback {
-        return react(request: { state -> String? in
-
-            if state.displayState.isAppeared == true, state.wallet != nil {
-                return state.wallet?.address
+        react(request: { state -> String? in
+            if let wallet = state.wallet, state.displayState.isAppeared {
+                return wallet.address
             } else {
                 return nil
             }
+        },
+              effects: { [weak self] address -> Signal<Types.Event> in
+            guard let sself = self else { return Signal.empty() }
 
-        }, effects: { [weak self] address -> Signal<Types.Event> in
+            let serverEnvironment = sself.serverEnvironmentUseCase.serverEnvironment()
 
-            guard let self = self else { return Signal.empty() }
-
-            let serverEnvironment = self
-                .serverEnvironmentUseCase
-                .serverEnvironment()
-
-            let height = serverEnvironment
-                .flatMap { [weak self] serverEnvironment -> Observable<Int64> in
-                    guard let self = self else { return Observable.never() }
-                    return self.blockRepository.height(serverEnvironment: serverEnvironment,
-                                                       accountAddress: address)
-                }
-            return height
-                .map { Types.Event.setBlock($0) }
-                .asSignal(onErrorRecover: { _ in
-                    Signal.empty()
-                })
+            return serverEnvironment.flatMap { [weak self] serverEnvironment -> Observable<Int64> in
+                guard let sself = self else { return Observable.never() }
+                return sself.blockRepository.height(serverEnvironment: serverEnvironment, accountAddress: address)
+            }
+            .map { Types.Event.setBlock($0) }
+            .asSignal(onErrorJustReturn: .showError)
         })
     }
 
     func logoutAccountQuery() -> Feedback {
-        return react(request: { state -> Bool? in
+        react(request: { state -> Bool? in
+            state.query == .logoutAccount
+        },
+              effects: { [weak self] isLogout -> Signal<Types.Event> in
+            guard let sself = self, isLogout else { return Signal.empty() }
 
-            guard let query = state.query else { return nil }
-            if case .logoutAccount = query {
-                return true
-            } else {
-                return nil
-            }
-
-        }, effects: { [weak self] _ -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
-
-            return self
+            return sself
                 .authorizationInteractor
                 .logout()
-                .do(onNext: { [weak self] _ in
-                    self?.moduleOutput?
-                        .accountLogouted()
-                })
-                .map { _ in
-                    Types.Event.none
-                }
-                .asSignal(onErrorRecover: { _ in
-                    Signal.empty()
-                })
+                .do(onNext: { [weak self] _ in self?.moduleOutput?.accountLogouted() })
+                .map { _ in Types.Event.none }
+                .asSignal(onErrorRecover: { _ in Signal.empty() })
         })
     }
 
     func deleteAccountQuery() -> Feedback {
-        return react(request: { state -> Bool? in
-            guard let query = state.query else { return nil }
-            if case .deleteAccount = query {
-                return true
-            } else {
-                return nil
-            }
-        }, effects: { [weak self] _ -> Signal<Types.Event> in
+        react(request: { state -> Bool? in
+            state.query == .deleteAccount
+        },
+              effects: { [weak self] isDeleting -> Signal<Types.Event> in
+            guard let sself = self, isDeleting else { return Signal.empty() }
 
-            guard let self = self else { return Signal.empty() }
-
-            return self
+            return sself
                 .authorizationInteractor.logout()
                 .flatMap { [weak self] wallet -> Observable<Types.Event> in
                     guard let self = self else { return Observable.empty() }
-                    return self
-                        .authorizationInteractor
-                        .deleteWallet(wallet)
-                        .map { _ in
-                            Types.Event.none
-                        }
+                    return self.authorizationInteractor.deleteWallet(wallet).map { _ in Types.Event.none }
                 }
-                .do(onNext: { [weak self] _ in
-                    self?.moduleOutput?.accountDeleted()
-                })
-                .asSignal(onErrorRecover: { _ in
-                    Signal.empty()
-                })
+                .do(onNext: { [weak self] _ in self?.moduleOutput?.accountDeleted() })
+                .asSignal(onErrorRecover: { _ in Signal.empty() })
         })
     }
 }
@@ -392,6 +335,13 @@ private extension ProfilePresenter {
 
         case .viewDidAppear:
             state.displayState.isAppeared = true
+            state.query = .updatePushNotificationsSettings
+
+        case .showError:
+            state.displayState.isAppeared = false
+            state.displayState.action = .showError
+
+        case .didTapRetry:
             state.query = .updatePushNotificationsSettings
 
         case let .setWallet(wallet):
