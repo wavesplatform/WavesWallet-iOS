@@ -74,7 +74,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         newFeedbacks.append(setPushNotificationsQeury())
         newFeedbacks.append(registerPushNotificationsQeury())
 
-        let initialState = self.initialState()
+        let initialState = makeInitialState()
 
         let system = Driver.system(initialState: initialState,
                                    reduce: ProfilePresenter.reduce,
@@ -203,7 +203,7 @@ fileprivate extension ProfilePresenter {
             ProfilePresenter.needQuery(state)
         },
               effects: { [weak self] query -> Signal<Types.Event> in
-            guard let sself = self else { return Signal.empty() }
+            guard let sself = self else { return Signal.never() }
             ProfilePresenter.handlerQuery(owner: sself, query: query)
             return Signal.just(.completedQuery)
         })
@@ -212,8 +212,8 @@ fileprivate extension ProfilePresenter {
     func handlerEvent() -> Feedback {
         react(request: { _ -> Bool? in true },
               effects: { [weak self] _ -> Signal<Types.Event> in
-                  guard let sself = self else { return Signal.empty() }
-                  return sself.eventInput.asSignal(onErrorSignalWith: Signal.empty())
+                  guard let sself = self else { return Signal.never() }
+                  return sself.eventInput.asSignal(onErrorSignalWith: Signal.never())
         })
     }
 
@@ -231,7 +231,7 @@ fileprivate extension ProfilePresenter {
         },
               effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            guard let sself = self else { return Signal.empty() }
+            guard let sself = self else { return Signal.never() }
 
             return sself.authorizationInteractor
                 .changeWallet(wallet)
@@ -245,14 +245,14 @@ fileprivate extension ProfilePresenter {
             state.displayState.isAppeared
         },
               effects: { [weak self] isAppeared -> Signal<Types.Event> in
-            guard let self = self, isAppeared else { return Signal.empty() }
+            guard let self = self, isAppeared else { return Signal.never() }
 
             return self
                 .authorizationInteractor
                 .authorizedWallet()
                 .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
-                    guard let self = self else { return Observable.empty() }
-                    return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
+                    guard let sself = self else { return Observable.never() }
+                    return sself.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
                 }
                 .map { Types.Event.setWallet($0) }
                 .asSignal(onErrorJustReturn: .showError)
@@ -268,7 +268,7 @@ fileprivate extension ProfilePresenter {
             }
         },
               effects: { [weak self] address -> Signal<Types.Event> in
-            guard let sself = self else { return Signal.empty() }
+            guard let sself = self else { return Signal.never() }
 
             let serverEnvironment = sself.serverEnvironmentUseCase.serverEnvironment()
 
@@ -286,7 +286,7 @@ fileprivate extension ProfilePresenter {
             state.query == .logoutAccount
         },
               effects: { [weak self] isLogout -> Signal<Types.Event> in
-            guard let sself = self, isLogout else { return Signal.empty() }
+            guard let sself = self, isLogout else { return Signal.never() }
 
             return sself
                 .authorizationInteractor
@@ -302,13 +302,13 @@ fileprivate extension ProfilePresenter {
             state.query == .deleteAccount
         },
               effects: { [weak self] isDeleting -> Signal<Types.Event> in
-            guard let sself = self, isDeleting else { return Signal.empty() }
+            guard let sself = self, isDeleting else { return Signal.never() }
 
             return sself
                 .authorizationInteractor.logout()
                 .flatMap { [weak self] wallet -> Observable<Types.Event> in
-                    guard let self = self else { return Observable.empty() }
-                    return self.authorizationInteractor.deleteWallet(wallet).map { _ in Types.Event.none }
+                    guard let sself = self else { return Observable.empty() }
+                    return sself.authorizationInteractor.deleteWallet(wallet).map { _ in Types.Event.none }
                 }
                 .do(onNext: { [weak self] _ in self?.moduleOutput?.accountDeleted() })
                 .asSignal(onErrorRecover: { _ in Signal.empty() })
@@ -581,13 +581,9 @@ private extension ProfilePresenter {
 
 // MARK: UI State
 
-private extension ProfilePresenter {
-    func initialState() -> Types.State {
-        return Types
-            .State(query: nil, wallet: nil, block: nil, displayState: initialDisplayState(), isActivePushNotifications: false)
-    }
-
-    func initialDisplayState() -> Types.DisplayState {
-        return Types.DisplayState(sections: [], isAppeared: false, action: nil)
+extension ProfilePresenter {
+    private func makeInitialState() -> Types.State {
+        let displayState = Types.DisplayState(sections: [], isAppeared: false, action: nil)
+        return .init(query: nil, wallet: nil, block: nil, displayState: displayState, isActivePushNotifications: false)
     }
 }
