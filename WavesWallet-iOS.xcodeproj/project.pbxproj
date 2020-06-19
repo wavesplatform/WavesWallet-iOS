@@ -806,6 +806,12 @@
 		8753935A2423C0C500394762 /* ReceiveGenerateAddressTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875393592423C0C500394762 /* ReceiveGenerateAddressTypes.swift */; };
 		87566696242A67E100E9F177 /* StakingBalanceServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87566695242A67E100E9F177 /* StakingBalanceServiceImpl.swift */; };
 		87566699242B668600E9F177 /* StakingBalanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87566698242B668600E9F177 /* StakingBalanceService.swift */; };
+		87861375249CD32D00FF559E /* WelcomeScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8786136F249CD32D00FF559E /* WelcomeScreenPresenter.swift */; };
+		87861376249CD32D00FF559E /* WelcomeScreenViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87861370249CD32D00FF559E /* WelcomeScreenViewController.storyboard */; };
+		87861377249CD32D00FF559E /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87861371249CD32D00FF559E /* WelcomeScreenViewController.swift */; };
+		87861378249CD32D00FF559E /* WelcomeScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87861372249CD32D00FF559E /* WelcomeScreenProtocols.swift */; };
+		87861379249CD32D00FF559E /* WelcomeScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87861373249CD32D00FF559E /* WelcomeScreenBuilder.swift */; };
+		8786137A249CD32D00FF559E /* WelcomeScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87861374249CD32D00FF559E /* WelcomeScreenInteractor.swift */; };
 		87D683AF241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D683AD241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift */; };
 		87D683B0241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */; };
 		87ED7225246B57D6002CAD29 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; };
@@ -2242,6 +2248,12 @@
 		875393592423C0C500394762 /* ReceiveGenerateAddressTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveGenerateAddressTypes.swift; sourceTree = "<group>"; };
 		87566695242A67E100E9F177 /* StakingBalanceServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingBalanceServiceImpl.swift; sourceTree = "<group>"; };
 		87566698242B668600E9F177 /* StakingBalanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingBalanceService.swift; sourceTree = "<group>"; };
+		8786136F249CD32D00FF559E /* WelcomeScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenPresenter.swift; sourceTree = "<group>"; };
+		87861370249CD32D00FF559E /* WelcomeScreenViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WelcomeScreenViewController.storyboard; sourceTree = "<group>"; };
+		87861371249CD32D00FF559E /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
+		87861372249CD32D00FF559E /* WelcomeScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenProtocols.swift; sourceTree = "<group>"; };
+		87861373249CD32D00FF559E /* WelcomeScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenBuilder.swift; sourceTree = "<group>"; };
+		87861374249CD32D00FF559E /* WelcomeScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenInteractor.swift; sourceTree = "<group>"; };
 		8796A4D5244DBB8C00027E9C /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796A4E6244DC6BA00027E9C /* Pods_StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796A5E8244DE20100027E9C /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3458,10 +3470,10 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				87ED7233246C195D002CAD29 /* BuyCrypto */,
 				87FA5CF524223B29002F282D /* Account */,
 				E9D36DB52175C754001E6DF0 /* AssetList */,
 				7B26A88422ED16A400E7B024 /* AssetsSearch */,
+				87ED7233246C195D002CAD29 /* BuyCrypto */,
 				E9B086BF2163886800937644 /* Dex */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				7B85E60A23FD173500365829 /* General */,
@@ -5140,6 +5152,19 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		8786136D249CD01300FF559E /* WelcomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				87861372249CD32D00FF559E /* WelcomeScreenProtocols.swift */,
+				87861373249CD32D00FF559E /* WelcomeScreenBuilder.swift */,
+				87861374249CD32D00FF559E /* WelcomeScreenInteractor.swift */,
+				8786136F249CD32D00FF559E /* WelcomeScreenPresenter.swift */,
+				87861371249CD32D00FF559E /* WelcomeScreenViewController.swift */,
+				87861370249CD32D00FF559E /* WelcomeScreenViewController.storyboard */,
+			);
+			path = WelcomeScreen;
+			sourceTree = "<group>";
+		};
 		87D683AC241F5CAD0009DB2A /* PayoutsTransactionSkeletonCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -6698,6 +6723,7 @@
 				04A403202164B8E000652F21 /* Language */,
 				04A4031F2164B8CD00652F21 /* Start */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
+				8786136D249CD01300FF559E /* WelcomeScreen */,
 			);
 			path = Enter;
 			sourceTree = "<group>";
@@ -7215,6 +7241,7 @@
 				87FA5DC124223FBE002F282D /* AssetBurnCell.xib in Resources */,
 				04EFAF4D2164F8D800277CCF /* EnterStartBlockCell.xib in Resources */,
 				7B85E62F23FD697200365829 /* StakingTransferBalanceCell.xib in Resources */,
+				87861376249CD32D00FF559E /* WelcomeScreenViewController.storyboard in Resources */,
 				7B0D1B812401CA1900442B7B /* StakingTransferDescriptionCell.xib in Resources */,
 				E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
@@ -8299,6 +8326,7 @@
 				0AAB15C321655BDB00F1F7BC /* ProfileInfoCell.swift in Sources */,
 				E9B087B22163886800937644 /* DexOrderBookInteractorProtocol.swift in Sources */,
 				E9B087DC2163886800937644 /* DexCreateOrderModuleOutput.swift in Sources */,
+				87861378249CD32D00FF559E /* WelcomeScreenProtocols.swift in Sources */,
 				E98F0589236B1CCF0055DCCE /* DexDeepLinkLoadingViewController.swift in Sources */,
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
 				7BFB481722FC742F002B19F8 /* NSAttributedString+Styles.swift in Sources */,
@@ -8379,6 +8407,7 @@
 				E96FEA29226F27BC00C0EE22 /* WalletSortCell.swift in Sources */,
 				87ED7276246C735A002CAD29 /* BuyCryptoInteractor.swift in Sources */,
 				0A59331821870ABB0059A77A /* AliasesViewController.swift in Sources */,
+				87861379249CD32D00FF559E /* WelcomeScreenBuilder.swift in Sources */,
 				7B85E62623FD3C4500365829 /* ModalTableControllerDelegate.swift in Sources */,
 				0A14E3EF21875AF500EA7E91 /* CreateAliasViewController.swift in Sources */,
 				E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */,
@@ -8460,6 +8489,7 @@
 				E9B08822216388B100937644 /* HighlightedButton.swift in Sources */,
 				E9B087C52163886800937644 /* DexTraderContainerInputProtocol.swift in Sources */,
 				0AF922F1212E1234003BA067 /* SkeletonTableCell.swift in Sources */,
+				87861375249CD32D00FF559E /* WelcomeScreenPresenter.swift in Sources */,
 				8752A2642412799900B968C7 /* PayoutsHistoryBuilder.swift in Sources */,
 				87FA5D7E24223DFD002F282D /* AddAddressTextField.swift in Sources */,
 				04D882BF21706FEF00EAAB90 /* InfoPagesCell.swift in Sources */,
@@ -8601,7 +8631,9 @@
 				87FA5DC324223FBE002F282D /* AssetBalanceSpamCell.swift in Sources */,
 				0A110CC62153F36F002A8FD7 /* SkeletonView.swift in Sources */,
 				0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */,
+				8786137A249CD32D00FF559E /* WelcomeScreenInteractor.swift in Sources */,
 				7B9DC35B23842A9900DCCA75 /* ServerMaintenanceViewController.swift in Sources */,
+				87861377249CD32D00FF559E /* WelcomeScreenViewController.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
 				E9B088142163886800937644 /* DexMarketInteractorProtocol.swift in Sources */,
 				87FA5D8424223E0C002F282D /* AddressBookTypes.swift in Sources */,
