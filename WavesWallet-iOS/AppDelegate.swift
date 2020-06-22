@@ -214,8 +214,8 @@ extension AppDelegate {
             SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
 
         #else
-            SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error]))
-            SweetLogger.current.visibleLevels = [.warning, .debug, .error]
+            SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error, .network]))
+            SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
 
         #endif
     }

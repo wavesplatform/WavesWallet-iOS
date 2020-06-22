@@ -123,14 +123,14 @@ private extension AddAddressBookViewController {
 
         authorizationInteractor
             .authorizedWallet()
-            .flatMap { [weak self] (wallet) -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap { [weak self] (wallet) -> Observable<Wallet> in
                 guard let self = self else { return Observable.never() }
 
                 if self.input.isAdd == true {
                     return self
                         .repository
                         .contact(by: newContact.address, accountAddress: wallet.address)
-                        .flatMap { contact -> Observable<DomainLayer.DTO.Wallet> in
+                        .flatMap { contact -> Observable<Wallet> in
                             if contact == nil {
                                 return Observable.just(wallet.wallet)
                             } else {
@@ -141,7 +141,7 @@ private extension AddAddressBookViewController {
 
                 return Observable.just(wallet.wallet)
             }
-            .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap { [weak self] wallet -> Observable<Wallet> in
 
                 guard let self = self else { return Observable.never() }
                 return self.repository.save(contact: newContact, accountAddress: wallet.address)

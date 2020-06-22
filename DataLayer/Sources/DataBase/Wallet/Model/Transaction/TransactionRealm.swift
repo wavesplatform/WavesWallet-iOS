@@ -2,7 +2,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-public class TransactionRealm: Object {
+class TransactionRealm: Object {
     public typealias Identity = String
 
     @objc dynamic var type: Int = 0

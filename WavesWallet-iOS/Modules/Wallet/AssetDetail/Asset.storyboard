@@ -145,23 +145,30 @@
                                                             <rect key="frame" x="0.0" y="234" width="382" height="98"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xq2-h9-ZdF" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="127.5" height="98"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="98"/>
                                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
                                                                     <state key="normal" title="Send" image="send48">
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AZ-Oj-INx" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="127.5" y="0.0" width="127" height="98"/>
+                                                                    <rect key="frame" x="95.5" y="0.0" width="95.5" height="98"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <state key="normal" title="Receive" image="receive48">
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dna-QV-sJs" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="254.5" y="0.0" width="127.5" height="98"/>
+                                                                    <rect key="frame" x="191" y="0.0" width="95.5" height="98"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <state key="normal" title="Trade" image="trade48">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJ1-be-Ro0" userLabel="Card" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                                    <rect key="frame" x="286.5" y="0.0" width="95.5" height="98"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <state key="normal" title="Trade" image="buyWithCard">
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
@@ -228,6 +235,7 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <connections>
                                             <outlet property="balanceLabel" destination="wOk-Cw-M2i" id="ETn-NE-HTi"/>
+                                            <outlet property="cardButton" destination="nJ1-be-Ro0" id="A7M-8b-3hx"/>
                                             <outlet property="exchangeButton" destination="dna-QV-sJs" id="XC3-Wc-r24"/>
                                             <outlet property="firstSeparatorView" destination="2Qx-FN-LdF" id="1Bu-Et-Lwj"/>
                                             <outlet property="labelPriceUsd" destination="3WV-t0-WDd" id="y4b-1G-MhI"/>
@@ -1239,6 +1247,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="buyWithCard" width="40" height="40"/>
         <image name="chart_arrow_green" width="22" height="22"/>
         <image name="chart_arrow_red" width="22" height="22"/>
         <image name="chart_empty" width="80" height="80"/>

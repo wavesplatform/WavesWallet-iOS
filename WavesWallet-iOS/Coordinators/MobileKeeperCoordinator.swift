@@ -114,7 +114,7 @@ extension MobileKeeperCoordinator: ApplicationCoordinatorProtocol {
 // MARK: ChooseAccountCoordinatorDelegate
 
 extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
-    func userChooseCompleted(wallet: DomainLayer.DTO.Wallet) {
+    func userChooseCompleted(wallet: Wallet) {
         UseCasesFactory
             .instance
             .authorization

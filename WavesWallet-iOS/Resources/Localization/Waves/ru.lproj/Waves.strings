@@ -824,3 +824,24 @@
 "trade.message.pairlocked.title" = "Торговля парой %@ / %@ недоступна";
 "trade.message.pairlocked.subtitle" = "Торговая пара временно отключена. Вы можете отменить свои ордера.";
 "trade.message.pairlocked.button.ok" = "Продолжить";
+
+"wallet.bar.button.receive" = "Получить";
+"wallet.bar.button.send" = "Отправить";
+"wallet.bar.button.card" = "Карта";
+
+"buyCrypto.amountPlaceholder" = "Введите количество";
+"buyCrypto.iSpent" = "Я продаю %@";
+"buyCrypto.iBuy" = "Я покупаю %@";
+"buyCrypto.buy" = "Купить %@";
+"buyCrypto.minAmount" = "Минимальное количество %@";
+"buyCrypto.maxAmount" = "Максимальное количество %@";
+
+"buyCrypto.messageInfo.withoutConversionFee" = "• Комиссия составит 0%%.";
+"buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee" = "• С вас может взиматься дополнительная плата за конвертацию. Итоговая сумма покупки может варьироваться из-за постоянно меняющегося курса.";
+"buyCrypto.messageInfo.minAmount" = "• Минимальное количество %@ для покупки.";
+"buyCrypto.messageInfo.youCanBuyWithYourBankCard" = "• Вы можете приобрести %@ с вашей банковской карты или при помощи прямого перевода на счет Advanced Cash.";
+"buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "• После успешной оплаты на сайте партнеров, %@ будет зачислен на ваш аккаунт в течение нескольких минут.";
+"buyCrypto.messageInfo.ifYouHaveProblems" = "• Если у вас возникли проблемы с оплатой, пожалуйста, обратитесь в службу поддержки.";
+"buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "поддержки";
+
+"asset.cell.balance.button.card" = "Карта";

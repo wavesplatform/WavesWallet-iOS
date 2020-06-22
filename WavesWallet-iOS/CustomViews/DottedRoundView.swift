@@ -9,14 +9,13 @@
 import UIKit
 
 class DottedRoundView: UIView {
-
     @IBInspectable var lineColor: UIColor = UIColor.accent100 {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    @IBInspectable var lineWidth: CGFloat = 0.5 {
+    @IBInspectable var lineWidth: CGFloat = 1 {
         didSet {
             setNeedsDisplay()
         }
@@ -28,15 +27,30 @@ class DottedRoundView: UIView {
         }
     }
 
-    @IBInspectable var dottedCornerRadius: CGFloat = -1
+    @IBInspectable var dottedCornerRadius: CGFloat = -1 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
-    override func draw(_ rect: CGRect) {
+    @IBInspectable var perDashLength: CGFloat = 4.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
+    @IBInspectable var spaceBetweenDash: CGFloat = 4.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    override func draw(_: CGRect) {
         guard isHiddenDottedLine == false else {
             return
         }
 
-        let cornerRadius = self.dottedCornerRadius == -1 ? frame.size.width / 2 : self.dottedCornerRadius
+        let cornerRadius = dottedCornerRadius == -1 ? frame.size.width / 2 : dottedCornerRadius
         let drawPath = CGRect(x: lineWidth / 2,
                               y: lineWidth / 2,
                               width: bounds.size.width - lineWidth,

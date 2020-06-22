@@ -36,6 +36,7 @@ public struct WalletEnvironment: Decodable, Hashable {
         
     public struct AssetInfo: Decodable, Hashable {
         
+        // TODO: подумать над такими обертками и убрать подобные? 
         public struct Icon: Decodable, Hashable {
             public let `default`: String?
         }
@@ -107,7 +108,7 @@ public struct WalletEnvironment: Decodable, Hashable {
     public let assets: [AssetInfo]?
     
     public var kind: Kind {
-        return Kind.init(rawValue: scheme) ?? .mainnet
+        return Kind(rawValue: scheme) ?? .mainnet
     }
     
     public static let Testnet: WalletEnvironment = parseJSON(json: Constants.testnet)!

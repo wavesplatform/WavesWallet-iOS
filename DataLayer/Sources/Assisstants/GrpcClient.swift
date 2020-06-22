@@ -24,7 +24,7 @@ func grpcClient<Client: GRPCClient>(address: String,
     let callOptions = CallOptions(customMetadata: headers)
     
     let tls = ClientConnection.Configuration.TLS()
-
+    
     let configuration = ClientConnection.Configuration(target: .hostAndPort(address, 443),
                                                        eventLoopGroup: eventLoopGroup,
                                                        tls: tls)

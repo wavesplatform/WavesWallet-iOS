@@ -118,12 +118,10 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         tabBarRouter.setSelectedIndex(2)
         
-        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet,
-                                                  isDisplayInvesting: false)
+        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet)
         addChildCoordinatorAndStart(childCoordinator: walletCoordinator)
 
-        let investingCoordinator = WalletCoordinator(navigationRouter: navigationRouterInvest,
-                                                     isDisplayInvesting: true)
+        let investingCoordinator = InvestmentCoordinator(navigationRouter: navigationRouterInvest)
         
         addChildCoordinatorAndStart(childCoordinator: investingCoordinator)
         
@@ -172,7 +170,7 @@ private extension MainTabBarCoordinator {
 
         authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap({ [weak self] wallet -> Observable<Wallet> in
                 guard let self = self else { return Observable.empty() }
                 return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
             })
@@ -194,7 +192,7 @@ private extension MainTabBarCoordinator {
             
         authorizationInteractor
             .authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.SignedWallet, uid: String)> in
+            .flatMap { [weak self] wallet -> Observable<(wallet: SignedWallet, uid: String)> in
                 guard let self = self else { return Observable.never() }
                 return self.userRepository.userUID(wallet: wallet).map { (wallet: wallet, uid: $0) }
             }

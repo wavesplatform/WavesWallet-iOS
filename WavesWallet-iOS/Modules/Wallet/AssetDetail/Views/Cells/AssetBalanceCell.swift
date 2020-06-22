@@ -45,6 +45,7 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     @IBOutlet private var sendButton: UIButton!
     @IBOutlet private var receiveButton: UIButton!
     @IBOutlet private var exchangeButton: UIButton!
+    @IBOutlet private var cardButton: UIButton!
 
     private var options: Options = Options(isHiddenLeased: false, isHiddenInOrder: false)
     private var isNeedsUpdateConstraints: Bool = false
@@ -52,6 +53,7 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
     var receiveAction: (() -> Void)?
     var sendAction: (() -> Void)?
     var exchangeAction: (() -> Void)?
+    var cardAction: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,6 +62,7 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
         sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         receiveButton.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
         exchangeButton.addTarget(self, action: #selector(exchangeTapped), for: .touchUpInside)
+        cardButton.addTarget(self, action: #selector(cardTapped), for: .touchUpInside)
     }
 
     @objc private func exchangeTapped() {
@@ -72,6 +75,10 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
 
     @objc private func sendTapped() {
         sendAction?()
+    }
+    
+    @objc private func cardTapped() {
+        cardAction?()
     }
 
     override func updateConstraints() {
@@ -105,11 +112,14 @@ extension AssetBalanceCell: ViewConfiguration {
     func update(with model: AssetDetailTypes.DTO.PriceAsset) {
         let balance = model.asset.balance
 
+        cardButton.isHidden = model.hasNeedCard == false
+        
         options = Options(isHiddenLeased: balance.leasedMoney.isZero, isHiddenInOrder: balance.inOrderMoney.isZero)
 
         sendButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.send, for: .normal)
         receiveButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.receive, for: .normal)
         exchangeButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.trade, for: .normal)
+        cardButton.setTitle(Localizable.Waves.Asset.Cell.Balance.Button.card, for: .normal)
 
         titleLabel.text = Localizable.Waves.Asset.Cell.Balance.avaliableBalance
 

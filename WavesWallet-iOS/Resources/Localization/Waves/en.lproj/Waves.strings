@@ -56,6 +56,7 @@
 "asset.cell.balance.button.exchange" = "Exchange";
 "asset.cell.balance.button.receive" = "Receive";
 "asset.cell.balance.button.send" = "Send";
+"asset.cell.balance.button.card" = "Card";
 "asset.cell.balance.inOrderBalance" = "In order";
 "asset.cell.balance.leased" = "Leased";
 "asset.cell.balance.totalBalance" = "Total";
@@ -821,7 +822,26 @@
 "profile.cell.joinTheWavesCommunity" = "Social Network";
 "staking.refillError.refillByAdvancedCashCancelled" = "You've canceled the payment procedure at Advanced Cash. You won't be charged. USDN won't be credited to your account. Use Try Again to start all over.";
 
+"trade.message.pairlocked.button.ok" = "Ok";
+"trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
+"trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";
 
-    "trade.message.pairlocked.button.ok" = "Ok";
-    "trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
-    "trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";
+"wallet.bar.button.receive" = "Receive";
+"wallet.bar.button.send" = "Send";
+"wallet.bar.button.card" = "Card";
+
+"buyCrypto.amountPlaceholder" = "Enter amount";
+"buyCrypto.iSpent" = "I spent %@";
+"buyCrypto.iBuy" = "I buy %@";
+"buyCrypto.buy" = "Buy %@";
+"buyCrypto.minAmount" = "Min amount is %@";
+"buyCrypto.maxAmount" = "Max amount is %@";
+
+"buyCrypto.messageInfo.withoutConversionFee" = "• The fee is 0%%.";
+"buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee" = "• You may be charged an additional conversion fee. The total amount may vary due to the constantly changing rates.";
+"buyCrypto.messageInfo.minAmount" = "• Min amount is %@ or an equivalent amount.";
+"buyCrypto.messageInfo.youCanBuyWithYourBankCard" = "• You can buy %@ with your bank card or by direct transfer to the Advanced Cash account.";
+"buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "• After a successful payment on the partners' website, %@ will be credited to your account within a few minutes.";
+"buyCrypto.messageInfo.ifYouHaveProblems" = "• If you have problems with your payment, please contact support service.";
+"buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "support";
+

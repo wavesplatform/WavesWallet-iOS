@@ -338,6 +338,9 @@ internal enum Localizable {
           internal static var totalBalanceKey: String { "asset.cell.balance.totalBalance" }
 
           internal enum Button {
+            /// Card
+            internal static var card: String { Localizable.tr("Waves", "asset.cell.balance.button.card") }
+            internal static var cardKey: String { "asset.cell.balance.button.card" }
             /// Exchange
             internal static var exchange: String { Localizable.tr("Waves", "asset.cell.balance.button.exchange") }
             internal static var exchangeKey: String { "asset.cell.balance.button.exchange" }
@@ -520,6 +523,62 @@ internal enum Localizable {
         /// Too many attempts
         internal static var title: String { Localizable.tr("Waves", "biometric.manyattempts.title") }
         internal static var titleKey: String { "biometric.manyattempts.title" }
+      }
+    }
+
+    internal enum Buycrypto {
+      /// Enter amount
+      internal static var amountPlaceholder: String { Localizable.tr("Waves", "buyCrypto.amountPlaceholder") }
+      internal static var amountPlaceholderKey: String { "buyCrypto.amountPlaceholder" }
+      /// Buy %@
+      internal static func buy(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.buy", p1)
+      }
+      /// I buy %@
+      internal static func iBuy(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.iBuy", p1)
+      }
+      /// I spent %@
+      internal static func iSpent(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.iSpent", p1)
+      }
+      /// Max amount is %@
+      internal static func maxAmount(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.maxAmount", p1)
+      }
+      /// Min amount is %@
+      internal static func minAmount(_ p1: String) -> String {
+        Localizable.tr("Waves", "buyCrypto.minAmount", p1)
+      }
+
+      internal enum Messageinfo {
+        /// • After a successful payment on the partners' website, %@ will be credited to your account within a few minutes.
+        internal static func afterPaymentWillBeCreditedToYourAccount(_ p1: String) -> String {
+          Localizable.tr("Waves", "buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount", p1)
+        }
+        /// • If you have problems with your payment, please contact support service.
+        internal static var ifYouHaveProblems: String { Localizable.tr("Waves", "buyCrypto.messageInfo.ifYouHaveProblems") }
+        internal static var ifYouHaveProblemsKey: String { "buyCrypto.messageInfo.ifYouHaveProblems" }
+        /// • Min amount is %@ or an equivalent amount.
+        internal static func minAmount(_ p1: String) -> String {
+          Localizable.tr("Waves", "buyCrypto.messageInfo.minAmount", p1)
+        }
+        /// • The fee is 0%%.
+        internal static var withoutConversionFee: String { Localizable.tr("Waves", "buyCrypto.messageInfo.withoutConversionFee") }
+        internal static var withoutConversionFeeKey: String { "buyCrypto.messageInfo.withoutConversionFee" }
+        /// • You can buy %@ with your bank card or by direct transfer to the Advanced Cash account.
+        internal static func youCanBuyWithYourBankCard(_ p1: String) -> String {
+          Localizable.tr("Waves", "buyCrypto.messageInfo.youCanBuyWithYourBankCard", p1)
+        }
+        /// • You may be charged an additional conversion fee. The total amount may vary due to the constantly changing rates.
+        internal static var youMayBeChargedAnAdditionalConversionFee: String { Localizable.tr("Waves", "buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee") }
+        internal static var youMayBeChargedAnAdditionalConversionFeeKey: String { "buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee" }
+
+        internal enum Ifyouhaveproblems {
+          /// support
+          internal static var linkWord: String { Localizable.tr("Waves", "buyCrypto.messageInfo.ifYouHaveProblems.linkWord") }
+          internal static var linkWordKey: String { "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" }
+        }
       }
     }
 
@@ -3762,6 +3821,21 @@ internal enum Localizable {
     }
 
     internal enum Wallet {
+
+      internal enum Bar {
+
+        internal enum Button {
+          /// Card
+          internal static var card: String { Localizable.tr("Waves", "wallet.bar.button.card") }
+          internal static var cardKey: String { "wallet.bar.button.card" }
+          /// Receive
+          internal static var receive: String { Localizable.tr("Waves", "wallet.bar.button.receive") }
+          internal static var receiveKey: String { "wallet.bar.button.receive" }
+          /// Send
+          internal static var send: String { Localizable.tr("Waves", "wallet.bar.button.send") }
+          internal static var sendKey: String { "wallet.bar.button.send" }
+        }
+      }
 
       internal enum Button {
         /// Start Lease

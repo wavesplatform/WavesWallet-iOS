@@ -11,10 +11,7 @@ import RxSwift
 
 public protocol AccountBalanceRepositoryProtocol {
 
-    func balances(by serverEnviroment: ServerEnvironment,
-                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[AssetBalance]>
+    func balances(by serverEnviroment: ServerEnvironment, wallet: SignedWallet) -> Observable<[AssetBalance]>
     
-    func balance(by serverEnviroment: ServerEnvironment,
-                 assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<AssetBalance>
+    func balance(by serverEnviroment: ServerEnvironment, assetId: String, wallet: SignedWallet) -> Observable<AssetBalance>
 }

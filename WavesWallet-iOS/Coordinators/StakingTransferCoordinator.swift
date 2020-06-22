@@ -199,7 +199,7 @@ extension StakingTransferCoordinator: StakingTransferModuleOutput {
                                                               assetTicker: amount.currency.displayText)
         
         UseCasesFactory
-            .instance
+            .instance   
             .analyticManager
             .trackEvent(.staking(event))
         
@@ -232,7 +232,7 @@ extension StakingTransferCoordinator: BrowserViewControllerDelegate {
         showErrorCashCancelled()
     }
     
-    func browserViewRedirect(url: URL) {
+    func browserViewRedirect(_: BrowserViewController, url: URL) {
         
         let link = url.absoluteStringByTrimmingQuery() ?? ""
         

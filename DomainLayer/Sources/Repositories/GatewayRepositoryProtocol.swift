@@ -21,5 +21,5 @@ public protocol GatewayRepositoryProtocol {
     
     func send(serverEnvironment: ServerEnvironment,
               specifications: TransactionSenderSpecifications,
-              wallet: DomainLayer.DTO.SignedWallet) -> Observable<Bool>
+              wallet: SignedWallet) -> Observable<Bool>
 }

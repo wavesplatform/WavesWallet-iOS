@@ -13,7 +13,7 @@ import Extensions
 struct EditAccountNameModuleBuilder: ModuleBuilderOutput {
     
     struct Input: EditAccountNameModuleInput {
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: Wallet
     }
     
     var output: EditAccountNameModuleOutput

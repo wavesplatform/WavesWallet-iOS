@@ -44,7 +44,7 @@ final class ProfileCoordinator: Coordinator {
 
 extension ProfileCoordinator: ProfileModuleOutput {
 
-    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, saveBackedUp: @escaping ((_ isBackedUp: Bool) -> Void)) {
+    func showBackupPhrase(wallet: Wallet, saveBackedUp: @escaping ((_ isBackedUp: Bool) -> Void)) {
 
         authorization
             .authorizedWallet()
@@ -79,7 +79,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
             .disposed(by: disposeBag)
     }
 
-    func showAddressesKeys(wallet: DomainLayer.DTO.Wallet) {
+    func showAddressesKeys(wallet: Wallet) {
         
         UseCasesFactory
             .instance
@@ -118,7 +118,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
         navigationRouter.pushViewController(language)
     }
 
-    func showNetwork(wallet: DomainLayer.DTO.Wallet) {
+    func showNetwork(wallet: Wallet) {
         
         UseCasesFactory
             .instance
@@ -176,7 +176,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
         }
         #endif
         
-        if let url = URL(string: UIGlobalConstants.URL.support) {
+        if let url = URL(string: UIGlobalConstants.URL.supportEn) {
             BrowserViewController.openURL(url)
         }
     }
@@ -186,14 +186,14 @@ extension ProfileCoordinator: ProfileModuleOutput {
         navigationRouter.present(alertController)
     }
 
-    func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
+    func accountSetEnabledBiometric(isOn: Bool, wallet: Wallet) {
         let passcode = PasscodeCoordinator(kind: .setEnableBiometric(isOn, wallet: wallet),
                                            behaviorPresentation: .push(navigationRouter, dissmissToRoot: true))
         passcode.delegate = self
         addChildCoordinatorAndStart(childCoordinator: passcode)
     }
 
-    func showChangePasscode(wallet: DomainLayer.DTO.Wallet) {
+    func showChangePasscode(wallet: Wallet) {
         
         UseCasesFactory
             .instance
@@ -207,7 +207,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
         addChildCoordinatorAndStart(childCoordinator: passcode)
     }
 
-    func showChangePassword(wallet: DomainLayer.DTO.Wallet) {
+    func showChangePassword(wallet: Wallet) {
         
         UseCasesFactory
             .instance
@@ -279,13 +279,13 @@ extension ProfileCoordinator: DebugViewControllerDelegate {
 
 extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {}
+    func passcodeCoordinatorAuthorizationCompleted(wallet: Wallet) {}
 
     func passcodeCoordinatorWalletLogouted() {
         applicationCoordinator?.showEnterDisplay()
     }
 
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: SignedWallet) {}
 }
 
 // MARK: LanguageViewControllerDelegate
@@ -299,7 +299,7 @@ extension ProfileCoordinator: LanguageViewControllerDelegate {
 // MARK: ChangePasswordModuleOutput
 
 extension ProfileCoordinator: ChangePasswordModuleOutput {
-    func changePasswordCompleted(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String) {
+    func changePasswordCompleted(wallet: Wallet, newPassword: String, oldPassword: String) {
 
         let passcode = PasscodeCoordinator(kind: .changePassword(wallet: wallet,
                                                                  newPassword: newPassword,

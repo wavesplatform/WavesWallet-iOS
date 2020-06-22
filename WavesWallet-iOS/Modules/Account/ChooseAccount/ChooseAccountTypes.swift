@@ -17,9 +17,9 @@ enum ChooseAccountTypes {
 extension ChooseAccountTypes {
 
     enum Action {
-        case removeWallet(DomainLayer.DTO.Wallet, indexPath: IndexPath)
-        case editWallet(DomainLayer.DTO.Wallet, indexPath: IndexPath)
-        case openWallet(DomainLayer.DTO.Wallet)
+        case removeWallet(Wallet, indexPath: IndexPath)
+        case editWallet(Wallet, indexPath: IndexPath)
+        case openWallet(Wallet)
     }
 
     struct State: Mutating {
@@ -31,11 +31,11 @@ extension ChooseAccountTypes {
     enum Event {
         case readyView
         case completedDeleteWallet(indexPath: IndexPath)
-        case openWallet(DomainLayer.DTO.Wallet, passcodeNotCreated: Bool)
-        case tapEditButton(DomainLayer.DTO.Wallet, indexPath: IndexPath)
-        case tapRemoveButton(DomainLayer.DTO.Wallet, indexPath: IndexPath)
-        case tapWallet(DomainLayer.DTO.Wallet)
-        case setWallets([DomainLayer.DTO.Wallet])
+        case openWallet(Wallet, passcodeNotCreated: Bool)
+        case tapEditButton(Wallet, indexPath: IndexPath)
+        case tapRemoveButton(Wallet, indexPath: IndexPath)
+        case tapWallet(Wallet)
+        case setWallets([Wallet])
         case tapBack
         case tapAddAccount
         case viewDidDisappear
@@ -49,7 +49,7 @@ extension ChooseAccountTypes {
             case remove(indexPath: IndexPath)
         }
 
-        var wallets: [DomainLayer.DTO.Wallet]
+        var wallets: [Wallet]
         var action: DisplayState.Action
     }
 }

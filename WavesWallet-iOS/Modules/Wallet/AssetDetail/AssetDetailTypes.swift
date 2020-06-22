@@ -54,6 +54,7 @@ extension AssetDetailTypes {
         case tapExchange
         case tapTransaction(SmartTransaction)
         case tapHistory
+        case showCard(DomainLayer.DTO.SmartAssetBalance)
         case showReceive(DomainLayer.DTO.SmartAssetBalance)
         case showSend(DomainLayer.DTO.SmartAssetBalance)
         case tapBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?)
@@ -119,6 +120,7 @@ extension AssetDetailTypes.DTO {
     }
     
     struct PriceAsset {
+        let hasNeedCard: Bool
         let price: Price
         var asset: Asset
     }

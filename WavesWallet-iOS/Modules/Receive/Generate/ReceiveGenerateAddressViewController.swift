@@ -19,7 +19,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
 
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelGenerate: UILabel!
-         
+             
     private var coordinator: ReceiveAddressCoordinator?
     var input: ReceiveGenerateAddress.DTO.GenerateType!
   

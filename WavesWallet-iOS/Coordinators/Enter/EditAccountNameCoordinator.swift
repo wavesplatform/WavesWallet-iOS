@@ -15,9 +15,9 @@ final class EditAccountNameCoordinator: Coordinator {
     weak var parent: Coordinator?
     
     private let navigationRouter: NavigationRouter
-    private let wallet: DomainLayer.DTO.Wallet
+    private let wallet: Wallet
     
-    init(navigationRouter: NavigationRouter, wallet: DomainLayer.DTO.Wallet) {
+    init(navigationRouter: NavigationRouter, wallet: Wallet) {
         self.navigationRouter = navigationRouter
         self.wallet = wallet
     }
@@ -31,7 +31,7 @@ final class EditAccountNameCoordinator: Coordinator {
 extension EditAccountNameCoordinator: EditAccountNameModuleOutput {}
 
 protocol EditAccountNameModuleInput {
-    var wallet: DomainLayer.DTO.Wallet { get }
+    var wallet: Wallet { get }
 }
 
 protocol EditAccountNameModuleOutput {}

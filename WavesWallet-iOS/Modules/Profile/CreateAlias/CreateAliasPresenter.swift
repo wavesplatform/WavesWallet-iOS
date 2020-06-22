@@ -44,10 +44,10 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
          serverEnvironmentUseCase: ServerEnvironmentRepository, transactionsUseCase: TransactionsUseCaseProtocol,
          accountBalanceUseCase: AccountBalanceUseCaseProtocol) {
         self.aliasesRepository = aliasesRepository
-        self.authorizationInteractor = authorizationUseCase
+        authorizationInteractor = authorizationUseCase
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
-        self.transactionsInteractor = transactionsUseCase
-        self.accountBalanceInteractor = accountBalanceUseCase
+        transactionsInteractor = transactionsUseCase
+        accountBalanceInteractor = accountBalanceUseCase
     }
 
     func system(feedbacks: [Feedback]) {
@@ -145,7 +145,7 @@ fileprivate extension CreateAliasPresenter {
             return self
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap { [weak self] wallet -> Observable<(Money, DomainLayer.DTO.SignedWallet)> in
+                .flatMap { [weak self] wallet -> Observable<(Money, SignedWallet)> in
                     guard let self = self else { return Observable.empty() }
 
                     return self

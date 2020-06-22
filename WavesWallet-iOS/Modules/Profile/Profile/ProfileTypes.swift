@@ -17,18 +17,18 @@ enum ProfileTypes {
 extension ProfileTypes {
 
     enum Query: Hashable {
-        case showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
+        case showAddressesKeys(wallet: Wallet)
         case showAddressBook
         case showLanguage
-        case showBackupPhrase(wallet: DomainLayer.DTO.Wallet)
-        case showChangePassword(wallet: DomainLayer.DTO.Wallet)
-        case showChangePasscode(wallet: DomainLayer.DTO.Wallet)
-        case showNetwork(wallet: DomainLayer.DTO.Wallet)
+        case showBackupPhrase(wallet: Wallet)
+        case showChangePassword(wallet: Wallet)
+        case showChangePasscode(wallet: Wallet)
+        case showNetwork(wallet: Wallet)
         case showRateApp
         case showAlertForEnabledBiometric
         case showFeedback
         case showSupport
-        case setEnabledBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
+        case setEnabledBiometric(Bool, wallet: Wallet)
         case setBackedUp(Bool)
         case logoutAccount
         case deleteAccount
@@ -41,7 +41,7 @@ extension ProfileTypes {
 
     struct State: Mutating {
         var query: Query?
-        var wallet: DomainLayer.DTO.Wallet?
+        var wallet: Wallet?
         var block: Int64?
         var displayState: DisplayState
         var isActivePushNotifications: Bool
@@ -53,7 +53,7 @@ extension ProfileTypes {
         case tapRow(ProfileTypes.ViewModel.Row)
         case setEnabledBiometric(Bool)
         case setBlock(Int64)
-        case setWallet(DomainLayer.DTO.Wallet)
+        case setWallet(Wallet)
         case setBackedUp(Bool)
         case tapLogout
         case tapDelete
