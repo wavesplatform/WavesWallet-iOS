@@ -197,7 +197,7 @@ extension PayoutsHistorySystem {
             .withLatestFrom(authorizedWallet, resultSelector: { ($0, $1) })
             .map { config, signedWallet -> DataService.Query.MassTransferDataQuery in
                 if let staking = config.staking.first {
-                    let query = DataService.Query.MassTransferDataQuery(sender: staking.addressByPayoutsAnnualPercent,
+                    let query = DataService.Query.MassTransferDataQuery(senders: staking.addressesByPayoutsAnnualPercent,
                                                                         timeStart: nil,
                                                                         timeEnd: nil,
                                                                         recipient: signedWallet.wallet.address,
