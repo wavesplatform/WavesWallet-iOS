@@ -33,8 +33,7 @@ final class WalletViewController: UIViewController {
     @IBOutlet var globalErrorView: GlobalErrorView!
 
     private var displayData: WalletDisplayData!
-
-    private let disposeBag: DisposeBag = DisposeBag()
+    
     private var displays: [WalletTypes.DisplayState.Kind] = []
 
     private var isRefreshing: Bool = false
@@ -54,8 +53,11 @@ final class WalletViewController: UIViewController {
                                                    style: .plain,
                                                    target: nil,
                                                    action: nil)
-
+    
     private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
+    private let viewDidAppearEvent = PublishRelay<Void>()
+    
+    private let disposeBag: DisposeBag = DisposeBag()
 
     var presenter: WalletPresenterProtocol!
 
@@ -115,6 +117,11 @@ final class WalletViewController: UIViewController {
         }
         scrolledTablesComponent.viewControllerWillAppear()
         navigationController?.navigationBar.backgroundColor = view.backgroundColor
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewDidAppearEvent.accept(Void())
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -211,10 +218,9 @@ extension WalletViewController {
         let readyViewFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
             return self
-                .rx
-                .viewWillAppear
-                .map { _ in WalletTypes.Event.viewWillAppear }
-                .asSignal(onErrorSignalWith: Signal.empty())
+                .viewDidAppearEvent
+                .map { WalletTypes.Event.viewWillAppear }
+                .asSignalIgnoringError()
         }
 
         let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
