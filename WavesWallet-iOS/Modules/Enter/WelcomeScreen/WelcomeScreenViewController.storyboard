@@ -16,8 +16,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhy-Qr-sVc">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhy-Qr-sVc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-qT-Z2k">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="110"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NzW-UN-qQw">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="110"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" id="fEe-2Z-sn2"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="NzW-UN-qQw" firstAttribute="height" secondItem="0ch-qT-Z2k" secondAttribute="height" id="pzm-Tj-dEj"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="0ch-qT-Z2k" secondAttribute="bottom" id="7r1-VG-rMF"/>
+                                    <constraint firstAttribute="trailing" secondItem="0ch-qT-Z2k" secondAttribute="trailing" id="8WM-EJ-LTF"/>
+                                    <constraint firstItem="0ch-qT-Z2k" firstAttribute="height" secondItem="rhy-Qr-sVc" secondAttribute="height" multiplier="0.164918" id="gG6-NB-SKP"/>
+                                    <constraint firstItem="0ch-qT-Z2k" firstAttribute="top" secondItem="rhy-Qr-sVc" secondAttribute="top" id="vzB-uN-ghe"/>
+                                    <constraint firstItem="0ch-qT-Z2k" firstAttribute="leading" secondItem="rhy-Qr-sVc" secondAttribute="leading" id="x9Y-p5-7LW"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,6 +53,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HgA-Aw-ocO"/>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="rhy-Qr-sVc" id="o1I-tH-Du2"/>
+                        <outlet property="stackView" destination="0ch-qT-Z2k" id="Pgk-hB-kIx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k0X-am-vwV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

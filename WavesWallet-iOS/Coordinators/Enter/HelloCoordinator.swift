@@ -54,9 +54,13 @@ extension HelloCoordinator: HelloLanguagesModuleOutput {
     }
 
     func userFinishedChangeLanguage() {
-        let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
-        vc.output = self        
-        navigationRouter.pushViewController(vc, animated: true)
+        let welcomeScreenBuilder: WelcomeScreenBuildable = WelcomeScreenBuilder()
+        let welcomeScreenVC = welcomeScreenBuilder.build()
+        navigationRouter.pushViewController(welcomeScreenVC)
+        
+//        let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
+//        vc.output = self
+//        navigationRouter.pushViewController(vc, animated: true)
     }
 }
 

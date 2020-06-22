@@ -24,7 +24,7 @@ final class WelcomeScreenBuilder: WelcomeScreenBuildable {
 
         // MARK: - Binding
 
-        VIPBinder.bind(view: viewController, interactor: interactor, presenter: presenter)
+        VIPBinder.bind(interactor: interactor, presenter: presenter, view: viewController)
 
         return viewController
     }

@@ -812,6 +812,8 @@
 		87861378249CD32D00FF559E /* WelcomeScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87861372249CD32D00FF559E /* WelcomeScreenProtocols.swift */; };
 		87861379249CD32D00FF559E /* WelcomeScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87861373249CD32D00FF559E /* WelcomeScreenBuilder.swift */; };
 		8786137A249CD32D00FF559E /* WelcomeScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87861374249CD32D00FF559E /* WelcomeScreenInteractor.swift */; };
+		8786137F249CDD3400FF559E /* WelcomeScreenInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8786137D249CDD3400FF559E /* WelcomeScreenInfoView.swift */; };
+		87861380249CDD3400FF559E /* WelcomeScreenInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8786137E249CDD3400FF559E /* WelcomeScreenInfoView.xib */; };
 		87D683AF241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D683AD241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.swift */; };
 		87D683B0241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D683AE241F5E000009DB2A /* PayoutsTransactionsSkeletonCell.xib */; };
 		87ED7225246B57D6002CAD29 /* UITools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87ED7224246B57D6002CAD29 /* UITools.framework */; };
@@ -2254,6 +2256,8 @@
 		87861372249CD32D00FF559E /* WelcomeScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenProtocols.swift; sourceTree = "<group>"; };
 		87861373249CD32D00FF559E /* WelcomeScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenBuilder.swift; sourceTree = "<group>"; };
 		87861374249CD32D00FF559E /* WelcomeScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenInteractor.swift; sourceTree = "<group>"; };
+		8786137D249CDD3400FF559E /* WelcomeScreenInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenInfoView.swift; sourceTree = "<group>"; };
+		8786137E249CDD3400FF559E /* WelcomeScreenInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeScreenInfoView.xib; sourceTree = "<group>"; };
 		8796A4D5244DBB8C00027E9C /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796A4E6244DC6BA00027E9C /* Pods_StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796A5E8244DE20100027E9C /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5155,6 +5159,7 @@
 		8786136D249CD01300FF559E /* WelcomeScreen */ = {
 			isa = PBXGroup;
 			children = (
+				8786137C249CDCD600FF559E /* WelcomeScreenInfoView */,
 				87861372249CD32D00FF559E /* WelcomeScreenProtocols.swift */,
 				87861373249CD32D00FF559E /* WelcomeScreenBuilder.swift */,
 				87861374249CD32D00FF559E /* WelcomeScreenInteractor.swift */,
@@ -5163,6 +5168,15 @@
 				87861370249CD32D00FF559E /* WelcomeScreenViewController.storyboard */,
 			);
 			path = WelcomeScreen;
+			sourceTree = "<group>";
+		};
+		8786137C249CDCD600FF559E /* WelcomeScreenInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				8786137D249CDD3400FF559E /* WelcomeScreenInfoView.swift */,
+				8786137E249CDD3400FF559E /* WelcomeScreenInfoView.xib */,
+			);
+			path = WelcomeScreenInfoView;
 			sourceTree = "<group>";
 		};
 		87D683AC241F5CAD0009DB2A /* PayoutsTransactionSkeletonCell */ = {
@@ -7255,6 +7269,7 @@
 				87FA5DC724223FBE002F282D /* AssetBalanceMoneyInfoView.xib in Resources */,
 				E92FAD0F226F6C050054D4AA /* WalletSortSeparatorCell.xib in Resources */,
 				E9C1B90E236C6D9500F8E988 /* ForceUpdateApp.storyboard in Resources */,
+				87861380249CDD3400FF559E /* WelcomeScreenInfoView.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				87FA5D6F24223DAA002F282D /* AddressBook.storyboard in Resources */,
 				E95E14F7229FF7A6003552B8 /* WalletAssetSkeletonCell.xib in Resources */,
@@ -8549,6 +8564,7 @@
 				87FA5D8524223E0C002F282D /* AddressBookViewController.swift in Sources */,
 				0A9797612108A60000407F67 /* Storyboards.swift in Sources */,
 				E9EE0C9823B359CE00E1AFB3 /* MyOrdersEmptyDataCell.swift in Sources */,
+				8786137F249CDD3400FF559E /* WelcomeScreenInfoView.swift in Sources */,
 				7BFB480822FC742F002B19F8 /* SkeletonAnimatable.swift in Sources */,
 				0A59330C218343B00059A77A /* AddressesKeysAliacesCell.swift in Sources */,
 				7B3681A923155499000D5592 /* ConfirmRequestFromToCell.swift in Sources */,

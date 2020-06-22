@@ -1,4 +1,4 @@
-// 
+//
 //  WelcomeScreenViewController.swift
 //  WavesWallet-iOS
 //
@@ -14,7 +14,10 @@ import UITools
 
 final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewControllable {
     var interactor: WelcomeScreenInteractable?
-    
+
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var stackView: UIStackView!
+
     private var presenterOutput: WelcomeScreenPresenterOutput?
 
     override func viewDidLoad() {
@@ -33,6 +36,8 @@ extension WelcomeScreenViewController: BindableView {
     func bindWith(_ input: WelcomeScreenPresenterOutput) {
         presenterOutput = input
         bindIfNeeded()
+        
+        
     }
 
     private func bindIfNeeded() {
