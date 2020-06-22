@@ -18,17 +18,20 @@ public struct DevelopmentConfigs {
         public let addressByPayoutsAnnualPercent: String
         public let addressStakingContract: String
         public let addressByCalculateProfit: String
+        public let addressesByPayoutsAnnualPercent: [String]
         
         public init(type: String,
                     neutrinoAssetId: String,
                     addressByPayoutsAnnualPercent: String,
                     addressStakingContract: String,
-                    addressByCalculateProfit: String) {
+                    addressByCalculateProfit: String,
+                    addressesByPayoutsAnnualPercent: [String]) {
             self.type = type
             self.neutrinoAssetId = neutrinoAssetId
             self.addressByPayoutsAnnualPercent = addressByPayoutsAnnualPercent
             self.addressStakingContract = addressStakingContract
             self.addressByCalculateProfit = addressByCalculateProfit
+            self.addressesByPayoutsAnnualPercent = addressesByPayoutsAnnualPercent
         }
     }
     
