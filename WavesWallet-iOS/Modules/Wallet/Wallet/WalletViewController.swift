@@ -22,9 +22,9 @@ final class WalletViewController: UIViewController {
     @IBOutlet var globalErrorView: GlobalErrorView!
 
     private var displayData: WalletDisplayData!
-
-    private let disposeBag: DisposeBag = DisposeBag()
+    
     private var displays: [WalletDisplayState.Kind] = [.assets]
+
 
     private var isRefreshing: Bool = false
     private var snackError: String?
@@ -39,8 +39,14 @@ final class WalletViewController: UIViewController {
                                                      target: self,
                                                      action: #selector(didTapButtonHistory))
 
-    private let sendEvent: PublishRelay<WalletEvent> = PublishRelay<WalletEvent>()
     private var state: WalletState?
+    
+    private let sendEvent: PublishRelay<WalletEvent> = PublishRelay<WalletEvent>()
+        
+    private let viewDidAppearEvent = PublishRelay<Void>()
+    
+    private let disposeBag: DisposeBag = DisposeBag()
+
 
     var presenter: WalletPresenterProtocol!
 
@@ -111,6 +117,11 @@ final class WalletViewController: UIViewController {
         tableView.startSkeletonCells()
         navigationController?.navigationBar.backgroundColor = view.backgroundColor
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewDidAppearEvent.accept(Void())
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -156,10 +167,9 @@ extension WalletViewController {
         let readyViewFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
             return self
-                .rx
-                .viewWillAppear
-                .map { _ in WalletEvent.viewWillAppear }
-                .asSignal(onErrorSignalWith: Signal.empty())
+                .viewDidAppearEvent
+                .map { WalletEvent.viewDidAppear }
+                .asSignalIgnoringError()
         }
 
         let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in

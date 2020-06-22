@@ -16,7 +16,7 @@ enum WalletEvent {
     case setAssets([DomainLayer.DTO.SmartAssetBalance])
     case handlerError(Error)
     case refresh
-    case viewWillAppear
+    case viewDidAppear
     case viewDidDisappear
     case tapSection(Int)
     case changeDisplay(WalletDisplayState.Kind)

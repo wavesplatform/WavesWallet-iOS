@@ -110,7 +110,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         resetAnimateType(state: &state)
 
         switch event {
-        case .viewWillAppear:
+        case .viewDidAppear:
             state.displayState.isAppeared = true
             state.displayState.refreshData = .refresh
 
