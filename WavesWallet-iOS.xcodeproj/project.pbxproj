@@ -406,6 +406,10 @@
 		7B74DBBA24695E3500AB1109 /* GrpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBB924695E3500AB1109 /* GrpcClient.swift */; };
 		7B74DBBC246AABB300AB1109 /* ServerEnvironmentRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBBB246AABB300AB1109 /* ServerEnvironmentRepositoryImp.swift */; };
 		7B74DBC1246AEF1A00AB1109 /* TransactionsDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBBE246AEC3D00AB1109 /* TransactionsDAO.swift */; };
+		7B7973BE24A2041C001D15B4 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7973BD24A2041C001D15B4 /* SplashScreen.storyboard */; };
+		7B7973C024A2045F001D15B4 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7973BF24A2045F001D15B4 /* SplashScreenVC.swift */; };
+		7B7973C224A20474001D15B4 /* SplashScreenGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7973C124A20474001D15B4 /* SplashScreenGradientView.swift */; };
+		7B7973C424A21C45001D15B4 /* SplashScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7973C324A21C45001D15B4 /* SplashScreenCoordinator.swift */; };
 		7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */; };
 		7B83A7D322D8C74F0038180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D222D8C74F0038180D /* AppDelegate.swift */; };
 		7B83A7D522D8C74F0038180D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D422D8C74F0038180D /* ViewController.swift */; };
@@ -1871,6 +1875,10 @@
 		7B74DBB924695E3500AB1109 /* GrpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrpcClient.swift; sourceTree = "<group>"; };
 		7B74DBBB246AABB300AB1109 /* ServerEnvironmentRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentRepositoryImp.swift; sourceTree = "<group>"; };
 		7B74DBBE246AEC3D00AB1109 /* TransactionsDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsDAO.swift; sourceTree = "<group>"; };
+		7B7973BD24A2041C001D15B4 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
+		7B7973BF24A2045F001D15B4 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
+		7B7973C124A20474001D15B4 /* SplashScreenGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenGradientView.swift; sourceTree = "<group>"; };
+		7B7973C324A21C45001D15B4 /* SplashScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenCoordinator.swift; sourceTree = "<group>"; };
 		7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInvalidPriceView.swift; sourceTree = "<group>"; };
 		7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexCreateOrderInvalidPriceView.xib; sourceTree = "<group>"; };
 		7B83A7D022D8C74E0038180D /* DummyForTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DummyForTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3390,6 +3398,7 @@
 				0ADD800F21F22FFA0075FC59 /* Profile */,
 				875393562423BFC100394762 /* Reveive */,
 				7B26A88822ED17EC00E7B024 /* UITest */,
+				7B7973C324A21C45001D15B4 /* SplashScreenCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -3497,6 +3506,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7B7973BC24A203F4001D15B4 /* SplashScreen */,
 				7B975CA82472D2CB00F7DE89 /* Wallet */,
 				87ED7233246C195D002CAD29 /* BuyCrypto */,
 				87FA5CF524223B29002F282D /* Account */,
@@ -4260,6 +4270,16 @@
 				7B74DBBE246AEC3D00AB1109 /* TransactionsDAO.swift */,
 			);
 			path = DAO;
+			sourceTree = "<group>";
+		};
+		7B7973BC24A203F4001D15B4 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7B7973BD24A2041C001D15B4 /* SplashScreen.storyboard */,
+				7B7973BF24A2045F001D15B4 /* SplashScreenVC.swift */,
+				7B7973C124A20474001D15B4 /* SplashScreenGradientView.swift */,
+			);
+			path = SplashScreen;
 			sourceTree = "<group>";
 		};
 		7B83A7D122D8C74F0038180D /* DummyForTest */ = {
@@ -7465,6 +7485,7 @@
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				87FA5DBE24223FBE002F282D /* AssetTransactionCell.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
+				7B7973BE24A2041C001D15B4 /* SplashScreen.storyboard in Resources */,
 				E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */,
 				E922D46523CF00B3002CFCED /* TradeFilterHeaderView.xib in Resources */,
 			);
@@ -7499,7 +7520,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/bash -l";
-			shellScript = "exit\nGENERATED_PATH=\"$PROJECT_DIR/WavesWallet-iOS/Generated\"\nPROJECT_PATH=\"$PROJECT_DIR/WavesWallet-iOS\"\nPROJECT_PARENT_PATH=$PROJECT_DIR\n\necho \"SwiftGen Begin\"\n\necho \"SwiftGen $PROJECT_PATH\"\necho \"SwiftGen $PROJECT_PARENT_PATH\"\n\nHAS_NEED_GENERATE_CODE=\"$(ruby $PROJECT_DIR/fastlane/swiftgenhash.ruby Wallet $PROJECT_PATH $PROJECT_PARENT_PATH)\"\n\necho \"SwiftGen Need $HAS_NEED_GENERATE_CODE\"\n\nif [ \"$HAS_NEED_GENERATE_CODE\" == false ] ; then\n    echo \"SwiftGen Cancel\"\n    exit\nfi \n\nrm -rf $GENERATED_PATH\nmkdir $GENERATED_PATH\n\n$PODS_ROOT/SwiftGen/bin/swiftgen storyboards -t swift4 -o $GENERATED_PATH/Storyboards.swift $PROJECT_PATH\n\nSTRINGS=\"\"\nfor i in $(find ./WavesWallet-iOS/ -name \"*.strings\"); do\nif [[ $i = *\"en.lproj\"* ]]; then\nSTRINGS=\"$STRINGS $i\"\necho \"$STRINGS\"\nfi\ndone\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=Localizable --templatePath $PROJECT_PARENT_PATH/Templates/structured-swift4.stencil -o $GENERATED_PATH/Localizable.swift $STRINGS\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $GENERATED_PATH/Images.swift --param enumName=Images $PROJECT_PATH/Resources/Assets.xcassets\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=AccessibilityIdentifiers --templatePath $PROJECT_PARENT_PATH/Templates/structured-swift4.stencil -o $GENERATED_PATH/AccessibilityIdentifiers.swift $PROJECT_PATH/Resources/AccessibilityIdentifiers.strings\n\necho \"SwiftGen End\"\n\n\n";
+			shellScript = "GENERATED_PATH=\"$PROJECT_DIR/WavesWallet-iOS/Generated\"\nPROJECT_PATH=\"$PROJECT_DIR/WavesWallet-iOS\"\nPROJECT_PARENT_PATH=$PROJECT_DIR\n\necho \"SwiftGen Begin\"\n\necho \"SwiftGen $PROJECT_PATH\"\necho \"SwiftGen $PROJECT_PARENT_PATH\"\n\nHAS_NEED_GENERATE_CODE=\"$(ruby $PROJECT_DIR/fastlane/swiftgenhash.ruby Wallet $PROJECT_PATH $PROJECT_PARENT_PATH)\"\n\necho \"SwiftGen Need $HAS_NEED_GENERATE_CODE\"\n\nif [ \"$HAS_NEED_GENERATE_CODE\" == false ] ; then\n    echo \"SwiftGen Cancel\"\n    exit\nfi \n\nrm -rf $GENERATED_PATH\nmkdir $GENERATED_PATH\n\n$PODS_ROOT/SwiftGen/bin/swiftgen storyboards -t swift4 -o $GENERATED_PATH/Storyboards.swift $PROJECT_PATH\n\nSTRINGS=\"\"\nfor i in $(find ./WavesWallet-iOS/ -name \"*.strings\"); do\nif [[ $i = *\"en.lproj\"* ]]; then\nSTRINGS=\"$STRINGS $i\"\necho \"$STRINGS\"\nfi\ndone\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=Localizable --templatePath $PROJECT_PARENT_PATH/Templates/structured-swift4.stencil -o $GENERATED_PATH/Localizable.swift $STRINGS\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $GENERATED_PATH/Images.swift --param enumName=Images $PROJECT_PATH/Resources/Assets.xcassets\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=AccessibilityIdentifiers --templatePath $PROJECT_PARENT_PATH/Templates/structured-swift4.stencil -o $GENERATED_PATH/AccessibilityIdentifiers.swift $PROJECT_PATH/Resources/AccessibilityIdentifiers.strings\n\necho \"SwiftGen End\"\n\n\n";
 		};
 		115804895CF3C7D1FC224338 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8364,6 +8385,7 @@
 				E9D36DEF2175C755001E6DF0 /* ReceiveInvoiceInteractor.swift in Sources */,
 				04A403222164D80200652F21 /* EnterStartTypes.swift in Sources */,
 				7B3902AD2237D31900AAFDB8 /* TransactionCardShowAllCell.swift in Sources */,
+				7B7973C024A2045F001D15B4 /* SplashScreenVC.swift in Sources */,
 				E9B0879F2163886800937644 /* DexChartCandlePriceView.swift in Sources */,
 				E9D36DCD2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift in Sources */,
 				0ADD7FAB21F22FB60075FC59 /* PasteboardButton.swift in Sources */,
@@ -8636,6 +8658,7 @@
 				87FA5DDA24223FFE002F282D /* AssetTransactionSkeletonCell.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
 				E9B087C82163886800937644 /* DexTraderContainerButton.swift in Sources */,
+				7B7973C224A20474001D15B4 /* SplashScreenGradientView.swift in Sources */,
 				0AF6AD25218A54840004F107 /* CopyableImageView.swift in Sources */,
 				0A762D17214FF1CD00BE9204 /* InputTextField.swift in Sources */,
 				87FA5DC824223FBE002F282D /* AssetChartCell.swift in Sources */,
@@ -8758,6 +8781,7 @@
 				0AFBCA8A2113254100285BCB /* InvestmentModuleBuilder.swift in Sources */,
 				E9B088142163886800937644 /* DexMarketInteractorProtocol.swift in Sources */,
 				87FA5D8424223E0C002F282D /* AddressBookTypes.swift in Sources */,
+				7B7973C424A21C45001D15B4 /* SplashScreenCoordinator.swift in Sources */,
 				87FA5D6B24223D2A002F282D /* AppNewsView.swift in Sources */,
 				E9B087FF2163886800937644 /* DexMyOrdersInteractor.swift in Sources */,
 				7B26A87F22ED13F300E7B024 /* WidgetSettingsViewController.swift in Sources */,

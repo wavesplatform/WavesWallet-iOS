@@ -90,7 +90,10 @@ final class AppCoordinator: Coordinator {
         if let deepLink = deepLink {
             openURL(link: deepLink)
         }
-
+        
+        
+        // открывается поверх всех экранов
+        addChildCoordinatorAndStart(childCoordinator: SplashScreenCoordinator())
         checkAndRunForceUpdate()
 
         checkAndRunServerMaintenance()
