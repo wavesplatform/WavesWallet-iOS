@@ -91,6 +91,8 @@ final class SplashScreenGradientView: UIView {
         runSplashAnimation(maskLayer: tooptriangleMaskLayer, duration: Constants.splashDuration,
                            delay: Constants.splashDelay, inverseMask: false)
 
+        runAphaAnimation(layer: titleLabel.layer, duration: Constants.splashDuration, delay: Constants.splashDelay)
+        
         runAphaAnimation(layer: whiteCanvas.layer, duration: Constants.splashDuration, delay: Constants.splashDelay)
     }
 }

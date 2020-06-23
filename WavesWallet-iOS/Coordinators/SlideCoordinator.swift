@@ -34,7 +34,7 @@ final class SlideCoordinator: Coordinator {
 
     func start() {
 
-        self.windowRouter.setRootViewController(slideMenuRouter.slideMenu, animated: .crossDissolve)
+        self.windowRouter.setRootViewController(slideMenuRouter.slideMenu, animated: nil)
     
         
         if let wallet = wallet {

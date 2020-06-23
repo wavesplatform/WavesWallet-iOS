@@ -12,12 +12,20 @@
         <scene sceneID="uKJ-1h-g2m">
             <objects>
                 <viewController storyboardIdentifier="SplashScreenVC" id="IU7-ef-W4U" customClass="SplashScreenVC" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="7ac-J8-p4q" customClass="SplashScreenGradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="7ac-J8-p4q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves.Exchange" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wmg-wQ-ChQ">
-                                <rect key="frame" x="16" y="758" width="382" height="24"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nh9-wV-Lk2" customClass="SplashScreenGradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="U33-er-O1C"/>
+                                <connections>
+                                    <outlet property="titleLabel" destination="LZ6-OT-t6r" id="hyO-XB-Nwb"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves.Exchange" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZ6-OT-t6r">
+                                <rect key="frame" x="16" y="792" width="382" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -25,17 +33,18 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Wmg-wQ-ChQ" firstAttribute="leading" secondItem="iEM-9D-xmG" secondAttribute="leading" constant="16" id="7EA-Jr-86F"/>
-                            <constraint firstItem="iEM-9D-xmG" firstAttribute="trailing" secondItem="Wmg-wQ-ChQ" secondAttribute="trailing" constant="16" id="D2S-iU-yUA"/>
-                            <constraint firstItem="iEM-9D-xmG" firstAttribute="bottom" secondItem="Wmg-wQ-ChQ" secondAttribute="bottom" constant="80" id="sti-Tk-aiX"/>
+                            <constraint firstAttribute="bottom" secondItem="LZ6-OT-t6r" secondAttribute="bottom" constant="80" id="08g-SS-BJz"/>
+                            <constraint firstItem="LZ6-OT-t6r" firstAttribute="leading" secondItem="iEM-9D-xmG" secondAttribute="leading" constant="16" id="0Cr-XL-wYt"/>
+                            <constraint firstItem="iEM-9D-xmG" firstAttribute="trailing" secondItem="LZ6-OT-t6r" secondAttribute="trailing" constant="16" id="5lK-lz-rbK"/>
+                            <constraint firstAttribute="bottom" secondItem="nh9-wV-Lk2" secondAttribute="bottom" id="M2H-Lw-bCC"/>
+                            <constraint firstItem="nh9-wV-Lk2" firstAttribute="top" secondItem="7ac-J8-p4q" secondAttribute="top" id="RnT-Vn-snW"/>
+                            <constraint firstItem="nh9-wV-Lk2" firstAttribute="trailing" secondItem="iEM-9D-xmG" secondAttribute="trailing" id="jK3-tp-3gX"/>
+                            <constraint firstItem="nh9-wV-Lk2" firstAttribute="leading" secondItem="iEM-9D-xmG" secondAttribute="leading" id="k6C-Us-VSv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iEM-9D-xmG"/>
-                        <connections>
-                            <outlet property="titleLabel" destination="Wmg-wQ-ChQ" id="0nj-Zk-UlH"/>
-                        </connections>
                     </view>
                     <connections>
-                        <outlet property="gradientView" destination="7ac-J8-p4q" id="7uI-uP-tzJ"/>
+                        <outlet property="gradientView" destination="nh9-wV-Lk2" id="Tfk-zi-Hck"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JZt-7X-n8X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
