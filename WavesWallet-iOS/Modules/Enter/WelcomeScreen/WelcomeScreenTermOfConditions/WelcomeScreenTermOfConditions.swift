@@ -9,7 +9,7 @@
 import UIKit
 import UITools
 
-final class WelcomeScreenInfoView: UIView, NibLoadable, ResetableView {
+final class WelcomeScreenTermOfConditions: UIView, NibLoadable, ResetableView {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailsLabel: UILabel!

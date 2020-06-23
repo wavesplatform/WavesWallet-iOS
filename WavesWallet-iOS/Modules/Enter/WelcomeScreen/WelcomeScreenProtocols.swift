@@ -6,6 +6,7 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
+import RxCocoa
 import RxSwift
 
 // MARK: - Builder
@@ -33,4 +34,6 @@ struct WelcomeScreenInteractorOutput {}
 
 struct WelcomeScreenPresenterOutput {}
 
-struct WelcomeScreenViewOutput {}
+struct WelcomeScreenViewOutput {
+    let viewWillAppear: Observable<Void>
+}

@@ -4010,6 +4010,51 @@ internal enum Localizable {
       }
     }
 
+    internal enum Welcomescreen {
+      /// All your Waves Account data is encrypted and stored only on that device where it is used. 
+      internal static var allYourWavesAccountDataIsEncrypted: String { Localizable.tr("Waves", "welcomeScreen.allYourWavesAccountDataIsEncrypted") }
+      internal static var allYourWavesAccountDataIsEncryptedKey: String { "welcomeScreen.allYourWavesAccountDataIsEncrypted" }
+      /// I have read and agree with the Privacy Policy
+      internal static var iHaveReadPrivacy: String { Localizable.tr("Waves", "welcomeScreen.iHaveReadPrivacy") }
+      internal static var iHaveReadPrivacyKey: String { "welcomeScreen.iHaveReadPrivacy" }
+      /// I have read and agree with the Terms and Conditions
+      internal static var iHaveReadTerms: String { Localizable.tr("Waves", "welcomeScreen.iHaveReadTerms") }
+      internal static var iHaveReadTermsKey: String { "welcomeScreen.iHaveReadTerms" }
+      /// Choose your favorite investment products and invest much more profitably than in a bank.
+      internal static var investmentsDetails: String { Localizable.tr("Waves", "welcomeScreen.investmentsDetails") }
+      internal static var investmentsDetailsKey: String { "welcomeScreen.investmentsDetails" }
+      /// Investments
+      internal static var investmentsTitle: String { Localizable.tr("Waves", "welcomeScreen.investmentsTitle") }
+      internal static var investmentsTitleKey: String { "welcomeScreen.investmentsTitle" }
+      /// Buy cryptocurrency with 0% fee with a bank card. Available in any currency.
+      internal static var simpleWithdrawalDetails: String { Localizable.tr("Waves", "welcomeScreen.simpleWithdrawalDetails") }
+      internal static var simpleWithdrawalDetailsKey: String { "welcomeScreen.simpleWithdrawalDetails" }
+      /// Simple withdrawal and deposit of funds
+      internal static var simpleWithdrawalTitle: String { Localizable.tr("Waves", "welcomeScreen.simpleWithdrawalTitle") }
+      internal static var simpleWithdrawalTitleKey: String { "welcomeScreen.simpleWithdrawalTitle" }
+      /// Terms & Conditions
+      internal static var termOfConditions: String { Localizable.tr("Waves", "welcomeScreen.termOfConditions") }
+      internal static var termOfConditionsKey: String { "welcomeScreen.termOfConditions" }
+      /// Trade cryptocurrencies quickly and securely with all the advantages of a centralized exchange, while maintaining control over the funds.
+      internal static var welcomeDetails: String { Localizable.tr("Waves", "welcomeScreen.welcomeDetails") }
+      internal static var welcomeDetailsKey: String { "welcomeScreen.welcomeDetails" }
+      /// Welcome to Waves.Exchange!
+      internal static var welcomeTitle: String { Localizable.tr("Waves", "welcomeScreen.welcomeTitle") }
+      internal static var welcomeTitleKey: String { "welcomeScreen.welcomeTitle" }
+
+      internal enum Ihavereadprivacy {
+        /// Privacy Policy
+        internal static var linkWords: String { Localizable.tr("Waves", "welcomeScreen.iHaveReadPrivacy.linkWords") }
+        internal static var linkWordsKey: String { "welcomeScreen.iHaveReadPrivacy.linkWords" }
+      }
+
+      internal enum Ihavereadterms {
+        /// Terms and Conditions
+        internal static var linkWords: String { Localizable.tr("Waves", "welcomeScreen.iHaveReadTerms.linkWords") }
+        internal static var linkWordsKey: String { "welcomeScreen.iHaveReadTerms.linkWords" }
+      }
+    }
+
     internal enum Widgetsettings {
 
       internal enum Actionsheet {
