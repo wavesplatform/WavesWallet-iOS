@@ -13,7 +13,7 @@ import Extensions
 struct NetworkSettingsModuleBuilder: ModuleBuilderOutput {
 
     struct Input: NetworkSettingsModuleInput {
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: Wallet
     }
 
     var output: NetworkSettingsModuleOutput

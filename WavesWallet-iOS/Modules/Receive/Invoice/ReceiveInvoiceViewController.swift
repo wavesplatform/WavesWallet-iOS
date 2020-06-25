@@ -20,6 +20,7 @@ final class ReceiveInvoiceViewController: UIViewController {
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private var displayInfo: ReceiveInvoice.DTO.DisplayInfo?
+    private var receiveAddressCoordinator: Coordinator?
     
     var input: AssetList.DTO.Input!
     
@@ -45,8 +46,13 @@ final class ReceiveInvoiceViewController: UIViewController {
     @IBAction private func continueTapped(_ sender: Any) {
         guard let info = displayInfo else { return }
         
-        let vc = ReceiveGenerateAddressModuleBuilder().build(input: .invoice(info))
-        navigationController?.pushViewController(vc, animated: true)
+        guard let navigationController = self.navigationController else { return }
+        let router = NavigationRouter(navigationController: navigationController)
+        
+        receiveAddressCoordinator = ReceiveAddressCoordinator(navigationRouter: router,
+                                                              generateType: .invoice(info))        
+        
+        receiveAddressCoordinator?.start()
         
         UseCasesFactory.instance.analyticManager.trackEvent(.receive(.receiveTap(assetName: info.assetName)))
     }

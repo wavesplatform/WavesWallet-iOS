@@ -6,22 +6,21 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import DomainLayer
 import Extensions
+import RxSwift
+import UIKit
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
 }
 
 final class AddressesKeysCoordinator: Coordinator {
-
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
     private let navigationRouter: NavigationRouter
-    private let wallet: DomainLayer.DTO.Wallet    
+    private let wallet: Wallet
     private var rootViewController: UIViewController?
 
     private let authorization = UseCasesFactory.instance.authorization
@@ -30,7 +29,7 @@ final class AddressesKeysCoordinator: Coordinator {
     private var currentPopup: PopupViewController?
 
     init(navigationRouter: NavigationRouter,
-         wallet: DomainLayer.DTO.Wallet,
+         wallet: Wallet,
          applicationCoordinator: ApplicationCoordinatorProtocol) {
         self.navigationRouter = navigationRouter
         self.wallet = wallet
@@ -39,8 +38,8 @@ final class AddressesKeysCoordinator: Coordinator {
 
     func start() {
         let vc = AddressesKeysModuleBuilder(output: self).build(input: .init(wallet: wallet))
-        self.rootViewController = vc
-        self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+        rootViewController = vc
+        navigationRouter.pushViewController(vc, animated: true) { [weak self] in
             guard let self = self else { return }
             self.removeFromParentCoordinator()
         }
@@ -50,30 +49,27 @@ final class AddressesKeysCoordinator: Coordinator {
 // MARK: AddressesKeysModuleOutput
 
 extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
-
     func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
-
         if aliases.isEmpty {
             let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
             controller.delegate = self
             let popup = PopupViewController()
             popup.contentHeight = Constants.popoverHeight
             popup.present(contentViewController: controller)
-            self.currentPopup = popup
+            currentPopup = popup
         } else {
             let controller = AliasesModuleBuilder(output: self).build(input: .init(aliases: aliases))
-            let popup = PopupViewController()            
+            let popup = PopupViewController()
             popup.present(contentViewController: controller)
-            self.currentPopup = popup
+            currentPopup = popup
         }
     }
 
-    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet,
-                                     callback: @escaping (DomainLayer.DTO.SignedWallet?) -> Void) {
-
+    func addressesKeysNeedPrivateKey(wallet _: Wallet,
+                                     callback: @escaping (SignedWallet?) -> Void) {
         authorization
             .authorizedWallet()
-            .subscribe(onNext: { (signedWallet) in
+            .subscribe(onNext: { signedWallet in
                 callback(signedWallet)
             })
             .disposed(by: disposeBag)
@@ -84,8 +80,7 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
 
 extension AddressesKeysCoordinator: AliasesModuleOutput {
     func aliasesCreateAlias() {
-
-        self.currentPopup?.dismissPopup {
+        currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
             UseCasesFactory.instance.analyticManager.trackEvent(.alias(.createProfile))
@@ -97,7 +92,7 @@ extension AddressesKeysCoordinator: AliasesModuleOutput {
 
 extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
     func aliasWithoutUserTapCreateNewAlias() {
-        self.currentPopup?.dismissPopup {
+        currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc, animated: true)
             UseCasesFactory.instance.analyticManager.trackEvent(.alias(.createProfile))
@@ -108,7 +103,7 @@ extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
 // MARK: CreateAliasModuleOutput
 
 extension AddressesKeysCoordinator: CreateAliasModuleOutput {
-    func createAliasCompletedCreateAlias(_ alias: String) {
+    func createAliasCompletedCreateAlias(_: String) {
         if let rootViewController = self.rootViewController {
             navigationRouter.popToViewController(rootViewController, animated: true)
         }

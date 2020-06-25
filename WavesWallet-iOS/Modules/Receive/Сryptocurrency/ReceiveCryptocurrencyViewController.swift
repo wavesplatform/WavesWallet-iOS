@@ -29,7 +29,8 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     @IBOutlet private weak var coinomatErrorView: CoinomatServiceErrorView!
     
     @IBOutlet private weak var warningContainersBottom: NSLayoutConstraint!
-    
+
+    private var receiveAddressCoordinator: Coordinator?
 
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var displayInfo: ReceiveCryptocurrency.DTO.DisplayInfo?
@@ -56,8 +57,15 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
 
     @IBAction private func continueTapped(_: Any) {
         guard let info = displayInfo else { return }
-        let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryptoCurrency(info))
-        navigationController?.pushViewController(vc, animated: true)
+        
+        
+        guard let navigationController = self.navigationController else { return }
+        let router = NavigationRouter(navigationController: navigationController)
+        
+        receiveAddressCoordinator = ReceiveAddressCoordinator(navigationRouter: router,
+                                                              generateType: .cryptoCurrency(info))
+        
+        receiveAddressCoordinator?.start()
 
         UseCasesFactory.instance.analyticManager.trackEvent(.receive(.receiveTap(assetName: info.asset.displayName)))
     }

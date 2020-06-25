@@ -91,19 +91,19 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
         let wallets = self
             .walletsRepository
             .wallets()
-            .flatMap { wallets -> Observable<[DomainLayer.DTO.Wallet]> in
+            .flatMap { wallets -> Observable<[Wallet]> in
 
-                let newWallets = wallets.map({ wallet -> DomainLayer.DTO.Wallet in
+                let newWallets = wallets.map({ wallet -> Wallet in
                     let id = UUID().uuidString
                     let address = DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(wallet.publicKey)).address
-                    return DomainLayer.DTO.Wallet(name: wallet.name,
-                                                  address: address,
-                                                  publicKey: wallet.publicKey,
-                                                  isLoggedIn: false,
-                                                  isBackedUp: wallet.isBackedUp,
-                                                  hasBiometricEntrance: false,
-                                                  id: id,
-                                                  isNeedShowWalletCleanBanner: wallet.isNeedShowWalletCleanBanner)
+                    return Wallet(name: wallet.name,
+                                  address: address,
+                                  publicKey: wallet.publicKey,
+                                  isLoggedIn: false,
+                                  isBackedUp: wallet.isBackedUp,
+                                  hasBiometricEntrance: false,
+                                  id: id,
+                                  isNeedShowWalletCleanBanner: wallet.isNeedShowWalletCleanBanner)
                 })
 
                 return Observable.just(newWallets)
@@ -130,7 +130,7 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
         return wallets
     }
 
-    private func migrateOldSeed(wallet: DomainLayer.DTO.Wallet, seedId: String) -> Observable<Void> {
+    private func migrateOldSeed(wallet: Wallet, seedId: String) -> Observable<Void> {
 
         return Observable.create { observer -> Disposable in
 
@@ -169,11 +169,7 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
         }
     }
 
-    private func addedWalletEncryption(wallet: DomainLayer.DTO.Wallet, seedId: String) -> Observable<DomainLayer.DTO.WalletEncryption> {
-
-        return self.walletsRepository.saveWalletEncryption(.init(publicKey: wallet.publicKey,
-                                                                 kind: .none,
-                                                                 seedId: seedId))
+    private func addedWalletEncryption(wallet: Wallet, seedId: String) -> Observable<DomainWalletEncryption> {
+        self.walletsRepository.saveWalletEncryption(.init(publicKey: wallet.publicKey, kind: .none, seedId: seedId))
     }
-
 }

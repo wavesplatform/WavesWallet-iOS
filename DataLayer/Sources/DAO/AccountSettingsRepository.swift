@@ -159,7 +159,8 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
                         .objects(AccountEnvironment.self)
                         .toArray()
                         .forEach { account in
-                            account.realm?.delete(account)
+                            realm.delete(account)
+//                            account.realm?.delete(account)
                         }
 
                     let environment = AccountEnvironment()
@@ -167,7 +168,7 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
                     environment.matcherUrl = accountEnvironment.matcherUrl
                     environment.nodeUrl = accountEnvironment.nodeUrl
                     environment.spamUrl = accountEnvironment.spamUrl
-                    realm.add(environment, update: .all)
+                    realm.add(environment, update: .error)
                 }
 
                 observer.onNext(true)

@@ -42,7 +42,7 @@ public final class StakingBalanceServiceImpl: StakingBalanceService {
                 return strongSelf.accountBalanceService.balance(by: assetId, wallet: signedWallet)
             }
             .map { smartBalance -> AvailableStakingBalance in
-                AvailableStakingBalance(balance: smartBalance.totalBalance,
+                AvailableStakingBalance(balance: smartBalance.availableBalance,
                                         assetTicker: smartBalance.asset.ticker,
                                         precision: smartBalance.asset.precision,
                                         logoUrl: smartBalance.asset.iconLogoUrl,

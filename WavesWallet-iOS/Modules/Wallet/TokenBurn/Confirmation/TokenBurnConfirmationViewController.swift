@@ -80,18 +80,17 @@ private extension TokenBurnConfirmationViewController {
     func setupData() {
         labelFeeAmount.text = input.fee.displayText + " WAVES"
         
-        if input.asset.asset.isReusable == true {
+        if input.asset.asset.isReusable {
             labelType.text = Localizable.Waves.Tokenburn.Label.reissuable
         } else {
             labelType.text = Localizable.Waves.Tokenburn.Label.notReissuable
         }
         
         if let ticker = input.asset.asset.ticker {
-            labelAssetName.isHidden = true
+            labelAssetName.text = nil
             tickerView.update(with: .init(text: ticker, style: .soft))
-        }
-        else {
-            tickerView.isHidden = true
+        } else {
+            tickerView.update(with: .init(text: "", style: .custom(backgroundColor: .clear, textColor: .clear)))
             labelAssetName.text = input.asset.asset.displayName
         }
         

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Waves Platform. All rights reserved.
 //
 
+import AppTools
 import RxCocoa
 import RxSwift
 
@@ -30,10 +31,55 @@ protocol WelcomeScreenPresentable {}
 
 // MARK: Outputs
 
-struct WelcomeScreenInteractorOutput {}
+struct WelcomeScreenInteractorOutput {
+    let viewWillAppear: ControlEvent<Void>
+}
 
-struct WelcomeScreenPresenterOutput {}
+struct WelcomeScreenPresenterOutput {
+    let viewModel: Driver<[WelcomeScreenViewModel]>
+}
 
 struct WelcomeScreenViewOutput {
-    let viewWillAppear: Observable<Void>
+    let viewWillAppear: ControlEvent<Void>
+}
+
+enum WelcomeScreenViewModel {
+    case hello
+    case easyRefill
+    case invesmentInfo
+    case termOfConditions
+}
+
+extension WelcomeScreenViewModel {
+    var title: String {
+        switch self {
+        case .hello: return Localizable.Waves.Welcomescreen.welcomeTitle
+        case .easyRefill: return Localizable.Waves.Welcomescreen.simpleWithdrawalTitle
+        case .invesmentInfo: return Localizable.Waves.Welcomescreen.investmentsTitle
+        case .termOfConditions: return Localizable.Waves.Welcomescreen.termOfConditions
+        }
+    }
+    
+    var details: String {
+        switch self {
+        case .hello: return Localizable.Waves.Welcomescreen.welcomeDetails
+        case .easyRefill: return Localizable.Waves.Welcomescreen.simpleWithdrawalDetails
+        case .invesmentInfo: return Localizable.Waves.Welcomescreen.investmentsDetails
+        case .termOfConditions: return Localizable.Waves.Welcomescreen.allYourWavesAccountDataIsEncrypted
+        }
+    }
+    
+    var termOfConditionsItems: [TitledModel<String>] {
+        switch self {
+        case .hello: return []
+        case .easyRefill: return []
+        case .invesmentInfo: return []
+        case .termOfConditions:
+            let privacyPolicyText = TitledModel<String>(title: Localizable.Waves.Welcomescreen.iHaveReadPrivacy,
+                                                        model: Localizable.Waves.Welcomescreen.Ihavereadprivacy.linkWords)
+            let termOfConditionText = TitledModel<String>(title: Localizable.Waves.Welcomescreen.iHaveReadTerms,
+                                                          model: Localizable.Waves.Welcomescreen.Ihavereadterms.linkWords)
+            return [privacyPolicyText, termOfConditionText]
+        }
+    }
 }

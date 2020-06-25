@@ -25,7 +25,7 @@ public struct WalletSeedRepositoryChangePasswordQuery {
 }
 
 public protocol WalletSeedRepositoryProtocol {
-    func seed(for address: String, publicKey: String, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed>
-    func saveSeed(for walletSeed: DomainLayer.DTO.WalletSeed, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed>
+    func seed(for address: String, publicKey: String, seedId: String, password: String) -> Observable<WalletSeed>
+    func saveSeed(for walletSeed: WalletSeed, seedId: String, password: String) -> Observable<WalletSeed>
     func deleteSeed(for address: String, seedId: String) -> Observable<Bool>
 }

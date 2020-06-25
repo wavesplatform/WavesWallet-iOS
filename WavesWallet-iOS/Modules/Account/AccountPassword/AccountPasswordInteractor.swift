@@ -19,41 +19,41 @@ enum AccountPasswordInteractorError: Error {
 }
 
 protocol AccountPasswordInteractorProtocol {
-    func logIn(wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<DomainLayer.DTO.Wallet>
-    func verifyAccess(wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<DomainLayer.DTO.SignedWallet>
+    func logIn(wallet: Wallet, password: String) -> Observable<Wallet>
+    func verifyAccess(wallet: Wallet, password: String) -> Observable<SignedWallet>
 }
 
 final class AccountPasswordInteractor: AccountPasswordInteractorProtocol {
 
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
-    func logIn(wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<DomainLayer.DTO.Wallet> {
+    func logIn(wallet: Wallet, password: String) -> Observable<Wallet> {
 
         return authorizationInteractor
             .auth(type: .password(password), wallet: wallet)
-            .flatMap({ status -> Observable<DomainLayer.DTO.Wallet> in
+            .flatMap({ status -> Observable<Wallet> in
                 if case .completed(let wallet) = status {
                     return Observable.just(wallet)
                 }
                 return Observable.never()
             })
-            .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.Wallet> in
+            .catchError(weak: self, handler: { (owner, error) -> Observable<Wallet> in
                 return Observable.error(owner.handlerError(error))
             })
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
     }
 
-    func verifyAccess(wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<DomainLayer.DTO.SignedWallet> {
+    func verifyAccess(wallet: Wallet, password: String) -> Observable<SignedWallet> {
         return authorizationInteractor
             .verifyAccess(type: .password(password), wallet: wallet)
-            .flatMap({ status -> Observable<DomainLayer.DTO.SignedWallet> in
+            .flatMap({ status -> Observable<SignedWallet> in
                 if case .completed(let signedWallet) = status {
                     return Observable.just(signedWallet)
                 }
                 return Observable.never()
             })
-            .catchError(weak: self, handler: { (owner, error) -> Observable<DomainLayer.DTO.SignedWallet> in
+            .catchError(weak: self, handler: { (owner, error) -> Observable<SignedWallet> in
                 return Observable.error(owner.handlerError(error))
             })
             .share()

@@ -20,6 +20,6 @@ final class WelcomeScreenInteractor: WelcomeScreenInteractable {
 
 extension WelcomeScreenInteractor: IOTransformer {
     func transform(_ input: WelcomeScreenViewOutput) -> WelcomeScreenInteractorOutput {
-        return WelcomeScreenInteractorOutput()
+        return WelcomeScreenInteractorOutput(viewWillAppear: input.viewWillAppear)
     }
 }

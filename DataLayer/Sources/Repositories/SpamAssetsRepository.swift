@@ -17,7 +17,23 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
         
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
-    
+        
+    private var internalSpamAssets: [String: [SpamAssetId]] = [:]
+
+    private var spamAssets: [String: [SpamAssetId]] {
+        get {
+            objc_sync_enter(self)
+            defer { objc_sync_exit(self) }
+            return internalSpamAssets
+        }
+
+        set {
+            objc_sync_enter(self)
+            defer { objc_sync_exit(self) }
+            internalSpamAssets = newValue
+        }
+    }
+            
     init(environmentRepository: EnvironmentRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          spamAssetsService: SpamAssetsService) {
@@ -28,6 +44,10 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
     }
     
     func spamAssets(accountAddress: String) -> Observable<[SpamAssetId]> {
+        
+        if let spamAssets = spamAssets[accountAddress] {
+            return Observable.just(spamAssets)
+        }
         
         return accountSettingsRepository
             .accountEnvironment(accountAddress: accountAddress)
@@ -42,6 +62,9 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
                 } else {
                     return self.downloadDeffaultSpamAssets()
                 }
+            })
+            .do(onNext: { [weak self] spamAssets in
+                self?.spamAssets[accountAddress] = spamAssets
             })
     }
     

@@ -6,11 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import DomainLayer
 
 private struct RegistationQuery: Hashable {
     let account: PasscodeTypes.DTO.Account
@@ -18,7 +18,6 @@ private struct RegistationQuery: Hashable {
 }
 
 final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
-
     fileprivate typealias Types = PasscodeTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
@@ -28,7 +27,6 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
     weak var moduleOutput: PasscodeModuleOutput?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(registration())
         newFeedbacks.append(logout())
@@ -37,10 +35,10 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
-                                        guard let self = self else { return state }
-                                        return self.reduce(state: state, event: event)
-                                    },
-                                    feedback: newFeedbacks)
+                                       guard let self = self else { return state }
+                                       return self.reduce(state: state, event: event)
+                                   },
+                                   feedback: newFeedbacks)
 
         system
             .drive()
@@ -51,14 +49,12 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
 // MARK: Feedbacks
 
 extension PasscodeRegistationPresenter {
-
     private func registration() -> Feedback {
         return react(request: { state -> RegistationQuery? in
 
-            if case .registration(let account) = state.kind,
+            if case let .registration(account) = state.kind,
                 let action = state.action,
-                case .registration = action
-            {
+                case .registration = action {
                 return RegistationQuery(account: account, passcode: state.passcode)
             }
 
@@ -73,20 +69,20 @@ extension PasscodeRegistationPresenter {
                 .registrationAccount(query.account,
                                      passcode: query.passcode)
                 .map { .completedRegistration($0) }
-                .asSignal { (error) -> Signal<Types.Event> in                    
-                    return Signal.just(.handlerError(error))
-            }
+                .asSignal { (error) -> Signal<Types.Event> in
+                    Signal.just(.handlerError(error))
+                }
         })
     }
 
     private struct LogoutQuery: Hashable {
-        let wallet: DomainLayer.DTO.Wallet
+        let wallet: Wallet
     }
 
     private func logout() -> Feedback {
         return react(request: { state -> LogoutQuery? in
 
-            if case .logIn(let wallet) = state.kind,
+            if case let .logIn(wallet) = state.kind,
                 let action = state.action, case .logout = action {
                 return LogoutQuery(wallet: wallet)
             }
@@ -101,8 +97,8 @@ extension PasscodeRegistationPresenter {
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
+                    Signal.just(.handlerError(error))
+                }
         })
     }
 }
@@ -110,22 +106,18 @@ extension PasscodeRegistationPresenter {
 // MARK: Core State
 
 private extension PasscodeRegistationPresenter {
-
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
-
         var newState = state
         reduce(state: &newState, event: event)
         return newState
     }
 
     func reduce(state: inout Types.State, event: Types.Event) {
-
         switch event {
-
-        case .completedRegistration(let status):
+        case let .completedRegistration(status):
 
             switch status {
-            case .completed(let wallet):
+            case let .completed(wallet):
                 moduleOutput?.passcodeLogInCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: true)
                 state.action = nil
 
@@ -136,7 +128,7 @@ private extension PasscodeRegistationPresenter {
                 state.displayState.isLoading = true
             }
 
-        case .handlerError(let error):
+        case let .handlerError(error):
 
             state.displayState.isLoading = false
             state.displayState.numbers = []
@@ -149,21 +141,21 @@ private extension PasscodeRegistationPresenter {
             state.displayState.isLoading = true
             state.displayState.error = nil
             state.action = .logout
-            
+
         case .completedLogout:
             state.displayState.isLoading = false
             state.displayState.error = nil
             state.action = nil
             moduleOutput?.passcodeUserLogouted()
-            
+
         case .viewWillAppear:
             break
 
         case .viewDidAppear:
-           break
+            break
 
-        case .completedInputNumbers(let numbers):
-             handlerInputNumbersForRegistration(numbers, state: &state)
+        case let .completedInputNumbers(numbers):
+            handlerInputNumbersForRegistration(numbers, state: &state)
 
         case .tapBack:
 
@@ -185,11 +177,10 @@ private extension PasscodeRegistationPresenter {
     // MARK: - Input Numbers For Registration
 
     private func handlerInputNumbersForRegistration(_ numbers: [Int], state: inout Types.State) {
-
         defer {
             state.displayState.titleLabel = state.displayState.kind.title()
         }
-        
+
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -224,7 +215,6 @@ private extension PasscodeRegistationPresenter {
 // MARK: UI State
 
 private extension PasscodeRegistationPresenter {
-
     func initialState(input: PasscodeModuleInput) -> Types.State {
         return Types.State(displayState: initialDisplayState(input: input),
                            hasBackButton: input.hasBackButton,
@@ -235,7 +225,6 @@ private extension PasscodeRegistationPresenter {
     }
 
     func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
-
         return .init(kind: .newPasscode,
                      numbers: .init(),
                      isLoading: false,

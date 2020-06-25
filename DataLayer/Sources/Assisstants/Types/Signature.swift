@@ -15,7 +15,7 @@ import Extensions
 //TODO: Signature Protocol need remove and is using Signature Protocol from SDK
 protocol SignatureProtocol {
 
-    var signedWallet: DomainLayer.DTO.SignedWallet { get }
+    var signedWallet: SignedWallet { get }
     
     var toSign: [UInt8] { get }
     

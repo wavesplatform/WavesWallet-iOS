@@ -17,8 +17,8 @@ import DomainLayer
 protocol PasscodeModuleOutput: AnyObject {
 
     //TODO: Its method incorect name, becase many flow (for example: LogIn & ChangePassword)
-    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) -> Void
-    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) -> Void
+    func passcodeLogInCompleted(passcode: String, wallet: Wallet, isNewWallet: Bool) -> Void
+    func passcodeVerifyAccessCompleted(_ wallet: SignedWallet) -> Void
 
     func passcodeUserLogouted()
     func passcodeLogInByPassword()

@@ -13,7 +13,7 @@ import Extensions
 struct ChangePasswordModuleBuilder: ModuleBuilderOutput {
 
     struct Input: ChangePasswordModuleInput {
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: Wallet
     }
 
     var output: ChangePasswordModuleOutput

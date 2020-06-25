@@ -8,6 +8,7 @@
 
 import UIKit
 import Extensions
+import DomainLayer
 
 struct AssetDetailModuleBuilder: ModuleBuilderOutput {
 
@@ -23,7 +24,31 @@ struct AssetDetailModuleBuilder: ModuleBuilderOutput {
         let presenter = AssetDetailPresenter(input: input)
         let vc = StoryboardScene.Asset.assetViewController.instantiate()
 
-        presenter.interactor = AssetDetailInteractor()
+        
+        let authorizationInteractor = UseCasesFactory.instance.authorization
+        let accountBalanceInteractor = UseCasesFactory.instance.accountBalance
+
+        let transactionsInteractor = UseCasesFactory.instance.transactions
+
+        let assetsBalanceSettings = UseCasesFactory.instance.assetsBalanceSettings
+
+        let gatewaysWavesRepository = UseCasesFactory.instance.repositories.gatewaysWavesRepository
+
+        let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
+        
+        let pairsPriceRepository = UseCasesFactory.instance.repositories
+            .dexPairsPriceRepository
+
+        let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
+                
+        presenter.interactor = AssetDetailInteractor(authorizationInteractor: authorizationInteractor,
+                                                     accountBalanceInteractor: accountBalanceInteractor,
+                                                     transactionsInteractor: transactionsInteractor,
+                                                     assetsBalanceSettings: assetsBalanceSettings,
+                                                     gatewaysWavesRepository: gatewaysWavesRepository,
+                                                     weOAuthRepository: weOAuthRepository,
+                                                     pairsPriceRepository: pairsPriceRepository,
+                                                     serverEnvironmentUseCase: serverEnvironmentUseCase)
         presenter.moduleOutput = output
         vc.presenter = presenter
 

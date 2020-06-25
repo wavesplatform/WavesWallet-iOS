@@ -6,23 +6,22 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import IQKeyboardManagerSwift
 import IdentityImg
+import IQKeyboardManagerSwift
+import UIKit
 import WavesSDKExtensions
 
-protocol ImportAccountPasswordViewControllerDelegate: AnyObject  {
+protocol ImportAccountPasswordViewControllerDelegate: AnyObject {
     func userCompletedInputAccountData(password: String, name: String)
 }
 
 final class ImportAccountPasswordViewController: UIViewController {
-
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var buttonContinue: UIButton!
-    
+
     @IBOutlet private weak var imageIcon: UIImageView!
     @IBOutlet private weak var labelAddress: UILabel!
-    
+
     @IBOutlet private weak var accountTextField: InputTextField!
     @IBOutlet private weak var passwordTextField: InputTextField!
     @IBOutlet private weak var confirmPasswordTextField: InputTextField!
@@ -43,16 +42,16 @@ final class ImportAccountPasswordViewController: UIViewController {
 
         setupTextField()
         setupButtonContinue()
-        
-        accountTextField.changedValue = { [weak self] (_, _) in
+
+        accountTextField.changedValue = { [weak self] _, _ in
             guard let self = self else { return }
             self.setupButtonContinue()
         }
-        passwordTextField.changedValue = { [weak self] (_, _) in
+        passwordTextField.changedValue = { [weak self] _, _ in
             guard let self = self else { return }
             self.setupButtonContinue()
         }
-        confirmPasswordTextField.changedValue = { [weak self] (_, _) in
+        confirmPasswordTextField.changedValue = { [weak self] _, _ in
             guard let self = self else { return }
             self.setupButtonContinue()
         }
@@ -60,33 +59,31 @@ final class ImportAccountPasswordViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         imageIcon.image = identity.createImage(by: address ?? "", size: imageIcon.frame.size)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         accountTextField.becomeFirstResponder()
     }
 
     private func setupButtonContinue() {
+        
         buttonContinue.isEnabled = isValidData
         buttonContinue.setTitle(Localizable.Waves.Import.Password.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
     }
 
-    @IBAction func continueTapped(_ sender: Any) {
+    @IBAction func continueTapped(_: Any) {
         continueCreateAccount()
     }
-    
 }
 
 extension ImportAccountPasswordViewController {
-
     private func setupTextField() {
-
         accountTextField.autocapitalizationType = .words
         passwordTextField.autocapitalizationType = nil
         confirmPasswordTextField.autocapitalizationType = nil
@@ -95,40 +92,57 @@ extension ImportAccountPasswordViewController {
                                                            kind: .text,
                                                            placeholder: Localizable.Waves.Newaccount.Textfield.Accountname.title))
         passwordTextField.update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Createpassword.title,
-                                                        kind: .password,
-                                                        placeholder: Localizable.Waves.Newaccount.Textfield.Createpassword.title))
-        confirmPasswordTextField.update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title,
-                                                               kind: .newPassword,
-                                                               placeholder: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title))
+                                                            kind: .password,
+                                                            placeholder: Localizable.Waves.Newaccount.Textfield.Createpassword
+                                                                .title))
+        confirmPasswordTextField
+            .update(with: InputTextField.Model(title: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title,
+                                               kind: .newPassword,
+                                               placeholder: Localizable.Waves.Newaccount.Textfield
+                                                   .Confirmpassword.title))
 
         accountTextField.valueValidator = { value in
             let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
 
             if count < UIGlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.accountNameMinLimitSymbols)
-            }
-            else if count > UIGlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(UIGlobalConstants.accountNameMaxLimitSymbols)
-            }
-            else {
-                return nil
-            }
-        }
-
-        passwordTextField.valueValidator = { value in
-            if (value?.count ?? 0) < UIGlobalConstants.minLengthPassword {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
+                return Localizable.Waves.Newaccount.Textfield.Error
+                    .atleastcharacters(UIGlobalConstants.accountNameMinLimitSymbols)
+            } else if count > UIGlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error
+                    .maximumcharacters(UIGlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
         }
 
-        confirmPasswordTextField.valueValidator = { [weak self] value in
-            if self?.passwordTextField.value != value {
-                return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
+        passwordTextField.valueValidator = { [weak self] value in
+
+            guard let value = value else { return nil }
+
+            if value.count < UIGlobalConstants.minLengthPassword {
+                return Localizable.Waves.Newaccount.Textfield
+                    .Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
+            } else if let passwordSecond = self?.confirmPasswordTextField.value, passwordSecond.count > 0 && value != passwordSecond {
+                return ""
+            } else {
+                return nil
             }
 
-            return nil
+        }
+
+        confirmPasswordTextField.valueValidator = { [weak self] value in
+
+            guard let value = value else { return nil }
+
+            if value.count < UIGlobalConstants.minLengthPassword {
+                return Localizable.Waves.Newaccount.Textfield
+                    .Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
+            } else if let passwordFirst = self?.passwordTextField.value, passwordFirst.count > 0 &&
+                value != passwordFirst {
+                return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
+            } else {
+                return nil
+            }
         }
 
         accountTextField.returnKey = .next
@@ -158,7 +172,7 @@ extension ImportAccountPasswordViewController {
             passwordTextField.becomeFirstResponder()
         } else if confirmPasswordTextField.isValidValue == false {
             confirmPasswordTextField.becomeFirstResponder()
-        }  else {
+        } else {
             continueCreateAccount()
         }
     }
@@ -173,6 +187,7 @@ extension ImportAccountPasswordViewController {
     }
 
     private var isValidData: Bool {
+
         return accountTextField.isValidValue
             && passwordTextField.isValidValue
             && confirmPasswordTextField.isValidValue
@@ -180,8 +195,7 @@ extension ImportAccountPasswordViewController {
 }
 
 extension ImportAccountPasswordViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_: UIScrollView) {
         setupTopBarLine()
     }
 }

@@ -13,7 +13,7 @@ import Extensions
 struct AddressesKeysModuleBuilder: ModuleBuilderOutput {
 
     struct Input: AddressesKeysModuleInput {
-        let wallet: DomainLayer.DTO.Wallet
+        let wallet: Wallet
     }
 
     var output: AddressesKeysModuleOutput

@@ -39,7 +39,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
     struct PrepareRequest: Equatable {
         let assetsIds: [String]
         let request: DomainLayer.DTO.MobileKeeper.Request
-        let signedWallet: DomainLayer.DTO.SignedWallet
+        let signedWallet: SignedWallet
         let timestamp: Date
         
         static func == (lhs: PrepareRequest, rhs: PrepareRequest) -> Bool {
@@ -255,12 +255,12 @@ fileprivate extension InvokeScriptTransactionSender.Arg {
 
 fileprivate extension InvokeScriptTransactionSender.Call {
     func invokeScriptCallArgs(assetsMap: [String: Asset],
-                              signedWallet: DomainLayer.DTO.SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Arg]? {
+                              signedWallet: SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Arg]? {
         args.map { $0.argDTO }
     }
     
     func invokeScriptCall(assetsMap: [String: Asset],
-                          signedWallet: DomainLayer.DTO.SignedWallet) -> ConfirmRequest.DTO.InvokeScript.Call? {
+                          signedWallet: SignedWallet) -> ConfirmRequest.DTO.InvokeScript.Call? {
         
         guard let args = invokeScriptCallArgs(assetsMap: assetsMap, signedWallet: signedWallet) else { return nil }
         
@@ -271,7 +271,7 @@ fileprivate extension InvokeScriptTransactionSender.Call {
 fileprivate extension InvokeScriptTransactionSender {
     
     func paymentDTO(assetsMap: [String: Asset],
-                    signedWallet: DomainLayer.DTO.SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Payment] {
+                    signedWallet: SignedWallet) -> [ConfirmRequest.DTO.InvokeScript.Payment] {
         payment.compactMap { payment -> ConfirmRequest.DTO.InvokeScript.Payment? in
             guard let asset = assetsMap[payment.assetId] else { return nil }
         
@@ -311,7 +311,7 @@ fileprivate extension DataTransactionSender {
 
 fileprivate extension TransactionSenderSpecifications {
     func transactionDTO(assetsMap: [String: Asset],
-                        signedWallet: DomainLayer.DTO.SignedWallet) -> ConfirmRequest.DTO.Transaction? {
+                        signedWallet: SignedWallet) -> ConfirmRequest.DTO.Transaction? {
         
         switch self {
         case .data(let tx):

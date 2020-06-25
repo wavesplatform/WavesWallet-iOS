@@ -15,6 +15,10 @@ final class WelcomeScreenPresenter: WelcomeScreenPresentable {}
 
 extension WelcomeScreenPresenter: IOTransformer {
     func transform(_ input: WelcomeScreenInteractorOutput) -> WelcomeScreenPresenterOutput {
-        return WelcomeScreenPresenterOutput()
+        let viewModel = input.viewWillAppear
+            .map { _ -> [WelcomeScreenViewModel] in [.hello, .easyRefill, .invesmentInfo, .termOfConditions] }
+            .asDriverIgnoringError()
+        
+        return WelcomeScreenPresenterOutput(viewModel: viewModel)
     }
 }

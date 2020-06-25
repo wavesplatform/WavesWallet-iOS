@@ -32,7 +32,7 @@ final class ChooseAccountViewController: UIViewController {
 
     var presenter: ChooseAccountPresenterProtocol!
 
-    private var wallets: [DomainLayer.DTO.Wallet] = .init()
+    private var wallets: [Wallet] = []
     private let identity: Identity = Identity(options: Identity.defaultOptions)
 
     override func viewDidLoad() {
@@ -307,11 +307,7 @@ extension ChooseAccountViewController: MGSwipeTableCellDelegate {
         return true
     }
 
-    func swipeTableCell(
-        _: MGSwipeTableCell,
-        swipeButtonsFor direction: MGSwipeDirection,
-        swipeSettings _: MGSwipeSettings,
-        expansionSettings _: MGSwipeExpansionSettings) -> [UIView]? {
+    func swipeTableCell(swipeButtonsFor direction: MGSwipeDirection) -> [UIView]? {
         if direction == .rightToLeft {
             return swipeButtons
         }

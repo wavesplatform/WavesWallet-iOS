@@ -14,7 +14,7 @@ struct UseTouchIDModuleBuilder: ModuleBuilderOutput {
 
     struct Input: UseTouchIDModuleInput {
         var passcode: String
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: Wallet
     }
 
     var output: UseTouchIDModuleOutput

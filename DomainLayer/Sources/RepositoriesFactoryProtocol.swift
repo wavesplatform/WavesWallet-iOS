@@ -85,4 +85,6 @@ public protocol RepositoriesFactoryProtocol {
     var serverEnvironmentUseCase: ServerEnvironmentRepository { get }
 
     var userRepository: UserRepository { get }
+    
+    var adCashGRPCService: AdCashGRPCService { get }
 }

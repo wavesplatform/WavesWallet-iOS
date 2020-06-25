@@ -6,27 +6,26 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import DomainLayer
 
 private struct LogInByBiometricQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
 }
 
 private struct LogInQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
     let passcode: String
 }
 
 private struct LogoutQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
 }
 
 final class PasscodeLogInPresenter: PasscodePresenterProtocol {
-
     fileprivate typealias Types = PasscodeTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
@@ -36,7 +35,6 @@ final class PasscodeLogInPresenter: PasscodePresenterProtocol {
     weak var moduleOutput: PasscodeModuleOutput?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(logIn())
         newFeedbacks.append(logout())
@@ -46,8 +44,8 @@ final class PasscodeLogInPresenter: PasscodePresenterProtocol {
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
-                                    self?.reduce(state: state, event: event) ?? state
-            },
+                                       self?.reduce(state: state, event: event) ?? state
+                                   },
                                    feedback: newFeedbacks)
 
         system
@@ -59,11 +57,10 @@ final class PasscodeLogInPresenter: PasscodePresenterProtocol {
 // MARK: Feedbacks
 
 extension PasscodeLogInPresenter {
-
     private func logInBiometric() -> Feedback {
         return react(request: { state -> LogInByBiometricQuery? in
 
-            if case .logIn(let wallet) = state.kind, let action = state.action, case .logInBiometric = action {
+            if case let .logIn(wallet) = state.kind, let action = state.action, case .logInBiometric = action {
                 return LogInByBiometricQuery(wallet: wallet)
             }
 
@@ -77,9 +74,9 @@ extension PasscodeLogInPresenter {
                 .interactor
                 .logInBiometric(wallet: query.wallet)
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in                   
-                    return Signal.just(.handlerError(error))
-            }
+                .asSignal { (error) -> Signal<Types.Event> in
+                    Signal.just(.handlerError(error))
+                }
         })
     }
 
@@ -87,7 +84,7 @@ extension PasscodeLogInPresenter {
         return react(request: { state -> LogInQuery? in
 
             if let action = state.action, case .logIn = action {
-                if case .logIn(let wallet) = state.kind {
+                if case let .logIn(wallet) = state.kind {
                     return LogInQuery(wallet: wallet, passcode: state.passcode)
                 }
             }
@@ -103,15 +100,15 @@ extension PasscodeLogInPresenter {
                 .logIn(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedLogIn($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
+                    Signal.just(.handlerError(error))
+                }
         })
     }
 
     private func logout() -> Feedback {
         return react(request: { state -> LogoutQuery? in
 
-            if case .logIn(let wallet) = state.kind,
+            if case let .logIn(wallet) = state.kind,
                 let action = state.action, case .logout = action {
                 return LogoutQuery(wallet: wallet)
             }
@@ -126,8 +123,8 @@ extension PasscodeLogInPresenter {
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
+                    Signal.just(.handlerError(error))
+                }
         })
     }
 }
@@ -135,21 +132,18 @@ extension PasscodeLogInPresenter {
 // MARK: Core State
 
 private extension PasscodeLogInPresenter {
-
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
-
         var newState = state
         reduce(state: &newState, event: event)
         return newState
     }
 
     func reduce(state: inout Types.State, event: Types.Event) {
-
         switch event {
-        case .completedLogIn(let status):
+        case let .completedLogIn(status):
             reduceCompletedLogIn(status: status, state: &state)
 
-        case .handlerError(let error):
+        case let .handlerError(error):
 
             state.displayState.isLoading = false
             state.displayState.numbers = []
@@ -157,19 +151,19 @@ private extension PasscodeLogInPresenter {
 
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
-            if  case .biometricLockout? = state.displayState.error {
+            if case .biometricLockout? = state.displayState.error {
                 state.displayState.isHiddenBiometricButton = true
             }
 
         case .viewWillAppear:
             break
-            
+
         case .viewDidAppear:
 
             state.displayState.error = nil
 
             switch state.kind {
-            case .logIn(let wallet) where wallet.hasBiometricEntrance == true:
+            case let .logIn(wallet) where wallet.hasBiometricEntrance == true:
                 if BiometricType.enabledBiometric != .none {
                     state.action = .logInBiometric
                     state.displayState.isHiddenBiometricButton = false
@@ -205,7 +199,7 @@ private extension PasscodeLogInPresenter {
             state.action = nil
             moduleOutput?.passcodeUserLogouted()
 
-        case .completedInputNumbers(let numbers):
+        case let .completedInputNumbers(numbers):
             handlerInputNumbersForLogIn(numbers, state: &state)
 
         case .tapBack:
@@ -219,9 +213,8 @@ private extension PasscodeLogInPresenter {
     // MARK: - Reduce Completed LogIn
 
     private func reduceCompletedLogIn(status: AuthorizationAuthStatus, state: inout Types.State) {
-
         switch status {
-        case .completed(let wallet):
+        case let .completed(wallet):
             state.action = nil
             state.displayState.isLoading = false
             moduleOutput?.passcodeLogInCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: false)
@@ -237,7 +230,6 @@ private extension PasscodeLogInPresenter {
     // MARK: - Input Numbers For Log In
 
     private func handlerInputNumbersForLogIn(_ numbers: [Int], state: inout Types.State) {
-
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -258,7 +250,6 @@ private extension PasscodeLogInPresenter {
 // MARK: UI State
 
 private extension PasscodeLogInPresenter {
-
     func initialState(input: PasscodeModuleInput) -> Types.State {
         return Types.State(displayState: initialDisplayState(input: input),
                            hasBackButton: input.hasBackButton,
@@ -269,10 +260,8 @@ private extension PasscodeLogInPresenter {
     }
 
     func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
-
         switch input.kind {
-
-        case .logIn(let wallet):
+        case let .logIn(wallet):
             return .init(kind: .enterPasscode,
                          numbers: .init(),
                          isLoading: false,

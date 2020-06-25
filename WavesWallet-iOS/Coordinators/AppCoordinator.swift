@@ -9,13 +9,13 @@
 import DomainLayer
 import Extensions
 import Foundation
+import Intercom
+import IQKeyboardManagerSwift
 import RESideMenu
 import RxSwift
 import UIKit
 import WavesSDK
 import WavesSDKExtensions
-import Intercom
-import IQKeyboardManagerSwift
 
 private enum Contants {
     #if DEBUG
@@ -43,7 +43,7 @@ protocol ApplicationCoordinatorProtocol: AnyObject {
     func showEnterDisplay()
 }
 
-private typealias NotificationUserInfo = [AnyHashable : Any]
+private typealias NotificationUserInfo = [AnyHashable: Any]
 
 final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
@@ -94,16 +94,16 @@ final class AppCoordinator: Coordinator {
         checkAndRunForceUpdate()
 
         checkAndRunServerMaintenance()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(intercomWindowWillShow),
                                                name: NSNotification.Name.IntercomWindowWillShow,
                                                object: nil)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(intercomWindowDidHide),
                                                name: NSNotification.Name.IntercomWindowDidHide,
                                                object: nil)
     }
-    
+
     private func launchApplication() {
         removeCoordinators()
         isLockChangeDisplay = false
@@ -120,47 +120,41 @@ final class AppCoordinator: Coordinator {
     }
 
     private var isMainTabDisplayed: Bool { childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil }
-    
-    
-    func application(_ application: UIApplication,
-                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+
+    func application(_: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        if (Intercom.isIntercomPushNotification(userInfo)) {
-            self.notificationUserInfo = userInfo
+        if Intercom.isIntercomPushNotification(userInfo) {
+            notificationUserInfo = userInfo
         }
-        completionHandler(.noData);
+        completionHandler(.noData)
     }
 
     func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
         var value = IntercomInitial.value
         value.apns = deviceToken
         IntercomInitial.set(value)
-                        
+
         authoAuthorizationInteractor
             .authorizedWallet()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { wallet in
-            
+
                 let value = IntercomInitial.value
-                    
+
                 if value.accounts[wallet.address] ?? false {
                     Intercom.setDeviceToken(deviceToken)
                 }
             })
             .disposed(by: disposeBag)
-        
     }
 }
 
-
 extension AppCoordinator {
-    
     @objc func intercomWindowWillShow() {
         IQKeyboardManager.shared.enable = false
     }
-    
+
     @objc func intercomWindowDidHide() {
         IQKeyboardManager.shared.enable = true
     }
@@ -171,9 +165,9 @@ extension AppCoordinator {
 extension AppCoordinator: PresentationCoordinator {
     enum Display {
         case hello(_ isNewUser: Bool)
-        case slide(DomainLayer.DTO.Wallet)
+        case slide(Wallet)
         case enter
-        case passcode(DomainLayer.DTO.Wallet)
+        case passcode(Wallet)
         case widgetSettings
         case mobileKeeper(DomainLayer.DTO.MobileKeeper.Request)
         case send(DeepLink)
@@ -198,7 +192,6 @@ extension AppCoordinator: PresentationCoordinator {
         }
 
         guard isLockChangeDisplay == false else { return }
-        
 
         switch display {
         case let .hello(isNewUser):
@@ -222,7 +215,7 @@ extension AppCoordinator: PresentationCoordinator {
                 showDeepLinkVcIfNeed()
                 return
             }
-            
+
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
             slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
@@ -354,7 +347,7 @@ extension AppCoordinator {
             addChildCoordinatorAndStart(childCoordinator: coordinator)
         }
     }
-    
+
     private func showNotificationDisplayIfNeed() {
         if let userInfo = notificationUserInfo {
             Intercom.handlePushNotification(userInfo)
@@ -362,7 +355,7 @@ extension AppCoordinator {
         }
     }
 
-    private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
+    private func display(by wallet: Wallet?) -> Observable<Display> {
         let settings = Application.get()
 
         if let wallet = wallet {
@@ -384,7 +377,7 @@ extension AppCoordinator {
         }
     }
 
-    private func display(by wallet: DomainLayer.DTO.Wallet) -> Observable<Display> {
+    private func display(by wallet: Wallet) -> Observable<Display> {
         return authoAuthorizationInteractor
             .isAuthorizedWallet(wallet)
             .map { isAuthorizedWallet -> Display in
@@ -400,7 +393,7 @@ extension AppCoordinator {
         authoAuthorizationInteractor
             .lastWalletLoggedIn()
             .take(1)
-            .catchError { _ -> Observable<DomainLayer.DTO.Wallet?> in
+            .catchError { _ -> Observable<Wallet?> in
                 Observable.just(nil)
             }
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
@@ -416,7 +409,7 @@ extension AppCoordinator {
         Observable<TimeInterval>
             .just(1)
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
-            .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
+            .flatMap { [weak self] _ -> Observable<Wallet?> in
 
                 guard let self = self else { return Observable.never() }
 
@@ -428,7 +421,7 @@ extension AppCoordinator {
                     self
                         .authoAuthorizationInteractor
                         .revokeAuth()
-                        .flatMap { [weak self] (_) -> Observable<DomainLayer.DTO.Wallet?> in
+                        .flatMap { [weak self] (_) -> Observable<Wallet?> in
                             guard let self = self else { return Observable.never() }
 
                             return self.authoAuthorizationInteractor
@@ -477,7 +470,7 @@ extension AppCoordinator: HelloCoordinatorDelegate {
 // MARK: PasscodeLogInCoordinatorDelegate
 
 extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
-    func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
+    func passcodeCoordinatorLogInCompleted(wallet: Wallet) {
         showDisplay(.slide(wallet))
     }
 
@@ -520,7 +513,7 @@ extension AppCoordinator: DebugWindowRouterDelegate {
             .logout()
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
-                
+
                 Intercom.logout()
                 self.showDisplay(.enter)
             })

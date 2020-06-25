@@ -828,7 +828,7 @@
 "welcomeScreen.welcomeTitle" = "Добро пожаловать в Waves.Exchange!";
 "welcomeScreen.welcomeDetails" = "Торгуйте криптовалютой быстро и безопасно с премуществами централизованной биржи, сохраняя контроль над средствами.";
 "welcomeScreen.simpleWithdrawalTitle" = "Простой ввод и вывод средств";
-"welcomeScreen.simpleWithdrawalDetails" = "Покупайте криптовалюту с 0% комиссией с помощью банковской карты. Доступна покупка в любой валюте.";
+"welcomeScreen.simpleWithdrawalDetails" = "Покупайте криптовалюту с 0%% комиссией с помощью банковской карты. Доступна покупка в любой валюте.";
 "welcomeScreen.investmentsTitle" = "Инвестиции";
 "welcomeScreen.investmentsDetails" = "Выбирайте понравившиеся инструменты и инвестируйте выгоднее, чем в банке.";
 "welcomeScreen.termOfConditions" = "Положения и Условия";
@@ -838,3 +838,23 @@
 "welcomeScreen.iHaveReadTerms" = "Я ознакомлен и согласен с Положениями и Условиями";
 "welcomeScreen.iHaveReadTerms.linkWords" = "Положениями и Условиями";
 
+"wallet.bar.button.receive" = "Получить";
+"wallet.bar.button.send" = "Отправить";
+"wallet.bar.button.card" = "Карта";
+
+"buyCrypto.amountPlaceholder" = "Введите количество";
+"buyCrypto.iSpent" = "Я продаю %@";
+"buyCrypto.iBuy" = "Я покупаю %@";
+"buyCrypto.buy" = "Купить %@";
+"buyCrypto.minAmount" = "Минимальное количество %@";
+"buyCrypto.maxAmount" = "Максимальное количество %@";
+
+"buyCrypto.messageInfo.withoutConversionFee" = "• Комиссия составит 0%%.";
+"buyCrypto.messageInfo.youMayBeChargedAnAdditionalConversionFee" = "• С вас может взиматься дополнительная плата за конвертацию. Итоговая сумма покупки может варьироваться из-за постоянно меняющегося курса.";
+"buyCrypto.messageInfo.minAmount" = "• Минимальное количество %@ для покупки.";
+"buyCrypto.messageInfo.youCanBuyWithYourBankCard" = "• Вы можете приобрести %@ с вашей банковской карты или при помощи прямого перевода на счет Advanced Cash.";
+"buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "• После успешной оплаты на сайте партнеров, %@ будет зачислен на ваш аккаунт в течение нескольких минут.";
+"buyCrypto.messageInfo.ifYouHaveProblems" = "• Если у вас возникли проблемы с оплатой, пожалуйста, обратитесь в службу поддержки.";
+"buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "поддержки";
+
+"asset.cell.balance.button.card" = "Карта";

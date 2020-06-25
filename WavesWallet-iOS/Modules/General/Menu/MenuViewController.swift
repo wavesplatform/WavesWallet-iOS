@@ -112,7 +112,7 @@ class MenuViewController: UIViewController {
             .analyticManager
             .trackEvent(.menu(.wavesMenuSupport))
         
-        if let url = URL(string: UIGlobalConstants.URL.support) {
+        if let url = URL(string: UIGlobalConstants.URL.supportEn) {
             BrowserViewController.openURL(url)
         }
     }

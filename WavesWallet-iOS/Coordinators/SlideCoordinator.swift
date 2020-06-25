@@ -16,7 +16,7 @@ final class SlideCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let wallet: DomainLayer.DTO.Wallet?
+    private let wallet: Wallet?
 
     private let windowRouter: WindowRouter
     private let slideMenuRouter: SlideMenuRouter
@@ -24,7 +24,7 @@ final class SlideCoordinator: Coordinator {
     
     weak var menuViewControllerDelegate: MenuViewControllerDelegate?
     
-    init(windowRouter: WindowRouter, wallet: DomainLayer.DTO.Wallet?) {
+    init(windowRouter: WindowRouter, wallet: Wallet?) {
         self.windowRouter = windowRouter
         self.wallet = wallet
         self.slideMenuRouter = SlideMenuRouter(slideMenu: SlideMenu(contentViewController: UIViewController(),
@@ -49,7 +49,7 @@ final class SlideCoordinator: Coordinator {
 extension SlideCoordinator: PresentationCoordinator {
 
     enum Display {
-        case wallet(DomainLayer.DTO.Wallet)
+        case wallet(Wallet)
         case enter
     }
 
@@ -83,7 +83,7 @@ extension SlideCoordinator: ApplicationCoordinatorProtocol {
 
 // MARK: EnterCoordinatorDelegate
 extension SlideCoordinator: EnterCoordinatorDelegate  {
-    func userCompletedLogIn(wallet: DomainLayer.DTO.Wallet) {
+    func userCompletedLogIn(wallet: Wallet) {
         showDisplay(.wallet(wallet))
     }
 }

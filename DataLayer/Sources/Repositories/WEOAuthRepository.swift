@@ -33,7 +33,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
         self.serverEnvironmentRepository = serverEnvironmentRepository
     }
 
-    func oauthToken(signedWallet: DomainLayer.DTO.SignedWallet) -> Observable<WEOAuthTokenDTO> {
+    func oauthToken(signedWallet: SignedWallet) -> Observable<WEOAuthTokenDTO> {
         let serverEnvironment = serverEnvironmentRepository.serverEnvironment()
         let developmentConfigs = developmentConfigsRepository.developmentConfigs()
 
@@ -45,8 +45,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                 let exchangeClientSecret = developmentConfigs.exchangeClientSecret
 
                 let token: WEOAuthTokenQuery = self.createOAuthToken(signedWallet: signedWallet,
-                                                                     chainId: serverEnvironment.kind.chainId,
-                                                                     exchangeClientSecret: exchangeClientSecret)
+                                                                     chainId: serverEnvironment.kind.chainId)
                 return self
                     .weOAuth
                     .rx
@@ -63,9 +62,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
             }
     }
 
-    private func createOAuthToken(signedWallet: DomainLayer.DTO.SignedWallet,
-                                  chainId: String,
-                                  exchangeClientSecret _: String) -> WEOAuthTokenQuery {
+    private func createOAuthToken(signedWallet: SignedWallet, chainId: String) -> WEOAuthTokenQuery {
         let clientId = "waves.exchange"
         let time = Int64(round(Date().timeIntervalSince1970 + (60 * 60 * 24 * 7))) // Token for a week
         let timeString = "\(chainId):\(clientId):\(time)"

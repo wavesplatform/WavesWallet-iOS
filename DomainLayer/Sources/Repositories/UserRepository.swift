@@ -12,7 +12,7 @@ import RxSwift
 public protocol UserRepository {
     
     // UID - уникальный индификатор всех аккаунтов пользователя
-    func userUID(wallet: DomainLayer.DTO.SignedWallet) -> Observable<String>
+    func userUID(wallet: SignedWallet) -> Observable<String>
     // UID - добавить индификатор для аккаунта пользователя
-    func setUserUID(wallet: DomainLayer.DTO.SignedWallet, uid: String) -> Observable<String>
+    func setUserUID(wallet: SignedWallet, uid: String) -> Observable<String>
 }
