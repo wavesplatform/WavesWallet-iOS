@@ -142,7 +142,6 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                 amoauntMin = 1000000000
                                                 assetPrecision = 8
                                             }
-                                                                                        
                                             
                                             let minAmount = Money(amoauntMin,
                                                                   assetPrecision)
