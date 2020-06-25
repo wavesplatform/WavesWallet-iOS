@@ -124,12 +124,31 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                 oAToken: token,
                                                                 request: request)
                                         .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
-        
-                                            let minAmount = Money(binding.assetBinding.senderAmountMin.int64Value,
-                                                                  asset.precision)
                                             
-                                            let maxAmount = Money(binding.assetBinding.senderAmountMax.int64Value,
-                                                                  asset.precision)
+                                            
+                                            var amoauntMin = binding.assetBinding.senderAmountMin.int64Value
+                                            var amoauntMax = binding.assetBinding.senderAmountMax.int64Value
+                                            var assetPrecision = asset.precision
+                                            
+                                            
+                                            if binding.assetBinding.recipientAsset.asset == "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu" {
+                                                amoauntMax = 5000000000000
+                                                amoauntMin = 1000000
+                                                assetPrecision = 8
+                                            }
+                                            
+                                            if binding.assetBinding.recipientAsset.asset == "F81SdfzBZr5ce8JArRWLPJEDg1V8yT257ohbcHk75yCp" {
+                                                amoauntMax = 100000000000000
+                                                amoauntMin = 1000000000
+                                                assetPrecision = 8
+                                            }
+                                                                                        
+                                            
+                                            let minAmount = Money(amoauntMin,
+                                                                  assetPrecision)
+                                            
+                                            let maxAmount = Money(amoauntMax,
+                                                                  assetPrecision)
 
                                             let addresses = binding.addresses.displayInfoAddresses()
 
