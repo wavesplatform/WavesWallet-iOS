@@ -41,6 +41,8 @@ struct WelcomeScreenPresenterOutput {
 
 struct WelcomeScreenViewOutput {
     let viewWillAppear: ControlEvent<Void>
+    
+    let didTapUrl: ControlEvent<URL>
 }
 
 enum WelcomeScreenViewModel {
@@ -69,17 +71,21 @@ extension WelcomeScreenViewModel {
         }
     }
     
-    var termOfConditionsItems: [TitledModel<String>] {
-        switch self {
-        case .hello: return []
-        case .easyRefill: return []
-        case .invesmentInfo: return []
-        case .termOfConditions:
-            let privacyPolicyText = TitledModel<String>(title: Localizable.Waves.Welcomescreen.iHaveReadPrivacy,
-                                                        model: Localizable.Waves.Welcomescreen.Ihavereadprivacy.linkWords)
-            let termOfConditionText = TitledModel<String>(title: Localizable.Waves.Welcomescreen.iHaveReadTerms,
-                                                          model: Localizable.Waves.Welcomescreen.Ihavereadterms.linkWords)
-            return [privacyPolicyText, termOfConditionText]
-        }
+    var privacyPolicyText: TitledModel<String> {
+        TitledModel<String>(title: Localizable.Waves.Welcomescreen.iHaveReadPrivacy,
+                            model: Localizable.Waves.Welcomescreen.Ihavereadprivacy.linkWords)
+    }
+    
+    var privacyPolicyTextLink: URL? {
+        URL(string: UIGlobalConstants.URL.termsOfUse)
+    }
+    
+    var termOfConditionsText: TitledModel<String> {
+        TitledModel<String>(title: Localizable.Waves.Welcomescreen.iHaveReadTerms,
+                            model: Localizable.Waves.Welcomescreen.Ihavereadterms.linkWords)
+    }
+    
+    var termOfConditionsTextLink: URL? {
+        URL(string: UIGlobalConstants.URL.termsOfConditions)
     }
 }
