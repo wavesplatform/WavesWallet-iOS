@@ -48,11 +48,14 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         let wallet = auth.authorizedWallet()
         let environment = environmentRepository.walletEnvironment()
 
+        
         return Observable.zip(wallet, serverEnvironment, environment)
             .flatMap { [weak self] wallet, serverEnvironment, appEnvironments -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-
+                                
                 guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
 
+                let generalAssets = appEnvironments.generalAssets + (appEnvironments.assets ?? [])
+                
                 switch gatewayType {
                 case .gateway:
                     return self.gatewayRepository.startDepositProcess(serverEnvironment: serverEnvironment,
@@ -66,7 +69,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                                     asset: asset,
                                                                                     minAmount: startDeposit.minAmount,
                                                                                     maxAmount: startDeposit.maxAmount,
-                                                                                    generalAssets: appEnvironments.generalAssets)
+                                                                                    generalAssets: generalAssets)
 
                             return ResponseType(output: displayInfo, error: nil)
                         }
@@ -88,7 +91,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                              asset: asset,
                                              minAmount: tunnel.min,
                                              maxAmount: nil, // где взять max?
-                                             generalAssets: appEnvironments.generalAssets)
+                                             generalAssets: generalAssets)
                             return Observable.just(ResponseType(output: displayInfo, error: nil))
                         }
                 case .exchange:
@@ -121,9 +124,10 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                 oAToken: token,
                                                                 request: request)
                                         .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
-
+        
                                             let minAmount = Money(binding.assetBinding.senderAmountMin.int64Value,
                                                                   asset.precision)
+                                            
                                             let maxAmount = Money(binding.assetBinding.senderAmountMax.int64Value,
                                                                   asset.precision)
 
@@ -135,7 +139,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                              asset: asset,
                                                              minAmount: minAmount,
                                                              maxAmount: maxAmount,
-                                                             generalAssets: appEnvironments.generalAssets)
+                                                             generalAssets: generalAssets)
                                             return ResponseType(output: info,
                                                                 error: nil)
                                         }
