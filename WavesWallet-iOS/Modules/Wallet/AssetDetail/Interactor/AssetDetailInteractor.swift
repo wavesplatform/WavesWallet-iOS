@@ -27,6 +27,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
     private let weOAuthRepository: WEOAuthRepositoryProtocol
     private let pairsPriceRepository: DexPairsPriceRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
+    private let adCashGRPCService: AdCashGRPCService
     
     private let refreshAssetsSubject: PublishSubject<[AssetDetailTypes.DTO.PriceAsset]> = PublishSubject()
     
@@ -37,7 +38,8 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
          gatewaysWavesRepository: GatewaysWavesRepository,
          weOAuthRepository: WEOAuthRepositoryProtocol,
          pairsPriceRepository: DexPairsPriceRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentRepository) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository,
+         adCashGRPCService: AdCashGRPCService) {
         
         self.authorizationInteractor = authorizationInteractor
         self.accountBalanceInteractor = accountBalanceInteractor
@@ -47,6 +49,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
         self.weOAuthRepository = weOAuthRepository
         self.pairsPriceRepository = pairsPriceRepository
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
+        self.adCashGRPCService = adCashGRPCService
     }
     
     private let disposeBag: DisposeBag = DisposeBag()
@@ -96,30 +99,12 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
                                                     timestamp: roundEarlyDate))
                     }
 
-                let token = self.authorizationInteractor
-                    .authorizedWallet()
-                    .flatMap { [weak self] signedWallet -> Observable<WEOAuthTokenDTO> in
-                        guard let self = self else { return Observable.never() }
-                        return self.weOAuthRepository.oauthToken(signedWallet: signedWallet)
-                    }
-
-                let gatewaysAssetBinding = Observable.zip(serverEnvironment, token)
-                    .flatMap { [weak self] (serverEnvironment, token) -> Observable<[GatewaysAssetBinding]> in
-
-                        guard let self = self else { return Observable.never() }
-                        
-                        let request = AssetBindingsRequest(assetType: nil,
-                                                           direction: .deposit,
-                                                           includesExternalAssetTicker: nil,
-                                                           includesWavesAsset: nil)
-
-                        return self.gatewaysWavesRepository
-                            .assetBindingsRequest(serverEnvironment: serverEnvironment,
-                                                  oAToken: token, request: request)
-                    }
-
-                return Observable.zip(pairsRateNow, pairsRateYesterday, gatewaysAssetBinding)
-                    .map { ratesNow, ratesYertarday, gatewaysAssetBinding -> [AssetDetailTypes.DTO.PriceAsset] in
+//TODO  Super Hot fix
+                let assetsAvaliable = ["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p",
+                                       "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
+                                       "WAVES"]
+                return Observable.zip(pairsRateNow, pairsRateYesterday, Observable.just(assetsAvaliable))
+                    .map { ratesNow, ratesYertarday, acashAssets -> [AssetDetailTypes.DTO.PriceAsset] in
                         
                         let ratesNowMap = ratesNow.reduce(into: [String: DomainLayer.DTO.Dex.PairRate].init()) {
                             $0[$1.amountAssetId] = $1
@@ -134,8 +119,8 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
 
                         for asset in assets {
                             
-                            let isNeedCard = gatewaysAssetBinding
-                                .first { asset.info.id == $0.recipientAsset.asset } != nil
+                            let isNeedCard = assetsAvaliable.contains(asset.info.id)
+                        
                             
                             let rateNow = ratesNowMap[asset.info.id]?.rate ?? 0
                             let rateYerstarday = ratesYerstardayMap[asset.info.id]?.rate ?? 0

@@ -23,7 +23,6 @@ struct AssetDetailModuleBuilder: ModuleBuilderOutput {
 
         let presenter = AssetDetailPresenter(input: input)
         let vc = StoryboardScene.Asset.assetViewController.instantiate()
-
         
         let authorizationInteractor = UseCasesFactory.instance.authorization
         let accountBalanceInteractor = UseCasesFactory.instance.accountBalance
@@ -36,11 +35,12 @@ struct AssetDetailModuleBuilder: ModuleBuilderOutput {
 
         let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
         
-        let pairsPriceRepository = UseCasesFactory.instance.repositories
-            .dexPairsPriceRepository
+        let pairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
 
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
                 
+        let adCashGRPCService = UseCasesFactory.instance.repositories.adCashGRPCService
+        
         presenter.interactor = AssetDetailInteractor(authorizationInteractor: authorizationInteractor,
                                                      accountBalanceInteractor: accountBalanceInteractor,
                                                      transactionsInteractor: transactionsInteractor,
@@ -48,7 +48,8 @@ struct AssetDetailModuleBuilder: ModuleBuilderOutput {
                                                      gatewaysWavesRepository: gatewaysWavesRepository,
                                                      weOAuthRepository: weOAuthRepository,
                                                      pairsPriceRepository: pairsPriceRepository,
-                                                     serverEnvironmentUseCase: serverEnvironmentUseCase)
+                                                     serverEnvironmentUseCase: serverEnvironmentUseCase,
+                                                     adCashGRPCService: adCashGRPCService)
         presenter.moduleOutput = output
         vc.presenter = presenter
 
