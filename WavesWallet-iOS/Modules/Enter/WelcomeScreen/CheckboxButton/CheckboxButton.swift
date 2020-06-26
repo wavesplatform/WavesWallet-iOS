@@ -60,6 +60,8 @@ public class CheckboxButton: UIButton, ResetableView {
     
     @objc private func didClickCheckbox() {
         isSelected.toggle()
+        
+        didClickCheckboxAction?(isSelected)
     }
     
     private func updateCheckboxAppearance() {

@@ -19,14 +19,21 @@ final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewCont
     @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var accentCircle: UIView!
     @IBOutlet private weak var accentCircleHeight: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var pageControl: PageControl!
+    @IBOutlet private weak var nextLabel: UILabel!
     @IBOutlet private weak var nextControl: UIControl!
-    
+
+    private var hasBegin = false {
+        didSet {
+            print(hasBegin)
+        }
+    }
     private var lastScreenIndex = 0
-    
+
     private var presenterOutput: WelcomeScreenPresenterOutput?
 
+    private let didTapBegin = PublishRelay<Void>()
     private let didTapUrl = PublishRelay<URL>()
     private let disposeBag = DisposeBag()
 
@@ -43,18 +50,25 @@ final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewCont
         scrollView.isPagingEnabled = true
         scrollView.backgroundColor = .clear
         scrollView.delegate = self
-        
+
         accentCircle.isHidden = true
         accentCircle.backgroundColor = UIColor.azureTwo.withAlphaComponent(0.2)
-        accentCircle.cornerRadius = 100
-        
-//        nextControl.isEnabled = false
-        nextControl.addTarget(self, action: #selector(didTapNextControl), for: .touchUpInside)
+
+        nextLabel.text = Localizable.Waves.Hello.Button.next
+
+        nextControl.addTarget(self,
+                              action: #selector(didTapNextControl),
+                              for: .touchUpInside)
     }
-    
+
     @objc private func didTapNextControl() {
         let finalContentOffset = scrollView.contentOffset.x + scrollView.bounds.width
-        if finalContentOffset <= scrollView.contentSize.width {
+        
+        if (pageControl.numberOfPages - 1) == lastScreenIndex, hasBegin {
+            didTapBegin.accept(Void())
+        }
+        
+        if finalContentOffset < scrollView.contentSize.width {
             scrollView.contentOffset.x = finalContentOffset
         }
     }
@@ -66,7 +80,9 @@ extension WelcomeScreenViewController: BindableView {
     func getOutput() -> WelcomeScreenViewOutput {
         let viewWillAppear = ControlEvent(events: rx.viewWillAppear.mapAsVoid())
 
-        return WelcomeScreenViewOutput(viewWillAppear: viewWillAppear, didTapUrl: didTapUrl.asControlEvent())
+        return WelcomeScreenViewOutput(viewWillAppear: viewWillAppear,
+                                       didTapBegin: didTapBegin.asControlEvent(),
+                                       didTapUrl: didTapUrl.asControlEvent())
     }
 
     func bindWith(_ input: WelcomeScreenPresenterOutput) {
@@ -86,18 +102,24 @@ extension WelcomeScreenViewController: BindableView {
         stackView.subviews.forEach { $0.removeFromSuperview() }
 
         let didTapUrl: (URL) -> Void = { [weak self] in self?.didTapUrl.accept($0) }
-        let didHasReadPolicyAndTerms: (Bool) -> Void = { [weak self] in self?.nextControl.isEnabled = $0 }
-        
+        let didHasReadPolicyAndTerms: (Bool) -> Void = { [weak self] in
+            self?.hasBegin = $0
+            self?.nextControl.isUserInteractionEnabled = $0
+        }
+
         let views = viewModel.map {
             Helper.makeInfoView(with: $0, didTapUrl: didTapUrl, didHasReadPolicyAndTerms: didHasReadPolicyAndTerms)
         }
         stackView.addArrangedSubviews(views)
-        
+
         pageControl.numberOfPages = views.count
-        
+
         for view in views {
             view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         }
+
+        accentCircle.isHidden = false
+        accentCircle.cornerRadius = Float(accentCircleHeight.constant / 2)
     }
 }
 
@@ -118,18 +140,18 @@ extension WelcomeScreenViewController {
                                     image: makeWelcomeScreenVMImage(viewModel))
             }
         }
-        
+
         private static func makeTermOfConditionsView(viewModel: WelcomeScreenViewModel,
                                                      didTapUrl: @escaping (URL) -> Void,
                                                      didHasReadPolicyAndTerms: @escaping (Bool) -> Void) -> UIView {
             let privacyPolicyText = makeTermsAttributedString(title: viewModel.privacyPolicyText.title,
                                                               linkWord: viewModel.privacyPolicyText.model,
                                                               url: viewModel.privacyPolicyTextLink)
-            
+
             let termOfConditionsText = makeTermsAttributedString(title: viewModel.termOfConditionsText.title,
                                                                  linkWord: viewModel.termOfConditionsText.model,
                                                                  url: viewModel.termOfConditionsTextLink)
-            
+
             let view = WelcomeScreenTermOfConditionsView.loadFromNib()
             view.setTitleText(viewModel.title, detailsText: viewModel.details, image: makeWelcomeScreenVMImage(viewModel))
             view.setPrivacyPolicyText(privacyPolicyText,
@@ -147,7 +169,7 @@ extension WelcomeScreenViewController {
             infoView.translatesAutoresizingMaskIntoConstraints = false
             return infoView
         }
-        
+
         private static func makeTermsAttributedString(title: String, linkWord: String, url: URL?) -> NSAttributedString {
             let mutableAttributeString = NSMutableAttributedString(string: title,
                                                                    attributes: [.font: UIFont.bodyRegular,
@@ -157,13 +179,13 @@ extension WelcomeScreenViewController {
                                                     value: url,
                                                     range: mutableAttributeString.mutableString.range(of: linkWord))
             }
-            
+
             mutableAttributeString.addAttribute(.foregroundColor,
                                                 value: UIColor.submit400,
                                                 range: mutableAttributeString.mutableString.range(of: linkWord))
             return mutableAttributeString
         }
-        
+
         private static func makeWelcomeScreenVMImage(_ viewModel: WelcomeScreenViewModel) -> UIImage {
             switch viewModel {
             case .hello: return Images.Illustrations.candleChart.image
@@ -177,9 +199,9 @@ extension WelcomeScreenViewController {
 
 extension WelcomeScreenViewController: UIScrollViewDelegate {
     private enum Constants {
-        static let scaleStep: CGFloat = 25
+        static let scaleStep: CGFloat = 55
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        let screenWidth = scrollView.bounds.width
 //
@@ -195,41 +217,66 @@ extension WelcomeScreenViewController: UIScrollViewDelegate {
 //        print("current x content offset = \(contentOffsetX)")
 //        print("final content offset x = \(finalContentOffsetX)")
 //        print("fraction = \(fraction)")
-        
+
         defer {
             lastScreenIndex = indexScreen
-            pageControl.currentPage = indexScreen - 1
+            pageControl.currentPage = indexScreen
+
+            let isLastPage = lastScreenIndex == (pageControl.numberOfPages - 1)
+            let labelText = isLastPage ? Localizable.Waves.Hello.Button.begin : Localizable.Waves.Hello.Button.next
+            nextLabel.text = labelText
         }
-        
+
         let screenWidth = scrollView.bounds.width
-        
+
         let contentOffsetX = max(0, scrollView.contentOffset.x)
-        
-        let indexScreen = Int(contentOffsetX / screenWidth) + 1
-        
-        
-        
+
+        let indexScreen = Int(contentOffsetX / screenWidth)
+
         UIView.animate(withDuration: 0.5) {
             if indexScreen > self.lastScreenIndex {
-                self.accentCircleHeight.constant += 30 * CGFloat(indexScreen)
+                self.accentCircleHeight.constant += Constants.scaleStep * CGFloat(indexScreen + 1)
                 self.accentCircle.cornerRadius = Float(self.accentCircleHeight.constant / 2)
             } else if indexScreen < self.lastScreenIndex {
-                self.accentCircleHeight.constant -= 30 * CGFloat(indexScreen)
+                self.accentCircleHeight.constant -= Constants.scaleStep * CGFloat(self.lastScreenIndex + 1)
                 self.accentCircle.cornerRadius = Float(self.accentCircleHeight.constant / 2)
             } else {
                 return
             }
-            
+
             self.accentCircle.layoutIfNeeded()
         }
     }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-        
+
+    func scrollViewDidEndDecelerating(_: UIScrollView) {
 //        let finalContentOffsetX = CGFloat(indexScreen) * screenWidth
 //
 //        let fraction = contentOffsetX / finalContentOffsetX
+
+//        defer {
+//            lastScreenIndex = indexScreen
+//            pageControl.currentPage = indexScreen - 1
+//        }
+//
+//        let screenWidth = scrollView.bounds.width
+//
+//        let contentOffsetX = max(0, scrollView.contentOffset.x)
+//
+//        let indexScreen = Int(contentOffsetX / screenWidth) + 1
+//
+//        UIView.animate(withDuration: 0.5) {
+//            if indexScreen > self.lastScreenIndex {
+//                self.accentCircleHeight.constant += Constants.scaleStep * CGFloat(indexScreen)
+//                self.accentCircle.cornerRadius = Float(self.accentCircleHeight.constant / 2)
+//            } else if indexScreen < self.lastScreenIndex {
+//                self.accentCircleHeight.constant -= Constants.scaleStep * CGFloat(self.lastScreenIndex)
+//                self.accentCircle.cornerRadius = Float(self.accentCircleHeight.constant / 2)
+//            } else {
+//                return
+//            }
+//
+//            self.accentCircle.layoutIfNeeded()
+//        }
     }
 }
 

@@ -33,7 +33,7 @@ final class WelcomeScreenInfoView: UIView, NibLoadable, ResetableView {
     }
 
     private func initialSetup() {
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .center
         
         titleLabel.font = .titleH1
         titleLabel.textColor = .submit400

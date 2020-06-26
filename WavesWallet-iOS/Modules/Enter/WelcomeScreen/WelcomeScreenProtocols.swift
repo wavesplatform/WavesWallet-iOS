@@ -12,22 +12,27 @@ import RxSwift
 
 // MARK: - Builder
 
-protocol WelcomeScreenBuildable {
+protocol WelcomeScreenBuildable: AnyObject {
     /// <#Description#>
-    func build() -> WelcomeScreenViewController
+    func build(with listener: WelcomeScreenListener) -> WelcomeScreenViewController
 }
 
 // MARK: - Interactor
 
-protocol WelcomeScreenInteractable {}
+protocol WelcomeScreenListener: AnyObject {
+    func openURL(_ url: URL)
+    func didTapBegin()
+}
+
+protocol WelcomeScreenInteractable: AnyObject {}
 
 // MARK: - ViewController
 
-protocol WelcomeScreenViewControllable {}
+protocol WelcomeScreenViewControllable: AnyObject {}
 
 // MARK: - Presenter
 
-protocol WelcomeScreenPresentable {}
+protocol WelcomeScreenPresentable: AnyObject {}
 
 // MARK: Outputs
 
@@ -42,6 +47,7 @@ struct WelcomeScreenPresenterOutput {
 struct WelcomeScreenViewOutput {
     let viewWillAppear: ControlEvent<Void>
     
+    let didTapBegin: ControlEvent<Void>
     let didTapUrl: ControlEvent<URL>
 }
 

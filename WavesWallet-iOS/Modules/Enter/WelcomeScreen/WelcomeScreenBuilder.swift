@@ -10,7 +10,7 @@ import AppTools
 import UITools
 
 final class WelcomeScreenBuilder: WelcomeScreenBuildable {
-    func build() -> WelcomeScreenViewController {
+    func build(with listener: WelcomeScreenListener) -> WelcomeScreenViewController {
         // MARK: - Dependency
 
         // let dependency = ...
@@ -19,6 +19,8 @@ final class WelcomeScreenBuilder: WelcomeScreenBuildable {
 
         let presenter = WelcomeScreenPresenter()
         let interactor = WelcomeScreenInteractor(presenter: presenter)
+        interactor.listener = listener
+        
         let viewController = WelcomeScreenViewController.instantiateFromStoryboard()
         viewController.interactor = interactor
 
