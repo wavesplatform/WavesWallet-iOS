@@ -207,7 +207,7 @@ extension PayoutsHistorySystem {
                     
                     return query
                 } else {
-                    let query = DataService.Query.MassTransferDataQuery(sender: "",
+                    let query = DataService.Query.MassTransferDataQuery(senders: [],
                                                                         timeStart: nil,
                                                                         timeEnd: nil,
                                                                         recipient: "",

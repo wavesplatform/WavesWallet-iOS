@@ -320,7 +320,7 @@ private extension InvestmentInteractor {
                                                                         limit: nil)
                     return query
                 } else {
-                    let query = DataService.Query.MassTransferDataQuery(senders: [],
+                    let query = DataService.Query.MassTransferDataQuery(senders: nil,
                                                                         timeStart: timeStart,
                                                                         timeEnd: timeEnd,
                                                                         recipient: "",
