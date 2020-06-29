@@ -217,6 +217,15 @@ private extension ReceiveCryptocurrencyViewController {
                 labelTitleMinimumAmount.text = minMaxAmountOfDeposite
                 labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
                 
+            case "BNT":
+                labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
+                    .usdtWarningTitleDeposite(displayName, displayName, displayName)
+                labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
+                    .usdtWarningDetailsDeposite(assetInfo.displayName)
+                
+                labelTitleMinimumAmount.text = minMaxAmountOfDeposite
+                labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
+                
             case "Vostok":
                 labelTitleSendOnlyDepositBottom.constant = 0
                 warningContainersBottom.constant = 0
