@@ -251,7 +251,7 @@ private extension InvestmentInteractor {
                 let query: DataService.Query.MassTransferDataQuery
 
                 if let staking = config.staking.first {
-                    query = DataService.Query.MassTransferDataQuery(sender: staking.addressByPayoutsAnnualPercent,
+                    query = DataService.Query.MassTransferDataQuery(senders: staking.addressesByPayoutsAnnualPercent,
                                                                     timeStart: startDate,
                                                                     timeEnd: endDate,
                                                                     recipient: staking.addressByCalculateProfit,
@@ -260,7 +260,7 @@ private extension InvestmentInteractor {
                                                                     limit: nil)
                 } else {
                     // кейс если нет стакинга нужно как-то обработать
-                    query = DataService.Query.MassTransferDataQuery(sender: "",
+                    query = DataService.Query.MassTransferDataQuery(senders: [],
                                                                     timeStart: nil,
                                                                     timeEnd: nil,
                                                                     recipient: "",
@@ -311,7 +311,7 @@ private extension InvestmentInteractor {
                 // в чем разница между authorizedWallet.wallet.address и authorizedWallet.
                 //
                 if let staking = config.staking.first {
-                    let query = DataService.Query.MassTransferDataQuery(sender: staking.addressByPayoutsAnnualPercent,
+                    let query = DataService.Query.MassTransferDataQuery(senders: staking.addressesByPayoutsAnnualPercent,
                                                                         timeStart: timeStart,
                                                                         timeEnd: timeEnd,
                                                                         recipient: signedWallet.wallet.address,
@@ -320,7 +320,7 @@ private extension InvestmentInteractor {
                                                                         limit: nil)
                     return query
                 } else {
-                    let query = DataService.Query.MassTransferDataQuery(sender: "",
+                    let query = DataService.Query.MassTransferDataQuery(senders: [],
                                                                         timeStart: timeStart,
                                                                         timeEnd: timeEnd,
                                                                         recipient: "",

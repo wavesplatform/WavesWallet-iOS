@@ -70,6 +70,7 @@ private struct Staking: Decodable {
     let addressByPayoutsAnnualPercent: String
     let addressStakingContract: String
     let addressByCalculateProfit: String
+    let addressesByPayoutsAnnualPercent: [String]
 
     enum CodingKeys: String, CodingKey {
         case type
@@ -77,6 +78,7 @@ private struct Staking: Decodable {
         case addressByPayoutsAnnualPercent = "address_by_payouts_annual_percent"
         case addressStakingContract = "address_staking_contract"
         case addressByCalculateProfit = "address_by_calculate_profit"
+        case addressesByPayoutsAnnualPercent = "addresses_by_payouts_annual_percent"
     }
 }
 
@@ -105,7 +107,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                neutrinoAssetId: $0.neutrinoAssetId,
                                                addressByPayoutsAnnualPercent: $0.addressByPayoutsAnnualPercent,
                                                addressStakingContract: $0.addressStakingContract,
-                                               addressByCalculateProfit: $0.addressByCalculateProfit)
+                                               addressByCalculateProfit: $0.addressByCalculateProfit,
+                                               addressesByPayoutsAnnualPercent: $0.addressesByPayoutsAnnualPercent)
                 }
 
                 let gatewayMinFee = config
