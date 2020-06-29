@@ -48,11 +48,14 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         let wallet = auth.authorizedWallet()
         let environment = environmentRepository.walletEnvironment()
 
+        
         return Observable.zip(wallet, serverEnvironment, environment)
             .flatMap { [weak self] wallet, serverEnvironment, appEnvironments -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-
+                                
                 guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
 
+                let generalAssets = appEnvironments.generalAssets + (appEnvironments.assets ?? [])
+                
                 switch gatewayType {
                 case .gateway:
                     return self.gatewayRepository.startDepositProcess(serverEnvironment: serverEnvironment,
@@ -66,7 +69,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                                     asset: asset,
                                                                                     minAmount: startDeposit.minAmount,
                                                                                     maxAmount: startDeposit.maxAmount,
-                                                                                    generalAssets: appEnvironments.generalAssets)
+                                                                                    generalAssets: generalAssets)
 
                             return ResponseType(output: displayInfo, error: nil)
                         }
@@ -88,7 +91,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                              asset: asset,
                                              minAmount: tunnel.min,
                                              maxAmount: nil, // где взять max?
-                                             generalAssets: appEnvironments.generalAssets)
+                                             generalAssets: generalAssets)
                             return Observable.just(ResponseType(output: displayInfo, error: nil))
                         }
                 case .exchange:
@@ -121,11 +124,30 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                 oAToken: token,
                                                                 request: request)
                                         .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
-
-                                            let minAmount = Money(binding.assetBinding.senderAmountMin.int64Value,
-                                                                  asset.precision)
-                                            let maxAmount = Money(binding.assetBinding.senderAmountMax.int64Value,
-                                                                  asset.precision)
+                                            
+                                            
+                                            var amoauntMin = binding.assetBinding.senderAmountMin.int64Value
+                                            var amoauntMax = binding.assetBinding.senderAmountMax.int64Value
+                                            var assetPrecision = asset.precision
+                                            
+                                            
+                                            if binding.assetBinding.recipientAsset.asset == "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu" {
+                                                amoauntMax = 5000000000000
+                                                amoauntMin = 1000000
+                                                assetPrecision = 8
+                                            }
+                                            
+                                            if binding.assetBinding.recipientAsset.asset == "F81SdfzBZr5ce8JArRWLPJEDg1V8yT257ohbcHk75yCp" {
+                                                amoauntMax = 100000000000000
+                                                amoauntMin = 1000000000
+                                                assetPrecision = 8
+                                            }
+                                            
+                                            let minAmount = Money(amoauntMin,
+                                                                  assetPrecision)
+                                            
+                                            let maxAmount = Money(amoauntMax,
+                                                                  assetPrecision)
 
                                             let addresses = binding.addresses.displayInfoAddresses()
 
@@ -135,7 +157,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                              asset: asset,
                                                              minAmount: minAmount,
                                                              maxAmount: maxAmount,
-                                                             generalAssets: appEnvironments.generalAssets)
+                                                             generalAssets: generalAssets)
                                             return ResponseType(output: info,
                                                                 error: nil)
                                         }
