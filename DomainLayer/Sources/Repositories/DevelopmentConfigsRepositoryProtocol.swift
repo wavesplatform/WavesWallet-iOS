@@ -18,17 +18,20 @@ public struct DevelopmentConfigs {
         public let addressByPayoutsAnnualPercent: String
         public let addressStakingContract: String
         public let addressByCalculateProfit: String
+        public let addressesByPayoutsAnnualPercent: [String]
         
         public init(type: String,
                     neutrinoAssetId: String,
                     addressByPayoutsAnnualPercent: String,
                     addressStakingContract: String,
-                    addressByCalculateProfit: String) {
+                    addressByCalculateProfit: String,
+                    addressesByPayoutsAnnualPercent: [String]) {
             self.type = type
             self.neutrinoAssetId = neutrinoAssetId
             self.addressByPayoutsAnnualPercent = addressByPayoutsAnnualPercent
             self.addressStakingContract = addressStakingContract
             self.addressByCalculateProfit = addressByCalculateProfit
+            self.addressesByPayoutsAnnualPercent = addressesByPayoutsAnnualPercent
         }
     }
     
@@ -39,6 +42,16 @@ public struct DevelopmentConfigs {
         public init(rate: Double, flat: Int64) {
             self.rate = rate
             self.flat = flat
+        }
+    }
+    
+    public struct Limit: Decodable {
+        public let min: Int64
+        public let max: Int64
+
+        public init(min: Int64, max: Int64) {
+            self.min = min
+            self.max = max
         }
     }
     
@@ -64,6 +77,13 @@ public struct DevelopmentConfigs {
     // For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
     public let gatewayMinFee: [String: [String: Rate]]
     
+    // First key is gateway id
+    // For example: value["BTC"]
+    public let gatewayMinLimit: [String: Limit]
+
+    // Список ассетов доступны для покупки в multy currency
+    public let avaliableGatewayCryptoCurrency: [String]
+    
     /// Список пар, обмен на которые возможен
     public let marketPairs: [MarketPair]
     
@@ -74,7 +94,9 @@ public struct DevelopmentConfigs {
                 staking: [Staking],
                 lockedPairs: [String],
                 gatewayMinFee: [String: [String: Rate]],
-                marketPairs: [MarketPair]) {
+                marketPairs: [MarketPair],
+                gatewayMinLimit: [String: Limit],
+                avaliableGatewayCryptoCurrency: [String]) {
         self.serviceAvailable = serviceAvailable
         self.matcherSwapAddress = matcherSwapAddress
         self.matcherSwapTimestamp = matcherSwapTimestamp
@@ -83,6 +105,8 @@ public struct DevelopmentConfigs {
         self.lockedPairs = lockedPairs
         self.gatewayMinFee = gatewayMinFee
         self.marketPairs = marketPairs
+        self.gatewayMinLimit = gatewayMinLimit
+        self.avaliableGatewayCryptoCurrency = avaliableGatewayCryptoCurrency
     }
 }
 

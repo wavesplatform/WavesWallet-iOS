@@ -16,7 +16,7 @@ enum ChangePasswordTypes {
 extension ChangePasswordTypes {
 
     enum Query: Equatable {
-        case confirmPassword(wallet: DomainLayer.DTO.Wallet, old: String, new: String)
+        case confirmPassword(wallet: Wallet, old: String, new: String)
     }
 
     enum FieldKind {
@@ -26,7 +26,7 @@ extension ChangePasswordTypes {
     }
 
     struct State: Mutating {
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: Wallet
         var displayState: DisplayState
         var query: Query?
         var isAppeared: Bool

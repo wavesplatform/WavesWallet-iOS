@@ -21,6 +21,8 @@ private struct DevelopmentConfigsDTO: Decodable {
     //  First key is assetId and second key is fiat
     //  For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
     let gatewayMinFee: [String: [String: Rate]]
+    let gatewayMinLimit: [String: Limit]
+    let avaliableGatewayCryptoCurrency: [String]
     let marketPairs: [String]
     
     enum CodingKeys: String, CodingKey {
@@ -28,6 +30,8 @@ private struct DevelopmentConfigsDTO: Decodable {
         case matcherSwapTimestamp = "matcher_swap_timestamp"
         case matcherSwapAddress = "matcher_swap_address"
         case exchangeClientSecret = "exchange_client_secret"
+        case gatewayMinLimit = "gateway_min_limit"
+        case avaliableGatewayCryptoCurrency = "avaliable_gateway_crypto_currency"
         case staking
         case lockedPairs = "locked_pairs"
         case gatewayMinFee = "gateway_min_fee"
@@ -45,6 +49,8 @@ private struct DevelopmentConfigsDTO: Decodable {
         lockedPairs = try container.decodeIfPresent([String].self, forKey: .lockedPairs) ?? []
         gatewayMinFee = try container.decode([String: [String: Rate]].self, forKey: .gatewayMinFee)
         marketPairs = try container.decodeIfPresent([String].self, forKey: .marketPairs) ?? []
+        gatewayMinLimit = try container.decode([String: Limit].self, forKey: .gatewayMinLimit)
+        avaliableGatewayCryptoCurrency = try container.decodeIfPresent([String].self, forKey: .avaliableGatewayCryptoCurrency) ?? []
     }
 }
 
@@ -53,12 +59,18 @@ private struct Rate: Decodable {
     let flat: Int64
 }
 
+private struct Limit: Decodable {
+    let min: Int64
+    let max: Int64
+}
+
 private struct Staking: Decodable {
     let type: String
     let neutrinoAssetId: String
     let addressByPayoutsAnnualPercent: String
     let addressStakingContract: String
     let addressByCalculateProfit: String
+    let addressesByPayoutsAnnualPercent: [String]
 
     enum CodingKeys: String, CodingKey {
         case type
@@ -66,6 +78,7 @@ private struct Staking: Decodable {
         case addressByPayoutsAnnualPercent = "address_by_payouts_annual_percent"
         case addressStakingContract = "address_staking_contract"
         case addressByCalculateProfit = "address_by_calculate_profit"
+        case addressesByPayoutsAnnualPercent = "addresses_by_payouts_annual_percent"
     }
 }
 
@@ -94,7 +107,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                neutrinoAssetId: $0.neutrinoAssetId,
                                                addressByPayoutsAnnualPercent: $0.addressByPayoutsAnnualPercent,
                                                addressStakingContract: $0.addressStakingContract,
-                                               addressByCalculateProfit: $0.addressByCalculateProfit)
+                                               addressByCalculateProfit: $0.addressByCalculateProfit,
+                                               addressesByPayoutsAnnualPercent: $0.addressesByPayoutsAnnualPercent)
                 }
 
                 let gatewayMinFee = config
@@ -117,6 +131,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                     }
                 }
                 
+                let gatewayMinLimit = config.gatewayMinLimit.mapValues { DevelopmentConfigs.Limit(min: $0.min, max: $0.max) }
+                
                 return DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
                                                           matcherSwapTimestamp: config.matcherSwapTimestamp,
                                                           matcherSwapAddress: config.matcherSwapAddress,
@@ -124,7 +140,9 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                           staking: staking,
                                                           lockedPairs: config.lockedPairs,
                                                           gatewayMinFee: gatewayMinFee,
-                                                          marketPairs: marketPairs)
+                                                          marketPairs: marketPairs,
+                                                          gatewayMinLimit: gatewayMinLimit,
+                                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency)
             }
     }
 }

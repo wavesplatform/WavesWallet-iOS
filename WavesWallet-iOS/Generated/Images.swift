@@ -101,6 +101,7 @@ internal enum Images {
   internal static let delete22Error500 = ImageAsset(name: "delete22Error500")
   internal static let deleteAllCopy = ImageAsset(name: "deleteAllCopy")
   internal static let deleteAllOrders22 = ImageAsset(name: "deleteAllOrders22")
+  internal static let deposit = ImageAsset(name: "deposit")
   internal static let dex = ImageAsset(name: "dex")
   internal static let dex80 = ImageAsset(name: "dex80")
   internal static let disableBg = ImageAsset(name: "disableBg")
@@ -368,6 +369,7 @@ internal enum Images {
   internal static let widgetInterval22 = ImageAsset(name: "widgetInterval22")
   internal static let widgetMaxtoken22 = ImageAsset(name: "widgetMaxtoken22")
   internal static let widgetStyle22 = ImageAsset(name: "widgetStyle22")
+  internal static let withdraw = ImageAsset(name: "withdraw")
 
   // swiftlint:disable trailing_comma
   internal static let allColors: [ColorAsset] = [
@@ -430,6 +432,7 @@ internal enum Images {
     delete22Error500,
     deleteAllCopy,
     deleteAllOrders22,
+    deposit,
     dex,
     dex80,
     disableBg,
@@ -697,6 +700,7 @@ internal enum Images {
     widgetInterval22,
     widgetMaxtoken22,
     widgetStyle22,
+    withdraw,
   ]
   // swiftlint:enable trailing_comma
   @available(*, deprecated, renamed: "allImages")

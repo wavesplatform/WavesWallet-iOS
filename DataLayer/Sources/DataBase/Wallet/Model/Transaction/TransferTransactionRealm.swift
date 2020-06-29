@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import Realm
 
-public class TransferTransactionRealm: TransactionRealm {
+class TransferTransactionRealm: TransactionRealm {
     
     @objc dynamic var recipient: String = ""
     @objc dynamic var assetId: String? = nil

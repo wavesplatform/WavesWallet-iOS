@@ -115,7 +115,14 @@ final class InputTextField: UIView, NibOwnerLoadable {
         }
     }
 
-    private(set) var isValidValue: Bool = false
+    private var isValidInput: Bool = false
+    
+    // Необходимо вынести валидацию и проставление ошибки из метода checkValidValue()
+    // И только потом оставить одно поле isValidValue, вместо двух
+    var isValidValue: Bool {
+        checkValidValue()
+        return isValidInput
+    }
 
     private var kind: Kind?
 
@@ -154,11 +161,11 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     @objc private func textFieldChanged() {
-        if isValidValue == false {
+        if isValidInput == false {
             checkValidValue()
         }
 
-        changedValue?(isValidValue, value)
+        changedValue?(isValidInput, value)
 
         ifNeedPlaceholder()
     }
@@ -190,6 +197,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
         checkValidValue(value)
     }
 
+                
     private func checkValidValue(_ value: String?) {
         var error: String?
         var isValidValue: Bool = true
@@ -208,7 +216,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
 
         errorLabel.isHidden = isValidValue
         errorLabel.text = error
-        self.isValidValue = isValidValue
+        self.isValidInput = isValidValue
     }
 
     var error: String? {
@@ -272,7 +280,7 @@ extension InputTextField: UITextFieldDelegate {
 
     func textFieldShouldReturn(_: UITextField) -> Bool {
         checkValidValue()
-        if isValidValue {
+        if isValidInput {
             textFieldShouldReturn?(self)
             return true
         }

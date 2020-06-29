@@ -35,7 +35,7 @@ final class UserRepositoryImp: UserRepository {
         self.weOAuthRepository = weOAuthRepository
     }
 
-    func userUID(wallet: DomainLayer.DTO.SignedWallet) -> Observable<String> {
+    func userUID(wallet: SignedWallet) -> Observable<String> {
         if let uid = UID.get() {
             return Observable.just(uid)
         }
@@ -63,7 +63,7 @@ final class UserRepositoryImp: UserRepository {
             }
     }
 
-    func setUserUID(wallet: DomainLayer.DTO.SignedWallet, uid: String) -> Observable<String> {
+    func setUserUID(wallet: SignedWallet, uid: String) -> Observable<String> {
         let oauthToken = weOAuthRepository.oauthToken(signedWallet: wallet)
         let serverEnvironment = serverEnvironmentRepository.serverEnvironment()
 

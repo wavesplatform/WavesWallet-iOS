@@ -23,7 +23,7 @@ extension MyAddressTypes {
     }
 
     struct State: Mutating {
-        var wallet: DomainLayer.DTO.Wallet?
+        var wallet: Wallet?
         var aliases: [DomainLayer.DTO.Alias]
         var query: Query?
         var displayState: DisplayState
@@ -33,7 +33,7 @@ extension MyAddressTypes {
         case viewWillAppear
         case viewDidDisappear
         case setAliases([DomainLayer.DTO.Alias])
-        case setWallet(DomainLayer.DTO.Wallet)
+        case setWallet(Wallet)
         case tapShowInfo
         case completedQuery
     }

@@ -1,4 +1,5 @@
 //
+import DomainLayer
 //  NewAccountPasscodePresenter.swift
 //  WavesWallet-iOS
 //
@@ -9,17 +10,15 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import DomainLayer
 
 private struct ChangePasswordQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
     let passcode: String
     let oldPassword: String
     let newPassword: String
 }
 
 final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
-
     fileprivate typealias Types = PasscodeTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
@@ -29,7 +28,6 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
     weak var moduleOutput: PasscodeModuleOutput?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(changePassword())
         newFeedbacks.append(logout())
@@ -38,9 +36,9 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
-                                        guard let self = self else { return state }
-                                        return self.reduce(state: state, event: event)
-                                    },
+                                       guard let self = self else { return state }
+                                       return self.reduce(state: state, event: event)
+                                   },
                                    feedback: newFeedbacks)
 
         system
@@ -52,14 +50,14 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
 // MARK: Feedbacks
 
 extension PasscodeChangePasswordPresenter {
-
     private func changePassword() -> Feedback {
         return react(request: { state -> ChangePasswordQuery? in
 
-            if case .changePassword(let wallet, let newPassword, let oldPassword) = state.kind,
+            if case let .changePassword(wallet, newPassword, oldPassword) = state.kind,
                 let action = state.action,
                 case .changePassword = action {
-                return ChangePasswordQuery(wallet: wallet, passcode: state.passcode, oldPassword: oldPassword, newPassword: newPassword)
+                return ChangePasswordQuery(wallet: wallet, passcode: state.passcode, oldPassword: oldPassword,
+                                           newPassword: newPassword)
             }
 
             return nil
@@ -70,22 +68,23 @@ extension PasscodeChangePasswordPresenter {
 
             return self
                 .interactor
-                .changePassword(wallet: query.wallet, passcode: query.passcode, oldPassword: query.oldPassword, newPassword: query.newPassword)
+                .changePassword(wallet: query.wallet, passcode: query.passcode, oldPassword: query.oldPassword,
+                                newPassword: query.newPassword)
                 .map { .completedChangePassword($0) }
-                .asSignal { (error) -> Signal<Types.Event> in                    
-                    return Signal.just(.handlerError(error))
-            }
+                .asSignal { (error) -> Signal<Types.Event> in
+                    Signal.just(.handlerError(error))
+                }
         })
     }
 
     private struct LogoutQuery: Hashable {
-        let wallet: DomainLayer.DTO.Wallet
+        let wallet: Wallet
     }
 
     private func logout() -> Feedback {
         return react(request: { state -> LogoutQuery? in
 
-            if case .changePassword(let wallet, _, _) = state.kind,
+            if case let .changePassword(wallet, _, _) = state.kind,
                 let action = state.action, case .logout = action {
                 return LogoutQuery(wallet: wallet)
             }
@@ -100,8 +99,8 @@ extension PasscodeChangePasswordPresenter {
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
+                    Signal.just(.handlerError(error))
+                }
         })
     }
 }
@@ -109,37 +108,33 @@ extension PasscodeChangePasswordPresenter {
 // MARK: Core State
 
 private extension PasscodeChangePasswordPresenter {
-
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
-
         var newState = state
         reduce(state: &newState, event: event)
         return newState
     }
 
     func reduce(state: inout Types.State, event: Types.Event) {
-
         switch event {
-
-        case .completedChangePassword(let wallet):
+        case let .completedChangePassword(wallet):
             state.action = nil
             state.displayState.isLoading = false
             moduleOutput?.passcodeLogInCompleted(passcode: state.passcode, wallet: wallet, isNewWallet: false)
 
-        case .handlerError(let error):
+        case let .handlerError(error):
 
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
-            if  case .biometricLockout? = state.displayState.error {
+            if case .biometricLockout? = state.displayState.error {
                 state.displayState.isHiddenBiometricButton = true
             }
 
         case .viewWillAppear:
             break
-            
+
         case .viewDidAppear:
             break
 
@@ -166,7 +161,7 @@ private extension PasscodeChangePasswordPresenter {
             state.action = nil
             moduleOutput?.passcodeUserLogouted()
 
-        case .completedInputNumbers(let numbers):
+        case let .completedInputNumbers(numbers):
             handlerInputNumbersForChangePassword(numbers, state: &state)
 
         case .tapBack:
@@ -180,7 +175,6 @@ private extension PasscodeChangePasswordPresenter {
     // MARK: - Input Numbers For Change Password
 
     private func handlerInputNumbersForChangePassword(_ numbers: [Int], state: inout Types.State) {
-
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -201,7 +195,6 @@ private extension PasscodeChangePasswordPresenter {
 // MARK: UI State
 
 private extension PasscodeChangePasswordPresenter {
-
     func initialState(input: PasscodeModuleInput) -> Types.State {
         return Types.State(displayState: initialDisplayState(input: input),
                            hasBackButton: input.hasBackButton,
@@ -212,7 +205,6 @@ private extension PasscodeChangePasswordPresenter {
     }
 
     func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
-
         return .init(kind: .enterPasscode,
                      numbers: .init(),
                      isLoading: false,

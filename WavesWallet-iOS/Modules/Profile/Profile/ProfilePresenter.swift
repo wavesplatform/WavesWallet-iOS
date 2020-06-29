@@ -14,17 +14,17 @@ import RxFeedback
 import RxSwift
 
 protocol ProfileModuleOutput: AnyObject {
-    func showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
+    func showAddressesKeys(wallet: Wallet)
     func showAddressBook()
     func showLanguage()
-    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, saveBackedUp: @escaping ((_ isBackedUp: Bool) -> Void))
-    func showChangePassword(wallet: DomainLayer.DTO.Wallet)
-    func showChangePasscode(wallet: DomainLayer.DTO.Wallet)
-    func showNetwork(wallet: DomainLayer.DTO.Wallet)
+    func showBackupPhrase(wallet: Wallet, saveBackedUp: @escaping ((_ isBackedUp: Bool) -> Void))
+    func showChangePassword(wallet: Wallet)
+    func showChangePasscode(wallet: Wallet)
+    func showNetwork(wallet: Wallet)
     func showRateApp()
     func showFeedback()
     func showSupport()
-    func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet)
+    func accountSetEnabledBiometric(isOn: Bool, wallet: Wallet)
     func accountLogouted()
     func accountDeleted()
     func showAlertForEnabledBiometric()
@@ -49,9 +49,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     private let authorizationInteractor: AuthorizationUseCaseProtocol
     private let walletsRepository: WalletsRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
-
+    
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
-
+    
     init(blockRepository: BlockRepositoryProtocol,
          authorizationInteractor: AuthorizationUseCaseProtocol,
          walletsRepository: WalletsRepositoryProtocol,
@@ -218,7 +218,7 @@ fileprivate extension ProfilePresenter {
     }
 
     func setBackupQuery() -> Feedback {
-        react(request: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> Wallet? in
             guard let query = state.query else { return nil }
             guard let wallet = state.wallet else { return nil }
             if case let .setBackedUp(isBackedUp) = query {
@@ -250,9 +250,9 @@ fileprivate extension ProfilePresenter {
             return self
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
-                    guard let sself = self else { return Observable.never() }
-                    return sself.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
+                .flatMap { [weak self] wallet -> Observable<Wallet> in
+                    guard let self = self else { return Observable.empty() }
+                    return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
                 }
                 .map { Types.Event.setWallet($0) }
                 .asSignal(onErrorJustReturn: .showError)

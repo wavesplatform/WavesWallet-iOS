@@ -13,11 +13,11 @@ import RxSwift
 import DomainLayer
 
 private struct LogInByBiometricQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
 }
 
 private struct LogInQuery: Hashable {
-    let wallet: DomainLayer.DTO.Wallet
+    let wallet: Wallet
     let passcode: String
 }
 
@@ -111,7 +111,7 @@ extension PasscodeVerifyAccessPresenter {
     }
 
     private struct LogoutQuery: Hashable {
-        let wallet: DomainLayer.DTO.Wallet
+        let wallet: Wallet
     }
 
     private func logout() -> Feedback {

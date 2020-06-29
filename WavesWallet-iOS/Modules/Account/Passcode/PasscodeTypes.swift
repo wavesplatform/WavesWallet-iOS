@@ -18,13 +18,13 @@ enum PasscodeTypes {
 extension PasscodeTypes.DTO {
     
     enum Kind {
-        case verifyAccess(DomainLayer.DTO.Wallet)
+        case verifyAccess(Wallet)
         case registration(Account)
-        case logIn(DomainLayer.DTO.Wallet)
-        case changePasscode(DomainLayer.DTO.Wallet)
-        case changePasscodeByPassword(DomainLayer.DTO.Wallet, password: String)
-        case setEnableBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
-        case changePassword(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String)
+        case logIn(Wallet)
+        case changePasscode(Wallet)
+        case changePasscodeByPassword(Wallet, password: String)
+        case setEnableBiometric(Bool, wallet: Wallet)
+        case changePassword(wallet: Wallet, newPassword: String, oldPassword: String)
     }
 
     struct Account: Hashable {
@@ -145,8 +145,8 @@ extension PasscodeTypes {
     enum Event {
         case completedLogout
         case completedRegistration(AuthorizationAuthStatus)
-        case completedChangePasscode(DomainLayer.DTO.Wallet)
-        case completedChangePassword(DomainLayer.DTO.Wallet)
+        case completedChangePasscode(Wallet)
+        case completedChangePassword(Wallet)
         case completedLogIn(AuthorizationAuthStatus)
         case completedVerifyAccess(AuthorizationVerifyAccessStatus)
         case tapLogInByPassword

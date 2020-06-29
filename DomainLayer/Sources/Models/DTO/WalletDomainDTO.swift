@@ -6,140 +6,134 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import Extensions
 import Foundation
 import WavesSDKExtensions
-import Extensions
 
-public extension DomainLayer.DTO {
+public struct Wallet: Mutating, Hashable {
+    public var name: String
+    public let address: String
+    public let publicKey: String
+    public var isLoggedIn: Bool
+    public var isBackedUp: Bool
+    public var hasBiometricEntrance: Bool
+    public let id: String
+    public var isNeedShowWalletCleanBanner: Bool
 
-    struct Wallet: Mutating, Hashable {
-        public var name: String
-        public let address: String
-        public let publicKey: String
-        public var isLoggedIn: Bool
-        public var isBackedUp: Bool
-        public var hasBiometricEntrance: Bool
-        public let id: String
-        public var isNeedShowWalletCleanBanner: Bool
-
-        public init(name: String,
-                    address: String,
-                    publicKey: String,
-                    isLoggedIn: Bool,
-                    isBackedUp: Bool,
-                    hasBiometricEntrance: Bool,
-                    id: String,
-                    isNeedShowWalletCleanBanner: Bool) {
-            self.name = name
-            self.address = address
-            self.publicKey = publicKey
-            self.isLoggedIn = isLoggedIn
-            self.isBackedUp = isBackedUp
-            self.hasBiometricEntrance = hasBiometricEntrance
-            self.id = id
-            self.isNeedShowWalletCleanBanner = isNeedShowWalletCleanBanner
-        }
+    public init(name: String,
+                address: String,
+                publicKey: String,
+                isLoggedIn: Bool,
+                isBackedUp: Bool,
+                hasBiometricEntrance: Bool,
+                id: String,
+                isNeedShowWalletCleanBanner: Bool) {
+        self.name = name
+        self.address = address
+        self.publicKey = publicKey
+        self.isLoggedIn = isLoggedIn
+        self.isBackedUp = isBackedUp
+        self.hasBiometricEntrance = hasBiometricEntrance
+        self.id = id
+        self.isNeedShowWalletCleanBanner = isNeedShowWalletCleanBanner
     }
+}
 
-    struct WalletEncryption: Mutating {
+public struct DomainWalletEncryption: Mutating {
+    public enum Kind {
+        case passcode(secret: String)
+        case none
 
-        public enum Kind {
-            case passcode(secret: String)
-            case none
-
-            public var secret: String? {
-                switch self {
-                case .passcode(let secret):
-                    return secret
-                default:
-                    return nil
-                }
+        public var secret: String? {
+            switch self {
+            case let .passcode(secret):
+                return secret
+            default:
+                return nil
             }
         }
-
-        public let publicKey: String
-        public var kind: Kind
-        public var seedId: String
-
-        public init(publicKey: String, kind: Kind, seedId: String) {
-            self.publicKey = publicKey
-            self.kind = kind
-            self.seedId = seedId
-        }
     }
 
-    struct WalletSeed: Equatable {
-        public let publicKey: String
-        public let seed: String
-        public let address: String
+    public let publicKey: String
+    public var kind: Kind
+    public var seedId: String
 
-        public init(publicKey: String, seed: String, address: String) {
-            self.publicKey = publicKey
-            self.seed = seed
-            self.address = address
-        }
+    public init(publicKey: String, kind: Kind, seedId: String) {
+        self.publicKey = publicKey
+        self.kind = kind
+        self.seedId = seedId
+    }
+}
+
+public struct WalletSeed: Equatable {
+    public let publicKey: String
+    public let seed: String
+    public let address: String
+
+    public init(publicKey: String, seed: String, address: String) {
+        self.publicKey = publicKey
+        self.seed = seed
+        self.address = address
+    }
+}
+
+public struct WalletRegistation {
+    public let name: String
+    public let address: String
+    public let privateKey: DomainLayer.DTO.PrivateKey
+    public let isBackedUp: Bool
+    public let password: String
+    public let passcode: String
+
+    public init(name: String,
+                address: String,
+                privateKey: DomainLayer.DTO.PrivateKey,
+                isBackedUp: Bool,
+                password: String,
+                passcode: String) {
+        self.name = name
+        self.address = address
+        self.privateKey = privateKey
+        self.isBackedUp = isBackedUp
+        self.password = password
+        self.passcode = passcode
+    }
+}
+
+public final class SignedWallet {
+    public let wallet: Wallet
+    public let publicKey: DomainLayer.DTO.PublicKey
+    public let privateKey: DomainLayer.DTO.PrivateKey
+    public let seed: WalletSeed
+
+    public init(wallet: Wallet,
+                publicKey: DomainLayer.DTO.PublicKey,
+                privateKey: DomainLayer.DTO.PrivateKey,
+                seed: WalletSeed) {
+        self.wallet = wallet
+        self.publicKey = publicKey
+        self.privateKey = privateKey
+        self.seed = seed
     }
 
-    struct WalletRegistation {
-        public let name: String
-        public let address: String
-        public let privateKey: DomainLayer.DTO.PrivateKey
-        public let isBackedUp: Bool
-        public let password: String
-        public let passcode: String
-
-        public init(name: String,
-                    address: String,
-                    privateKey: DomainLayer.DTO.PrivateKey,
-                    isBackedUp: Bool,
-                    password: String,
-                    passcode: String) {
-            self.name = name
-            self.address = address
-            self.privateKey = privateKey
-            self.isBackedUp = isBackedUp
-            self.password = password
-            self.passcode = passcode
-        }
+    public var address: String {
+        return wallet.address
     }
 
-    final class SignedWallet {
+    public init(wallet: Wallet,
+                seed: WalletSeed) {
+        self.seed = seed
+        self.wallet = wallet
+        publicKey = DomainLayer.DTO.PublicKey(publicKey: seed.publicKey)
+        privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
+    }
 
-        public let wallet: DomainLayer.DTO.Wallet
-        public let publicKey: DomainLayer.DTO.PublicKey
-        public let privateKey: DomainLayer.DTO.PrivateKey
-        public let seed: WalletSeed
+    public func sign(input: [UInt8], kind _: [SigningKind]) throws -> [UInt8] {
+        let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
+        return Hash.sign(input, privateKey.privateKey)
+    }
 
-        public init(wallet: DomainLayer.DTO.Wallet,
-                    publicKey: DomainLayer.DTO.PublicKey,
-                    privateKey: DomainLayer.DTO.PrivateKey,
-                    seed: WalletSeed) {
-            self.wallet = wallet
-            self.publicKey = publicKey
-            self.privateKey = privateKey
-            self.seed = seed
-        }
-
-        public var address: String {
-            return wallet.address
-        }
-
-        public init(wallet: Wallet,
-             seed: WalletSeed) {
-            
-            self.seed = seed
-            self.wallet = wallet            
-            self.publicKey = DomainLayer.DTO.PublicKey(publicKey: seed.publicKey)
-            self.privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
-        }
-
-        public func sign(input: [UInt8], kind: [SigningKind]) throws -> [UInt8] {
-            let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
-            return Hash.sign(input, privateKey.privateKey)
-        }
-        
-        public var seedWords: [String] {
-            return seed.seed.split(separator: " ").map { "\($0)" }
-        }
+    public var seedWords: [String] {
+        return seed.seed.split(separator: " ").map { "\($0)" }
     }
 }

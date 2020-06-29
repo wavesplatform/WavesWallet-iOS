@@ -13,59 +13,55 @@ import WavesSDKExtensions
 
 extension TransactionSenderSpecifications {
     private func chainId(serverEnvironment: ServerEnvironment,
-                         specifications: TransactionSenderSpecifications,
-                         wallet: DomainLayer.DTO.SignedWallet) -> String {
-        
+                         specifications: TransactionSenderSpecifications) -> String {
         return specifications.chainId ?? serverEnvironment.kind.chainId
     }
-    
+
     private func timestamp(specifications: TransactionSenderSpecifications) -> Date {
         return specifications.timestamp ?? Date()
     }
-    
+
     func broadcastSpecification(serverEnvironment: ServerEnvironment,
-                                wallet: DomainLayer.DTO.SignedWallet,
+                                wallet: SignedWallet,
                                 specifications: TransactionSenderSpecifications) -> NodeService.Query.Transaction? {
-        
         let timestampServerDiff = serverEnvironment.timestampServerDiff
-        
-        let scheme = self.chainId(serverEnvironment: serverEnvironment,
-                                  specifications: specifications,
-                                  wallet: wallet)
-        
+
+        let scheme = chainId(serverEnvironment: serverEnvironment,
+                             specifications: specifications)
+
         let timestamp = self.timestamp(specifications: specifications)
             .millisecondsSince1970(timestampDiff: timestampServerDiff)
-        
+
         var signature = self.signature(timestamp: timestamp,
                                        scheme: scheme,
                                        publicKey: wallet.publicKey.publicKey)
-        
+
         do {
             signature = try wallet.sign(input: signature, kind: [.none])
         } catch let e {
             SweetLogger.error(e)
             return nil
         }
-        
+
         let proofs = [Base58Encoder.encode(signature)]
-        
-        let broadcastSpecification = self.continueBroadcastSpecification(timestamp: timestamp,
-                                                                         scheme: serverEnvironment.kind.chainId,
-                                                                         aliasScheme: serverEnvironment.aliasScheme,
-                                                                         publicKey: wallet.publicKey.getPublicKeyStr(),
-                                                                         proofs: proofs)
+
+        let broadcastSpecification = continueBroadcastSpecification(timestamp: timestamp,
+                                                                    scheme: serverEnvironment.kind.chainId,
+                                                                    aliasScheme: serverEnvironment.aliasScheme,
+                                                                    publicKey: wallet.publicKey.getPublicKeyStr(),
+                                                                    proofs: proofs)
         return broadcastSpecification
     }
-    
+
     private func continueBroadcastSpecification(timestamp: Int64,
                                                 scheme: String,
                                                 aliasScheme: String,
                                                 publicKey: String,
                                                 proofs: [String]) -> NodeService.Query.Transaction {
         switch self {
-        case .burn(let model):
-            
-            return .burn(NodeService.Query.Transaction.Burn(version: self.version,
+        case let .burn(model):
+
+            return .burn(NodeService.Query.Transaction.Burn(version: version,
                                                             chainId: scheme,
                                                             fee: model.fee,
                                                             assetId: model.assetID,
@@ -73,25 +69,25 @@ extension TransactionSenderSpecifications {
                                                             timestamp: timestamp,
                                                             senderPublicKey: publicKey,
                                                             proofs: proofs))
-            
-        case .createAlias(let model):
-            
-            return .createAlias(NodeService.Query.Transaction.Alias(version: self.version,
+
+        case let .createAlias(model):
+
+            return .createAlias(NodeService.Query.Transaction.Alias(version: version,
                                                                     chainId: scheme,
                                                                     name: model.alias,
                                                                     fee: model.fee,
                                                                     timestamp: timestamp,
                                                                     senderPublicKey: publicKey,
                                                                     proofs: proofs))
-        case .lease(let model):
-            
+        case let .lease(model):
+
             var recipient = ""
             if model.recipient.count <= WavesSDKConstants.aliasNameMaxLimitSymbols {
                 recipient = aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
             }
-            return .startLease(NodeService.Query.Transaction.Lease(version: self.version,
+            return .startLease(NodeService.Query.Transaction.Lease(version: version,
                                                                    chainId: scheme,
                                                                    fee: model.fee,
                                                                    recipient: recipient,
@@ -99,37 +95,37 @@ extension TransactionSenderSpecifications {
                                                                    timestamp: timestamp,
                                                                    senderPublicKey: publicKey,
                                                                    proofs: proofs))
-        case .cancelLease(let model):
-            
-            return .cancelLease(NodeService.Query.Transaction.LeaseCancel(version: self.version,
+        case let .cancelLease(model):
+
+            return .cancelLease(NodeService.Query.Transaction.LeaseCancel(version: version,
                                                                           chainId: scheme,
                                                                           fee: model.fee,
                                                                           leaseId: model.leaseId,
                                                                           timestamp: timestamp,
                                                                           senderPublicKey: publicKey,
                                                                           proofs: proofs))
-            
-        case .data(let model):
-            
-            return .data(NodeService.Query.Transaction.Data(version: self.version,
+
+        case let .data(model):
+
+            return .data(NodeService.Query.Transaction.Data(version: version,
                                                             fee: model.fee,
                                                             timestamp: timestamp,
                                                             senderPublicKey: publicKey,
                                                             proofs: proofs,
                                                             data: model.dataForNode,
                                                             chainId: scheme))
-            
-        case .send(let model):
+
+        case let .send(model):
             let recipient: String
-            
+
             if model.recipient.count <= WavesSDKConstants.aliasNameMaxLimitSymbols {
                 recipient = aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
             }
-            
+
             let attachment = Base58Encoder.encode(Array(model.attachment.utf8))
-            return .transfer(NodeService.Query.Transaction.Transfer(version: self.version,
+            return .transfer(NodeService.Query.Transaction.Transfer(version: version,
                                                                     recipient: recipient,
                                                                     assetId: model.assetId,
                                                                     amount: model.amount,
@@ -140,43 +136,43 @@ extension TransactionSenderSpecifications {
                                                                     senderPublicKey: publicKey,
                                                                     proofs: proofs,
                                                                     chainId: scheme))
-            
-        case .invokeScript(let model):
+
+        case let .invokeScript(model):
             var call: NodeService.Query.Transaction.InvokeScript.Call?
-            
+
             if let localCall = model.call {
                 let args = localCall.args.map { arg -> NodeService.Query.Transaction.InvokeScript.Arg in
-                    
+
                     let value: NodeService.Query.Transaction.InvokeScript.Arg.Value = { ()
                         -> NodeService.Query.Transaction.InvokeScript.Arg.Value in
-                        
+
                         switch arg.value {
-                        case .binary(let value):
+                        case let .binary(value):
                             return .binary(value)
-                            
-                        case .bool(let value):
+
+                        case let .bool(value):
                             return .bool(value)
-                            
-                        case .integer(let value):
+
+                        case let .integer(value):
                             return .integer(value)
-                            
-                        case .string(let value):
+
+                        case let .string(value):
                             return .string(value)
                         }
                     }()
-                    
+
                     return .init(value: value)
                 }
-                
+
                 call = NodeService.Query.Transaction.InvokeScript.Call(function: localCall.function,
                                                                        args: args)
             }
-            
+
             let payment = model.payment.map {
                 NodeService.Query.Transaction.InvokeScript.Payment(amount: $0.amount, assetId: $0.assetId)
             }
-            
-            return .invokeScript(.init(version: self.version,
+
+            return .invokeScript(.init(version: version,
                                        chainId: scheme,
                                        fee: model.fee,
                                        timestamp: timestamp,
@@ -188,63 +184,63 @@ extension TransactionSenderSpecifications {
                                        payment: payment))
         }
     }
-    
+
     func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
         switch self {
-        case .data(let model):
-            
+        case let .data(model):
+
             let bytes = TransactionSignatureV1.data(.init(fee: model.fee,
                                                           data: model.dataForSignature,
                                                           chainId: scheme,
                                                           senderPublicKey: Base58Encoder.encode(publicKey),
                                                           timestamp: timestamp)).bytesStructure
-            
+
             return bytes
-            
-        case .burn(let model):
-            
+
+        case let .burn(model):
+
             let bytes = TransactionSignatureV2.burn(.init(assetID: model.assetID,
                                                           quantity: model.quantity,
                                                           fee: model.fee,
                                                           chainId: scheme,
                                                           senderPublicKey: Base58Encoder.encode(publicKey),
                                                           timestamp: timestamp)).bytesStructure
-            
+
             return bytes
-            
-        case .cancelLease(let model):
-            
+
+        case let .cancelLease(model):
+
             let bytes = TransactionSignatureV2.cancelLease(.init(leaseId: model.leaseId,
                                                                  fee: model.fee,
                                                                  chainId: scheme,
                                                                  senderPublicKey: Base58Encoder.encode(publicKey),
                                                                  timestamp: timestamp)).bytesStructure
-            
+
             return bytes
-            
-        case .createAlias(let model):
-            
+
+        case let .createAlias(model):
+
             let bytes = TransactionSignatureV2.createAlias(.init(alias: model.alias,
                                                                  fee: model.fee,
                                                                  chainId: scheme,
                                                                  senderPublicKey: Base58Encoder.encode(publicKey),
                                                                  timestamp: timestamp)).bytesStructure
-            
+
             return bytes
-            
-        case .lease(let model):
-            
+
+        case let .lease(model):
+
             let bytes = TransactionSignatureV2.startLease(.init(recipient: model.recipient,
                                                                 amount: model.amount,
                                                                 fee: model.fee,
                                                                 chainId: scheme,
                                                                 senderPublicKey: Base58Encoder.encode(publicKey),
                                                                 timestamp: timestamp)).bytesStructure
-            
+
             return bytes
-            
-        case .send(let model):
-            
+
+        case let .send(model):
+
             let bytes = TransactionSignatureV2.transfer(.init(senderPublicKey: Base58Encoder.encode(publicKey),
                                                               recipient: model.recipient,
                                                               assetId: model.assetId,
@@ -255,44 +251,44 @@ extension TransactionSenderSpecifications {
                                                               chainId: scheme,
                                                               timestamp: timestamp))
                 .bytesStructure
-            
+
             return bytes
-            
-        case .invokeScript(let model):
-            
+
+        case let .invokeScript(model):
+
             var call: TransactionSignatureV1.Structure.InvokeScript.Call?
-            
+
             if let localCall = model.call {
                 let args = localCall.args.map { arg -> TransactionSignatureV1.Structure.InvokeScript.Arg in
-                    
+
                     let value = { () -> TransactionSignatureV1.Structure.InvokeScript.Arg.Value in
-                        
+
                         switch arg.value {
-                        case .binary(let value):
+                        case let .binary(value):
                             return .binary(value)
-                            
-                        case .integer(let value):
+
+                        case let .integer(value):
                             return .integer(value)
-                            
-                        case .bool(let value):
+
+                        case let .bool(value):
                             return .bool(value)
-                            
-                        case .string(let value):
+
+                        case let .string(value):
                             return .string(value)
                         }
                     }()
-                    
+
                     return TransactionSignatureV1.Structure.InvokeScript.Arg(value: value)
                 }
-                
+
                 call = TransactionSignatureV1.Structure.InvokeScript.Call(function: localCall.function,
                                                                           args: args)
             }
-            
+
             let payment = model.payment.map {
                 TransactionSignatureV1.Structure.InvokeScript.Payment(amount: $0.amount, assetId: $0.assetId)
             }
-            
+
             let bytes = TransactionSignatureV1.invokeScript(.init(senderPublicKey: Base58Encoder.encode(publicKey),
                                                                   fee: model.fee,
                                                                   chainId: scheme,
@@ -302,7 +298,7 @@ extension TransactionSenderSpecifications {
                                                                   call: call,
                                                                   payment: payment))
                 .bytesStructure
-            
+
             return bytes
         }
     }
@@ -318,43 +314,43 @@ private extension DataTransactionSender {
     var dataForSignature: [TransactionSignatureV1.Structure.Data.Value] {
         data.map { value -> TransactionSignatureV1.Structure.Data.Value in
             let kind: TransactionSignatureV1.Structure.Data.Value.Kind
-            
+
             switch value.value {
-            case .binary(let data):
+            case let .binary(data):
                 kind = .binary(data)
-                
-            case .integer(let number):
+
+            case let .integer(number):
                 kind = .integer(number)
-                
-            case .boolean(let flag):
+
+            case let .boolean(flag):
                 kind = .boolean(flag)
-                
-            case .string(let str):
+
+            case let .string(str):
                 kind = .string(str)
             }
-            
+
             return TransactionSignatureV1.Structure.Data.Value(key: value.key, value: kind)
         }
     }
-    
+
     var dataForNode: [NodeService.Query.Transaction.Data.Value] {
         data.map { value -> NodeService.Query.Transaction.Data.Value in
             let kind: NodeService.Query.Transaction.Data.Value.Kind
-            
+
             switch value.value {
-            case .binary(let data):
+            case let .binary(data):
                 kind = .binary(data)
-                
-            case .integer(let number):
+
+            case let .integer(number):
                 kind = .integer(number)
-                
-            case .boolean(let flag):
+
+            case let .boolean(flag):
                 kind = .boolean(flag)
-                
-            case .string(let str):
+
+            case let .string(str):
                 kind = .string(str)
             }
-            
+
             return NodeService.Query.Transaction.Data.Value(key: value.key, value: kind)
         }
     }

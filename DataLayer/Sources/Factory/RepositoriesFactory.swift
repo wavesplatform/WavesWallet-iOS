@@ -162,6 +162,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var userRepository: UserRepository = {
         UserRepositoryImp(serverEnvironmentRepository: serverEnvironmentUseCase, weOAuthRepository: weOAuthRepository)
     }()
+    
+    public private(set) lazy var adCashGRPCService: AdCashGRPCService = {
+        AdCashGRPCServiceImpl(weOAuthRepository: weOAuthRepository, serverEnvironmentRepository: serverEnvironmentUseCase)
+    }()
 
     public struct Resources {
         public typealias PathForFile = String

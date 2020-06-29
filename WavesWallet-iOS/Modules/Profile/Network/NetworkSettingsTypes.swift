@@ -24,7 +24,7 @@ extension NetworkSettingsTypes {
     }
 
     struct State: Mutating {
-        var wallet: DomainLayer.DTO.Wallet
+        var wallet: Wallet
         var accountSettings: DomainLayer.DTO.AccountSettings?
         var environment: WalletEnvironment?
         var displayState: DisplayState

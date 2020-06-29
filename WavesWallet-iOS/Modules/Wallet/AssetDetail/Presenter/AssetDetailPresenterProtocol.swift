@@ -19,6 +19,7 @@ protocol AssetDetailModuleOutput: AnyObject {
     func showTransaction(transactions: [SmartTransaction], index: Int)
     func showBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?)
     func showTrade(asset: Asset)
+    func showCard(asset: DomainLayer.DTO.SmartAssetBalance)
 }
 
 protocol AssetDetailModuleInput {

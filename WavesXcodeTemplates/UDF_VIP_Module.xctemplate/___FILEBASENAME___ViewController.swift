@@ -10,7 +10,6 @@ final class ___VARIABLE_productName___ViewController: UIViewController, ___VARIA
     var interactor: ___VARIABLE_productName___Interactable?
     
     private var presenterOutput: ___VARIABLE_productName___PresenterOutput?
-    private let viewOutput = VCOutput()
 
     private var underlyingView: View { view as! View }
 
@@ -60,12 +59,6 @@ extension ___VARIABLE_productName___ViewController: BindableView {
         guard let input = presenterOutput, isViewLoaded else { return }
         // ...
     }
-}
-
-// MARK: - ViewOutput
-
-extension ___VARIABLE_productName___ViewController {
-    private struct VCOutput {}
 }
 
 // MARK: - StoryboardInstantiatable

@@ -223,6 +223,12 @@ private extension AssetDetailPresenter {
                 $0.displayState.action = .changedFavorite
             }
 
+        case let .showCard(assetBalance):
+            moduleOutput?.showCard(asset: assetBalance)
+            return state.mutate {
+                $0.displayState.action = .none
+            }
+            
         case let .showReceive(assetBalance):
             moduleOutput?.showReceive(asset: assetBalance)
             return state.mutate {
@@ -360,7 +366,8 @@ fileprivate extension AssetDetailTypes.DTO.Asset.Info {
         info.assetBalance = newSmartBalance
         let asset = AssetDetailTypes.DTO.Asset(info: info, balance: newBalance)
 
-        return .init(price: .init(firstPrice: 0,
+        return .init(hasNeedCard: false,
+                     price: .init(firstPrice: 0,
                                   lastPrice: 0,
                                   priceUSD: Money(0, WavesSDKConstants.FiatDecimals)),
                      asset: asset)

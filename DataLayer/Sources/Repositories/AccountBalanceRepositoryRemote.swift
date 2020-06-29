@@ -26,8 +26,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
         self.wavesSDKServices = wavesSDKServices
     }
 
-    func balances(by serverEnviroment: ServerEnvironment,
-                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<[AssetBalance]> {
+    func balances(by serverEnviroment: ServerEnvironment, wallet: SignedWallet) -> Observable<[AssetBalance]> {
         let walletAddress = wallet.address
         let assetsBalance = self.assetsBalance(by: serverEnviroment,
                                                walletAddress: walletAddress)
@@ -36,7 +35,6 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                                                  walletAddress: walletAddress)
 
         let matcherBalances = self.matcherBalances(by: serverEnviroment,
-                                                   walletAddress: walletAddress,
                                                    wallet: wallet)
 
         return Observable
@@ -44,11 +42,8 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
             .map { AssetBalance.map(assets: $0.0, account: $0.1, matcherBalances: $0.2) }
     }
 
-    func balance(by serverEnviroment: ServerEnvironment,
-                 assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<AssetBalance> {
+    func balance(by serverEnviroment: ServerEnvironment, assetId: String, wallet: SignedWallet) -> Observable<AssetBalance> {
         let matcherBalances = self.matcherBalances(by: serverEnviroment,
-                                                   walletAddress: wallet.address,
                                                    wallet: wallet)
 
         if assetId == WavesSDKConstants.wavesAssetId {
@@ -75,10 +70,10 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                      matcherBalances,
                      sponsorBalance)
                 .map { assetBalance, matcher, sponsorBalance -> AssetBalance in
-                    let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[assetId] ?? 0
                     return AssetBalance(model: assetBalance,
-                                                        inOrderBalance: inOrderBalance,
-                                                        sponsoredAssetDetail: sponsorBalance)
+                                        inOrderBalance: inOrderBalance,
+                                        sponsoredAssetDetail: sponsorBalance)
                 }
         }
     }
@@ -106,12 +101,10 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
 private extension AccountBalanceRepositoryRemote {
     func matcherBalances(by serverEnviroment: ServerEnvironment,
-                         walletAddress _: String,
-                         wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
+                         wallet: SignedWallet) -> Observable<[String: Int64]> {
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
 
-        let signature = TimestampSignature(signedWallet: wallet,
-                                           timestampServerDiff: serverEnviroment.timestampServerDiff)
+        let signature = TimestampSignature(signedWallet: wallet, timestampServerDiff: serverEnviroment.timestampServerDiff)
 
         return wavesServices
             .matcherServices
@@ -138,26 +131,20 @@ private extension AccountBalanceRepositoryRemote {
     func sponsorBalance(serverEnviroment: ServerEnvironment,
                         assetId: String,
                         walletAddress: String) -> Observable<SponsoredAssetDetail> {
-        return assetDetail(serverEnviroment: serverEnviroment,
-                           assetId: assetId,
-                           walletAddress: walletAddress)
+        return assetDetail(serverEnviroment: serverEnviroment, assetId: assetId)
             .flatMap { [weak self] detail -> Observable<SponsoredAssetDetail> in
 
                 guard let self = self else { return Observable.never() }
 
-                return self.balance(for: serverEnviroment,
-                                    walletAddress: detail.issuer,
-                                    myWalletAddress: walletAddress)
+                return self.balance(for: serverEnviroment, walletAddress: detail.issuer)
                     .map { balance -> SponsoredAssetDetail in
-                        SponsoredAssetDetail(minSponsoredAssetFee: detail.minSponsoredAssetFee,
-                                             sponsoredBalance: balance.balance)
+                        SponsoredAssetDetail(minSponsoredAssetFee: detail.minSponsoredAssetFee, sponsoredBalance: balance.balance)
                     }
             }
     }
 
     func assetDetail(serverEnviroment: ServerEnvironment,
-                     assetId: String,
-                     walletAddress _: String) -> Observable<NodeService.DTO.AssetDetail> {
+                     assetId: String) -> Observable<NodeService.DTO.AssetDetail> {
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
 
         return wavesServices
@@ -166,9 +153,7 @@ private extension AccountBalanceRepositoryRemote {
             .assetDetails(assetId: assetId)
     }
 
-    func balance(for serverEnviroment: ServerEnvironment,
-                 walletAddress: String,
-                 myWalletAddress _: String) -> Observable<NodeService.DTO.AddressBalance> {
+    func balance(for serverEnviroment: ServerEnvironment, walletAddress: String) -> Observable<NodeService.DTO.AddressBalance> {
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnviroment)
 
         return wavesServices
@@ -236,7 +221,7 @@ private extension AssetBalance {
             AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0)
         }
         let accountBalance = AssetBalance(accountBalance: account,
-                                                          inOrderBalance: matcherBalances[WavesSDKConstants.wavesAssetId] ?? 0)
+                                          inOrderBalance: matcherBalances[WavesSDKConstants.wavesAssetId] ?? 0)
 
         var list = [AssetBalance]()
         list.append(contentsOf: assetsBalance)

@@ -125,17 +125,19 @@ private extension ProfileViewController {
         let readyViewFeedback: ProfilePresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
 
-            return self.viewDidAppearEvent.asObservable()
+            return self.rx.viewDidAppear.asObservable()
+                .throttle(RxTimeInterval.seconds(1), scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
-                .map { Types.Event.viewDidAppear }
+                .map { _ in Types.Event.viewDidAppear }
         }
 
         let viewDidDisappear: ProfilePresenterProtocol.Feedback = { [weak self] _ in
             guard let self = self else { return Signal.empty() }
 
-            return self.viewDidDisappearEvent.asObservable()
+            return self.rx.viewDidDisappear.asObservable()
+                .throttle(RxTimeInterval.seconds(1), scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
-                .map { Types.Event.viewDidDisappear }
+                .map { _ in Types.Event.viewDidDisappear }
         }
 
         presenter.system(feedbacks: [uiFeedback, readyViewFeedback, viewDidDisappear])

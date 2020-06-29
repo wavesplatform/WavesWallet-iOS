@@ -12,10 +12,9 @@ import RxCocoa
 import RxFeedback
 
 protocol WalletPresenterProtocol {
-    typealias Feedback = (Driver<WalletTypes.State>) -> Signal<WalletTypes.Event>
+    typealias Feedback = (Driver<WalletState>) -> Signal<WalletEvent>
 
-    var interactor: WalletInteractorProtocol! { get set }
-    var moduleOutput: WalletModuleOutput? { get set }
+    var interactor: WalletInteractorProtocol! { get set }    
 
     func system(feedbacks: [Feedback])
 }
