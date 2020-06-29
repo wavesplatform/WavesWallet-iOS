@@ -98,6 +98,7 @@
                             <constraint firstItem="eAS-5y-W5N" firstAttribute="leading" secondItem="BNZ-bO-rhc" secondAttribute="leading" constant="16" id="9hU-Dk-gC0"/>
                             <constraint firstItem="HgA-Aw-ocO" firstAttribute="bottom" secondItem="rhy-Qr-sVc" secondAttribute="bottom" id="CWB-rU-M8n"/>
                             <constraint firstItem="rhy-Qr-sVc" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" id="InT-jX-jeE"/>
+                            <constraint firstItem="rhy-Qr-sVc" firstAttribute="width" secondItem="BNZ-bO-rhc" secondAttribute="width" id="L4q-G2-Jl8"/>
                             <constraint firstAttribute="trailing" secondItem="eAS-5y-W5N" secondAttribute="trailing" constant="16" id="OI4-7n-765"/>
                             <constraint firstItem="TEK-i5-cqq" firstAttribute="centerY" secondItem="BNZ-bO-rhc" secondAttribute="centerY" constant="-167" id="Obk-0v-8z0"/>
                             <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="rhy-Qr-sVc" secondAttribute="trailing" id="UZe-wF-lDW"/>
@@ -112,6 +113,7 @@
                         <outlet property="nextControl" destination="aGv-RV-1kE" id="6rY-eh-Zoo"/>
                         <outlet property="nextLabel" destination="bWa-hw-qXK" id="LZc-eE-bkz"/>
                         <outlet property="pageControl" destination="IID-bw-ILn" id="u8v-NT-nuc"/>
+                        <outlet property="pageControlContainer" destination="eAS-5y-W5N" id="dfz-VD-Nfd"/>
                         <outlet property="scrollView" destination="rhy-Qr-sVc" id="o1I-tH-Du2"/>
                         <outlet property="stackView" destination="0ch-qT-Z2k" id="Pgk-hB-kIx"/>
                     </connections>

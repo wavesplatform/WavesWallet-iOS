@@ -45,7 +45,7 @@ struct WelcomeScreenPresenterOutput {
 }
 
 struct WelcomeScreenViewOutput {
-    let viewWillAppear: ControlEvent<Void>
+    let viewDidLoad: ControlEvent<Void>
     
     let didTapBegin: ControlEvent<Void>
     let didTapUrl: ControlEvent<URL>

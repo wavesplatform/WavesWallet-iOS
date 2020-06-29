@@ -33,6 +33,6 @@ extension WelcomeScreenInteractor: IOTransformer {
             .subscribe(onNext: { [weak self] in self?.listener?.didTapBegin() })
             .disposed(by: disposeBag)
         
-        return WelcomeScreenInteractorOutput(viewWillAppear: input.viewWillAppear)
+        return WelcomeScreenInteractorOutput(viewWillAppear: input.viewDidLoad)
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 import UITools
 
 final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableView {
+    
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailsLabel: UILabel!
@@ -37,12 +39,21 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
     }
 
     ///
-    public func setPrivacyPolicyText(_ privacyPolicyText: NSAttributedString,
-                                     termOfConditionText: NSAttributedString,
+    public func setPrivacyPolicyText(_ privacyPolicyText: NSAttributedString?,
+                                     termOfConditionText: NSAttributedString?,
                                      didTapUrl: @escaping (URL) -> Void,
                                      didHasReadPolicyAndTerms: @escaping (Bool) -> Void) {
-        privacyPolicyTextView.attributedText = privacyPolicyText
-        termOfConditionTextView.attributedText = termOfConditionText
+        if let privacyPolicyText = privacyPolicyText, let termOfConditionText = termOfConditionText {
+            privacyPolicyTextView.attributedText = privacyPolicyText
+            termOfConditionTextView.attributedText = termOfConditionText
+        } else {
+            privacyPolicyCheckbox.isHidden = true
+            privacyPolicyTextView.isHidden = true
+            
+            termOfConditionCheckbox.isHidden = true
+            termOfConditionTextView.isHidden = true
+        }
+        
         self.didTapUrl = didTapUrl
         self.didHasReadPolicyAndTerms = didHasReadPolicyAndTerms
     }
@@ -55,13 +66,19 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
         privacyPolicyTextView.text = nil
         termOfConditionCheckbox.resetToEmptyState()
         termOfConditionTextView.text = nil
+        
+        privacyPolicyCheckbox.isHidden = false
+        privacyPolicyTextView.isHidden = false
+        
+        termOfConditionCheckbox.isHidden = false
+        termOfConditionTextView.isHidden = false
 
         didTapUrl = nil
         didHasReadPolicyAndTerms = nil
     }
 
     private func initialSetup() {
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFit
 
         titleLabel.font = .titleH1
         titleLabel.textColor = .submit400
