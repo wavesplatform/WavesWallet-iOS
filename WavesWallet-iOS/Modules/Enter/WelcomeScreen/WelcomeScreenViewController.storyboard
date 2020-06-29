@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEK-i5-cqq">
-                                <rect key="frame" x="99.5" y="78.5" width="176" height="176"/>
+                                <rect key="frame" x="99.5" y="100" width="176" height="176"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TEK-i5-cqq" secondAttribute="height" id="tE8-uy-Id7"/>
@@ -100,7 +100,7 @@
                             <constraint firstItem="rhy-Qr-sVc" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" id="InT-jX-jeE"/>
                             <constraint firstItem="rhy-Qr-sVc" firstAttribute="width" secondItem="BNZ-bO-rhc" secondAttribute="width" id="L4q-G2-Jl8"/>
                             <constraint firstAttribute="trailing" secondItem="eAS-5y-W5N" secondAttribute="trailing" constant="16" id="OI4-7n-765"/>
-                            <constraint firstItem="TEK-i5-cqq" firstAttribute="centerY" secondItem="BNZ-bO-rhc" secondAttribute="centerY" constant="-167" id="Obk-0v-8z0"/>
+                            <constraint firstItem="TEK-i5-cqq" firstAttribute="top" secondItem="HgA-Aw-ocO" secondAttribute="top" constant="100" id="Sb3-Cz-r2W"/>
                             <constraint firstItem="HgA-Aw-ocO" firstAttribute="trailing" secondItem="rhy-Qr-sVc" secondAttribute="trailing" id="UZe-wF-lDW"/>
                             <constraint firstItem="rhy-Qr-sVc" firstAttribute="leading" secondItem="HgA-Aw-ocO" secondAttribute="leading" id="fBw-KC-7B0"/>
                             <constraint firstItem="TEK-i5-cqq" firstAttribute="centerX" secondItem="BNZ-bO-rhc" secondAttribute="centerX" id="rVs-yB-ZCa"/>
@@ -110,6 +110,7 @@
                     <connections>
                         <outlet property="accentCircle" destination="TEK-i5-cqq" id="lUm-mS-Chy"/>
                         <outlet property="accentCircleHeight" destination="z8X-Du-EFi" id="bhF-q5-YAd"/>
+                        <outlet property="accentCircleTopPadding" destination="Sb3-Cz-r2W" id="TYe-pb-usl"/>
                         <outlet property="nextControl" destination="aGv-RV-1kE" id="6rY-eh-Zoo"/>
                         <outlet property="nextLabel" destination="bWa-hw-qXK" id="LZc-eE-bkz"/>
                         <outlet property="pageControl" destination="IID-bw-ILn" id="u8v-NT-nuc"/>

@@ -18,6 +18,9 @@ final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewCont
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var accentCircle: UIView!
+    
+    // default value is -100
+    @IBOutlet weak var accentCircleTopPadding: NSLayoutConstraint!
     @IBOutlet private weak var accentCircleHeight: NSLayoutConstraint!
 
     @IBOutlet private weak var pageControlContainer: UIView!
@@ -25,7 +28,7 @@ final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewCont
     @IBOutlet private weak var nextLabel: UILabel!
     @IBOutlet private weak var nextControl: UIControl!
 
-    private var hasBegin = false
+    private var canBegin = false
     private var lastScreenIndex = 0
 
     private var presenterOutput: WelcomeScreenPresenterOutput?
@@ -63,7 +66,7 @@ final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewCont
     @objc private func didTapNextControl() {
         let finalContentOffset = scrollView.contentOffset.x + scrollView.bounds.width
 
-        if (pageControl.numberOfPages - 1) == lastScreenIndex, hasBegin {
+        if (pageControl.numberOfPages - 1) == lastScreenIndex, canBegin {
             didTapBegin.accept(Void())
         }
 
@@ -100,20 +103,29 @@ extension WelcomeScreenViewController: BindableView {
     private func bindViewModel(viewModel: [WelcomeScreenViewModel]) {
         stackView.subviews.forEach { $0.removeFromSuperview() }
 
+        let didScroll: (CGPoint) -> Void = { [weak self] contentOffset in
+            let notZeroYOffset = max(0, contentOffset.y)
+            let newPadding = min(-notZeroYOffset + Constants.defaultPadding, Constants.defaultPadding)
+            self?.accentCircleTopPadding.constant = newPadding
+        }
         let didTapUrl: (URL) -> Void = { [weak self] in self?.didTapUrl.accept($0) }
         let didHasReadPolicyAndTerms: (Bool) -> Void = { [weak self] in
-            self?.hasBegin = $0
+            self?.canBegin = $0
             self?.nextControl.isUserInteractionEnabled = $0
         }
 
         let views = viewModel.map {
-            Helper.makeInfoView(with: $0, didTapUrl: didTapUrl, didHasReadPolicyAndTerms: didHasReadPolicyAndTerms)
+            Helper.makeInfoView(with: $0,
+                                didScroll: didScroll,
+                                didTapUrl: didTapUrl,
+                                didHasReadPolicyAndTerms: didHasReadPolicyAndTerms)
         }
         stackView.addArrangedSubviews(views)
 
         pageControl.numberOfPages = views.count
 
         for view in views {
+            view.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
             view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         }
 
@@ -127,18 +139,22 @@ extension WelcomeScreenViewController: BindableView {
 extension WelcomeScreenViewController {
     private enum Helper {
         static func makeInfoView(with viewModel: WelcomeScreenViewModel,
+                                 didScroll: @escaping (CGPoint) -> Void,
                                  didTapUrl: @escaping (URL) -> Void,
                                  didHasReadPolicyAndTerms: @escaping (Bool) -> Void) -> UIView {
             return makeInfoView(viewModel: viewModel,
+                                didScroll: didScroll,
                                 didTapUrl: didTapUrl,
                                 didHasReadPolicyAndTerms: didHasReadPolicyAndTerms)
         }
 
         private static func makeInfoView(viewModel: WelcomeScreenViewModel,
+                                         didScroll: @escaping (CGPoint) -> Void,
                                          didTapUrl: @escaping (URL) -> Void,
                                          didHasReadPolicyAndTerms: @escaping (Bool) -> Void) -> UIView {
             let view = WelcomeScreenTermOfConditionsView.loadFromNib()
             view.setTitleText(viewModel.title, detailsText: viewModel.details, image: makeWelcomeScreenVMImage(viewModel))
+            view.setScrollViewDidScroll(didScroll)
 
             if case .termOfConditions = viewModel {
                 let privacyPolicyText = makeTermsAttributedString(title: viewModel.privacyPolicyText.title,
@@ -193,7 +209,7 @@ extension WelcomeScreenViewController {
 
 extension WelcomeScreenViewController: UIScrollViewDelegate {
     private enum Constants {
-        static let scaleStep: CGFloat = 55
+        static let defaultPadding: CGFloat = 100
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

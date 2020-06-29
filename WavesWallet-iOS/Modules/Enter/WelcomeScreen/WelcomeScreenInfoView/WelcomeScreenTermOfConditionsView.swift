@@ -22,6 +22,7 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
     @IBOutlet private weak var termOfConditionCheckbox: CheckboxButton!
     @IBOutlet private weak var termOfConditionTextView: UITextView!
 
+    private var didScroll: ((CGPoint) -> Void)?
     private var didTapUrl: ((URL) -> Void)?
     private var didHasReadPolicyAndTerms: ((Bool) -> Void)?
 
@@ -57,6 +58,11 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
         self.didTapUrl = didTapUrl
         self.didHasReadPolicyAndTerms = didHasReadPolicyAndTerms
     }
+    
+    /// Костыльный способ узнать насколько вниз спустился скролл чтобы подвинуть круг
+    public func setScrollViewDidScroll(_ didScroll: @escaping (CGPoint) -> Void) {
+        self.didScroll = didScroll
+    }
 
     func resetToEmptyState() {
         imageView.image = nil
@@ -78,6 +84,9 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
     }
 
     private func initialSetup() {
+        scrollView.contentInset.bottom = 100
+        scrollView.delegate = self
+        
         imageView.contentMode = .scaleAspectFit
 
         titleLabel.font = .titleH1
@@ -106,6 +115,12 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
 
     @objc private func didTapCheckbox() {
         didHasReadPolicyAndTerms?(privacyPolicyCheckbox.isChecked && termOfConditionCheckbox.isChecked)
+    }
+}
+
+extension WelcomeScreenTermOfConditionsView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        didScroll?(scrollView.contentOffset)
     }
 }
 
