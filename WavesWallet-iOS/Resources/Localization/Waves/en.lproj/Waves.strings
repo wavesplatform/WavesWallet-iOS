@@ -845,3 +845,12 @@
 "buyCrypto.messageInfo.ifYouHaveProblems" = "• If you have problems with your payment, please contact support service.";
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "support";
 
+"needBackupScreen.bullet" = "•";
+"needBackupScreen.title" = "SEED phrase and your safety";
+"needBackupScreen.pleaseLearnTheImportant" = "Please learn the important aspects that affect the security of your future funds:";
+"needBackupScreen.afterCreatingAccountCopySeed" = "After creating an account, go to Settings and copy the SEED phrase. Keep it in a safe place and keep away from others.";
+"needBackupScreen.afterCreatingAccountCopySeed.copySeed" = "copy the SEED phrase";
+"needBackupScreen.afterCreatingAccountCopySeed.safe" = "safe";
+"needBackupScreen.ifYouLoseSeedThenYouLoseMoney" = "Remember, that if you lose the SEED phrase, you will never recover the password from your account, and never will open your account on another device.";
+"needBackupScreen.neverTellAnyoneSeed" = "NEVER tell anyone your SEED phrase. Only scammers can be interested in this information.";
+"needBackupScreen.neverTellAnyoneSeed.never" = "NEVER";

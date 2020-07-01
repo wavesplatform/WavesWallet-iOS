@@ -845,3 +845,13 @@
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "поддержки";
 
 "asset.cell.balance.button.card" = "Карта";
+
+"needBackupScreen.bullet" = "•";
+"needBackupScreen.title" = "SEED фраза и ваша безопасность";
+"needBackupScreen.pleaseLearnTheImportant" = "Пожалуйста ознакомьтесь с важными аспектами, влияющими на безопасность ваших будущих средств:";
+"needBackupScreen.afterCreatingAccountCopySeed" = "После создания аккаунта, перейдите в Настройки и скопируйте SEED фразу. Сохраните ее в надежное место и держите подальше от посторонних глаз.";
+"needBackupScreen.afterCreatingAccountCopySeed.copySeed" = "скопируйте SEED фразу";
+"needBackupScreen.afterCreatingAccountCopySeed.safe" = "Сохраните";
+"needBackupScreen.ifYouLoseSeedThenYouLoseMoney" = "Помните, что в случае утери SEED фразы, вы никогда не сможете восстановить пароль от своего аккаунта, а также окрыть свой аккаунт на другом устройстве.";
+"needBackupScreen.neverTellAnyoneSeed" = "НИКОГДА никому не сообщайте свою SEED фразу. Только мошенники могут интересоваться данной информацией.";
+"needBackupScreen.neverTellAnyoneSeed.never" = "НИКОГДА";
