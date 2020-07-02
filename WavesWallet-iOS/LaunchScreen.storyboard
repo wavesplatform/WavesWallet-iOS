@@ -1,42 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9QH-IS-5cN">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="6b3-ea-P1B">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController id="9QH-IS-5cN" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="Y6Q-GP-uGQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="d9j-Ue-JH3"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="fmi-tx-ULY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exchangeBlack" translatesAutoresizingMaskIntoConstraints="NO" id="EoD-Ww-lhF">
-                                <rect key="frame" x="87.5" y="315.5" width="200" height="36"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_background_new" translatesAutoresizingMaskIntoConstraints="NO" id="tce-9p-O8A">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo_white" translatesAutoresizingMaskIntoConstraints="NO" id="Esd-5A-UKR">
+                                <rect key="frame" x="150.5" y="296.5" width="74" height="74"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves.Exchange" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypc-Be-K0B">
+                                <rect key="frame" x="16" y="563" width="343" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="EoD-Ww-lhF" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="5ET-aM-uKO"/>
-                            <constraint firstItem="EoD-Ww-lhF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bYk-bM-Qw7"/>
+                            <constraint firstItem="D33-y0-fHw" firstAttribute="trailing" secondItem="Ypc-Be-K0B" secondAttribute="trailing" constant="16" id="389-mu-iQ6"/>
+                            <constraint firstAttribute="bottom" secondItem="tce-9p-O8A" secondAttribute="bottom" id="C4Y-DH-R6i"/>
+                            <constraint firstItem="tce-9p-O8A" firstAttribute="leading" secondItem="fmi-tx-ULY" secondAttribute="leading" id="Pfp-np-LPv"/>
+                            <constraint firstItem="Ypc-Be-K0B" firstAttribute="leading" secondItem="D33-y0-fHw" secondAttribute="leading" constant="16" id="SRG-2K-MNN"/>
+                            <constraint firstItem="d9j-Ue-JH3" firstAttribute="top" secondItem="Ypc-Be-K0B" secondAttribute="bottom" constant="80" id="YBq-9b-lOp"/>
+                            <constraint firstItem="Esd-5A-UKR" firstAttribute="centerY" secondItem="fmi-tx-ULY" secondAttribute="centerY" id="Yev-ly-saK"/>
+                            <constraint firstItem="tce-9p-O8A" firstAttribute="top" secondItem="fmi-tx-ULY" secondAttribute="top" id="aNx-P4-AhA"/>
+                            <constraint firstAttribute="trailing" secondItem="tce-9p-O8A" secondAttribute="trailing" id="s2D-B8-BGG"/>
+                            <constraint firstItem="Esd-5A-UKR" firstAttribute="centerX" secondItem="fmi-tx-ULY" secondAttribute="centerX" id="t1L-4O-qGl"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="D33-y0-fHw"/>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kEc-Us-59Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="-524" y="411"/>
         </scene>
     </scenes>
     <resources>
-        <image name="exchangeBlack" width="200" height="36"/>
+        <image name="launch_logo_white" width="74" height="74"/>
+        <image name="splash_background_new" width="375" height="812"/>
     </resources>
 </document>

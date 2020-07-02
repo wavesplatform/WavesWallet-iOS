@@ -28,7 +28,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let slideMenuRouter: SlideMenuRouter
+    private let windowRouter: WindowRouter
     private lazy var tabBarRouter: TabBarRouter = {
 
         let mainTabBar = StoryboardScene.Main.mainTabBarController.instantiate()
@@ -105,8 +105,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         return navigation
     }()
 
-    init(slideMenuRouter: SlideMenuRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
-        self.slideMenuRouter = slideMenuRouter
+    init(windowRouter: WindowRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
+        self.windowRouter = windowRouter
         self.applicationCoordinator = applicationCoordinator
         super.init()
 
@@ -136,7 +136,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     }
 
     func start() {
-        slideMenuRouter.setContentViewController(tabBarRouter.tabBarController)
+        windowRouter.setRootViewController(tabBarRouter.tabBarController)
         listenerWallet()
     }
 }

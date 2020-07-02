@@ -33,17 +33,6 @@ extension UIViewController {
                                                            target: self,
                                                            action: #selector(backTapped))
     }
-
-    @objc func menuTapped() {
-        
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.menu(.wavesMenuPage))
-        
-        let menu = AppDelegate.shared().menuController
-        menu.presentLeftMenuViewController()
-    }
     
     @objc func backTapped() {
         navigationController?.popViewController(animated: true)

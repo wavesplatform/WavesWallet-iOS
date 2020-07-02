@@ -181,6 +181,7 @@ internal enum Images {
   internal static let information24Multy = ImageAsset(name: "information24Multy")
   internal static let invest26 = ImageAsset(name: "invest26")
   internal static let investActive26 = ImageAsset(name: "investActive26")
+  internal static let launchLogoWhite = ImageAsset(name: "launch_logo_white")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
   internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
   internal static let logoDash48 = ImageAsset(name: "logoDash48")
@@ -249,6 +250,7 @@ internal enum Images {
   internal static let slidePointDot = ImageAsset(name: "slide_point_dot")
   internal static let slidePointLine = ImageAsset(name: "slide_point_line")
   internal static let sort18 = ImageAsset(name: "sort18")
+  internal static let splashBackgroundNew = ImageAsset(name: "splash_background_new")
   internal static let sponsoritem18White = ImageAsset(name: "sponsoritem18White")
   internal static let star = ImageAsset(name: "star")
   internal static let starSearchSmall = ImageAsset(name: "starSearchSmall")
@@ -513,6 +515,7 @@ internal enum Images {
     information24Multy,
     invest26,
     investActive26,
+    launchLogoWhite,
     logoBitcoin48,
     logoBitcoincash48,
     logoDash48,
@@ -581,6 +584,7 @@ internal enum Images {
     slidePointDot,
     slidePointLine,
     sort18,
+    splashBackgroundNew,
     sponsoritem18White,
     star,
     starSearchSmall,

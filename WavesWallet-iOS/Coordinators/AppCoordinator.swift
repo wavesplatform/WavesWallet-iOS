@@ -11,7 +11,6 @@ import Extensions
 import Foundation
 import Intercom
 import IQKeyboardManagerSwift
-import RESideMenu
 import RxSwift
 import UIKit
 import WavesSDK
@@ -90,7 +89,10 @@ final class AppCoordinator: Coordinator {
         if let deepLink = deepLink {
             openURL(link: deepLink)
         }
-
+        
+        
+        // открывается поверх всех экранов
+        addChildCoordinatorAndStart(childCoordinator: SplashScreenCoordinator())
         checkAndRunForceUpdate()
 
         checkAndRunServerMaintenance()

@@ -167,7 +167,6 @@ PODS:
   - Realm/Headers (4.4.1)
   - RealmSwift (4.4.1):
     - Realm (= 4.4.1)
-  - RESideMenu (4.0.7)
   - Reveal-SDK (20)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
@@ -265,7 +264,6 @@ DEPENDENCIES:
   - QRCode
   - QRCodeReader.swift (~> 9.0.1)
   - RealmSwift
-  - RESideMenu (from `https://github.com/wavesplatform/RESideMenu.git`)
   - Reveal-SDK (~> 20)
   - RxCocoa
   - RxFeedback
@@ -369,8 +367,6 @@ EXTERNAL SOURCES:
   InfiniteCollectionView:
     :branch: swift5
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
-  RESideMenu:
-    :git: https://github.com/wavesplatform/RESideMenu.git
 
 CHECKOUT OPTIONS:
   IdentityImg:
@@ -379,9 +375,6 @@ CHECKOUT OPTIONS:
   InfiniteCollectionView:
     :commit: 0ea9140787e243a76b511ffc04c62e623262ef31
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
-  RESideMenu:
-    :commit: c4870be8caf988b3c164bbf5675a717a905e9952
-    :git: https://github.com/wavesplatform/RESideMenu.git
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
@@ -440,7 +433,6 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
   Realm: 4eb04d7487bd43c0581256f40b424eafb711deff
   RealmSwift: 3eb8924ff7100df5928c7602f71d0fec51e7c9c5
-  RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxFeedback: 4260d8dad5bba28b182c0b9ff5bce68c260de183
@@ -467,6 +459,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 8ddd61c9ad3de67c97033578d0a08d202554da7a
+PODFILE CHECKSUM: dc265ac0a0781f84ad3e8d6f2e596d457cad4b68
 
 COCOAPODS: 1.9.3

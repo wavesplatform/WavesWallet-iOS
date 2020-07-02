@@ -17,7 +17,7 @@ final class EnterCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let slideMenuRouter: SlideMenuRouter
+    private let windowRouter: WindowRouter
     private let navigationRouter: NavigationRouter
 
     private var account: NewAccountTypes.DTO.Account?
@@ -25,19 +25,23 @@ final class EnterCoordinator: Coordinator {
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
     weak var delegate: EnterCoordinatorDelegate?
-
-    init(slideMenuRouter: SlideMenuRouter, applicationCoordinator: ApplicationCoordinatorProtocol) {
-        self.slideMenuRouter = slideMenuRouter
+        
+    init(windowRouter: WindowRouter, applicationCoordinator: ApplicationCoordinatorProtocol) {
+        self.windowRouter = windowRouter
         navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
         self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
+            
         let enter = StoryboardScene.Enter.enterStartViewController.instantiate()
         enter.delegate = self
-        navigationRouter.popAllAndSetRootViewController(enter)
-
-        slideMenuRouter.setContentViewController(navigationRouter.navigationController)
+                
+        navigationRouter.pushViewController(enter,
+                                            animated: false)
+        
+        windowRouter.setRootViewController(navigationRouter,
+                                           animated: nil)
     }
 }
 
