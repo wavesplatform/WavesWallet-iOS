@@ -116,6 +116,15 @@ extension AssetSelectView: ViewConfiguration {
     struct Model {
         let assetBalance: DomainLayer.DTO.SmartAssetBalance
         let isOnlyBlockMode: Bool
+        let hideAmount: Bool
+
+        init(assetBalance: DomainLayer.DTO.SmartAssetBalance,
+             isOnlyBlockMode: Bool,
+             hideAmount: Bool = false) {
+            self.assetBalance = assetBalance
+            self.isOnlyBlockMode = isOnlyBlockMode
+            self.hideAmount = hideAmount
+        }
     }
 
     func update(with model: Model) {
@@ -131,8 +140,12 @@ extension AssetSelectView: ViewConfiguration {
 
         loadIcon(icon: asset.iconLogo, isSponsored: model.assetBalance.asset.isSponsored,
                  hasScript: model.assetBalance.asset.hasScript)
-        let money = Money(model.assetBalance.availableBalance, asset.precision)
-        labelAmount.text = money.displayText
+        if model.hideAmount {
+            labelAmount.text = ""
+        } else {
+            let money = Money(model.assetBalance.availableBalance, asset.precision)
+            labelAmount.text = money.displayText
+        }
     }
 
     private func loadIcon(icon: AssetLogo.Icon, isSponsored _: Bool, hasScript _: Bool) {
