@@ -287,6 +287,8 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
         } else {
             assertionFailure("Unknow collection view in BuyCryptoViewController \(#function)")
         }
+        
+        cell.setupDefaultShadows()
 
         return cell
     }

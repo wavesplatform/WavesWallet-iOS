@@ -30,7 +30,7 @@ final class DottedRoundTextView: UIView, ResetableView {
     private func initialSetup() {
         dottedShapeLayer.opacity = 0
         dottedShapeLayer.fillColor = UIColor.clear.cgColor
-        dottedShapeLayer.lineWidth = 2
+        dottedShapeLayer.lineWidth = 0.5
         dottedShapeLayer.lineDashPattern = [4, 4]
         dottedShapeLayer.strokeColor = UIColor.basic300.cgColor
         layer.addSublayer(dottedShapeLayer)
