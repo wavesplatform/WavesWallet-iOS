@@ -2114,6 +2114,42 @@ internal enum Localizable {
       }
     }
 
+    internal enum Needbackupscreen {
+      /// After creating an account, go to Settings and copy the SEED phrase. Keep it in a safe place and keep away from others.
+      internal static var afterCreatingAccountCopySeed: String { Localizable.tr("Waves", "needBackupScreen.afterCreatingAccountCopySeed") }
+      internal static var afterCreatingAccountCopySeedKey: String { "needBackupScreen.afterCreatingAccountCopySeed" }
+      /// •
+      internal static var bullet: String { Localizable.tr("Waves", "needBackupScreen.bullet") }
+      internal static var bulletKey: String { "needBackupScreen.bullet" }
+      /// Remember, that if you lose the SEED phrase, you will never recover the password from your account, and never will open your account on another device.
+      internal static var ifYouLoseSeedThenYouLoseMoney: String { Localizable.tr("Waves", "needBackupScreen.ifYouLoseSeedThenYouLoseMoney") }
+      internal static var ifYouLoseSeedThenYouLoseMoneyKey: String { "needBackupScreen.ifYouLoseSeedThenYouLoseMoney" }
+      /// NEVER tell anyone your SEED phrase. Only scammers can be interested in this information.
+      internal static var neverTellAnyoneSeed: String { Localizable.tr("Waves", "needBackupScreen.neverTellAnyoneSeed") }
+      internal static var neverTellAnyoneSeedKey: String { "needBackupScreen.neverTellAnyoneSeed" }
+      /// Please learn the important aspects that affect the security of your future funds:
+      internal static var pleaseLearnTheImportant: String { Localizable.tr("Waves", "needBackupScreen.pleaseLearnTheImportant") }
+      internal static var pleaseLearnTheImportantKey: String { "needBackupScreen.pleaseLearnTheImportant" }
+      /// SEED phrase and your safety
+      internal static var title: String { Localizable.tr("Waves", "needBackupScreen.title") }
+      internal static var titleKey: String { "needBackupScreen.title" }
+
+      internal enum Aftercreatingaccountcopyseed {
+        /// copy the SEED phrase
+        internal static var copySeed: String { Localizable.tr("Waves", "needBackupScreen.afterCreatingAccountCopySeed.copySeed") }
+        internal static var copySeedKey: String { "needBackupScreen.afterCreatingAccountCopySeed.copySeed" }
+        /// safe
+        internal static var safe: String { Localizable.tr("Waves", "needBackupScreen.afterCreatingAccountCopySeed.safe") }
+        internal static var safeKey: String { "needBackupScreen.afterCreatingAccountCopySeed.safe" }
+      }
+
+      internal enum Nevertellanyoneseed {
+        /// NEVER
+        internal static var never: String { Localizable.tr("Waves", "needBackupScreen.neverTellAnyoneSeed.never") }
+        internal static var neverKey: String { "needBackupScreen.neverTellAnyoneSeed.never" }
+      }
+    }
+
     internal enum Networksettings {
 
       internal enum Button {

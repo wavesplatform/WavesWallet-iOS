@@ -72,6 +72,7 @@ internal enum Images {
   internal static let blockchain80 = ImageAsset(name: "blockchain80")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
+  internal static let buyCryptoArrow = ImageAsset(name: "buyCryptoArrow")
   internal static let buyWithCard = ImageAsset(name: "buyWithCard")
   internal static let buyWithCardComingSoon = ImageAsset(name: "buyWithCardComingSoon")
   internal static let changearrows14Basic500 = ImageAsset(name: "changearrows14Basic500")
@@ -403,6 +404,7 @@ internal enum Images {
     blockchain80,
     btnBack,
     btnBars,
+    buyCryptoArrow,
     buyWithCard,
     buyWithCardComingSoon,
     changearrows14Basic500,
