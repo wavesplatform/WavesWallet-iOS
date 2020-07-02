@@ -522,7 +522,8 @@ extension Asset {
                      minSponsoredFee: 10,
                      gatewayType: nil,
                      isStablecoin: false,
-                     isQualified: false)
+                     isQualified: false,
+                     isExistInExternalSource: false)
     }
 }
 

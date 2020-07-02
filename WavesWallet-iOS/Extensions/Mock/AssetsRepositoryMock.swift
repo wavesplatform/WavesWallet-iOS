@@ -6,49 +6,41 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
 import DomainLayer
+import Foundation
 import RxSwift
 
 final class AssetsRepositoryMock: AssetsRepositoryProtocol {
-    
-    func assets(serverEnvironment: ServerEnvironment,
-                ids: [String],
-                accountAddress: String) -> Observable<[Asset]> {
-        
+    func assets(serverEnvironment _: ServerEnvironment,
+                ids _: [String],
+                accountAddress _: String) -> Observable<[Asset]> {
         return Observable.never()
     }
-    
-    func isSmartAsset(serverEnvironment: ServerEnvironment,
-                      assetId: String,
-                      accountAddress: String) -> Observable<Bool> {
-        
+
+    func isSmartAsset(serverEnvironment _: ServerEnvironment,
+                      assetId _: String,
+                      accountAddress _: String) -> Observable<Bool> {
         return Observable.never()
     }
-    
-    func searchAssets(serverEnvironment: ServerEnvironment,
-                      search: String,
-                      accountAddress: String) -> Observable<[Asset]> {
-        
+
+    func searchAssets(serverEnvironment _: ServerEnvironment,
+                      search _: String,
+                      accountAddress _: String) -> Observable<[Asset]> {
         return Observable.never()
     }
-    
-    func saveAssets(_ assets:[Asset],
-                    by accountAddress: String) -> Observable<Bool> {
-        
+
+    func saveAssets(_: [Asset],
+                    by _: String) -> Observable<Bool> {
         return Observable.never()
     }
-    
-    func saveAsset(_ asset: Asset,
-                   by accountAddress: String) -> Observable<Bool> {
-        
+
+    func saveAsset(_: Asset,
+                   by _: String) -> Observable<Bool> {
         return Observable.never()
     }
 }
 
-
 extension Asset {
-    
     static func mockWaves() -> Asset {
         return .init(id: "WAVES",
                      gatewayId: nil,
@@ -76,9 +68,10 @@ extension Asset {
                      minSponsoredFee: 0,
                      gatewayType: nil,
                      isStablecoin: false,
-                     isQualified: false)
+                     isQualified: false,
+                     isExistInExternalSource: false)
     }
-    
+
     static func mockBTC() -> Asset {
         return .init(id: "BTC",
                      gatewayId: nil,
@@ -106,6 +99,7 @@ extension Asset {
                      minSponsoredFee: 0,
                      gatewayType: nil,
                      isStablecoin: false,
-                     isQualified: false)
+                     isQualified: false,
+                     isExistInExternalSource: false)
     }
 }

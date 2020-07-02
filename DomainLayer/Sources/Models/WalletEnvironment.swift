@@ -52,6 +52,7 @@ public struct WalletEnvironment: Decodable, Hashable {
         public let gatewayType: String?
         public let isStablecoin: Bool?
         public let isQualified: Bool?
+        public let isExistInExternalSource: Bool?
     }
     
     public struct Servers: Decodable, Hashable {

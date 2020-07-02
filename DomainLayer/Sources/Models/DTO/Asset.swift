@@ -49,6 +49,7 @@ public struct Asset: Mutating, Equatable, Hashable {
     public let gatewayType: DomainLayer.DTO.GatewayType?
     public let isStablecoin: Bool
     public let isQualified: Bool
+    public let isExistInExternalSource: Bool
 
     public init(id: String,
                 gatewayId: String?,
@@ -76,7 +77,8 @@ public struct Asset: Mutating, Equatable, Hashable {
                 minSponsoredFee: Int64,
                 gatewayType: String?,
                 isStablecoin: Bool,
-                isQualified: Bool) {
+                isQualified: Bool,
+                isExistInExternalSource: Bool) {
         self.id = id
         self.gatewayId = gatewayId
         self.wavesId = wavesId
@@ -104,6 +106,7 @@ public struct Asset: Mutating, Equatable, Hashable {
         self.gatewayType = DomainLayer.DTO.GatewayType(rawValue: gatewayType ?? "")
         self.isStablecoin = isStablecoin
         self.isQualified = isQualified
+        self.isExistInExternalSource = isExistInExternalSource
     }
 }
 

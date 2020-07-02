@@ -72,6 +72,7 @@ extension Asset {
                   minSponsoredFee: asset.minSponsoredFee,
                   gatewayType: asset.gatewayType,
                   isStablecoin: asset.isStablecoin,
-                  isQualified: asset.isQualified)
+                  isQualified: asset.isQualified,
+                  isExistInExternalSource: asset.isExistInExternalSource)
     }
 }
