@@ -53,7 +53,6 @@
 		0A20606821822C3A0048CF83 /* AddressesKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A20606721822C3A0048CF83 /* AddressesKeysViewController.swift */; };
 		0A26549121BAE153005EA637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7E954F01EA8FE0700A804DE /* Assets.xcassets */; };
 		0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */; };
-		0A43996921504CF60032E608 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43996821504CF60032E608 /* SideMenu.swift */; };
 		0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */; };
 		0A4C9A2820ED443C0095A417 /* InvestmentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A2720ED443C0095A417 /* InvestmentPresenter.swift */; };
 		0A4E71962216E98200A46613 /* SendFeeIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E71952216E98200A46613 /* SendFeeIndicatorCell.swift */; };
@@ -126,7 +125,6 @@
 		0ADD802221F22FFA0075FC59 /* WindowRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7FFF21F22FFA0075FC59 /* WindowRouter.swift */; };
 		0ADD802321F22FFA0075FC59 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD800021F22FFA0075FC59 /* Router.swift */; };
 		0ADD802421F22FFA0075FC59 /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD800121F22FFA0075FC59 /* TabBarRouter.swift */; };
-		0ADD802521F22FFA0075FC59 /* SlideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD800221F22FFA0075FC59 /* SlideMenuRouter.swift */; };
 		0ADD802621F22FFA0075FC59 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */; };
 		0ADD802721F22FFA0075FC59 /* WalletCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD800421F22FFA0075FC59 /* WalletCoordinator.swift */; };
 		0ADD802921F22FFA0075FC59 /* EnterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD800721F22FFA0075FC59 /* EnterCoordinator.swift */; };
@@ -406,7 +404,7 @@
 		7B74DBBA24695E3500AB1109 /* GrpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBB924695E3500AB1109 /* GrpcClient.swift */; };
 		7B74DBBC246AABB300AB1109 /* ServerEnvironmentRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBBB246AABB300AB1109 /* ServerEnvironmentRepositoryImp.swift */; };
 		7B74DBC1246AEF1A00AB1109 /* TransactionsDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B74DBBE246AEC3D00AB1109 /* TransactionsDAO.swift */; };
-		7B7973BE24A2041C001D15B4 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7973BD24A2041C001D15B4 /* SplashScreen.storyboard */; };
+		7B7973BE24A2041C001D15B4 /* SplashScreenVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7973BD24A2041C001D15B4 /* SplashScreenVC.storyboard */; };
 		7B7973C024A2045F001D15B4 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7973BF24A2045F001D15B4 /* SplashScreenVC.swift */; };
 		7B7973C224A20474001D15B4 /* SplashScreenGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7973C124A20474001D15B4 /* SplashScreenGradientView.swift */; };
 		7B7973C424A21C45001D15B4 /* SplashScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7973C324A21C45001D15B4 /* SplashScreenCoordinator.swift */; };
@@ -1490,7 +1488,6 @@
 		0A14E3F621875F5600EA7E91 /* CreateAliasInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAliasInputCell.swift; sourceTree = "<group>"; };
 		0A20606721822C3A0048CF83 /* AddressesKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysViewController.swift; sourceTree = "<group>"; };
 		0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedBackupViewController.swift; sourceTree = "<group>"; };
-		0A43996821504CF60032E608 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDeleteAccountViewController.swift; sourceTree = "<group>"; };
 		0A4C9A2720ED443C0095A417 /* InvestmentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentPresenter.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0A4E71942216C6CD00A46613 /* WavesWallet-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS.entitlements"; sourceTree = "<group>"; };
@@ -1558,7 +1555,6 @@
 		0ADD7FFF21F22FFA0075FC59 /* WindowRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowRouter.swift; sourceTree = "<group>"; };
 		0ADD800021F22FFA0075FC59 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0ADD800121F22FFA0075FC59 /* TabBarRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
-		0ADD800221F22FFA0075FC59 /* SlideMenuRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuRouter.swift; sourceTree = "<group>"; };
 		0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0ADD800421F22FFA0075FC59 /* WalletCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletCoordinator.swift; sourceTree = "<group>"; };
 		0ADD800721F22FFA0075FC59 /* EnterCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterCoordinator.swift; sourceTree = "<group>"; };
@@ -1875,7 +1871,7 @@
 		7B74DBB924695E3500AB1109 /* GrpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrpcClient.swift; sourceTree = "<group>"; };
 		7B74DBBB246AABB300AB1109 /* ServerEnvironmentRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentRepositoryImp.swift; sourceTree = "<group>"; };
 		7B74DBBE246AEC3D00AB1109 /* TransactionsDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsDAO.swift; sourceTree = "<group>"; };
-		7B7973BD24A2041C001D15B4 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
+		7B7973BD24A2041C001D15B4 /* SplashScreenVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreenVC.storyboard; sourceTree = "<group>"; };
 		7B7973BF24A2045F001D15B4 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		7B7973C124A20474001D15B4 /* SplashScreenGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenGradientView.swift; sourceTree = "<group>"; };
 		7B7973C324A21C45001D15B4 /* SplashScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenCoordinator.swift; sourceTree = "<group>"; };
@@ -3421,7 +3417,6 @@
 				0ADD7FFF21F22FFA0075FC59 /* WindowRouter.swift */,
 				0ADD800021F22FFA0075FC59 /* Router.swift */,
 				0ADD800121F22FFA0075FC59 /* TabBarRouter.swift */,
-				0ADD800221F22FFA0075FC59 /* SlideMenuRouter.swift */,
 				7B9B326022E6004700DB1C59 /* DebugRootView.swift */,
 			);
 			path = Router;
@@ -3606,7 +3601,6 @@
 				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
 				E9F78A3E229E990D0065324B /* ScrolledContainerView.swift */,
 				0AF92296212E1234003BA067 /* SeparatorView.swift */,
-				0A43996821504CF60032E608 /* SideMenu.swift */,
 				0A762D9621639FCC0019D447 /* WavesButton.swift */,
 				7BC17E7323F569DF00F76B7B /* ActionsControl */,
 				0AF9228D212E1234003BA067 /* AssetSegmented */,
@@ -4275,7 +4269,7 @@
 		7B7973BC24A203F4001D15B4 /* SplashScreen */ = {
 			isa = PBXGroup;
 			children = (
-				7B7973BD24A2041C001D15B4 /* SplashScreen.storyboard */,
+				7B7973BD24A2041C001D15B4 /* SplashScreenVC.storyboard */,
 				7B7973BF24A2045F001D15B4 /* SplashScreenVC.swift */,
 				7B7973C124A20474001D15B4 /* SplashScreenGradientView.swift */,
 			);
@@ -7485,7 +7479,7 @@
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				87FA5DBE24223FBE002F282D /* AssetTransactionCell.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
-				7B7973BE24A2041C001D15B4 /* SplashScreen.storyboard in Resources */,
+				7B7973BE24A2041C001D15B4 /* SplashScreenVC.storyboard in Resources */,
 				E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */,
 				E922D46523CF00B3002CFCED /* TradeFilterHeaderView.xib in Resources */,
 			);
@@ -8681,7 +8675,6 @@
 				E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */,
 				0ADD802A21F22FFA0075FC59 /* EnterLanguageCoordinator.swift in Sources */,
 				E921ED04222DDA4600DE286D /* DexScriptAssetMessageViewController.swift in Sources */,
-				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				7B3681B12315612C000D5592 /* ConfirmRequestSkeletonCell.swift in Sources */,
 				04A403242164D89700652F21 /* EnterStartBlockCell.swift in Sources */,
 				7B39029D2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift in Sources */,
@@ -8752,7 +8745,6 @@
 				E9AFDBE421F32E88003130A8 /* TransactionFeeView.swift in Sources */,
 				7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */,
 				7BFB480C22FC742F002B19F8 /* GlobalConstants.swift in Sources */,
-				0ADD802521F22FFA0075FC59 /* SlideMenuRouter.swift in Sources */,
 				E97A283923D058AB00C4C8C4 /* TradeSkeletonCell.swift in Sources */,
 				7B3681AF23155805000D5592 /* ConfirmRequestBalanceCell.swift in Sources */,
 				7BE7B49D2476B1E90066F87D /* SmartBarButton.swift in Sources */,

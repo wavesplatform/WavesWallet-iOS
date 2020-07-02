@@ -7,7 +7,6 @@
 //
 
 import IQKeyboardManagerSwift
-import RESideMenu
 import RxSwift
 import UIKit
 
@@ -44,9 +43,11 @@ import Intercom
     #if DEBUG
         var paws: MonkeyPaws?
     #endif
+        
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         var url: URL?
 
         if let path = launchOptions?[.url] as? String {
@@ -66,9 +67,9 @@ import Intercom
         guard setupLayers() else { return false }
 
         UNUserNotificationCenter.current().delegate = self
-        
+
         application.registerForRemoteNotifications()
-        
+
         setupUI()
         setupServices()
 
@@ -221,8 +222,6 @@ extension AppDelegate {
     }
 
     class func shared() -> AppDelegate { UIApplication.shared.delegate as! AppDelegate }
-
-    var menuController: RESideMenu { window?.rootViewController as! RESideMenu }
 }
 
 // MARK: - UNUserNotificationCenterDelegate

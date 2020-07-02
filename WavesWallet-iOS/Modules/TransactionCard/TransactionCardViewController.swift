@@ -183,13 +183,13 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
         let localInset = layoutInsets.top
         var inset: CGFloat = 0
 
-        if let vc = presentingViewController as? SlideMenuProtocol {
-            if let tabBarVc = vc.mainViewController as? UITabBarController,
+        if let vc = presentingViewController {
+            if let tabBarVc = vc as? UITabBarController,
                 let selectedViewController = tabBarVc.selectedViewController as? UINavigationController,
                 let topVc = selectedViewController.topViewController {
                 inset = topVc.layoutInsets.top - localInset
             } else {
-                inset = vc.mainViewController.layoutInsets.top - localInset
+                inset = vc.layoutInsets.top - localInset
             }
         } else {
             inset = (presentingViewController?.layoutInsets.top ?? 0) - localInset

@@ -63,8 +63,7 @@ target 'WavesWallet-iOS' do
     pod 'Kingfisher'
     pod 'MGSwipeTableCell'
     pod 'QRCode'
-    pod 'QRCodeReader.swift', '~> 9.0.1'
-    pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
+    pod 'QRCodeReader.swift', '~> 9.0.1'    
     pod 'Reveal-SDK', '~> 20', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'release-dev']
     pod 'RxCocoa'
     pod 'RxFeedback'

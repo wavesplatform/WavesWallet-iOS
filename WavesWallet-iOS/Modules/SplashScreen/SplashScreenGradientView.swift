@@ -12,6 +12,9 @@ private struct Constants {
     static let gradientStartPoint = CGPoint(x: 0, y: 0)
     static let gradientEndPoint = CGPoint(x: 0.25, y: 1.16)
     static let gradientAnimationEndPoint = CGPoint(x: 0.25, y: 0.7)
+
+    static let gradientColors = [UIColor(red: 0.882, green: 0.294, blue: 0.318, alpha: 1).cgColor,
+                                 UIColor(red: 0.353, green: 0.506, blue: 0.918, alpha: 1).cgColor]
 }
 
 protocol SplashScreenGradientViewDelegate: AnyObject {
@@ -27,10 +30,7 @@ final class SplashScreenGradientView: UIView {
 
     private var gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
-        layer.colors = [
-            UIColor(red: 0.882, green: 0.294, blue: 0.318, alpha: 1).cgColor,
-            UIColor(red: 0.353, green: 0.506, blue: 0.918, alpha: 1).cgColor,
-        ]
+        layer.colors = Constants.gradientColors
         layer.locations = [0, 1]
         layer.startPoint = Constants.gradientStartPoint
         layer.endPoint = Constants.gradientEndPoint
@@ -70,10 +70,13 @@ final class SplashScreenGradientView: UIView {
 
         addSubview(whiteCanvas)
         whiteCanvas.translatesAutoresizingMaskIntoConstraints = false
-        whiteCanvas.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        whiteCanvas.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
-        whiteCanvas.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive = true
-        whiteCanvas.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive = true
+
+        NSLayoutConstraints.activate([
+            whiteCanvas.topAnchor.constraint(equalTo: topAnchor),
+            whiteCanvas.bottomAnchor.constraint(equalTo: bottomAnchor),
+            whiteCanvas.leftAnchor.constraint(equalTo: leftAnchor),
+            whiteCanvas.rightAnchor.constraint(equalTo: rightAnchor),
+        ])
 
         whiteCanvas.backgroundColor = .white
         whiteCanvas.isUserInteractionEnabled = false
@@ -92,7 +95,7 @@ final class SplashScreenGradientView: UIView {
                            delay: Constants.splashDelay, inverseMask: false)
 
         runAphaAnimation(layer: titleLabel.layer, duration: Constants.splashDuration, delay: Constants.splashDelay)
-        
+
         runAphaAnimation(layer: whiteCanvas.layer, duration: Constants.splashDuration, delay: Constants.splashDelay)
     }
 }
@@ -104,7 +107,7 @@ private extension SplashScreenGradientView {
                                   duration: TimeInterval,
                                   delay: CFTimeInterval = 0) {
         let animation = CABasicAnimation(keyPath: "opacity")
-        animation.beginTime = CACurrentMediaTime() + delay  
+        animation.beginTime = CACurrentMediaTime() + delay
         animation.duration = duration
         animation.toValue = 0
         animation.fillMode = CAMediaTimingFillMode.forwards
@@ -184,11 +187,9 @@ private extension SplashScreenGradientView {
 }
 
 extension SplashScreenGradientView: CAAnimationDelegate {
- 
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-     
+    func animationDidStop(_ anim: CAAnimation, finished _: Bool) {
         if anim == tooptriangleMaskLayer.animation(forKey: "runSplash") {
-            self.delegate?.splashScreenCompleted()
+            delegate?.splashScreenCompleted()
         }
     }
 }

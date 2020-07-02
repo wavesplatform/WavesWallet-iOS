@@ -1,4 +1,5 @@
 import UIKit
+import UITools
 
 final class SplashScreenVC: UIViewController {
     @IBOutlet private var gradientView: SplashScreenGradientView!
@@ -13,13 +14,11 @@ final class SplashScreenVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        DispatchQueue.main.async {
-            self.gradientView.runAnimations()
-        }
+        self.gradientView.runAnimations()
     }
 
     override var prefersStatusBarHidden: Bool {
-        return true
+        true
     }
 
 }
@@ -29,3 +28,5 @@ extension SplashScreenVC: SplashScreenGradientViewDelegate {
         animatedCompleted?()
     }
 }
+
+extension SplashScreenVC: StoryboardInstantiatable {}

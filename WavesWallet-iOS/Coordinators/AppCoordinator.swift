@@ -11,7 +11,6 @@ import Extensions
 import Foundation
 import Intercom
 import IQKeyboardManagerSwift
-import RESideMenu
 import RxSwift
 import UIKit
 import WavesSDK

@@ -17,6 +17,7 @@ final class SplashScreenCoordinator: Coordinator {
 
     private let window: UIWindow = {
         let window = UIWindow()
+        window.bounds = UIScreen.main.bounds
         window.backgroundColor = .clear
         window.windowLevel = UIWindow.Level(rawValue: UIWindow.Level.normal.rawValue + 10.0)
         return window
@@ -26,13 +27,17 @@ final class SplashScreenCoordinator: Coordinator {
 
     func start() {
         
-        let vc = StoryboardScene.SplashScreen.splashScreenVC.instantiate()
         
+        let vc = SplashScreenVC.instantiateFromStoryboard
+
         vc.animatedCompleted = { [weak self] in
             self?.window.isHidden = true
+            self?.window.removeFromSuperview()
             self?.removeFromParentCoordinator()
         }
-        windowRouter.setRootViewController(vc)
+        
+        navigationRouter.pushViewController(vc)
+        windowRouter.setRootViewController(navigationRouter.navigationController)
     }
 }
 

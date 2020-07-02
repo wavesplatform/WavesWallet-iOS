@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RESideMenu
 
 protocol WavesPopupModuleOutput: AnyObject {
     func showSend()
