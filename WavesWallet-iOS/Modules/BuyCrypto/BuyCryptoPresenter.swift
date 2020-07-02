@@ -247,12 +247,12 @@ extension BuyCryptoPresenter {
             if cryptoAsset.id == DomainLayerConstants.acUSDId, fiatAsset.id == "USD" {
                 conversionFee = NSAttributedString(
                     string: Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n",
-                    attributes: [.foregroundColor: UIColor.basic700,
+                    attributes: [.foregroundColor: UIColor.basic500,
                                  .font: UIFont.boldSystemFont(ofSize: 12)])
             } else {
                 conversionFee = NSAttributedString(
                     string: Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n",
-                    attributes: [.foregroundColor: UIColor.basic700,
+                    attributes: [.foregroundColor: UIColor.basic500,
                                  .font: UIFont.boldSystemFont(ofSize: 12)])
             }
 

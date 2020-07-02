@@ -67,15 +67,15 @@ extension BuyCryptoInteractor {
             Observable
                 .zip(obtainRequestRequiredInfo(), environmentRepository.walletEnvironment())
                 .flatMap { [weak self] requestRequiredInfo, walletEnvironment
-                    -> Observable<(SignedWallet, WalletEnvironment, ServerEnvironment, WEOAuthTokenDTO)> in
-                    let (signedWallet, serverEnvironment, _, _) = requestRequiredInfo
+                    -> Observable<(SignedWallet, WalletEnvironment, ServerEnvironment, DevelopmentConfigs, WEOAuthTokenDTO)> in
+                    let (signedWallet, serverEnvironment, devConfig, _) = requestRequiredInfo
                     guard let sself = self else { return Observable.never() }
 
                     return sself.weOAuthRepository.oauthToken(signedWallet: signedWallet)
-                        .map { (signedWallet, walletEnvironment, serverEnvironment, $0) }
+                        .map { (signedWallet, walletEnvironment, serverEnvironment, devConfig, $0) }
                 }
-                .flatMap { [weak self] signedWallet, walletEnvironment, serverEnvironment, token
-                    -> Observable<(SignedWallet, WalletEnvironment, [GatewaysAssetBinding])> in
+                .flatMap { [weak self] signedWallet, walletEnvironment, serverEnvironment, devConfig, token
+                    -> Observable<(SignedWallet, WalletEnvironment, DevelopmentConfigs, [GatewaysAssetBinding])> in
 
                     guard let sself = self else { return Observable.never() }
 
@@ -86,11 +86,12 @@ extension BuyCryptoInteractor {
                     return sself.gatewaysWavesRepository.assetBindingsRequest(serverEnvironment: serverEnvironment,
                                                                               oAToken: token,
                                                                               request: request)
-                        .map { (signedWallet, walletEnvironment, $0) }
+                        .map { (signedWallet, walletEnvironment, devConfig, $0) }
                 }
-                .subscribe(onNext: { [weak self] signedWallet, walletEnvironment, gatewayAssetBindings in
+                .subscribe(onNext: { [weak self] signedWallet, walletEnvironment, devConfig, gatewayAssetBindings in
                     self?.getACashAssets(signedWallet: signedWallet,
                                          walletEnvironment: walletEnvironment,
+                                         devConfig: devConfig,
                                          gatewayAssetBindings: gatewayAssetBindings,
                                          completion: completion)
                 },
@@ -100,6 +101,7 @@ extension BuyCryptoInteractor {
 
         private func getACashAssets(signedWallet: SignedWallet,
                                     walletEnvironment: WalletEnvironment,
+                                    devConfig: DevelopmentConfigs,
                                     gatewayAssetBindings: [GatewaysAssetBinding],
                                     completion: @escaping (Result<AssetsInfo, Error>) -> Void) {
             let completionAdapter: (Result<[ACashAsset], Error>) -> Void = { result in
@@ -120,12 +122,18 @@ extension BuyCryptoInteractor {
                     let cryptoAssets = assets
                         .filter { $0.kind == .crypto }
                         .compactMap { asset -> CryptoAsset? in
-                            let assetBinding = gatewayAssetBindings.first(where: { $0.senderAsset.asset == asset.id })
-                            let assetInfo = allAssets.first(where: { $0.assetId == assetBinding?.recipientAsset.asset })
-                            return .init(name: asset.name,
-                                         id: asset.id,
-                                         decimals: asset.decimals,
-                                         assetInfo: assetInfo)
+                            let id = asset.id.replacingOccurrences(of: "AC_USD", with: "USD") // это необходимо для фильтрации
+                            
+                            if devConfig.avaliableGatewayCryptoCurrency.contains(id) {
+                                let assetBinding = gatewayAssetBindings.first(where: { $0.senderAsset.asset == asset.id })
+                                let assetInfo = allAssets.first(where: { $0.assetId == assetBinding?.recipientAsset.asset })
+                                return .init(name: asset.name,
+                                             id: asset.id,
+                                             decimals: asset.decimals,
+                                             assetInfo: assetInfo)
+                            } else {
+                                return nil
+                            }
                         }
 
                     let assetsInfo = AssetsInfo(fiatAssets: fiatAssets, cryptoAssets: cryptoAssets)
