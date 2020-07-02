@@ -70,8 +70,8 @@ final class SplashScreenGradientView: UIView {
 
         addSubview(whiteCanvas)
         whiteCanvas.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraints.activate([
+        
+        NSLayoutConstraint.activate([
             whiteCanvas.topAnchor.constraint(equalTo: topAnchor),
             whiteCanvas.bottomAnchor.constraint(equalTo: bottomAnchor),
             whiteCanvas.leftAnchor.constraint(equalTo: leftAnchor),

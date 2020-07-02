@@ -28,7 +28,7 @@ final class SplashScreenCoordinator: Coordinator {
     func start() {
         
         
-        let vc = SplashScreenVC.instantiateFromStoryboard
+        let vc = SplashScreenVC.instantiateFromStoryboard()
 
         vc.animatedCompleted = { [weak self] in
             self?.window.isHidden = true
