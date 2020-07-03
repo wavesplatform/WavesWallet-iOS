@@ -4136,7 +4136,7 @@ internal enum Localizable {
       /// Investments
       internal static var investmentsTitle: String { Localizable.tr("Waves", "welcomeScreen.investmentsTitle") }
       internal static var investmentsTitleKey: String { "welcomeScreen.investmentsTitle" }
-      /// Buy cryptocurrency with 0% fee with a bank card. Available in any currency.
+      /// Buy cryptocurrency with 0%% fee with a bank card. Available in any currency.
       internal static var simpleWithdrawalDetails: String { Localizable.tr("Waves", "welcomeScreen.simpleWithdrawalDetails") }
       internal static var simpleWithdrawalDetailsKey: String { "welcomeScreen.simpleWithdrawalDetails" }
       /// Simple withdrawal and deposit of funds
