@@ -72,6 +72,9 @@ public struct DevelopmentConfigs {
     public let staking: [Staking]
     // List assetId when lock
     public let lockedPairs: [String]
+    
+    /// Количество шаринга в процентах
+    public let referralShare: Int64
 
     // First key is assetId and second key is fiat
     // For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
@@ -96,7 +99,8 @@ public struct DevelopmentConfigs {
                 gatewayMinFee: [String: [String: Rate]],
                 marketPairs: [MarketPair],
                 gatewayMinLimit: [String: Limit],
-                avaliableGatewayCryptoCurrency: [String]) {
+                avaliableGatewayCryptoCurrency: [String],
+                referralShare: Int64) {
         self.serviceAvailable = serviceAvailable
         self.matcherSwapAddress = matcherSwapAddress
         self.matcherSwapTimestamp = matcherSwapTimestamp
@@ -107,6 +111,7 @@ public struct DevelopmentConfigs {
         self.marketPairs = marketPairs
         self.gatewayMinLimit = gatewayMinLimit
         self.avaliableGatewayCryptoCurrency = avaliableGatewayCryptoCurrency
+        self.referralShare = referralShare
     }
 }
 

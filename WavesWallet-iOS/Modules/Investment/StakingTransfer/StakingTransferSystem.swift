@@ -20,11 +20,12 @@ final class StakingTransferSystem: System<StakingTransfer.State, StakingTransfer
 
     private let assetId: String
 
-    private let stakingTransferInteractor: StakingTransferInteractor = StakingTransferInteractor()
+    private let stakingTransferInteractor: StakingTransferInteractor
 
-    init(assetId: String, kind: StakingTransfer.DTO.Kind) {
+    init(assetId: String, kind: StakingTransfer.DTO.Kind, interactor: StakingTransferInteractor) {
         self.assetId = assetId
         self.kind = kind
+        stakingTransferInteractor = interactor
     }
 
     override func initialState() -> State! {
