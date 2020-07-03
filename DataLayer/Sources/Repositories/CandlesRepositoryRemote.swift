@@ -243,7 +243,8 @@ private extension CandlesRepositoryRemote {
                                                              gatewayMinFee: [:],
                                                              marketPairs: [],
                                                              gatewayMinLimit: [:],
-                                                             avaliableGatewayCryptoCurrency: [])
+                                                             avaliableGatewayCryptoCurrency: [],
+                                                             referralShare: 0)
             
             return Observable.just(confing)
         }
