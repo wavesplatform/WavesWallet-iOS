@@ -121,6 +121,15 @@ private extension AssetListInteractor {
             filterAssets.append(contentsOf: filteredAssets)
         }
         
+        if filters.contains(.existInExternalSource) {
+            let filteredAssets = assets.filter {
+                let asset = $0.asset
+                
+                return asset.isExistInExternalSource
+            }
+            filterAssets.append(contentsOf: filteredAssets)
+        }
+        
         if filters.contains(.fiat) {
             let filteredAssets = assets.filter {
                 let asset = $0.asset

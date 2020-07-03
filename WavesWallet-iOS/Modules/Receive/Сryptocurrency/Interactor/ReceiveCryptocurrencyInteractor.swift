@@ -21,7 +21,7 @@ private enum Constants {
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     private let auth: AuthorizationUseCaseProtocol
     private let coinomatRepository: CoinomatRepositoryProtocol
-    private let gatewayRepository: GatewayRepositoryProtocol    
+    private let gatewayRepository: GatewayRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let gatewaysWavesRepository: GatewaysWavesRepository
@@ -48,14 +48,28 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         let wallet = auth.authorizedWallet()
         let environment = environmentRepository.walletEnvironment()
 
-        
         return Observable.zip(wallet, serverEnvironment, environment)
             .flatMap { [weak self] wallet, serverEnvironment, appEnvironments -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
-                                
-                guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
 
                 let generalAssets = appEnvironments.generalAssets + (appEnvironments.assets ?? [])
-                
+
+                guard let self = self, let gatewayType = asset.gatewayType else {
+                    if asset.isExistInExternalSource {
+                        let addresses = [ReceiveCryptocurrency.DTO.DisplayInfo.Address(name: "",
+                                                                                       address: wallet.address)]
+                        let displayInfo = ReceiveCryptocurrency.DTO
+                            .DisplayInfo(addresses: addresses,
+                                         asset: asset,
+                                         minAmount: Money(0, 0),
+                                         maxAmount: nil,
+                                         generalAssets: generalAssets)
+                        
+                        return Observable.just(ResponseType(output: displayInfo, error: nil))
+                    }
+
+                    return Observable.empty()
+                }
+
                 switch gatewayType {
                 case .gateway:
                     return self.gatewayRepository.startDepositProcess(serverEnvironment: serverEnvironment,
@@ -96,7 +110,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                         }
                 case .exchange:
 
-                    return self.weOAuthRepository.oauthToken(signedWallet: wallet)                        
+                    return self.weOAuthRepository.oauthToken(signedWallet: wallet)
                         .flatMap { [weak self] token -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
 
                             guard let self = self else { return Observable.never() }
@@ -124,28 +138,28 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                 oAToken: token,
                                                                 request: request)
                                         .map { binding -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
-                                            
-                                            
+
                                             var amoauntMin = binding.assetBinding.senderAmountMin.int64Value
                                             var amoauntMax = binding.assetBinding.senderAmountMax.int64Value
                                             var assetPrecision = asset.precision
-                                            
-                                            
-                                            if binding.assetBinding.recipientAsset.asset == "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu" {
-                                                amoauntMax = 5000000000000
-                                                amoauntMin = 1000000
+
+                                            if binding.assetBinding.recipientAsset
+                                                .asset == "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu" {
+                                                amoauntMax = 5_000_000_000_000
+                                                amoauntMin = 1_000_000
                                                 assetPrecision = 8
                                             }
-                                            
-                                            if binding.assetBinding.recipientAsset.asset == "F81SdfzBZr5ce8JArRWLPJEDg1V8yT257ohbcHk75yCp" {
-                                                amoauntMax = 100000000000000
-                                                amoauntMin = 1000000000
+
+                                            if binding.assetBinding.recipientAsset
+                                                .asset == "F81SdfzBZr5ce8JArRWLPJEDg1V8yT257ohbcHk75yCp" {
+                                                amoauntMax = 100_000_000_000_000
+                                                amoauntMin = 1_000_000_000
                                                 assetPrecision = 8
                                             }
-                                            
+
                                             let minAmount = Money(amoauntMin,
                                                                   assetPrecision)
-                                            
+
                                             let maxAmount = Money(amoauntMax,
                                                                   assetPrecision)
 

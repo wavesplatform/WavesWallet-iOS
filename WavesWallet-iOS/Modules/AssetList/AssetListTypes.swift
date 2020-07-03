@@ -63,6 +63,7 @@ extension AssetList.DTO {
     enum Filter {
         case all
         case cryptoCurrency
+        case existInExternalSource
         case fiat
         case waves
         case wavesToken

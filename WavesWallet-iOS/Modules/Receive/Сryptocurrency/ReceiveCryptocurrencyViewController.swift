@@ -21,13 +21,13 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     @IBOutlet private weak var labelWarningMinimumAmount: UILabel!
     @IBOutlet private weak var labelTitleSendOnlyDeposit: UILabel!
     @IBOutlet private weak var labelWarningSendOnlyDeposit: UILabel!
-    
+
     @IBOutlet private weak var labelTitleSendOnlyDepositBottom: NSLayoutConstraint!
-    
+
     @IBOutlet private weak var buttonCotinue: HighlightedButton!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var coinomatErrorView: CoinomatServiceErrorView!
-    
+
     @IBOutlet private weak var warningContainersBottom: NSLayoutConstraint!
 
     private var receiveAddressCoordinator: Coordinator?
@@ -57,14 +57,13 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
 
     @IBAction private func continueTapped(_: Any) {
         guard let info = displayInfo else { return }
-        
-        
+
         guard let navigationController = self.navigationController else { return }
         let router = NavigationRouter(navigationController: navigationController)
-        
+
         receiveAddressCoordinator = ReceiveAddressCoordinator(navigationRouter: router,
                                                               generateType: .cryptoCurrency(info))
-        
+
         receiveAddressCoordinator?.start()
 
         UseCasesFactory.instance.analyticManager.trackEvent(.receive(.receiveTap(assetName: info.asset.displayName)))
@@ -72,7 +71,9 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
 
     private func setupAssetInfo(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         selectedAsset = asset
-        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: input.selectedAsset != nil))
+        assetView.update(with: .init(assetBalance: asset,
+                                     isOnlyBlockMode: input.selectedAsset != nil,
+                                     hideAmount: true))
         setupLoadingState()
         setupButtonState()
 
@@ -149,7 +150,7 @@ private extension ReceiveCryptocurrencyViewController {
         /// Константа, регулирующая расстояние между лейблами верхнего контейнера (см. описание выше)
         static let labelTitleSendOnlyDepositBottomConstant: CGFloat = 6
     }
-    
+
     func setupButtonState() {
         let canContinueAction = selectedAsset != nil && displayInfo != nil
 
@@ -166,70 +167,71 @@ private extension ReceiveCryptocurrencyViewController {
 
     func setupWarning() {
         guard let info = displayInfo else { return }
-        
+
         labelTitleSendOnlyDepositBottom.constant = Constants.labelTitleSendOnlyDepositBottomConstant
-        
+
         warningContainersBottom.constant = Constants.warningContainersBottomConstant
 
         activityIndicatorView.stopAnimating()
         viewWarning.isHidden = false
         coinomatErrorView.isHidden = true
-        
+
         let assetGatewayId = info.asset.gatewayId
-        
+
         if let assetInfo = info.generalAssets.first(where: { $0.gatewayId == assetGatewayId }) {
             let displayName = info.asset.displayName
-            
+
             let displayMin = info.minAmount.displayText + " " + displayName
             let displayMax = info.maxAmount.map { $0.displayText + " " + displayName }
-            
+
             let minMaxAmountOfDeposite = displayMax.map {
                 Localizable.Waves.Receivecryptocurrency.Label.minAndMaxAmountOfDeposit(displayMin, $0)
-            } ?? Localizable.Waves.Receivecryptocurrency.Label .minumumAmountOfDeposit(displayMin)
-            
+            } ?? Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayMin)
+
             switch assetInfo.gatewayId {
             case "BTC", "LTC", "BCH", "DASH", "Zech", "BSV", "ERGO":
                 labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .sendOnlyOnThisDeposit(displayName)
                 labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .warningSendOnlyOnThisDeposit
-                
+
                 labelTitleMinimumAmount.text = minMaxAmountOfDeposite
                 labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label
                     .warningMinimumAmountOfDeposit(displayMin)
-                
+
             case "ETH":
                 labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts
                     .title(info.asset.displayName, info.asset.displayName)
                 labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts
                     .subtitle(info.asset.displayName)
-                
+
                 labelTitleMinimumAmount.text = minMaxAmountOfDeposite
                 labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label
                     .warningMinimumAmountOfDeposit(displayMin)
-                break
             case "USDT":
                 labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .usdtWarningTitleDeposite(displayName, displayName, displayName)
                 labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .usdtWarningDetailsDeposite(assetInfo.displayName)
-                
+
                 labelTitleMinimumAmount.text = minMaxAmountOfDeposite
-                labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
-                
+                labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label
+                    .warningMinimumAmountOfDeposit(displayMin)
+
             case "BNT":
                 labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .usdtWarningTitleDeposite(displayName, displayName, displayName)
                 labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .usdtWarningDetailsDeposite(assetInfo.displayName)
-                
+
                 labelTitleMinimumAmount.text = minMaxAmountOfDeposite
-                labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
-                
-            case "Vostok":
+                labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label
+                    .warningMinimumAmountOfDeposit(displayMin)
+
+            case "Vostok", "WEST":
                 labelTitleSendOnlyDepositBottom.constant = 0
                 warningContainersBottom.constant = 0
-                
+
                 labelTitleSendOnlyDeposit.text = nil
                 labelWarningSendOnlyDeposit.text = nil
                 labelTitleMinimumAmount.text = minMaxAmountOfDeposite
@@ -237,22 +239,22 @@ private extension ReceiveCryptocurrencyViewController {
             case "XMR":
                 labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .sendOnlyOnThisDeposit(displayName)
-                
+
                 let sendOnlyDeposit = Localizable.Waves.Receivecryptocurrency.Label.paymentIdIsNotRequired +
                     "\n" +
                     Localizable.Waves.Receivecryptocurrency.Label.warningSendOnlyOnThisDeposit
-                
+
                 labelWarningSendOnlyDeposit.text = sendOnlyDeposit
-                
+
                 labelTitleMinimumAmount.text = minMaxAmountOfDeposite
                 labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label
                     .warningMinimumAmountOfDeposit(displayMin)
             default:
-                labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.sendOnlyOnThisDeposit(displayName)
-                labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.warningSendOnlyOnThisDeposit
-                
-                labelTitleMinimumAmount.text = minMaxAmountOfDeposite
-                labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
+                viewWarning.isHidden = true
+                labelTitleSendOnlyDeposit.text = ""
+                labelWarningSendOnlyDeposit.text = ""
+                labelTitleMinimumAmount.text = ""
+                labelWarningMinimumAmount.text = ""
             }
         }
     }
