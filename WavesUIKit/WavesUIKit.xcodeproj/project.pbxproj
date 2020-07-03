@@ -15,8 +15,7 @@
 		871450A3246243E100A17BA9 /* AppTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509D246243E100A17BA9 /* AppTools.framework */; };
 		871450A5246243E100A17BA9 /* StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8714509E246243E100A17BA9 /* StandartTools.framework */; };
 		871450A92462440000A17BA9 /* ResetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871450A82462440000A17BA9 /* ResetableView.swift */; };
-		875C0A89247BBFE500685A04 /* UIView+isVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A88247BBFE500685A04 /* UIView+isVisible.swift */; };
-		875C0A8B247BC15100685A04 /* UIView+AddStretchToBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A8A247BC15100685A04 /* UIView+AddStretchToBounds.swift */; };
+		875C0A8B247BC15100685A04 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875C0A8A247BC15100685A04 /* UIView+Extensions.swift */; };
 		87ED721B246B535E002CAD29 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721A246B535E002CAD29 /* NibLoadable.swift */; };
 		87ED721D246B5418002CAD29 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721C246B5418002CAD29 /* Reusable.swift */; };
 		87ED721F246B5684002CAD29 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED721E246B5684002CAD29 /* NibOwnerLoadable.swift */; };
@@ -27,6 +26,8 @@
 		87ED722F246B6BB4002CAD29 /* UICollectionViewCellContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */; };
 		87ED7232246B7202002CAD29 /* ZoomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7231246B7202002CAD29 /* ZoomFlowLayout.swift */; };
 		87ED7241246C678F002CAD29 /* UIViewController+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ED7240246C678F002CAD29 /* UIViewController+Storyboard.swift */; };
+		87FE985B24A226A500323C9B /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FE985A24A226A500323C9B /* UIStackView+Extensions.swift */; };
+		87FE986124A25D5900323C9B /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FE986024A25D5900323C9B /* Checkbox.swift */; };
 		FFB670B1FC15E843126D6F0F /* Pods_WavesUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D4BC507E3B0AD674153F228 /* Pods_WavesUIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,8 +81,7 @@
 		8714509D246243E100A17BA9 /* AppTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714509E246243E100A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		871450A82462440000A17BA9 /* ResetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetableView.swift; sourceTree = "<group>"; };
-		875C0A88247BBFE500685A04 /* UIView+isVisible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+isVisible.swift"; sourceTree = "<group>"; };
-		875C0A8A247BC15100685A04 /* UIView+AddStretchToBounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddStretchToBounds.swift"; sourceTree = "<group>"; };
+		875C0A8A247BC15100685A04 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		87ED721A246B535E002CAD29 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		87ED721C246B5418002CAD29 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		87ED721E246B5684002CAD29 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
@@ -92,6 +92,8 @@
 		87ED722E246B6BB4002CAD29 /* UICollectionViewCellContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellContainer.swift; sourceTree = "<group>"; };
 		87ED7231246B7202002CAD29 /* ZoomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomFlowLayout.swift; sourceTree = "<group>"; };
 		87ED7240246C678F002CAD29 /* UIViewController+Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Storyboard.swift"; sourceTree = "<group>"; };
+		87FE985A24A226A500323C9B /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
+		87FE986024A25D5900323C9B /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		A63F83980BD24EF172B1AD4F /* Pods-WavesUIKit.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.test-dev.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.test-dev.xcconfig"; sourceTree = "<group>"; };
 		A996E98DCF8D1F935604EA1A /* Pods-WavesUIKit.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.release-dev.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.release-dev.xcconfig"; sourceTree = "<group>"; };
 		C14AFAF9CDCA109517EC3290 /* Pods-WavesUIKit.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesUIKit.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-WavesUIKit/Pods-WavesUIKit.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		87145069246242A200A17BA9 /* WavesUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				87FE985F24A25C2100323C9B /* Buttons */,
 				87ED7230246B71F2002CAD29 /* FlowLayouts */,
 				87ED722B246B6B7A002CAD29 /* Containers */,
 				8714506A246242A200A17BA9 /* WavesUIKit.h */,
@@ -187,8 +190,8 @@
 		875C0A87247BBFD000685A04 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				875C0A88247BBFE500685A04 /* UIView+isVisible.swift */,
-				875C0A8A247BC15100685A04 /* UIView+AddStretchToBounds.swift */,
+				875C0A8A247BC15100685A04 /* UIView+Extensions.swift */,
+				87FE985A24A226A500323C9B /* UIStackView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -222,6 +225,14 @@
 				87ED7231246B7202002CAD29 /* ZoomFlowLayout.swift */,
 			);
 			path = FlowLayouts;
+			sourceTree = "<group>";
+		};
+		87FE985F24A25C2100323C9B /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				87FE986024A25D5900323C9B /* Checkbox.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		F4C9BADFAA66D4CB1C96C025 /* Pods */ = {
@@ -386,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87FE986124A25D5900323C9B /* Checkbox.swift in Sources */,
 				87ED722F246B6BB4002CAD29 /* UICollectionViewCellContainer.swift in Sources */,
 				87ED722D246B6B84002CAD29 /* UITableViewCellContainer.swift in Sources */,
 				87ED7232246B7202002CAD29 /* ZoomFlowLayout.swift in Sources */,
@@ -397,12 +409,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				87ED7221246B5706002CAD29 /* UITableView+Reusable.swift in Sources */,
+				87FE985B24A226A500323C9B /* UIStackView+Extensions.swift in Sources */,
 				87ED721D246B5418002CAD29 /* Reusable.swift in Sources */,
 				87ED721F246B5684002CAD29 /* NibOwnerLoadable.swift in Sources */,
-				875C0A89247BBFE500685A04 /* UIView+isVisible.swift in Sources */,
 				87ED7223246B5728002CAD29 /* UICollectionView+Reusable.swift in Sources */,
 				87ED7229246B6B49002CAD29 /* ContainerContentConstraints.swift in Sources */,
-				875C0A8B247BC15100685A04 /* UIView+AddStretchToBounds.swift in Sources */,
+				875C0A8B247BC15100685A04 /* UIView+Extensions.swift in Sources */,
 				871450A92462440000A17BA9 /* ResetableView.swift in Sources */,
 				87ED721B246B535E002CAD29 /* NibLoadable.swift in Sources */,
 				87ED7241246C678F002CAD29 /* UIViewController+Storyboard.swift in Sources */,

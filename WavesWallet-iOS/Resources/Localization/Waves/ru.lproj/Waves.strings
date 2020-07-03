@@ -825,6 +825,19 @@
 "trade.message.pairlocked.subtitle" = "Торговая пара временно отключена. Вы можете отменить свои ордера.";
 "trade.message.pairlocked.button.ok" = "Продолжить";
 
+"welcomeScreen.welcomeTitle" = "Добро пожаловать в Waves.Exchange!";
+"welcomeScreen.welcomeDetails" = "Торгуйте криптовалютой быстро и безопасно с премуществами централизованной биржи, сохраняя контроль над средствами.";
+"welcomeScreen.simpleWithdrawalTitle" = "Простой ввод и вывод средств";
+"welcomeScreen.simpleWithdrawalDetails" = "Покупайте криптовалюту с 0%% комиссией с помощью банковской карты. Доступна покупка в любой валюте.";
+"welcomeScreen.investmentsTitle" = "Инвестиции";
+"welcomeScreen.investmentsDetails" = "Выбирайте понравившиеся инструменты и инвестируйте выгоднее, чем в банке.";
+"welcomeScreen.termOfConditions" = "Положения и Условия";
+"welcomeScreen.allYourWavesAccountDataIsEncrypted" = "Все данные о вашем аккаунте Waves зашифрованы и хранятся только на том устройстве, где они используются.";
+"welcomeScreen.iHaveReadPrivacy" = "Я ознакомлен и согласен с Политикой Конфиденциальности";
+"welcomeScreen.iHaveReadPrivacy.linkWords" = "Политикой Конфиденциальности";
+"welcomeScreen.iHaveReadTerms" = "Я ознакомлен и согласен с Положениями и Условиями";
+"welcomeScreen.iHaveReadTerms.linkWords" = "Положениями и Условиями";
+
 "wallet.bar.button.receive" = "Получить";
 "wallet.bar.button.send" = "Отправить";
 "wallet.bar.button.card" = "Карта";

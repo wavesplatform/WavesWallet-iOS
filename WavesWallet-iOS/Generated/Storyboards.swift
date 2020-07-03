@@ -361,6 +361,13 @@ internal enum StoryboardScene {
 
     internal static let wavesPopupViewController = SceneType<WavesWallet_iOS.WavesPopupViewController>(storyboard: Waves.self, identifier: "WavesPopupViewController")
   }
+  internal enum WelcomeScreenViewController: StoryboardType {
+    internal static let storyboardName = "WelcomeScreenViewController"
+
+    internal static let initialScene = InitialSceneType<WavesWallet_iOS.WelcomeScreenViewController>(storyboard: WelcomeScreenViewController.self)
+
+    internal static let welcomeScreenViewController = SceneType<WavesWallet_iOS.WelcomeScreenViewController>(storyboard: WelcomeScreenViewController.self, identifier: "WelcomeScreenViewController")
+  }
   internal enum WidgetSettings: StoryboardType {
     internal static let storyboardName = "WidgetSettings"
 

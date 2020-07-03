@@ -826,6 +826,19 @@
 "trade.message.pairlocked.title" = "%@ / %@ trading pair is unavailable";
 "trade.message.pairlocked.subtitle" = "The trading pair has been temporarily disabled. You can cancel your orders if you wish.";
 
+"welcomeScreen.welcomeTitle" = "Welcome to Waves.Exchange!";
+"welcomeScreen.welcomeDetails" = "Trade cryptocurrencies quickly and securely with all the advantages of a centralized exchange, while maintaining control over the funds.";
+"welcomeScreen.simpleWithdrawalTitle" = "Simple withdrawal and deposit of funds";
+"welcomeScreen.simpleWithdrawalDetails" = "Buy cryptocurrency with 0%% fee with a bank card. Available in any currency.";
+"welcomeScreen.investmentsTitle" = "Investments";
+"welcomeScreen.investmentsDetails" = "Choose your favorite investment products and invest much more profitably than in a bank.";
+"welcomeScreen.termOfConditions" = "Terms & Conditions";
+"welcomeScreen.allYourWavesAccountDataIsEncrypted" = "All your Waves Account data is encrypted and stored only on that device where it is used. ";
+"welcomeScreen.iHaveReadPrivacy" = "I have read and agree with the Privacy Policy";
+"welcomeScreen.iHaveReadPrivacy.linkWords" = "Privacy Policy";
+"welcomeScreen.iHaveReadTerms" = "I have read and agree with the Terms and Conditions";
+"welcomeScreen.iHaveReadTerms.linkWords" = "Terms and Conditions";
+
 "wallet.bar.button.receive" = "Receive";
 "wallet.bar.button.send" = "Send";
 "wallet.bar.button.card" = "Card";
