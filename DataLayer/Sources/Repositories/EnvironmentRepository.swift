@@ -20,20 +20,6 @@ private struct EnvironmentKey: Hashable {
     let chainId: String
 }
 
-private extension WalletEnvironment.Kind {
-    var gitHubServiceEnvironment: ResourceAPI.Service.Environment.Kind {
-        switch self {
-        case .mainnet:
-            return .mainnet
-            
-        case .testnet:
-            return .testnet
-            
-        case .stagenet:
-            return .stagenet
-        }
-    }
-}
 
 final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         
@@ -166,8 +152,8 @@ private extension EnvironmentRepository {
     private func remoteEnvironment() -> Observable<WalletEnvironment> {
         environmentRepository
             .rx
-            .request(.get(kind: environmentKind.gitHubServiceEnvironment,
-                          isDebug: ApplicationDebugSettings.isEnableEnviromentTest))
+            .request(.get(kind: environmentKind,
+                          isTest: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(WalletEnvironment.self)
             .catchError { [weak self] _ -> Single<WalletEnvironment> in
                 guard let self = self else { return Single.never() }

@@ -33,7 +33,7 @@ private extension ApplicationVersionRepository {
     func versionByMappingKey(key: String) -> Observable<String> {
         return applicationVersionService
             .rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableVersionUpdateTest))
+            .request(.get(isDebug: ApplicationDebugSettings.isEnableEnviromentTest))
             .map([String: String].self)
             .map { $0[key] }
             .asObservable()

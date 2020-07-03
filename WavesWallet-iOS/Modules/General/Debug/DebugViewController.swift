@@ -27,12 +27,8 @@ extension Debug {
 
     enum Row {
         case enviroments(_ enviroments: [Enviroment], _ current: Enviroment)
+        case test(_ isOn: Bool)
         case stageSwitch(_ isOn: Bool)
-        case notificationDevSwitch(_ isOn: Bool)
-        case versionTestSwitch(_ isOn: Bool)
-        case developmentConfigsSwitch(_ isOn: Bool)
-        case enviromentTestSwitch(_ isOn: Bool)
-        case tradeCategoriesConfig(_ isOn: Bool)
         case info(_ version: String, _ deviceId: String)
         case crash
     }
@@ -112,11 +108,7 @@ extension DebugViewController: UITableViewDelegate {
             return DebugEnviromentsCell.cellHeight()
 
         case .stageSwitch,
-             .notificationDevSwitch,
-             .versionTestSwitch,
-             .enviromentTestSwitch,
-             .tradeCategoriesConfig,
-             .developmentConfigsSwitch,
+             .test,
              .crash:
             return DebugSwitchCell.cellHeight()
 
@@ -144,14 +136,14 @@ extension DebugViewController: UITableViewDataSource {
 
             return cell
 
-        case let .developmentConfigsSwitch(isOn):
+        case let .test(isOn):
 
             let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Development Configs",
+            cell.update(with: .init(title: "Test settings",
                                     isOn: isOn))
 
             cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableDebugSettingsTest(isEnable: isOn)
+                ApplicationDebugSettings.setEnableEnviromentTest(isEnable: isOn)
             }
 
             return cell
@@ -159,55 +151,12 @@ extension DebugViewController: UITableViewDataSource {
         case let .stageSwitch(isOn):
 
             let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Enable Stage",
+            cell.update(with: .init(title: "Enable Stage (Need?)",
                                     isOn: isOn))
 
             cell.switchChangedValue = { isOn in
 
                 ApplicationDebugSettings.setupIsEnableStage(isEnable: isOn)
-            }
-            return cell
-
-        case let .notificationDevSwitch(isOn):
-
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Notification Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableNotificationsSettingTest(isEnable: isOn)
-            }
-            return cell
-
-        case let .enviromentTestSwitch(isOn):
-
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Enviroment Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableEnviromentTest(isEnable: isOn)
-            }
-            return cell
-
-        case let .versionTestSwitch(isOn):
-
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Version Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableVersionUpdateTest(isEnable: isOn)
-            }
-            return cell
-
-        case let .tradeCategoriesConfig(isOn):
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Trade categories config Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableTradeCategoriesConfigTest(isEnable: isOn)
             }
             return cell
 
@@ -275,11 +224,8 @@ private extension DebugViewController {
         let version = Bundle.main.versionAndBuild
 
         let isEnableStage = ApplicationDebugSettings.isEnableStage
-        let isEnableNotificationsSettingDev = ApplicationDebugSettings.isEnableNotificationsSettingTest
+                
         let isEnableEnviromentTest = ApplicationDebugSettings.isEnableEnviromentTest
-        let isEnableVersionUpdateTest = ApplicationDebugSettings.isEnableVersionUpdateTest
-        let isEnableDebugSettingsTest = ApplicationDebugSettings.isEnableDebugSettingsTest
-        let isEnableTradeCategoriesConfigTest = ApplicationDebugSettings.isEnableTradeCategoriesConfigTest
 
         let mainNet: Debug.Enviroment = .init(name: "Mainnet",
                                               chainId: "W")
@@ -306,15 +252,12 @@ private extension DebugViewController {
         let sections: [Debug.Section] = [.init(rows: [Debug.Row.enviroments([mainNet,
                                                                              testNet,
                                                                              stageNet],
-                                                                            current)],
+                                                                            current),
+                                                        .test(isEnableEnviromentTest)],
                                                kind: .enviroment),
                                          .init(rows: [.crash,
                                                       .stageSwitch(isEnableStage),
-                                                      .notificationDevSwitch(isEnableNotificationsSettingDev),
-                                                      .versionTestSwitch(isEnableVersionUpdateTest),
-                                                      .enviromentTestSwitch(isEnableEnviromentTest),
-                                                      .developmentConfigsSwitch(isEnableDebugSettingsTest),
-                                                      .tradeCategoriesConfig(isEnableTradeCategoriesConfigTest),
+                                                      
                                                       .info(version, UIDevice.uuid)],
                                                kind: .other)]
 

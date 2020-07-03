@@ -95,7 +95,7 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
     public func developmentConfigs() -> Observable<DevelopmentConfigs> {
         return developmentConfigsProvider
             .rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableDebugSettingsTest))
+            .request(.get(isDebug: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(DevelopmentConfigsDTO.self,
                  atKeyPath: nil,
                  using: JSONDecoder.decoderByDateWithSecond(0),

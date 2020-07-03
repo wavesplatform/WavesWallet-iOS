@@ -46,7 +46,8 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                          accountAddress: String) -> Observable<[DomainLayer.DTO.TradeCategory]> {
      
         return categoriesConfigProvider.rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableTradeCategoriesConfigTest),
+            .request(.get(isTest: ApplicationDebugSettings.isEnableEnviromentTest,
+                          kind: serverEnvironment.kind),
                      callbackQueue:  DispatchQueue.global(qos: .userInteractive))
             .map([Response.TradeCategory].self)
             .asObservable()
