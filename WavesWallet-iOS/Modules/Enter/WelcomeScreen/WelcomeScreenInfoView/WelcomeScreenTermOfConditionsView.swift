@@ -45,6 +45,9 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
                                      didTapUrl: @escaping (URL) -> Void,
                                      didHasReadPolicyAndTerms: @escaping (Bool) -> Void) {
         if let privacyPolicyText = privacyPolicyText, let termOfConditionText = termOfConditionText {
+            scrollView.isScrollEnabled = true
+            scrollView.contentInset.bottom = 50
+            
             privacyPolicyTextView.attributedText = privacyPolicyText
             termOfConditionTextView.attributedText = termOfConditionText
         } else {
@@ -81,10 +84,12 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
 
         didTapUrl = nil
         didHasReadPolicyAndTerms = nil
+        
+        scrollView.contentInset.bottom = 0
     }
 
     private func initialSetup() {
-        scrollView.contentInset.bottom = 100
+        scrollView.isScrollEnabled = false
         scrollView.delegate = self
         
         imageView.contentMode = .scaleAspectFit
