@@ -56,9 +56,7 @@ final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewCont
 
         nextLabel.text = Localizable.Waves.Hello.Button.next
 
-        nextControl.addTarget(self,
-                              action: #selector(didTapNextControl),
-                              for: .touchUpInside)
+        nextControl.addTarget(self, action: #selector(didTapNextControl), for: .touchUpInside)
         
         pageControlContainer.setupDefaultShadows()
     }
@@ -70,9 +68,11 @@ final class WelcomeScreenViewController: UIViewController, WelcomeScreenViewCont
             didTapBegin.accept(Void())
         }
 
-        if finalContentOffset < scrollView.contentSize.width {
-            scrollView.contentOffset.x = finalContentOffset
-        }
+        UIView.animate(withDuration: 0.5, animations: {
+            if finalContentOffset < self.scrollView.contentSize.width {
+                self.scrollView.contentOffset.x = finalContentOffset
+            }
+        })
     }
 }
 
@@ -112,6 +112,7 @@ extension WelcomeScreenViewController: BindableView {
         let didHasReadPolicyAndTerms: (Bool) -> Void = { [weak self] in
             self?.canBegin = $0
             self?.nextControl.isUserInteractionEnabled = $0
+            self?.nextLabel.isEnabled = $0
         }
 
         let views = viewModel.map {
@@ -220,6 +221,7 @@ extension WelcomeScreenViewController: UIScrollViewDelegate {
             let isLastPage = lastScreenIndex == (pageControl.numberOfPages - 1)
             let labelText = isLastPage ? Localizable.Waves.Hello.Button.begin : Localizable.Waves.Hello.Button.next
             nextLabel.text = labelText
+            nextLabel.isEnabled = canBegin || !isLastPage
         }
 
         let screenWidth = scrollView.bounds.width

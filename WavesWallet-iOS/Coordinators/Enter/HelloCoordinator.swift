@@ -66,8 +66,7 @@ extension HelloCoordinator: HelloLanguagesModuleOutput {
 
 extension HelloCoordinator: WelcomeScreenListener {
     func openURL(_ url: URL) {
-        let browser = BrowserViewController(url: url)
-        navigationRouter.pushViewController(browser)
+        BrowserViewController.openURL(url)
     }
     
     func didTapBegin() {
@@ -76,12 +75,3 @@ extension HelloCoordinator: WelcomeScreenListener {
         self.removeFromParentCoordinator()
     }
 }
-
-// MARK: InfoPagesViewControllerDelegate
-//extension HelloCoordinator: InfoPagesViewModuleOutput {
-//    func userFinishedReadPages() {
-//        navigationRouter.popViewController()
-//        self.delegate?.userFinishedGreet()
-//        self.removeFromParentCoordinator()
-//    }
-//}
