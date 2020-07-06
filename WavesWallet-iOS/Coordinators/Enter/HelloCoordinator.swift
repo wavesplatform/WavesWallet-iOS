@@ -57,10 +57,6 @@ extension HelloCoordinator: HelloLanguagesModuleOutput {
         let welcomeScreenBuilder: WelcomeScreenBuildable = WelcomeScreenBuilder()
         let welcomeScreenVC = welcomeScreenBuilder.build(with: self)
         navigationRouter.pushViewController(welcomeScreenVC)
-        
-//        let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
-//        vc.output = self
-//        navigationRouter.pushViewController(vc, animated: true)
     }
 }
 
