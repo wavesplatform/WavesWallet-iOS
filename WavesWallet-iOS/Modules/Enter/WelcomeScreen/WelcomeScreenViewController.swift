@@ -222,6 +222,7 @@ extension WelcomeScreenViewController: UIScrollViewDelegate {
             let labelText = isLastPage ? Localizable.Waves.Hello.Button.begin : Localizable.Waves.Hello.Button.next
             nextLabel.text = labelText
             nextLabel.isEnabled = canBegin || !isLastPage
+            nextControl.isUserInteractionEnabled = canBegin || !isLastPage
         }
 
         let screenWidth = scrollView.bounds.width

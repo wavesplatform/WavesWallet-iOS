@@ -45,9 +45,6 @@ final class WelcomeScreenTermOfConditionsView: UIView, NibLoadable, ResetableVie
                                      didTapUrl: @escaping (URL) -> Void,
                                      didHasReadPolicyAndTerms: @escaping (Bool) -> Void) {
         if let privacyPolicyText = privacyPolicyText, let termOfConditionText = termOfConditionText {
-            scrollView.isScrollEnabled = true
-            scrollView.contentInset.bottom = 50
-            
             privacyPolicyTextView.attributedText = privacyPolicyText
             termOfConditionTextView.attributedText = termOfConditionText
         } else {
