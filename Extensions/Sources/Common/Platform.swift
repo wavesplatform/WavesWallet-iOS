@@ -18,17 +18,14 @@ public extension Platform {
         case inch10_5 = 10.5
         case inch12_9 = 12.9
 
-        public static var smallDevices: [Inch] {
-            return [.inch3_5, .inch4]
-        }
+        /// .iPhone4, iPhone4s, .iPhone5, .iPhone5c, .iPhone5s, .iPhoneSE
+        public static var smallDevices: [Inch] { [.inch3_5, .inch4] }
 
-        public static var mediumDevices: [Inch] {
-            return [.inch4_7, .inch5_5, .inch5_8]
-        }
-
-        public static var largeDevices: [Inch] {
-            return [.inch6_1, .inch6_5]
-        }
+        /// .iPhone6, .iPhone6s, .iPhone7, .iPhone8
+        public static var mediumDevices: [Inch] { [.inch4_7] }
+        
+        /// .iPhone6Plus, .iPhone6sPlus, .iPhone7Plus, .iPhone8Plus, .iPhoneX, .iPhoneXS, .iPhone11Pro, .iPhoneXR, .iPhone11, .iPhoneXSMax, .iPhone11ProMax
+        public static var largeDevices: [Inch] { [.inch5_5, .inch5_8, .inch6_1, .inch6_5] }
     }
 }
 
