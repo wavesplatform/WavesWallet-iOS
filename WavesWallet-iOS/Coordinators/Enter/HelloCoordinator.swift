@@ -57,17 +57,12 @@ extension HelloCoordinator: HelloLanguagesModuleOutput {
         let welcomeScreenBuilder: WelcomeScreenBuildable = WelcomeScreenBuilder()
         let welcomeScreenVC = welcomeScreenBuilder.build(with: self)
         navigationRouter.pushViewController(welcomeScreenVC)
-        
-//        let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
-//        vc.output = self
-//        navigationRouter.pushViewController(vc, animated: true)
     }
 }
 
 extension HelloCoordinator: WelcomeScreenListener {
     func openURL(_ url: URL) {
-        let browser = BrowserViewController(url: url)
-        navigationRouter.pushViewController(browser)
+        BrowserViewController.openURL(url)
     }
     
     func didTapBegin() {
@@ -76,12 +71,3 @@ extension HelloCoordinator: WelcomeScreenListener {
         self.removeFromParentCoordinator()
     }
 }
-
-// MARK: InfoPagesViewControllerDelegate
-//extension HelloCoordinator: InfoPagesViewModuleOutput {
-//    func userFinishedReadPages() {
-//        navigationRouter.popViewController()
-//        self.delegate?.userFinishedGreet()
-//        self.removeFromParentCoordinator()
-//    }
-//}
