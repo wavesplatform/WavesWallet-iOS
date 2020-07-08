@@ -171,8 +171,6 @@ internal enum StoryboardScene {
     internal static let initialScene = InitialSceneType<WavesWallet_iOS.HelloLanguagesViewController>(storyboard: Hello.self)
 
     internal static let helloLanguagesViewController = SceneType<WavesWallet_iOS.HelloLanguagesViewController>(storyboard: Hello.self, identifier: "HelloLanguagesViewController")
-
-    internal static let infoPagesViewController = SceneType<WavesWallet_iOS.InfoPagesViewController>(storyboard: Hello.self, identifier: "InfoPagesViewController")
   }
   internal enum History: StoryboardType {
     internal static let storyboardName = "History"

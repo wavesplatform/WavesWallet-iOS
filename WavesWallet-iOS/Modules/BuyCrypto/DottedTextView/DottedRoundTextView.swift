@@ -50,8 +50,7 @@ final class DottedRoundTextView: UIView, ResetableView {
         textView.attributedText = nil
     }
     
-    func setAttiributedStringWithLink(_ text: NSAttributedString,
-                                      didTapLink: @escaping (URL) -> Void) {
+    func setAttiributedStringWithLink(_ text: NSAttributedString, didTapLink: @escaping (URL) -> Void) {
         textView.attributedText = text
         self.didTapLink = didTapLink
         
