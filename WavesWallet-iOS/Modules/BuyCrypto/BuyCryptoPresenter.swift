@@ -245,33 +245,25 @@ extension BuyCryptoPresenter {
 
             let conversionFee: NSAttributedString
             if cryptoAsset.id == DomainLayerConstants.acUSDId, fiatAsset.id == "USD" {
-                conversionFee = NSAttributedString(
-                    string: Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n",
-                    attributes: [.foregroundColor: UIColor.basic500,
-                                 .font: UIFont.boldSystemFont(ofSize: 12)])
+                conversionFee = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.withoutConversionFee + "\n",
+                                                   attributes: [.foregroundColor: UIColor.basic500,
+                                                                .font: UIFont.boldSystemFont(ofSize: 12)])
             } else {
-                conversionFee = NSAttributedString(
-                    string: Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n",
-                    attributes: [.foregroundColor: UIColor.basic500,
-                                 .font: UIFont.boldSystemFont(ofSize: 12)])
+                conversionFee = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n",
+                                                   attributes: [.foregroundColor: UIColor.basic500,
+                                                                .font: UIFont.boldSystemFont(ofSize: 12)])
             }
 
-            let youCanBuyWithYourBankCard = NSAttributedString(
-                string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
-                attributes: [.foregroundColor: UIColor.basic500])
-            let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(
-                string: Localizable.Waves.Buycrypto.Messageinfo
-                    .afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
-                attributes: [.foregroundColor: UIColor.basic500])
-            let minAmount = NSAttributedString(
-                string: Localizable.Waves.Buycrypto.Messageinfo
-                    .minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
-                attributes: [.foregroundColor: UIColor.basic500])
+            let youCanBuyWithYourBankCard = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
+                                                               attributes: [.foregroundColor: UIColor.basic500])
+            let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
+                                                                             attributes: [.foregroundColor: UIColor.basic500])
+            let minAmount = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
+                                               attributes: [.foregroundColor: UIColor.basic500])
 
             let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
-            let ifYouHaveProblems = NSMutableAttributedString(
-                string: Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems,
-                attributes: [.foregroundColor: UIColor.basic500])
+            let ifYouHaveProblems = NSMutableAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.ifYouHaveProblems,
+                                                              attributes: [.foregroundColor: UIColor.basic500])
             ifYouHaveProblems.addAttribute(NSAttributedString.Key.link,
                                            value: link,
                                            range: ifYouHaveProblems.mutableString.range(of: linkWord))
