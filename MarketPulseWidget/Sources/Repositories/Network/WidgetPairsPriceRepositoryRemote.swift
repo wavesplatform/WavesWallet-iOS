@@ -38,9 +38,15 @@ protocol WidgetPairsPriceRepositoryProtocol {
 }
 
 final class WidgetPairsPriceRepositoryRemote {
-    private let pairsPriceDataService: WidgetPairsPriceDataServiceProtocol = WidgetPairsPriceDataService()
+    private lazy var pairsPriceDataService: WidgetPairsPriceDataServiceProtocol = WidgetPairsPriceDataService(environmentRepository: environmentRepository)
     
-    private let matcherRepository = WidgetMatcherRepositoryRemote()
+    private lazy var matcherRepository = WidgetMatcherRepositoryRemote(environmentRepository: environmentRepository)
+    
+    private let environmentRepository: EnvironmentRepositoryProtocol
+    
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
     
     func ratePairs(_ query: MarketPulse.Query.Rates) -> Observable<[MarketPulse.DTO.Rate]> {
         return matcherRepository

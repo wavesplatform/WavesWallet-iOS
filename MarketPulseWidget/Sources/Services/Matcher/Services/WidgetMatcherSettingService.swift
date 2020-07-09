@@ -6,31 +6,42 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import DataLayer
+import DomainLayer
 import Foundation
+import Moya
 import RxSwift
 import WavesSDK
-import Moya
 
 protocol WidgetMatcherSettingServiceProtocol {
     func settings() -> Observable<MatcherService.DTO.Setting>
 }
 
 final class WidgetMatcherSettingService: WidgetMatcherSettingServiceProtocol {
-
     private let settingsProvider: MoyaProvider<WidgetMatcherService.Target.Settings> = InternalWidgetService.moyaProvider()
 
-    func settings() -> Observable<MatcherService.DTO.Setting> {
+    private let environmentRepository: EnvironmentRepositoryProtocol
 
-        return settingsProvider
-            .rx
-            .request(.init(kind: .settings,
-                           matcherUrl: InternalWidgetService.shared.matcherUrl),
-                     callbackQueue: DispatchQueue.global(qos: .userInteractive))
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Single<Response> in
-                return Single.error(NetworkError.error(by: error))
-            })
-            .asObservable()
-            .map(MatcherService.DTO.Setting.self)
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+
+    func settings() -> Observable<MatcherService.DTO.Setting> {
+        environmentRepository.walletEnvironment()
+            .flatMap { [weak self] enviroment -> Observable<MatcherService.DTO.Setting> in
+
+                guard let self = self else { return Observable.never() }
+                return self.settingsProvider
+                    .rx
+                    .request(.init(kind: .settings,
+                                   matcherUrl: enviroment.servers.matcherUrl),
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .catchError { (error) -> Single<Response> in
+                        Single.error(NetworkError.error(by: error))
+                    }
+                    .asObservable()
+                    .map(MatcherService.DTO.Setting.self)
+            }
     }
 }

@@ -71,8 +71,7 @@ private extension URL {
         }
         
         path += "\(enviromentScheme).json"
-                
-
+                        
         return URL(string: path)!
     }
 }
@@ -152,31 +151,6 @@ extension ResourceAPI.Service.Environment: TargetType {
             return URL.configURL(isTest: isTest,
                                  enviromentScheme: kind.enviromentScheme,
                                  configName: "environment")
-            
-//            switch kind {
-//            case .mainnet:
-//
-//
-//
-//                if isDebug {
-//                    return Constants.urlEnvironmentMainNetTest
-//                } else {
-//                    return Constants.urlEnvironmentMainNet
-//                }
-//            case .testnet:
-//                if isDebug {
-//                    return Constants.urlEnvironmentTestNetTest
-//                } else {
-//                    return Constants.urlEnvironmentTestNet
-//                }
-//
-//            case .stagenet:
-//                if isDebug {
-//                    return Constants.urlEnvironmentStageNetTest
-//                } else {
-//                    return Constants.urlEnvironmentStageNet
-//                }
-//            }
         }
     }
 

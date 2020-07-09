@@ -21,7 +21,7 @@ private struct EnvironmentKey: Hashable {
 }
 
 
-final class EnvironmentRepository: EnvironmentRepositoryProtocol {
+public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         
     private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
     
@@ -39,15 +39,13 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
           return WalletEnvironment.Kind(rawValue: chainId) ?? .mainnet
     }()
     
-    init() {
-        setupEnviroment(kind: environmentKind)
-    }
+    public init() {}
             
-    func walletEnvironment() -> Observable<WalletEnvironment> {
+    public func walletEnvironment() -> Observable<WalletEnvironment> {
         currentEnviromentShare
     }
                           
-    var environmentKind: WalletEnvironment.Kind {
+    public var environmentKind: WalletEnvironment.Kind {
         get {
             return internalEnvironmentKind
         }
@@ -57,8 +55,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
             //TODO: TSUD
             UserDefaults.standard.set(newValue.rawValue, forKey: "wallet.environment.kind")
             UserDefaults.standard.synchronize()
-            
-            setupEnviroment(kind: newValue)
+                        
         }
     }
 }
@@ -67,43 +64,21 @@ extension EnvironmentRepository {
     
     private func setupServicesEnviroment() -> Observable<WalletEnvironment> {
         return ifNeedRemoteEnvironment()
-            .flatMap { [weak self] enviroment -> Observable<WalletEnvironment> in
+            .flatMap { [weak self] environment -> Observable<WalletEnvironment> in
                 guard let self = self else {
                     return Observable.never()
                 }
                 
-                return self.saveEnvironmentToMemory(environment: enviroment)
+                self.setupEnviroment(environment: environment)
+                
+                return self.saveEnvironmentToMemory(environment: environment)
         }
     }
         
-    private func setupEnviroment(kind: WalletEnvironment.Kind) {
-        AddressValidator.walletEnvironment = localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
-                                                                     kind: kind)
+    private func setupEnviroment(environment: WalletEnvironment) {
+        AddressValidator.walletEnvironment = environment
     }
-    
-    private func localEnviromentFromFile(isDebug: Bool, kind: WalletEnvironment.Kind) -> WalletEnvironment {
-        switch environmentKind {
-        case .mainnet:
-            if isDebug {
-                return WalletEnvironment.MainnetTest
-            } else {
-                return WalletEnvironment.Mainnet
-            }
-        case .testnet:
-            if isDebug {
-                return WalletEnvironment.TestnetTest
-            } else {
-                return WalletEnvironment.Testnet
-            }
-        case .stagenet:
-            if isDebug {
-                return WalletEnvironment.StagenetTest
-            } else {
-                return WalletEnvironment.Stagenet
-            }
-        }
-    }
-    
+        
     private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {
         if let value = try? localEnvironments.value() {
             return value[key]
@@ -130,7 +105,7 @@ private extension EnvironmentRepository {
             } else {
                 self.localEnvironments.onNext([key: environment])
             }
-            
+                        
             observer.onNext(environment)
             observer.onCompleted()
             
@@ -155,12 +130,6 @@ private extension EnvironmentRepository {
             .request(.get(kind: environmentKind,
                           isTest: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(WalletEnvironment.self)
-            .catchError { [weak self] _ -> Single<WalletEnvironment> in
-                guard let self = self else { return Single.never() }
-                
-                return Single.just(self.localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
-                                                                kind: self.environmentKind))
-            }
             .asObservable()
     }
 }

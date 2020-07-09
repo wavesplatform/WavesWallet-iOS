@@ -6,32 +6,40 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import Moya
 import DomainLayer
+import Foundation
+import Moya
+import RxSwift
 import WavesSDK
 import WavesSDKCrypto
 
 final class WidgetMatcherRepositoryRemote {
-   
-    private let settingsMatcherService: WidgetMatcherSettingServiceProtocol = WidgetMatcherSettingService()
-    private let publicKeyMatcherService: PublicKeyMatcherServiceProtocol = WidgetPublicKeyMatcherService()
     
-    func settingsIdsPairs() -> Observable<[String]> {
+    private lazy var settingsMatcherService: WidgetMatcherSettingServiceProtocol =
+        WidgetMatcherSettingService(environmentRepository: environmentRepository)
+    
+    private lazy var publicKeyMatcherService: PublicKeyMatcherServiceProtocol =
+        WidgetPublicKeyMatcherService(environmentRepository: environmentRepository)
 
-        return settingsMatcherService
-                .settings()
-                .map {
-                    return $0.priceAssets
-                }
+    private let environmentRepository: EnvironmentRepositoryProtocol
+
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
     }
-    
+
+    func settingsIdsPairs() -> Observable<[String]> {
+        return settingsMatcherService
+            .settings()
+            .map {
+                return $0.priceAssets
+            }
+    }
+
     func matcherPublicKey() -> Observable<DomainLayer.DTO.PublicKey> {
         return publicKeyMatcherService
-                .publicKey()
-                .map {
-                    return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0))
-                }
+            .publicKey()
+            .map {
+                return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0))
+            }
     }
 }

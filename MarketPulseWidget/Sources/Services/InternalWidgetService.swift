@@ -16,15 +16,13 @@ protocol InternalWidgetServiceProtocol {
 }
 
 internal class InternalWidgetService: InternalWidgetServiceProtocol {
+
+    let dataUrl: URL
+    let matcherUrl: URL
     
-    static var shared = InternalWidgetService()
-    
-    var dataUrl: URL {
-        return WalletEnvironment.Mainnet.servers.dataUrl
-    }
-    
-    var matcherUrl: URL {
-        return WalletEnvironment.Mainnet.servers.matcherUrl
+    init(dataUrl: URL, matcherUrl: URL) {
+        self.dataUrl = dataUrl
+        self.matcherUrl = matcherUrl
     }
 }
 

@@ -1098,9 +1098,7 @@
 		E983665E21F5972300178A8A /* TransactionScriptErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */; };
 		E983666121F5973900178A8A /* TransactionScriptErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E983666021F5973900178A8A /* TransactionScriptErrorView.xib */; };
 		E9845D3B2374645900716515 /* PushNotificationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9845D3A2374645900716515 /* PushNotificationsCoordinator.swift */; };
-		E984BB6B2318457800D60C38 /* WidgetTransactionsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984BB6A2318457800D60C38 /* WidgetTransactionsDataService.swift */; };
 		E984BB6D2318461A00D60C38 /* WidgetTransactionsDataTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984BB6C2318461A00D60C38 /* WidgetTransactionsDataTarget.swift */; };
-		E984BB6F23184EE100D60C38 /* WidgetTransactionsRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984BB6E23184EE100D60C38 /* WidgetTransactionsRepositoryRemote.swift */; };
 		E984BB71231935DD00D60C38 /* WidgetPublicKeyMatcherTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984BB70231935DD00D60C38 /* WidgetPublicKeyMatcherTarget.swift */; };
 		E984BB732319367400D60C38 /* WidgetPublicKeyMatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984BB722319367400D60C38 /* WidgetPublicKeyMatcherService.swift */; };
 		E988EDEA23F2666E00B742C1 /* StakingLastPayoutsTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E988EDE823F2666E00B742C1 /* StakingLastPayoutsTitleCell.swift */; };
@@ -2581,9 +2579,7 @@
 		E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionScriptErrorView.swift; sourceTree = "<group>"; };
 		E983666021F5973900178A8A /* TransactionScriptErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionScriptErrorView.xib; sourceTree = "<group>"; };
 		E9845D3A2374645900716515 /* PushNotificationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsCoordinator.swift; sourceTree = "<group>"; };
-		E984BB6A2318457800D60C38 /* WidgetTransactionsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTransactionsDataService.swift; sourceTree = "<group>"; };
 		E984BB6C2318461A00D60C38 /* WidgetTransactionsDataTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetTransactionsDataTarget.swift; sourceTree = "<group>"; };
-		E984BB6E23184EE100D60C38 /* WidgetTransactionsRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTransactionsRepositoryRemote.swift; sourceTree = "<group>"; };
 		E984BB70231935DD00D60C38 /* WidgetPublicKeyMatcherTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPublicKeyMatcherTarget.swift; sourceTree = "<group>"; };
 		E984BB722319367400D60C38 /* WidgetPublicKeyMatcherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPublicKeyMatcherService.swift; sourceTree = "<group>"; };
 		E988EDE823F2666E00B742C1 /* StakingLastPayoutsTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingLastPayoutsTitleCell.swift; sourceTree = "<group>"; };
@@ -5698,7 +5694,6 @@
 			children = (
 				E92A11672317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift */,
 				E92A11842317E883004EC6A1 /* WidgetAssetsDataService.swift */,
-				E984BB6A2318457800D60C38 /* WidgetTransactionsDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -5718,7 +5713,6 @@
 				E92A11742317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift */,
 				E92A11762317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift */,
 				E92A11822317E7A9004EC6A1 /* WidgetAssetsRepositoryRemote.swift */,
-				E984BB6E23184EE100D60C38 /* WidgetTransactionsRepositoryRemote.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -8230,7 +8224,6 @@
 				E92A117E2317DF4B004EC6A1 /* WidgetSettingsMarcherTarget.swift in Sources */,
 				E9B190AC22E7CD99008220B7 /* MarketPulseWidgetViewController.swift in Sources */,
 				E984BB71231935DD00D60C38 /* WidgetPublicKeyMatcherTarget.swift in Sources */,
-				E984BB6B2318457800D60C38 /* WidgetTransactionsDataService.swift in Sources */,
 				E92A116B2317CF9A004EC6A1 /* InternalWidgetService.swift in Sources */,
 				E936C2EA2314BF590097515B /* WidgetSettingsInizialization.swift in Sources */,
 				E92A116D2317D12F004EC6A1 /* WidgetDataServiceTypes.swift in Sources */,
@@ -8246,7 +8239,6 @@
 				E95310B322E8507500F72809 /* MarketPulseWidgetCell.swift in Sources */,
 				E92A11752317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift in Sources */,
 				E92A11772317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift in Sources */,
-				E984BB6F23184EE100D60C38 /* WidgetTransactionsRepositoryRemote.swift in Sources */,
 				E95310BC22E85FEE00F72809 /* MarketPulseTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

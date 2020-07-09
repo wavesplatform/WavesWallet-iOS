@@ -193,8 +193,8 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
             .trackEvent(.staking(.mainBuyTap))
     }
 
-    func openDeposit(neutrinoAsset _: Asset) {
-        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .deposit)
+    func openDeposit(neutrinoAsset: Asset) {
+        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .deposit, assetId: neutrinoAsset.id)
         coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
@@ -205,8 +205,8 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
             .trackEvent(.staking(.mainDepositTap))
     }
 
-    func openWithdraw(neutrinoAsset _: Asset) {
-        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .withdraw)
+    func openWithdraw(neutrinoAsset: Asset) {
+        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .withdraw, assetId: neutrinoAsset.id)
         coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
