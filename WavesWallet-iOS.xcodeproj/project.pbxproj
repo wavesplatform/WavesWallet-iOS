@@ -552,8 +552,6 @@
 		7B9B326122E6004700DB1C59 /* DebugRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B326022E6004700DB1C59 /* DebugRootView.swift */; };
 		7B9DC3142382C04700DCCA75 /* Sentry-io-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3052382C04700DCCA75 /* Sentry-io-Info.plist */; };
 		7B9DC3152382C04700DCCA75 /* Sentry-io-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3052382C04700DCCA75 /* Sentry-io-Info.plist */; };
-		7B9DC3162382C04700DCCA75 /* environment_stagenet.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3062382C04700DCCA75 /* environment_stagenet.json */; };
-		7B9DC3172382C04700DCCA75 /* environment_stagenet.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3062382C04700DCCA75 /* environment_stagenet.json */; };
 		7B9DC3182382C04700DCCA75 /* Languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3072382C04700DCCA75 /* Languages.json */; };
 		7B9DC3192382C04700DCCA75 /* Languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3072382C04700DCCA75 /* Languages.json */; };
 		7B9DC31A2382C04700DCCA75 /* Appsflyer-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3082382C04700DCCA75 /* Appsflyer-Info.plist */; };
@@ -562,22 +560,12 @@
 		7B9DC31D2382C04700DCCA75 /* fee.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3092382C04700DCCA75 /* fee.json */; };
 		7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30A2382C04700DCCA75 /* AppSpector-Info.plist */; };
 		7B9DC31F2382C04700DCCA75 /* AppSpector-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30A2382C04700DCCA75 /* AppSpector-Info.plist */; };
-		7B9DC3202382C04700DCCA75 /* environment_stagenet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30B2382C04700DCCA75 /* environment_stagenet_test.json */; };
-		7B9DC3212382C04700DCCA75 /* environment_stagenet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30B2382C04700DCCA75 /* environment_stagenet_test.json */; };
-		7B9DC3222382C04700DCCA75 /* environment_testnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30C2382C04700DCCA75 /* environment_testnet.json */; };
-		7B9DC3232382C04700DCCA75 /* environment_testnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30C2382C04700DCCA75 /* environment_testnet.json */; };
-		7B9DC3242382C04700DCCA75 /* environment_testnet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30D2382C04700DCCA75 /* environment_testnet_test.json */; };
-		7B9DC3252382C04700DCCA75 /* environment_testnet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30D2382C04700DCCA75 /* environment_testnet_test.json */; };
 		7B9DC3262382C04700DCCA75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30E2382C04700DCCA75 /* GoogleService-Info.plist */; };
 		7B9DC3272382C04700DCCA75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30E2382C04700DCCA75 /* GoogleService-Info.plist */; };
 		7B9DC3282382C04700DCCA75 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30F2382C04700DCCA75 /* Fabric-Info.plist */; };
 		7B9DC3292382C04700DCCA75 /* Fabric-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC30F2382C04700DCCA75 /* Fabric-Info.plist */; };
 		7B9DC32A2382C04700DCCA75 /* Amplitude-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3102382C04700DCCA75 /* Amplitude-Info.plist */; };
 		7B9DC32B2382C04700DCCA75 /* Amplitude-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3102382C04700DCCA75 /* Amplitude-Info.plist */; };
-		7B9DC32C2382C04700DCCA75 /* environment_mainnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3112382C04700DCCA75 /* environment_mainnet.json */; };
-		7B9DC32D2382C04700DCCA75 /* environment_mainnet.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3112382C04700DCCA75 /* environment_mainnet.json */; };
-		7B9DC32E2382C04700DCCA75 /* environment_mainnet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */; };
-		7B9DC32F2382C04700DCCA75 /* environment_mainnet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */; };
 		7B9DC3302382C04700DCCA75 /* spam.scv in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3132382C04700DCCA75 /* spam.scv */; };
 		7B9DC3312382C04700DCCA75 /* spam.scv in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3132382C04700DCCA75 /* spam.scv */; };
 		7B9DC35B23842A9900DCCA75 /* ServerMaintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */; };
@@ -1995,19 +1983,13 @@
 		7B97B0BB22FD92AC008BA3F4 /* AssetLogo+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetLogo+Styles.swift"; sourceTree = "<group>"; };
 		7B9B326022E6004700DB1C59 /* DebugRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRootView.swift; sourceTree = "<group>"; };
 		7B9DC3052382C04700DCCA75 /* Sentry-io-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Sentry-io-Info.plist"; sourceTree = "<group>"; };
-		7B9DC3062382C04700DCCA75 /* environment_stagenet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_stagenet.json; sourceTree = "<group>"; };
 		7B9DC3072382C04700DCCA75 /* Languages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Languages.json; sourceTree = "<group>"; };
 		7B9DC3082382C04700DCCA75 /* Appsflyer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Appsflyer-Info.plist"; sourceTree = "<group>"; };
 		7B9DC3092382C04700DCCA75 /* fee.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fee.json; sourceTree = "<group>"; };
 		7B9DC30A2382C04700DCCA75 /* AppSpector-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppSpector-Info.plist"; sourceTree = "<group>"; };
-		7B9DC30B2382C04700DCCA75 /* environment_stagenet_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_stagenet_test.json; sourceTree = "<group>"; };
-		7B9DC30C2382C04700DCCA75 /* environment_testnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_testnet.json; sourceTree = "<group>"; };
-		7B9DC30D2382C04700DCCA75 /* environment_testnet_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_testnet_test.json; sourceTree = "<group>"; };
 		7B9DC30E2382C04700DCCA75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B9DC30F2382C04700DCCA75 /* Fabric-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Fabric-Info.plist"; sourceTree = "<group>"; };
 		7B9DC3102382C04700DCCA75 /* Amplitude-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Amplitude-Info.plist"; sourceTree = "<group>"; };
-		7B9DC3112382C04700DCCA75 /* environment_mainnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_mainnet.json; sourceTree = "<group>"; };
-		7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_mainnet_test.json; sourceTree = "<group>"; };
 		7B9DC3132382C04700DCCA75 /* spam.scv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spam.scv; sourceTree = "<group>"; };
 		7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerMaintenanceViewController.swift; sourceTree = "<group>"; };
 		7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServerMaintenance.storyboard; sourceTree = "<group>"; };
@@ -4614,12 +4596,6 @@
 				7B9DC3102382C04700DCCA75 /* Amplitude-Info.plist */,
 				7B9DC3082382C04700DCCA75 /* Appsflyer-Info.plist */,
 				7B9DC30A2382C04700DCCA75 /* AppSpector-Info.plist */,
-				7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */,
-				7B9DC3112382C04700DCCA75 /* environment_mainnet.json */,
-				7B9DC30B2382C04700DCCA75 /* environment_stagenet_test.json */,
-				7B9DC3062382C04700DCCA75 /* environment_stagenet.json */,
-				7B9DC30D2382C04700DCCA75 /* environment_testnet_test.json */,
-				7B9DC30C2382C04700DCCA75 /* environment_testnet.json */,
 				7B9DC30F2382C04700DCCA75 /* Fabric-Info.plist */,
 				7B9DC3092382C04700DCCA75 /* fee.json */,
 				7B9DC30E2382C04700DCCA75 /* GoogleService-Info.plist */,
@@ -7272,10 +7248,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B9DC32D2382C04700DCCA75 /* environment_mainnet.json in Resources */,
 				7B9DC3272382C04700DCCA75 /* GoogleService-Info.plist in Resources */,
-				7B9DC3232382C04700DCCA75 /* environment_testnet.json in Resources */,
-				7B9DC3212382C04700DCCA75 /* environment_stagenet_test.json in Resources */,
 				7B9DC31D2382C04700DCCA75 /* fee.json in Resources */,
 				E9B190AF22E7CD99008220B7 /* MainInterface.storyboard in Resources */,
 				7B9DC3192382C04700DCCA75 /* Languages.json in Resources */,
@@ -7285,11 +7258,8 @@
 				7B9DC3312382C04700DCCA75 /* spam.scv in Resources */,
 				E95310BE22E8A43000F72809 /* WidgetAssets.xcassets in Resources */,
 				7B9DC31F2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
-				7B9DC3172382C04700DCCA75 /* environment_stagenet.json in Resources */,
 				7B848AA12304073B0092AD18 /* WavesMarketPulse.strings in Resources */,
-				7B9DC32F2382C04700DCCA75 /* environment_mainnet_test.json in Resources */,
 				7B9DC31B2382C04700DCCA75 /* Appsflyer-Info.plist in Resources */,
-				7B9DC3252382C04700DCCA75 /* environment_testnet_test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7306,7 +7276,6 @@
 				E9642C9121CB326A0065A1BD /* CoinomatServiceErrorView.xib in Resources */,
 				7B9DC3182382C04700DCCA75 /* Languages.json in Resources */,
 				E9B087A12163886800937644 /* DexChartHeaderView.xib in Resources */,
-				7B9DC3222382C04700DCCA75 /* environment_testnet.json in Resources */,
 				0AAC28132215C4C700D8A404 /* SendFeeHeaderView.xib in Resources */,
 				7B85E62023FD311300365829 /* StakingTransfer.storyboard in Resources */,
 				7B0D1B7D2401C84300442B7B /* StakingTransferErrorCell.xib in Resources */,
@@ -7331,10 +7300,8 @@
 				7B875E33247545E800670AB8 /* WalletSearchView.xib in Resources */,
 				7B85E63723FD7AB500365829 /* StakingTransferScrollButtonsCell.xib in Resources */,
 				0AA8CAD421527672000D09E6 /* PasscodeView.xib in Resources */,
-				7B9DC3202382C04700DCCA75 /* environment_stagenet_test.json in Resources */,
 				87FA5DDC24223FFE002F282D /* AssetBalanceSkeletonCell.xib in Resources */,
 				E95B47CE21638A9F004D4E39 /* ShortInfoPageView.xib in Resources */,
-				7B9DC3242382C04700DCCA75 /* environment_testnet_test.json in Resources */,
 				0AF922F7212E1234003BA067 /* SegmentedControl.xib in Resources */,
 				04A2CFA5211213BE00784FEC /* History.storyboard in Resources */,
 				E95E14F5229FF63B003552B8 /* InvestmentLeasingQuickNoteCell.xib in Resources */,
@@ -7397,11 +7364,9 @@
 				8752A2672412799900B968C7 /* PayoutsHistory.storyboard in Resources */,
 				87FA5D6024223CF4002F282D /* ActionSheet.storyboard in Resources */,
 				E95E14F3229FF31A003552B8 /* InvestmentLeasingBalanceCell.xib in Resources */,
-				7B9DC3162382C04700DCCA75 /* environment_stagenet.json in Resources */,
 				875393512423BEDE00394762 /* TooltipHeaderView.xib in Resources */,
 				87FA5D1124223BA4002F282D /* ChangePassword.storyboard in Resources */,
 				E98F1D2F22A5E2F200B4A8C4 /* UpdateAppView.xib in Resources */,
-				7B9DC32E2382C04700DCCA75 /* environment_mainnet_test.json in Resources */,
 				E988EDEF23F26D2900B742C1 /* StakingLastPayoutsCell.xib in Resources */,
 				8752A273241279C200B968C7 /* PayoutsTransactionCell.xib in Resources */,
 				7B9DC31C2382C04700DCCA75 /* fee.json in Resources */,
@@ -7417,7 +7382,6 @@
 				E941219D23CED5D4002858A0 /* Trade.storyboard in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */,
-				7B9DC32C2382C04700DCCA75 /* environment_mainnet.json in Resources */,
 				7B85E63B23FD7BBE00365829 /* StakingTransferFeeInfoCell.xib in Resources */,
 				7B5EDEC42253618C009C2B3B /* AccessibilityIdentifiers.strings in Resources */,
 				E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */,

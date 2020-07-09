@@ -11,14 +11,6 @@ import WavesSDKExtensions
 
 private enum Constants {
     static let alias = "alias"
-    fileprivate static let mainnet = "environment_mainnet"
-    fileprivate static let testnet = "environment_testnet"
-    fileprivate static let stagenet = "environment_stagenet"
-    
-    fileprivate static let mainnet_test = "environment_mainnet_test"
-    fileprivate static let testnet_test = "environment_testnet_test"
-    fileprivate static let stagenet_test = "environment_stagenet_test"
-    
 }
 
 public struct WalletEnvironment: Decodable, Hashable {
@@ -111,14 +103,6 @@ public struct WalletEnvironment: Decodable, Hashable {
         return Kind(rawValue: scheme) ?? .mainnet
     }
     
-//    public static let Testnet: WalletEnvironment = parseJSON(json: Constants.testnet)!
-//    public static let Mainnet: WalletEnvironment = parseJSON(json: Constants.mainnet)!
-//    public static let Stagenet: WalletEnvironment = parseJSON(json: Constants.stagenet)!
-//    
-//    public static let TestnetTest: WalletEnvironment = parseJSON(json: Constants.testnet_test)!
-//    public static let MainnetTest: WalletEnvironment = parseJSON(json: Constants.mainnet_test)!
-//    public static let StagenetTest: WalletEnvironment = parseJSON(json: Constants.stagenet_test)!
-//    
     public init(name: String,
                 servers: Servers,
                 scheme: String,
