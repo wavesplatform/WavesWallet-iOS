@@ -85,9 +85,7 @@ private struct Staking: Decodable {
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
     
     private let environmentRepository: EnvironmentRepositoryProtocol
-    
-    private let developmentConfigsProvider: MoyaProvider<ResourceAPI.Service.DevelopmentConfigs> = .anyMoyaProvider()
-
+        
     private let environmentAPIService: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {

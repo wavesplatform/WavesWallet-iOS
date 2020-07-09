@@ -22,18 +22,6 @@ extension ResourceAPI {
 private enum Constants {
     static let root = "https://configs.waves.exchange/"
 
-//    static let urlEnvironmentStageNetTest: URL = URL(string: "\(root)/mobile/v2/environment/test/stagenet.json")!
-//
-//    static let urlEnvironmentMainNetTest: URL = URL(string: "\(root)/mobile/v2/environment/test/mainnet.json")!
-//
-//    static let urlEnvironmentTestNetTest: URL = URL(string: "\(root)/mobile/v2/environment/test/testnet.json")!
-//
-//    static let urlEnvironmentStageNet: URL = URL(string: "\(root)/mobile/v2/environment/prod/stagenet.json")!
-//
-//    static let urlEnvironmentMainNet: URL = URL(string: "\(root)/mobile/v2/environment/prod/mainnet.json")!
-//
-//    static let urlEnvironmentTestNet: URL = URL(string: "\(root)/mobile/v2/environment/prod/testnet.json")!
-
     static let urlTransactionFee: URL = URL(string: "\(root)/fee.json")!
 
     static let urlApplicationNews: URL = URL(string: "\(root)/mobile/v2/ios/prod/notifications.json")!
@@ -43,18 +31,6 @@ private enum Constants {
     static let urlVersion: URL = URL(string: "\(root)/mobile/v2/ios/prod/version.json")!
 
     static let urlVersionTest: URL = URL(string: "\(root)/mobile/v2/ios/test/version.json")!
-    
-    
-
-    static let urlDevelopmentConfigs: URL = URL(string: "\(root)/mobile/ios/prod/development_configs.json")!
-
-    static let urlDevelopmentConfigsTest: URL = URL(string: "\(root)/mobile/ios/test/development_configs.json")!
-    
-    
-
-    static let urlTradeCategoriesConfig: URL = URL(string: "\(root)/mobile/ios/prod/trade_categories_config.json")!
-
-    static let urlTradeCategoriesConfigTest: URL = URL(string: "\(root)/mobile/ios/test/trade_categories_config.json")!
 }
 
 private extension URL {
@@ -118,14 +94,6 @@ extension ResourceAPI.Service {
     }
 
     enum ApplicationVersion {
-        /**
-         Response:
-         - ?
-         */
-        case get(isDebug: Bool)
-    }
-
-    enum DevelopmentConfigs {
         /**
          Response:
          - ?
@@ -224,45 +192,6 @@ extension ResourceAPI.Service.ApplicationNews: TargetType {
                 return Constants.urlApplicationNewsDebug
             } else {
                 return Constants.urlApplicationNews
-            }
-        }
-    }
-
-    var path: String {
-        return ""
-    }
-
-    var headers: [String: String]? {
-        return ["Content-type": "application/json"]
-    }
-
-    var method: Moya.Method {
-        switch self {
-        case .get:
-            return .get
-        }
-    }
-
-    var task: Task {
-        switch self {
-        case .get:
-            return .requestPlain
-        }
-    }
-}
-
-extension ResourceAPI.Service.DevelopmentConfigs: TargetType {
-    var sampleData: Data {
-        return Data()
-    }
-
-    var baseURL: URL {
-        switch self {
-        case let .get(isDebug):
-            if isDebug {
-                return Constants.urlDevelopmentConfigsTest
-            } else {
-                return Constants.urlDevelopmentConfigs
             }
         }
     }
