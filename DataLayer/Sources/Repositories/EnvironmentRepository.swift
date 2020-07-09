@@ -76,7 +76,7 @@ extension EnvironmentRepository {
     }
         
     private func setupEnviroment(environment: WalletEnvironment) {
-        AddressValidator.walletEnvironment = environment
+        AddressValidator.walletEnvironmentKind = environment.kind
     }
         
     private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {

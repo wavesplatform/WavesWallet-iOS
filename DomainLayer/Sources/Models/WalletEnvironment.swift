@@ -18,7 +18,7 @@ public struct WalletEnvironment: Decodable, Hashable {
     public enum Kind: String, Hashable {
         case mainnet = "W"
         case testnet = "T"
-        case stagenet = "S"
+        case wxdevnet = "S"
         
         public var chainId: String {
             return rawValue

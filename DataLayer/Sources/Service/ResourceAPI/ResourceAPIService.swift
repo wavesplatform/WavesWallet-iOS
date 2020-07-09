@@ -58,8 +58,8 @@ extension WalletEnvironment.Kind {
         switch self {
         case .mainnet:
             return "mainnet"
-        case .stagenet:
-            return "stagenet"
+        case .wxdevnet:
+            return "wxdevnet"
         case .testnet:
             return "testnet"
         }

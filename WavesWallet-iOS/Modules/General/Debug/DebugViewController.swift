@@ -233,7 +233,7 @@ private extension DebugViewController {
         let testNet: Debug.Enviroment = .init(name: "Testnet",
                                               chainId: "T")
 
-        let stageNet: Debug.Enviroment = .init(name: "Stagenet",
+        let wxdevnet: Debug.Enviroment = .init(name: "WXDevnet",
                                                chainId: "S")
 
         var current: Debug.Enviroment!
@@ -242,8 +242,8 @@ private extension DebugViewController {
         case .mainnet:
             current = mainNet
 
-        case .stagenet:
-            current = stageNet
+        case .wxdevnet:
+            current = wxdevnet
 
         case .testnet:
             current = testNet
@@ -251,7 +251,7 @@ private extension DebugViewController {
 
         let sections: [Debug.Section] = [.init(rows: [Debug.Row.enviroments([mainNet,
                                                                              testNet,
-                                                                             stageNet],
+                                                                             wxdevnet],
                                                                             current),
                                                         .test(isEnableEnviromentTest)],
                                                kind: .enviroment),
