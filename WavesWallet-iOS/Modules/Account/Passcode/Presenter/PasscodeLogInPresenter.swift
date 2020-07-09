@@ -12,23 +12,15 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-private struct LogInByBiometricQuery: Hashable {
-    let wallet: Wallet
-}
-
 private struct LogInQuery: Hashable {
     let wallet: Wallet
     let passcode: String
 }
 
-private struct LogoutQuery: Hashable {
-    let wallet: Wallet
-}
-
 final class PasscodeLogInPresenter: PasscodePresenterProtocol {
     fileprivate typealias Types = PasscodeTypes
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     var interactor: PasscodeInteractorProtocol!
     var input: PasscodeModuleInput!
@@ -40,7 +32,7 @@ final class PasscodeLogInPresenter: PasscodePresenterProtocol {
         newFeedbacks.append(logout())
         newFeedbacks.append(logInBiometric())
 
-        let initialState = self.initialState(input: input)
+        let initialState = makeInitialState(input: input)
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
@@ -48,9 +40,7 @@ final class PasscodeLogInPresenter: PasscodePresenterProtocol {
                                    },
                                    feedback: newFeedbacks)
 
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
@@ -58,73 +48,61 @@ final class PasscodeLogInPresenter: PasscodePresenterProtocol {
 
 extension PasscodeLogInPresenter {
     private func logInBiometric() -> Feedback {
-        return react(request: { state -> LogInByBiometricQuery? in
-
-            if case let .logIn(wallet) = state.kind, let action = state.action, case .logInBiometric = action {
-                return LogInByBiometricQuery(wallet: wallet)
+        react(request: { state -> Wallet? in
+            if case let .logIn(wallet) = state.kind, case .logInBiometric = state.action {
+                return wallet
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .logInBiometric(wallet: query.wallet)
+                .logInBiometric(wallet: wallet)
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { (error) -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func logIn() -> Feedback {
-        return react(request: { state -> LogInQuery? in
-
-            if let action = state.action, case .logIn = action {
-                if case let .logIn(wallet) = state.kind {
-                    return LogInQuery(wallet: wallet, passcode: state.passcode)
-                }
+        react(request: { state -> LogInQuery? in
+            if case .logIn = state.action, case let .logIn(wallet) = state.kind {
+                return LogInQuery(wallet: wallet, passcode: state.passcode)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
                 .logIn(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { (error) -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func logout() -> Feedback {
-        return react(request: { state -> LogoutQuery? in
-
-            if case let .logIn(wallet) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
+        react(request: { state -> Wallet? in
+            if case let .logIn(wallet) = state.kind, case .logout = state.action {
+                return wallet
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
-                .interactor.logout(wallet: query.wallet)
+                .interactor.logout(wallet: wallet)
                 .map { _ in .completedLogout }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { (error) -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 }
@@ -250,7 +228,7 @@ private extension PasscodeLogInPresenter {
 // MARK: UI State
 
 private extension PasscodeLogInPresenter {
-    func initialState(input: PasscodeModuleInput) -> Types.State {
+    func makeInitialState(input: PasscodeModuleInput) -> Types.State {
         return Types.State(displayState: initialDisplayState(input: input),
                            hasBackButton: input.hasBackButton,
                            kind: input.kind,

@@ -21,7 +21,7 @@ private struct SetEnableBiometricQuery: Hashable {
 final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
     fileprivate typealias Types = PasscodeTypes
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     var interactor: PasscodeInteractorProtocol!
     var input: PasscodeModuleInput!
@@ -33,18 +33,16 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
         newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(logout())
 
-        let initialState = self.initialState(input: input)
+        let initialState = makeInitialState(input: input)
 
         let system = Driver.system(initialState: initialState,
-                                   reduce:
-                                   { [weak self] state, event -> Types.State in
+                                   reduce: { [weak self] state, event -> Types.State in
                                        guard let self = self else { return state }
                                        return self.reduce(state: state, event: event)
-            }, feedback: newFeedbacks)
+                                   },
+                                   feedback: newFeedbacks)
 
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
@@ -52,17 +50,14 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 
 extension PasscodeEnableBiometricPresenter {
     private func disabledBiometricUsingBiometric() -> Feedback {
-        return react(request: { state -> Wallet? in
-
-            if case let .setEnableBiometric(_, wallet) = state.kind,
-                let action = state.action,
-                case .disabledBiometricUsingBiometric = action {
+        react(request: { state -> Wallet? in
+            if case let .setEnableBiometric(_, wallet) = state.kind, case .disabledBiometricUsingBiometric = state.action {
                 return wallet
+            } else {
+                return nil
             }
-
-            return nil
-
-        }, effects: { [weak self] wallet -> Signal<Types.Event> in
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
@@ -71,24 +66,19 @@ extension PasscodeEnableBiometricPresenter {
                 .disabledBiometricUsingBiometric(wallet: wallet)
                 .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func changeEnableBiometric() -> Feedback {
-        return react(request: { state -> SetEnableBiometricQuery? in
-
-            if case let .setEnableBiometric(isOn, wallet) = state.kind,
-                let action = state.action, case .setEnableBiometric = action {
+        react(request: { state -> SetEnableBiometricQuery? in
+            if case let .setEnableBiometric(isOn, wallet) = state.kind, case .setEnableBiometric = state.action {
                 return SetEnableBiometricQuery(wallet: wallet, passcode: state.passcode, isOn: isOn)
+            } else {
+                return nil
             }
-
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
             guard let self = self else { return Signal.empty() }
 
             return self
@@ -96,32 +86,25 @@ extension PasscodeEnableBiometricPresenter {
                 .setEnableBiometric(wallet: query.wallet, passcode: query.passcode, isOn: query.isOn)
                 .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
-    private struct LogoutQuery: Hashable {
-        let wallet: Wallet
-    }
-
     private func logout() -> Feedback {
-        return react(request: { state -> LogoutQuery? in
+        react(request: { state -> Wallet? in
 
-            if case let .setEnableBiometric(_, wallet) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
+            if case let .setEnableBiometric(_, wallet) = state.kind, case .logout = state.action {
+                return wallet
+            } else {
+                return nil
             }
-
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
             return self
-                .interactor.logout(wallet: query.wallet)
+                .interactor.logout(wallet: wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
                     Signal.just(.handlerError(error))
@@ -201,13 +184,9 @@ private extension PasscodeEnableBiometricPresenter {
             moduleOutput?.passcodeUserLogouted()
 
         case let .completedInputNumbers(numbers):
-
             switch state.kind {
-            case let .setEnableBiometric(isOn, wallet):
-                handlerInputNumbersForChangeBiometric(numbers, state: &state)
-
-            default:
-                break
+            case .setEnableBiometric: handlerInputNumbersForChangeBiometric(numbers, state: &state)
+            default: break
             }
 
         case .tapBack:
@@ -287,13 +266,13 @@ private extension PasscodeEnableBiometricPresenter {
 // MARK: UI State
 
 private extension PasscodeEnableBiometricPresenter {
-    func initialState(input: PasscodeModuleInput) -> Types.State {
-        return Types.State(displayState: initialDisplayState(input: input),
-                           hasBackButton: input.hasBackButton,
-                           kind: input.kind,
-                           action: nil,
-                           numbers: .init(),
-                           passcode: "")
+    func makeInitialState(input: PasscodeModuleInput) -> Types.State {
+        Types.State(displayState: initialDisplayState(input: input),
+                    hasBackButton: input.hasBackButton,
+                    kind: input.kind,
+                    action: nil,
+                    numbers: .init(),
+                    passcode: "")
     }
 
     func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {

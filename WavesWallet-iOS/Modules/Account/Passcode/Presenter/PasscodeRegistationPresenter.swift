@@ -31,7 +31,7 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
         newFeedbacks.append(registration())
         newFeedbacks.append(logout())
 
-        let initialState = self.initialState(input: input)
+        let initialState = makeInitialState(input: input)
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
@@ -40,9 +40,7 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
                                    },
                                    feedback: newFeedbacks)
 
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
@@ -50,55 +48,41 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
 
 extension PasscodeRegistationPresenter {
     private func registration() -> Feedback {
-        return react(request: { state -> RegistationQuery? in
-
-            if case let .registration(account) = state.kind,
-                let action = state.action,
-                case .registration = action {
+        react(request: { state -> RegistationQuery? in
+            if case let .registration(account) = state.kind, case .registration = state.action {
                 return RegistationQuery(account: account, passcode: state.passcode)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .registrationAccount(query.account,
-                                     passcode: query.passcode)
+                .registrationAccount(query.account, passcode: query.passcode)
                 .map { .completedRegistration($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
-    private struct LogoutQuery: Hashable {
-        let wallet: Wallet
-    }
-
     private func logout() -> Feedback {
-        return react(request: { state -> LogoutQuery? in
-
-            if case let .logIn(wallet) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
+        return react(request: { state -> Wallet? in
+            if case let .logIn(wallet) = state.kind, case .logout = state.action {
+                return wallet
+            } else {
+                return nil
             }
+        },
+                     effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
-                .interactor.logout(wallet: query.wallet)
+                .interactor.logout(wallet: wallet)
                 .map { _ in .completedLogout }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { (error) -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 }
@@ -214,26 +198,26 @@ private extension PasscodeRegistationPresenter {
 
 // MARK: UI State
 
-private extension PasscodeRegistationPresenter {
-    func initialState(input: PasscodeModuleInput) -> Types.State {
-        return Types.State(displayState: initialDisplayState(input: input),
-                           hasBackButton: input.hasBackButton,
-                           kind: input.kind,
-                           action: nil,
-                           numbers: .init(),
-                           passcode: "")
+extension PasscodeRegistationPresenter {
+    private func makeInitialState(input: PasscodeModuleInput) -> Types.State {
+        .init(displayState: initialDisplayState(input: input),
+              hasBackButton: input.hasBackButton,
+              kind: input.kind,
+              action: nil,
+              numbers: .init(),
+              passcode: "")
     }
 
-    func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
-        return .init(kind: .newPasscode,
-                     numbers: .init(),
-                     isLoading: false,
-                     isHiddenBackButton: !input.hasBackButton,
-                     isHiddenLogInByPassword: true,
-                     isHiddenLogoutButton: true,
-                     isHiddenBiometricButton: true,
-                     error: nil,
-                     titleLabel: Types.PasscodeKind.newPasscode.title(),
-                     detailLabel: nil)
+    private func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
+        .init(kind: .newPasscode,
+              numbers: .init(),
+              isLoading: false,
+              isHiddenBackButton: !input.hasBackButton,
+              isHiddenLogInByPassword: true,
+              isHiddenLogoutButton: true,
+              isHiddenBiometricButton: true,
+              error: nil,
+              titleLabel: Types.PasscodeKind.newPasscode.title(),
+              detailLabel: nil)
     }
 }
