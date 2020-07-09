@@ -844,7 +844,7 @@
 "wallet.bar.button.card" = "Card";
 
 "buyCrypto.amountPlaceholder" = "Enter amount";
-"buyCrypto.iSpent" = "I spent %@";
+"buyCrypto.iSpent" = "I spend %@";
 "buyCrypto.iBuy" = "I buy %@";
 "buyCrypto.buy" = "Buy %@";
 "buyCrypto.minAmount" = "Min amount is %@";
