@@ -57,7 +57,7 @@
       "isGateway": true,
       "wavesId": "WETH",
       "gatewayId": "ETH",
-      "gatewayType": "gateway",
+      "gatewayType": "exchange",
       "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     },
     {
@@ -70,7 +70,7 @@
       "isGateway": true,
       "gatewayId": "USDT",
       "wavesId": "USDT",
-      "gatewayType": "gateway",
+      "gatewayType": "exchange",
       "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     },
     {
@@ -84,7 +84,8 @@
       "wavesId": "USDN",
       "gatewayId": "",
       "addressRegEx": "",
-      "isStablecoin": true
+      "isStablecoin": true,
+      "isExistInExternalSource": true
     },
     {
       "iconUrls": {
@@ -98,7 +99,6 @@
       "gatewayId": "WEST",
       "gatewayType": "exchange",
       "addressRegEx": ".*"
-
     },
     {
       "iconUrls": {
@@ -382,7 +382,7 @@
       "isGateway": true,
       "wavesId": "BNT",
       "gatewayId": "BNT",
-      "gatewayType": "gateway",
+      "gatewayType": "exchange",
       "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     },
     {

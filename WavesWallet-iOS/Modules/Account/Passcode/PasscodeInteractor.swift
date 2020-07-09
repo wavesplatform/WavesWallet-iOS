@@ -99,7 +99,8 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
     func logIn(wallet: Wallet, passcode: String) -> Observable<AuthorizationAuthStatus> {
         auth(type: .passcode(passcode), wallet: wallet)
             .catchError(weak: self, handler: { (_, error) -> Observable<AuthorizationAuthStatus> in
-                Observable.error(error)
+                print(error)
+                return Observable.error(error)
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .share()

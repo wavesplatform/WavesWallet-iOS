@@ -60,7 +60,8 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     .asObservable()
             }
             .catchError { error -> Observable<Bool> in
-                Observable.error(NetworkError.error(by: error))
+                print(error)
+                return Observable.error(NetworkError.error(by: error))
             }
     }
 
@@ -78,7 +79,7 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                                                  device: Constants.device,
                                                  passcode: passcode)
 
-                return self.firebaseAuthTarget.rx
+                    return self.firebaseAuthTarget.rx
                     .request(request)
                     .filterSuccessfulStatusAndRedirectCodes()
                     .flatMap { response -> PrimitiveSequence<SingleTrait, String> in
@@ -90,7 +91,8 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     .asObservable()
             }
             .catchError { error -> Observable<String> in
-                Observable.error(NetworkError.error(by: error))
+                print(error)
+                return Observable.error(NetworkError.error(by: error))
             }
     }
 

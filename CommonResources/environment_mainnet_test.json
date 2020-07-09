@@ -7,11 +7,11 @@
     "matcherUrl": "https://matcher.waves.exchange",
     "gatewayUrl": "https://gw.waves.exchange/api",
     "authUrl": "https://waves.exchange/oauth",
-    "wavesExchangeApiUrl": "https://api-mainnet-dev.waves.exchange",
-    "wavesExchangePublicApiUrl": "https://api-mainnet-dev.waves.exchange",
-    "wavesExchangeInternalApiUrl": "https://mainnet-dev.waves.exchange/api",
+    "wavesExchangeApiUrl": "https://api.waves.exchange",
+    "wavesExchangePublicApiUrl": "https://api.waves.exchange",
+    "wavesExchangeInternalApiUrl": "https://waves.exchange/api",
     "firebaseAuthApiUrl": "https://us-central1-waves-exchange.cloudfunctions.net",
-    "wavesExchangeGrpcAddress": "grpc-mainnet-dev.waves.exchange",
+    "wavesExchangeGrpcAddress": "grpc.waves.exchange",
     "gateways": {
       "v0": "https://coinomat.com/api",
       "v1": "https://gw.waves.exchange/api",
@@ -57,7 +57,7 @@
       "isGateway": true,
       "wavesId": "WETH",
       "gatewayId": "ETH",
-      "gatewayType": "gateway",
+      "gatewayType": "exchange",
       "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     },
     {
@@ -70,7 +70,7 @@
       "isGateway": true,
       "gatewayId": "USDT",
       "wavesId": "USDT",
-      "gatewayType": "gateway",
+      "gatewayType": "exchange",
       "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     },
     {
@@ -98,7 +98,6 @@
       "gatewayId": "WEST",
       "gatewayType": "exchange",
       "addressRegEx": ".*"
-
     },
     {
       "iconUrls": {
@@ -382,7 +381,7 @@
       "isGateway": true,
       "wavesId": "BNT",
       "gatewayId": "BNT",
-      "gatewayType": "gateway",
+      "gatewayType": "exchange",
       "addressRegEx": "^0x[0-9a-fA-F]{40}$"
     },
     {

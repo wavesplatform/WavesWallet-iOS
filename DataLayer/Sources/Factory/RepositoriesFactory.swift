@@ -123,7 +123,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         MobileKeeperRepository(repositoriesFactory: self)
 
     public private(set) lazy var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol =
-        DevelopmentConfigsRepository()
+        DevelopmentConfigsRepository(environmentRepository: self.environmentRepository)
 
     public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol =
         TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)

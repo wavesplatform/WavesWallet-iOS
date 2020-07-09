@@ -220,7 +220,8 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                 case let .completed(signedWallet):
                     return AuthorizationAuthStatus.completed(signedWallet.wallet)
                 }
-            }.sweetDebug("auth")
+            }
+        .sweetDebug("auth \(type)")
     }
 
     func verifyAccess(type: AuthorizationType, wallet: Wallet) -> Observable<AuthorizationVerifyAccessStatus> {
@@ -1190,6 +1191,10 @@ private extension AuthorizationUseCase {
             .flatMap { [weak self] uid -> Observable<String> in
                 guard let self = self else { return Observable.never() }
                 return self.userRepository.setUserUID(wallet: signedWallet, uid: uid)
-            }
+        }
+        .catchError { (error) -> Observable<String> in            
+            print(error)
+            return Observable.error(error)
+        }
     }
 }

@@ -1,17 +1,22 @@
 {
   "name": "Testnet",
   "servers": {
-    "nodeUrl": "https://nodes-testnet.wavesnodes.com",
+    "nodeUrl": "https://nodes-testnet.wavesnodes.com/",
     "dataUrl": "https://api.testnet.wavesplatform.com",
     "spamUrl": "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv",
-    "matcherUrl": "https://matcher-testnet.wavesnodes.com",
+    "matcherUrl": "https://matcher-testnet.wavesplatform.com",
     "gatewayUrl": "https://gateways-dev.wvservices.com/api",
     "authUrl": "https://testnet.waves.exchange/oauth",
-        "gateways": {
-            "v0": "https://coinomat.com/api",
-            "v1": "https://gateways-dev.wvservices.com/api",
-            "v2": "https://testnet.waves.exchange/gateways"
-        }
+    "wavesExchangeApiUrl": "https://api-testnet.waves.exchange",
+    "wavesExchangePublicApiUrl": "https://api-testnet.waves.exchange",
+    "wavesExchangeInternalApiUrl": "https://testnet.waves.exchange/api",
+    "firebaseAuthApiUrl": "https://us-central1-waves-exchange.cloudfunctions.net",
+    "wavesExchangeGrpcAddress": "grpc-testnet.waves.exchange",
+    "gateways": {
+      "v0": "https://coinomat.com/api",
+      "v1": "https://gateways-dev.wvservices.com/api",
+      "v2": "https://testnet.waves.exchange/gateways"
+    }
   },
   "scheme": "T",
   "generalAssets": [
@@ -32,8 +37,8 @@
       "isGateway": true,
       "wavesId": "WBTC",
       "gatewayId": "BTC",
-      "gatewayType": "exchange",
-      "addressRegEx": "((bc|tb)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|([13]|[mn2])[a-km-zA-HJ-NP-Z1-9]{25,39})"
+      "gatewayType": "coinomat",
+      "addressRegEx": "^[13][a-km-zA-HJ-NP-Z1-9]{25,34}|(bc1)[a-z0-9]{25,90}"
     },
     {
       "assetId": "BrmjyAWT5jjr3Wpsiyivyvg5vDuzoX2s93WgiexXetB3",
@@ -44,16 +49,6 @@
       "gatewayId": "ETH",
       "gatewayType": "coinomat",
       "addressRegEx": "^0x[a-fA-F0-9]{40}$"
-    },
-    {
-      "assetId": "AvxDjVat8ErppBRxM56KewbQq3RMv8QibBNssqn6P7Fd",
-      "displayName": "Ergo",
-      "isFiat": false,
-      "isGateway": true,
-      "wavesId": "ERG",
-      "gatewayId": "ERGO",
-      "gatewayType": "exchange",
-      "addressRegEx": "(9|3)[a-km-zA-HJ-NP-Z1-9]{5,}"
     },
     {
       "assetId": "D6N2rAqWN6ZCWnCeNFWLGqqjS6nJLeK4m19XiuhdDenr",
