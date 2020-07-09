@@ -14,25 +14,26 @@ private enum Constants {
 }
 
 public struct WalletEnvironment: Decodable, Hashable {
-    
     public enum Kind: String, Hashable {
         case mainnet = "W"
         case testnet = "T"
         case wxdevnet = "S"
-        
+
         public var chainId: String {
             return rawValue
         }
-                
+
+        public var chainIdByte: UInt8 {
+            return rawValue.utf8.first ?? 0
+        }
     }
-        
+
     public struct AssetInfo: Decodable, Hashable {
-        
-        // TODO: подумать над такими обертками и убрать подобные? 
+        // TODO: подумать над такими обертками и убрать подобные?
         public struct Icon: Decodable, Hashable {
             public let `default`: String?
         }
-        
+
         public let assetId: String
         public let displayName: String
         public let isFiat: Bool
@@ -45,15 +46,14 @@ public struct WalletEnvironment: Decodable, Hashable {
         public let isStablecoin: Bool?
         public let isQualified: Bool?
     }
-    
+
     public struct Servers: Decodable, Hashable {
-            
         public struct Gateways: Decodable, Hashable {
             public let v0: URL
             public let v1: URL
             public let v2: URL
         }
-        
+
         public let nodeUrl: URL
         public let dataUrl: URL
         public let spamUrl: URL
@@ -61,12 +61,12 @@ public struct WalletEnvironment: Decodable, Hashable {
         public let gatewayUrl: URL
         public let authUrl: URL
         public let gateways: Gateways
-        
+
         public let wavesExchangePublicApiUrl: URL
         public let wavesExchangeInternalApiUrl: URL
         public let wavesExchangeGrpcAddress: String
         public let firebaseAuthApiUrl: URL
-        
+
         public init(nodeUrl: URL,
                     dataUrl: URL,
                     spamUrl: URL,
@@ -78,7 +78,6 @@ public struct WalletEnvironment: Decodable, Hashable {
                     wavesExchangeGrpcAddress: String,
                     firebaseAuthApiUrl: URL,
                     wavesExchangeInternalApiUrl: URL) {
-            
             self.nodeUrl = nodeUrl
             self.dataUrl = dataUrl
             self.spamUrl = spamUrl
@@ -86,46 +85,42 @@ public struct WalletEnvironment: Decodable, Hashable {
             self.gatewayUrl = gatewayUrl
             self.authUrl = authUrl
             self.gateways = gateways
-            self.wavesExchangePublicApiUrl = wavesExchangeApiUrl
+            wavesExchangePublicApiUrl = wavesExchangeApiUrl
             self.wavesExchangeGrpcAddress = wavesExchangeGrpcAddress
             self.wavesExchangeInternalApiUrl = wavesExchangeInternalApiUrl
             self.firebaseAuthApiUrl = firebaseAuthApiUrl
         }
     }
-    
+
     public let name: String
     public let servers: Servers
     public let scheme: String
     public let generalAssets: [AssetInfo]
     public let assets: [AssetInfo]?
-    
+
     public var kind: Kind {
         return Kind(rawValue: scheme) ?? .mainnet
     }
-    
+
     public init(name: String,
                 servers: Servers,
                 scheme: String,
                 generalAssets: [AssetInfo],
                 assets: [AssetInfo]?) {
-        
         self.name = name
         self.servers = servers
         self.scheme = scheme
         self.generalAssets = generalAssets
         self.assets = assets
     }
-    
+
     private static func parseJSON(json fileName: String) -> WalletEnvironment? {
         return JSONDecoder.decode(json: fileName)
     }
-    
 }
 
 public extension WalletEnvironment {
-    
     var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
     }
 }
-

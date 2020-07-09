@@ -105,15 +105,18 @@ public final class SignedWallet {
     public let publicKey: DomainLayer.DTO.PublicKey
     public let privateKey: DomainLayer.DTO.PrivateKey
     public let seed: WalletSeed
+    public let enviromentKind: WalletEnvironment.Kind
 
     public init(wallet: Wallet,
                 publicKey: DomainLayer.DTO.PublicKey,
                 privateKey: DomainLayer.DTO.PrivateKey,
-                seed: WalletSeed) {
+                seed: WalletSeed,
+                enviromentKind: WalletEnvironment.Kind) {
         self.wallet = wallet
         self.publicKey = publicKey
         self.privateKey = privateKey
         self.seed = seed
+        self.enviromentKind = enviromentKind
     }
 
     public var address: String {
@@ -121,15 +124,17 @@ public final class SignedWallet {
     }
 
     public init(wallet: Wallet,
-                seed: WalletSeed) {
+                seed: WalletSeed,
+                enviromentKind: WalletEnvironment.Kind) {
         self.seed = seed
         self.wallet = wallet
-        publicKey = DomainLayer.DTO.PublicKey(publicKey: seed.publicKey)
-        privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
+        publicKey = DomainLayer.DTO.PublicKey(publicKey: seed.publicKey, enviromentKind: enviromentKind)
+        privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed, enviromentKind: enviromentKind)
+        self.enviromentKind = enviromentKind
     }
 
     public func sign(input: [UInt8], kind _: [SigningKind]) throws -> [UInt8] {
-        let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed)
+        let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed.seed, enviromentKind: enviromentKind)
         return Hash.sign(input, privateKey.privateKey)
     }
 

@@ -49,6 +49,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
 
@@ -128,7 +129,8 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     // MARK: - Content
 
     private func createAccount(seed: String) {
-        let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed)
+        let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed,
+                                                    enviromentKind: environmentRepository.environmentKind)
         currentKeyAccount = privateKey
 
         iconImages.image = identity.createImage(by: privateKey.address, size: iconImages.frame.size)

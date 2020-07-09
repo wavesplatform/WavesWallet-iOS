@@ -65,14 +65,18 @@ final class SweetMigration {
     }
 }
 
+//  Работает только в Main сети
+// Очень старый код для миграции c 1.0 на верссию 2.0 для пользователей
 public final class MigrationUseCase: MigrationUseCaseProtocol {
 
-    private var walletsRepository: WalletsRepositoryProtocol
+    private let walletsRepository: WalletsRepositoryProtocol
+    
+    private let sweetMigration: SweetMigration = SweetMigration()
+    private let environmentRepository: EnvironmentRepositoryProtocol
 
-    private var sweetMigration: SweetMigration = SweetMigration()
-
-    public init(walletsRepository: WalletsRepositoryProtocol) {
+    public init(walletsRepository: WalletsRepositoryProtocol, environmentRepository: EnvironmentRepositoryProtocol) {
         self.walletsRepository = walletsRepository
+        self.environmentRepository = environmentRepository
     }
 
     public func migration() -> Observable<Void> {
@@ -91,11 +95,14 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
         let wallets = self
             .walletsRepository
             .wallets()
-            .flatMap { wallets -> Observable<[Wallet]> in
+            .flatMap { [weak self] wallets -> Observable<[Wallet]> in
 
+                guard let self = self else { return Observable.never() }
+                
                 let newWallets = wallets.map({ wallet -> Wallet in
                     let id = UUID().uuidString
-                    let address = DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(wallet.publicKey)).address
+                    let address = DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(wallet.publicKey),
+                                                            enviromentKind: self.environmentRepository.environmentKind).address
                     return Wallet(name: wallet.name,
                                   address: address,
                                   publicKey: wallet.publicKey,

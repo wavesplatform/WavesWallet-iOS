@@ -68,15 +68,9 @@ extension EnvironmentRepository {
                 guard let self = self else {
                     return Observable.never()
                 }
-                
-                self.setupEnviroment(environment: environment)
-                
+                                                
                 return self.saveEnvironmentToMemory(environment: environment)
         }
-    }
-        
-    private func setupEnviroment(environment: WalletEnvironment) {
-        AddressValidator.walletEnvironmentKind = environment.kind
     }
         
     private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {

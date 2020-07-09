@@ -21,16 +21,16 @@ public class AddressValidator {
     static let HashLength = 20
     static let AddressLength = 1 + 1 + HashLength + ChecksumLength
     
-    //TODO: Refactor
-    public static var walletEnvironmentKind: WalletEnvironment.Kind = .mainnet
-    
-    private class func getSchemeByte() -> UInt8 {        
-        return walletEnvironmentKind.chainId.utf8.first ?? 0
-    }
-    
-    public class func addressFromPublicKey(publicKey: [UInt8]) -> String {
+//    //TODO: Refactor
+//    public static var walletEnvironmentKind: WalletEnvironment.Kind = .mainnet
+//
+//    private class func getSchemeByte() -> UInt8 {
+//        return walletEnvironmentKind.chainId.utf8.first ?? 0
+//    }
+//
+    public class func addressFromPublicKey(publicKey: [UInt8], environmentKind: WalletEnvironment.Kind) -> String {
         let publicKeyHash = Hash.secureHash(publicKey)[0..<HashLength]
-        let withoutChecksum: [UInt8] = [AddressVersion, getSchemeByte()] + publicKeyHash
+        let withoutChecksum: [UInt8] = [AddressVersion, environmentKind.chainIdByte] + publicKeyHash
         return Base58Encoder.encode(withoutChecksum + calcCheckSum(withoutChecksum))
     }
     
@@ -59,21 +59,23 @@ public class AddressValidator {
         return false
     }
     
-    public class func isValidAddress(address: String?) -> Bool {
-        return isValidAddress(address: address, schemeBytes: getSchemeByte())
+    public class func isValidAddress(address: String?, environmentKind: WalletEnvironment.Kind) -> Bool {
+        return isValidAddress(address: address, schemeBytes: environmentKind.chainIdByte)
     }
     
-    public class func isValidVostokAddress(address: String?) -> Bool {
+    public class func isValidVostokAddress(address: String?, environmentKind: WalletEnvironment.Kind) -> Bool {
         
-        let vostokScheme: String = self.walletEnvironmentKind == .testnet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
+        let vostokScheme: String = environmentKind == .testnet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
         
         return isValidAddress(address: address, schemeBytes: vostokScheme.utf8.first ?? 0)
     }
     
     
-    public class func scheme(from publicKey: String) -> String? {
+    public class func scheme(from publicKey: String, environmentKind: WalletEnvironment.Kind
+    ) -> String? {
         
-        let address = AddressValidator.addressFromPublicKey(publicKey: publicKey.bytes)
+        let address = AddressValidator.addressFromPublicKey(publicKey: publicKey.bytes,
+                                                            environmentKind: environmentKind)
         let bytes = Base58Encoder.decode(address)
         guard bytes.count == AddressLength else { return nil }
         guard bytes[0] == AddressVersion else { return nil }

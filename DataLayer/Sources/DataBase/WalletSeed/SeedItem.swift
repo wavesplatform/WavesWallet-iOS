@@ -25,7 +25,7 @@ class SeedItem: Object {
         return "publicKey"
     }
 
-    var publicKeyAccount: DomainLayer.DTO.PublicKey {
-        return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(publicKey))
-    }
+//    var publicKeyAccount: DomainLayer.DTO.PublicKey {
+//        return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(publicKey))
+//    }
 }

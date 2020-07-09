@@ -15,13 +15,14 @@ public extension DomainLayer.DTO {
         public let publicKey: [UInt8]
         public let address: String
         
-        public init(publicKey: [UInt8]) {
+        public init(publicKey: [UInt8], enviromentKind: WalletEnvironment.Kind) {
             self.publicKey = publicKey
-            self.address = AddressValidator.addressFromPublicKey(publicKey: publicKey)
+            self.address = AddressValidator.addressFromPublicKey(publicKey: publicKey,
+                                                                 environmentKind: enviromentKind)
         }
         
-        public convenience init(publicKey: String) {
-            self.init(publicKey: Base58Encoder.decode(publicKey))
+        public convenience init(publicKey: String, enviromentKind: WalletEnvironment.Kind) {
+            self.init(publicKey: Base58Encoder.decode(publicKey), enviromentKind: enviromentKind)
         }
         
         public func getPublicKeyStr() -> String {

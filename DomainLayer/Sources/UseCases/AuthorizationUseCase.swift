@@ -165,6 +165,7 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
     private let localWalletSeedRepository: WalletSeedRepositoryProtocol
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
+    private let environmentRepository: EnvironmentRepositoryProtocol
     private let userRepository: UserRepository
 
     private let analyticManager: AnalyticManagerProtocol
@@ -176,13 +177,15 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          localizable: AuthorizationInteractorLocalizableProtocol,
          analyticManager: AnalyticManagerProtocol,
-         userRepository: UserRepository) {
+         userRepository: UserRepository,
+         environmentRepository: EnvironmentRepositoryProtocol) {
         self.localWalletRepository = localWalletRepository
         self.localWalletSeedRepository = localWalletSeedRepository
         self.remoteAuthenticationRepository = remoteAuthenticationRepository
         self.accountSettingsRepository = accountSettingsRepository
         self.localizable = localizable
         self.analyticManager = analyticManager
+        self.environmentRepository = environmentRepository
         self.userRepository = userRepository
     }
 
@@ -201,12 +204,14 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
 
                 let updateUserUID = self.updateUserUID(signedWallet: signedWallet)
                 let setIsLoggedIn = self.setIsLoggedIn(wallet: wallet)
+                let environmentKind = self.environmentRepository.environmentKind
 
                 return Observable.zip(setIsLoggedIn, updateUserUID)
                     .flatMap { [weak self] wallet, uid -> Observable<AuthorizationVerifyAccessStatus> in
 
                         self?.analyticManager.setUID(uid: uid)
-                        return Observable.just(AuthorizationVerifyAccessStatus.completed(.init(wallet: wallet, seed: seed)))
+                        return Observable.just(AuthorizationVerifyAccessStatus.completed(.init(wallet: wallet,
+                                                                                               seed: seed, enviromentKind:  environmentKind)))
                     }
             }
             .map { (status) -> AuthorizationAuthStatus in
@@ -996,8 +1001,12 @@ private extension AuthorizationUseCase {
 
 fileprivate extension AuthorizationUseCase {
     func signedWallet(wallet: Wallet, seed: WalletSeed) -> Observable<SignedWallet> {
-        return Observable.create { observer -> Disposable in
-            let signedWallet = SignedWallet(wallet: wallet, seed: seed)
+        return Observable.create { [weak self] observer -> Disposable in
+            
+            guard let self = self else { return Disposables.create {} }
+            
+            let signedWallet = SignedWallet(wallet: wallet, seed: seed,
+                                            enviromentKind: self.environmentRepository.environmentKind)
             observer.onNext(signedWallet)
             return Disposables.create()
         }
@@ -1192,7 +1201,7 @@ private extension AuthorizationUseCase {
                 guard let self = self else { return Observable.never() }
                 return self.userRepository.setUserUID(wallet: signedWallet, uid: uid)
         }
-        .catchError { (error) -> Observable<String> in            
+        .catchError { (error) -> Observable<String> in
             print(error)
             return Observable.error(error)
         }
