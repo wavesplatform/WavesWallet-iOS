@@ -202,6 +202,7 @@
 		7B05BEF92453500E001AD9AD /* ServicesFactoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BEF3245348E1001AD9AD /* ServicesFactoryImp.swift */; };
 		7B05BF02245358D2001AD9AD /* ServerTimestampRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BF01245358D2001AD9AD /* ServerTimestampRepository.swift */; };
 		7B05BF0924535BC8001AD9AD /* ServerTimestampRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B05BF0824535BC8001AD9AD /* ServerTimestampRepositoryImp.swift */; };
+		7B0BD24224B86F9000ACF5D0 /* EnvironmentRepositoryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0BD24124B86F9000ACF5D0 /* EnvironmentRepositoryWidget.swift */; };
 		7B0D1B7B2401C83C00442B7B /* StakingTransferErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D1B7A2401C83C00442B7B /* StakingTransferErrorCell.swift */; };
 		7B0D1B7D2401C84300442B7B /* StakingTransferErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0D1B7C2401C84300442B7B /* StakingTransferErrorCell.xib */; };
 		7B0D1B7F2401CA1000442B7B /* StakingTransferDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D1B7E2401CA1000442B7B /* StakingTransferDescriptionCell.swift */; };
@@ -1644,6 +1645,7 @@
 		7B05BEF724534EA4001AD9AD /* TimestampServerServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampServerServiceImp.swift; sourceTree = "<group>"; };
 		7B05BF01245358D2001AD9AD /* ServerTimestampRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTimestampRepository.swift; sourceTree = "<group>"; };
 		7B05BF0824535BC8001AD9AD /* ServerTimestampRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTimestampRepositoryImp.swift; sourceTree = "<group>"; };
+		7B0BD24124B86F9000ACF5D0 /* EnvironmentRepositoryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepositoryWidget.swift; sourceTree = "<group>"; };
 		7B0D1B7A2401C83C00442B7B /* StakingTransferErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferErrorCell.swift; sourceTree = "<group>"; };
 		7B0D1B7C2401C84300442B7B /* StakingTransferErrorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingTransferErrorCell.xib; sourceTree = "<group>"; };
 		7B0D1B7E2401CA1000442B7B /* StakingTransferDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTransferDescriptionCell.swift; sourceTree = "<group>"; };
@@ -5834,6 +5836,7 @@
 				E958571822F35C87007A0178 /* Repositories */,
 				E92A115F2317CD06004EC6A1 /* Services */,
 				E95310B122E8502F00F72809 /* Views */,
+				7B0BD24124B86F9000ACF5D0 /* EnvironmentRepositoryWidget.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -8198,6 +8201,7 @@
 				E984BB732319367400D60C38 /* WidgetPublicKeyMatcherService.swift in Sources */,
 				7B737BD3239680F700BEE392 /* WidgetMatcherDataTarget.swift in Sources */,
 				87ED7279246C9D36002CAD29 /* Images.swift in Sources */,
+				7B0BD24224B86F9000ACF5D0 /* EnvironmentRepositoryWidget.swift in Sources */,
 				E92A11852317E883004EC6A1 /* WidgetAssetsDataService.swift in Sources */,
 				E92A11682317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift in Sources */,
 				E95310B322E8507500F72809 /* MarketPulseWidgetCell.swift in Sources */,

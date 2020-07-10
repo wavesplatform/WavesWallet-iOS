@@ -6,7 +6,6 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import DataLayer
 import DomainLayer
 import Foundation
 import Moya

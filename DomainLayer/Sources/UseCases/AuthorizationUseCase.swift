@@ -889,7 +889,7 @@ private extension AuthorizationUseCase {
 private extension AuthorizationUseCase {
     private func verifyAccessWallet(type: AuthorizationType, wallet: Wallet) -> Observable<AuthorizationVerifyAccessStatus> {
         switch type {
-        case let .passcode(passcode):
+            case let .passcode(passcode):
 
             let remote = verifyAccessWalletUsingPasscode(passcode, wallet: wallet)
                 .map { AuthorizationVerifyAccessStatus.completed($0) }

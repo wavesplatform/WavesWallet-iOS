@@ -5,7 +5,6 @@
 //  Created by rprokofev on 06/05/2019.
 //
 
-import DataLayer
 import DomainLayer
 import Foundation
 import Moya
