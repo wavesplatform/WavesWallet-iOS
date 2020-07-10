@@ -65,7 +65,6 @@ final class SweetMigration {
     }
 }
 
-//  Работает только в Main сети
 // Очень старый код для миграции c 1.0 на верссию 2.0 для пользователей
 public final class MigrationUseCase: MigrationUseCaseProtocol {
 

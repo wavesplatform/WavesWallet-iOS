@@ -14,20 +14,12 @@ private struct Constants {
     static let vostokTestNetScheme = "F"
 }
 
-// TODO: The class need move to use case
 public class AddressValidator {
     static let AddressVersion: UInt8 = 1
     static let ChecksumLength = 4
     static let HashLength = 20
     static let AddressLength = 1 + 1 + HashLength + ChecksumLength
     
-//    //TODO: Refactor
-//    public static var walletEnvironmentKind: WalletEnvironment.Kind = .mainnet
-//
-//    private class func getSchemeByte() -> UInt8 {
-//        return walletEnvironmentKind.chainId.utf8.first ?? 0
-//    }
-//
     public class func addressFromPublicKey(publicKey: [UInt8], environmentKind: WalletEnvironment.Kind) -> String {
         let publicKeyHash = Hash.secureHash(publicKey)[0..<HashLength]
         let withoutChecksum: [UInt8] = [AddressVersion, environmentKind.chainIdByte] + publicKeyHash

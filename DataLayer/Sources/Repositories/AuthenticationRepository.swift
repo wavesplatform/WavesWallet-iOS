@@ -60,7 +60,6 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     .asObservable()
             }
             .catchError { error -> Observable<Bool> in
-                print(error)
                 return Observable.error(NetworkError.error(by: error))
             }
     }
@@ -90,8 +89,7 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     }
                     .asObservable()
             }
-            .catchError { error -> Observable<String> in
-                print(error)
+            .catchError { error -> Observable<String> in                
                 return Observable.error(NetworkError.error(by: error))
             }
     }

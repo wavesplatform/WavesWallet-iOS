@@ -34,9 +34,7 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
           let chainId = UserDefaults.standard.string(forKey: "wallet.environment.kind") ?? ""
           return WalletEnvironment.Kind(rawValue: chainId) ?? .mainnet
     }()
-    
-    public init() {}
-            
+                    
     public func walletEnvironment() -> Observable<WalletEnvironment> {
         currentEnviromentShare
     }

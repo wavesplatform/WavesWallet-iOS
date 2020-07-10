@@ -11,7 +11,6 @@ import Moya
 import WavesSDK
 import DomainLayer
 
-// TODO: Rename
 enum ResourceAPI {}
 
 extension ResourceAPI {
