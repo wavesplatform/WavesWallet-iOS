@@ -122,7 +122,7 @@ private struct EnvironmentKey: Hashable {
     let chainId: String
 }
 
-public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
+public final class WidgetEnvironmentRepository: EnvironmentRepositoryProtocol {
         
     private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .init()
     
@@ -157,7 +157,7 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
     }
 }
 
-extension EnvironmentRepository {
+extension WidgetEnvironmentRepository {
     
     private func setupServicesEnviroment() -> Observable<WalletEnvironment> {
         return ifNeedRemoteEnvironment()
@@ -179,7 +179,7 @@ extension EnvironmentRepository {
     }
 }
 
-private extension EnvironmentRepository {
+private extension WidgetEnvironmentRepository {
         
     private func saveEnvironmentToMemory(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
         Observable.create { [weak self] observer -> Disposable in

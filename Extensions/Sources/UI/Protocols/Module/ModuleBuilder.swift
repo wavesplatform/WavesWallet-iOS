@@ -20,5 +20,3 @@ public extension ModuleBuilder where Input == Void, ViewController: UIViewContro
         return build(input: ())
     }
 }
-
-

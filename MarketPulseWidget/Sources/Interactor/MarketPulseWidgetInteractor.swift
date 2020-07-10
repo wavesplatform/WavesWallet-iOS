@@ -25,7 +25,7 @@ protocol MarketPulseWidgetInteractorProtocol {
 }
 
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
-    private lazy var environmentRepository: EnvironmentRepositoryProtocol = EnvironmentRepository()
+    private lazy var environmentRepository: EnvironmentRepositoryProtocol = WidgetEnvironmentRepository()
     private lazy var widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization(environmentRepository: self.environmentRepository)
     private lazy var pairsPriceRepository = WidgetPairsPriceRepositoryRemote(environmentRepository: environmentRepository)
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
