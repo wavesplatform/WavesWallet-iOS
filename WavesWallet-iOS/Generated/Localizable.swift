@@ -538,7 +538,7 @@ internal enum Localizable {
       internal static func iBuy(_ p1: String) -> String {
         Localizable.tr("Waves", "buyCrypto.iBuy", p1)
       }
-      /// I spent %@
+      /// I spend %@
       internal static func iSpent(_ p1: String) -> String {
         Localizable.tr("Waves", "buyCrypto.iSpent", p1)
       }
