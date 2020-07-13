@@ -123,11 +123,6 @@ final class SendPresenter: SendPresenterProtocol {
             
             guard let self = self else { return Signal.empty() }
             
-            
-//            guard let asset = state.selectedAsset else { return Signal.empty() }
-            
-//            print("state.amount \(state.amount?.decimalValue)")
-            
             return self.interactor.gateWayInfo(asset: query.asset,
                                                address: query.address,
                                                amount: query.amount)

@@ -158,7 +158,7 @@
                                             <real key="value" value="42"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="largeDevices">
-                                            <real key="value" value="108"/>
+                                            <real key="value" value="88"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </constraint>

@@ -104,7 +104,15 @@ final class UserRepositoryImp: UserRepository {
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(String?.self, atKeyPath: "referred_by", using: JSONDecoder(), failsOnEmptyData: false)
                     .asObservable()
-                    .catchError { Observable.error(NetworkError.error(by: $0)) }
+                    .catchError { error in
+                        // The given data was not valid JSON.
+                        // когда моя пытается распарсить пустой ответ - она не может, и говорит нам что ошибка, но на самом деле пришла просто 204 потому что нет реффера
+                        if let error = error as? MoyaError, error.response?.statusCode == 204 {
+                            return Observable.just(nil)
+                        } else {
+                            return Observable.error(NetworkError.error(by: error))
+                        }
+                }
             }
     }
 }
