@@ -28,7 +28,7 @@ fileprivate struct ApplicationVersion: Codable, TSUD {
     }
 }
 
-final class SweetMigration {
+private final class SweetMigration {
 
     typealias Migration = () -> Observable<Void>
 
@@ -73,7 +73,8 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
     private let sweetMigration: SweetMigration = SweetMigration()
     private let environmentRepository: EnvironmentRepositoryProtocol
 
-    public init(walletsRepository: WalletsRepositoryProtocol, environmentRepository: EnvironmentRepositoryProtocol) {
+    public init(walletsRepository: WalletsRepositoryProtocol,
+                environmentRepository: EnvironmentRepositoryProtocol) {
         self.walletsRepository = walletsRepository
         self.environmentRepository = environmentRepository
     }
