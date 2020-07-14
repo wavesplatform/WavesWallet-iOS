@@ -89,6 +89,7 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
     }
 
 
+
     private func migration2_0() -> Observable<Void> {
 
         let wallets = self
@@ -136,6 +137,10 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
         return wallets
     }
 
+    // Миграция реалм файлов с сидами между 1.0 на 2.0
+    // Для каждого сида добавилось поле seedId
+    // Уникальный инификатор создается при создание кошелька
+    // Этот индификатор позволяет спастить от колизией файлов в реалме,если ты удаляешь и добовляешь тот же сиды        
     private func migrateOldSeed(wallet: Wallet, seedId: String) -> Observable<Void> {
 
         return Observable.create { observer -> Disposable in
