@@ -44,7 +44,7 @@ final class StakingTransferCoordinator: Coordinator {
         }
     }
     
-    init(router: Router, kind: StakingTransfer.DTO.Kind, assetId: String = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p") {
+    init(router: Router, kind: StakingTransfer.DTO.Kind, assetId: String) {
         self.router = router
         self.kind = kind
         self.assetId = assetId
