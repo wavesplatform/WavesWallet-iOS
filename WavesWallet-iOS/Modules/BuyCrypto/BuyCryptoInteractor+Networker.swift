@@ -155,6 +155,7 @@ extension BuyCryptoInteractor {
         func getExchangeRate(senderAsset: FiatAsset,
                              recipientAsset: CryptoAsset,
                              amount: Double,
+                             paymentSystem: PaymentSystem,
                              completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             if exchangeRateDisposables != nil {
                 exchangeRateDisposables?.dispose()
@@ -183,6 +184,7 @@ extension BuyCryptoInteractor {
                                                              devConfigRate: devConfigRate,
                                                              senderAsset: senderAsset,
                                                              recipientAsset: recipientAsset,
+                                                             paymentSystem: paymentSystem,
                                                              amount: amount,
                                                              completion: completion)
                     } else {
@@ -196,6 +198,7 @@ extension BuyCryptoInteractor {
                                                        minLimit: min,
                                                        maxLimit: max,
                                                        amount: amount,
+                                                       paymentSystem: paymentSystem,
                                                        completion: completion)
                             case let .failure(error):
                                 completion(.failure(error))
@@ -207,6 +210,7 @@ extension BuyCryptoInteractor {
                                                 devConfigRate: devConfigRate,
                                                 senderAsset: senderAsset,
                                                 recipientAsset: recipientAsset,
+                                                paymentSystem: paymentSystem,
                                                 completion: completionAdapter)
                     }
                 },
@@ -220,6 +224,7 @@ extension BuyCryptoInteractor {
                                       minLimit: Decimal,
                                       maxLimit: Decimal,
                                       amount: Double,
+                                      paymentSystem: PaymentSystem,
                                       completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             let completionAdapter: (Result<Double, Error>) -> Void = { result in
                 switch result {
@@ -250,6 +255,7 @@ extension BuyCryptoInteractor {
 
             // сколько получит пользователь для отображения в ibuy
             adCashGRPCService.getACashAssetsExchangeRate(signedWallet: signedWallet,
+                                                         paymentSystem: paymentSystem,
                                                          senderAsset: senderAsset.id,
                                                          recipientAsset: recipientAsset.id,
                                                          senderAssetAmount: senderAssetAmount,
@@ -261,6 +267,7 @@ extension BuyCryptoInteractor {
                                        devConfigRate: DevelopmentConfigs.Rate?,
                                        senderAsset: FiatAsset,
                                        recipientAsset: CryptoAsset,
+                                       paymentSystem: PaymentSystem,
                                        completion: @escaping (Result<(min: Decimal, max: Decimal), Error>) -> Void) {
             let completionAdapter: (Result<Double, Error>) -> Void = { result in
                 switch result {
@@ -294,6 +301,7 @@ extension BuyCryptoInteractor {
 
             // чтобы получить лимиты в usd
             adCashGRPCService.getACashAssetsExchangeRate(signedWallet: signedWallet,
+                                                         paymentSystem: paymentSystem,
                                                          senderAsset: senderAsset.id,
                                                          recipientAsset: "USD",
                                                          senderAssetAmount: 1,
@@ -305,6 +313,7 @@ extension BuyCryptoInteractor {
                                                     devConfigRate: DevelopmentConfigs.Rate?,
                                                     senderAsset: FiatAsset,
                                                     recipientAsset: CryptoAsset,
+                                                    paymentSystem: PaymentSystem,
                                                     amount: Double,
                                                     completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             let senderAmountMin = Double(truncating: gatewayTransferBinding.assetBinding.senderAmountMin as NSNumber)
@@ -317,6 +326,7 @@ extension BuyCryptoInteractor {
             dispatchGroup.enter()
             adCashGRPCService.getACashAssetsExchangeRate(
                 signedWallet: signedWallet,
+                paymentSystem: paymentSystem,
                 senderAsset: recipientAsset.id,
                 recipientAsset: senderAsset.id,
                 senderAssetAmount: senderAmountMin) { result in
@@ -333,6 +343,7 @@ extension BuyCryptoInteractor {
             dispatchGroup.enter()
             adCashGRPCService.getACashAssetsExchangeRate(
                 signedWallet: signedWallet,
+                paymentSystem: paymentSystem,
                 senderAsset: recipientAsset.id,
                 recipientAsset: senderAsset.id,
                 senderAssetAmount: senderAmountMax) { result in
@@ -366,6 +377,7 @@ extension BuyCryptoInteractor {
                                        minLimit: Decimal(minLimit),
                                        maxLimit: Decimal(maxLimit),
                                        amount: amount,
+                                       paymentSystem: paymentSystem,
                                        completion: completion)
             })
         }
@@ -374,6 +386,7 @@ extension BuyCryptoInteractor {
                       recipientAsset: CryptoAsset,
                       exchangeAddress: String,
                       amount: Double,
+                      paymentSystem: PaymentSystem,
                       completion: @escaping (Result<URL, Error>) -> Void) {
             authorizationService.authorizedWallet()
                 .subscribe(onNext: { [weak self] signedWallet in
@@ -390,8 +403,9 @@ extension BuyCryptoInteractor {
                             completion(.failure(error))
                         }
                     }
-
+                    
                     self?.adCashGRPCService.deposite(signedWallet: signedWallet,
+                                                     paymentSystem: paymentSystem,
                                                      senderAsset: senderAsset.id,
                                                      recipientAsset: recipientAsset.id,
                                                      exchangeAddress: exchangeAddress,

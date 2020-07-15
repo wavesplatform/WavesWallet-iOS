@@ -8,26 +8,24 @@
 
 ///
 public struct ACashAsset: Codable {
-    
-    /// <#Description#>
     public enum Kind: Int, Codable {
         case crypto
         case fiat
         case unrecognized
     }
-    
+
     ///
     public let id: String
-    
+
     ///
     public let name: String
-    
+
     ///
     public let kind: Kind
-    
+
     ///
     public let decimals: Int32
-    
+
     public init(id: String, name: String, kind: Kind, decimals: Int32) {
         self.id = id
         self.name = name
@@ -36,21 +34,27 @@ public struct ACashAsset: Codable {
     }
 }
 
+public enum PaymentSystem {
+    case acash
+    case card
+}
+
 ///
 public protocol AdCashGRPCService: AnyObject {
-    
     ///
     func getACashAssets(signedWallet: SignedWallet, completion: @escaping (Result<[ACashAsset], Error>) -> Void)
-    
+
     ///
     func getACashAssetsExchangeRate(signedWallet: SignedWallet,
+                                    paymentSystem: PaymentSystem,
                                     senderAsset: String,
                                     recipientAsset: String,
                                     senderAssetAmount: Double,
                                     completion: @escaping (Result<Double, Error>) -> Void)
-    
+
     ///
     func deposite(signedWallet: SignedWallet,
+                  paymentSystem: PaymentSystem,
                   senderAsset: String,
                   recipientAsset: String,
                   exchangeAddress: String,

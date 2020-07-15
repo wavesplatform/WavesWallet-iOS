@@ -61,9 +61,10 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
         }
     }
 
-    private func checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double) {
+    private func checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double,
+                                      paymentSystem: PaymentSystem) {
         networker
-            .getExchangeRate(senderAsset: senderAsset, recipientAsset: recipientAsset, amount: amount) { [weak self] result in
+            .getExchangeRate(senderAsset: senderAsset, recipientAsset: recipientAsset, amount: amount, paymentSystem: paymentSystem) { [weak self] result in
                 switch result {
                 case let .success(exchangeInfo): self?.apiResponse.$didCheckedExchangePair.accept(exchangeInfo)
                 case let .failure(error): self?.apiResponse.$checkingExchangePairError.accept(error)
@@ -71,13 +72,14 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
             }
     }
 
-    private func performDepositeProcessing(amount: String, exchangeInfo: ExchangeInfo) {
+    private func performDepositeProcessing(amount: String, exchangeInfo: ExchangeInfo, paymentSystem: PaymentSystem) {
         let amount = Double(amount) ?? 0
 
         networker.deposite(senderAsset: exchangeInfo.senderAsset,
                            recipientAsset: exchangeInfo.recipientAsset,
                            exchangeAddress: exchangeInfo.exchangeAddress,
                            amount: amount,
+                           paymentSystem: paymentSystem,
                            completion: { [weak self] result in
                                switch result {
                                case let .success(url): self?.apiResponse.$didProcessedExchange.accept(url)
@@ -112,10 +114,13 @@ extension BuyCryptoInteractor: IOTransformer {
                 self?.performInitialLoading()
             },
             checkingExchangePairEntryAction: { [weak self] in
-                self?.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2)
+                
+                //TODO: PaymentSystem
+                self?.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2, paymentSystem: .acash)
             },
             processingEntryAction: { [weak self] in
-                self?.performDepositeProcessing(amount: $0, exchangeInfo: $1)
+                //TODO: PaymentSystem
+                self?.performDepositeProcessing(amount: $0, exchangeInfo: $1, paymentSystem: .acash)
             },
             openUrlEntryAction: { [weak self] url in
                 DispatchQueue.main.async { [weak self] in
