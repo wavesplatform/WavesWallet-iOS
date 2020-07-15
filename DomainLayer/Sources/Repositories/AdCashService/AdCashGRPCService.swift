@@ -34,9 +34,13 @@ public struct ACashAsset: Codable {
     }
 }
 
-public enum PaymentSystem {
-    case acash
-    case card
+/// Способы покупки
+public enum PaymentMethod: Hashable {
+    /// аккаунт адванс кэша
+    case adCashAccount
+    
+    /// кредитная/дебитовая карточка
+    case creditCard
 }
 
 ///
@@ -46,7 +50,7 @@ public protocol AdCashGRPCService: AnyObject {
 
     ///
     func getACashAssetsExchangeRate(signedWallet: SignedWallet,
-                                    paymentSystem: PaymentSystem,
+                                    paymentSystem: PaymentMethod,
                                     senderAsset: String,
                                     recipientAsset: String,
                                     senderAssetAmount: Double,
@@ -54,7 +58,7 @@ public protocol AdCashGRPCService: AnyObject {
 
     ///
     func deposite(signedWallet: SignedWallet,
-                  paymentSystem: PaymentSystem,
+                  paymentSystem: PaymentMethod,
                   senderAsset: String,
                   recipientAsset: String,
                   exchangeAddress: String,

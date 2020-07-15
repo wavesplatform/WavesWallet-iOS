@@ -155,7 +155,7 @@ extension BuyCryptoInteractor {
         func getExchangeRate(senderAsset: FiatAsset,
                              recipientAsset: CryptoAsset,
                              amount: Double,
-                             paymentSystem: PaymentSystem,
+                             paymentSystem: PaymentMethod,
                              completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             if exchangeRateDisposables != nil {
                 exchangeRateDisposables?.dispose()
@@ -224,7 +224,7 @@ extension BuyCryptoInteractor {
                                       minLimit: Decimal,
                                       maxLimit: Decimal,
                                       amount: Double,
-                                      paymentSystem: PaymentSystem,
+                                      paymentSystem: PaymentMethod,
                                       completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             let completionAdapter: (Result<Double, Error>) -> Void = { result in
                 switch result {
@@ -267,7 +267,7 @@ extension BuyCryptoInteractor {
                                        devConfigRate: DevelopmentConfigs.Rate?,
                                        senderAsset: FiatAsset,
                                        recipientAsset: CryptoAsset,
-                                       paymentSystem: PaymentSystem,
+                                       paymentSystem: PaymentMethod,
                                        completion: @escaping (Result<(min: Decimal, max: Decimal), Error>) -> Void) {
             let completionAdapter: (Result<Double, Error>) -> Void = { result in
                 switch result {
@@ -313,7 +313,7 @@ extension BuyCryptoInteractor {
                                                     devConfigRate: DevelopmentConfigs.Rate?,
                                                     senderAsset: FiatAsset,
                                                     recipientAsset: CryptoAsset,
-                                                    paymentSystem: PaymentSystem,
+                                                    paymentSystem: PaymentMethod,
                                                     amount: Double,
                                                     completion: @escaping (Result<ExchangeInfo, Error>) -> Void) {
             let senderAmountMin = Double(truncating: gatewayTransferBinding.assetBinding.senderAmountMin as NSNumber)
@@ -386,7 +386,7 @@ extension BuyCryptoInteractor {
                       recipientAsset: CryptoAsset,
                       exchangeAddress: String,
                       amount: Double,
-                      paymentSystem: PaymentSystem,
+                      paymentSystem: PaymentMethod,
                       completion: @escaping (Result<URL, Error>) -> Void) {
             authorizationService.authorizedWallet()
                 .subscribe(onNext: { [weak self] signedWallet in

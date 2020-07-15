@@ -26,6 +26,17 @@ final class BuyCryptoPresenter: BuyCryptoPresentable {
         let linkWord: String
         let link: URL
     }
+    
+    struct PaymentMethodVM: Hashable {
+        let kind: PaymentMethod
+        var title: String {
+            switch kind {
+            case .adCashAccount: return Localizable.Waves.Buycrypto.adCashWallet
+            case .creditCard: return Localizable.Waves.Buycrypto.creditDebitCard
+            }
+        }
+        let isOn: Bool
+    }
 }
 
 // MARK: - IOTransformer
@@ -56,6 +67,19 @@ extension BuyCryptoPresenter: IOTransformer {
         let detailsInfo = StateHelper.makeDetailsInfo(readOnlyState: input.readOnlyState,
                                                       didSelectFiatItem: input.didSelectFiatItem,
                                                       didSelectCryptoItem: input.didSelectCryptoItem)
+        
+        
+        let showPaymentMethods = Observable.combineLatest(input.didTapAdCashPaymentMethod, input.didSelectPaymentMethod)
+            .map { _, selectedPaymentMethod -> TitledModel<[PaymentMethodVM]> in
+                let isOn = selectedPaymentMethod == .adCashAccount
+                let models = [PaymentMethodVM(kind: .adCashAccount, isOn: isOn),
+                              PaymentMethodVM(kind: .creditCard, isOn: isOn)]
+                let titledModel = TitledModel<[PaymentMethodVM]>(title: Localizable.Waves.Buycrypto.paymentMethodTitle,
+                                                                 model: models)
+                
+                return titledModel
+        }
+        .asSignalIgnoringError()
 
         return BuyCryptoPresenterOutput(contentVisible: contentVisible,
                                         isLoadingIndicator: isLoadingIndicator,
@@ -67,7 +91,8 @@ extension BuyCryptoPresenter: IOTransformer {
                                         cryptoTitle: cryptoTitle,
                                         cryptoItems: cryptoAssets,
                                         buyButtonModel: buyButtonModel,
-                                        detailsInfo: detailsInfo)
+                                        detailsInfo: detailsInfo,
+                                        showPaymentMethods: showPaymentMethods)
     }
 }
 
@@ -108,7 +133,7 @@ extension BuyCryptoPresenter {
         static func makeShowSnackBarError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
             readOnlyState.compactMap { buyCryptoState -> String? in
                 switch buyCryptoState.state {
-                case let .checkingExchangePairError(error, _, _, _): return error.localizedDescription
+                case let .checkingExchangePairError(error, _, _, _, _): return error.localizedDescription
                 default: return nil
                 }
             }
@@ -148,7 +173,7 @@ extension BuyCryptoPresenter {
                     switch buyCryptoState.state {
                     case .aCashAssetsLoaded, .checkingExchangePair:
                         return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
-                    case let .readyForExchange(exchangeInfo):
+                    case let .readyForExchange(exchangeInfo, _):
                         guard let fiatAmountString = fiatAmountOptionalString,
                             let fiatAmount = Decimal(string: fiatAmountString) else {
                             return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
@@ -220,7 +245,7 @@ extension BuyCryptoPresenter {
             Observable.combineLatest(didSelectFiatItem, didSelectCryptoItem, readOnlyState)
                 .compactMap { fiatAsset, cryptoAsset, buyCryptoState -> NSAttributedString? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo):
+                    case let .readyForExchange(exchangeInfo, _):
                         return makeAttributeString(exchangeInfo: exchangeInfo, fiatAsset: fiatAsset, cryptoAsset: cryptoAsset)
                         
                     default: return nil

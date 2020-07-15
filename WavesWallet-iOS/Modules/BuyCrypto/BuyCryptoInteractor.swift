@@ -62,7 +62,7 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
     }
 
     private func checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double,
-                                      paymentSystem: PaymentSystem) {
+                                      paymentSystem: PaymentMethod) {
         networker
             .getExchangeRate(senderAsset: senderAsset, recipientAsset: recipientAsset, amount: amount, paymentSystem: paymentSystem) { [weak self] result in
                 switch result {
@@ -72,7 +72,7 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
             }
     }
 
-    private func performDepositeProcessing(amount: String, exchangeInfo: ExchangeInfo, paymentSystem: PaymentSystem) {
+    private func performDepositeProcessing(amount: String, exchangeInfo: ExchangeInfo, paymentSystem: PaymentMethod) {
         let amount = Double(amount) ?? 0
 
         networker.deposite(senderAsset: exchangeInfo.senderAsset,
@@ -114,13 +114,10 @@ extension BuyCryptoInteractor: IOTransformer {
                 self?.performInitialLoading()
             },
             checkingExchangePairEntryAction: { [weak self] in
-                
-                //TODO: PaymentSystem
-                self?.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2, paymentSystem: .acash)
+                self?.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2, paymentSystem: $3)
             },
             processingEntryAction: { [weak self] in
-                //TODO: PaymentSystem
-                self?.performDepositeProcessing(amount: $0, exchangeInfo: $1, paymentSystem: .acash)
+                self?.performDepositeProcessing(amount: $0, exchangeInfo: $1, paymentSystem: $2)
             },
             openUrlEntryAction: { [weak self] url in
                 DispatchQueue.main.async { [weak self] in
@@ -138,13 +135,15 @@ extension BuyCryptoInteractor: IOTransformer {
         // когда происходит прокручивание ассета число сбрасывать или оставлять это и делать пересчет?
         let validationError = Helper.makeValidationFiatAmount(readOnlyState: stateTransformTrait.readOnlyState,
                                                               didChangeFiatAmount: input.didChangeFiatAmount)
-
-        // didSelectFiatItem и didSelectCryptoItem проходят транзитом через интерактор
+        
+        // didSelectFiatItem, didSelectCryptoItem, didTapAdCashPaymentMethod проходят транзитом через интерактор
         // в presenter необходимо изменять title(ы) на лейблах и кнопке
         return BuyCryptoInteractorOutput(readOnlyState: stateTransformTrait.readOnlyState,
                                          didSelectFiatItem: input.didSelectFiatItem,
                                          didSelectCryptoItem: input.didSelectCryptoItem,
                                          didChangeFiatAmount: input.didChangeFiatAmount,
+                                         didTapAdCashPaymentMethod: input.didTapAdCashPaymentMethod,
+                                         didSelectPaymentMethod: input.didSelectPaymentMethod,
                                          validationError: validationError)
     }
 }
@@ -174,7 +173,7 @@ extension BuyCryptoInteractor {
             Observable.combineLatest(didChangeFiatAmount.asObservable(), readOnlyState)
                 .map { optionalFiatAmount, buyCryptoState -> Error? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo):
+                    case let .readyForExchange(exchangeInfo, _):
                         guard let fiatAmount = optionalFiatAmount, !fiatAmount.isEmpty else { return nil }
 
                         guard let fiatAmountNumber = Decimal(string: fiatAmount) else {

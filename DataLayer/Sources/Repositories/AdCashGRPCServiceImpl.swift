@@ -57,7 +57,7 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
     }
 
     public func getACashAssetsExchangeRate(signedWallet: SignedWallet,
-                                           paymentSystem: PaymentSystem,
+                                           paymentSystem: PaymentMethod,
                                            senderAsset: String,
                                            recipientAsset: String,
                                            senderAssetAmount: Double,
@@ -88,7 +88,7 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
     }
 
     public func deposite(signedWallet: SignedWallet,
-                         paymentSystem: PaymentSystem,
+                         paymentSystem: PaymentMethod,
                          senderAsset: String,
                          recipientAsset: String,
                          exchangeAddress: String,
@@ -157,13 +157,11 @@ private extension ACashAsset {
     }
 }
 
-private extension PaymentSystem {
+private extension PaymentMethod {
     var grpcPaymentSystem: Acash_PaymentSystem {
         switch self {
-        case .acash:
-            return .acash
-        case .card:
-            return .card
+        case .adCashAccount: return .acash
+        case .creditCard: return .card
         }
     }
 }
