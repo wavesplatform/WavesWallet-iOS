@@ -32,6 +32,7 @@ extension BuyCryptoInteractor {
                                                         didSelectFiat: viewOutput.didSelectFiatItem,
                                                         didSelectCrypto: viewOutput.didSelectCryptoItem,
                                                         didChangeFiatAmount: viewOutput.didChangeFiatAmount,
+                                                        didSelectPaymentMethod: viewOutput.didSelectPaymentMethod,
                                                         checkingPairAction: stateTransformActions.checkingExchangePairEntryAction)
 
             fromCheckingExchangePairToCheckingError(stateTransformTrait: stateTransformTrait,
@@ -123,21 +124,23 @@ extension BuyCryptoInteractor {
             didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
             didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
             didChangeFiatAmount: ControlEvent<String?>,
-            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double) -> Void) {
+            didSelectPaymentMethod: ControlEvent<PaymentMethod>,
+            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double, PaymentMethod) -> Void) {
             let fiatAmount = didChangeFiatAmount.map { Double($0 ?? "0") ?? 0 }
 
             let fromACashAssetsLoadedToCheckingExchangePair = Observable
-                .combineLatest(didSelectFiat.asObservable(), didSelectCrypto.asObservable(), fiatAmount)
+                .combineLatest(didSelectFiat.asObservable(), didSelectCrypto.asObservable(), fiatAmount, didSelectPaymentMethod)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
-                .denestifyTuple()
-                .compactMap { fiatItemVM, cryptoItemVM, amount, buyCryptoState -> BuyCryptoState? in
+                .compactMap { uiInput, buyCryptoState -> BuyCryptoState? in
+                    let (fiatItemVM, cryptoItemVM, amount, paymentMethod) = uiInput
                     switch buyCryptoState.state {
                     case let .aCashAssetsLoaded(assetsInfo):
                         if let fiatAsset = assetsInfo.fiatAssets.first(where: { $0.id == fiatItemVM.id }),
                             let cryptoAsset = assetsInfo.cryptoAssets.first(where: { $0.id == cryptoItemVM.id }) {
                             return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: fiatAsset,
                                                                                        recipientAsset: cryptoAsset,
-                                                                                       amount: amount))
+                                                                                       amount: amount,
+                                                                                       paymentMethod: paymentMethod))
                         } else {
                             // из выбранных ассетов не может произойти так, что не найдет их.
                             // если такое происходит, то вероятно, где-то id мапиться не так (ищи где маппинг ac_idName и idName)
@@ -150,8 +153,8 @@ extension BuyCryptoInteractor {
                 }
                 .do(afterNext: { buyCryptoState in
                     switch buyCryptoState.state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, amount):
-                        checkingPairAction(senderAsset, recipientAsset, amount)
+                    case let .checkingExchangePair(senderAsset, recipientAsset, amount, paymentMethod):
+                        checkingPairAction(senderAsset, recipientAsset, amount, paymentMethod)
 
                     default: return
                     }
@@ -168,11 +171,12 @@ extension BuyCryptoInteractor {
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { error, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, amount):
+                    case let .checkingExchangePair(senderAsset, recipientAsset, amount, paymentMethod):
                         return buyCryptoState.copy(newState: .checkingExchangePairError(error: error,
                                                                                         senderAsset: senderAsset,
                                                                                         recipientAsset: recipientAsset,
-                                                                                        amount: amount))
+                                                                                        amount: amount,
+                                                                                        paymentMethod: paymentMethod))
 
                     default: return nil
                     }
@@ -189,10 +193,11 @@ extension BuyCryptoInteractor {
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { _, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .checkingExchangePairError(_, senderAsset, recipientAsset, amount):
+                    case let .checkingExchangePairError(_, senderAsset, recipientAsset, amount, paymentMethod):
                         return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: senderAsset,
                                                                                    recipientAsset: recipientAsset,
-                                                                                   amount: amount))
+                                                                                   amount: amount,
+                                                                                   paymentMethod: paymentMethod))
 
                     default: return nil
                     }
@@ -215,8 +220,8 @@ extension BuyCryptoInteractor {
                     // необходимо для фильтра, когда ты выбрал какой-то из фиатных или крипто ассетов, но потом поменял выбор но запрос уже ушел
                     if fiatItem.id == exchangeInfo.senderAsset.id, cryptoItem.id == exchangeInfo.recipientAsset.id {
                         switch buyCryptoState.state {
-                        case .checkingExchangePair:
-                            return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo))
+                        case let .checkingExchangePair(_, _, _, paymentMethod):
+                            return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo, paymentMethod))
                         default: return nil
                         }
                     } else {
@@ -235,7 +240,7 @@ extension BuyCryptoInteractor {
             didSelectFiatItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
             didSelectCryptoItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
             didChangeFiatAmount: ControlEvent<String?>,
-            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double) -> Void) {
+            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double, PaymentMethod) -> Void) {
             let fromCheckingExchangeToCheckingExchange = Observable
                 .combineLatest(didSelectFiatItem.asObservable(),
                                didSelectCryptoItem.asObservable(),
@@ -250,16 +255,18 @@ extension BuyCryptoInteractor {
                     let fiatAmount = Double(amount) ?? 0
 
                     switch buyCryptoState.state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, _):
+                    case let .checkingExchangePair(senderAsset, recipientAsset, _, paymentMethod):
                         if fiatItemVM.id == senderAsset.id, cryptoItemVM.id == recipientAsset.id {
                             return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: senderAsset,
                                                                                        recipientAsset: recipientAsset,
-                                                                                       amount: fiatAmount))
+                                                                                       amount: fiatAmount,
+                                                                                       paymentMethod: paymentMethod))
                         } else if let fiatAsset = loadedAssetsInfo.fiatAssets.first(where: { $0.id == fiatItemVM.id }),
                             let cryptoAsset = loadedAssetsInfo.cryptoAssets.first(where: { $0.id == cryptoItemVM.id }) {
                             return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: fiatAsset,
                                                                                        recipientAsset: cryptoAsset,
-                                                                                       amount: fiatAmount))
+                                                                                       amount: fiatAmount,
+                                                                                       paymentMethod: paymentMethod))
                         } else {
                             return nil
                         }
@@ -269,8 +276,8 @@ extension BuyCryptoInteractor {
                 }
                 .do(afterNext: { buyCryptoState in
                     switch buyCryptoState.state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, amount):
-                        checkingPairAction(senderAsset, recipientAsset, amount)
+                    case let .checkingExchangePair(senderAsset, recipientAsset, amount, paymentMethod):
+                        checkingPairAction(senderAsset, recipientAsset, amount, paymentMethod)
 
                     default: return
                     }
@@ -287,7 +294,7 @@ extension BuyCryptoInteractor {
             didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
             didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
             didChangeFiatAmount: ControlEvent<String?>,
-            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double) -> Void) {
+            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double, PaymentMethod) -> Void) {
             let fromACashAssetsLoadedToCheckingExchangePair = Observable
                 .combineLatest(didSelectFiat.asObservable(),
                                didSelectCrypto.asObservable(),
@@ -302,17 +309,19 @@ extension BuyCryptoInteractor {
                     let fiatAmount = Double(amount) ?? 0
 
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo):
+                    case let .readyForExchange(exchangeInfo, paymentMethod):
                         if fiatItemVM.id == exchangeInfo.senderAsset.id, cryptoItemVM.id == exchangeInfo.recipientAsset.id {
                             return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: exchangeInfo.senderAsset,
                                                                                        recipientAsset: exchangeInfo
                                                                                            .recipientAsset,
-                                                                                       amount: fiatAmount))
+                                                                                       amount: fiatAmount,
+                                                                                       paymentMethod: paymentMethod))
                         } else if let fiatAsset = loadedAssetsInfo.fiatAssets.first(where: { $0.id == fiatItemVM.id }),
                             let cryptoAsset = loadedAssetsInfo.cryptoAssets.first(where: { $0.id == cryptoItemVM.id }) {
                             return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: fiatAsset,
                                                                                        recipientAsset: cryptoAsset,
-                                                                                       amount: fiatAmount))
+                                                                                       amount: fiatAmount,
+                                                                                       paymentMethod: paymentMethod))
                         } else {
                             return nil
                         }
@@ -322,10 +331,10 @@ extension BuyCryptoInteractor {
                 }
                 .do(afterNext: { buyCryptoState in
                     switch buyCryptoState.state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, amount):
-                        checkingPairAction(senderAsset, recipientAsset, amount)
-
-                    default: return
+                    case let .checkingExchangePair(senderAsset, recipientAsset, amount, paymentMethod):
+                        checkingPairAction(senderAsset, recipientAsset, amount, paymentMethod)
+                    default:
+                        return
                     }
             })
 
@@ -338,22 +347,22 @@ extension BuyCryptoInteractor {
             stateTransformTrait: StateTransformTrait<BuyCryptoState>,
             didTapBuy: ControlEvent<Void>,
             didChangeFiatAmount: ControlEvent<String?>,
-            processingEntryAction: @escaping (String, ExchangeInfo) -> Void) {
+            processingEntryAction: @escaping (String, ExchangeInfo, PaymentMethod) -> Void) {
             let fromReadyToExchangeToExchangeProcessing = Observable
                 .combineLatest(didTapBuy, didChangeFiatAmount.compactMap())
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .denestifyTuple()
                 .compactMap { _, fiatAmount, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo):
-                        return buyCryptoState.copy(newState: .processingExchange(amount: fiatAmount, exchangeInfo: exchangeInfo))
+                    case let .readyForExchange(exchangeInfo, paymentMethod):
+                        return buyCryptoState.copy(newState: .processingExchange(amount: fiatAmount, exchangeInfo: exchangeInfo, paymentMethod: paymentMethod))
 
                     default: return nil
                     }
                 }.do(afterNext: { buyCryptoState in
                     switch buyCryptoState.state {
-                    case let .processingExchange(amount, exchangeInfo): processingEntryAction(amount, exchangeInfo)
-
+                    case let .processingExchange(amount, exchangeInfo, paymentMethod):
+                        processingEntryAction(amount, exchangeInfo, paymentMethod)
                     default:
                         return
                     }
@@ -371,14 +380,14 @@ extension BuyCryptoInteractor {
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { url, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .processingExchange(_, exchangeInfo):
-                        return buyCryptoState.copy(newState: .exchangeInProgress(url: url, exchangeInfo: exchangeInfo))
+                    case let .processingExchange(_, exchangeInfo, paymentMethod):
+                        return buyCryptoState.copy(newState: .exchangeInProgress(url: url, exchangeInfo: exchangeInfo, paymentMethod: paymentMethod))
                     default: return nil
                     }
                 }
                 .do(afterNext: { buyCryptoState in
                     switch buyCryptoState.state {
-                    case let .exchangeInProgress(url, _): openUrlEntryAction(url)
+                    case let .exchangeInProgress(url, _, _): openUrlEntryAction(url)
                     default: return
                     }
             })
@@ -394,8 +403,8 @@ extension BuyCryptoInteractor {
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { _, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .exchangeInProgress(_, exchangeInfo):
-                        return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo))
+                    case let .exchangeInProgress(_, exchangeInfo, paymentMethod):
+                        return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo, paymentMethod))
                     default: return nil
                     }
                 }

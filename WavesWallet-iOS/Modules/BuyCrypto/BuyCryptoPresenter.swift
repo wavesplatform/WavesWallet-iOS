@@ -26,6 +26,18 @@ final class BuyCryptoPresenter: BuyCryptoPresentable {
         let linkWord: String
         let link: URL
     }
+
+    struct PaymentMethodVM: Hashable {
+        let kind: PaymentMethod
+        var title: String {
+            switch kind {
+            case .adCashAccount: return Localizable.Waves.Buycrypto.adCashWallet
+            case .creditCard: return Localizable.Waves.Buycrypto.creditDebitCard
+            }
+        }
+
+        let isOn: Bool
+    }
 }
 
 // MARK: - IOTransformer
@@ -57,6 +69,10 @@ extension BuyCryptoPresenter: IOTransformer {
                                                       didSelectFiatItem: input.didSelectFiatItem,
                                                       didSelectCryptoItem: input.didSelectCryptoItem)
 
+        let showPaymentMethods = StateHelper.makeShowPaymentMethod(didTapAdCashPaymentMethod: input.didTapAdCashPaymentMethod,
+                                                                   readOnlyState: input.readOnlyState,
+                                                                   didSelectPaymentMethod: input.didSelectPaymentMethod)
+
         return BuyCryptoPresenterOutput(contentVisible: contentVisible,
                                         isLoadingIndicator: isLoadingIndicator,
                                         initialError: showInitialError,
@@ -67,7 +83,8 @@ extension BuyCryptoPresenter: IOTransformer {
                                         cryptoTitle: cryptoTitle,
                                         cryptoItems: cryptoAssets,
                                         buyButtonModel: buyButtonModel,
-                                        detailsInfo: detailsInfo)
+                                        detailsInfo: detailsInfo,
+                                        showPaymentMethods: showPaymentMethods)
     }
 }
 
@@ -108,7 +125,7 @@ extension BuyCryptoPresenter {
         static func makeShowSnackBarError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
             readOnlyState.compactMap { buyCryptoState -> String? in
                 switch buyCryptoState.state {
-                case let .checkingExchangePairError(error, _, _, _): return error.localizedDescription
+                case let .checkingExchangePairError(error, _, _, _, _): return error.localizedDescription
                 default: return nil
                 }
             }
@@ -148,7 +165,7 @@ extension BuyCryptoPresenter {
                     switch buyCryptoState.state {
                     case .aCashAssetsLoaded, .checkingExchangePair:
                         return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
-                    case let .readyForExchange(exchangeInfo):
+                    case let .readyForExchange(exchangeInfo, _):
                         guard let fiatAmountString = fiatAmountOptionalString,
                             let fiatAmount = Decimal(string: fiatAmountString) else {
                             return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
@@ -220,15 +237,15 @@ extension BuyCryptoPresenter {
             Observable.combineLatest(didSelectFiatItem, didSelectCryptoItem, readOnlyState)
                 .compactMap { fiatAsset, cryptoAsset, buyCryptoState -> NSAttributedString? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo):
+                    case let .readyForExchange(exchangeInfo, _):
                         return makeAttributeString(exchangeInfo: exchangeInfo, fiatAsset: fiatAsset, cryptoAsset: cryptoAsset)
-                        
+
                     default: return nil
                     }
                 }
                 .asDriverIgnoringError()
         }
-        
+
         private static func makeAttributeString(exchangeInfo: BuyCryptoInteractor.ExchangeInfo,
                                                 fiatAsset: AssetViewModel,
                                                 cryptoAsset: AssetViewModel) -> NSAttributedString? {
@@ -240,7 +257,7 @@ extension BuyCryptoPresenter {
                 guard let linkFromUrl = URL(string: UIGlobalConstants.URL.supportEn) else { return nil }
                 link = linkFromUrl
             }
-            
+
             let minLimitMoney = Money(value: exchangeInfo.minLimit, Int(exchangeInfo.senderAsset.decimals))
 
             let conversionFee: NSAttributedString
@@ -249,16 +266,20 @@ extension BuyCryptoPresenter {
                                                    attributes: [.foregroundColor: UIColor.basic500,
                                                                 .font: UIFont.boldSystemFont(ofSize: 12)])
             } else {
-                conversionFee = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.youMayBeChargedAnAdditionalConversionFee + "\n",
+                conversionFee = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo
+                    .youMayBeChargedAnAdditionalConversionFee + "\n",
                                                    attributes: [.foregroundColor: UIColor.basic500,
                                                                 .font: UIFont.boldSystemFont(ofSize: 12)])
             }
 
-            let youCanBuyWithYourBankCard = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
+            let youCanBuyWithYourBankCard = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo
+                .youCanBuyWithYourBankCard(fiatAsset.name) + "\n",
                                                                attributes: [.foregroundColor: UIColor.basic500])
-            let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
+            let afterPaymentWillBeCreditedToYourAccount = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo
+                .afterPaymentWillBeCreditedToYourAccount(fiatAsset.name) + "\n",
                                                                              attributes: [.foregroundColor: UIColor.basic500])
-            let minAmount = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo.minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
+            let minAmount = NSAttributedString(string: Localizable.Waves.Buycrypto.Messageinfo
+                .minAmount("\(minLimitMoney.displayText) \(fiatAsset.name)") + "\n",
                                                attributes: [.foregroundColor: UIColor.basic500])
 
             let linkWord = Localizable.Waves.Buycrypto.Messageinfo.Ifyouhaveproblems.linkWord
@@ -272,19 +293,42 @@ extension BuyCryptoPresenter {
             paragrapshStyle.maximumLineHeight = 14
             paragrapshStyle.minimumLineHeight = 14
             paragrapshStyle.lineSpacing = 0.1
-            
+
             let allTextAttributedString = NSMutableAttributedString()
             allTextAttributedString.append(conversionFee)
             allTextAttributedString.append(minAmount)
             allTextAttributedString.append(youCanBuyWithYourBankCard)
             allTextAttributedString.append(afterPaymentWillBeCreditedToYourAccount)
             allTextAttributedString.append(ifYouHaveProblems)
-            
+
             allTextAttributedString.addAttribute(.paragraphStyle,
-            value: paragrapshStyle,
-            range: NSRange(location: 0, length: allTextAttributedString.length))
+                                                 value: paragrapshStyle,
+                                                 range: NSRange(location: 0, length: allTextAttributedString.length))
 
             return allTextAttributedString
+        }
+
+        static func makeShowPaymentMethod(didTapAdCashPaymentMethod: ControlEvent<Void>,
+                                          readOnlyState: Observable<BuyCryptoState>,
+                                          didSelectPaymentMethod: ControlEvent<PaymentMethod>)
+            -> Signal<TitledModel<[BuyCryptoPresenter.PaymentMethodVM]>> {
+            didTapAdCashPaymentMethod
+                .filteredByState(readOnlyState, filter: { buyCryptoState -> Bool in
+                    switch buyCryptoState.state {
+                    case .isLoading: return false
+                    default: return true
+                    }
+                })
+                .withLatestFrom(didSelectPaymentMethod, resultSelector: latestFromBothValues())
+                .map { _, selectedPaymentMethod -> TitledModel<[PaymentMethodVM]> in
+                    let models = [PaymentMethodVM(kind: .adCashAccount, isOn: selectedPaymentMethod == .adCashAccount),
+                                  PaymentMethodVM(kind: .creditCard, isOn: selectedPaymentMethod == .creditCard)]
+                    let titledModel = TitledModel<[PaymentMethodVM]>(title: Localizable.Waves.Buycrypto.paymentMethodTitle,
+                                                                     model: models)
+
+                    return titledModel
+                }
+                .asSignalIgnoringError()
         }
 
         static func makeValidationError(validationError: Signal<Error?>) -> Signal<String?> {
@@ -338,7 +382,7 @@ extension BuyCryptoPresenter {
 
         static func makeAssetViewModel(from asset: Asset) -> AssetViewModel {
             let wavesId = asset.wavesId?.replacingOccurrences(of: "USDN", with: "AC_USD")
-                .replacingOccurrences(of: "WBTC", with: "BTC") // РУСЛАН ОЧЕНЬ ВНИМАТЕЛЬНО ПОСМОТРИ
+                .replacingOccurrences(of: "WBTC", with: "BTC")
                 .replacingOccurrences(of: "WAVES", with: "AC_WAVES")
                 .replacingOccurrences(of: "WEST", with: "AC_WEST") ?? ""
 

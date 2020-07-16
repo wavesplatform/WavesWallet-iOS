@@ -57,6 +57,7 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
     }
 
     public func getACashAssetsExchangeRate(signedWallet: SignedWallet,
+                                           paymentSystem: PaymentMethod,
                                            senderAsset: String,
                                            recipientAsset: String,
                                            senderAssetAmount: Double,
@@ -67,6 +68,7 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
                 request.senderAsset = senderAsset
                 request.recipientAsset = recipientAsset
                 request.senderAssetAmount = senderAssetAmount
+                request.paymentSystem = paymentSystem.grpcPaymentSystem
 
                 let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
 
@@ -86,6 +88,7 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
     }
 
     public func deposite(signedWallet: SignedWallet,
+                         paymentSystem: PaymentMethod,
                          senderAsset: String,
                          recipientAsset: String,
                          exchangeAddress: String,
@@ -99,6 +102,8 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
                 request.senderAsset = senderAsset
                 request.recipientAsset = recipientAsset
 
+                request.paymentSystem = paymentSystem.grpcPaymentSystem
+                
                 let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
 
                 let client: Acash_ACashDepositsClient = grpcClient(address: address, eventLoopGroup: group, oAToken: token)
@@ -109,7 +114,7 @@ public final class AdCashGRPCServiceImpl: AdCashGRPCService {
                         case let .success(response): completion(.success(response.queryParameters))
                         case let .failure(error): completion(.failure(error))
                         }
-                }
+                    }
             },
                        onError: { error in completion(.failure(error)) })
             .disposed(by: disposeBag)
@@ -135,7 +140,7 @@ private extension ACashAsset {
         case .fiat: kind = .fiat
         case .UNRECOGNIZED: kind = .unrecognized
         }
-        
+
         let assetId: String
         if aCashAsset.type == .crypto {
             assetId = aCashAsset.id.replacingOccurrences(of: "USD", with: DomainLayerConstants.acUSDId)
@@ -149,5 +154,14 @@ private extension ACashAsset {
                   name: aCashAsset.name,
                   kind: kind,
                   decimals: aCashAsset.decimals)
+    }
+}
+
+private extension PaymentMethod {
+    var grpcPaymentSystem: Acash_PaymentSystem {
+        switch self {
+        case .adCashAccount: return .acash
+        case .creditCard: return .card
+        }
     }
 }

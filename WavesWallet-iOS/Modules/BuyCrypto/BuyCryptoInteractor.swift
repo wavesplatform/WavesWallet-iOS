@@ -61,9 +61,10 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
         }
     }
 
-    private func checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double) {
+    private func checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double,
+                                      paymentSystem: PaymentMethod) {
         networker
-            .getExchangeRate(senderAsset: senderAsset, recipientAsset: recipientAsset, amount: amount) { [weak self] result in
+            .getExchangeRate(senderAsset: senderAsset, recipientAsset: recipientAsset, amount: amount, paymentSystem: paymentSystem) { [weak self] result in
                 switch result {
                 case let .success(exchangeInfo): self?.apiResponse.$didCheckedExchangePair.accept(exchangeInfo)
                 case let .failure(error): self?.apiResponse.$checkingExchangePairError.accept(error)
@@ -71,13 +72,14 @@ final class BuyCryptoInteractor: BuyCryptoInteractable {
             }
     }
 
-    private func performDepositeProcessing(amount: String, exchangeInfo: ExchangeInfo) {
+    private func performDepositeProcessing(amount: String, exchangeInfo: ExchangeInfo, paymentSystem: PaymentMethod) {
         let amount = Double(amount) ?? 0
 
         networker.deposite(senderAsset: exchangeInfo.senderAsset,
                            recipientAsset: exchangeInfo.recipientAsset,
                            exchangeAddress: exchangeInfo.exchangeAddress,
                            amount: amount,
+                           paymentSystem: paymentSystem,
                            completion: { [weak self] result in
                                switch result {
                                case let .success(url): self?.apiResponse.$didProcessedExchange.accept(url)
@@ -112,10 +114,10 @@ extension BuyCryptoInteractor: IOTransformer {
                 self?.performInitialLoading()
             },
             checkingExchangePairEntryAction: { [weak self] in
-                self?.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2)
+                self?.checkingExchangePair(senderAsset: $0, recipientAsset: $1, amount: $2, paymentSystem: $3)
             },
             processingEntryAction: { [weak self] in
-                self?.performDepositeProcessing(amount: $0, exchangeInfo: $1)
+                self?.performDepositeProcessing(amount: $0, exchangeInfo: $1, paymentSystem: $2)
             },
             openUrlEntryAction: { [weak self] url in
                 DispatchQueue.main.async { [weak self] in
@@ -133,13 +135,15 @@ extension BuyCryptoInteractor: IOTransformer {
         // когда происходит прокручивание ассета число сбрасывать или оставлять это и делать пересчет?
         let validationError = Helper.makeValidationFiatAmount(readOnlyState: stateTransformTrait.readOnlyState,
                                                               didChangeFiatAmount: input.didChangeFiatAmount)
-
-        // didSelectFiatItem и didSelectCryptoItem проходят транзитом через интерактор
+        
+        // didSelectFiatItem, didSelectCryptoItem, didTapAdCashPaymentMethod проходят транзитом через интерактор
         // в presenter необходимо изменять title(ы) на лейблах и кнопке
         return BuyCryptoInteractorOutput(readOnlyState: stateTransformTrait.readOnlyState,
                                          didSelectFiatItem: input.didSelectFiatItem,
                                          didSelectCryptoItem: input.didSelectCryptoItem,
                                          didChangeFiatAmount: input.didChangeFiatAmount,
+                                         didTapAdCashPaymentMethod: input.didTapAdCashPaymentMethod,
+                                         didSelectPaymentMethod: input.didSelectPaymentMethod,
                                          validationError: validationError)
     }
 }
@@ -169,7 +173,7 @@ extension BuyCryptoInteractor {
             Observable.combineLatest(didChangeFiatAmount.asObservable(), readOnlyState)
                 .map { optionalFiatAmount, buyCryptoState -> Error? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo):
+                    case let .readyForExchange(exchangeInfo, _):
                         guard let fiatAmount = optionalFiatAmount, !fiatAmount.isEmpty else { return nil }
 
                         guard let fiatAmountNumber = Decimal(string: fiatAmount) else {
