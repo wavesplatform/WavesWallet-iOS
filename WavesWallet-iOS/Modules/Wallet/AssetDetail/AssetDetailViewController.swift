@@ -535,8 +535,8 @@ extension AssetDetailViewController: UITableViewDelegate {
         let row = sections[indexPath]
 
         switch row {
-        case let .balance(priceAsset):
-            return AssetBalanceCell.viewHeight(model: priceAsset, width: tableView.frame.width)
+        case .balance:
+            return UITableView.automaticDimension
 
         case .spamBalance:
             return AssetBalanceSpamCell.viewHeight()
