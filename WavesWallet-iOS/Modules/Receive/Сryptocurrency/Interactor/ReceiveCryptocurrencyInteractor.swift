@@ -99,12 +99,12 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 
                     let rate = self.coinomatRepository.getRate(asset: asset)
                     return Observable.zip(tunnel, rate)
-                        .flatMap { tunnel, _ -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+                        .flatMap { tunnel, rate -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
                             let displayInfo = ReceiveCryptocurrency.DTO
                                 .DisplayInfo(addresses: [tunnel.address.displayInfoAddress()],
                                              asset: asset,
                                              minAmount: tunnel.min,
-                                             maxAmount: nil, // где взять max?
+                                             maxAmount: rate.max,
                                              generalAssets: generalAssets)
                             return Observable.just(ResponseType(output: displayInfo, error: nil))
                         }
