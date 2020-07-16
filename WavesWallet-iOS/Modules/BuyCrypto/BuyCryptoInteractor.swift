@@ -173,7 +173,7 @@ extension BuyCryptoInteractor {
             Observable.combineLatest(didChangeFiatAmount.asObservable(), readOnlyState)
                 .map { optionalFiatAmount, buyCryptoState -> Error? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo, _):
+                    case let .readyForExchange(exchangeInfo):
                         guard let fiatAmount = optionalFiatAmount, !fiatAmount.isEmpty else { return nil }
 
                         guard let fiatAmountNumber = Decimal(string: fiatAmount) else {

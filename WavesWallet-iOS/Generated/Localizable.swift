@@ -527,7 +527,7 @@ internal enum Localizable {
     }
 
     internal enum Buycrypto {
-      /// ADV wallet
+      /// AdvCash Wallet
       internal static var adCashWallet: String { Localizable.tr("Waves", "buyCrypto.adCashWallet") }
       internal static var adCashWalletKey: String { "buyCrypto.adCashWallet" }
       /// Enter amount
@@ -537,7 +537,7 @@ internal enum Localizable {
       internal static func buy(_ p1: String) -> String {
         Localizable.tr("Waves", "buyCrypto.buy", p1)
       }
-      /// Credit/debit card
+      /// Credit or Debit Card
       internal static var creditDebitCard: String { Localizable.tr("Waves", "buyCrypto.creditDebitCard") }
       internal static var creditDebitCardKey: String { "buyCrypto.creditDebitCard" }
       /// I buy %@
@@ -556,7 +556,7 @@ internal enum Localizable {
       internal static func minAmount(_ p1: String) -> String {
         Localizable.tr("Waves", "buyCrypto.minAmount", p1)
       }
-      /// Payment Method
+      /// Payment method
       internal static var paymentMethodTitle: String { Localizable.tr("Waves", "buyCrypto.paymentMethodTitle") }
       internal static var paymentMethodTitleKey: String { "buyCrypto.paymentMethodTitle" }
 

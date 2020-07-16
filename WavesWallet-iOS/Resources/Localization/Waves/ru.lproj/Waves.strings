@@ -857,8 +857,8 @@
 "buyCrypto.messageInfo.ifYouHaveProblems" = "• Если у вас возникли проблемы с оплатой, пожалуйста, обратитесь в службу поддержки.";
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "поддержки";
 "buyCrypto.paymentMethodTitle" = "Метод оплаты";
-"buyCrypto.creditDebitCard" = "Credit/debit card";
-"buyCrypto.adCashWallet" = "ADV wallet";
+"buyCrypto.creditDebitCard" = "Банковская карта";
+"buyCrypto.adCashWallet" = "AdvCash кошелек";
 
 "asset.cell.balance.button.card" = "Карта";
 

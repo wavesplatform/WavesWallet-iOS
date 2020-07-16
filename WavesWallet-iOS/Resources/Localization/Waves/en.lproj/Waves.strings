@@ -857,9 +857,9 @@
 "buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "• After a successful payment on the partners' website, %@ will be credited to your account within a few minutes.";
 "buyCrypto.messageInfo.ifYouHaveProblems" = "• If you have problems with your payment, please contact support service.";
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "support";
-"buyCrypto.paymentMethodTitle" = "Payment Method";
-"buyCrypto.creditDebitCard" = "Credit/debit card";
-"buyCrypto.adCashWallet" = "ADV wallet";
+"buyCrypto.paymentMethodTitle" = "Payment method";
+"buyCrypto.creditDebitCard" = "Credit or Debit Card";
+"buyCrypto.adCashWallet" = "AdvCash Wallet";
 
 "needBackupScreen.bullet" = "•";
 "needBackupScreen.title" = "SEED phrase and your safety";

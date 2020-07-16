@@ -49,16 +49,16 @@ struct BuyCryptoState {
         case checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double, paymentMethod: PaymentMethod)
         
         /// Состояние ошибки проверки обменной пары (отображать ошибку)
-        case checkingExchangePairError(error: Error, senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double, paymentMethod: PaymentMethod)
+        case checkingExchangePairError(error: Error, senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
         
         /// Состояние, когда обмен фиатной валюты в крипто валюту готов
-        case readyForExchange(BuyCryptoInteractor.ExchangeInfo, PaymentMethod)
+        case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
         
         /// Состояние, когда обмен валюты запущен
         case processingExchange(amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo, paymentMethod: PaymentMethod)
         
         /// Ошибка начала обмена
-        case exchangeProcessingError(Error, PaymentMethod)
+        case exchangeProcessingError(Error, amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
         
         /// Обмен в процессе (обмен происходит по урлу)
         case exchangeInProgress(url: URL, exchangeInfo: BuyCryptoInteractor.ExchangeInfo, paymentMethod: PaymentMethod)

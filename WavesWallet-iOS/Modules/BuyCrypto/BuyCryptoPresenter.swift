@@ -125,7 +125,7 @@ extension BuyCryptoPresenter {
         static func makeShowSnackBarError(readOnlyState: Observable<BuyCryptoState>) -> Signal<String> {
             readOnlyState.compactMap { buyCryptoState -> String? in
                 switch buyCryptoState.state {
-                case let .checkingExchangePairError(error, _, _, _, _): return error.localizedDescription
+                case let .checkingExchangePairError(error, _, _, _): return error.localizedDescription
                 default: return nil
                 }
             }
@@ -165,7 +165,7 @@ extension BuyCryptoPresenter {
                     switch buyCryptoState.state {
                     case .aCashAssetsLoaded, .checkingExchangePair:
                         return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
-                    case let .readyForExchange(exchangeInfo, _):
+                    case let .readyForExchange(exchangeInfo):
                         guard let fiatAmountString = fiatAmountOptionalString,
                             let fiatAmount = Decimal(string: fiatAmountString) else {
                             return Localizable.Waves.Buycrypto.iBuy(selectedCrypto.name)
@@ -237,7 +237,7 @@ extension BuyCryptoPresenter {
             Observable.combineLatest(didSelectFiatItem, didSelectCryptoItem, readOnlyState)
                 .compactMap { fiatAsset, cryptoAsset, buyCryptoState -> NSAttributedString? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo, _):
+                    case let .readyForExchange(exchangeInfo):
                         return makeAttributeString(exchangeInfo: exchangeInfo, fiatAsset: fiatAsset, cryptoAsset: cryptoAsset)
 
                     default: return nil
@@ -316,6 +316,8 @@ extension BuyCryptoPresenter {
                 .filteredByState(readOnlyState, filter: { buyCryptoState -> Bool in
                     switch buyCryptoState.state {
                     case .isLoading: return false
+                    case .checkingExchangePair: return false
+                    case .exchangeInProgress: return false
                     default: return true
                     }
                 })
