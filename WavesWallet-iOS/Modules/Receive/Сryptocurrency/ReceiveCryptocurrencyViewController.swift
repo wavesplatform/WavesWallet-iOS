@@ -189,7 +189,7 @@ private extension ReceiveCryptocurrencyViewController {
             } ?? Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayMin)
 
             switch assetInfo.gatewayId {
-            case "BTC", "LTC", "BCH", "DASH", "Zech", "BSV", "ERGO":
+            case "BTC", "LTC", "BCH", "DASH", "Zech", "BSV", "ERGO", "Vostok", "WEST":
                 labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .sendOnlyOnThisDeposit(displayName)
                 labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
@@ -228,14 +228,6 @@ private extension ReceiveCryptocurrencyViewController {
                 labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label
                     .warningMinimumAmountOfDeposit(displayMin)
 
-            case "Vostok", "WEST":
-                labelTitleSendOnlyDepositBottom.constant = 0
-                warningContainersBottom.constant = 0
-
-                labelTitleSendOnlyDeposit.text = nil
-                labelWarningSendOnlyDeposit.text = nil
-                labelTitleMinimumAmount.text = minMaxAmountOfDeposite
-                labelWarningMinimumAmount.text = nil
             case "XMR":
                 labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label
                     .sendOnlyOnThisDeposit(displayName)
