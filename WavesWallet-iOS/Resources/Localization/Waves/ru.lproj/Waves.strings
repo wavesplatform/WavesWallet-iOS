@@ -856,7 +856,7 @@
 "buyCrypto.messageInfo.afterPaymentWillBeCreditedToYourAccount" = "• После успешной оплаты на сайте партнеров, %@ будет зачислен на ваш аккаунт в течение нескольких минут.";
 "buyCrypto.messageInfo.ifYouHaveProblems" = "• Если у вас возникли проблемы с оплатой, пожалуйста, обратитесь в службу поддержки.";
 "buyCrypto.messageInfo.ifYouHaveProblems.linkWord" = "поддержки";
-"buyCrypto.paymentMethodTitle" = "Payment Method";
+"buyCrypto.paymentMethodTitle" = "Метод оплаты  ";
 "buyCrypto.creditDebitCard" = "Credit/debit card";
 "buyCrypto.adCashWallet" = "ADV wallet";
 
