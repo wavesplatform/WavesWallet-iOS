@@ -12,6 +12,8 @@ import RxCocoa
 import RxSwift
 
 extension BuyCryptoInteractor {
+    private typealias ViewOutput = BuyCryptoViewOutput
+
     enum StateTransform {
         static func performTransformations(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                            viewOutput: BuyCryptoViewOutput,
@@ -29,40 +31,33 @@ extension BuyCryptoInteractor {
                                         loadingEntryAction: stateTransformActions.initialLoadingEntryAction)
 
             fromACashAssetsLoadedToCheckingExchangePair(stateTransformTrait: stateTransformTrait,
-                                                        didSelectFiat: viewOutput.didSelectFiatItem,
-                                                        didSelectCrypto: viewOutput.didSelectCryptoItem,
-                                                        didChangeFiatAmount: viewOutput.didChangeFiatAmount,
-                                                        didSelectPaymentMethod: viewOutput.didSelectPaymentMethod,
+                                                        viewOutput: viewOutput,
                                                         checkingPairAction: stateTransformActions.checkingExchangePairEntryAction)
 
             fromCheckingExchangePairToCheckingError(stateTransformTrait: stateTransformTrait,
+                                                    didSelectPaymentMethod: viewOutput.didSelectPaymentMethod,
                                                     checkingExchangePairError: apiResponse.checkingExchangePairError)
 
             fromCheckingErrorToCheckingExchangePair(stateTransformTrait: stateTransformTrait,
+                                                    didSelectPaymentMethod: viewOutput.didSelectPaymentMethod,
                                                     didTapRetry: viewOutput.didTapRetry)
 
             fromCheckingExchangeToReadyExchange(stateTransformTrait: stateTransformTrait,
-                                                didSelectFiat: viewOutput.didSelectFiatItem,
-                                                didSelectCrypto: viewOutput.didSelectCryptoItem,
+                                                viewOutput: viewOutput,
                                                 didCheckedExchangePair: apiResponse.didCheckedExchangePair)
 
             fromCheckingExchangeToCheckingExchange(stateTransformTrait: stateTransformTrait,
                                                    didLoadACashAssets: apiResponse.didLoadACashAssets,
-                                                   didSelectFiatItem: viewOutput.didSelectFiatItem,
-                                                   didSelectCryptoItem: viewOutput.didSelectCryptoItem,
-                                                   didChangeFiatAmount: viewOutput.didChangeFiatAmount,
+                                                   viewOutput: viewOutput,
                                                    checkingPairAction: stateTransformActions.checkingExchangePairEntryAction)
 
             fromReadyToExchangeToCheckingExchangePair(stateTransformTrait: stateTransformTrait,
                                                       didLoadACashAssets: apiResponse.didLoadACashAssets,
-                                                      didSelectFiat: viewOutput.didSelectFiatItem,
-                                                      didSelectCrypto: viewOutput.didSelectCryptoItem,
-                                                      didChangeFiatAmount: viewOutput.didChangeFiatAmount,
+                                                      viewOutput: viewOutput,
                                                       checkingPairAction: stateTransformActions.checkingExchangePairEntryAction)
 
             fromReadyToExchangeToExchangeProcessing(stateTransformTrait: stateTransformTrait,
-                                                    didTapBuy: viewOutput.didTapBuy,
-                                                    didChangeFiatAmount: viewOutput.didChangeFiatAmount,
+                                                    viewOutput: viewOutput,
                                                     processingEntryAction: stateTransformActions.processingEntryAction)
 
             fromExchangeProcessingToExchangeInProgress(stateTransformTrait: stateTransformTrait,
@@ -71,6 +66,14 @@ extension BuyCryptoInteractor {
 
             fromExchangeInProgressToReadyForExchange(stateTransformTrait: stateTransformTrait,
                                                      didClosedWebView: internalActions.didClosedWebView)
+            
+            fromExchangeProcessingToExchangeProcessingError(stateTransformTrait: stateTransformTrait,
+                                                            processingExchangeError: apiResponse.processingExchangeError)
+            
+            fromExchangeProcessingErrorToExchangeProcessing(stateTransformTrait: stateTransformTrait,
+                                                            didTapRetry: viewOutput.didTapRetry,
+                                                            didSelectPaymentMethod: viewOutput.didSelectPaymentMethod,
+                                                            processingEntryAction: stateTransformActions.processingEntryAction)
         }
 
         private static func fromIsLoadingToACashAssetsLoaded(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
@@ -119,20 +122,23 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
-        private static func fromACashAssetsLoadedToCheckingExchangePair(
-            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-            didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
-            didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
-            didChangeFiatAmount: ControlEvent<String?>,
-            didSelectPaymentMethod: ControlEvent<PaymentMethod>,
-            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double, PaymentMethod) -> Void) {
-            let fiatAmount = didChangeFiatAmount.map { Double($0 ?? "0") ?? 0 }
+        private static func fromACashAssetsLoadedToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                        viewOutput: BuyCryptoViewOutput,
+                                                                        checkingPairAction: @escaping (
+                                                                            FiatAsset,
+                                                                            CryptoAsset,
+                                                                            Double,
+                                                                            PaymentMethod) -> Void) {
+            let fiatAmount = viewOutput.didChangeFiatAmount.map { Double($0 ?? "0") ?? 0 }
 
             let fromACashAssetsLoadedToCheckingExchangePair = Observable
-                .combineLatest(didSelectFiat.asObservable(), didSelectCrypto.asObservable(), fiatAmount, didSelectPaymentMethod)
+                .combineLatest(viewOutput.didSelectFiatItem,
+                               viewOutput.didSelectCryptoItem,
+                               fiatAmount,
+                               viewOutput.didSelectPaymentMethod)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
-                .compactMap { uiInput, buyCryptoState -> BuyCryptoState? in
-                    let (fiatItemVM, cryptoItemVM, amount, paymentMethod) = uiInput
+                .compactMap { uiInputs, buyCryptoState -> BuyCryptoState? in
+                    let (fiatItemVM, cryptoItemVM, amount, paymentMethod) = uiInputs
                     switch buyCryptoState.state {
                     case let .aCashAssetsLoaded(assetsInfo):
                         if let fiatAsset = assetsInfo.fiatAssets.first(where: { $0.id == fiatItemVM.id }),
@@ -166,17 +172,19 @@ extension BuyCryptoInteractor {
         }
 
         private static func fromCheckingExchangePairToCheckingError(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                    didSelectPaymentMethod: ControlEvent<PaymentMethod>,
                                                                     checkingExchangePairError: Observable<Error>) {
-            let fromCheckingExchangePairToCheckingExchangePairError = checkingExchangePairError
+            let fromCheckingExchangePairToCheckingExchangePairError = Observable
+                .combineLatest(checkingExchangePairError, didSelectPaymentMethod)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
-                .compactMap { error, buyCryptoState -> BuyCryptoState? in
+                .denestifyTuple()
+                .compactMap { error, _, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, amount, paymentMethod):
+                    case let .checkingExchangePair(senderAsset, recipientAsset, amount, _):
                         return buyCryptoState.copy(newState: .checkingExchangePairError(error: error,
                                                                                         senderAsset: senderAsset,
                                                                                         recipientAsset: recipientAsset,
-                                                                                        amount: amount,
-                                                                                        paymentMethod: paymentMethod))
+                                                                                        amount: amount))
 
                     default: return nil
                     }
@@ -188,12 +196,15 @@ extension BuyCryptoInteractor {
         }
 
         private static func fromCheckingErrorToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                    didSelectPaymentMethod: ControlEvent<PaymentMethod>,
                                                                     didTapRetry: ControlEvent<Void>) {
-            let fromCheckingErrorToCheckingExchangePair = didTapRetry
+            let fromCheckingErrorToCheckingExchangePair = Observable
+                .combineLatest(didSelectPaymentMethod, didTapRetry)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
-                .compactMap { _, buyCryptoState -> BuyCryptoState? in
+                .denestifyTuple()
+                .compactMap { paymentMethod, _, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .checkingExchangePairError(_, senderAsset, recipientAsset, amount, paymentMethod):
+                    case let .checkingExchangePairError(_, senderAsset, recipientAsset, amount):
                         return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: senderAsset,
                                                                                    recipientAsset: recipientAsset,
                                                                                    amount: amount,
@@ -209,19 +220,20 @@ extension BuyCryptoInteractor {
         }
 
         private static func fromCheckingExchangeToReadyExchange(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-                                                                didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
-                                                                didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
+                                                                viewOutput: BuyCryptoViewOutput,
                                                                 didCheckedExchangePair: Observable<ExchangeInfo>) {
             let fromCheckingExchangeToReadyExchange = Observable
-                .combineLatest(didSelectFiat, didSelectCrypto, didCheckedExchangePair)
+                .combineLatest(viewOutput.didSelectFiatItem,
+                               viewOutput.didSelectCryptoItem,
+                               didCheckedExchangePair)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .denestifyTuple()
-                .compactMap { fiatItem, cryptoItem, exchangeInfo, buyCryptoState -> BuyCryptoState? in
+                .compactMap { fiatItem, cryptoItem, exchangeInfo,buyCryptoState -> BuyCryptoState? in
                     // необходимо для фильтра, когда ты выбрал какой-то из фиатных или крипто ассетов, но потом поменял выбор но запрос уже ушел
                     if fiatItem.id == exchangeInfo.senderAsset.id, cryptoItem.id == exchangeInfo.recipientAsset.id {
                         switch buyCryptoState.state {
-                        case let .checkingExchangePair(_, _, _, paymentMethod):
-                            return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo, paymentMethod))
+                        case .checkingExchangePair:
+                            return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo))
                         default: return nil
                         }
                     } else {
@@ -237,25 +249,23 @@ extension BuyCryptoInteractor {
         private static func fromCheckingExchangeToCheckingExchange(
             stateTransformTrait: StateTransformTrait<BuyCryptoState>,
             didLoadACashAssets: Observable<AssetsInfo>,
-            didSelectFiatItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
-            didSelectCryptoItem: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
-            didChangeFiatAmount: ControlEvent<String?>,
+            viewOutput: BuyCryptoViewOutput,
             checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double, PaymentMethod) -> Void) {
             let fromCheckingExchangeToCheckingExchange = Observable
-                .combineLatest(didSelectFiatItem.asObservable(),
-                               didSelectCryptoItem.asObservable(),
+                .combineLatest(viewOutput.didSelectFiatItem,
+                               viewOutput.didSelectCryptoItem,
                                didLoadACashAssets,
-                               didChangeFiatAmount.asObservable())
-                .throttle(RxTimeInterval.seconds(1), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
+                               viewOutput.didChangeFiatAmount,
+                               viewOutput.didSelectPaymentMethod)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
-                .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
-                    let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo
-
+                .throttle(RxTimeInterval.seconds(1), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
+                .compactMap { uiInputs, buyCryptoState -> BuyCryptoState? in
+                    let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional, paymentMethod) = uiInputs
                     guard let amount = fiatAmountOptional else { return nil }
                     let fiatAmount = Double(amount) ?? 0
 
                     switch buyCryptoState.state {
-                    case let .checkingExchangePair(senderAsset, recipientAsset, _, paymentMethod):
+                    case let .checkingExchangePair(senderAsset, recipientAsset, _, _):
                         if fiatItemVM.id == senderAsset.id, cryptoItemVM.id == recipientAsset.id {
                             return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: senderAsset,
                                                                                        recipientAsset: recipientAsset,
@@ -288,28 +298,29 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
-        private static func fromReadyToExchangeToCheckingExchangePair(
-            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-            didLoadACashAssets: Observable<AssetsInfo>,
-            didSelectFiat: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
-            didSelectCrypto: ControlEvent<BuyCryptoPresenter.AssetViewModel>,
-            didChangeFiatAmount: ControlEvent<String?>,
-            checkingPairAction: @escaping (FiatAsset, CryptoAsset, Double, PaymentMethod) -> Void) {
+        private static func fromReadyToExchangeToCheckingExchangePair(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                      didLoadACashAssets: Observable<AssetsInfo>,
+                                                                      viewOutput: BuyCryptoViewOutput,
+                                                                      checkingPairAction: @escaping (
+                                                                          FiatAsset,
+                                                                          CryptoAsset,
+                                                                          Double,
+                                                                          PaymentMethod) -> Void) {
             let fromACashAssetsLoadedToCheckingExchangePair = Observable
-                .combineLatest(didSelectFiat.asObservable(),
-                               didSelectCrypto.asObservable(),
+                .combineLatest(viewOutput.didSelectFiatItem,
+                               viewOutput.didSelectCryptoItem,
                                didLoadACashAssets,
-                               didChangeFiatAmount.asObservable())
-                .throttle(RxTimeInterval.seconds(1), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
+                               viewOutput.didChangeFiatAmount.asObservable(),
+                               viewOutput.didSelectPaymentMethod)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
-                .compactMap { assetsInfo, buyCryptoState -> BuyCryptoState? in
-                    let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional) = assetsInfo
-
+                .throttle(.seconds(1), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
+                .compactMap { uiInputs, buyCryptoState -> BuyCryptoState? in
+                    let (fiatItemVM, cryptoItemVM, loadedAssetsInfo, fiatAmountOptional, paymentMethod) = uiInputs
                     guard let amount = fiatAmountOptional else { return nil }
                     let fiatAmount = Double(amount) ?? 0
 
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo, paymentMethod):
+                    case let .readyForExchange(exchangeInfo):
                         if fiatItemVM.id == exchangeInfo.senderAsset.id, cryptoItemVM.id == exchangeInfo.recipientAsset.id {
                             return buyCryptoState.copy(newState: .checkingExchangePair(senderAsset: exchangeInfo.senderAsset,
                                                                                        recipientAsset: exchangeInfo
@@ -343,23 +354,29 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
-        private static func fromReadyToExchangeToExchangeProcessing(
-            stateTransformTrait: StateTransformTrait<BuyCryptoState>,
-            didTapBuy: ControlEvent<Void>,
-            didChangeFiatAmount: ControlEvent<String?>,
-            processingEntryAction: @escaping (String, ExchangeInfo, PaymentMethod) -> Void) {
+        private static func fromReadyToExchangeToExchangeProcessing(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                    viewOutput: BuyCryptoViewOutput,
+                                                                    processingEntryAction: @escaping (
+                                                                        String,
+                                                                        ExchangeInfo,
+                                                                        PaymentMethod) -> Void) {
             let fromReadyToExchangeToExchangeProcessing = Observable
-                .combineLatest(didTapBuy, didChangeFiatAmount.compactMap())
+                .combineLatest(viewOutput.didTapBuy,
+                               viewOutput.didChangeFiatAmount.compactMap(),
+                               viewOutput.didSelectPaymentMethod)
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .denestifyTuple()
-                .compactMap { _, fiatAmount, buyCryptoState -> BuyCryptoState? in
+                .compactMap { _, fiatAmount, paymentMethod, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .readyForExchange(exchangeInfo, paymentMethod):
-                        return buyCryptoState.copy(newState: .processingExchange(amount: fiatAmount, exchangeInfo: exchangeInfo, paymentMethod: paymentMethod))
+                    case let .readyForExchange(exchangeInfo):
+                        return buyCryptoState
+                            .copy(newState: .processingExchange(amount: fiatAmount, exchangeInfo: exchangeInfo,
+                                                                paymentMethod: paymentMethod))
 
                     default: return nil
                     }
-                }.do(afterNext: { buyCryptoState in
+                }
+                .do(afterNext: { buyCryptoState in
                     switch buyCryptoState.state {
                     case let .processingExchange(amount, exchangeInfo, paymentMethod):
                         processingEntryAction(amount, exchangeInfo, paymentMethod)
@@ -373,6 +390,57 @@ extension BuyCryptoInteractor {
                 .disposed(by: stateTransformTrait.disposeBag)
         }
 
+        private static func fromExchangeProcessingToExchangeProcessingError(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                            processingExchangeError: Observable<Error>) {
+            let fromExchangeProcessingToExchangeProcessingError = processingExchangeError
+                .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
+                .compactMap { error, buyCryptoState -> BuyCryptoState? in
+                    switch buyCryptoState.state {
+                    case let .processingExchange(amount, exchangeInfo, _):
+                        return buyCryptoState
+                            .copy(newState: .exchangeProcessingError(error, amount: amount, exchangeInfo: exchangeInfo))
+                    default: return nil
+                    }
+                }
+
+            fromExchangeProcessingToExchangeProcessingError
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
+        }
+
+        private static func fromExchangeProcessingErrorToExchangeProcessing(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
+                                                                            didTapRetry: ControlEvent<Void>,
+                                                                            didSelectPaymentMethod: ControlEvent<PaymentMethod>,
+                                                                            processingEntryAction: @escaping (
+                                                                                String,
+                                                                                ExchangeInfo,
+                                                                                PaymentMethod) -> Void) {
+            let fromExchangeProcessingErrorToExchangeProcessing = Observable
+                .combineLatest(didTapRetry, didSelectPaymentMethod)
+                .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
+                .denestifyTuple()
+                .compactMap { _, paymentMethod, buyCryptoState -> BuyCryptoState? in
+                    switch buyCryptoState.state {
+                    case let .exchangeProcessingError(_, amount, exchangeInfo):
+                        return buyCryptoState
+                            .copy(newState: .processingExchange(amount: amount, exchangeInfo: exchangeInfo,
+                                                                paymentMethod: paymentMethod))
+                    default: return nil
+                    }
+                }
+                .do(afterNext: { buyCryptoState in
+                    switch buyCryptoState.state {
+                    case let .processingExchange(amount, exchangeInfo, paymentMethod):
+                        processingEntryAction(amount, exchangeInfo, paymentMethod)
+                    default: return
+                    }
+                })
+
+            fromExchangeProcessingErrorToExchangeProcessing
+                .bind(to: stateTransformTrait._state)
+                .disposed(by: stateTransformTrait.disposeBag)
+        }
+
         private static func fromExchangeProcessingToExchangeInProgress(stateTransformTrait: StateTransformTrait<BuyCryptoState>,
                                                                        didProcessedExchange: Observable<URL>,
                                                                        openUrlEntryAction: @escaping (URL) -> Void) {
@@ -381,7 +449,9 @@ extension BuyCryptoInteractor {
                 .compactMap { url, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
                     case let .processingExchange(_, exchangeInfo, paymentMethod):
-                        return buyCryptoState.copy(newState: .exchangeInProgress(url: url, exchangeInfo: exchangeInfo, paymentMethod: paymentMethod))
+                        return buyCryptoState
+                            .copy(newState: .exchangeInProgress(url: url, exchangeInfo: exchangeInfo,
+                                                                paymentMethod: paymentMethod))
                     default: return nil
                     }
                 }
@@ -403,8 +473,8 @@ extension BuyCryptoInteractor {
                 .withLatestFrom(stateTransformTrait.readOnlyState, resultSelector: latestFromBothValues())
                 .compactMap { _, buyCryptoState -> BuyCryptoState? in
                     switch buyCryptoState.state {
-                    case let .exchangeInProgress(_, exchangeInfo, paymentMethod):
-                        return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo, paymentMethod))
+                    case let .exchangeInProgress(_, exchangeInfo, _):
+                        return buyCryptoState.copy(newState: .readyForExchange(exchangeInfo))
                     default: return nil
                     }
                 }
