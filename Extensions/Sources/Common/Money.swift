@@ -24,7 +24,7 @@ public struct Money: Hashable, Codable {
 public extension Money {
  
     init(value: Decimal, _ decimals: Int) {
-        let decimalValue = (value * pow(10, decimals)).rounded()
+        let decimalValue = (value * pow(10, decimals)).rounded(decimals, .plain)
         let isValidDecimal = Decimal(Int64.max) >= decimalValue
         
         self.amount = isValidDecimal ? Int64(truncating: decimalValue as NSNumber) : 0
