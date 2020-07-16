@@ -19,6 +19,8 @@ import WavesUIKit
 
 final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable {
     var interactor: BuyCryptoInteractable?
+    
+    private let modalTransitioningDelegate = ModalViewControllerTransitioning(dismiss: nil)
 
     private let buyCryptoSkeletonView = BuyCryptoSkeletonView.loadFromNib()
 
@@ -55,7 +57,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
     private let didTapRetry = PublishRelay<Void>()
 
     private let disposeBag = DisposeBag()
-    
+
     private var lastTouchedCryptoAssetByIndexPath: IndexPath?
     private var lastTouchedFiatAssetByIndexPath: IndexPath?
 
@@ -67,7 +69,7 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
     private func initialSetup() {
         setupNavigationBar()
-        
+
         setupScrollView()
 
         do {
@@ -77,19 +79,19 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
         setupFiatCollectionView()
         setupCryptoCollectionView()
-        
+
         adCashKindTitleLabel.font = .captionRegular
         adCashKindTitleLabel.textColor = .basic500
         adCashKindTitleLabel.text = Localizable.Waves.Buycrypto.paymentMethodTitle
-        
+
         adCashPaymentMethodButton.titleLabel?.font = .captionRegular
         adCashPaymentMethodButton.tintColor = .basic500
         adCashPaymentMethodButton.setImage(Images.assetChangeArrows.image, for: .normal)
         adCashPaymentMethodButton.setTitle(Localizable.Waves.Buycrypto.creditDebitCard, for: .normal)
         adCashPaymentMethodButton.setTitleColor(.black, for: .normal)
-        
+
         adCashPaymentMethodButton.rx.tap.bind(to: didTapAdCashPaymentMethod).disposed(by: disposeBag)
-        
+
         fiatAmountTextField.setPlaceholder(Localizable.Waves.Buycrypto.amountPlaceholder)
         fiatAmountTextField.text.distinctUntilChanged().bind(to: didChangeFiatAmount).disposed(by: disposeBag)
 
@@ -97,13 +99,13 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
             self?.didTapBuy.accept(Void())
         }
     }
-    
+
     private func setupNavigationBar() {
         createBackButton()
         setupBigNavigationBar()
         navigationItem.largeTitleDisplayMode = .never
     }
-    
+
     private func setupScrollView() {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
@@ -144,9 +146,9 @@ extension BuyCryptoViewController: BindableView {
 
         let didChangeFiatWithThrottle = didChangeFiatAmount.throttle(RxTimeInterval.milliseconds(500),
                                                                      scheduler: MainScheduler.instance).startWith("")
-        
+
         let didChangeFiatAmount = ControlEvent(events: didChangeFiatWithThrottle)
-        
+
         let didSelectPaymentMethod = ControlEvent(events: self.didSelectPaymentMethod.startWith(.creditCard))
 
         return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem.asControlEvent(),
@@ -202,15 +204,13 @@ extension BuyCryptoViewController: BindableView {
         input.detailsInfo
             .drive(onNext: { [weak self] in self?.bindExchangeMessage(message: $0) })
             .disposed(by: disposeBag)
-        
+
         input.showPaymentMethods.emit(onNext: { [weak self] viewModel in
             self?.showPaymentMethods(viewModel)
         }).disposed(by: disposeBag)
     }
-    
+
     private func showPaymentMethods(_ viewModel: TitledModel<[BuyCryptoPresenter.PaymentMethodVM]>) {
-        let transitioningDelegate = ModalViewControllerTransitioning(dismiss: nil)
-        
         let elements: [ActionSheet.DTO.Element] = viewModel.model.map { ActionSheet.DTO.Element(title: $0.title) }
         let selectedElement = viewModel.model.filter { $0.isOn }.map { ActionSheet.DTO.Element(title: $0.title) }.first
 
@@ -220,16 +220,16 @@ extension BuyCryptoViewController: BindableView {
 
         let vc = ActionSheetViewBuilder { [weak self] element in
             self?.dismiss(animated: true, completion: nil)
-            
+
             if let selectedElement = viewModel.model.first(where: { $0.title == element.title }) {
-                self?.adCashKindTitleLabel.text = element.title
+                self?.adCashPaymentMethodButton.setTitle(element.title, for: .normal)
                 self?.didSelectPaymentMethod.accept(selectedElement.kind)
             }
         }
         .build(input: data)
 
         vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = transitioningDelegate
+        vc.transitioningDelegate = modalTransitioningDelegate
 
         present(vc, animated: true)
     }
@@ -302,7 +302,7 @@ extension BuyCryptoViewController: BindableView {
         } else {
             percent = 0
         }
-        
+
         navigationItem.titleTextAttributes = [.foregroundColor: UIColor.black.withAlphaComponent(percent)]
     }
 }
@@ -338,7 +338,7 @@ extension BuyCryptoViewController: UICollectionViewDataSource {
         } else {
             assertionFailure("Unknow collection view in BuyCryptoViewController \(#function)")
         }
-        
+
         cell.setupDefaultShadows()
 
         return cell
@@ -358,7 +358,6 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
         }
     }
 
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView === fiatCollectionView {
             let currentItemOffset = fiatCollectionView.contentInset.left + fiatCollectionView.contentOffset.x
@@ -390,7 +389,6 @@ extension BuyCryptoViewController: UICollectionViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            
         if scrollView === fiatCollectionView {
             let currentItemOffset = fiatCollectionView.contentInset.left + fiatCollectionView.contentOffset.x
 
