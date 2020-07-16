@@ -321,9 +321,8 @@ extension BuyCryptoPresenter {
                 })
                 .withLatestFrom(didSelectPaymentMethod, resultSelector: latestFromBothValues())
                 .map { _, selectedPaymentMethod -> TitledModel<[PaymentMethodVM]> in
-                    let isOn = selectedPaymentMethod == .adCashAccount
-                    let models = [PaymentMethodVM(kind: .adCashAccount, isOn: isOn),
-                                  PaymentMethodVM(kind: .creditCard, isOn: isOn)]
+                    let models = [PaymentMethodVM(kind: .adCashAccount, isOn: selectedPaymentMethod == .adCashAccount),
+                                  PaymentMethodVM(kind: .creditCard, isOn: selectedPaymentMethod == .creditCard)]
                     let titledModel = TitledModel<[PaymentMethodVM]>(title: Localizable.Waves.Buycrypto.paymentMethodTitle,
                                                                      model: models)
 
