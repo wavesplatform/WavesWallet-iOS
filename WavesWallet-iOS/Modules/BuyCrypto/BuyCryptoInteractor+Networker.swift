@@ -122,7 +122,11 @@ extension BuyCryptoInteractor {
                     let cryptoAssets = assets
                         .filter { $0.kind == .crypto }
                         .compactMap { asset -> CryptoAsset? in
-                            let id = asset.id.replacingOccurrences(of: "AC_USD", with: "USD") // это необходимо для фильтрации
+                            
+                             // это необходимо для фильтрации
+                            let id = asset.id.replacingOccurrences(of: "AC_USD", with: "USD")
+                                .replacingOccurrences(of: "AC_WAVES", with: "WAVES")
+                                .replacingOccurrences(of: "AC_WEST", with: "WEST")
                             
                             if devConfig.avaliableGatewayCryptoCurrency.contains(id) {
                                 let assetBinding = gatewayAssetBindings.first(where: { $0.senderAsset.asset == asset.id })

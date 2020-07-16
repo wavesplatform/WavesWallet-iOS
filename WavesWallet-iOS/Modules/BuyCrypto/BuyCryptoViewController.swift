@@ -86,8 +86,11 @@ final class BuyCryptoViewController: UIViewController, BuyCryptoViewControllable
 
         adCashPaymentMethodButton.titleLabel?.font = .captionRegular
         adCashPaymentMethodButton.tintColor = .basic500
+                
         adCashPaymentMethodButton.setImage(Images.assetChangeArrows.image, for: .normal)
-        adCashPaymentMethodButton.setTitle(Localizable.Waves.Buycrypto.creditDebitCard, for: .normal)
+        
+        //TODO: инициализировать title из state
+        adCashPaymentMethodButton.setTitle(Localizable.Waves.Buycrypto.adCashWallet, for: .normal)
         adCashPaymentMethodButton.setTitleColor(.black, for: .normal)
 
         adCashPaymentMethodButton.rx.tap.bind(to: didTapAdCashPaymentMethod).disposed(by: disposeBag)
@@ -149,7 +152,8 @@ extension BuyCryptoViewController: BindableView {
 
         let didChangeFiatAmount = ControlEvent(events: didChangeFiatWithThrottle)
 
-        let didSelectPaymentMethod = ControlEvent(events: self.didSelectPaymentMethod.startWith(.creditCard))
+        //TODO: Дефолтное значение надо будет из interactor сделать
+        let didSelectPaymentMethod = ControlEvent(events: self.didSelectPaymentMethod.startWith(.adCashAccount))
 
         return BuyCryptoViewOutput(didSelectFiatItem: didSelectFiatItem.asControlEvent(),
                                    didSelectCryptoItem: didSelectCryptoItem.asControlEvent(),
