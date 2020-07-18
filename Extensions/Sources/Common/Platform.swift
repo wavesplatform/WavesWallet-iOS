@@ -22,10 +22,10 @@ public extension Platform {
         public static var smallDevices: [Inch] { [.inch3_5, .inch4] }
 
         /// .iPhone6, .iPhone6s, .iPhone7, .iPhone8
-        public static var mediumDevices: [Inch] { [.inch4_7] }
+        public static var mediumDevices: [Inch] { [.inch4_7,  .inch7_9, .inch9_7, .inch10_5, inch12_9] }
         
         /// .iPhone6Plus, .iPhone6sPlus, .iPhone7Plus, .iPhone8Plus, .iPhoneX, .iPhoneXS, .iPhone11Pro, .iPhoneXR, .iPhone11, .iPhoneXSMax, .iPhone11ProMax
-        public static var largeDevices: [Inch] { [.inch5_5, .inch5_8, .inch6_1, .inch6_5] }
+        public static var largeDevices: [Inch] { [.inch5_5, .inch5_8, .inch6_1, .inch6_5,] }
     }
 }
 
