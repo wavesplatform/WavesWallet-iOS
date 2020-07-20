@@ -19,6 +19,62 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+public enum Acash_PaymentSystem: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case acash // = 0
+  case card // = 1
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .acash
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .acash
+    case 1: self = .card
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .acash: return 0
+    case .card: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Acash_PaymentSystem: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Acash_PaymentSystem] = [
+    .acash,
+    .card,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public struct Acash_AuthenticationData {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var sciName: String = String()
+
+  public var accountEmail: String = String()
+
+  public var signature: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Acash_RegisterOrderRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -32,21 +88,7 @@ public struct Acash_RegisterOrderRequest {
 
   public var recipientAsset: String = String()
 
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Acash_AuthenticationData {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var sciName: String = String()
-
-  public var accountEmail: String = String()
-
-  public var signature: String = String()
+  public var paymentSystem: Acash_PaymentSystem = .acash
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -169,6 +211,8 @@ public struct Acash_GetACashAssetsExchangeRateRequest {
 
   public var senderAssetAmount: Double = 0
 
+  public var paymentSystem: Acash_PaymentSystem = .acash
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -192,51 +236,11 @@ public struct Acash_GetACashAssetsExchangeRateResponse {
 
 fileprivate let _protobuf_package = "acash"
 
-extension Acash_RegisterOrderRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".RegisterOrderRequest"
+extension Acash_PaymentSystem: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "amount"),
-    2: .standard(proto: "sender_asset"),
-    3: .same(proto: "address"),
-    4: .standard(proto: "recipient_asset"),
+    0: .same(proto: "ACASH"),
+    1: .same(proto: "CARD"),
   ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularDoubleField(value: &self.amount)
-      case 2: try decoder.decodeSingularStringField(value: &self.senderAsset)
-      case 3: try decoder.decodeSingularStringField(value: &self.address)
-      case 4: try decoder.decodeSingularStringField(value: &self.recipientAsset)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.amount != 0 {
-      try visitor.visitSingularDoubleField(value: self.amount, fieldNumber: 1)
-    }
-    if !self.senderAsset.isEmpty {
-      try visitor.visitSingularStringField(value: self.senderAsset, fieldNumber: 2)
-    }
-    if !self.address.isEmpty {
-      try visitor.visitSingularStringField(value: self.address, fieldNumber: 3)
-    }
-    if !self.recipientAsset.isEmpty {
-      try visitor.visitSingularStringField(value: self.recipientAsset, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Acash_RegisterOrderRequest, rhs: Acash_RegisterOrderRequest) -> Bool {
-    if lhs.amount != rhs.amount {return false}
-    if lhs.senderAsset != rhs.senderAsset {return false}
-    if lhs.address != rhs.address {return false}
-    if lhs.recipientAsset != rhs.recipientAsset {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
 
 extension Acash_AuthenticationData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -275,6 +279,59 @@ extension Acash_AuthenticationData: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.sciName != rhs.sciName {return false}
     if lhs.accountEmail != rhs.accountEmail {return false}
     if lhs.signature != rhs.signature {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Acash_RegisterOrderRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".RegisterOrderRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "amount"),
+    2: .standard(proto: "sender_asset"),
+    3: .same(proto: "address"),
+    4: .standard(proto: "recipient_asset"),
+    5: .standard(proto: "payment_system"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.amount)
+      case 2: try decoder.decodeSingularStringField(value: &self.senderAsset)
+      case 3: try decoder.decodeSingularStringField(value: &self.address)
+      case 4: try decoder.decodeSingularStringField(value: &self.recipientAsset)
+      case 5: try decoder.decodeSingularEnumField(value: &self.paymentSystem)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.amount != 0 {
+      try visitor.visitSingularDoubleField(value: self.amount, fieldNumber: 1)
+    }
+    if !self.senderAsset.isEmpty {
+      try visitor.visitSingularStringField(value: self.senderAsset, fieldNumber: 2)
+    }
+    if !self.address.isEmpty {
+      try visitor.visitSingularStringField(value: self.address, fieldNumber: 3)
+    }
+    if !self.recipientAsset.isEmpty {
+      try visitor.visitSingularStringField(value: self.recipientAsset, fieldNumber: 4)
+    }
+    if self.paymentSystem != .acash {
+      try visitor.visitSingularEnumField(value: self.paymentSystem, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Acash_RegisterOrderRequest, rhs: Acash_RegisterOrderRequest) -> Bool {
+    if lhs.amount != rhs.amount {return false}
+    if lhs.senderAsset != rhs.senderAsset {return false}
+    if lhs.address != rhs.address {return false}
+    if lhs.recipientAsset != rhs.recipientAsset {return false}
+    if lhs.paymentSystem != rhs.paymentSystem {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -429,6 +486,7 @@ extension Acash_GetACashAssetsExchangeRateRequest: SwiftProtobuf.Message, SwiftP
     1: .standard(proto: "sender_asset"),
     2: .standard(proto: "recipient_asset"),
     3: .standard(proto: "sender_asset_amount"),
+    4: .standard(proto: "payment_system"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -437,6 +495,7 @@ extension Acash_GetACashAssetsExchangeRateRequest: SwiftProtobuf.Message, SwiftP
       case 1: try decoder.decodeSingularStringField(value: &self.senderAsset)
       case 2: try decoder.decodeSingularStringField(value: &self.recipientAsset)
       case 3: try decoder.decodeSingularDoubleField(value: &self.senderAssetAmount)
+      case 4: try decoder.decodeSingularEnumField(value: &self.paymentSystem)
       default: break
       }
     }
@@ -452,6 +511,9 @@ extension Acash_GetACashAssetsExchangeRateRequest: SwiftProtobuf.Message, SwiftP
     if self.senderAssetAmount != 0 {
       try visitor.visitSingularDoubleField(value: self.senderAssetAmount, fieldNumber: 3)
     }
+    if self.paymentSystem != .acash {
+      try visitor.visitSingularEnumField(value: self.paymentSystem, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -459,6 +521,7 @@ extension Acash_GetACashAssetsExchangeRateRequest: SwiftProtobuf.Message, SwiftP
     if lhs.senderAsset != rhs.senderAsset {return false}
     if lhs.recipientAsset != rhs.recipientAsset {return false}
     if lhs.senderAssetAmount != rhs.senderAssetAmount {return false}
+    if lhs.paymentSystem != rhs.paymentSystem {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

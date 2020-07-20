@@ -61,7 +61,7 @@ public extension Data {
             return Data(decrypt)
 
         } catch let error {
-            print(error)
+            // был принт, сейчас не обрабатывается совсем ошибка.
         }
 
         return nil

@@ -23,7 +23,6 @@ public class SentryManager {
     init(sentryIoInfoPath: String) {
         
         guard let dsn = NSDictionary(contentsOfFile: sentryIoInfoPath)?["DSN_URL"] as? String else {
-            print("Sentry DSN Not found")
             return
         }
         
@@ -32,13 +31,11 @@ public class SentryManager {
             self.client = client
             Client.shared = self.client
         } catch let error {
-            print("Sentry Not Loading :( \(error)")
         }
         
         do {
             try Client.shared?.startCrashHandler()
         } catch let error {
-            print("Centry startCrashHandler :( \(error)")
         }
             
         Client.shared?.enableAutomaticBreadcrumbTracking()
@@ -63,11 +60,9 @@ public class SentryManager {
         if let client = SentryManager.shared.client {
             client.send(event: event, completion: { error in            
                 if let error = error {
-                    print("SweetLogger :( \(String(describing: error))")
                 }
             })
         } else {
-            print("SentryManager Not Loading")
         }
     }
 }

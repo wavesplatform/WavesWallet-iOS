@@ -30,7 +30,8 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
             .publicKeyMatcherService
             .publicKey()
             .map {
-                return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0))
+                return DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode($0),
+                                                 enviromentKind: serverEnvironment.kind)
         }
     }
     

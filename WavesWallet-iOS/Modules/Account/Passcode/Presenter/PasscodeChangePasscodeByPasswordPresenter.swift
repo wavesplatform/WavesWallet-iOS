@@ -21,7 +21,7 @@ private struct ChangePasscodeByPasswordQuery: Hashable {
 final class PasscodeChangePasscodeByPasswordPresenter: PasscodePresenterProtocol {
     fileprivate typealias Types = PasscodeTypes
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     var interactor: PasscodeInteractorProtocol!
     var input: PasscodeModuleInput!
@@ -32,7 +32,7 @@ final class PasscodeChangePasscodeByPasswordPresenter: PasscodePresenterProtocol
         newFeedbacks.append(changePasscodeByPassword())
         newFeedbacks.append(logout())
 
-        let initialState = self.initialState(input: input)
+        let initialState = makeInitialSetup(input: input)
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
@@ -41,9 +41,7 @@ final class PasscodeChangePasscodeByPasswordPresenter: PasscodePresenterProtocol
                                    },
                                    feedback: newFeedbacks)
 
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
@@ -51,17 +49,14 @@ final class PasscodeChangePasscodeByPasswordPresenter: PasscodePresenterProtocol
 
 extension PasscodeChangePasscodeByPasswordPresenter {
     private func changePasscodeByPassword() -> Feedback {
-        return react(request: { state -> ChangePasscodeByPasswordQuery? in
-
-            if case let .changePasscodeByPassword(wallet, password) = state.kind, let action = state.action,
-                case .changePasscodeByPassword = action {
+        react(request: { state -> ChangePasscodeByPasswordQuery? in
+            if case let .changePasscodeByPassword(wallet, password) = state.kind, case .changePasscodeByPassword = state.action {
                 return ChangePasscodeByPasswordQuery(wallet: wallet, passcode: state.passcode, password: password)
+            } else {
+                return nil
             }
-
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
             guard let self = self else { return Signal.empty() }
 
             return self
@@ -70,36 +65,25 @@ extension PasscodeChangePasscodeByPasswordPresenter {
                                           passcode: query.passcode,
                                           password: query.password)
                 .map { .completedChangePasscode($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { (error) -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
-    private struct LogoutQuery: Hashable {
-        let wallet: Wallet
-    }
-
     private func logout() -> Feedback {
-        return react(request: { state -> LogoutQuery? in
-
-            if case let .changePasscodeByPassword(wallet, _) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
+        react(request: { state -> Wallet? in
+            if case let .changePasscodeByPassword(wallet, _) = state.kind, case .logout = state.action {
+                return wallet
+            } else {
+                return nil
             }
-
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
             guard let self = self else { return Signal.empty() }
 
             return self
-                .interactor.logout(wallet: query.wallet)
+                .interactor.logout(wallet: wallet)
                 .map { _ in .completedLogout }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 }
@@ -225,8 +209,7 @@ private extension PasscodeChangePasscodeByPasswordPresenter {
             state.displayState.numbers = numbers
             let newPassword = state.numbers[.newPasscode]
 
-            if let newPassword = newPassword,
-                newPassword == numbers {
+            if let newPassword = newPassword, newPassword == numbers {
                 state.displayState.isLoading = true
                 state.displayState.isHiddenBackButton = true
 
@@ -246,9 +229,9 @@ private extension PasscodeChangePasscodeByPasswordPresenter {
 
 // MARK: UI State
 
-private extension PasscodeChangePasscodeByPasswordPresenter {
-    func initialState(input: PasscodeModuleInput) -> Types.State {
-        return Types.State(displayState: initialDisplayState(input: input),
+extension PasscodeChangePasscodeByPasswordPresenter {
+    private func makeInitialSetup(input: PasscodeModuleInput) -> Types.State {
+        return Types.State(displayState: makeInitialDisplayState(input: input),
                            hasBackButton: input.hasBackButton,
                            kind: input.kind,
                            action: nil,
@@ -256,7 +239,7 @@ private extension PasscodeChangePasscodeByPasswordPresenter {
                            passcode: "")
     }
 
-    func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
+    private func makeInitialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
         return .init(kind: .newPasscode,
                      numbers: .init(),
                      isLoading: false,

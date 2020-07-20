@@ -85,10 +85,16 @@ private struct Staking: Decodable {
     }
 }
 
-//TODO: Rename to services
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
-    private let developmentConfigsProvider: MoyaProvider<ResourceAPI.Service.DevelopmentConfigs> = .anyMoyaProvider()
-
+    
+    private let environmentRepository: EnvironmentRepositoryProtocol
+        
+    private let environmentAPIService: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
+    
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+    
     public func isEnabledMaintenance() -> Observable<Bool> {
         return developmentConfigs()
             .flatMap { Observable.just($0.serviceAvailable == false) }
@@ -96,9 +102,9 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
     }
 
     public func developmentConfigs() -> Observable<DevelopmentConfigs> {
-        return developmentConfigsProvider
-            .rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableDebugSettingsTest))
+
+        return environmentAPIService.rx.request(.get(kind: environmentRepository.environmentKind,
+                                                     isTest: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(DevelopmentConfigsDTO.self,
                  atKeyPath: nil,
                  using: JSONDecoder.decoderByDateWithSecond(0),

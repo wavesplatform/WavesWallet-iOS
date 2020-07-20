@@ -165,6 +165,7 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
     private let localWalletSeedRepository: WalletSeedRepositoryProtocol
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
+    private let environmentRepository: EnvironmentRepositoryProtocol
     private let userRepository: UserRepository
 
     private let analyticManager: AnalyticManagerProtocol
@@ -176,13 +177,15 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          localizable: AuthorizationInteractorLocalizableProtocol,
          analyticManager: AnalyticManagerProtocol,
-         userRepository: UserRepository) {
+         userRepository: UserRepository,
+         environmentRepository: EnvironmentRepositoryProtocol) {
         self.localWalletRepository = localWalletRepository
         self.localWalletSeedRepository = localWalletSeedRepository
         self.remoteAuthenticationRepository = remoteAuthenticationRepository
         self.accountSettingsRepository = accountSettingsRepository
         self.localizable = localizable
         self.analyticManager = analyticManager
+        self.environmentRepository = environmentRepository
         self.userRepository = userRepository
     }
 
@@ -201,12 +204,15 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
 
                 let updateUserUID = self.updateUserUID(signedWallet: signedWallet)
                 let setIsLoggedIn = self.setIsLoggedIn(wallet: wallet)
+                let environmentKind = self.environmentRepository.environmentKind
 
                 return Observable.zip(setIsLoggedIn, updateUserUID)
                     .flatMap { [weak self] wallet, uid -> Observable<AuthorizationVerifyAccessStatus> in
 
                         self?.analyticManager.setUID(uid: uid)
-                        return Observable.just(AuthorizationVerifyAccessStatus.completed(.init(wallet: wallet, seed: seed)))
+                        return Observable.just(AuthorizationVerifyAccessStatus.completed(SignedWallet(wallet: wallet,
+                                                                                                      seed: seed,
+                                                                                                      enviromentKind: environmentKind)))
                     }
             }
             .map { (status) -> AuthorizationAuthStatus in
@@ -220,7 +226,8 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                 case let .completed(signedWallet):
                     return AuthorizationAuthStatus.completed(signedWallet.wallet)
                 }
-            }.sweetDebug("auth")
+            }
+            .sweetDebug("auth \(type)")
     }
 
     func verifyAccess(type: AuthorizationType, wallet: Wallet) -> Observable<AuthorizationVerifyAccessStatus> {
@@ -236,7 +243,7 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
 
     func walletsLoggedIn() -> Observable<[Wallet]> {
         return localWalletRepository
-            .wallets(specifications: .init(isLoggedIn: true))
+            .wallets(specifications: WalletsRepositorySpecifications(isLoggedIn: true))
             .catchError { [weak self] error -> Observable<[Wallet]> in
                 guard let self = self else { return Observable.error(AuthorizationUseCaseError.fail) }
                 return Observable.error(self.handlerError(error))
@@ -298,9 +305,10 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
             .flatMap { [weak self] data -> Observable<ChangePasscodeByPasswordData> in
 
                 guard let self = self else { return Observable.never() }
-                return self.localWalletRepository.saveWalletEncryption(.init(publicKey: wallet.publicKey,
-                                                                             kind: .passcode(secret: data.secret),
-                                                                             seedId: data.seedId))
+                return self.localWalletRepository.saveWalletEncryption(DomainWalletEncryption(publicKey: wallet.publicKey,
+                                                                                              kind: .passcode(secret: data
+                                                                                                  .secret),
+                                                                                              seedId: data.seedId))
                     .map { _ in data }
             }
             .flatMap { [weak self] data -> Observable<Wallet> in
@@ -368,8 +376,8 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                 return self
                     .localWalletRepository
                     .saveWalletEncryption(DomainWalletEncryption(publicKey: passwordData.wallet.publicKey,
-                                                           kind: .passcode(secret: passwordData.secret),
-                                                           seedId: passwordData.seedId))
+                                                                 kind: .passcode(secret: passwordData.secret),
+                                                                 seedId: passwordData.seedId))
                     .map { _ in passwordData }
             }
             .sweetDebug("Save secret and seedId")
@@ -470,9 +478,9 @@ extension AuthorizationUseCase {
 
                 let saveSeed = self
                     .localWalletSeedRepository
-                    .saveSeed(for: .init(publicKey: registration.privateKey.getPublicKeyStr(),
-                                         seed: registration.privateKey.wordsStr,
-                                         address: registration.privateKey.address),
+                    .saveSeed(for: WalletSeed(publicKey: registration.privateKey.getPublicKeyStr(),
+                                              seed: registration.privateKey.wordsStr,
+                                              address: registration.privateKey.address),
                               seedId: seedId,
                               password: registerData.password)
 
@@ -489,8 +497,8 @@ extension AuthorizationUseCase {
                 let saveSeed = self
                     .localWalletRepository
                     .saveWalletEncryption(DomainWalletEncryption(publicKey: publicKey,
-                                                           kind: .passcode(secret: secret),
-                                                           seedId: seedId))
+                                                                 kind: .passcode(secret: secret),
+                                                                 seedId: seedId))
                 return saveSeed.map { _ in data }
             }
             .flatMap { [weak self] (data) -> Observable<Wallet> in
@@ -995,8 +1003,12 @@ private extension AuthorizationUseCase {
 
 fileprivate extension AuthorizationUseCase {
     func signedWallet(wallet: Wallet, seed: WalletSeed) -> Observable<SignedWallet> {
-        return Observable.create { observer -> Disposable in
-            let signedWallet = SignedWallet(wallet: wallet, seed: seed)
+        return Observable.create { [weak self] observer -> Disposable in
+
+            guard let self = self else { return Disposables.create {} }
+
+            let signedWallet = SignedWallet(wallet: wallet, seed: seed,
+                                            enviromentKind: self.environmentRepository.environmentKind)
             observer.onNext(signedWallet)
             return Disposables.create()
         }
@@ -1029,7 +1041,7 @@ fileprivate extension AuthorizationUseCase {
 
     private func setIsLoggedIn(wallet: Wallet, isLoggedIn: Bool = true) -> Observable<Wallet> {
         return localWalletRepository
-            .wallets(specifications: .init(isLoggedIn: true))
+            .wallets(specifications: WalletsRepositorySpecifications(isLoggedIn: true))
             .flatMap { [weak self] wallets -> Observable<Wallet> in
                 guard let self = self else { return Observable.empty() }
 
@@ -1190,6 +1202,10 @@ private extension AuthorizationUseCase {
             .flatMap { [weak self] uid -> Observable<String> in
                 guard let self = self else { return Observable.never() }
                 return self.userRepository.associateUserIdWithUser(wallet: signedWallet, uid: uid)
+            }
+            .catchError { (error) -> Observable<String> in
+                print(error)
+                return Observable.error(error)
             }
     }
 }

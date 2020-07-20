@@ -42,8 +42,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                 guard let self = self else { return Observable.empty() }
 
                 let url = serverEnvironment.servers.wavesExchangePublicApiUrl
-                let exchangeClientSecret = developmentConfigs.exchangeClientSecret
-
+            
                 let token: WEOAuthTokenQuery = self.createOAuthToken(signedWallet: signedWallet,
                                                                      chainId: serverEnvironment.kind.chainId)
                 return self

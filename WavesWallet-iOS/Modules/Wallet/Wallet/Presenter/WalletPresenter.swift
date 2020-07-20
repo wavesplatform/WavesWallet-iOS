@@ -18,7 +18,7 @@ import WavesSDKExtensions
 final class WalletPresenter: WalletPresenterProtocol {
     var interactor: WalletInteractorProtocol!
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private let kind: WalletDisplayState.Kind
 
     private var assetListener: Signal<WalletEvent>?
@@ -34,7 +34,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         newFeedbacks.append(queryAppUpdate())
 
         Driver
-            .system(initialState: WalletPresenter.initialState(kind: kind),
+            .system(initialState: WalletState.initialState(kind: kind),
                     reduce: { [weak self] state, event -> WalletState in
                         self?.reduce(state: state, event: event) ?? state
                     },
@@ -45,28 +45,27 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryAppUpdate() -> Feedback {
-        return react(request: { (_) -> Bool? in
-            true
-
-        }, effects: { [weak self] _ -> Signal<WalletEvent> in
-
-            guard let self = self else { return Signal.empty() }
-            return self.interactor.isHasAppUpdate().map { .isHasAppUpdate($0) }.asSignal(onErrorSignalWith: Signal.empty())
+        react(request: { _ -> Bool? in true },
+              effects: { [weak self] _ -> Signal<WalletEvent> in
+                  guard let self = self else { return .empty() }
+                  return self.interactor
+                      .isHasAppUpdate()
+                      .map { .isHasAppUpdate($0) }
+                      .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 
     private func queryAssets() -> Feedback {
-        return react(request: { (state) -> WalletDisplayState.RefreshData? in
-
+        react(request: { state -> WalletDisplayState.RefreshData? in
             if state.displayState.kind == .assets, state.displayState.refreshData != .none {
                 return state.displayState.refreshData
             } else {
                 return nil
             }
+        },
+              effects: { [weak self] _ -> Signal<WalletEvent> in
 
-        }, effects: { [weak self] _ -> Signal<WalletEvent> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
             let signal = self
                 .interactor
                 .assets()
@@ -79,18 +78,17 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryAssetsListener() -> Feedback {
-        return react(request: { (state) -> WalletDisplayState.RefreshData? in
-
+        react(request: { state -> WalletDisplayState.RefreshData? in
             if state.displayState.kind == .assets {
                 return state.displayState.listenerRefreshData
             } else {
                 return nil
             }
+        },
+              effects: { [weak self] _ -> Signal<WalletEvent> in
 
-        }, effects: { [weak self] _ -> Signal<WalletEvent> in
-
-            guard let self = self else { return Signal.empty() }
-            return self.assetListener?.skip(1) ?? Signal.never()
+            guard let self = self else { return .empty() }
+            return self.assetListener?.skip(1) ?? .never()
         })
     }
 
@@ -207,9 +205,5 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.isHasAppUpdate = isHasAppUpdate
             state.action = .none
         }
-    }
-
-    private static func initialState(kind: WalletDisplayState.Kind) -> WalletState {
-        return WalletState.initialState(kind: kind)
     }
 }

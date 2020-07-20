@@ -6,11 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import UIKit
+import DomainLayer
 import Extensions
+import UIKit
 
 struct PasscodeModuleBuilder: ModuleBuilderOutput {
-
     struct Input: PasscodeModuleInput {
         var kind: PasscodeTypes.DTO.Kind
         var hasBackButton: Bool
@@ -19,7 +19,6 @@ struct PasscodeModuleBuilder: ModuleBuilderOutput {
     var output: PasscodeModuleOutput
 
     func build(input: PasscodeModuleBuilder.Input) -> UIViewController {
-
         let vc = StoryboardScene.Passcode.passcodeViewController.instantiate()
 
         var presenter: PasscodePresenterProtocol!
@@ -40,15 +39,14 @@ struct PasscodeModuleBuilder: ModuleBuilderOutput {
         case .changePassword:
             presenter = PasscodeChangePasswordPresenter()
 
-        
         case .changePasscode:
-            presenter  = PasscodePresenter()
+            presenter = PasscodePresenter()
 
         case .setEnableBiometric:
-            presenter  = PasscodeEnableBiometricPresenter()
+            presenter = PasscodeEnableBiometricPresenter()
         }
 
-        presenter.interactor = PasscodeInteractor()
+        presenter.interactor = PasscodeInteractor(authorizationInteractor: UseCasesFactory.instance.authorization)
         presenter.moduleOutput = output
         presenter.input = input
         vc.presenter = presenter

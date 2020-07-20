@@ -12,6 +12,7 @@ import WavesSDKExtensions
 import DomainLayer
 import Extensions
 
+
 private enum Constants {
     static let duration: TimeInterval = 3
 }
@@ -27,7 +28,8 @@ final class ImportCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private var currentPrivateKeyAccount: DomainLayer.DTO.PrivateKey?
-    
+
+    private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
 
     init(navigationRouter: NavigationRouter, completed: @escaping ((ImportTypes.DTO.Account) -> Void)) {
         self.navigationRouter = navigationRouter
@@ -55,7 +57,8 @@ final class ImportCoordinator: Coordinator {
             return
         }
 
-        let privateKeyAccount = DomainLayer.DTO.PrivateKey(seedStr: seed)
+        let privateKeyAccount = DomainLayer.DTO.PrivateKey(seedStr: seed,
+                                                           enviromentKind: environmentRepository.environmentKind)
 
         auth
             .existWallet(by: privateKeyAccount.getPublicKeyStr())

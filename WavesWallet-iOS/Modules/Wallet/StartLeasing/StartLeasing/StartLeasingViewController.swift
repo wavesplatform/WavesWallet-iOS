@@ -44,6 +44,7 @@ final class StartLeasingViewController: UIViewController {
     
     private var isValidAlias: Bool = false
     private let disposeBag = DisposeBag()
+    private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
     private let interactor: StartLeasingInteractorProtocol = StartLeasingInteractor()
     private var errorSnackKey: String?
     
@@ -191,7 +192,8 @@ private extension StartLeasingViewController {
             && !isNotEnoughAmount
             && order.amount.amount > 0
             && order.fee.amount > 0
-            && (AddressValidator.isValidAddress(address: order.recipient) || isValidAlias)
+            && (AddressValidator.isValidAddress(address: order.recipient,
+                                                environmentKind: environmentRepository.environmentKind) || isValidAlias)
     }
     
     var isNotEnoughAmount: Bool {
@@ -262,7 +264,8 @@ private extension StartLeasingViewController {
         addressGeneratorView.errorValidation = { [weak self] text in
             guard let self = self else { return false }
             
-            return AddressValidator.isValidAddress(address: text) || self.isValidAlias
+            return AddressValidator.isValidAddress(address: text,
+                                                   environmentKind: self.environmentRepository.environmentKind) || self.isValidAlias
         }
         setupButtonState()
     }

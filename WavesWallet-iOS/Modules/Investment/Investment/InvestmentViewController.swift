@@ -258,6 +258,8 @@ extension InvestmentViewController {
             case let .message(message):
                 globalErrorView.isHidden = true
                 snackError = showErrorSnack(message)
+                
+            case .none: break
 
             default:
                 snackError = showErrorNotFoundSnack()

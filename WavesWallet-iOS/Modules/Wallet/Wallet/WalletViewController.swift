@@ -286,7 +286,7 @@ extension WalletViewController {
                 snackError = showErrorSnack(message)
 
             default:
-                snackError = showErrorNotFoundSnack()
+                break
             }
 
         case .waiting:
@@ -304,12 +304,6 @@ extension WalletViewController {
         return showErrorSnack(title: message, didTap: { [weak self] in
             self?.sendEvent.accept(.refresh)
         })
-    }
-
-    private func showErrorNotFoundSnack() -> String {
-        return showErrorNotFoundSnack { [weak self] in
-            self?.sendEvent.accept(.refresh)
-        }
     }
 }
 

@@ -228,7 +228,8 @@ private extension TradeViewController {
                         switch error {
                         case .internetNotWorking:
                             self.errorView.update(with: .init(kind: .internetNotWorking))
-
+                        case .none, .notFound:
+                            break
                         default:
                             self.errorView.update(with: .init(kind: .serverError))
                         }

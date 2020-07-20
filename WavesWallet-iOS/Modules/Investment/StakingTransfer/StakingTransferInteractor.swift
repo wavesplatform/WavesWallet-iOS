@@ -59,11 +59,9 @@ final class StakingTransferInteractor {
                 let depositeStakingBalance = self.stakingBalanceService
                     .getDepositeStakingBalance().map { $0.value }
                 
-                let wavesBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId,
-                                                                 wallet: wallet)
+                let wavesBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId, wallet: wallet)
                 
-                let asset = self.assetsUseCase.assets(by: [assetId],
-                                                      accountAddress: wallet.address)
+                let asset = self.assetsUseCase.assets(by: [assetId], accountAddress: wallet.address)
                 
                 return Observable.zip(depositeStakingBalance, wavesBalance, asset)
                     .flatMap { depositeStakingBalance, wavesBalance, assets -> Observable<StakingTransfer.DTO.Data.Transfer> in
@@ -180,8 +178,9 @@ final class StakingTransferInteractor {
         let authorizedWallet = authorizationUseCase.authorizedWallet()
         let checkReferralAddress = authorizedWallet.flatMap { [weak self] wallet -> Observable<String?> in
             guard let sself = self else { return .never() }
-            return sself.userRepository.checkReferralAddress(wallet: wallet)
+            return sself.userRepository.checkReferralAddress(wallet: wallet).catchError { .error($0) }
         }
+        .catchError { .error($0) }
         
         return Observable.zip(developmentConfigs, authorizedWallet, checkReferralAddress)
             .flatMap { [weak self] configs, wallet, referralAddress -> Observable<SmartTransaction> in
@@ -235,6 +234,7 @@ final class StakingTransferInteractor {
                     .send(by: specifications,
                           wallet: wallet)
         }
+        .catchError { .error($0) }
     }
 }
 

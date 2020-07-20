@@ -75,7 +75,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                               accountSettingsRepository: repositories.accountSettingsRepository,
                                               localizable: self.authorizationInteractorLocalizable,
                                               analyticManager: self.analyticManager,
-                                              userRepository: self.repositories.userRepository)
+                                              userRepository: self.repositories.userRepository,
+                                              environmentRepository: self.repositories.environmentRepository)
 
         return interactor
     }()
@@ -98,7 +99,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     }()
 
     public private(set) lazy var migration: MigrationUseCaseProtocol = {
-        MigrationUseCase(walletsRepository: repositories.walletsRepositoryLocal)
+        MigrationUseCase(walletsRepository: repositories.walletsRepositoryLocal,
+                         environmentRepository: repositories.environmentRepository)
     }()
 
     public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase =

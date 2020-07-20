@@ -6,17 +6,13 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-
-import Foundation
+import DomainLayer
 import RxCocoa
 import RxFeedback
 import RxSwift
-import DomainLayer
 
 protocol PasscodeModuleOutput: AnyObject {
-
-    //TODO: Its method incorect name, becase many flow (for example: LogIn & ChangePassword)
+    // TODO: Its method incorect name, becase many flow (for example: LogIn & ChangePassword)
     func passcodeLogInCompleted(passcode: String, wallet: Wallet, isNewWallet: Bool) -> Void
     func passcodeVerifyAccessCompleted(_ wallet: SignedWallet) -> Void
 
@@ -31,7 +27,6 @@ protocol PasscodeModuleInput {
 }
 
 protocol PasscodePresenterProtocol {
-
     typealias Feedback = (Driver<PasscodeTypes.State>) -> Signal<PasscodeTypes.Event>
 
     var interactor: PasscodeInteractorProtocol! { get set }

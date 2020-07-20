@@ -19,7 +19,10 @@ final class PasscodeViewController: UIViewController {
     @IBOutlet private var logInByPasswordButton: UIButton!
     @IBOutlet private var logInByPasswordTitle: UILabel!
 
-    private lazy var backButtonItem: UIBarButtonItem = UIBarButtonItem(image: Images.btnBack.image, style: .plain, target: self, action: #selector(backButtonDidTap))
+    private lazy var backButtonItem = UIBarButtonItem(image: Images.btnBack.image,
+                                                      style: .plain,
+                                                      target: self,
+                                                      action: #selector(backButtonDidTap))
 
     private var isAppeared: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
     private var disposeBag: DisposeBag = DisposeBag()
@@ -43,9 +46,7 @@ final class PasscodeViewController: UIViewController {
         setupSystem()
     }
 
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
+    override var prefersStatusBarHidden: Bool { false }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -96,7 +97,7 @@ private extension PasscodeViewController {
 
             return Observable<Bool>.merge([self.rx.viewDidAppear.asObservable(),
                                            applicationWillEnterForeground])
-                .throttle(1, scheduler: MainScheduler.asyncInstance)
+                .throttle(.seconds(1), scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidAppear }
         }
@@ -156,8 +157,8 @@ private extension PasscodeViewController {
         
         passcodeView.hiddenButton(by: .biometric, isHidden: state.isHiddenBiometricButton)
 
-        self.logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
-        self.logInByPasswordButton.isHidden = state.isHiddenLogInByPassword
+        logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
+        logInByPasswordButton.isHidden = state.isHiddenLogInByPassword
 
         if let error = state.error {
             switch error {
@@ -185,7 +186,7 @@ private extension PasscodeViewController {
                 self.showWithoutInternetSnackWithoutAction()
 
             case .notFound:
-                self.showErrorNotFoundSnackWithoutAction()
+                break
 
             case .none:
                 break

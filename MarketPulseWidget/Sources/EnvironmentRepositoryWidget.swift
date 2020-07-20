@@ -15,15 +15,116 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
+// На данный момент это точная копия из клиента
+// Нужно вынести зависимость из DataLayer
+enum ResourceAPI {}
+
+extension ResourceAPI {
+    enum Service {}
+    enum DTO {}
+}
+
+private enum Constants {
+    static let root = "https://configs.waves.exchange/"
+}
+
+private extension URL {
+    static func configURL(isTest: Bool,
+                          enviromentScheme: String,
+                          configName: String) -> URL {
+        var path = "\(Constants.root)"
+        path += "mobile/v2/"
+        path += "\(configName)/"
+        if isTest {
+            path += "test/"
+        } else {
+            path += "prod/"
+        }
+        
+        path += "\(enviromentScheme).json"
+                        
+        return URL(string: path)!
+    }
+}
+
+extension WalletEnvironment.Kind {
+    
+    var enviromentScheme: String {
+        switch self {
+        case .mainnet:
+            return "mainnet"
+        case .wxdevnet:
+            return "wxdevnet"
+        case .testnet:
+            return "testnet"
+        }
+    }
+}
+
+extension ResourceAPI.Service {
+
+    enum Environment {
+
+        /**
+         Response:
+         - Environment
+         */
+        case get(kind: WalletEnvironment.Kind, isTest: Bool)
+    }
+
+}
+
+extension ResourceAPI.Service.Environment: TargetType {
+    var sampleData: Data {
+        return Data()
+    }
+
+    var baseURL: URL {
+        switch self {
+        case let .get(kind, isTest):
+            
+            return URL.configURL(isTest: isTest,
+                                 enviromentScheme: kind.enviromentScheme,
+                                 configName: "environment")
+        }
+    }
+
+    var path: String {
+        return ""
+    }
+
+    var headers: [String: String]? {
+        return ["Content-type": "application/json"]
+    }
+
+    var method: Moya.Method {
+        switch self {
+        case .get:
+            return .get
+        }
+    }
+
+    var task: Task {
+        switch self {
+        case .get:
+            return .requestPlain
+        }
+    }
+}
+
+// MARK: CachePolicyTarget
+
+extension ResourceAPI.Service.Environment: CachePolicyTarget {
+    var cachePolicy: URLRequest.CachePolicy { .reloadIgnoringLocalAndRemoteCacheData }
+}
 
 private struct EnvironmentKey: Hashable {
     let chainId: String
 }
 
-
-public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
+public final class WidgetEnvironmentRepository: EnvironmentRepositoryProtocol {
         
-    private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
+    private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .init()
     
     private lazy var currentEnviromentShare: Observable<WalletEnvironment> =
         setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
@@ -34,7 +135,9 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
           let chainId = UserDefaults.standard.string(forKey: "wallet.environment.kind") ?? ""
           return WalletEnvironment.Kind(rawValue: chainId) ?? .mainnet
     }()
-                    
+    
+    public init() {}
+            
     public func walletEnvironment() -> Observable<WalletEnvironment> {
         currentEnviromentShare
     }
@@ -54,7 +157,7 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
     }
 }
 
-extension EnvironmentRepository {
+extension WidgetEnvironmentRepository {
     
     private func setupServicesEnviroment() -> Observable<WalletEnvironment> {
         return ifNeedRemoteEnvironment()
@@ -76,7 +179,7 @@ extension EnvironmentRepository {
     }
 }
 
-private extension EnvironmentRepository {
+private extension WidgetEnvironmentRepository {
         
     private func saveEnvironmentToMemory(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
         Observable.create { [weak self] observer -> Disposable in

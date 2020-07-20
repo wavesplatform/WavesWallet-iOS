@@ -66,6 +66,9 @@ final class SendViewController: UIViewController {
     private var currentFee: Money?
     
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
+    
+    private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
+    
     var presenter: SendPresenterProtocol!
     
     var inputModel: Send.DTO.InputModel!
@@ -1012,7 +1015,8 @@ private extension SendViewController {
     }
 
     var isValidLocalAddress: Bool {
-        return AddressValidator.isValidAddress(address: recipientAddressView.text)
+        return AddressValidator.isValidAddress(address: recipientAddressView.text,
+                                               environmentKind: environmentRepository.environmentKind)
     }
     
     var isValidCryptocyrrencyAddress: Bool {
@@ -1025,7 +1029,8 @@ private extension SendViewController {
                 selectedAsset?.asset.isFiat == false &&
                 isValidLocalAddress == false
         } else if selectedAsset?.asset.isVostok == true {
-            return AddressValidator.isValidVostokAddress(address: address)
+            return AddressValidator.isValidVostokAddress(address: address,
+                                                         environmentKind: environmentRepository.environmentKind)
         }
         return false
     }
