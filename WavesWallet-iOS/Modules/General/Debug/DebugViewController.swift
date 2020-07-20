@@ -293,11 +293,9 @@ private extension DebugViewController {
                 do {
                     try fileManager.removeItem(atPath: tempFolderPath + "/" + filePath)
                 } catch {
-                    print("remove item: \(error)")
                 }
             }
         } catch {
-            print("Could not clear temp folder: \(error)")
         }
     }
 }

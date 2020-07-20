@@ -24,8 +24,7 @@ struct UID: TSUD, Codable {
 }
 
 final class UserRepositoryImp: UserRepository {
-    private let putUserIdProvider: MoyaProvider<PutUserId> = .anyMoyaProvider()
-    private let postUserIdProvider: MoyaProvider<PostUserId> = .anyMoyaProvider()
+    private let moyaProvider: MoyaProvider<UserTarget> = .anyMoyaProvider()
 
     private let serverEnvironmentRepository: ServerEnvironmentRepository
     private let weOAuthRepository: WEOAuthRepositoryProtocol
@@ -35,7 +34,7 @@ final class UserRepositoryImp: UserRepository {
         self.weOAuthRepository = weOAuthRepository
     }
 
-    func userUID(wallet: SignedWallet) -> Observable<String> {
+    func createNewUserId(wallet: SignedWallet) -> Observable<String> {
         if let uid = UID.get() {
             return Observable.just(uid)
         }
@@ -46,90 +45,135 @@ final class UserRepositoryImp: UserRepository {
         return Observable.zip(serverEnvironment, oauthToken)
             .flatMap { [weak self] serverEnvironment, oauthToken -> Observable<String> in
 
-                guard let self = self else { return Observable.never() }
+                guard let self = self else { return .never() }
 
                 let wavesExchangeInternalApiUrl = serverEnvironment.servers.wavesExchangeInternalApiUrl
 
-                let model = PutUserId(baseURL: wavesExchangeInternalApiUrl, token: oauthToken.accessToken)
+                let targetKind = UserTarget.Kind.createNewUser(token: oauthToken.accessToken)
+                let target = UserTarget(kind: targetKind, baseURL: wavesExchangeInternalApiUrl)
 
-                return self.putUserIdProvider.rx
-                    .request(model)
+                return self.moyaProvider
+                    .rx
+                    .request(target)
                     .filterSuccessfulStatusAndRedirectCodes()
                     .mapString(atKeyPath: "uid")
                     .asObservable()
-                    .catchError { error -> Observable<String> in
-                        Observable.error(NetworkError.error(by: error))
-                    }
+                    .catchError { error -> Observable<String> in Observable.error(NetworkError.error(by: error)) }
             }
     }
 
-    func setUserUID(wallet: SignedWallet, uid: String) -> Observable<String> {
+    func associateUserIdWithUser(wallet: SignedWallet, uid: String) -> Observable<String> {
         let oauthToken = weOAuthRepository.oauthToken(signedWallet: wallet)
         let serverEnvironment = serverEnvironmentRepository.serverEnvironment()
 
         return Observable.zip(serverEnvironment, oauthToken)
             .flatMap { [weak self] serverEnvironment, oauthToken -> Observable<String> in
 
-                guard let self = self else { return Observable.never() }
+                guard let self = self else { return .never() }
 
                 let wavesExchangeInternalApiUrl = serverEnvironment.servers.wavesExchangeInternalApiUrl
 
-                let model = PostUserId(uid: uid, token: oauthToken.accessToken, baseURL: wavesExchangeInternalApiUrl)
+                let targetKind = UserTarget.Kind.associateIdWithUser(token: oauthToken.accessToken, userId: uid)
+                let target = UserTarget(kind: targetKind, baseURL: wavesExchangeInternalApiUrl)
 
-                return self.postUserIdProvider.rx
-                    .request(model)
+                return self.moyaProvider
+                    .rx
+                    .request(target)
                     .filterSuccessfulStatusAndRedirectCodes()
                     .mapString(atKeyPath: "uid")
                     .asObservable()
-                    .catchError { error -> Observable<String> in
-                        Observable.error(NetworkError.error(by: error))
-                    }
+                    .catchError { error -> Observable<String> in Observable.error(NetworkError.error(by: error)) }
+            }
+    }
+
+    func checkReferralAddress(wallet: SignedWallet) -> Observable<String?> {
+        let oauthToken = weOAuthRepository.oauthToken(signedWallet: wallet)
+        let serverEnvironment = serverEnvironmentRepository.serverEnvironment()
+
+        return Observable.zip(oauthToken, serverEnvironment)
+            .flatMap { [weak self] oauthToken, serverEnvironment -> Observable<String?> in
+                guard let self = self else { return .never() }
+                let wavesExchangeInternalApiUrl = serverEnvironment.servers.wavesExchangeInternalApiUrl
+
+                let targetKind = UserTarget.Kind.checkReferralAddress(token: oauthToken.accessToken)
+                let target = UserTarget(kind: targetKind, baseURL: wavesExchangeInternalApiUrl)
+
+                return self.moyaProvider
+                    .rx
+                    .request(target)
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .map(String?.self, atKeyPath: "referred_by", using: JSONDecoder(), failsOnEmptyData: false)
+                    .asObservable()
+                    .catchError { error in
+                        // The given data was not valid JSON.
+                        // когда моя пытается распарсить пустой ответ - она не может, и говорит нам что ошибка, но на самом деле пришла просто 204 потому что нет реффера
+                        if let error = error as? MoyaError, error.response?.statusCode == 204 {
+                            return Observable.just(nil)
+                        } else {
+                            return Observable.error(NetworkError.error(by: error))
+                        }
+                }
             }
     }
 }
 
-private struct PutUserId: TargetType {
-    var sampleData: Data { Data() }
-    var baseURL: URL
-    var token: String
+private struct UserTarget: TargetType {
+    enum Kind {
+        case createNewUser(token: String)
+        case associateIdWithUser(token: String, userId: String)
+        case checkReferralAddress(token: String)
+    }
 
-    var path: String { "/v1/user/login" }
+    private let kind: Kind
 
-    var headers: [String: String]? {
-        var headers: [String: String] = ContentType.applicationJson.headers
-        headers["Authorization"] = "Bearer \(token)"
-        return headers
+    let baseURL: URL
+
+    var path: String {
+        switch kind {
+        case .createNewUser, .associateIdWithUser: return "/v1/user/login"
+        case .checkReferralAddress: return "/v1/user/referral/referrer"
+        }
     }
 
     var method: Moya.Method {
-        return .put
+        switch kind {
+        case .createNewUser: return .put
+        case .associateIdWithUser: return .post
+        case .checkReferralAddress: return .get
+        }
     }
+
+    let sampleData: Data = Data()
 
     var task: Task {
-        return .requestPlain
+        switch kind {
+        case .createNewUser:
+            return .requestPlain
+
+        case let .associateIdWithUser(_, userId):
+            return .requestParameters(parameters: ["uid": userId], encoding: JSONEncoding.default)
+
+        case .checkReferralAddress: return .requestPlain
+        }
     }
-}
-
-private struct PostUserId: TargetType {
-    let uid: String
-    let token: String
-    var baseURL: URL
-
-    var sampleData: Data { Data() }
-
-    var path: String { "/v1/user/login" }
 
     var headers: [String: String]? {
         var headers: [String: String] = ContentType.applicationJson.headers
-        headers["Authorization"] = "Bearer \(token)"
+
+        switch kind {
+        case let .createNewUser(token):
+            headers["Authorization"] = "Bearer \(token)"
+        case let .associateIdWithUser(token, _):
+            headers["Authorization"] = "Bearer \(token)"
+        case let .checkReferralAddress(token):
+            headers["Authorization"] = "Bearer \(token)"
+        }
+
         return headers
     }
 
-    var method: Moya.Method {
-        return .post
-    }
-
-    var task: Task {
-        return .requestParameters(parameters: ["uid": uid], encoding: JSONEncoding.default)
+    init(kind: Kind, baseURL: URL) {
+        self.kind = kind
+        self.baseURL = baseURL
     }
 }

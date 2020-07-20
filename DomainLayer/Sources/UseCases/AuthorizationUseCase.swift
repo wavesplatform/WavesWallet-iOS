@@ -1198,10 +1198,10 @@ extension LAError {
 
 private extension AuthorizationUseCase {
     func updateUserUID(signedWallet: SignedWallet) -> Observable<String> {
-        return userRepository.userUID(wallet: signedWallet)
+        return userRepository.createNewUserId(wallet: signedWallet)
             .flatMap { [weak self] uid -> Observable<String> in
                 guard let self = self else { return Observable.never() }
-                return self.userRepository.setUserUID(wallet: signedWallet, uid: uid)
+                return self.userRepository.associateUserIdWithUser(wallet: signedWallet, uid: uid)
             }
             .catchError { (error) -> Observable<String> in
                 print(error)

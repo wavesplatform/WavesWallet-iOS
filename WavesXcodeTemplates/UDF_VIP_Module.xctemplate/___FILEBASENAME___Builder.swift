@@ -18,7 +18,7 @@ final class ___VARIABLE_productName___Builder: ___VARIABLE_productName___Buildab
 
         // MARK: - Binding
 
-        VIPBinder.bind(view: viewController, interactor: interactor, presenter: presenter)
+        VIPBinder.bind(interactor: interactor, presenter: presenter, view: viewController)
 
         return viewController
     }

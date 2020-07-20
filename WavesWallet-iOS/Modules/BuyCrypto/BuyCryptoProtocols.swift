@@ -46,7 +46,7 @@ struct BuyCryptoState {
         case aCashAssetsLoaded(BuyCryptoInteractor.AssetsInfo)
         
         /// Состояние проверки обменной пары
-        case checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
+        case checkingExchangePair(senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double, paymentMethod: PaymentMethod)
         
         /// Состояние ошибки проверки обменной пары (отображать ошибку)
         case checkingExchangePairError(error: Error, senderAsset: FiatAsset, recipientAsset: CryptoAsset, amount: Double)
@@ -55,13 +55,13 @@ struct BuyCryptoState {
         case readyForExchange(BuyCryptoInteractor.ExchangeInfo)
         
         /// Состояние, когда обмен валюты запущен
-        case processingExchange(amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
+        case processingExchange(amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo, paymentMethod: PaymentMethod)
         
         /// Ошибка начала обмена
-        case exchangeProcessingError(Error)
+        case exchangeProcessingError(Error, amount: String, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
         
         /// Обмен в процессе (обмен происходит по урлу)
-        case exchangeInProgress(url: URL, exchangeInfo: BuyCryptoInteractor.ExchangeInfo)
+        case exchangeInProgress(url: URL, exchangeInfo: BuyCryptoInteractor.ExchangeInfo, paymentMethod: PaymentMethod)
         
         ///
         case exchangeSuccessful(BuyCryptoInteractor.ExchangeInfo)
@@ -105,8 +105,8 @@ extension BuyCryptoInteractor {
 extension BuyCryptoInteractor {
     struct StateTransformActions {
         let initialLoadingEntryAction: VoidClosure
-        let checkingExchangePairEntryAction: (FiatAsset, CryptoAsset, Double) -> Void
-        let processingEntryAction: (String, ExchangeInfo) -> Void
+        let checkingExchangePairEntryAction: (FiatAsset, CryptoAsset, Double, PaymentMethod) -> Void
+        let processingEntryAction: (String, ExchangeInfo, PaymentMethod) -> Void
         let openUrlEntryAction: (URL) -> Void
     }
 }
@@ -164,6 +164,12 @@ struct BuyCryptoInteractorOutput {
     /// Сигнал изменения поля ввода количества валюты реального мира (необходимо чтобы в состоянии availableExchange посчитать сколько пользователь получит)
     let didChangeFiatAmount: ControlEvent<String?>
     
+    /// Тап на открытие модалки с выбором способов оплаты
+    let didTapAdCashPaymentMethod: ControlEvent<Void>
+    
+    /// Выбранный способ оплаты
+    let didSelectPaymentMethod: ControlEvent<PaymentMethod>
+    
     /// Сигнал ошибки валидации
     let validationError: Signal<Error?>
 }
@@ -201,6 +207,8 @@ struct BuyCryptoPresenterOutput {
     
     /// драйвер с информацией об обмене валюты на крипту
     let detailsInfo: Driver<NSAttributedString>
+    
+    let showPaymentMethods: Signal<TitledModel<[BuyCryptoPresenter.PaymentMethodVM]>>
 }
 
 struct BuyCryptoViewOutput {
@@ -216,6 +224,12 @@ struct BuyCryptoViewOutput {
     
     /// Нажатие на кнопку купить
     let didTapBuy: ControlEvent<Void>
+    
+    /// Нажатие на выбор способа оплаты
+    let didTapAdCashPaymentMethod: ControlEvent<Void>
+    
+    /// Событие выбранного способа оплаты
+    let didSelectPaymentMethod: ControlEvent<PaymentMethod>
     
     /// Сигнал загруженной вью для начала загрузки (внутри interactor для него выполняется оператор take(1))
     let viewWillAppear: ControlEvent<Void>

@@ -182,11 +182,6 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
         let buyCryptoVC = buyCryptoBuilder.build(with: self, selectedAsset: neutrinoAsset)
         navigationRouter.pushViewController(buyCryptoVC)
         
-//        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .card)
-//        coordinator.delegate = self
-//        addChildCoordinator(childCoordinator: coordinator)
-//        coordinator.start()
-
         UseCasesFactory
             .instance
             .analyticManager
@@ -206,7 +201,8 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
     }
 
     func openWithdraw(neutrinoAsset: Asset) {
-        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .withdraw, assetId: neutrinoAsset.id)
+        let coordinator = StakingTransferCoordinator(router: navigationRouter, kind: .withdraw,
+                                                     assetId: neutrinoAsset.id)
         coordinator.delegate = self
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()

@@ -37,7 +37,7 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
                                                                         showAllList: showAllList)), state: .invoice)
             }
         } else {
-            vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency],
+            vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [.cryptoCurrency, .existInExternalSource],
                                                                            selectedAsset: nil,
                                                                            showAllList: showAllList)), state: .cryptoCurrency)
 

@@ -6,15 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
 import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import DomainLayer
-
-private struct LogInByBiometricQuery: Hashable {
-    let wallet: Wallet
-}
 
 private struct LogInQuery: Hashable {
     let wallet: Wallet
@@ -22,118 +18,98 @@ private struct LogInQuery: Hashable {
 }
 
 final class PasscodeVerifyAccessPresenter: PasscodePresenterProtocol {
-
     fileprivate typealias Types = PasscodeTypes
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     var interactor: PasscodeInteractorProtocol!
     var input: PasscodeModuleInput!
     weak var moduleOutput: PasscodeModuleOutput?
 
     func system(feedbacks: [Feedback]) {
-
         var newFeedbacks = feedbacks
         newFeedbacks.append(verifyAccessBiometric())
         newFeedbacks.append(verifyAccess())
         newFeedbacks.append(logout())
 
-        let initialState = self.initialState(input: input)
+        let initialState = makeInitialState(input: input)
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
-                                    guard let self = self else { return state }
-                                    return self.reduce(state: state, event: event)
+                                       guard let self = self else { return state }
+                                       return self.reduce(state: state, event: event)
 
-            }, feedback: newFeedbacks)
+                                   },
+                                   feedback: newFeedbacks)
 
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
 // MARK: Feedbacks
 
 extension PasscodeVerifyAccessPresenter {
-
     private func verifyAccess() -> Feedback {
-        return react(request: { state -> LogInQuery? in
+        react(request: { state -> LogInQuery? in
+            guard case .verifyAccess = state.action else { return nil }
 
-            if let action = state.action, case .verifyAccess = action {
-                if case .verifyAccess(let wallet) = state.kind {
-                    return LogInQuery(wallet: wallet, passcode: state.passcode)
-
-                } else if case .changePasscode(let wallet) = state.kind {
-                    return LogInQuery(wallet: wallet, passcode: state.passcode)
-                }
+            if case let .verifyAccess(wallet) = state.kind {
+                return LogInQuery(wallet: wallet, passcode: state.passcode)
+            } else if case let .changePasscode(wallet) = state.kind {
+                return LogInQuery(wallet: wallet, passcode: state.passcode)
+            } else {
+                return nil
             }
 
-            return nil
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
                 .verifyAccess(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedVerifyAccess($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func verifyAccessBiometric() -> Feedback {
-        return react(request: { state -> LogInByBiometricQuery? in
-
-            if let action = state.action, case .verifyAccessBiometric = action {
-                if case .verifyAccess(let wallet) = state.kind {
-                    return LogInByBiometricQuery(wallet: wallet)
-                }
+        react(request: { state -> Wallet? in
+            if case .verifyAccessBiometric = state.action, case let .verifyAccess(wallet) = state.kind {
+                return wallet
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .verifyAccessUsingBiometric(wallet: query.wallet)
+                .verifyAccessUsingBiometric(wallet: wallet)
                 .map { Types.Event.completedVerifyAccess($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
-    private struct LogoutQuery: Hashable {
-        let wallet: Wallet
-    }
-
     private func logout() -> Feedback {
-        return react(request: { state -> LogoutQuery? in
-
-            if case .verifyAccess(let wallet) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
+        react(request: { state -> Wallet? in
+            if case let .verifyAccess(wallet) = state.kind, case .logout = state.action {
+                return wallet
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
-                .interactor.logout(wallet: query.wallet)
+                .interactor.logout(wallet: wallet)
                 .map { _ in .completedLogout }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
+                .asSignal { (error) -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 }
@@ -141,41 +117,37 @@ extension PasscodeVerifyAccessPresenter {
 // MARK: Core State
 
 private extension PasscodeVerifyAccessPresenter {
-
     func reduce(state: Types.State, event: Types.Event) -> Types.State {
-
         var newState = state
         reduce(state: &newState, event: event)
         return newState
     }
 
     func reduce(state: inout Types.State, event: Types.Event) {
-
         switch event {
-
-        case .completedVerifyAccess(let status):
+        case let .completedVerifyAccess(status):
             reduceCompletedVerifyAccess(status: status, state: &state)
 
-        case .handlerError(let error):
+        case let .handlerError(error):
 
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
-            if  case .biometricLockout? = state.displayState.error {
+            if case .biometricLockout? = state.displayState.error {
                 state.displayState.isHiddenBiometricButton = true
             }
 
         case .viewWillAppear:
             break
-            
+
         case .viewDidAppear:
 
             state.displayState.error = nil
-            
+
             switch state.kind {
-            case .verifyAccess(let wallet) where wallet.hasBiometricEntrance == true:
+            case let .verifyAccess(wallet) where wallet.hasBiometricEntrance == true:
 
                 if BiometricType.enabledBiometric != .none {
                     state.action = .verifyAccessBiometric
@@ -213,7 +185,7 @@ private extension PasscodeVerifyAccessPresenter {
             state.action = nil
             moduleOutput?.passcodeUserLogouted()
 
-        case .completedInputNumbers(let numbers):
+        case let .completedInputNumbers(numbers):
             handlerInputNumbersForVerifyAccess(numbers, state: &state)
 
         case .tapBack:
@@ -227,9 +199,8 @@ private extension PasscodeVerifyAccessPresenter {
     // MARK: - Reduce Completed LogIn
 
     private func reduceCompletedVerifyAccess(status: AuthorizationVerifyAccessStatus, state: inout Types.State) {
-
         switch status {
-        case .completed(let wallet):
+        case let .completed(wallet):
             state.action = nil
             state.displayState.isLoading = false
             moduleOutput?.passcodeVerifyAccessCompleted(wallet)
@@ -245,7 +216,6 @@ private extension PasscodeVerifyAccessPresenter {
     // MARK: - Input Numbers For Verify Access
 
     private func handlerInputNumbersForVerifyAccess(_ numbers: [Int], state: inout Types.State) {
-
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -266,21 +236,18 @@ private extension PasscodeVerifyAccessPresenter {
 // MARK: UI State
 
 private extension PasscodeVerifyAccessPresenter {
-
-    func initialState(input: PasscodeModuleInput) -> Types.State {
-        return Types.State(displayState: initialDisplayState(input: input),
-                           hasBackButton: input.hasBackButton,
-                           kind: input.kind,
-                           action: nil,
-                           numbers: .init(),
-                           passcode: "")
+    func makeInitialState(input: PasscodeModuleInput) -> Types.State {
+        .init(displayState: initialDisplayState(input: input),
+              hasBackButton: input.hasBackButton,
+              kind: input.kind,
+              action: nil,
+              numbers: .init(),
+              passcode: "")
     }
 
     func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
-
         switch input.kind {
-
-        case .verifyAccess(let wallet):
+        case let .verifyAccess(wallet):
             return .init(kind: .enterPasscode,
                          numbers: .init(),
                          isLoading: false,

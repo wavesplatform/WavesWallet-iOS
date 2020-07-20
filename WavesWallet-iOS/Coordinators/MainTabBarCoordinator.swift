@@ -194,7 +194,7 @@ private extension MainTabBarCoordinator {
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<(wallet: SignedWallet, uid: String)> in
                 guard let self = self else { return Observable.never() }
-                return self.userRepository.userUID(wallet: wallet).map { (wallet: wallet, uid: $0) }
+                return self.userRepository.createNewUserId(wallet: wallet).map { (wallet: wallet, uid: $0) }
             }
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] wallet, uid in

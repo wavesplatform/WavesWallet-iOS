@@ -10,9 +10,12 @@ import Foundation
 import RxSwift
 
 public protocol UserRepository {
+    /// UID - уникальный индификатор всех аккаунтов пользователя
+    func createNewUserId(wallet: SignedWallet) -> Observable<String>
     
-    // UID - уникальный индификатор всех аккаунтов пользователя
-    func userUID(wallet: SignedWallet) -> Observable<String>
-    // UID - добавить индификатор для аккаунта пользователя
-    func setUserUID(wallet: SignedWallet, uid: String) -> Observable<String>
+    /// UID - добавить индификатор для аккаунта пользователя
+    func associateUserIdWithUser(wallet: SignedWallet, uid: String) -> Observable<String>
+    
+    /// Проверка наличия рефераллов у пользователя
+    func checkReferralAddress(wallet: SignedWallet) -> Observable<String?>
 }

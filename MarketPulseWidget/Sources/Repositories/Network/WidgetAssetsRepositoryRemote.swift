@@ -119,6 +119,7 @@ fileprivate extension Asset {
                   minSponsoredFee: asset.minSponsoredFee ?? 0,
                   gatewayType: info?.gatewayType,
                   isStablecoin: info?.isStablecoin ?? false,
-                  isQualified: info?.isQualified ?? false)
+                  isQualified: info?.isQualified ?? false,
+                  isExistInExternalSource: info?.isExistInExternalSource ?? false)
     }
 }

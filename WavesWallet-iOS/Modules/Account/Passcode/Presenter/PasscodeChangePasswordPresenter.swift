@@ -1,11 +1,11 @@
 //
-import DomainLayer
 //  NewAccountPasscodePresenter.swift
 //  WavesWallet-iOS
 //
 //  Created by Prokofev Ruslan on 19/09/2018.
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
+import DomainLayer
 import Foundation
 import RxCocoa
 import RxFeedback
@@ -21,7 +21,7 @@ private struct ChangePasswordQuery: Hashable {
 final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
     fileprivate typealias Types = PasscodeTypes
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     var interactor: PasscodeInteractorProtocol!
     var input: PasscodeModuleInput!
@@ -32,7 +32,7 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
         newFeedbacks.append(changePassword())
         newFeedbacks.append(logout())
 
-        let initialState = self.initialState(input: input)
+        let initialState = makeInitialState(input: input)
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
@@ -41,9 +41,7 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
                                    },
                                    feedback: newFeedbacks)
 
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
@@ -51,56 +49,47 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
 
 extension PasscodeChangePasswordPresenter {
     private func changePassword() -> Feedback {
-        return react(request: { state -> ChangePasswordQuery? in
-
-            if case let .changePassword(wallet, newPassword, oldPassword) = state.kind,
-                let action = state.action,
-                case .changePassword = action {
-                return ChangePasswordQuery(wallet: wallet, passcode: state.passcode, oldPassword: oldPassword,
+        react(request: { state -> ChangePasswordQuery? in
+            if case let .changePassword(wallet, newPassword, oldPassword) = state.kind, case .changePassword = state.action {
+                return ChangePasswordQuery(wallet: wallet,
+                                           passcode: state.passcode,
+                                           oldPassword: oldPassword,
                                            newPassword: newPassword)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
                 .changePassword(wallet: query.wallet, passcode: query.passcode, oldPassword: query.oldPassword,
                                 newPassword: query.newPassword)
                 .map { .completedChangePassword($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
-    private struct LogoutQuery: Hashable {
-        let wallet: Wallet
-    }
-
     private func logout() -> Feedback {
-        return react(request: { state -> LogoutQuery? in
+        react(request: { state -> Wallet? in
 
-            if case let .changePassword(wallet, _, _) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
+            if case let .changePassword(wallet, _, _) = state.kind, case .logout = state.action {
+                return wallet
+            } else {
+                return nil
             }
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
 
             return self
-                .interactor.logout(wallet: query.wallet)
+                .interactor.logout(wallet: wallet)
                 .map { _ in .completedLogout }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 }
@@ -194,26 +183,26 @@ private extension PasscodeChangePasswordPresenter {
 
 // MARK: UI State
 
-private extension PasscodeChangePasswordPresenter {
-    func initialState(input: PasscodeModuleInput) -> Types.State {
-        return Types.State(displayState: initialDisplayState(input: input),
-                           hasBackButton: input.hasBackButton,
-                           kind: input.kind,
-                           action: nil,
-                           numbers: .init(),
-                           passcode: "")
+extension PasscodeChangePasswordPresenter {
+    private func makeInitialState(input: PasscodeModuleInput) -> Types.State {
+        Types.State(displayState: makeInitialDisplayState(input: input),
+                    hasBackButton: input.hasBackButton,
+                    kind: input.kind,
+                    action: nil,
+                    numbers: .init(),
+                    passcode: "")
     }
 
-    func initialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
-        return .init(kind: .enterPasscode,
-                     numbers: .init(),
-                     isLoading: false,
-                     isHiddenBackButton: !input.hasBackButton,
-                     isHiddenLogInByPassword: true,
-                     isHiddenLogoutButton: true,
-                     isHiddenBiometricButton: true,
-                     error: nil,
-                     titleLabel: Types.PasscodeKind.enterPasscode.title(),
-                     detailLabel: nil)
+    private func makeInitialDisplayState(input: PasscodeModuleInput) -> Types.DisplayState {
+        .init(kind: .enterPasscode,
+              numbers: .init(),
+              isLoading: false,
+              isHiddenBackButton: !input.hasBackButton,
+              isHiddenLogInByPassword: true,
+              isHiddenLogoutButton: true,
+              isHiddenBiometricButton: true,
+              error: nil,
+              titleLabel: Types.PasscodeKind.enterPasscode.title(),
+              detailLabel: nil)
     }
 }

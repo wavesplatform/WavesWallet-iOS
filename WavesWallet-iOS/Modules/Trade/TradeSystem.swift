@@ -447,7 +447,6 @@ private extension TradeSystem {
                             }
                 }
                 .catchError { (error) -> Observable<TradeTypes.DTO.Core> in
-                    print("error \(error)")
                     return Observable.error(error)
                 }
             }

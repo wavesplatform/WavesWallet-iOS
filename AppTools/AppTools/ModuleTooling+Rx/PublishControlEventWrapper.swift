@@ -19,11 +19,11 @@ import RxSwift
 /// - projectedValue – когда нужно за-accept'ить данные в PublishSubject. Как правило, это нужно внутри ViewController'а.
 @propertyWrapper
 public final class PublishControlEvent<Value> {
-  public let wrappedValue: ControlEvent<Value>
-
-  public let projectedValue = PublishRelay<Value>()
-
-  public init() {
-    wrappedValue = projectedValue.asControlEvent()
-  }
+    public let wrappedValue: ControlEvent<Value>
+    
+    public let projectedValue = PublishRelay<Value>()
+    
+    public init() {
+        wrappedValue = projectedValue.asControlEvent()
+    }
 }

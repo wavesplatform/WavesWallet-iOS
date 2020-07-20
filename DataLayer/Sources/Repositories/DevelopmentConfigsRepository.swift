@@ -18,6 +18,7 @@ private struct DevelopmentConfigsDTO: Decodable {
     let exchangeClientSecret: String
     let staking: [Staking]
     let lockedPairs: [String]
+    let referralShare: Int64
     //  First key is assetId and second key is fiat
     //  For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
     let gatewayMinFee: [String: [String: Rate]]
@@ -32,15 +33,17 @@ private struct DevelopmentConfigsDTO: Decodable {
         case exchangeClientSecret = "exchange_client_secret"
         case gatewayMinLimit = "gateway_min_limit"
         case avaliableGatewayCryptoCurrency = "avaliable_gateway_crypto_currency"
-        case staking
         case lockedPairs = "locked_pairs"
         case gatewayMinFee = "gateway_min_fee"
         case marketPairs = "DEX.MARKET_PAIRS"
+        case referralShare
+        case staking
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
+        referralShare = try container.decode(Int64.self, forKey: .referralShare)
         serviceAvailable = try container.decode(Bool.self, forKey: .serviceAvailable)
         matcherSwapTimestamp = try container.decode(Date.self, forKey: .matcherSwapTimestamp)
         matcherSwapAddress = try container.decode(String.self, forKey: .matcherSwapAddress)
@@ -107,7 +110,7 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                  using: JSONDecoder.decoderByDateWithSecond(0),
                  failsOnEmptyData: false)
             .asObservable()
-            .map { (config) -> DevelopmentConfigs in
+            .map { config -> DevelopmentConfigs in
                 let staking = config.staking.map {
                     DevelopmentConfigs.Staking(type: $0.type,
                                                neutrinoAssetId: $0.neutrinoAssetId,
@@ -116,16 +119,12 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                addressByCalculateProfit: $0.addressByCalculateProfit,
                                                addressesByPayoutsAnnualPercent: $0.addressesByPayoutsAnnualPercent)
                 }
-
-                let gatewayMinFee = config
-                    .gatewayMinFee
-                    .mapValues { (value) -> [String: DevelopmentConfigs.Rate] in
-
-                        value.mapValues { value -> DevelopmentConfigs.Rate in
-                            DevelopmentConfigs.Rate(rate: value.rate,
-                                                                    flat: value.flat)
-                        }
+                
+                let gatewayMinFee = config.gatewayMinFee.mapValues { value -> [String: DevelopmentConfigs.Rate] in
+                    value.mapValues { value -> DevelopmentConfigs.Rate in
+                        DevelopmentConfigs.Rate(rate: value.rate, flat: value.flat)
                     }
+                }
                 
                 let marketPairs = config.marketPairs.compactMap { pair -> DevelopmentConfigs.MarketPair? in
                     let splitedPair = pair.split(separator: "/")
@@ -148,7 +147,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                           gatewayMinFee: gatewayMinFee,
                                                           marketPairs: marketPairs,
                                                           gatewayMinLimit: gatewayMinLimit,
-                                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency)
+                                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency,
+                                                          referralShare: config.referralShare)
             }
     }
 }

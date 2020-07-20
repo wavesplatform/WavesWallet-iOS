@@ -15,24 +15,42 @@ import WavesSDK
 private enum Constanst {
     static let transferFee: Int64 = 500000
     static let lockNeutrinoFunctionName = "lockNeutrino"
+    static let lockNeutrinoSPFunctionName = "lockNeutrinoSP"
     static let unlockNeutrinoFunctionName = "unlockNeutrino"
 }
 
 // TODO: Support smart fee
 final class StakingTransferInteractor {
     
-    let accountBalanceUseCase: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
-    let assetsUseCase: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
-    let transactionUseCase: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
-    let authorizationUseCase: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
-    let adCashDepositsUseCase: AdCashDepositsUseCaseProtocol = UseCasesFactory.instance.adCashDepositsUseCase
+    private let accountBalanceUseCase: AccountBalanceUseCaseProtocol
+    private let assetsUseCase: AssetsUseCaseProtocol
+    private let transactionUseCase: TransactionsUseCaseProtocol
+    private let authorizationUseCase: AuthorizationUseCaseProtocol
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
+    private let adCashDepositsUseCase: AdCashDepositsUseCaseProtocol
+    private let stakingBalanceService: StakingBalanceService
+    private let userRepository: UserRepository
     
-    let stakingBalanceService: StakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
+    init(accountBalanceUseCase: AccountBalanceUseCaseProtocol,
+         assetsUseCase: AssetsUseCaseProtocol,
+         transactionUseCase: TransactionsUseCaseProtocol,
+         authorizationUseCase: AuthorizationUseCaseProtocol,
+         developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol,
+         adCashDepositsUseCase: AdCashDepositsUseCaseProtocol,
+         stakingBalanceService: StakingBalanceService,
+         userRepository: UserRepository) {
+        self.accountBalanceUseCase = accountBalanceUseCase
+        self.assetsUseCase = assetsUseCase
+        self.transactionUseCase = transactionUseCase
+        self.authorizationUseCase = authorizationUseCase
+        self.developmentConfigsRepository = developmentConfigsRepository
+        self.adCashDepositsUseCase = adCashDepositsUseCase
+        self.stakingBalanceService = stakingBalanceService
+        self.userRepository = userRepository
+    }
     
     func withdraw(assetId: String) -> Observable<StakingTransfer.DTO.Data.Transfer> {
-        
-        return self.authorizationUseCase
+        authorizationUseCase
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<StakingTransfer.DTO.Data.Transfer> in
                 
@@ -41,11 +59,9 @@ final class StakingTransferInteractor {
                 let depositeStakingBalance = self.stakingBalanceService
                     .getDepositeStakingBalance().map { $0.value }
                 
-                let wavesBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId,
-                                                                 wallet: wallet)
+                let wavesBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId, wallet: wallet)
                 
-                let asset = self.assetsUseCase.assets(by: [assetId],
-                                                      accountAddress: wallet.address)
+                let asset = self.assetsUseCase.assets(by: [assetId], accountAddress: wallet.address)
                 
                 return Observable.zip(depositeStakingBalance, wavesBalance, asset)
                     .flatMap { depositeStakingBalance, wavesBalance, assets -> Observable<StakingTransfer.DTO.Data.Transfer> in
@@ -71,19 +87,15 @@ final class StakingTransferInteractor {
     }
     
     func deposit(assetId: String) -> Observable<StakingTransfer.DTO.Data.Transfer> {
-        
-        return self.authorizationUseCase
+        authorizationUseCase
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<StakingTransfer.DTO.Data.Transfer> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                let balanceNetrino = self.accountBalanceUseCase
-                    .balance(by: assetId,
-                             wallet: wallet)
+                let balanceNetrino = self.accountBalanceUseCase.balance(by: assetId, wallet: wallet)
                     
-                let waveBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId,
-                                                                     wallet: wallet)
+                let waveBalance = self.accountBalanceUseCase.balance(by: WavesSDKConstants.wavesAssetId, wallet: wallet)
                     
                 return Observable.zip(balanceNetrino, waveBalance)
                     .flatMap { balanceNetrino, wavesBalance -> Observable<StakingTransfer.DTO.Data.Transfer> in
@@ -109,15 +121,10 @@ final class StakingTransferInteractor {
     }
     
     func card(assetId: String) -> Observable<StakingTransfer.DTO.Data.Card> {
-        
-        let auth = self.authorizationUseCase.authorizedWallet()
-        
-        return auth.flatMap { [weak self] (wallet) -> Observable<StakingTransfer.DTO.Data.Card> in
-        
+        authorizationUseCase.authorizedWallet().flatMap { [weak self] wallet -> Observable<StakingTransfer.DTO.Data.Card> in
             guard let self = self else { return Observable.never() }
             
-            let assets = self.assetsUseCase.assets(by: [assetId],
-                                                  accountAddress: wallet.address)
+            let assets = self.assetsUseCase.assets(by: [assetId], accountAddress: wallet.address)
             
             let requirementsOrder = self
                 .adCashDepositsUseCase
@@ -155,55 +162,54 @@ final class StakingTransferInteractor {
     }
     
     func sendCard(amount: Money, assetId: String) -> Observable<URL> {
-        
-        return self.adCashDepositsUseCase
-            .createOrder(assetId: assetId,
-                         amount: amount)
-            .map { $0.url }
+        adCashDepositsUseCase.createOrder(assetId: assetId, amount: amount).map { $0.url }
     }
     
     func sendDeposit(amount: Money, assetId: String) -> Observable<SmartTransaction> {
-        
-        return sendInvokeTrasnfer(amount: amount,
-                                  assetId: assetId,
-                                  isDeposit: true)
+        sendInvokeTrasnfer(amount: amount, assetId: assetId, isDeposit: true)
     }
     
     func sendWithdraw(amount: Money, assetId: String) -> Observable<SmartTransaction> {
-        
-        return sendInvokeTrasnfer(amount: amount,
-                                  assetId: assetId,
-                                  isDeposit: false)
+        sendInvokeTrasnfer(amount: amount, assetId: assetId, isDeposit: false)
     }
             
     private func sendInvokeTrasnfer(amount: Money, assetId: String, isDeposit: Bool) -> Observable<SmartTransaction> {
+        let developmentConfigs = developmentConfigsRepository.developmentConfigs()
+        let authorizedWallet = authorizationUseCase.authorizedWallet()
+        let checkReferralAddress = authorizedWallet.flatMap { [weak self] wallet -> Observable<String?> in
+            guard let sself = self else { return .never() }
+            return sself.userRepository.checkReferralAddress(wallet: wallet).catchError { .error($0) }
+        }
+        .catchError { .error($0) }
         
-        let developmentConfigs = self.developmentConfigsRepository.developmentConfigs()
-        let authorizedWallet = self.authorizationUseCase.authorizedWallet()
-        
-        return Observable.zip(developmentConfigs, authorizedWallet)
-            .flatMap { [weak self] configs, wallet -> Observable<SmartTransaction> in
+        return Observable.zip(developmentConfigs, authorizedWallet, checkReferralAddress)
+            .flatMap { [weak self] configs, wallet, referralAddress -> Observable<SmartTransaction> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                
-                guard let staking = configs.staking.first(where: { $0.neutrinoAssetId == assetId }) else { return Observable.error(NetworkError.notFound) }
+                let maybeStaking = configs.staking.first { $0.neutrinoAssetId == assetId }
+                guard let staking = maybeStaking else { return .error(NetworkError.notFound) }
                                                 
                 let call: InvokeScriptTransactionSender.Call = {
-                
-                    var args: [InvokeScriptTransactionSender.Arg] = .init()
+                    var args: [InvokeScriptTransactionSender.Arg] = []
                     var functionName: String = ""
                     
                     if isDeposit {
-                        functionName = Constanst.lockNeutrinoFunctionName
+                        if let address = referralAddress {
+                            functionName = Constanst.lockNeutrinoSPFunctionName
+                            args.append(.init(value: .string(address)))
+                            args.append(.init(value: .integer(configs.referralShare)))
+                        } else {
+                            functionName = Constanst.lockNeutrinoFunctionName
+                        }
+                        
                     } else {
                         functionName = Constanst.unlockNeutrinoFunctionName
                         args.append(.init(value: .integer(amount.amount)))
                         args.append(.init(value: .string(assetId)))
                     }
                     
-                    return  .init(function: functionName,
-                                  args: args)
+                    return  .init(function: functionName, args: args)
                 }()
                 
                 let payments: [InvokeScriptTransactionSender.Payment] = {
@@ -228,6 +234,7 @@ final class StakingTransferInteractor {
                     .send(by: specifications,
                           wallet: wallet)
         }
+        .catchError { .error($0) }
     }
 }
 
@@ -262,31 +269,19 @@ extension Money {
 }
 
 extension DomainLayer.DTO.SmartAssetBalance {
-    
     func availableBalance() -> DomainLayer.DTO.Balance {
         return self.asset.balance(self.availableBalance)
     }
-    
 }
 
 extension StakingTransfer.DTO.AssistanceButton {
-    
     var percent: Money.Percent {
         switch self {
-        case .percent100:
-            return .p100
-            
-        case .percent75:
-            return .p75
-            
-        case .percent50:
-            return .p50
-            
-        case .percent25:
-            return .p25
-            
-        case .max:
-            return .p100
+        case .percent100: return .p100
+        case .percent75: return .p75
+        case .percent50: return .p50
+        case .percent25: return .p25
+        case .max: return .p100
         }
     }
 }

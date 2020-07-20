@@ -12,10 +12,6 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-private struct LogInByBiometricQuery: Hashable {
-    let wallet: Wallet
-}
-
 private struct RegistationQuery: Hashable {
     let account: PasscodeTypes.DTO.Account
     let passcode: String
@@ -24,10 +20,6 @@ private struct RegistationQuery: Hashable {
 private struct LogInQuery: Hashable {
     let wallet: Wallet
     let passcode: String
-}
-
-private struct LogoutQuery: Hashable {
-    let wallet: Wallet
 }
 
 private struct SetEnableBiometricQuery: Hashable {
@@ -85,9 +77,7 @@ final class PasscodePresenter: PasscodePresenterProtocol {
                                        return self.reduce(state: state, event: event)
             }, feedback: newFeedbacks)
 
-        system
-            .drive()
-            .disposed(by: disposeBag)
+        system.drive().disposed(by: disposeBag)
     }
 }
 
@@ -95,45 +85,42 @@ final class PasscodePresenter: PasscodePresenterProtocol {
 
 extension PasscodePresenter {
     private func changePassword() -> Feedback {
-        return react(request: { state -> ChangePasswordQuery? in
-
-            if case let .changePassword(wallet, newPassword, oldPassword) = state.kind,
-                let action = state.action,
-                case .changePassword = action {
-                return ChangePasswordQuery(wallet: wallet, passcode: state.passcode, oldPassword: oldPassword,
+        react(request: { state -> ChangePasswordQuery? in
+            if case let .changePassword(wallet, newPassword, oldPassword) = state.kind, case .changePassword = state.action {
+                return ChangePasswordQuery(wallet: wallet,
+                                           passcode: state.passcode,
+                                           oldPassword: oldPassword,
                                            newPassword: newPassword)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .changePassword(wallet: query.wallet, passcode: query.passcode, oldPassword: query.oldPassword,
+                .changePassword(wallet: query.wallet,
+                                passcode: query.passcode,
+                                oldPassword: query.oldPassword,
                                 newPassword: query.newPassword)
                 .map { .completedChangePassword($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func changePasscodeByPassword() -> Feedback {
-        return react(request: { state -> ChangePasscodeByPasswordQuery? in
-
-            if case let .changePasscodeByPassword(wallet, password) = state.kind, let action = state.action,
-                case .changePasscodeByPassword = action {
+        react(request: { state -> ChangePasscodeByPasswordQuery? in
+            if case let .changePasscodeByPassword(wallet, password) = state.kind, case .changePasscodeByPassword = state.action {
                 return ChangePasscodeByPasswordQuery(wallet: wallet, passcode: state.passcode, password: password)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
@@ -141,239 +128,195 @@ extension PasscodePresenter {
                                           passcode: query.passcode,
                                           password: query.password)
                 .map { .completedChangePasscode($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func changePasscode() -> Feedback {
-        return react(request: { state -> ChangePasscodeQuery? in
-
-            if case let .changePasscode(wallet) = state.kind, let action = state.action,
-                case let .changePasscode(oldPasscode) = action {
+        react(request: { state -> ChangePasscodeQuery? in
+            if case let .changePasscode(wallet) = state.kind, case let .changePasscode(oldPasscode) = state.action {
                 return ChangePasscodeQuery(wallet: wallet, passcode: state.passcode, oldPasscode: oldPasscode)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .changePasscode(wallet: query.wallet,
-                                oldPasscode: query.oldPasscode,
-                                passcode: query.passcode)
+                .changePasscode(wallet: query.wallet, oldPasscode: query.oldPasscode, passcode: query.passcode)
                 .map { .completedChangePasscode($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func registration() -> Feedback {
-        return react(request: { state -> RegistationQuery? in
-
-            if case let .registration(account) = state.kind, let action = state.action, case .registration = action {
+        react(request: { state -> RegistationQuery? in
+            if case let .registration(account) = state.kind, case .registration = state.action {
                 return RegistationQuery(account: account, passcode: state.passcode)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .registrationAccount(query.account,
-                                     passcode: query.passcode)
+                .registrationAccount(query.account, passcode: query.passcode)
                 .map { .completedRegistration($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func disabledBiometricUsingBiometric() -> Feedback {
         return react(request: { state -> Wallet? in
-
-            if case let .setEnableBiometric(_, wallet) = state.kind,
-                let action = state.action,
-                case .disabledBiometricUsingBiometric = action {
+            if case let .setEnableBiometric(_, wallet) = state.kind, case .disabledBiometricUsingBiometric = state.action {
                 return wallet
+            } else {
+                return nil
             }
+        },
+                     effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] wallet -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
                 .disabledBiometricUsingBiometric(wallet: wallet)
-                .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func changeEnableBiometric() -> Feedback {
-        return react(request: { state -> SetEnableBiometricQuery? in
-
-            if case let .setEnableBiometric(isOn, wallet) = state.kind,
-                let action = state.action, case .setEnableBiometric = action {
+        react(request: { state -> SetEnableBiometricQuery? in
+            if case let .setEnableBiometric(isOn, wallet) = state.kind, case .setEnableBiometric = state.action {
                 return SetEnableBiometricQuery(wallet: wallet, passcode: state.passcode, isOn: isOn)
+            } else {
+                return nil
             }
 
-            return nil
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
                 .setEnableBiometric(wallet: query.wallet, passcode: query.passcode, isOn: query.isOn)
-                .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func logInBiometric() -> Feedback {
-        return react(request: { state -> LogInByBiometricQuery? in
-
-            if case let .logIn(wallet) = state.kind, let action = state.action, case .logInBiometric = action {
-                return LogInByBiometricQuery(wallet: wallet)
+        react(request: { state -> Wallet? in
+            if case let .logIn(wallet) = state.kind, case .logInBiometric = state.action {
+                return wallet
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .logInBiometric(wallet: query.wallet)
-                .sweetDebug("Biometric")
+                .logInBiometric(wallet: wallet)
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func verifyAccess() -> Feedback {
-        return react(request: { state -> LogInQuery? in
+        react(request: { state -> LogInQuery? in
+            guard case .verifyAccess = state.action else { return nil }
 
-            if let action = state.action, case .verifyAccess = action {
-                if case let .verifyAccess(wallet) = state.kind {
-                    return LogInQuery(wallet: wallet, passcode: state.passcode)
-
-                } else if case let .changePasscode(wallet) = state.kind {
-                    return LogInQuery(wallet: wallet, passcode: state.passcode)
-                }
+            if case let .verifyAccess(wallet) = state.kind {
+                return LogInQuery(wallet: wallet, passcode: state.passcode)
+            } else if case let .changePasscode(wallet) = state.kind {
+                return LogInQuery(wallet: wallet, passcode: state.passcode)
+            } else {
+                return nil
             }
 
-            return nil
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
                 .verifyAccess(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedVerifyAccess($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func verifyAccessBiometric() -> Feedback {
-        return react(request: { state -> LogInByBiometricQuery? in
-
-            if let action = state.action, case .verifyAccessBiometric = action {
-                if case let .verifyAccess(wallet) = state.kind {
-                    return LogInByBiometricQuery(wallet: wallet)
-                }
+        react(request: { state -> Wallet? in
+            if case .verifyAccessBiometric = state.action, case let .verifyAccess(wallet) = state.kind {
+                return wallet
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
-                .verifyAccessUsingBiometric(wallet: query.wallet)
+                .verifyAccessUsingBiometric(wallet: wallet)
                 .map { Types.Event.completedVerifyAccess($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func logIn() -> Feedback {
-        return react(request: { state -> LogInQuery? in
-
-            if let action = state.action, case .logIn = action {
-                if case let .logIn(wallet) = state.kind {
-                    return LogInQuery(wallet: wallet, passcode: state.passcode)
-                }
+        react(request: { state -> LogInQuery? in
+            if case .logIn = state.action, case let .logIn(wallet) = state.kind {
+                return LogInQuery(wallet: wallet, passcode: state.passcode)
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] query -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
                 .interactor
                 .logIn(wallet: query.wallet, passcode: query.passcode)
-                .sweetDebug("Passcode")
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 
     private func logout() -> Feedback {
-        return react(request: { state -> LogoutQuery? in
-
-            if case let .logIn(wallet) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
-            } else if case let .changePasscode(wallet) = state.kind,
-                let action = state.action, case .logout = action {
-                return LogoutQuery(wallet: wallet)
+        react(request: { state -> Wallet? in
+            if case let .logIn(wallet) = state.kind, case .logout = state.action {
+                return wallet
+            } else if case let .changePasscode(wallet) = state.kind, case .logout = state.action {
+                return wallet
+            } else {
+                return nil
             }
+        },
+              effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            return nil
-
-        }, effects: { [weak self] query -> Signal<Types.Event> in
-
-            guard let self = self else { return Signal.empty() }
+            guard let self = self else { return .empty() }
 
             return self
-                .interactor.logout(wallet: query.wallet)
+                .interactor
+                .logout(wallet: wallet)
                 .map { _ in .completedLogout }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    Signal.just(.handlerError(error))
-                }
+                .asSignal { error -> Signal<Types.Event> in .just(.handlerError(error)) }
         })
     }
 }
@@ -618,7 +561,7 @@ private extension PasscodePresenter {
         case .registration:
             handlerInputNumbersForRegistration(numbers, state: &state)
 
-        case let .setEnableBiometric(isOn, wallet):
+        case .setEnableBiometric:
             handlerInputNumbersForChangeBiometric(numbers, state: &state)
         }
     }

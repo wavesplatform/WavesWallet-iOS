@@ -9,7 +9,12 @@
 import UIKit
 
 extension UIView {
-    /// 
+    public var isVisible: Bool {
+        set { self.isHidden = !newValue }
+        get { !self.isHidden }
+    }
+    
+    /// Добавляет subview прикрепленную к краям parent с insets
     public func addStretchToBounds(_ view: UIView, insets: UIEdgeInsets = UIEdgeInsets.zero) {
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -19,5 +24,10 @@ extension UIView {
             view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right),
             view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
         ])
+    }
+    
+    /** Удаляет все дочерние view'хи. Подходит в том числе для очистки UIStackView */
+    public func removeSubviews() {
+      subviews.forEach { $0.removeFromSuperview() }
     }
 }
