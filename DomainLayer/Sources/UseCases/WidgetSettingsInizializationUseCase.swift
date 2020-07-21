@@ -47,9 +47,9 @@ public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUs
 
                 guard let self = self else { return Observable.never() }
                 let assets = walletEnviroment.generalAssets.prefix(DomainLayer.DTO.Widget.defaultCountAssets)
-                return self.repositories.assetsRepositoryRemote.assets(ids: assets.map { $0.assetId },
-                                                                       accountAddress: "")
-                    .map { $0.compactMap { $0} }
+                return self.repositories.assetsRepository.assets(ids: assets.map { $0.assetId },
+                                                                 accountAddress: "")
+                    .map { $0.compactMap { $0 } }
             }
             .flatMap { [weak self] assets -> Observable<DomainLayer.DTO.MarketPulseSettings> in
 

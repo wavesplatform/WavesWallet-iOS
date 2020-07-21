@@ -719,7 +719,7 @@
 		7BF50AB022D8B95400582783 /* CandlesRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4422D8B95400582783 /* CandlesRepositoryRemote.swift */; };
 		7BF50AB122D8B95400582783 /* DexPairsPriceRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4522D8B95400582783 /* DexPairsPriceRepositoryRemote.swift */; };
 		7BF50AB422D8B95400582783 /* AliasesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4A22D8B95400582783 /* AliasesRepository.swift */; };
-		7BF50AB822D8B95400582783 /* AssetsRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4F22D8B95400582783 /* AssetsRepositoryRemote.swift */; };
+		7BF50AB822D8B95400582783 /* AssetsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A4F22D8B95400582783 /* AssetsRepository.swift */; };
 		7BF50AB922D8B95400582783 /* EnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5022D8B95400582783 /* EnvironmentRepository.swift */; };
 		7BF50ABA22D8B95400582783 /* SpamAssetsServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5322D8B95400582783 /* SpamAssetsServiceImp.swift */; };
 		7BF50ABB22D8B95400582783 /* AssetsSpamServiceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5422D8B95400582783 /* AssetsSpamServiceTarget.swift */; };
@@ -2163,7 +2163,7 @@
 		7BF50A4B22D8B95400582783 /* AliasesRepositoryLocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasesRepositoryLocal.swift; sourceTree = "<group>"; };
 		7BF50A4D22D8B95400582783 /* AssetsBalanceSettingsRepositoryLocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsRepositoryLocal.swift; sourceTree = "<group>"; };
 		7BF50A4E22D8B95400582783 /* AssetsRepositoryDAOImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsRepositoryDAOImp.swift; sourceTree = "<group>"; };
-		7BF50A4F22D8B95400582783 /* AssetsRepositoryRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsRepositoryRemote.swift; sourceTree = "<group>"; };
+		7BF50A4F22D8B95400582783 /* AssetsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsRepository.swift; sourceTree = "<group>"; };
 		7BF50A5022D8B95400582783 /* EnvironmentRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentRepository.swift; sourceTree = "<group>"; };
 		7BF50A5322D8B95400582783 /* SpamAssetsServiceImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpamAssetsServiceImp.swift; sourceTree = "<group>"; };
 		7BF50A5422D8B95400582783 /* AssetsSpamServiceTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsSpamServiceTarget.swift; sourceTree = "<group>"; };
@@ -4938,7 +4938,7 @@
 				7BF50A3522D8B95400582783 /* AddressRepositoryRemote.swift */,
 				7BF50A4A22D8B95400582783 /* AliasesRepository.swift */,
 				7BF50A3122D8B95400582783 /* ApplicationVersionRepository.swift */,
-				7BF50A4F22D8B95400582783 /* AssetsRepositoryRemote.swift */,
+				7BF50A4F22D8B95400582783 /* AssetsRepository.swift */,
 				7BF50A3422D8B95400582783 /* AuthenticationRepository.swift */,
 				7BF50A2F22D8B95400582783 /* BlockRepositoryRemote.swift */,
 				7BF50A4422D8B95400582783 /* CandlesRepositoryRemote.swift */,
@@ -8158,7 +8158,7 @@
 				7BF50AAC22D8B95400582783 /* MatcherRepositoryRemote.swift in Sources */,
 				7B05BEF824534EA4001AD9AD /* TimestampServerServiceImp.swift in Sources */,
 				7B896FE123F34FA000F45A70 /* AddressBookRepository.swift in Sources */,
-				7BF50AB822D8B95400582783 /* AssetsRepositoryRemote.swift in Sources */,
+				7BF50AB822D8B95400582783 /* AssetsRepository.swift in Sources */,
 				7BF50ABA22D8B95400582783 /* SpamAssetsServiceImp.swift in Sources */,
 				7B22A9CE24643CE0005EAC9C /* adcash_deposits.grpc.swift in Sources */,
 				7BF50A8822D8B95400582783 /* DexAssetPairDomainDTO+Mapper.swift in Sources */,

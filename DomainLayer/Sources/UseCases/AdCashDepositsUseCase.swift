@@ -85,8 +85,9 @@ final class ACashDepositsUseCase: AdCashDepositsUseCaseProtocol {
                         let assets = self.assetsRepository
                             .assets(ids: [assetId],
                                     accountAddress: signedWallet.address)
+                            .map { $0.compactMap { $0 } }
                             .flatMap { assets -> Observable<Asset> in
-                                guard let asset = assets.compactMap({ $0 }).first(where: { $0.id == assetId }) else {
+                                guard let asset = assets.first(where: { $0.id == assetId }) else {
                                     return Observable.error(NetworkError.notFound)
                                 }
                                 return Observable.just(asset)

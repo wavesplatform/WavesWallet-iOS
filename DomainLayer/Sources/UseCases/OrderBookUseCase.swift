@@ -45,15 +45,14 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
 
                         return self.assetsRepository.assets(ids: baseSettings.feeAssets.map { $0.assetId },
                                                             accountAddress: wallet.address)
+                            .map { $0.compactMap { $0 } }
                             .map { [weak self] (assets) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee in
 
                                 guard let self = self else {
                                     return DomainLayer.DTO.Dex.SmartSettingsOrderFee(baseFee: 0, feeAssets: [])
                                 }
-                                
-                                let assetsWithoutNil = assets.compactMap { $0 }
-                                
-                                return self.mapAssetsToSmartSettings(assets: assetsWithoutNil,
+                            
+                                return self.mapAssetsToSmartSettings(assets: assets,
                                                                      baseSettings: baseSettings)
                             }
                     }

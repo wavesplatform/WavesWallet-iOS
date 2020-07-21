@@ -26,7 +26,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     private let lastTradesRepository = UseCasesFactory.instance.repositories.lastTradesRespository
     private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let auth = UseCasesFactory.instance.authorization
-    private let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+    private let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
     private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
     var pair: DexTraderContainer.DTO.Pair!

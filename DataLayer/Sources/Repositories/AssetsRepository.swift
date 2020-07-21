@@ -21,7 +21,7 @@ private enum Constants {
     static let vostokAssetId = "Vostok"
 }
 
-final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
+final class AssetsRepository: AssetsRepositoryProtocol {
     private let wavesSDKServices: WavesSDKServices
 
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -142,7 +142,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     }
 }
 
-fileprivate extension AssetsRepositoryRemote {
+fileprivate extension AssetsRepository {
     func spamAssets(accountAddress: String) -> Observable<[SpamAssetId]> {
         return accountSettingsRepository.accountSettings(accountAddress: accountAddress)
             .flatMap { [weak self] settings -> Observable<[SpamAssetId]> in

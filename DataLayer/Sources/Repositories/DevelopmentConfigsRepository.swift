@@ -24,7 +24,7 @@ private struct DevelopmentConfigsDTO: Decodable {
     let gatewayMinLimit: [String: Limit]
     let avaliableGatewayCryptoCurrency: [String]
     let marketPairs: [String]
-    
+
     enum CodingKeys: String, CodingKey {
         case serviceAvailable = "service_available"
         case matcherSwapTimestamp = "matcher_swap_timestamp"
@@ -37,10 +37,10 @@ private struct DevelopmentConfigsDTO: Decodable {
         case marketPairs = "DEX.MARKET_PAIRS"
         case staking
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-                
+
         serviceAvailable = try container.decode(Bool.self, forKey: .serviceAvailable)
         matcherSwapTimestamp = try container.decode(Date.self, forKey: .matcherSwapTimestamp)
         matcherSwapAddress = try container.decode(String.self, forKey: .matcherSwapAddress)
@@ -50,7 +50,8 @@ private struct DevelopmentConfigsDTO: Decodable {
         gatewayMinFee = try container.decode([String: [String: Rate]].self, forKey: .gatewayMinFee)
         marketPairs = try container.decodeIfPresent([String].self, forKey: .marketPairs) ?? []
         gatewayMinLimit = try container.decode([String: Limit].self, forKey: .gatewayMinLimit)
-        avaliableGatewayCryptoCurrency = try container.decodeIfPresent([String].self, forKey: .avaliableGatewayCryptoCurrency) ?? []
+        avaliableGatewayCryptoCurrency = try container
+            .decodeIfPresent([String].self, forKey: .avaliableGatewayCryptoCurrency) ?? []
     }
 }
 
@@ -85,15 +86,14 @@ private struct Staking: Decodable {
 }
 
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
-    
     private let environmentRepository: EnvironmentRepositoryProtocol
-        
+
     private let environmentAPIService: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
-    
+
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
     }
-    
+
     public func isEnabledMaintenance() -> Observable<Bool> {
         return developmentConfigs()
             .flatMap { Observable.just($0.serviceAvailable == false) }
@@ -101,7 +101,6 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
     }
 
     public func developmentConfigs() -> Observable<DevelopmentConfigs> {
-
         return environmentAPIService.rx.request(.get(kind: environmentRepository.environmentKind,
                                                      isTest: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(DevelopmentConfigsDTO.self,
@@ -116,37 +115,38 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                addressByPayoutsAnnualPercent: $0.addressByPayoutsAnnualPercent,
                                                addressStakingContract: $0.addressStakingContract,
                                                addressByCalculateProfit: $0.addressByCalculateProfit,
-                                               addressesByPayoutsAnnualPercent: $0.addressesByPayoutsAnnualPercent, referralShare: $0.referralShare)
+                                               addressesByPayoutsAnnualPercent: $0.addressesByPayoutsAnnualPercent,
+                                               referralShare: $0.referralShare)
                 }
-                
+
                 let gatewayMinFee = config.gatewayMinFee.mapValues { value -> [String: DevelopmentConfigs.Rate] in
                     value.mapValues { value -> DevelopmentConfigs.Rate in
                         DevelopmentConfigs.Rate(rate: value.rate, flat: value.flat)
                     }
                 }
-                
+
                 let marketPairs = config.marketPairs.compactMap { pair -> DevelopmentConfigs.MarketPair? in
                     let splitedPair = pair.split(separator: "/")
                     if splitedPair.isEmpty || splitedPair.count < 2 {
                         return nil
                     } else {
                         return DevelopmentConfigs.MarketPair(amount: String(splitedPair[0]),
-                                                                             price: String(splitedPair[1]))
+                                                             price: String(splitedPair[1]))
                     }
                 }
-                
+
                 let gatewayMinLimit = config.gatewayMinLimit.mapValues { DevelopmentConfigs.Limit(min: $0.min, max: $0.max) }
-                
+
                 return DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
-                                                          matcherSwapTimestamp: config.matcherSwapTimestamp,
-                                                          matcherSwapAddress: config.matcherSwapAddress,
-                                                          exchangeClientSecret: config.exchangeClientSecret,
-                                                          staking: staking,
-                                                          lockedPairs: config.lockedPairs,
-                                                          gatewayMinFee: gatewayMinFee,
-                                                          marketPairs: marketPairs,
-                                                          gatewayMinLimit: gatewayMinLimit,
-                                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency)
+                                          matcherSwapTimestamp: config.matcherSwapTimestamp,
+                                          matcherSwapAddress: config.matcherSwapAddress,
+                                          exchangeClientSecret: config.exchangeClientSecret,
+                                          staking: staking,
+                                          lockedPairs: config.lockedPairs,
+                                          gatewayMinFee: gatewayMinFee,
+                                          marketPairs: marketPairs,
+                                          gatewayMinLimit: gatewayMinLimit,
+                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency)
             }
     }
 }

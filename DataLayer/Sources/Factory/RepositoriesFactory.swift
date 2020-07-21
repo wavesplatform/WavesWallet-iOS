@@ -27,8 +27,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = environmentRepositoryInternal
 
-    public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol =
-        AssetsRepositoryRemote(spamAssetsRepository: spamAssets,
+    public private(set) lazy var assetsRepository: AssetsRepositoryProtocol =
+        AssetsRepository(spamAssetsRepository: spamAssets,
                                accountSettingsRepository: accountSettingsRepository,
                                environmentRepository: environmentRepository,
                                serverEnvironmentRepository: serverEnvironmentRepository,
@@ -62,13 +62,13 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol =
         DexPairsPriceRepositoryRemote(matcherRepository: matcherRepositoryRemote,
-                                      assetsRepository: assetsRepositoryRemote,
+                                      assetsRepository: assetsRepository,
                                       wavesSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol =
         DexOrderBookRepositoryRemote(spamAssetsRepository: spamAssets,
                                      matcherRepository: matcherRepositoryRemote,
-                                     assetsRepository: assetsRepositoryRemote,
+                                     assetsRepository: assetsRepository,
                                      waveSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol =
@@ -125,7 +125,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         DevelopmentConfigsRepository(environmentRepository: self.environmentRepository)
 
     public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol =
-        TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
+        TradeCategoriesConfigRepository(assetsRepoitory: assetsRepository)
 
     public private(set) lazy var massTransferRepository: MassTransferRepositoryProtocol = {
         MassTransferRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)

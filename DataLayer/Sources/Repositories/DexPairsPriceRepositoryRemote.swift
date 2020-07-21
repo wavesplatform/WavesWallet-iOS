@@ -82,17 +82,18 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                     }
             }
     }
-
-    // TODO: Any model from dataservice return like null. Need refactor
-
+    
     func pairs(serverEnvironment: ServerEnvironment,
                accountAddress: String,
                pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
         guard !pairs.isEmpty else { return Observable.just([]) }
 
         let wavesServices = wavesSDKServices.wavesServices(environment: serverEnvironment)
+        
+        // если ассетов не будет в наличии мы просто не будем показывать пары
         let assets = assetsRepository.assets(ids: pairs.assetsIds, accountAddress: accountAddress)
             .map { $0.compactMap { $0 } }
+        
         return Observable.zip(matcherRepository.matcherPublicKey(serverEnvironment: serverEnvironment),
                               assets)
             .flatMapLatest { matcherPublicKey, assets -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in

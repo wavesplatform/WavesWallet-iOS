@@ -106,7 +106,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
          orderBookRepository: DexOrderBookRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.transactionsDAO = transactionsDAO
-        self.transactionsRepository = transactionsRepositoryRemote
+        transactionsRepository = transactionsRepositoryRemote
         self.assetsRepository = assetsRepository
         self.addressInteractors = addressInteractors
         self.addressRepository = addressRepository
@@ -130,11 +130,13 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
         }
 
         // TODO: Dont User List
-        let wavesAsset = assetsRepository.assets(ids: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
+        let wavesAsset = assetsRepository.assets(ids: [WavesSDKConstants.wavesAssetId],
+                                                 accountAddress: accountAddress)
+            .map { $0.compactMap { $0 } }
             .flatMap { assets -> Observable<Asset> in
 
-                if let result = assets.compactMap({ $0 }).first {
-                    return   Observable.just(result)
+                if let result = assets.first {
+                    return Observable.just(result)
                 } else {
                     return Observable.error(TransactionsUseCaseError.invalid)
                 }
@@ -144,18 +146,11 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
             .assetIds
             .reduce(into: [Observable<(String, Bool)>]()) { result, assetId in
 
-                let isSmartAsset = serverEnvironment
-                    .flatMap { [weak self] _ -> Observable<(String, Bool)> in
-
-                        guard let self = self else { return Observable.never() }
-
-                        return self.assetsRepository
-                            .isSmartAsset(assetId: assetId,
-                                          accountAddress: accountAddress)
-                            .map { isSmartAsset -> (String, Bool) in
-                                (assetId, isSmartAsset)
-                            }
+                let isSmartAsset = self.assetsRepository.isSmartAsset(assetId: assetId, accountAddress: accountAddress)
+                    .map { isSmartAsset -> (String, Bool) in
+                        (assetId, isSmartAsset)
                     }
+
                 result.append(isSmartAsset)
             }
 
@@ -584,7 +579,9 @@ private extension TransactionsUseCase {
         let listAccountsIds = accountsIds.flatMap { [$0] }
 
         let assets = assetsRepository.assets(ids: assetsIds,
-                                             accountAddress: accountAddress).take(1)
+                                             accountAddress: accountAddress)
+            .take(1)
+            .map { $0.compactMap { $0 } }
 
         let accounts = addressInteractors.addressSync(by: listAccountsIds,
                                                       myAddress: accountAddress)
@@ -606,7 +603,7 @@ private extension TransactionsUseCase {
             .zip(blockHeight, assets, accountSettings)
             .flatMap { args -> Observable<SmartTransactionSyncData> in
                 let blocks = args.0
-                let assets = args.1.compactMap { $0 }
+                let assets = args.1
                 let settings = args.2
 
                 let activeLeaseing = query.leaseTransactions ?? []
@@ -712,11 +709,10 @@ private extension TransactionsUseCase {
         let assets = assetsRepository
             .assets(ids: ids,
                     accountAddress: accountAddress)
+            .map { $0.compactMap { $0 } }
             .map { assets -> [String: Asset] in
 
-                let withoutNil = assets.compactMap { $0 }
-
-                return withoutNil.reduce(into: [String: Asset]()) { list, asset in
+                assets.reduce(into: [String: Asset]()) { list, asset in
                     list[asset.id] = asset
                 }
             }
@@ -726,9 +722,10 @@ private extension TransactionsUseCase {
     private func accounts(by ids: [String], accountAddress: String) -> Observable<[String: Address]> {
         let accounts = addressInteractors
             .address(by: ids, myAddress: accountAddress)
-            .map { $0.reduce(into: [String: Address]()) { list, account in
-                list[account.address] = account
-            }
+            .map {
+                $0.reduce(into: [String: Address]()) { list, account in
+                    list[account.address] = account
+                }
             }
         return accounts
     }

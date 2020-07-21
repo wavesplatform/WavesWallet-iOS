@@ -27,7 +27,7 @@ final class StakingTransferModuleBuilder: ModuleBuilderOutput {
         vc.moduleOutput = output
 
         let accountBalanceUseCase = UseCasesFactory.instance.accountBalance
-        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
         let transactionUseCase = UseCasesFactory.instance.transactions
         let authorizationUseCase = UseCasesFactory.instance.authorization
         let developmentConfigsRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository

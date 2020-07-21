@@ -27,7 +27,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
 
     private let dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = UseCasesFactory.instance.repositories
         .dexPairsPriceRepository
-    private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+    private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepository
     private let correctionPairsUseCase: CorrectionPairsUseCaseProtocol = UseCasesFactory.instance.correctionPairsUseCase
     private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
@@ -56,9 +56,8 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
         }
 
         return Observable.zip(auth.authorizedWallet(),
-                              environment.walletEnvironment(),
-                              serverEnvironmentUseCase.serverEnvironment())
-            .flatMap { [weak self] wallet, environment, _ -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+                              environment.walletEnvironment())
+            .flatMap { [weak self] wallet, environment -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
 
                 if words.count == 1 {
@@ -89,7 +88,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                 }
                 return Observable.just([])
             }
-            .catchError { (_) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+            .catchError { _ -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 Observable.just([])
             }
     }

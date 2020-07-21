@@ -25,7 +25,7 @@ final class PayoutsHistoryBuilder: ModuleBuilder {
         let massTransferRepository = UseCasesFactory.instance.repositories.massTransferRepository
         let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let authUseCase = UseCasesFactory.instance.authorization
-        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
                 
         let system = PayoutsHistorySystem(massTransferRepository: massTransferRepository,

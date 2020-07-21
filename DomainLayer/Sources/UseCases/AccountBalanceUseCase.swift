@@ -173,23 +173,23 @@ private extension AccountBalanceUseCase {
             result.insert(assetBalance.assetId)
         }
 
+            // Если ассетов нету с сети, то мы не показываем их (позже нужно nullable перенести в Interactor
         let assets = assetsRepository
             .assets(ids: Array(assetsIDs), accountAddress: wallet.address)
-
+            .map { $0.compactMap { $0 } }
+                    
         return assets
             .flatMapLatest { [weak self] assets -> Observable<MappingQuery> in
 
                 guard let self = self else { return Observable.never() }
 
-                let assetsWithoutNil = assets.compactMap { $0 }
-
                 let settings = self.assetsBalanceSettings
-                    .settings(by: wallet.address, assets: assetsWithoutNil)
+                    .settings(by: wallet.address, assets: assets)
                     .map { (balances) -> [String: AssetBalanceSettings] in
                         balances.reduce(into: [String: AssetBalanceSettings]()) { $0[$1.assetId] = $1 }
                     }
 
-                let mapAssets = assetsWithoutNil.reduce(into: [String: Asset]()) { $0[$1.id] = $1 }
+                let mapAssets = assets.reduce(into: [String: Asset]()) { $0[$1.id] = $1 }
 
                 return settings.map { MappingQuery(balances: balances,
                                                    assets: mapAssets,
