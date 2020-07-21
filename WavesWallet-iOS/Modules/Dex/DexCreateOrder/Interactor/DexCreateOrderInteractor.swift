@@ -31,7 +31,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let orderBookInteractor: OrderBookUseCaseProtocol
     private let developmentConfig: DevelopmentConfigsRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
-    private let assetsInteractors: AssetsUseCaseProtocol
 
     init(authorization: AuthorizationUseCaseProtocol,
          addressRepository: AddressRepositoryProtocol,
@@ -43,20 +42,18 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
          assetsRepository: AssetsRepositoryProtocol,
          orderBookInteractor: OrderBookUseCaseProtocol,
          developmentConfig: DevelopmentConfigsRepositoryProtocol,
-         serverEnvironmentUseCase: ServerEnvironmentRepository,
-         assetsInteractors: AssetsUseCaseProtocol) {
+         serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.accountBalance = accountBalance
         self.addressRepository = addressRepository
-        auth = authorization
+        self.auth = authorization
         self.matcherRepository = matcherRepository
-        orderBookRepository = dexOrderBookRepository
+        self.orderBookRepository = dexOrderBookRepository
         self.assetsRepository = assetsRepository
         self.transactionInteractor = transactionInteractor
         self.transactionsRepository = transactionsRepository
         self.orderBookInteractor = orderBookInteractor
         self.developmentConfig = developmentConfig
-        self.assetsInteractors = assetsInteractors
     }
 
     func getDevConfig() -> Observable<DevelopmentConfigs> {
@@ -231,12 +228,11 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             assets.reduce(into: [Observable<(String, Bool)>]()) { [weak self] result, assetId in
                 guard let strongSelf = self else { return }
                 let isSmartAsset = strongSelf.serverEnvironmentUseCase.serverEnvironment()
-                    .flatMap { [weak self] serverEnvironment -> Observable<(String, Bool)> in
+                    .flatMap { [weak self] _ -> Observable<(String, Bool)> in
                         guard let self = self else { return Observable.never() }
 
                         return self.assetsRepository
-                            .isSmartAsset(serverEnvironment: serverEnvironment,
-                                          assetId: assetId,
+                            .isSmartAsset(assetId: assetId,
                                           accountAddress: walletAddress)
                             .map { isSmartAsset -> (String, Bool) in (assetId, isSmartAsset) }
                     }
@@ -247,14 +243,10 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     }
 
     private func obtainWavesAsset(accountAddress: String) -> Observable<Asset> {
-        assetsInteractors.assetsSync(by: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
-            .flatMap { asset -> Observable<Asset> in
-                if let result = asset.remote?.first {
-                    return Observable.just(result)
-                } else if let result = asset.local?.result.first {
-                    return Observable.just(result)
-                } else if let error = asset.error {
-                    return Observable.error(error)
+        assetsRepository.assets(ids: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
+            .flatMap { assets -> Observable<Asset> in
+                if let result = assets.compactMap { $0 }.first {
+                    return  Observable.just(result)
                 } else {
                     return Observable.error(TransactionsUseCaseError.invalid)
                 }

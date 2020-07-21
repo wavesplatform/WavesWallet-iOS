@@ -26,8 +26,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     private let lastTradesRepository = UseCasesFactory.instance.repositories.lastTradesRespository
     private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let auth = UseCasesFactory.instance.authorization
-    private let assetsRepositoryDAO = UseCasesFactory.instance.repositories.assetsRepositoryDAO
-    private let assetsInteractor = UseCasesFactory.instance.assets
+    private let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
     var pair: DexTraderContainer.DTO.Pair!
@@ -148,21 +147,16 @@ extension DexLastTradesInteractor {
         let wallet = auth.authorizedWallet()
 
         return Observable.zip(wallet, serverEnviroment)
-            .flatMap { [weak self] wallet, serverEnviroment -> Observable<[Asset]> in
+            .flatMap { [weak self] wallet, _ -> Observable<[Asset]> in
                 guard let self = self else { return Observable.empty() }
 
                 let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
-                return self.assetsRepositoryDAO.assets(serverEnvironment: serverEnviroment,
-                                                         ids: ids,
-                                                         accountAddress: wallet.address)
+                return self.assetsRepository.assets(ids: ids,
+                                                    accountAddress: wallet.address)
+                    .map { $0.compactMap { $0 }}
                     .map { $0.filter { $0.hasScript }.sorted(by: { (first, _) -> Bool in
                         first.id == self.pair.amountAsset.id
                     }) }
-                    .catchError { [weak self] (_) -> Observable<[Asset]> in
-                        guard let self = self else { return Observable.empty() }
-
-                        return self.assetsInteractor.assets(by: ids, accountAddress: wallet.address)
-                    }
             }
     }
 }

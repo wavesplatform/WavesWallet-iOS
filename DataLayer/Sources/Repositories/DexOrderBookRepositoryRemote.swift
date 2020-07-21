@@ -126,9 +126,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                     }
                 }
 
-                return self.assetsRepository.assets(serverEnvironment: serverEnvironment,
-                                                    ids: ids,
+                return self.assetsRepository.assets(ids: ids,
                                                     accountAddress: wallet.address)
+                    .map { $0.compactMap { $0 } }
                     .map { assets -> [DomainLayer.DTO.Dex.MyOrder] in
 
                         var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []

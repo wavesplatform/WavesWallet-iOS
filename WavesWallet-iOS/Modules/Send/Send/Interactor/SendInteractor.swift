@@ -15,7 +15,7 @@ import WavesSDKExtensions
 
 final class SendInteractor: SendInteractorProtocol {
     private let accountBalanceUseCase: AccountBalanceUseCaseProtocol
-    private let assetsUseCase: AssetsUseCaseProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     private let authorizationUseCase: AuthorizationUseCaseProtocol
     private let coinomatRepository: CoinomatRepositoryProtocol
     private let aliasRepository: AliasesRepositoryProtocol
@@ -27,7 +27,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let gatewaysWavesRepository: GatewaysWavesRepository
 
     init(gatewaysWavesRepository: GatewaysWavesRepository,
-         assetsUseCase: AssetsUseCaseProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          authorizationUseCase: AuthorizationUseCaseProtocol,
          coinomatRepository: CoinomatRepositoryProtocol,
          aliasRepository: AliasesRepositoryProtocol,
@@ -38,7 +38,7 @@ final class SendInteractor: SendInteractorProtocol {
          serverEnvironmentUseCase: ServerEnvironmentRepository,
          weOAuthRepository: WEOAuthRepositoryProtocol) {
         self.accountBalanceUseCase = accountBalanceUseCase
-        self.assetsUseCase = assetsUseCase
+        self.assetsRepository = assetsRepository
         self.authorizationUseCase = authorizationUseCase
         self.coinomatRepository = coinomatRepository
         self.aliasRepository = aliasRepository
@@ -62,7 +62,8 @@ final class SendInteractor: SendInteractorProtocol {
                 return self.authorizationUseCase.authorizedWallet()
                     .flatMap { [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
                         guard let self = self else { return Observable.empty() }
-                        return self.assetsUseCase.assets(by: [assetID], accountAddress: wallet.address)
+                        return self.assetsRepository.assets(ids: [assetID], accountAddress: wallet.address)
+                            .map { $0.compactMap { $0 } }
                             .flatMap { (assets) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
 
                                 var assetBalance: DomainLayer.DTO.SmartAssetBalance?
@@ -194,7 +195,9 @@ final class SendInteractor: SendInteractorProtocol {
         return authorizationUseCase.authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<Int> in
                 guard let self = self else { return Observable.empty() }
-                return self.assetsUseCase.assets(by: [assetID], accountAddress: wallet.address)
+                return self.assetsRepository
+                    .assets(ids: [assetID], accountAddress: wallet.address)
+                    .map { $0.compactMap { $0 } }
                     .map { (assets) -> Int in
                         assets.first(where: { $0.id == assetID }).map { $0.precision } ?? 0
                     }
@@ -262,7 +265,7 @@ extension SendInteractor {
                                     let fee = self.gatewaysWavesRepository
                                         .calculateFee(amount: amount.amount, direction: .withdraw,
                                                       assetBinding: assetBinding)
-                                    
+
                                     let info = Send.DTO.GatewayInfo(assetName: asset.name,
                                                                     assetShortName: asset.ticker ?? asset.name,
                                                                     minAmount: minAmount,

@@ -34,7 +34,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
-    private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
+    private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let orderbookInteractor = UseCasesFactory.instance.oderbook
     private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
@@ -369,9 +369,10 @@ private extension TransactionCardSystem {
             .flatMap { [weak self] (wallet) -> Observable<Asset> in
                 guard let self = self else { return Observable.empty() }
                 return self
-                    .assetsInteractor
-                    .assets(by: [assetID],
+                    .assetsRepository
+                    .assets(ids: [assetID],
                             accountAddress: wallet.address)
+                    .map { $0.compactMap { $0} }
                     .compactMap { $0.first }
             }
     }

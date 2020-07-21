@@ -23,7 +23,7 @@ private struct Leasing {
 final class InvestmentInteractor: InvestmentInteractorProtocol {
     private let enviroment: DevelopmentConfigsRepositoryProtocol
     private let massTransferRepository: MassTransferRepositoryProtocol
-    private let assetUseCase: AssetsUseCaseProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
 
     private let authorizationInteractor: AuthorizationUseCaseProtocol
     private let accountBalanceInteractor: AccountBalanceUseCaseProtocol
@@ -37,7 +37,7 @@ final class InvestmentInteractor: InvestmentInteractorProtocol {
 
     init(enviroment: DevelopmentConfigsRepositoryProtocol,
          massTransferRepository: MassTransferRepositoryProtocol,
-         assetUseCase: AssetsUseCaseProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          stakingBalanceService: StakingBalanceService,
          authorizationInteractor: AuthorizationUseCaseProtocol,
          accountBalanceInteractor: AccountBalanceUseCaseProtocol,
@@ -46,7 +46,7 @@ final class InvestmentInteractor: InvestmentInteractorProtocol {
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
-        self.assetUseCase = assetUseCase
+        self.assetsRepository = assetsRepository
         self.stakingBalanceService = stakingBalanceService
         self.authorizationInteractor = authorizationInteractor
         self.accountBalanceInteractor = accountBalanceInteractor
@@ -54,7 +54,6 @@ final class InvestmentInteractor: InvestmentInteractorProtocol {
         self.leasingUseCase = leasingInteractor
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
-    
 
     func leasing() -> Observable<InvestmentLeasingVM> {
         return Observable.merge(leasing(isNeedUpdate: true))
@@ -69,8 +68,9 @@ final class InvestmentInteractor: InvestmentInteractorProtocol {
                 let neutrinoId = config.staking.first?.neutrinoAssetId ?? ""
                 let addressWallet = signedWallet.wallet.address
                 return strongSelf
-                    .assetUseCase
-                    .assets(by: [neutrinoId], accountAddress: addressWallet)
+                    .assetsRepository
+                    .assets(ids: [neutrinoId], accountAddress: addressWallet)
+                    .map { $0.compactMap { $0 } }
                     .map { (assets: $0, accountAddress: addressWallet) }
             }
 
@@ -86,12 +86,12 @@ final class InvestmentInteractor: InvestmentInteractorProtocol {
                 let walletAddress = lastPayoutsTransactions.walletAddress
 
                 let profitPercent = InvestmentInteractor.getTotalProfitPercent(transactions: yearPercentMassTransfer.data,
-                                                                           walletAddress: config.staking.first?
-                                                                               .addressByCalculateProfit ?? "")
+                                                                               walletAddress: config.staking.first?
+                                                                                   .addressByCalculateProfit ?? "")
 
                 let totalProfitTransactions = totalProfitMassTransfer.massTransferTransactions.transactions
                 let totalProfit = InvestmentInteractor.getTotalProfit(transactions: totalProfitTransactions,
-                                                                  walletAddress: walletAddress)
+                                                                      walletAddress: walletAddress)
 
                 let totalBalanceCurrency = DomainLayer.DTO.Balance
                     .Currency(title: "", ticker: totalProfitMassTransfer.assetTicker)
@@ -212,10 +212,10 @@ private extension InvestmentInteractor {
                 let leasedInMoney: Money = .init(leaseInAmount,
                                                  precision)
 
-                let leasingBalance =  InvestmentLeasingVM.Balance(totalMoney: totalMoney,
-                                                                  avaliableMoney: avaliableMoney,
-                                                                  leasedMoney: leasedMoney,
-                                                                  leasedInMoney: leasedInMoney)
+                let leasingBalance = InvestmentLeasingVM.Balance(totalMoney: totalMoney,
+                                                                 avaliableMoney: avaliableMoney,
+                                                                 leasedMoney: leasedMoney,
+                                                                 leasedInMoney: leasedInMoney)
 
                 return InvestmentLeasingVM(balance: leasingBalance,
                                            transactions: startedLeasingTxsBase)
@@ -346,7 +346,8 @@ private extension InvestmentInteractor {
 
                 let id = query.assetId ?? ""
                 let accountAddress = query.recipient
-                let asset = self.assetUseCase.assets(by: [id], accountAddress: accountAddress)
+                let asset = self.assetsRepository.assets(ids: [id], accountAddress: accountAddress)
+                    .map { $0.compactMap { $0 } }
 
                 return Observable.zip(massTransferTransactions, asset, queryCache)
             }

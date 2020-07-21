@@ -20,8 +20,7 @@ struct DexOrderBookModuleBuilder: ModuleBuilderOutput {
         let dexOrderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
         let lastTradesRespository = UseCasesFactory.instance.repositories.lastTradesRespository
         let authorization = UseCasesFactory.instance.authorization
-        let assetsInteractor = UseCasesFactory.instance.assets
-        let assetsRepositoryDAO = UseCasesFactory.instance.repositories.assetsRepositoryDAO
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
        
         let interactor = DexOrderBookInteractor(pair: input,
@@ -29,8 +28,7 @@ struct DexOrderBookModuleBuilder: ModuleBuilderOutput {
                                                 dexOrderBookRepository: dexOrderBookRepository,
                                                 lastTradesRespository: lastTradesRespository,
                                                 authorization: authorization,
-                                                assetsInteractor: assetsInteractor,
-                                                assetsRepositoryDAO: assetsRepositoryDAO,
+                                                assetsRepository: assetsRepository,
                                                 serverEnvironmentUseCase: serverEnvironmentUseCase)
         
         let presenter = DexOrderBookPresenter.init(interactor: interactor,

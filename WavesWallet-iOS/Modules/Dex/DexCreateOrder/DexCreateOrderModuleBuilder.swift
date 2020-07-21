@@ -27,7 +27,7 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
         let accountBalance = UseCasesFactory.instance.accountBalance
         let assetRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
         let transactionRepository = UseCasesFactory.instance.repositories.transactionsRepository
-        let assetsInteractors = UseCasesFactory.instance.assets
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
 
         let interactor = DexCreateOrderInteractor(authorization: auth,
                                                   addressRepository: addressRepository,
@@ -39,8 +39,7 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
                                                   assetsRepository: assetRepository,
                                                   orderBookInteractor: orderBookInteractor,
                                                   developmentConfig: developmentConfig,
-                                                  serverEnvironmentUseCase: serverEnvironmentUseCase,
-                                                  assetsInteractors: assetsInteractors)
+                                                  serverEnvironmentUseCase: serverEnvironmentUseCase)
 
         let presenter = DexCreateOrderPresenter(interactor: interactor, pair: pair)
 

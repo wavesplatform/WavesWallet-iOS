@@ -20,7 +20,7 @@ private typealias Types = ConfirmRequest
 
 final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Event> {
     
-    private lazy var assetsUseCase: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
+    private lazy var assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     private lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol =
         UseCasesFactory.instance.repositories.mobileKeeperRepository
     
@@ -87,8 +87,9 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                                     timestamp: request.timestamp)
                 
                 let assets = self
-                    .assetsUseCase
-                    .assets(by: request.assetsIds, accountAddress: "")
+                    .assetsRepository
+                    .assets(ids: request.assetsIds, accountAddress: "")
+                    .map { $0.compactMap { $0 } }
                 
                 return Observable.zip(prepareRequest, assets)
                     .map { Types.Event.prepareRequest($1, $0) }

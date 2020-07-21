@@ -27,7 +27,6 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
 
     private let dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = UseCasesFactory.instance.repositories
         .dexPairsPriceRepository
-    private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     private let correctionPairsUseCase: CorrectionPairsUseCaseProtocol = UseCasesFactory.instance.correctionPairsUseCase
     private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
@@ -59,7 +58,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
         return Observable.zip(auth.authorizedWallet(),
                               environment.walletEnvironment(),
                               serverEnvironmentUseCase.serverEnvironment())
-            .flatMap { [weak self] wallet, environment, serverEnvironment -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+            .flatMap { [weak self] wallet, environment, _ -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
 
                 if words.count == 1 {
@@ -68,23 +67,21 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                     generalIds.append(Constants.mrtToken)
                     generalIds.append(Constants.liquidToken)
 
-                    let generalAssetsObserver = self.assetsInteractor.assets(by: generalIds,
+                    let generalAssetsObserver = self.assetsRepository.assets(ids: generalIds,
                                                                              accountAddress: wallet.address)
+                        .map { $0.compactMap { $0 } }
 
-                    let assetsObserver = self.assetsRepository.searchAssets(serverEnvironment: serverEnvironment,
-                                                                            search: words[0],
+                    let assetsObserver = self.assetsRepository.searchAssets(search: words[0],
                                                                             accountAddress: wallet.address)
 
                     return self
                         .searchPairs(firstSearchAssets: assetsObserver, secondSearchAssets: generalAssetsObserver,
                                      address: wallet.address)
                 } else if words.count > 1 {
-                    let firstAssetsObserver = self.assetsRepository.searchAssets(serverEnvironment: serverEnvironment,
-                                                                                 search: words[0],
+                    let firstAssetsObserver = self.assetsRepository.searchAssets(search: words[0],
                                                                                  accountAddress: wallet.address)
 
-                    let secondsAssetsObserver = self.assetsRepository.searchAssets(serverEnvironment: serverEnvironment,
-                                                                                   search: words[1],
+                    let secondsAssetsObserver = self.assetsRepository.searchAssets(search: words[1],
                                                                                    accountAddress: wallet.address)
 
                     return self.searchPairs(firstSearchAssets: firstAssetsObserver,
@@ -231,9 +228,10 @@ private extension DexMarketInteractor {
             }
         }
 
-        return assetsInteractor
-            .assets(by: allGeneralAssets.map { $0.assetId },
+        return assetsRepository
+            .assets(ids: allGeneralAssets.map { $0.assetId },
                     accountAddress: wallet.address)
+            .map { $0.compactMap { $0 } }
             .flatMap { [weak self] (assets) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
 
                 guard let self = self else { return Observable.empty() }

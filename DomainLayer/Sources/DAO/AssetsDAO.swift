@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-public protocol AssetsRepositoryDAO  {
+public protocol AssetsDAO  {
 
     func assets(serverEnvironment: ServerEnvironment,
                 ids: [String],

@@ -22,8 +22,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     private let dexOrderBookRepository: DexOrderBookRepositoryProtocol
     private let lastTradesRespository: LastTradesRepositoryProtocol
     private let authorization: AuthorizationUseCaseProtocol
-    private let assetsInteractor: AssetsUseCaseProtocol
-    private let assetsRepositoryDAO: AssetsRepositoryDAO
+    private let assetsRepository: AssetsRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     private let pair: DexTraderContainer.DTO.Pair
@@ -33,16 +32,14 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
          dexOrderBookRepository: DexOrderBookRepositoryProtocol,
          lastTradesRespository: LastTradesRepositoryProtocol,
          authorization: AuthorizationUseCaseProtocol,
-         assetsInteractor: AssetsUseCaseProtocol,
-         assetsRepositoryDAO: AssetsRepositoryDAO,
+         assetsRepository: AssetsRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.pair = pair
         self.accountBalance = accountBalance
         self.dexOrderBookRepository = dexOrderBookRepository
         self.lastTradesRespository = lastTradesRespository
         self.authorization = authorization
-        self.assetsInteractor = assetsInteractor
-        self.assetsRepositoryDAO = assetsRepositoryDAO
+        self.assetsRepository = assetsRepository
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
@@ -210,17 +207,12 @@ private extension DexOrderBookInteractor {
 
                 let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
 
-                return self.assetsRepositoryDAO.assets(serverEnvironment: serverEnvironment,
-                                                         ids: ids,
-                                                         accountAddress: wallet.address)
+                return self.assetsRepository.assets(ids: ids,
+                                                    accountAddress: wallet.address)
+                    .map { $0.compactMap { $0 } }
                     .map {
                         $0.filter { $0.hasScript }
                             .sorted { first, _ -> Bool in first.id == self.pair.amountAsset.id }
-                    }
-                    .catchError { [weak self] (_) -> Observable<[Asset]> in
-                        guard let self = self else { return Observable.empty() }
-
-                        return self.assetsInteractor.assets(by: ids, accountAddress: wallet.address)
                     }
             }
     }

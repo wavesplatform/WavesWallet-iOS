@@ -571,7 +571,7 @@
 		7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */; };
 		7B9DC35E2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */; };
 		7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */; };
-		7BA5EB1B24C6001100C1CD4E /* AssetsRepositoryDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA5EB1A24C6001100C1CD4E /* AssetsRepositoryDAO.swift */; };
+		7BA5EB1B24C6001100C1CD4E /* AssetsDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA5EB1A24C6001100C1CD4E /* AssetsDAO.swift */; };
 		7BA6826524507042000B5747 /* ServerEnviromentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA6826424507042000B5747 /* ServerEnviromentUseCase.swift */; };
 		7BA682672450747B000B5747 /* WavesServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA682662450747B000B5747 /* WavesServices.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
@@ -2009,7 +2009,7 @@
 		7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServerMaintenance.storyboard; sourceTree = "<group>"; };
 		7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		7B9DC35F23845D7400DCCA75 /* DevelopmentConfigsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepository.swift; sourceTree = "<group>"; };
-		7BA5EB1A24C6001100C1CD4E /* AssetsRepositoryDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsRepositoryDAO.swift; sourceTree = "<group>"; };
+		7BA5EB1A24C6001100C1CD4E /* AssetsDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsDAO.swift; sourceTree = "<group>"; };
 		7BA6826424507042000B5747 /* ServerEnviromentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnviromentUseCase.swift; sourceTree = "<group>"; };
 		7BA682662450747B000B5747 /* WavesServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesServices.swift; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
@@ -4244,7 +4244,7 @@
 			isa = PBXGroup;
 			children = (
 				7B74DBBE246AEC3D00AB1109 /* TransactionsDAO.swift */,
-				7BA5EB1A24C6001100C1CD4E /* AssetsRepositoryDAO.swift */,
+				7BA5EB1A24C6001100C1CD4E /* AssetsDAO.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -7972,7 +7972,7 @@
 				7B431A8122BCFF7100DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift in Sources */,
 				875393202423BA8000394762 /* WEOAuthRepositoryProtocol.swift in Sources */,
 				87566699242B668600E9F177 /* StakingBalanceService.swift in Sources */,
-				7BA5EB1B24C6001100C1CD4E /* AssetsRepositoryDAO.swift in Sources */,
+				7BA5EB1B24C6001100C1CD4E /* AssetsDAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

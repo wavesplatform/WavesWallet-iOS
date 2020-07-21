@@ -40,7 +40,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
         self.environmentRepository = environmentRepository
         self.assetsRepository = assetsRepository
         self.assetsBalanceSettings = assetsBalanceSettings
-        self.leasingInteractor = transactionsInteractor
+        leasingInteractor = transactionsInteractor
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
@@ -177,17 +177,19 @@ private extension AccountBalanceUseCase {
             .assets(ids: Array(assetsIDs), accountAddress: wallet.address)
 
         return assets
-            .flatMapLatest { [weak self] (assets) -> Observable<MappingQuery> in
+            .flatMapLatest { [weak self] assets -> Observable<MappingQuery> in
 
                 guard let self = self else { return Observable.never() }
 
+                let assetsWithoutNil = assets.compactMap { $0 }
+
                 let settings = self.assetsBalanceSettings
-                    .settings(by: wallet.address, assets: assets)
+                    .settings(by: wallet.address, assets: assetsWithoutNil)
                     .map { (balances) -> [String: AssetBalanceSettings] in
                         balances.reduce(into: [String: AssetBalanceSettings]()) { $0[$1.assetId] = $1 }
                     }
 
-                let mapAssets = assets.reduce(into: [String: Asset]()) { $0[$1.id] = $1 }
+                let mapAssets = assetsWithoutNil.reduce(into: [String: Asset]()) { $0[$1.id] = $1 }
 
                 return settings.map { MappingQuery(balances: balances,
                                                    assets: mapAssets,
