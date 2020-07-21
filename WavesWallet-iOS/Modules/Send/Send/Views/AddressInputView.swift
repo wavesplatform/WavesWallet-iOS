@@ -60,7 +60,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
 
     private let disposeBag = DisposeBag()
     private let assetInteractor = UseCasesFactory.instance.assets
-    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+    private let assetsRepositoryDAO = UseCasesFactory.instance.repositories.assetsRepositoryDAO
     private let auth = UseCasesFactory.instance.authorization
     private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
@@ -369,7 +369,7 @@ private extension AddressInputView {
             .flatMap { [weak self] wallet, serverEnvironment -> Observable<Int> in
                 guard let self = self else { return Observable.empty() }
 
-                return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnvironment,
+                return self.assetsRepositoryDAO.assets(serverEnvironment: serverEnvironment,
                                                          ids: [assetID],
                                                          accountAddress: wallet.address)
                     .flatMap { (assets) -> Observable<Int> in

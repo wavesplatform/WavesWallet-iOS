@@ -13,13 +13,7 @@ import RxRealm
 import RxSwift
 import WavesSDKExtensions
 
-final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
-    func searchAssets(serverEnvironment: ServerEnvironment,
-                      search: String,
-                      accountAddress: String) -> Observable<[Asset]> {
-        assertMethodDontSupported()
-        return Observable.never()
-    }
+final class AssetsRepositoryDAOImp: AssetsRepositoryDAO {
 
     func assets(serverEnvironment: ServerEnvironment, ids: [String], accountAddress: String) -> Observable<[Asset]> {
         Observable.create { observer -> Disposable in
@@ -72,10 +66,5 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
 
     func saveAsset(_ asset: Asset, by accountAddress: String) -> Observable<Bool> {
         saveAssets([asset], by: accountAddress)
-    }
-
-    func isSmartAsset(serverEnvironment: ServerEnvironment, assetId: String, accountAddress: String) -> Observable<Bool> {
-        assertMethodDontSupported()
-        return Observable.never()
     }
 }

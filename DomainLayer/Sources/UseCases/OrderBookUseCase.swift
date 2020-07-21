@@ -13,17 +13,17 @@ import WavesSDK
 final class OrderBookUseCase: OrderBookUseCaseProtocol {
     
     private let orderBookRepository: DexOrderBookRepositoryProtocol
-    private let assetsInteractor: AssetsUseCaseProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     private let authorizationInteractor: AuthorizationUseCaseProtocol
     private let serverEnvironment: ServerEnvironmentRepository
     
     init(orderBookRepository: DexOrderBookRepositoryProtocol,
-         assetsInteractor: AssetsUseCaseProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          authorizationInteractor: AuthorizationUseCaseProtocol,
          serverEnvironment: ServerEnvironmentRepository) {
         
         self.orderBookRepository = orderBookRepository
-        self.assetsInteractor = assetsInteractor
+        self.assetsRepository = assetsRepository
         self.authorizationInteractor = authorizationInteractor
         self.serverEnvironment = serverEnvironment
     }
@@ -46,7 +46,7 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
                     .flatMap({ [weak self] (baseSettings) -> Observable<DomainLayer.DTO.Dex.SmartSettingsOrderFee> in
                         guard let self = self else { return Observable.empty() }
                        
-                        return self.assetsInteractor.assets(by: baseSettings.feeAssets.map{$0.assetId},
+                        return self.assetsRepository.assets(ids: baseSettings.feeAssets.map{$0.assetId},
                                                             accountAddress: wallet.address)
                             .map({ [weak self] (assets) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee in
                                 

@@ -23,7 +23,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     private let lastTradesRespository: LastTradesRepositoryProtocol
     private let authorization: AuthorizationUseCaseProtocol
     private let assetsInteractor: AssetsUseCaseProtocol
-    private let assetsRepositoryLocal: AssetsRepositoryProtocol
+    private let assetsRepositoryDAO: AssetsRepositoryDAO
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     private let pair: DexTraderContainer.DTO.Pair
@@ -34,7 +34,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
          lastTradesRespository: LastTradesRepositoryProtocol,
          authorization: AuthorizationUseCaseProtocol,
          assetsInteractor: AssetsUseCaseProtocol,
-         assetsRepositoryLocal: AssetsRepositoryProtocol,
+         assetsRepositoryDAO: AssetsRepositoryDAO,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.pair = pair
         self.accountBalance = accountBalance
@@ -42,7 +42,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
         self.lastTradesRespository = lastTradesRespository
         self.authorization = authorization
         self.assetsInteractor = assetsInteractor
-        self.assetsRepositoryLocal = assetsRepositoryLocal
+        self.assetsRepositoryDAO = assetsRepositoryDAO
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
@@ -210,7 +210,7 @@ private extension DexOrderBookInteractor {
 
                 let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
 
-                return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnvironment,
+                return self.assetsRepositoryDAO.assets(serverEnvironment: serverEnvironment,
                                                          ids: ids,
                                                          accountAddress: wallet.address)
                     .map {

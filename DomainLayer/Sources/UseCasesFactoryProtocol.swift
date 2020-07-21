@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol UseCasesFactoryProtocol {
-    var assets: AssetsUseCaseProtocol { get }    
+    
     var accountBalance: AccountBalanceUseCaseProtocol { get }
     var transactions: TransactionsUseCaseProtocol { get }
     var address: AddressInteractorProtocol { get }

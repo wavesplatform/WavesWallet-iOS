@@ -26,7 +26,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     private let lastTradesRepository = UseCasesFactory.instance.repositories.lastTradesRespository
     private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let auth = UseCasesFactory.instance.authorization
-    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+    private let assetsRepositoryDAO = UseCasesFactory.instance.repositories.assetsRepositoryDAO
     private let assetsInteractor = UseCasesFactory.instance.assets
     private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
@@ -152,7 +152,7 @@ extension DexLastTradesInteractor {
                 guard let self = self else { return Observable.empty() }
 
                 let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
-                return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnviroment,
+                return self.assetsRepositoryDAO.assets(serverEnvironment: serverEnviroment,
                                                          ids: ids,
                                                          accountAddress: wallet.address)
                     .map { $0.filter { $0.hasScript }.sorted(by: { (first, _) -> Bool in

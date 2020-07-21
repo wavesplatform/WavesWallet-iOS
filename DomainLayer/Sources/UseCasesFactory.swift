@@ -106,13 +106,6 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase =
         ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
 
-    public private(set) lazy var assets: AssetsUseCaseProtocol = {
-        let interactor = AssetsUseCase(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
-                                       assetsRepositoryRemote: repositories.assetsRepositoryRemote,
-                                       serverEnvironmentUseCase: serverEnvironmentUseCase)
-
-        return interactor
-    }()
 
     public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
         let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,

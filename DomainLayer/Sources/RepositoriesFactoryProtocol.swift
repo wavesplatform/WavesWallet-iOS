@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol RepositoriesFactoryProtocol {
-    var assetsRepositoryLocal: AssetsRepositoryProtocol { get }
+    var AssetsRepositoryDAO: AssetsRepositoryProtocol { get }
     var assetsRepositoryRemote: AssetsRepositoryProtocol { get }
 
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }

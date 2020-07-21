@@ -82,7 +82,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
     private let transactionsDAO: TransactionsDAO
     private let transactionsRepository: TransactionsRepositoryProtocol
 
-    private let assetsInteractors: AssetsUseCaseProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     private let addressInteractors: AddressInteractorProtocol
 
     private let addressRepository: AddressRepositoryProtocol
@@ -98,7 +98,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
     init(transactionsDAO: TransactionsDAO,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
-         assetsInteractors: AssetsUseCaseProtocol,
+         assetsDAO: AssetsRepositoryDAO,
          addressInteractors: AddressInteractorProtocol,
          addressRepository: AddressRepositoryProtocol,
          assetsRepositoryRemote: AssetsRepositoryProtocol,
@@ -111,7 +111,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
         self.assetsInteractors = assetsInteractors
         self.addressInteractors = addressInteractors
         self.addressRepository = addressRepository
-        assetsRepository = assetsRepositoryRemote
+        assetsDAO = assetsRepositoryRemote
         self.blockRepositoryRemote = blockRepositoryRemote
         self.accountSettingsRepository = accountSettingsRepository
         self.orderBookRepository = orderBookRepository
@@ -131,7 +131,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                                                          accountAddress: accountAddress)
         }
 
-        let wavesAsset = assetsInteractors.assetsSync(by: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
+        let wavesAsset = assetsRepository.assets(ids: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
             .flatMap { (asset) -> Observable<Asset> in
 
                 if let result = asset.remote?.first {

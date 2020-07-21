@@ -27,7 +27,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = environmentRepositoryInternal
 
-    public private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
+    public private(set) lazy var assetsRepositoryDAO: AssetsRepositoryProtocol = AssetsRepositoryDAO()
 
     public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol =
         AssetsRepositoryRemote(spamAssetsRepository: spamAssets,

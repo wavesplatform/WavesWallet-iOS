@@ -198,7 +198,7 @@ final class StakingTransferInteractor {
                         if let address = referralAddress {
                             functionName = Constanst.lockNeutrinoSPFunctionName
                             args.append(.init(value: .string(address)))
-                            args.append(.init(value: .integer(configs.referralShare)))
+                            args.append(.init(value: .integer(staking.referralShare)))
                         } else {
                             functionName = Constanst.lockNeutrinoFunctionName
                         }
