@@ -21,7 +21,7 @@ private enum Constants {
 private typealias Types = AssetsSearch
 
 final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
-    private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+    private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepository
     private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
     private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
 
@@ -93,9 +93,8 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
 
             guard let self = self else { return Signal.never() }
 
-            return Observable.zip(self.serverEnvironmentUseCase.serverEnvironment(),
-                                  self.environmentRepository.walletEnvironment())
-                .flatMap { [weak self] _, walletEnvironment -> Observable<Event> in
+            return self.environmentRepository.walletEnvironment()
+                .flatMap { [weak self] walletEnvironment -> Observable<Event> in
 
                     guard let self = self else { return Observable.never() }
 

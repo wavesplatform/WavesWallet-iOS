@@ -46,9 +46,9 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.accountBalance = accountBalance
         self.addressRepository = addressRepository
-        self.auth = authorization
+        auth = authorization
         self.matcherRepository = matcherRepository
-        self.orderBookRepository = dexOrderBookRepository
+        orderBookRepository = dexOrderBookRepository
         self.assetsRepository = assetsRepository
         self.transactionInteractor = transactionInteractor
         self.transactionsRepository = transactionsRepository
@@ -226,16 +226,11 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private func isSmartAssets(_ assets: [String], walletAddress: String) -> Observable<[(String, Bool)]> {
         Observable.combineLatest(
             assets.reduce(into: [Observable<(String, Bool)>]()) { [weak self] result, assetId in
-                guard let strongSelf = self else { return }
-                let isSmartAsset = strongSelf.serverEnvironmentUseCase.serverEnvironment()
-                    .flatMap { [weak self] _ -> Observable<(String, Bool)> in
-                        guard let self = self else { return Observable.never() }
-
-                        return self.assetsRepository
-                            .isSmartAsset(assetId: assetId,
-                                          accountAddress: walletAddress)
-                            .map { isSmartAsset -> (String, Bool) in (assetId, isSmartAsset) }
-                    }
+                guard let self = self else { return }
+                let isSmartAsset = self.assetsRepository
+                    .isSmartAsset(assetId: assetId,
+                                  accountAddress: walletAddress)
+                    .map { isSmartAsset -> (String, Bool) in (assetId, isSmartAsset) }
 
                 result.append(isSmartAsset)
             }
@@ -244,9 +239,10 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 
     private func obtainWavesAsset(accountAddress: String) -> Observable<Asset> {
         assetsRepository.assets(ids: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
+            .map { $0.compactMap { $0 } }
             .flatMap { assets -> Observable<Asset> in
-                if let result = assets.compactMap { $0 }.first {
-                    return  Observable.just(result)
+                if let result = assets.first {
+                    return Observable.just(result)
                 } else {
                     return Observable.error(TransactionsUseCaseError.invalid)
                 }

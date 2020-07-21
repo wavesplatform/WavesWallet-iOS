@@ -198,7 +198,7 @@ final class SendInteractor: SendInteractorProtocol {
                 return self.assetsRepository
                     .assets(ids: [assetID], accountAddress: wallet.address)
                     .map { $0.compactMap { $0 } }
-                    .map { (assets) -> Int in
+                    .map { assets -> Int in
                         assets.first(where: { $0.id == assetID }).map { $0.precision } ?? 0
                     }
             }

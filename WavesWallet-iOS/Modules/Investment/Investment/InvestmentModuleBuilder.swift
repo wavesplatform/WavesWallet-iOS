@@ -26,7 +26,7 @@ struct InvestmentModuleBuilder: ModuleBuilderOutput {
         let stakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
-        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
             
         let interactor = InvestmentInteractor(enviroment: enviroment,
                                               massTransferRepository: massTransferRepository,

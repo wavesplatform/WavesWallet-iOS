@@ -15,7 +15,7 @@ struct SendModuleBuilder: ModuleBuilder {
     func build(input: Send.DTO.InputModel) -> UIViewController {
 
         let accountBalanceUseCase: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
-        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
         let authorizationUseCase = UseCasesFactory.instance.authorization
         let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
         let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote

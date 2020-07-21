@@ -202,7 +202,7 @@ private extension DexOrderBookInteractor {
         let wallet = authorization.authorizedWallet()
 
         return Observable.zip(serverEnvironment, wallet)
-            .flatMap { [weak self] serverEnvironment, wallet -> Observable<[Asset]> in
+            .flatMap { [weak self] _, wallet -> Observable<[Asset]> in
                 guard let self = self else { return Observable.empty() }
 
                 let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]

@@ -17,7 +17,7 @@ private enum Constants {
 }
 
 final class DexDeepLinkLoadingViewController: UIViewController {
-    private let assetsRepository = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+    private let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
     private let auth = UseCasesFactory.instance.authorization
 
     var deepLink: DeepLink!

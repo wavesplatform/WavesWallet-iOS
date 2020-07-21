@@ -10,35 +10,22 @@ import DomainLayer
 import Foundation
 import RxSwift
 
-//final class AssetsRepositoryMock: AssetsRepositoryProtocol {
-//    func assets(serverEnvironment _: ServerEnvironment,
-//                ids _: [String],
-//                accountAddress _: String) -> Observable<[Asset]> {
-//        return Observable.never()
-//    }
-//
-//    func isSmartAsset(serverEnvironment _: ServerEnvironment,
-//                      assetId _: String,
-//                      accountAddress _: String) -> Observable<Bool> {
-//        return Observable.never()
-//    }
-//
-//    func searchAssets(serverEnvironment _: ServerEnvironment,
-//                      search _: String,
-//                      accountAddress _: String) -> Observable<[Asset]> {
-//        return Observable.never()
-//    }
-//
-//    func saveAssets(_: [Asset],
-//                    by _: String) -> Observable<Bool> {
-//        return Observable.never()
-//    }
-//
-//    func saveAsset(_: Asset,
-//                   by _: String) -> Observable<Bool> {
-//        return Observable.never()
-//    }
-//}
+final class AssetsRepositoryMock: AssetsRepositoryProtocol {
+    func assets(ids _: [String],
+                accountAddress _: String) -> Observable<[Asset]> {
+        return Observable.never()
+    }
+
+    func isSmartAsset(assetId _: String,
+                      accountAddress _: String) -> Observable<Bool> {
+        return Observable.never()
+    }
+
+    func searchAssets(search _: String,
+                      accountAddress _: String) -> Observable<[Asset]> {
+        return Observable.never()
+    }
+}
 
 extension Asset {
     static func mockWaves() -> Asset {

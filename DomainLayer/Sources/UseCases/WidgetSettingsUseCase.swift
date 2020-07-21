@@ -30,9 +30,10 @@ public class WidgetSettingsUseCase: WidgetSettingsUseCaseProtocol {
 
                 return self
                     .repositories
-                    .assetsRepositoryRemote
+                    .assetsRepository
                     .assets(ids: settings.assets.map { $0.id }, accountAddress: "")
-                    .map { DomainLayer.DTO.Widget.Settings(assets: $0.compactMap { $0 },
+                    .map { $0.compactMap { $0 } }
+                    .map { DomainLayer.DTO.Widget.Settings(assets: $0,
                                                            style: settings.styleWidget,
                                                            interval: settings.intervalWidget) }
             }
