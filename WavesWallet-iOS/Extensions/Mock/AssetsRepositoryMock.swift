@@ -12,7 +12,7 @@ import RxSwift
 
 final class AssetsRepositoryMock: AssetsRepositoryProtocol {
     func assets(ids _: [String],
-                accountAddress _: String) -> Observable<[Asset]> {
+                accountAddress _: String) -> Observable<[Asset?]> {
         return Observable.never()
     }
 
