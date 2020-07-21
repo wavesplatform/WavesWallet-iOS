@@ -40,15 +40,14 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
         return Observable
             .zip(assetsBalance, accountBalance, matcherBalances)
             .map { AssetBalance.map(assets: $0.0, account: $0.1, matcherBalances: $0.2) }
-            .catchError { (error) -> Observable<[AssetBalance]> in
-                print("error \(error)")
-                return Observable.error(error)
-            }
     }
 
     func balance(by serverEnviroment: ServerEnvironment, assetId: String, wallet: SignedWallet) -> Observable<AssetBalance> {
         let matcherBalances = self.matcherBalances(by: serverEnviroment,
-                                                   wallet: wallet)
+                                                   wallet: wallet).catchError { (error) -> Observable<[String: Int64]> in
+
+            Observable.error(error)
+        }
 
         if assetId == WavesSDKConstants.wavesAssetId {
             let accountBalance = self.accountBalance(by: serverEnviroment,
@@ -128,10 +127,6 @@ private extension AccountBalanceRepositoryRemote {
             .assetsNodeService
             .assetBalance(address: walletAddress,
                           assetId: assetId)
-            .catchError { (error) -> Observable<NodeService.DTO.AddressAssetBalance> in
-                print("error \(error)")
-                return Observable.error(error)
-            }
     }
 
     // TODO: https://wavesplatform.atlassian.net/browse/NODE-1488
@@ -178,10 +173,6 @@ private extension AccountBalanceRepositoryRemote {
             .nodeServices
             .assetsNodeService
             .assetsBalances(address: walletAddress)
-            .catchError { (error) -> Observable<NodeService.DTO.AddressAssetsBalance> in
-                print("error \(error)")
-                return Observable.error(error)
-            }
     }
 
     func accountBalance(by serverEnviroment: ServerEnvironment,

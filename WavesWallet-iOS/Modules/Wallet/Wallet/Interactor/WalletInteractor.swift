@@ -40,8 +40,8 @@ final class WalletInteractor: WalletInteractorProtocol {
             .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let self = self else { return Observable.never() }
 
-                let assets = self.accountBalanceInteractor.balances(by: wallet)
-                let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address)
+                let assets = self.accountBalanceInteractor.balances(by: wallet).sweetDebug("A")
+                let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address).sweetDebug("B")
 
                 return Observable.zip(assets, settings)
                     .map { assets, settings -> [DomainLayer.DTO.SmartAssetBalance] in
