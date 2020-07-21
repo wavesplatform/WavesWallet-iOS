@@ -68,7 +68,7 @@ final class AssetsRepository: AssetsRepositoryProtocol {
 
                         print("ids \(ids)")
                         let spamIds = spamAssets.reduce(into: [String: Bool]()) { $0[$1] = true }
-
+                        
                         return assets.map { asset -> Asset? in
 
                             guard let asset = asset else { return nil }
