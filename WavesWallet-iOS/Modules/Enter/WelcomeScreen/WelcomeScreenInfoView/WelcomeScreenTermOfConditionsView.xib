@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -24,7 +24,13 @@
                                     <rect key="frame" x="123.5" y="100" width="167" height="167"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="XZf-GO-lRR" secondAttribute="height" id="Q7b-Gm-9vw"/>
-                                        <constraint firstAttribute="height" constant="167" id="aCF-JE-alH"/>
+                                        <constraint firstAttribute="height" constant="167" id="aCF-JE-alH" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="smallDevices">
+                                                    <real key="value" value="147"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </constraint>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNZ-1h-cUd">
@@ -148,17 +154,23 @@
                                 </constraint>
                                 <constraint firstItem="HgC-dB-ePD" firstAttribute="leading" secondItem="iTu-2B-b7J" secondAttribute="leading" constant="24" id="lnG-31-JFZ"/>
                                 <constraint firstItem="DNZ-1h-cUd" firstAttribute="leading" secondItem="iTu-2B-b7J" secondAttribute="leading" constant="24" id="mgR-34-1IQ"/>
-                                <constraint firstItem="XZf-GO-lRR" firstAttribute="top" secondItem="iTu-2B-b7J" secondAttribute="top" constant="100" id="oeE-YF-ILq"/>
-                                <constraint firstItem="DNZ-1h-cUd" firstAttribute="top" secondItem="XZf-GO-lRR" secondAttribute="bottom" constant="108" id="qVC-bJ-H12" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <constraint firstItem="XZf-GO-lRR" firstAttribute="top" secondItem="iTu-2B-b7J" secondAttribute="top" constant="100" id="oeE-YF-ILq" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="smallDevices">
-                                            <real key="value" value="42"/>
+                                            <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
+                                <constraint firstItem="DNZ-1h-cUd" firstAttribute="top" secondItem="XZf-GO-lRR" secondAttribute="bottom" constant="108" id="qVC-bJ-H12" customClass="DeviceLayoutConstraint" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="mediumDevices">
                                             <real key="value" value="42"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="largeDevices">
                                             <real key="value" value="88"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="smallDevices">
+                                            <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </constraint>
