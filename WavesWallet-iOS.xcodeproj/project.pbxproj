@@ -747,7 +747,7 @@
 		7BF66F9423F2EBAE004CAC8B /* Data+Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF66F9323F2EBAE004CAC8B /* Data+Bytes.swift */; };
 		7BF74C5C23FBF85E005F10FC /* StakingLadingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF74C5B23FBF85E005F10FC /* StakingLadingInfoView.swift */; };
 		7BFB480022FC742F002B19F8 /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47DD22FC742C002B19F8 /* SmartTransactionDTO+EncodingToString.swift */; };
-		7BFB480222FC742F002B19F8 /* AssetsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47E022FC742D002B19F8 /* AssetsRepositoryMock.swift */; };
+		7BFB480222FC742F002B19F8 /* Asset+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47E022FC742D002B19F8 /* Asset+Mock.swift */; };
 		7BFB480322FC742F002B19F8 /* SmartTransactionKind+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47E122FC742E002B19F8 /* SmartTransactionKind+UIImage.swift */; };
 		7BFB480422FC742F002B19F8 /* UIAlertController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47E422FC742E002B19F8 /* UIAlertController+Factory.swift */; };
 		7BFB480622FC742F002B19F8 /* BiometricType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47E622FC742E002B19F8 /* BiometricType.swift */; };
@@ -2201,7 +2201,7 @@
 		7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSettingsRepositoryStorage.swift; sourceTree = "<group>"; };
 		7BFB47DD22FC742C002B19F8 /* SmartTransactionDTO+EncodingToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDTO+EncodingToString.swift"; sourceTree = "<group>"; };
 		7BFB47DE22FC742D002B19F8 /* Kingfisher+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Kingfisher+Rx.swift"; sourceTree = "<group>"; };
-		7BFB47E022FC742D002B19F8 /* AssetsRepositoryMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsRepositoryMock.swift; sourceTree = "<group>"; };
+		7BFB47E022FC742D002B19F8 /* Asset+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Asset+Mock.swift"; sourceTree = "<group>"; };
 		7BFB47E122FC742E002B19F8 /* SmartTransactionKind+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SmartTransactionKind+UIImage.swift"; sourceTree = "<group>"; };
 		7BFB47E422FC742E002B19F8 /* UIAlertController+Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Factory.swift"; sourceTree = "<group>"; };
 		7BFB47E622FC742E002B19F8 /* BiometricType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiometricType.swift; sourceTree = "<group>"; };
@@ -5050,7 +5050,7 @@
 		7BFB47DF22FC742D002B19F8 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				7BFB47E022FC742D002B19F8 /* AssetsRepositoryMock.swift */,
+				7BFB47E022FC742D002B19F8 /* Asset+Mock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -8573,7 +8573,7 @@
 				7B975D322473D9C400F7DE89 /* WalletModuleBuilder.swift in Sources */,
 				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
 				7B2408002317F26100D35F59 /* ConfirmRequestButtonsCell.swift in Sources */,
-				7BFB480222FC742F002B19F8 /* AssetsRepositoryMock.swift in Sources */,
+				7BFB480222FC742F002B19F8 /* Asset+Mock.swift in Sources */,
 				E9CD0D32218137FE001A99B3 /* MainTabBarController.swift in Sources */,
 				0ADD803921F22FFB0075FC59 /* BackupTostCoordinator.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,

@@ -10,22 +10,6 @@ import DomainLayer
 import Foundation
 import RxSwift
 
-final class AssetsRepositoryMock: AssetsRepositoryProtocol {
-    func assets(ids _: [String],
-                accountAddress _: String) -> Observable<[Asset?]> {
-        return Observable.never()
-    }
-
-    func isSmartAsset(assetId _: String,
-                      accountAddress _: String) -> Observable<Bool> {
-        return Observable.never()
-    }
-
-    func searchAssets(search _: String,
-                      accountAddress _: String) -> Observable<[Asset]> {
-        return Observable.never()
-    }
-}
 
 extension Asset {
     static func mockWaves() -> Asset {

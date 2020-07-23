@@ -27,7 +27,6 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     }
 
     func search(serverEnvironment: ServerEnvironment,
-                accountAddress _: String,
                 searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
         var kind: DataService.Query.PairsPriceSearch.Kind!
 
