@@ -137,8 +137,9 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
                 let amount = transaction.transfers
                     .filter { $0.recipient == massTransfersTrait.walletAddress }
                     .reduce(0) { $0 + $1.amount }
-                
+                                                                                                                                
                 let money = Money(value: Decimal(amount), massTransfersTrait.precision ?? 0)
+                
                 let currency = DomainLayer.DTO.Balance.Currency(title: "", ticker: massTransfersTrait.assetTicker)
                 
                 let balance = DomainLayer.DTO.Balance(currency: currency, money: money)
