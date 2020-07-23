@@ -235,7 +235,7 @@ private extension DebugViewController {
 
         let wxdevnet: Debug.Enviroment = .init(name: "WXDevnet",
                                                chainId: "S")
-
+                
         var current: Debug.Enviroment!
 
         switch environmentRepository.environmentKind {

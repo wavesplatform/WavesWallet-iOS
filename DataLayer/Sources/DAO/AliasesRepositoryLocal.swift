@@ -21,7 +21,7 @@ final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
         return Observable.create { observer -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-                observer.onError(AssetsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 

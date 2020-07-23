@@ -18,7 +18,7 @@ final class BuyCryptoBuilder: BuyCryptoBuildable {
         let gatewayWavesRepository = UseCasesFactory.instance.repositories.gatewaysWavesRepository
         let adCashGRPCService = UseCasesFactory.instance.repositories.adCashGRPCService
         let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
-        let assetsUseCase = UseCasesFactory.instance.assets
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
         let developmentConfigRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let serverEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
         let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
@@ -29,7 +29,7 @@ final class BuyCryptoBuilder: BuyCryptoBuildable {
         let interactor = BuyCryptoInteractor(presenter: presenter,
                                              authorizationService: authorizationService,
                                              environmentRepository: environmentRepository,
-                                             assetsUseCase: assetsUseCase,
+                                             assetsRepository: assetsRepository,
                                              gatewayWavesRepository: gatewayWavesRepository,
                                              adCashGRPCService: adCashGRPCService,
                                              developmentConfigRepository: developmentConfigRepository,

@@ -13,18 +13,12 @@ import RxRealm
 import RxSwift
 import WavesSDKExtensions
 
-final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
-    func searchAssets(serverEnvironment: ServerEnvironment,
-                      search: String,
-                      accountAddress: String) -> Observable<[Asset]> {
-        assertMethodDontSupported()
-        return Observable.never()
-    }
+final class AssetsRepositoryDAOImp: AssetsDAO {
 
     func assets(serverEnvironment: ServerEnvironment, ids: [String], accountAddress: String) -> Observable<[Asset]> {
         Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-                observer.onError(AssetsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -33,7 +27,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
             let newIds = objects.map { $0.id }
 
             if !ids.contains(where: { newIds.contains($0) }) {
-                observer.onError(AssetsRepositoryError.notFound)
+                observer.onError(RepositoryError.notFound)
             } else {
                 let assets = objects.map { Asset($0) }
 
@@ -49,7 +43,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
         Observable.create { observer -> Disposable in
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
                 observer.onNext(false)
-                observer.onError(AssetsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -62,7 +56,7 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
                 observer.onCompleted()
             } catch _ {
                 observer.onNext(false)
-                observer.onError(AssetsRepositoryError.fail)
+                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
 
@@ -72,10 +66,5 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
 
     func saveAsset(_ asset: Asset, by accountAddress: String) -> Observable<Bool> {
         saveAssets([asset], by: accountAddress)
-    }
-
-    func isSmartAsset(serverEnvironment: ServerEnvironment, assetId: String, accountAddress: String) -> Observable<Bool> {
-        assertMethodDontSupported()
-        return Observable.never()
     }
 }

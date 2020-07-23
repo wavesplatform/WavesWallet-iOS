@@ -21,7 +21,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
 
-    private let assetsInteractor: AssetsUseCaseProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     private let assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol
     private let leasingInteractor: TransactionsUseCaseProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
@@ -31,14 +31,14 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
     init(authorizationInteractor: AuthorizationUseCaseProtocol,
          balanceRepositoryRemote: AccountBalanceRepositoryProtocol,
          environmentRepository: EnvironmentRepositoryProtocol,
-         assetsInteractor: AssetsUseCaseProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol,
          transactionsInteractor: TransactionsUseCaseProtocol,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.authorizationInteractor = authorizationInteractor
         self.balanceRepositoryRemote = balanceRepositoryRemote
         self.environmentRepository = environmentRepository
-        self.assetsInteractor = assetsInteractor
+        self.assetsRepository = assetsRepository
         self.assetsBalanceSettings = assetsBalanceSettings
         leasingInteractor = transactionsInteractor
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
@@ -173,24 +173,13 @@ private extension AccountBalanceUseCase {
             result.insert(assetBalance.assetId)
         }
 
-        let assets = assetsInteractor
-            .assetsSync(by: Array(assetsIDs), accountAddress: wallet.address)
-            .flatMap { (assets) -> Observable<[Asset]> in
-
-                switch assets {
-                case let .remote(model):
-                    return Observable.just(model)
-
-                case let .local(_, error):
-                    return Observable.error(error)
-
-                case let .error(error):
-                    return Observable.error(error)
-                }
-            }
-
+            // Если ассетов нету с сети, то мы не показываем их (позже нужно nullable перенести в Interactor
+        let assets = assetsRepository
+            .assets(ids: Array(assetsIDs), accountAddress: wallet.address)
+            .map { $0.compactMap { $0 } }
+                    
         return assets
-            .flatMapLatest { [weak self] (assets) -> Observable<MappingQuery> in
+            .flatMapLatest { [weak self] assets -> Observable<MappingQuery> in
 
                 guard let self = self else { return Observable.never() }
 

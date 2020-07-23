@@ -20,18 +20,23 @@ public struct DevelopmentConfigs {
         public let addressByCalculateProfit: String
         public let addressesByPayoutsAnnualPercent: [String]
         
+        /// Количество шаринга в процентах        
+        public let referralShare: Int64
+        
         public init(type: String,
                     neutrinoAssetId: String,
                     addressByPayoutsAnnualPercent: String,
                     addressStakingContract: String,
                     addressByCalculateProfit: String,
-                    addressesByPayoutsAnnualPercent: [String]) {
+                    addressesByPayoutsAnnualPercent: [String],
+                    referralShare: Int64) {
             self.type = type
             self.neutrinoAssetId = neutrinoAssetId
             self.addressByPayoutsAnnualPercent = addressByPayoutsAnnualPercent
             self.addressStakingContract = addressStakingContract
             self.addressByCalculateProfit = addressByCalculateProfit
             self.addressesByPayoutsAnnualPercent = addressesByPayoutsAnnualPercent
+            self.referralShare = referralShare
         }
     }
     
@@ -73,8 +78,6 @@ public struct DevelopmentConfigs {
     // List assetId when lock
     public let lockedPairs: [String]
     
-    /// Количество шаринга в процентах
-    public let referralShare: Int64
 
     // First key is assetId and second key is fiat
     // For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
@@ -99,8 +102,7 @@ public struct DevelopmentConfigs {
                 gatewayMinFee: [String: [String: Rate]],
                 marketPairs: [MarketPair],
                 gatewayMinLimit: [String: Limit],
-                avaliableGatewayCryptoCurrency: [String],
-                referralShare: Int64) {
+                avaliableGatewayCryptoCurrency: [String]) {
         self.serviceAvailable = serviceAvailable
         self.matcherSwapAddress = matcherSwapAddress
         self.matcherSwapTimestamp = matcherSwapTimestamp
@@ -111,7 +113,6 @@ public struct DevelopmentConfigs {
         self.marketPairs = marketPairs
         self.gatewayMinLimit = gatewayMinLimit
         self.avaliableGatewayCryptoCurrency = avaliableGatewayCryptoCurrency
-        self.referralShare = referralShare
     }
 }
 

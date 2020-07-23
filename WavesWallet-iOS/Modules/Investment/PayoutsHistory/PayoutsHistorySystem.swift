@@ -18,7 +18,7 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
     private let enviroment: DevelopmentConfigsRepositoryProtocol
     private let massTransferRepository: MassTransferRepositoryProtocol
     private let authUseCase: AuthorizationUseCaseProtocol
-    private let assetUseCase: AssetsUseCaseProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
     
     private let disposeBag = DisposeBag()
@@ -26,12 +26,12 @@ final class PayoutsHistorySystem: System<PayoutsHistoryState, PayoutsHistoryEven
     init(massTransferRepository: MassTransferRepositoryProtocol,
          enviroment: DevelopmentConfigsRepositoryProtocol,
          authUseCase: AuthorizationUseCaseProtocol,
-         assetUseCase: AssetsUseCaseProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.enviroment = enviroment
         self.massTransferRepository = massTransferRepository
         self.authUseCase = authUseCase
-        self.assetUseCase = assetUseCase
+        self.assetsRepository = assetsRepository
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
     
@@ -236,7 +236,9 @@ extension PayoutsHistorySystem {
                 
                 let id = query.assetId ?? ""
                 let accountAddress = query.recipient
-                let asset = self.assetUseCase.assets(by: [id], accountAddress: accountAddress)
+                let asset = self.assetsRepository.assets(ids: [id],
+                                                         accountAddress: accountAddress)
+                    .map { $0.compactMap { $0 } }
                 
                 return Observable.zip(massTransferTransactions, asset, queryCache)
             }

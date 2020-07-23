@@ -9,8 +9,8 @@
 import Foundation
 
 public protocol RepositoriesFactoryProtocol {
-    var assetsRepositoryLocal: AssetsRepositoryProtocol { get }
-    var assetsRepositoryRemote: AssetsRepositoryProtocol { get }
+    
+    var assetsRepository: AssetsRepositoryProtocol { get }
 
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
 
@@ -82,7 +82,7 @@ public protocol RepositoriesFactoryProtocol {
 
     var gatewaysWavesRepository: GatewaysWavesRepository { get }
 
-    var serverEnvironmentUseCase: ServerEnvironmentRepository { get }
+    var serverEnvironmentRepository: ServerEnvironmentRepository { get }
 
     var userRepository: UserRepository { get }
     

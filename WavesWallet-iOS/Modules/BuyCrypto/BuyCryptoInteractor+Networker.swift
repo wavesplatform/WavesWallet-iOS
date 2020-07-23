@@ -36,7 +36,7 @@ extension BuyCryptoInteractor {
         private let authorizationService: AuthorizationUseCaseProtocol
         private let environmentRepository: EnvironmentRepositoryProtocol
         private let gatewaysWavesRepository: GatewaysWavesRepository
-        private let assetsUseCase: AssetsUseCaseProtocol
+        private let assetsRepository: AssetsRepositoryProtocol
         private let adCashGRPCService: AdCashGRPCService
         private let developmentConfigRepository: DevelopmentConfigsRepositoryProtocol
         private let serverEnvironmentRepository: ServerEnvironmentRepository
@@ -48,14 +48,14 @@ extension BuyCryptoInteractor {
         init(authorizationService: AuthorizationUseCaseProtocol,
              environmentRepository: EnvironmentRepositoryProtocol,
              gatewaysWavesRepository: GatewaysWavesRepository,
-             assetsUseCase: AssetsUseCaseProtocol,
+             assetsRepository: AssetsRepositoryProtocol,
              adCashGRPCService: AdCashGRPCService,
              developmentConfigRepository: DevelopmentConfigsRepositoryProtocol,
              serverEnvironmentRepository: ServerEnvironmentRepository,
              weOAuthRepository: WEOAuthRepositoryProtocol) {
             self.authorizationService = authorizationService
             self.environmentRepository = environmentRepository
-            self.assetsUseCase = assetsUseCase
+            self.assetsRepository = assetsRepository
             self.gatewaysWavesRepository = gatewaysWavesRepository
             self.adCashGRPCService = adCashGRPCService
             self.developmentConfigRepository = developmentConfigRepository

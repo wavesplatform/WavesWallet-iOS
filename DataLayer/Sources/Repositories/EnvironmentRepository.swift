@@ -57,6 +57,7 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 extension EnvironmentRepository {
     
     private func setupServicesEnviroment() -> Observable<WalletEnvironment> {
+        
         return ifNeedRemoteEnvironment()
             .flatMap { [weak self] environment -> Observable<WalletEnvironment> in
                 guard let self = self else {
