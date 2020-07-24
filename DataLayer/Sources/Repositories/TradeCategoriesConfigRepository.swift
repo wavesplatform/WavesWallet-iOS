@@ -93,15 +93,15 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                                 guard let amountAsset = assetsMap[pair.amountId] else { return nil }
                                 guard let priceAsset = assetsMap[pair.priceId] else { return nil }
 
-                                return DomainLayer.DTO.Dex.Pair(amountAsset: amountAsset.dexAsset,
-                                                                priceAsset: priceAsset.dexAsset)
+                                return DomainLayer.DTO.Dex.Pair(amountAsset: amountAsset,
+                                                                priceAsset: priceAsset)
                             }
                             .compactMap { $0 }
 
                             let matchingAassets = $0.matching_assets
                                 .map { assetsMap[$0] }
                                 .compactMap { $0 }
-                                .map { $0.dexAsset }
+                                .map { $0 }
 
                             return DomainLayer.DTO.TradeCategory(name: name,
                                                                  filters: filters,

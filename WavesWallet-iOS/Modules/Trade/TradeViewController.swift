@@ -32,7 +32,7 @@ final class TradeViewController: UIViewController {
     private var errorSnackKey: String?
 
     var system: System<TradeTypes.State, TradeTypes.Event>!
-    var selectedAsset: DomainLayer.DTO.Dex.Asset?
+    var selectedAsset: Asset?
     weak var output: TradeModuleOutput?
 
     override func viewDidLoad() {
@@ -109,7 +109,7 @@ final class TradeViewController: UIViewController {
 
     private func setupLocalization() {
         if let asset = selectedAsset {
-            navigationItem.title = Localizable.Waves.Trade.title + " " + asset.shortName
+            navigationItem.title = Localizable.Waves.Trade.title + " " + asset.displayName
         } else {
             navigationItem.title = Localizable.Waves.Trade.title
         }

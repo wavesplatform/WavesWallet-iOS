@@ -13,8 +13,8 @@ import DomainLayer
 protocol DexOrderBookModuleOutput: AnyObject {
     
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk,
-                        amountAsset: DomainLayer.DTO.Dex.Asset,
-                        priceAsset: DomainLayer.DTO.Dex.Asset,
+                        amountAsset: Asset,
+                        priceAsset: Asset,
                         ask: Money?,
                         bid: Money?,
                         last: Money?,
@@ -24,8 +24,8 @@ protocol DexOrderBookModuleOutput: AnyObject {
                         inputMaxSum: Bool,
                         scriptedAssets: [Asset])
 
-    func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset,
-                             priceAsset: DomainLayer.DTO.Dex.Asset,
+    func didCreateEmptyOrder(amountAsset: Asset,
+                             priceAsset: Asset,
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              ask: Money?,
                              bid: Money?,

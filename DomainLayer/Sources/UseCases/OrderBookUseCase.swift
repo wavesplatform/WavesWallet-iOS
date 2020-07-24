@@ -70,10 +70,10 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
             sortedAssets.insert(wavesAsset, at: 0)
         }
 
-        let feeAssets = sortedAssets.map { (asset) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset in
+        let feeAssets = sortedAssets.map { (asset) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee.FeeAsset in
 
             let rate = baseSettings.feeAssets.first(where: { $0.assetId == asset.id })?.rate ?? 0
-            return DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset(rate: rate, asset: asset.dexAsset)
+            return DomainLayer.DTO.Dex.SmartSettingsOrderFee.FeeAsset(rate: rate, asset: asset)
         }
 
         return DomainLayer.DTO.Dex.SmartSettingsOrderFee(baseFee: baseSettings.baseFee, feeAssets: feeAssets)

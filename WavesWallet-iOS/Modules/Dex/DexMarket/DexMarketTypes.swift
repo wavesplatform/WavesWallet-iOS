@@ -40,7 +40,7 @@ extension DexMarket.DTO {
     
     struct Pair {
         let smartPair: DomainLayer.DTO.Dex.SmartPair
-        let selectedAsset: DomainLayer.DTO.Dex.Asset?
+        let selectedAsset: Asset?
     }
 }
 

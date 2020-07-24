@@ -17,8 +17,8 @@ enum DexInfoPair {
 extension DexInfoPair.DTO {
     
     struct Pair: Mutating {
-        let amountAsset: DomainLayer.DTO.Dex.Asset
-        let priceAsset: DomainLayer.DTO.Dex.Asset
+        let amountAsset: Asset
+        let priceAsset: Asset
         let isGeneral: Bool
     }
 }

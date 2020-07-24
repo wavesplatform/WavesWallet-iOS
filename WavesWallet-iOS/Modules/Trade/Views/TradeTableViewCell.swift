@@ -51,14 +51,14 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
 
 extension TradeTableViewCell: ViewConfiguration {
     func update(with model: TradeTypes.DTO.Pair) {
-        let title = model.amountAsset.shortName + " / " + model.priceAsset.shortName
+        let title = model.amountAsset.displayName + " / " + model.priceAsset.displayName
         let attr = NSMutableAttributedString(string: title)
         if let asset = model.selectedAsset {
             var searchAssetString: String {
                 if model.amountAsset.id == asset.id {
-                    return asset.shortName + " /"
+                    return asset.displayName + " /"
                 }
-                return "/ " + asset.shortName
+                return "/ " + asset.displayName
             }
             let range = (title as NSString).range(of: searchAssetString)
             let font = UIFont.systemFont(ofSize: labelTitle.font.pointSize, weight: .medium)

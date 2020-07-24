@@ -43,7 +43,7 @@ enum TradeTypes {
                  
         enum CoreAction: Equatable {
             case none
-            case loadData(DomainLayer.DTO.Dex.Asset?)
+            case loadData(Asset?)
             case loadFavoritePairs
             case removeFromFavorite(String)
             case saveToToFavorite(DTO.Pair)
@@ -54,7 +54,7 @@ enum TradeTypes {
         var core: DTO.Core
         var categories: [ViewModel.Category]
         var selectedFilters: [TradeTypes.DTO.SelectedFilter]
-        var selectedAsset: DomainLayer.DTO.Dex.Asset?
+        var selectedAsset: Asset?
     }
 }
 
@@ -72,7 +72,7 @@ extension TradeTypes.DTO {
     }
     
     struct Input {
-        let selectedAsset: DomainLayer.DTO.Dex.Asset?
+        let selectedAsset: Asset?
         let output: TradeModuleOutput
     }
     
@@ -80,14 +80,14 @@ extension TradeTypes.DTO {
         let id: String
         let isLocked: Bool
         let isGeneral: Bool
-        let amountAsset: DomainLayer.DTO.Dex.Asset
-        let priceAsset: DomainLayer.DTO.Dex.Asset
+        let amountAsset: Asset
+        let priceAsset: Asset
         let firstPrice: Money
         let lastPrice: Money
         var isFavorite: Bool
         let priceUSD: Money
         let volumeWaves: Double
-        let selectedAsset: DomainLayer.DTO.Dex.Asset?
+        let selectedAsset: Asset?
     }
             
     struct Core {

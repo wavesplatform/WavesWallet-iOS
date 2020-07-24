@@ -119,8 +119,8 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 return self.interactor.getDevConfig()
                     .map { [weak self] config -> DexCreateOrder.Event in
                         
-                        let amountName = self?.pair.amountAsset.shortName ?? ""
-                        let priceName = self?.pair.priceAsset.shortName ?? ""
+                        let amountName = self?.pair.amountAsset.displayName ?? ""
+                        let priceName = self?.pair.priceAsset.displayName ?? ""
                         
                         let checkPair = "\(amountName)/\(priceName)"
                         

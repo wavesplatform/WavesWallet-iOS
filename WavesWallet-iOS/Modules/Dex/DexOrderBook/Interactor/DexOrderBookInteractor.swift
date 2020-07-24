@@ -52,8 +52,8 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               lastPrice: lastPrice,
                                               bids: [],
                                               header: header,
-                                              availablePriceAssetBalance: Money(0, pair.priceAsset.decimals),
-                                              availableAmountAssetBalance: Money(0, pair.amountAsset.decimals),
+                                              availablePriceAssetBalance: Money(0, pair.priceAsset.precision),
+                                              availableAmountAssetBalance: Money(0, pair.amountAsset.precision),
                                               availableBalances: [],
                                               scriptedAssets: [])
 
@@ -85,7 +85,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     var lastPrice: DexOrderBook.DTO.LastPrice {
-        return DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
+        return DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.precision)
     }
 
     func getDisplayData(info: DomainLayer.DTO.Dex.OrderBook,
@@ -103,12 +103,12 @@ private extension DexOrderBookInteractor {
         var totalSumAsk: Decimal = 0
 
         let maxAmount = (itemsAsks + itemsBids).map { $0.amount }.max() ?? 0
-        let maxAmountValue = Money(maxAmount, pair.amountAsset.decimals).floatValue
+        let maxAmountValue = Money(maxAmount, pair.amountAsset.precision).floatValue
 
         for item in itemsBids {
             let price = Money
-                .price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
-            let amount = Money(item.amount, pair.amountAsset.decimals)
+                .price(amount: item.price, amountDecimals: pair.amountAsset.precision, priceDecimals: pair.priceAsset.precision)
+            let amount = Money(item.amount, pair.amountAsset.precision)
 
             totalSumBid += price.decimalValue * amount.decimalValue
 
@@ -124,8 +124,8 @@ private extension DexOrderBookInteractor {
 
         for item in itemsAsks {
             let price = Money
-                .price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
-            let amount = Money(item.amount, pair.amountAsset.decimals)
+                .price(amount: item.price, amountDecimals: pair.amountAsset.precision, priceDecimals: pair.priceAsset.precision)
+            let amount = Money(item.amount, pair.amountAsset.precision)
 
             totalSumAsk += price.decimalValue * amount.decimalValue
 
@@ -139,7 +139,7 @@ private extension DexOrderBookInteractor {
             asks.append(ask)
         }
 
-        var lastPrice = DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
+        var lastPrice = DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.precision)
 
         var percent: Float = 0
 
@@ -157,8 +157,8 @@ private extension DexOrderBookInteractor {
             lastPrice.percent = percent
         }
 
-        var amountAssetBalance = Money(0, pair.amountAsset.decimals)
-        var priceAssetBalance = Money(0, pair.priceAsset.decimals)
+        var amountAssetBalance = Money(0, pair.amountAsset.precision)
+        var priceAssetBalance = Money(0, pair.priceAsset.precision)
 
         if let amountAsset = balances.first(where: { $0.assetId == pair.amountAsset.id }) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)

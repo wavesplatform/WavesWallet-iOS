@@ -125,7 +125,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         }
     }
 
-    private func filterFeeAssets(feeAsset: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
+    private func filterFeeAssets(feeAsset: DomainLayer.DTO.Dex.SmartSettingsOrderFee.FeeAsset,
                                  wavesAsset: Asset,
                                  isSmartAssets: [(String, Bool)],
                                  isSmartAddress: Bool,
@@ -166,7 +166,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                               priceAssetId: String,
                               feeAssetId: String,
                               asset: Asset,
-                              settingOrderFee: DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset,
+                              settingOrderFee: DomainLayer.DTO.Dex.SmartSettingsOrderFee.FeeAsset,
                               baseFee: Int64,
                               rules: DomainLayer.DTO.TransactionFeeRules,
                               isSmartAssets: [String: Bool]) -> Money {
@@ -196,7 +196,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             extraFeeMultiplier += 1
         }
 
-        let assetDecimal = settingOrderFee.asset.decimals
+        let assetDecimal = settingOrderFee.asset.precision
         let assetFee = settingOrderFee.rate * Double(baseFee + rules.smartAccountExtraFee * extraFeeMultiplier)
 
         let factorFee = (asset.precision - assetDecimal)
@@ -288,11 +288,11 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             }
     }
 
-    func calculateMarketOrderPrice(amountAsset: DomainLayer.DTO.Dex.Asset,
-                                   priceAsset: DomainLayer.DTO.Dex.Asset,
+    func calculateMarketOrderPrice(amountAsset: Asset,
+                                   priceAsset: Asset,
                                    orderAmount: Money,
                                    type: DomainLayer.DTO.Dex.OrderType) -> Observable<DexCreateOrder.DTO.MarketOrder> {
-        let zeroPriceValue = Money(0, priceAsset.decimals)
+        let zeroPriceValue = Money(0, priceAsset.precision)
 
         if orderAmount.amount > 0 {
             let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
@@ -308,7 +308,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                    priceAsset: priceAsset.id)
                         .flatMap { orderBook -> Observable<DexCreateOrder.DTO.MarketOrder> in
 
-                            var filledAmount: Money = Money(0, amountAsset.decimals)
+                            var filledAmount: Money = Money(0, amountAsset.precision)
                             var computedTotal: Money = zeroPriceValue
                             var askOrBidPrice: Money = zeroPriceValue
 
@@ -319,12 +319,12 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                 }
 
                                 askOrBidPrice = Money
-                                    .price(amount: askOrBid.price, amountDecimals: amountAsset.decimals,
-                                           priceDecimals: priceAsset.decimals)
+                                    .price(amount: askOrBid.price, amountDecimals: amountAsset.precision,
+                                           priceDecimals: priceAsset.precision)
 
-                                let askOrBidAmount = Money(askOrBid.amount, amountAsset.decimals)
+                                let askOrBidAmount = Money(askOrBid.amount, amountAsset.precision)
                                 let unfilledAmount = Money(value: orderAmount.decimalValue - filledAmount.decimalValue,
-                                                           amountAsset.decimals)
+                                                           amountAsset.precision)
                                 let amount = unfilledAmount.decimalValue <= askOrBidAmount
                                     .decimalValue ? unfilledAmount : askOrBidAmount
                                 let total = askOrBidPrice.decimalValue * amount.decimalValue
@@ -336,7 +336,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 
                             let priceAvg = filledAmount
                                 .decimalValue > 0 ? Money(value: computedTotal.decimalValue / filledAmount.decimalValue,
-                                                          priceAsset.decimals) : zeroPriceValue
+                                                          priceAsset.precision) : zeroPriceValue
                             return Observable.just(.init(price: askOrBidPrice, priceAvg: priceAvg, total: computedTotal))
                         }
                 }
@@ -366,7 +366,7 @@ private extension DexCreateOrderInteractor {
                     .flatMap { [weak self] matcherPublicKey -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                         guard let self = self else { return Observable.empty() }
 
-                        let precisionDifference = (order.priceAsset.decimals - order.amountAsset.decimals) + Constants
+                        let precisionDifference = (order.priceAsset.precision - order.amountAsset.precision) + Constants
                             .numberForConveringDecimals
                         let orderPrice = updatedPrice ?? order.price
                         let price = (orderPrice.decimalValue * pow(10, precisionDifference)).int64Value

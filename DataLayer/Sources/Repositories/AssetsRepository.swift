@@ -65,8 +65,7 @@ final class AssetsRepository: AssetsRepositoryProtocol {
 
                         let map = walletEnvironment.hashMapAssets()
                         let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
-
-                        print("ids \(ids)")
+                        
                         let spamIds = spamAssets.reduce(into: [String: Bool]()) { $0[$1] = true }
                         
                         return assets.map { asset -> Asset? in

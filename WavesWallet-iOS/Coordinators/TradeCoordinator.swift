@@ -89,7 +89,7 @@ class TradeCoordinator: Coordinator {
     }
 
     func start() {
-        let tradeVc = TradeModuleBuilder(output: self).build(input: selectedAsset?.dexAsset)
+        let tradeVc = TradeModuleBuilder(output: self).build(input: selectedAsset)
         navigationRouter.pushViewController(tradeVc)
 
         // if selectedAsset != nil, we show Trade from AssetDetail screen and we not need setup toast
@@ -114,8 +114,8 @@ extension TradeCoordinator: TradeModuleOutput {
     
     func showPairLocked(pair: DexTraderContainer.DTO.Pair) {
         
-        let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.shortName,
-                                                                          pair.priceAsset.shortName)
+        let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.displayName,
+                                                                          pair.priceAsset.displayName)
         let subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
         let buttonTitle = Localizable.Waves.Trade.Message.Pairlocked.Button.ok
         let image = Images.bigwarning48.image
@@ -137,7 +137,7 @@ extension TradeCoordinator: TradeModuleOutput {
         navigationRouter.pushViewController(vc)
     }
 
-    func searchTapped(selectedAsset: DomainLayer.DTO.Dex.Asset?, delegate: TradeRefreshOutput) {
+    func searchTapped(selectedAsset: Asset?, delegate: TradeRefreshOutput) {
         let vc = DexMarketModuleBuilder(output: delegate).build(input: selectedAsset)
         navigationRouter.pushViewController(vc)
     }
@@ -168,8 +168,8 @@ extension TradeCoordinator: DexTraderContainerModuleOutput {
 
 extension TradeCoordinator: DexLastTradesModuleOutput {
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade,
-                        amountAsset: DomainLayer.DTO.Dex.Asset,
-                        priceAsset: DomainLayer.DTO.Dex.Asset,
+                        amountAsset: Asset,
+                        priceAsset: Asset,
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
                         availableBalances: [DomainLayer.DTO.SmartAssetBalance],
@@ -189,8 +189,8 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                                   sum: nil)
     }
 
-    func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset,
-                             priceAsset: DomainLayer.DTO.Dex.Asset,
+    func didCreateEmptyOrder(amountAsset: Asset,
+                             priceAsset: Asset,
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
@@ -216,8 +216,8 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
 
 extension TradeCoordinator: DexOrderBookModuleOutput {
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk,
-                        amountAsset: DomainLayer.DTO.Dex.Asset,
-                        priceAsset: DomainLayer.DTO.Dex.Asset,
+                        amountAsset: Asset,
+                        priceAsset: Asset,
                         ask: Money?,
                         bid: Money?,
                         last: Money?,
@@ -242,8 +242,8 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                                   sum: sum)
     }
 
-    func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset,
-                             priceAsset: DomainLayer.DTO.Dex.Asset,
+    func didCreateEmptyOrder(amountAsset: Asset,
+                             priceAsset: Asset,
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              ask: Money?,
                              bid: Money?,
@@ -271,8 +271,8 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
 // MARK: - CreateOrderController
 
 private extension TradeCoordinator {
-    func showCreateOrderController(amountAsset: DomainLayer.DTO.Dex.Asset,
-                                   priceAsset: DomainLayer.DTO.Dex.Asset,
+    func showCreateOrderController(amountAsset: Asset,
+                                   priceAsset: Asset,
                                    type: DomainLayer.DTO.Dex.OrderType,
                                    price: Money?, ask: Money?, bid: Money?, last: Money?,
                                    availableAmountAssetBalance: Money,

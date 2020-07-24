@@ -25,8 +25,8 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
     }
     
     func lastTrades(serverEnvironment: ServerEnvironment,
-                    amountAsset: DomainLayer.DTO.Dex.Asset,
-                    priceAsset: DomainLayer.DTO.Dex.Asset,
+                    amountAsset: Asset,
+                    priceAsset: Asset,
                     limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
         
         return matcherRepository
@@ -54,11 +54,11 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                         
                         var trades: [DomainLayer.DTO.Dex.LastTrade] = []
                         for tx in transactions {
-                            let sum = Money(value: Decimal(tx.price * tx.amount), priceAsset.decimals)
+                            let sum = Money(value: Decimal(tx.price * tx.amount), priceAsset.precision)
                             let orderType: DomainLayer.DTO.Dex.OrderType = tx.orderType == .sell ? .sell : .buy
                             
-                            let price = Money(value: Decimal(tx.price), priceAsset.decimals)
-                            let amount = Money(value: Decimal(tx.amount), amountAsset.decimals)
+                            let price = Money(value: Decimal(tx.price), priceAsset.precision)
+                            let amount = Money(value: Decimal(tx.amount), amountAsset.precision)
                             let model = DomainLayer.DTO.Dex.LastTrade(time: tx.timestamp,
                                                                       price: price,
                                                                       amount: amount,

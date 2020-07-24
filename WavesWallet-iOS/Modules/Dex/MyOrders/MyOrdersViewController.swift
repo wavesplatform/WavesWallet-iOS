@@ -247,7 +247,7 @@ extension MyOrdersViewController: MGSwipeTableCellDelegate {
             let row = section.items(tableIndex: scrolledTablesComponent.visibleTableView.tag)[index]
 
             if let order = row.order {
-                let assetPair = order.amountAsset.shortName + "/" + order.priceAsset.shortName
+                let assetPair = order.amountAsset.displayName + "/" + order.priceAsset.displayName
 
                 let vc = UIAlertController(title: Localizable.Waves.Myorders.Alert.Cancelorder.title,
                                            message: Localizable.Waves.Myorders.Alert.Cancelorder.subTitle(assetPair),
