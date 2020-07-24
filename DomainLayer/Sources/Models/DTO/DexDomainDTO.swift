@@ -16,22 +16,7 @@ public extension DomainLayer.DTO {
 // MARK: Asset
 
 public extension DomainLayer.DTO.Dex {
-//    struct Asset: Equatable {
-//        public let id: String
-//        public let name: String
-//        public let shortName: String
-//        public let decimals: Int
-//        public let iconLogo: AssetLogo.Icon
-//
-//        public init(id: String, name: String, shortName: String, decimals: Int, iconLogo: AssetLogo.Icon) {
-//            self.id = id
-//            self.name = name
-//            self.shortName = shortName
-//            self.decimals = decimals
-//            self.iconLogo = iconLogo
-//        }
-//    }
-//
+
     enum OrderType: String {
         case sell
         case buy
