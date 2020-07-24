@@ -66,7 +66,7 @@ extension AssetScriptTransaction {
                   height: transaction.height,
                   signature: transaction.signature,
                   proofs: transaction.proofs.toArray(),
-                  chainId: transaction.chainId.value,
+                  chainId: UInt8(transaction.chainId.value ?? 0),
                   version: transaction.version,
                   script: transaction.script,
                   assetId: transaction.assetId,

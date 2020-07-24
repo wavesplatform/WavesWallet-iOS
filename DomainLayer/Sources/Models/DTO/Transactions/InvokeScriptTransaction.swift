@@ -61,7 +61,7 @@ public struct InvokeScriptTransaction {
 
     public var modified: Date
     public var status: TransactionStatus
-    public let chainId: String?
+    public let chainId: UInt8?
     public let call: InvokeScriptTransaction.Call?
 
     public init(
@@ -79,7 +79,7 @@ public struct InvokeScriptTransaction {
         height: Int64,
         modified: Date,
         status: TransactionStatus,
-        chainId: String?,
+        chainId: UInt8?,
         call: InvokeScriptTransaction.Call?) {
         self.chainId = chainId
         self.type = type

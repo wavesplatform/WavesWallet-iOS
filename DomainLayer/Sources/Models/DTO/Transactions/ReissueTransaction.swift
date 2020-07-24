@@ -20,7 +20,7 @@ public struct ReissueTransaction {
 
     public let signature: String?
     public let proofs: [String]?
-    public let chainId: Int?
+    public let chainId: UInt8?
     public let assetId: String
     public let quantity: Int64
     public let reissuable: Bool
@@ -38,7 +38,7 @@ public struct ReissueTransaction {
         height: Int64,
         signature: String?,
         proofs: [String]?,
-        chainId: Int?,
+        chainId: UInt8?,
         assetId: String,
         quantity: Int64,
         reissuable: Bool,

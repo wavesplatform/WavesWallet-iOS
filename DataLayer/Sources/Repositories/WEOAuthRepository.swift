@@ -44,7 +44,7 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
                 let url = serverEnvironment.servers.wavesExchangePublicApiUrl
             
                 let token: WEOAuthTokenQuery = self.createOAuthToken(signedWallet: signedWallet,
-                                                                     chainId: serverEnvironment.kind.chainId)
+                                                                     chainId: serverEnvironment.kind.rawValue)
                 return self
                     .weOAuth
                     .rx
@@ -64,6 +64,8 @@ final class WEOAuthRepository: WEOAuthRepositoryProtocol {
     private func createOAuthToken(signedWallet: SignedWallet, chainId: String) -> WEOAuthTokenQuery {
         let clientId = "waves.exchange"
         let time = Int64(round(Date().timeIntervalSince1970 + (60 * 60 * 24 * 7))) // Token for a week
+        
+        
         let timeString = "\(chainId):\(clientId):\(time)"
 
         // Read Protocol for oauth

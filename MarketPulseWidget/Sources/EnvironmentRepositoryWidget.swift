@@ -119,7 +119,7 @@ extension ResourceAPI.Service.Environment: CachePolicyTarget {
 }
 
 private struct EnvironmentKey: Hashable {
-    let chainId: String
+    let chainId: UInt8
 }
 
 public final class WidgetEnvironmentRepository: EnvironmentRepositoryProtocol {
@@ -187,7 +187,7 @@ private extension WidgetEnvironmentRepository {
                 return Disposables.create()
             }
             
-            let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
+            let key = EnvironmentKey(chainId: self.environmentKind.chainId)
             
             if let value = try? self.localEnvironments.value() {
                 var newValue = value
@@ -206,7 +206,7 @@ private extension WidgetEnvironmentRepository {
     
     private func ifNeedRemoteEnvironment() -> Observable<WalletEnvironment> {
         
-        let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
+        let key = EnvironmentKey(chainId: self.environmentKind.chainId)
         
         if let enviroment = self.localEnvironment(by: key) {
             return Observable.just(enviroment)

@@ -23,7 +23,7 @@ extension IssueTransactionRealm {
         version = transaction.version
         height = transaction.height
         signature = transaction.signature
-        chainId.value = transaction.chainId
+        chainId.value = Int8(transaction.chainId ?? 0)
         if let proofs = transaction.proofs {
             self.proofs.append(objectsIn: proofs)
         }
@@ -74,7 +74,7 @@ extension IssueTransaction {
                   timestamp: transaction.timestamp,
                   version: transaction.version,
                   height: transaction.height,
-                  chainId: transaction.chainId.value,
+                  chainId: UInt8(transaction.chainId.value ?? 0),
                   signature: transaction.signature,
                   proofs: transaction.proofs.toArray(),
                   assetId: transaction.assetId,

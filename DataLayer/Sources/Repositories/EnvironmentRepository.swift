@@ -17,7 +17,7 @@ import WavesSDKExtensions
 
 
 private struct EnvironmentKey: Hashable {
-    let chainId: String
+    let chainId: UInt8
 }
 
 
@@ -85,7 +85,7 @@ private extension EnvironmentRepository {
                 return Disposables.create()
             }
             
-            let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
+            let key = EnvironmentKey(chainId: self.environmentKind.chainId)
             
             if let value = try? self.localEnvironments.value() {
                 var newValue = value
@@ -104,7 +104,7 @@ private extension EnvironmentRepository {
     
     private func ifNeedRemoteEnvironment() -> Observable<WalletEnvironment> {
         
-        let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
+        let key = EnvironmentKey(chainId: self.environmentKind.chainId)
         
         if let enviroment = self.localEnvironment(by: key) {
             return Observable.just(enviroment)

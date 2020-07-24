@@ -275,7 +275,8 @@ fileprivate extension InvokeScriptTransactionSender {
 }
 
 fileprivate extension DataTransactionSender.Value {
-    func valueDTO() -> ConfirmRequest.DTO.Data.Value.Kind {
+    func valueDTO() -> ConfirmRequest.DTO.Data.Value.Kind? {
+        guard let value = self.value else { return nil }
         switch value {
         case let .binary(value):
             return .binary(value)
@@ -313,7 +314,7 @@ fileprivate extension TransactionSenderSpecifications {
             let data = ConfirmRequest.DTO.Data(fee: fee,
                                                feeAsset: feeAsset,
                                                data: tx.dataDTO(),
-                                               chainId: tx.chainId ?? "")
+                                               chainId: tx.chainId ?? 0)
 
             return .data(data)
 
@@ -329,7 +330,7 @@ fileprivate extension TransactionSenderSpecifications {
             let invokeScript = ConfirmRequest.DTO.InvokeScript(asset: asset,
                                                                fee: fee,
                                                                feeAsset: feeAsset,
-                                                               chainId: tx.chainId ?? "",
+                                                               chainId: tx.chainId ?? 0,
                                                                dApp: tx.dApp,
                                                                call: call,
                                                                payment: tx.paymentDTO(assetsMap: assetsMap,
@@ -350,7 +351,7 @@ fileprivate extension TransactionSenderSpecifications {
                                                               feeAsset: feeAsset,
                                                               fee: fee,
                                                               attachment: tx.attachment,
-                                                              chainId: tx.chainId ?? "")
+                                                              chainId: tx.chainId ?? 0)
             return .transfer(transfer)
 
         default:

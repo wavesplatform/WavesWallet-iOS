@@ -28,7 +28,7 @@ extension LeaseCancelTransactionRealm {
         }
 
         signature = transaction.signature
-        chainId.value = transaction.chainId
+        chainId.value = Int8(transaction.chainId ?? 0)
         leaseId = transaction.leaseId
         if let lease = transaction.lease {
             if let leaseFromBD = realm?.object(ofType: LeaseTransactionRealm.self, forPrimaryKey: leaseId) {
@@ -88,7 +88,7 @@ extension LeaseCancelTransaction {
                   height: transaction.height,
                   signature: transaction.signature,
                   proofs: transaction.proofs.toArray(),
-                  chainId: transaction.chainId.value,
+                  chainId: UInt8(transaction.chainId.value ?? 0),
                   leaseId: transaction.leaseId,
                   lease: leaseTx,
                   modified: transaction.modified,
