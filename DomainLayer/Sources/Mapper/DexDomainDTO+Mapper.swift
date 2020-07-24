@@ -9,33 +9,6 @@
 import Foundation
 import Extensions
 
-//private extension DomainLayer.DTO.Dex.Asset {
-//
-//    var ticker: String? {
-//        if name == shortName {
-//            return nil
-//        } else {
-//            return shortName
-//        }
-//    }
-//
-//    func balance(_ amount: Int64) -> DomainLayer.DTO.Balance {
-//        return balance(amount, precision: decimals)
-//    }
-//
-//    func balance(_ amount: Int64, precision: Int) -> DomainLayer.DTO.Balance {
-//        return DomainLayer.DTO.Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
-//    }
-//
-//    func money(_ amount: Int64, precision: Int) -> Money {
-//        return .init(amount, precision)
-//    }
-//
-//    func money(_ amount: Int64) -> Money {
-//        return money(amount, precision: decimals)
-//    }
-//}
-
 private extension DomainLayer.DTO.Dex.MyOrder {
     
     var precisionDifference: Int {
