@@ -17,14 +17,14 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
 
     private let interactor: DexOrderBookInteractorProtocol!
 
-    private let priceAsset: DomainLayer.DTO.Dex.Asset
-    private let amountAsset: DomainLayer.DTO.Dex.Asset
+    private let priceAsset: Asset
+    private let amountAsset: Asset
 
     private let disposeBag = DisposeBag()
 
     init(interactor: DexOrderBookInteractorProtocol,
-         priceAsset: DomainLayer.DTO.Dex.Asset,
-         amountAsset: DomainLayer.DTO.Dex.Asset) {
+         priceAsset: Asset,
+         amountAsset: Asset) {
         self.interactor = interactor
         self.priceAsset = priceAsset
         self.amountAsset = amountAsset

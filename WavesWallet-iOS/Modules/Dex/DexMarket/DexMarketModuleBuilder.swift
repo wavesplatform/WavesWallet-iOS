@@ -14,7 +14,7 @@ struct DexMarketModuleBuilder: ModuleBuilderOutput {
     
     weak var output: TradeRefreshOutput?
    
-    func build(input: DomainLayer.DTO.Dex.Asset?) -> UIViewController {
+    func build(input: Asset?) -> UIViewController {
         
         let vc = StoryboardScene.Dex.dexMarketViewController.instantiate()
                 

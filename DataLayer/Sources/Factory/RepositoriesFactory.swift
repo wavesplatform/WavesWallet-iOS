@@ -69,7 +69,9 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         DexOrderBookRepositoryRemote(spamAssetsRepository: spamAssets,
                                      matcherRepository: matcherRepositoryRemote,
                                      assetsRepository: assetsRepository,
-                                     waveSDKServices: servicesFactory.wavesSDKServices)
+                                     waveSDKServices: servicesFactory.wavesSDKServices,
+                                     assetsBalanceSettingsRepository: assetsBalanceSettingsRepositoryLocal,
+                                     serverEnvironmentRepository: serverEnvironmentRepository) 
 
     public private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol =
         AliasesRepository(wavesSDKServices: servicesFactory.wavesSDKServices)

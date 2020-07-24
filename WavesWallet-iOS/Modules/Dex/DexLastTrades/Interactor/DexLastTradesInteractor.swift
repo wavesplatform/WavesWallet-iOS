@@ -64,8 +64,8 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
                 let display = DexLastTrades.DTO.DisplayData(trades: [],
                                                             lastSell: nil,
                                                             lastBuy: nil,
-                                                            availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
-                                                            availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
+                                                            availableAmountAssetBalance: Money(0, self.pair.amountAsset.precision),
+                                                            availablePriceAssetBalance: Money(0, self.pair.priceAsset.precision),
                                                             availableBalances: [],
                                                             scriptedAssets: [])
                 return Observable.just(display)
@@ -78,8 +78,8 @@ extension DexLastTradesInteractor {
                              lastSellBuy: LastSellBuy,
                              balances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [Asset]) -> Observable<DexLastTrades.DTO.DisplayData> {
-        var amountAssetBalance = Money(0, pair.amountAsset.decimals)
-        var priceAssetBalance = Money(0, pair.priceAsset.decimals)
+        var amountAssetBalance = Money(0, pair.amountAsset.precision)
+        var priceAssetBalance = Money(0, pair.priceAsset.precision)
 
         if let amountAsset = balances.first(where: { $0.assetId == pair.amountAsset.id }) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)
@@ -138,16 +138,16 @@ extension DexLastTradesInteractor {
 
                 if let bid = orderbook.bids.first {
                     let price = Money.price(amount: bid.price,
-                                            amountDecimals: self.pair.amountAsset.decimals,
-                                            priceDecimals: self.pair.priceAsset.decimals)
+                                            amountDecimals: self.pair.amountAsset.precision,
+                                            priceDecimals: self.pair.priceAsset.precision)
 
                     sell = DexLastTrades.DTO.SellBuyTrade(price: price, type: .sell)
                 }
 
                 if let ask = orderbook.asks.first {
                     let price = Money.price(amount: ask.price,
-                                            amountDecimals: self.pair.amountAsset.decimals,
-                                            priceDecimals: self.pair.priceAsset.decimals)
+                                            amountDecimals: self.pair.amountAsset.precision,
+                                            priceDecimals: self.pair.priceAsset.precision)
 
                     buy = DexLastTrades.DTO.SellBuyTrade(price: price, type: .buy)
                 }

@@ -32,7 +32,7 @@ final class DexTraderContainerViewController: UIViewController {
         super.viewDidLoad()
 
         segmentedControl.delegate = self
-        title = pair.amountAsset.shortName + " / " + pair.priceAsset.shortName
+        title = pair.amountAsset.displayName + " / " + pair.priceAsset.displayName
         createBackWhiteButton()
         addInfoButton()
         buildControllers()

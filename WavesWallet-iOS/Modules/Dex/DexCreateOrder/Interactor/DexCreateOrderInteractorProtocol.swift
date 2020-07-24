@@ -22,8 +22,8 @@ protocol DexCreateOrderInteractorProtocol {
     
     func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool>
     
-    func calculateMarketOrderPrice(amountAsset: DomainLayer.DTO.Dex.Asset,
-                                   priceAsset: DomainLayer.DTO.Dex.Asset,
+    func calculateMarketOrderPrice(amountAsset: Asset,
+                                   priceAsset: Asset,
                                    orderAmount: Money,
                                    type: DomainLayer.DTO.Dex.OrderType) -> Observable<DexCreateOrder.DTO.MarketOrder>
 }

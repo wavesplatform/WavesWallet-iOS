@@ -77,7 +77,7 @@ private extension DexInfoViewController {
         
         labelPopular.isHidden = !pair.isGeneral
         
-        labelTitle.text = pair.amountAsset.shortName + " / " + pair.priceAsset.shortName
+        labelTitle.text = pair.amountAsset.displayName + " / " + pair.priceAsset.displayName
     }
     
     func setupLocalization() {

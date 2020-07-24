@@ -17,7 +17,7 @@ protocol TradeRefreshOutput: AnyObject {
 protocol TradeModuleOutput: AnyObject {
 
     func myOrdersTapped()
-    func searchTapped(selectedAsset: DomainLayer.DTO.Dex.Asset?, delegate: TradeRefreshOutput)
+    func searchTapped(selectedAsset: Asset?, delegate: TradeRefreshOutput)
     func tradeDidDissapear()
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair)
     func showPairLocked(pair: DexTraderContainer.DTO.Pair)
@@ -27,7 +27,7 @@ struct TradeModuleBuilder: ModuleBuilderOutput {
         
     var output: TradeModuleOutput
     
-    func build(input: DomainLayer.DTO.Dex.Asset?) -> UIViewController {
+    func build(input: Asset?) -> UIViewController {
         let vc = StoryboardScene.Trade.tradeViewController.instantiate()
         vc.system = TradeSystem(selectedAsset: input)
         vc.selectedAsset = input

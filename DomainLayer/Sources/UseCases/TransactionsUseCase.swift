@@ -786,7 +786,7 @@ private extension TransactionsUseCase {
             }
 
             let assetRate = settingsOrderFee.feeAssets.first(where: { $0.asset.id == feeAssetId })?.rate ?? 0
-            let assetDecimal = settingsOrderFee.feeAssets.first(where: { $0.asset.id == feeAssetId })?.asset.decimals ?? 0
+            let assetDecimal = settingsOrderFee.feeAssets.first(where: { $0.asset.id == feeAssetId })?.asset.precision ?? 0
             let assetFee = assetRate * Double(settingsOrderFee.baseFee + Constants.rateSmart * n)
 
             let factorFee = (wavesAsset.precision - assetDecimal)

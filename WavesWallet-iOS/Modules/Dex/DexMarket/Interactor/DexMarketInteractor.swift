@@ -206,8 +206,8 @@ private extension DexMarketInteractor {
                             let localPair = localPairsMap[pairId]
                             let isGeneral = amountAsset.isGeneral && priceAsset.isGeneral
 
-                            smartPairs.append(.init(smartPair: .init(amountAsset: amountAsset.dexAsset,
-                                                                     priceAsset: priceAsset.dexAsset,
+                            smartPairs.append(.init(smartPair: .init(amountAsset: amountAsset,
+                                                                     priceAsset: priceAsset,
                                                                      isChecked: localPair != nil,
                                                                      isGeneral: isGeneral,
                                                                      sortLevel: localPair?.sortLevel ?? 0),
@@ -259,7 +259,7 @@ private extension DexMarketInteractor {
                 for pair in searchPairs {
                     if let amountAsset = assetsMap[pair.amountAsset],
                         let priceAsset = assetsMap[pair.priceAsset] {
-                        dexPairs.append(.init(amountAsset: amountAsset.dexAsset, priceAsset: priceAsset.dexAsset))
+                        dexPairs.append(.init(amountAsset: amountAsset, priceAsset: priceAsset))
                     }
                 }
 

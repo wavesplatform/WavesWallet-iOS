@@ -42,7 +42,7 @@ final class DexMarketSearchCell: UITableViewCell, NibReusable {
 
 extension DexMarketSearchCell: ViewConfiguration {
     func update(with model: DexMarket.DTO.Pair) {
-        let title = model.smartPair.amountAsset.shortName + " / " + model.smartPair.priceAsset.shortName
+        let title = model.smartPair.amountAsset.displayName + " / " + model.smartPair.priceAsset.displayName
 
         let attr = NSMutableAttributedString(string: title)
 
@@ -52,9 +52,9 @@ extension DexMarketSearchCell: ViewConfiguration {
 
             var searchAssetString: String {
                 if model.smartPair.amountAsset.id == asset.id {
-                    return asset.shortName + " /"
+                    return asset.displayName + " /"
                 }
-                return "/ " + asset.shortName
+                return "/ " + asset.displayName
             }
             let range = (title as NSString).range(of: searchAssetString)
             attr.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.basic500,

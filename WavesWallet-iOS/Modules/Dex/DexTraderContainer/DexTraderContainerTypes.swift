@@ -16,11 +16,11 @@ public enum DexTraderContainer {
 public extension DexTraderContainer.DTO {
     
     struct Pair {
-        public let amountAsset: DomainLayer.DTO.Dex.Asset
-        public let priceAsset: DomainLayer.DTO.Dex.Asset
+        public let amountAsset: Asset
+        public let priceAsset: Asset
         public let isGeneral: Bool
 
-        public init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, isGeneral: Bool) {
+        public init(amountAsset: Asset, priceAsset: Asset, isGeneral: Bool) {
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
             self.isGeneral = isGeneral

@@ -6,23 +6,21 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDK
 import DomainLayer
 import Extensions
+import Foundation
+import WavesSDK
 
 extension DomainLayer.DTO.Dex.MyOrder {
-    
-    init(_ model: MatcherService.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset) {
-        
-        let price = Money.price(amount: model.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
-        
-        let amount = Money(model.amount, amountAsset.decimals)
-        
-        let filled = Money(model.filled, amountAsset.decimals)
-        
+    init(_ model: MatcherService.DTO.Order, priceAsset: Asset, amountAsset: Asset) {
+        let price = Money.price(amount: model.price, amountDecimals: amountAsset.precision, priceDecimals: priceAsset.precision)
+
+        let amount = Money(model.amount, amountAsset.precision)
+
+        let filled = Money(model.filled, amountAsset.precision)
+
         var status: DomainLayer.DTO.Dex.MyOrder.Status!
-        
+
         if model.status == .Accepted {
             status = .accepted
         } else if model.status == .PartiallyFilled {
@@ -32,15 +30,15 @@ extension DomainLayer.DTO.Dex.MyOrder {
         } else {
             status = .cancelled
         }
-        
+
         var type: DomainLayer.DTO.Dex.OrderType!
-        
+
         if model.type == .sell {
             type = DomainLayer.DTO.Dex.OrderType.sell
         } else {
             type = DomainLayer.DTO.Dex.OrderType.buy
         }
-  
+
         self.init(id: model.id,
                   time: model.timestamp,
                   status: status,
@@ -54,4 +52,3 @@ extension DomainLayer.DTO.Dex.MyOrder {
                   feeAsset: model.feeAsset)
     }
 }
-    

@@ -9,37 +9,10 @@
 import Foundation
 import Extensions
 
-private extension DomainLayer.DTO.Dex.Asset {
-
-    var ticker: String? {
-        if name == shortName {
-            return nil
-        } else {
-            return shortName
-        }
-    }
-
-    func balance(_ amount: Int64) -> DomainLayer.DTO.Balance {
-        return balance(amount, precision: decimals)
-    }
-
-    func balance(_ amount: Int64, precision: Int) -> DomainLayer.DTO.Balance {
-        return DomainLayer.DTO.Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
-    }
-
-    func money(_ amount: Int64, precision: Int) -> Money {
-        return .init(amount, precision)
-    }
-
-    func money(_ amount: Int64) -> Money {
-        return money(amount, precision: decimals)
-    }
-}
-
 private extension DomainLayer.DTO.Dex.MyOrder {
     
     var precisionDifference: Int {
-        return (priceAsset.decimals - amountAsset.decimals) + 8
+        return (priceAsset.precision - amountAsset.precision) + 8
     }
 
     func priceBalance(_ amount: Int64) -> DomainLayer.DTO.Balance {
@@ -52,12 +25,12 @@ private extension DomainLayer.DTO.Dex.MyOrder {
 
     func totalBalance(priceAmount: Int64, assetAmount: Int64) -> DomainLayer.DTO.Balance {
 
-        let priceA = Decimal(priceAmount) / pow(10, priceAsset.decimals)
-        let assetA = Decimal(assetAmount) / pow(10, amountAsset.decimals)
+        let priceA = Decimal(priceAmount) / pow(10, priceAsset.precision)
+        let assetA = Decimal(assetAmount) / pow(10, amountAsset.precision)
 
-        let amountA = (priceA * assetA) * pow(10, priceAsset.decimals)
+        let amountA = (priceA * assetA) * pow(10, priceAsset.precision)
 
-        return priceAsset.balance(amountA.int64Value, precision: priceAsset.decimals)
+        return priceAsset.balance(amountA.int64Value, precision: priceAsset.precision)
     }
 }
 
@@ -77,17 +50,6 @@ public extension DomainLayer.DTO.Dex.MyOrder {
 
     var totalBalance: DomainLayer.DTO.Balance {
         return self.totalBalance(priceAmount: self.price.amount, assetAmount: self.amount.amount)
-    }
-}
-
-public extension Asset {
-    
-    var dexAsset: DomainLayer.DTO.Dex.Asset {
-        return .init(id: id,
-                     name: name,
-                     shortName: ticker ?? displayName,
-                     decimals: precision,
-                     iconLogo: iconLogo)
     }
 }
 
