@@ -318,8 +318,8 @@ extension TradeViewController: UITableViewDelegate {
 
             if pair.isLocked {
                 output?.showPairLocked(pair: dexTradePair)
-            } else {
-                output?.showTradePairInfo(pair: dexTradePair)
+            } else if pair.priceAsset.hasScript || pair.amountAsset.hasScript {
+                output?.showPairLocked(pair: dexTradePair)
             }
         }
     }

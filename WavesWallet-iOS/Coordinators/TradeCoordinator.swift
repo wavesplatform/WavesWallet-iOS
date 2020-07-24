@@ -116,9 +116,24 @@ extension TradeCoordinator: TradeModuleOutput {
         
         let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.displayName,
                                                                           pair.priceAsset.displayName)
-        let subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
+        let subTitleValue = { () -> String in
+            
+            if pair.amountAsset.hasScript || pair.priceAsset.hasScript {
+                return Localizable.Waves.Trade.Message.Pairlocked.Smartassets.subtitle
+            } else {
+                return Localizable.Waves.Trade.Message.Pairlocked.subtitle
+            }
+        }()
+            
         let buttonTitle = Localizable.Waves.Trade.Message.Pairlocked.Button.ok
-        let image = Images.bigwarning48.image
+        let image = { () -> UIImage in
+            
+            if pair.amountAsset.hasScript || pair.priceAsset.hasScript {
+                return Images.iconInfo48.image
+            } else {
+                return Images.bigwarning48.image
+            }
+        }()
                 
         let news = AppNewsView.show(model: AppNewsView.Model(title: titleValue,
                                                              subtitle: subTitleValue,

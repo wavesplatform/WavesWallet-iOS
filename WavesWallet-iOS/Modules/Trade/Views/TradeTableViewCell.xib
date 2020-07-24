@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -75,17 +75,35 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ewa-Sy-gT5">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temporarily Unavailable" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtK-9z-GTT">
+                                <rect key="frame" x="153.5" y="11.5" width="94.5" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="gtK-9z-GTT" firstAttribute="centerY" secondItem="v09-Bg-aJX" secondAttribute="centerY" id="1CR-BL-ff1"/>
+                            <constraint firstAttribute="bottom" secondItem="ewa-Sy-gT5" secondAttribute="bottom" id="64j-62-mAw"/>
                             <constraint firstItem="yIW-6D-ack" firstAttribute="centerY" secondItem="dtb-Wd-wBf" secondAttribute="centerY" id="9go-r9-YrS"/>
                             <constraint firstItem="1wc-n7-8s5" firstAttribute="centerY" secondItem="NZi-GO-7Bg" secondAttribute="centerY" id="DPg-fH-KSS"/>
+                            <constraint firstItem="gtK-9z-GTT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dtb-Wd-wBf" secondAttribute="trailing" constant="10" id="F0j-e6-A1B"/>
+                            <constraint firstItem="gtK-9z-GTT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NZi-GO-7Bg" secondAttribute="trailing" constant="10" id="GVR-OQ-20C"/>
+                            <constraint firstAttribute="trailing" secondItem="ewa-Sy-gT5" secondAttribute="trailing" id="GVZ-qs-DkP"/>
                             <constraint firstItem="cOS-TS-8Jw" firstAttribute="top" secondItem="BeX-zm-JOH" secondAttribute="top" constant="26" id="Lsq-Jx-Oli"/>
                             <constraint firstItem="3bx-v8-bdz" firstAttribute="top" secondItem="BeX-zm-JOH" secondAttribute="top" constant="15" id="QKR-v4-iiU"/>
                             <constraint firstItem="NZi-GO-7Bg" firstAttribute="leading" secondItem="BeX-zm-JOH" secondAttribute="leading" constant="54" id="RmS-Nf-kYo"/>
+                            <constraint firstItem="ewa-Sy-gT5" firstAttribute="top" secondItem="BeX-zm-JOH" secondAttribute="top" id="Slq-lv-PrK"/>
                             <constraint firstItem="yIW-6D-ack" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dtb-Wd-wBf" secondAttribute="trailing" priority="500" constant="10" id="Tah-kQ-eH8"/>
+                            <constraint firstItem="ewa-Sy-gT5" firstAttribute="leading" secondItem="BeX-zm-JOH" secondAttribute="leading" id="W1Y-xP-gNy"/>
                             <constraint firstItem="cOS-TS-8Jw" firstAttribute="leading" secondItem="BeX-zm-JOH" secondAttribute="leading" constant="24" id="k9v-tY-t4D"/>
                             <constraint firstItem="yIW-6D-ack" firstAttribute="trailing" secondItem="1wc-n7-8s5" secondAttribute="trailing" id="kaD-1h-O85"/>
+                            <constraint firstItem="gtK-9z-GTT" firstAttribute="trailing" secondItem="v09-Bg-aJX" secondAttribute="leading" id="nYF-1U-7YI"/>
                             <constraint firstItem="3bx-v8-bdz" firstAttribute="leading" secondItem="BeX-zm-JOH" secondAttribute="leading" constant="12" id="oA0-5F-Y67"/>
                             <constraint firstItem="dtb-Wd-wBf" firstAttribute="top" secondItem="NZi-GO-7Bg" secondAttribute="bottom" constant="5" id="ott-Ec-LoV"/>
                             <constraint firstItem="NZi-GO-7Bg" firstAttribute="top" secondItem="BeX-zm-JOH" secondAttribute="top" constant="13" id="rM2-Dk-BLF"/>
@@ -109,13 +127,15 @@
                 <outlet property="buttonFav" destination="v09-Bg-aJX" id="leW-9y-I35"/>
                 <outlet property="imageViewIcon1" destination="3bx-v8-bdz" id="7Lh-md-TNg"/>
                 <outlet property="imageViewIcon2" destination="cOS-TS-8Jw" id="CDP-N2-r55"/>
+                <outlet property="labelAnavailable" destination="gtK-9z-GTT" id="XrG-NL-TV9"/>
                 <outlet property="labelPrice" destination="yIW-6D-ack" id="e4k-9P-Z8o"/>
                 <outlet property="labelTitle" destination="NZi-GO-7Bg" id="GcE-sX-tMb"/>
                 <outlet property="labelVolume" destination="1wc-n7-8s5" id="he9-bh-Rq3"/>
                 <outlet property="viewContainer" destination="BeX-zm-JOH" id="kGa-0U-crc"/>
                 <outlet property="viewPercent" destination="dtb-Wd-wBf" id="OEF-H2-TGX"/>
+                <outlet property="viewShadow" destination="ewa-Sy-gT5" id="aAe-dG-ni1"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
+            <point key="canvasLocation" x="137.68115942028987" y="152.00892857142856"/>
         </tableViewCell>
     </objects>
     <resources>
