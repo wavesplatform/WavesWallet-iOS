@@ -17,7 +17,7 @@ public struct ScriptTransaction {
     public let timestamp: Date
     public let version: Int
     public let height: Int64?
-    public let chainId: Int?
+    public let chainId: UInt8?
 
     public let signature: String?
     public let proofs: [String]?
@@ -34,7 +34,7 @@ public struct ScriptTransaction {
         timestamp: Date,
         version: Int,
         height: Int64?,
-        chainId: Int?,
+        chainId: UInt8?,
         signature: String?,
         proofs: [String]?,
         script: String?,

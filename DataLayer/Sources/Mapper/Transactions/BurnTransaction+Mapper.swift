@@ -66,7 +66,7 @@ extension BurnTransaction {
                   height: transaction.height,
                   signature: transaction.signature,
                   proofs: transaction.proofs.toArray(),
-                  chainId: transaction.chainId.value,
+                  chainId: UInt8(transaction.chainId.value ?? 0),
                   assetId: transaction.assetId,
                   amount: transaction.amount,
                   modified: transaction.modified,

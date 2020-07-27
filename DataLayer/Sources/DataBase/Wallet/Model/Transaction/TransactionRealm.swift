@@ -18,7 +18,7 @@ class TransactionRealm: Object {
 
     @objc dynamic var signature: String? = nil
     let proofs: List<String> = .init()
-    var chainId: RealmOptional<Int> = RealmOptional<Int>()
+    var chainId: RealmOptional<Int8> = RealmOptional<Int8>()
 
     @objc dynamic var isPending: Bool = false
 

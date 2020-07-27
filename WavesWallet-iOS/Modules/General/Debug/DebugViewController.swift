@@ -22,7 +22,7 @@ enum Debug {
 extension Debug {
     struct Enviroment {
         let name: String
-        let chainId: String
+        let chainId: UInt8
     }
 
     enum Row {
@@ -211,7 +211,7 @@ private extension DebugViewController {
     }
 
     func changeEnviroment(_ enviroment: Debug.Enviroment) {
-        let kind = WalletEnvironment.Kind(rawValue: enviroment.chainId) ?? .mainnet
+        let kind = WalletEnvironment.Kind(chainId: enviroment.chainId) ?? .mainnet
 
         environmentRepository.environmentKind = kind
 
@@ -228,13 +228,13 @@ private extension DebugViewController {
         let isEnableEnviromentTest = ApplicationDebugSettings.isEnableEnviromentTest
 
         let mainNet: Debug.Enviroment = .init(name: "Mainnet",
-                                              chainId: "W")
+                                              chainId: "W".utf8.first ?? 0)
 
         let testNet: Debug.Enviroment = .init(name: "Testnet",
-                                              chainId: "T")
+                                              chainId: "T".utf8.first ?? 0)
 
         let wxdevnet: Debug.Enviroment = .init(name: "WXDevnet",
-                                               chainId: "S")
+                                               chainId: "S".utf8.first ?? 0)
                 
         var current: Debug.Enviroment!
 

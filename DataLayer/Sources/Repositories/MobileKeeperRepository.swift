@@ -348,7 +348,7 @@ private extension TransactionSenderSpecifications {
                                                                   timestamp: timestamp.millisecondsSince1970,
                                                                   senderPublicKey: publicKey,
                                                                   proofs: proofs,
-                                                                  chainId: model.chainId ?? "")
+                                                                  chainId: model.chainId ?? 0)
 
             return .transfer(transfer)
 
@@ -385,7 +385,7 @@ private extension TransactionSenderSpecifications {
             let payment = model.payment
                 .map { NodeService.Query.Transaction.InvokeScript.Payment(amount: $0.amount, assetId: $0.assetId) }
 
-            let invokeScript = NodeService.Query.Transaction.InvokeScript(chainId: model.chainId ?? "",
+            let invokeScript = NodeService.Query.Transaction.InvokeScript(chainId: model.chainId ?? 0,
                                                                           fee: model.fee,
                                                                           timestamp: timestamp.millisecondsSince1970,
                                                                           senderPublicKey: publicKey,
@@ -401,21 +401,24 @@ private extension TransactionSenderSpecifications {
 
             let values = model.data.map { (value) -> NodeService.Query.Transaction.Data.Value in
 
-                let kind = { () -> NodeService.Query.Transaction.Data.Value.Kind in
-                    switch value.value {
-                    case let .binary(value):
-                        return .binary(value)
+                let kind: NodeService.Query.Transaction.Data.Value.Kind?
 
-                    case let .boolean(value):
-                        return .boolean(value)
+                if let valueKind = value.value {
+                    switch valueKind {
+                    case let .binary(value):
+                        kind = .binary(value)
+
+                    case let .boolean(value): kind = .boolean(value)
 
                     case let .integer(value):
-                        return .integer(value)
+                        kind = .integer(value)
 
                     case let .string(value):
-                        return .string(value)
+                        kind = .string(value)
                     }
-                }()
+                } else {
+                    kind = nil
+                }
 
                 return NodeService.Query.Transaction.Data.Value(key: value.key, value: kind)
             }
@@ -425,7 +428,7 @@ private extension TransactionSenderSpecifications {
                                                           senderPublicKey: publicKey,
                                                           proofs: proofs,
                                                           data: values,
-                                                          chainId: model.chainId ?? "")
+                                                          chainId: model.chainId ?? 0)
 
             return .data(data)
         default:
@@ -438,25 +441,28 @@ private extension DataTransaction {
     var dataTransactionNodeService: NodeService.DTO.DataTransaction {
         let data = self.data.map { (element) -> NodeService.DTO.DataTransaction.Data in
 
-            let value = { () -> NodeService.DTO.DataTransaction.Data.Value in
+            let dataValue: NodeService.DTO.DataTransaction.Data.Value?
 
-                switch element.value {
+            if let element = element.value {
+                switch element {
                 case let .binary(value):
-                    return .binary(value)
+                    dataValue = .binary(value)
 
                 case let .bool(value):
-                    return .bool(value)
+                    dataValue = .bool(value)
 
                 case let .integer(value):
-                    return .integer(value)
+                    dataValue = .integer(value)
 
                 case let .string(value):
-                    return .string(value)
+                    dataValue = .string(value)
                 }
 
-            }()
+            } else {
+                dataValue = nil
+            }
 
-            return NodeService.DTO.DataTransaction.Data(key: element.key, type: element.type, value: value)
+            return NodeService.DTO.DataTransaction.Data(key: element.key, type: element.type, value: dataValue)
         }
 
         return .init(type: type,
@@ -570,21 +576,25 @@ private extension NodeService.Query.Transaction.Data {
     var valueSender: [DataTransactionSender.Value] {
         return data.map { (data) -> DataTransactionSender.Value in
 
-            let kind = { () -> DataTransactionSender.Value.Kind in
-                switch data.value {
+            let kind: DataTransactionSender.Value.Kind?
+
+            if let value = data.value {
+                switch value {
                 case let .binary(value):
-                    return .binary(value)
+                    kind = .binary(value)
 
                 case let .boolean(value):
-                    return .boolean(value)
+                    kind = .boolean(value)
 
                 case let .integer(value):
-                    return .integer(value)
+                    kind = .integer(value)
 
                 case let .string(value):
-                    return .string(value)
+                    kind = .string(value)
                 }
-            }()
+            } else {
+                kind = nil
+            }
 
             return DataTransactionSender.Value(key: data.key, value: kind)
         }
@@ -659,7 +669,7 @@ private extension DomainLayer.DTO.MobileKeeper.Request {
 
             let signature = TransactionSignatureV1.data(.init(fee: tx.fee,
                                                               data: tx.data.map { $0.valueSignatureV1() },
-                                                              chainId: tx.chainId ?? "",
+                                                              chainId: tx.chainId ?? 0,
                                                               senderPublicKey: senderPublicKey,
                                                               timestamp: timestamp.millisecondsSince1970))
 
@@ -669,7 +679,7 @@ private extension DomainLayer.DTO.MobileKeeper.Request {
 
             let signature = TransactionSignatureV1.invokeScript(.init(senderPublicKey: senderPublicKey,
                                                                       fee: tx.fee,
-                                                                      chainId: tx.chainId ?? "",
+                                                                      chainId: tx.chainId ?? 0,
                                                                       timestamp: timestamp.millisecondsSince1970,
                                                                       feeAssetId: tx.feeAssetId,
                                                                       dApp: tx.dApp,
@@ -686,7 +696,7 @@ private extension DomainLayer.DTO.MobileKeeper.Request {
                                                                   fee: tx.fee,
                                                                   attachment: tx.attachment,
                                                                   feeAssetID: tx.feeAssetID,
-                                                                  chainId: tx.chainId ?? "",
+                                                                  chainId: tx.chainId ?? 0,
                                                                   timestamp: timestamp.millisecondsSince1970))
             return signature
 
@@ -698,7 +708,9 @@ private extension DomainLayer.DTO.MobileKeeper.Request {
 
 private extension DataTransactionSender.Value {
     func valueSignatureV1() -> TransactionSignatureV1.Structure.Data.Value {
-        switch value {
+        guard let valueKind = value else { return .init(key: key, value: nil) }
+
+        switch valueKind {
         case let .binary(value):
             return .init(key: key, value: .binary(value))
 

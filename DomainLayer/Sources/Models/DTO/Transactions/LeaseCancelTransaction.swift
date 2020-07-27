@@ -20,7 +20,7 @@ public struct LeaseCancelTransaction {
 
     public let signature: String?
     public let proofs: [String]?
-    public let chainId: Int?
+    public let chainId: UInt8?
     public let leaseId: String
     public var lease: LeaseTransaction?
     public var modified: Date
@@ -37,7 +37,7 @@ public struct LeaseCancelTransaction {
         height: Int64,
         signature: String?,
         proofs: [String]?,
-        chainId: Int?,
+        chainId: UInt8?,
         leaseId: String,
         lease: LeaseTransaction?,
         modified: Date,

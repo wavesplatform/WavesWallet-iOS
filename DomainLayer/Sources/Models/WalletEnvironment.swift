@@ -19,12 +19,18 @@ public struct WalletEnvironment: Decodable, Hashable {
         case testnet = "T"
         case wxdevnet = "S"
 
-        public var chainId: String {
-            return rawValue
+        public var chainId: UInt8 {
+            return rawValue.utf8.first ?? 0
         }
 
         public var chainIdByte: UInt8 {
             return rawValue.utf8.first ?? 0
+        }
+        
+        public init?(chainId: UInt8) {
+            
+            guard let value = String(bytes: [chainId], encoding: .utf8) else { return nil }
+            self.init(rawValue: value)
         }
     }
 

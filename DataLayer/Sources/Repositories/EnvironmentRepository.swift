@@ -15,12 +15,6 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
-
-private struct EnvironmentKey: Hashable {
-    let chainId: String
-}
-
-
 public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         
     private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
@@ -28,7 +22,7 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
     private lazy var currentEnviromentShare: Observable<WalletEnvironment> =
         setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
 
-    private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject(value: [:])
+    private var localEnvironments: BehaviorSubject<[UInt8: WalletEnvironment]> = BehaviorSubject(value: [:])
     
     private lazy var internalEnvironmentKind: WalletEnvironment.Kind = {
           let chainId = UserDefaults.standard.string(forKey: "wallet.environment.kind") ?? ""
@@ -68,7 +62,7 @@ extension EnvironmentRepository {
         }
     }
         
-    private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {
+    private func localEnvironment(by key: UInt8) -> WalletEnvironment? {
         if let value = try? localEnvironments.value() {
             return value[key]
         }
@@ -85,7 +79,7 @@ private extension EnvironmentRepository {
                 return Disposables.create()
             }
             
-            let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
+            let key = self.environmentKind.chainId
             
             if let value = try? self.localEnvironments.value() {
                 var newValue = value
@@ -104,7 +98,7 @@ private extension EnvironmentRepository {
     
     private func ifNeedRemoteEnvironment() -> Observable<WalletEnvironment> {
         
-        let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
+        let key = self.environmentKind.chainId
         
         if let enviroment = self.localEnvironment(by: key) {
             return Observable.just(enviroment)

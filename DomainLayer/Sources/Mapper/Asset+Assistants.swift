@@ -52,3 +52,4 @@ extension AssetPair {
         return priceAsset.balance(amount.int64Value, precision: priceAsset.precision)
     }
 }
+    

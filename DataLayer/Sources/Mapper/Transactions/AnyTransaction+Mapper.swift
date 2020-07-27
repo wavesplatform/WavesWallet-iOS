@@ -14,7 +14,7 @@ import WavesSDKExtensions
 
 extension NodeService.DTO.Transaction {
     func anyTransaction(status: TransactionStatus,
-                        scheme: String,
+                        scheme: UInt8,
                         aliasScheme: String) -> AnyTransaction {
         switch self {
         case .unrecognised(let transaction):
@@ -67,7 +67,7 @@ extension NodeService.DTO.Transaction {
 
 extension NodeService.DTO.TransactionContainers {
     func anyTransactions(status: TransactionStatus,
-                         scheme: String,
+                         scheme: UInt8,
                          aliasScheme: String) -> [AnyTransaction] {
         var anyTransactions = [AnyTransaction]()
 

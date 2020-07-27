@@ -91,7 +91,7 @@ extension InvokeScriptTransaction {
     }
     
     init(transaction: InvokeScriptTransactionRealm) {
-        // TODO: chainId: String
+        // TODO: chainId: UInt8
         // TODO: Call to bd
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -107,7 +107,7 @@ extension InvokeScriptTransaction {
                   height: transaction.height,
                   modified: transaction.modified,
                   status: TransactionStatus(rawValue: transaction.status) ?? .completed,
-                  chainId: "",
+                  chainId: 0,
                   call: nil)
     }
 }

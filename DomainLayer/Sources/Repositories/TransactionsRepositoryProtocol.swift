@@ -118,7 +118,7 @@ public struct SendTransactionSender {
     public let fee: Int64
     public let attachment: String
     public let feeAssetID: String
-    public let chainId: String?
+    public let chainId: UInt8?
     public let timestamp: Date?
 
     public init(recipient: String,
@@ -127,7 +127,7 @@ public struct SendTransactionSender {
                 fee: Int64,
                 attachment: String,
                 feeAssetID: String,
-                chainId: String? = nil,
+                chainId: UInt8? = nil,
                 timestamp: Date? = nil) {
         self.recipient = recipient
         self.assetId = assetId
@@ -150,9 +150,9 @@ public struct DataTransactionSender {
         }
         
         public let key: String
-        public let value: Kind
+        public let value: Kind?
         
-        public init(key: String, value: Kind) {
+        public init(key: String, value: Kind?) {
             self.key = key
             self.value = value
         }
@@ -160,10 +160,10 @@ public struct DataTransactionSender {
     
     public let fee: Int64
     public let data: [Value]
-    public let chainId: String?
+    public let chainId: UInt8?
     public let timestamp: Date?
     
-    public init(fee: Int64, data: [Value], chainId: String? = nil, timestamp: Date? = nil) {
+    public init(fee: Int64, data: [Value], chainId: UInt8? = nil, timestamp: Date? = nil) {
         self.fee = fee
         self.data = data
         self.timestamp = timestamp
@@ -213,7 +213,7 @@ public struct InvokeScriptTransactionSender {
     public let dApp: String
     public let call: Call?
     public let payment: [Payment]
-    public let chainId: String?
+    public let chainId: UInt8?
     public let timestamp: Date?
     
     public init(fee: Int64,
@@ -221,7 +221,7 @@ public struct InvokeScriptTransactionSender {
                 dApp: String,
                 call: Call?,
                 payment: [Payment],
-                chainId: String? = nil,
+                chainId: UInt8? = nil,
                 timestamp: Date? = nil) {
         self.fee = fee
         self.feeAssetId = feeAssetId
@@ -260,7 +260,7 @@ public enum TransactionSenderSpecifications {
         }
     }
     
-    public var chainId: String? {
+    public var chainId: UInt8? {
         switch self {
         case .data(let model):
             return model.chainId
