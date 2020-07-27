@@ -110,16 +110,25 @@ class TradeCoordinator: Coordinator {
 
 // MARK: - TradeModuleOutput
 
-extension TradeCoordinator: TradeModuleOutput { 
-    
+extension TradeCoordinator: TradeModuleOutput {
     func showPairLocked(pair: DexTraderContainer.DTO.Pair) {
-        
         let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.displayName,
                                                                           pair.priceAsset.displayName)
-        let subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
+        let subTitleValue: String
+        if pair.amountAsset.hasScript || pair.priceAsset.hasScript {
+            subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.Smartassets.subtitle
+        } else {
+            subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
+        }
+
+        let image: UIImage
+        if pair.amountAsset.hasScript || pair.priceAsset.hasScript {
+            image = Images.iconInfo48.image
+        } else {
+            image = Images.bigwarning48.image
+        }
+
         let buttonTitle = Localizable.Waves.Trade.Message.Pairlocked.Button.ok
-        let image = Images.bigwarning48.image
-                
         let news = AppNewsView.show(model: AppNewsView.Model(title: titleValue,
                                                              subtitle: subTitleValue,
                                                              image: image,
@@ -128,7 +137,7 @@ extension TradeCoordinator: TradeModuleOutput {
             news?.dismiss()
         }
     }
-    
+
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
         let vc = DexTraderContainerModuleBuilder(output: self,
                                                  orderBookOutput: self,
@@ -155,7 +164,6 @@ extension TradeCoordinator: TradeModuleOutput {
 // MARK: - DexTraderContainerModuleOutput
 
 extension TradeCoordinator: DexTraderContainerModuleOutput {
-    
     func showInfo(pair: DexInfoPair.DTO.Pair) {
         let controller = DexInfoModuleBuilder().build(input: pair)
         let popup = PopupViewController()
@@ -174,7 +182,6 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                         availablePriceAssetBalance: Money,
                         availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                         scriptedAssets: [Asset]) {
-        
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: trade.type,
@@ -196,7 +203,6 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                              availablePriceAssetBalance: Money,
                              availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [Asset]) {
-        
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: orderType,
@@ -227,7 +233,7 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                         inputMaxSum: Bool,
                         scriptedAssets: [Asset]) {
         let sum = inputMaxSum ? bidAsk.sum : nil
-        
+
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: bidAsk.orderType,
@@ -252,7 +258,6 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                              availablePriceAssetBalance: Money,
                              availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [Asset]) {
-        
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: orderType,
