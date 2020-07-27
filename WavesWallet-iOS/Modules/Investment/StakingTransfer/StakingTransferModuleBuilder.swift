@@ -27,7 +27,7 @@ final class StakingTransferModuleBuilder: ModuleBuilderOutput {
         vc.moduleOutput = output
 
         let accountBalanceUseCase = UseCasesFactory.instance.accountBalance
-        let assetsUseCase = UseCasesFactory.instance.assets
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
         let transactionUseCase = UseCasesFactory.instance.transactions
         let authorizationUseCase = UseCasesFactory.instance.authorization
         let developmentConfigsRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
@@ -36,7 +36,7 @@ final class StakingTransferModuleBuilder: ModuleBuilderOutput {
         let userRepository = UseCasesFactory.instance.repositories.userRepository
 
         let stakingTransferInteractor = StakingTransferInteractor(accountBalanceUseCase: accountBalanceUseCase,
-                                                                  assetsUseCase: assetsUseCase,
+                                                                  assetsRepository: assetsRepository,
                                                                   transactionUseCase: transactionUseCase,
                                                                   authorizationUseCase: authorizationUseCase,
                                                                   developmentConfigsRepository: developmentConfigsRepository,

@@ -27,7 +27,7 @@ extension ReissueTransactionRealm {
         }
         signature = transaction.signature
         assetId = transaction.assetId
-        chainId.value = transaction.chainId
+        chainId.value = Int8(transaction.chainId ?? 0)
         quantity = transaction.quantity
         reissuable = transaction.reissuable
         status = transaction.status.rawValue
@@ -67,7 +67,7 @@ extension ReissueTransaction {
                   height: transaction.height,
                   signature: transaction.signature,
                   proofs: transaction.proofs.toArray(),
-                  chainId: transaction.chainId.value,
+                  chainId: UInt8(transaction.chainId.value ?? 0),
                   assetId: transaction.assetId,
                   quantity: transaction.quantity,
                   reissuable: transaction.reissuable,

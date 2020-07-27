@@ -54,8 +54,8 @@ extension DexChart.ViewModel {
     
     static func numberFormatter(pair: DexTraderContainer.DTO.Pair) -> NumberFormatter {
         let formatter = numberFormatter
-        formatter.minimumFractionDigits = pair.priceAsset.decimals
-        formatter.maximumFractionDigits = pair.priceAsset.decimals
+        formatter.minimumFractionDigits = pair.priceAsset.precision
+        formatter.maximumFractionDigits = pair.priceAsset.precision
         
         return formatter
     }

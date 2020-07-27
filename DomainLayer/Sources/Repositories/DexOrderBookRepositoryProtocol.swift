@@ -21,8 +21,8 @@ public protocol DexOrderBookRepositoryProtocol {
     
     func myOrders(serverEnvironment: ServerEnvironment,
                   wallet: SignedWallet,
-                  amountAsset: DomainLayer.DTO.Dex.Asset,
-                  priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>
+                  amountAsset: Asset,
+                  priceAsset: Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>
     
     func allMyOrders(serverEnvironment: ServerEnvironment,
                      wallet: SignedWallet) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>

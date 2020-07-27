@@ -22,8 +22,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     private let dexOrderBookRepository: DexOrderBookRepositoryProtocol
     private let lastTradesRespository: LastTradesRepositoryProtocol
     private let authorization: AuthorizationUseCaseProtocol
-    private let assetsInteractor: AssetsUseCaseProtocol
-    private let assetsRepositoryLocal: AssetsRepositoryProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
     private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
     private let pair: DexTraderContainer.DTO.Pair
@@ -33,16 +32,14 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
          dexOrderBookRepository: DexOrderBookRepositoryProtocol,
          lastTradesRespository: LastTradesRepositoryProtocol,
          authorization: AuthorizationUseCaseProtocol,
-         assetsInteractor: AssetsUseCaseProtocol,
-         assetsRepositoryLocal: AssetsRepositoryProtocol,
+         assetsRepository: AssetsRepositoryProtocol,
          serverEnvironmentUseCase: ServerEnvironmentRepository) {
         self.pair = pair
         self.accountBalance = accountBalance
         self.dexOrderBookRepository = dexOrderBookRepository
         self.lastTradesRespository = lastTradesRespository
         self.authorization = authorization
-        self.assetsInteractor = assetsInteractor
-        self.assetsRepositoryLocal = assetsRepositoryLocal
+        self.assetsRepository = assetsRepository
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
@@ -55,8 +52,8 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               lastPrice: lastPrice,
                                               bids: [],
                                               header: header,
-                                              availablePriceAssetBalance: Money(0, pair.priceAsset.decimals),
-                                              availableAmountAssetBalance: Money(0, pair.amountAsset.decimals),
+                                              availablePriceAssetBalance: Money(0, pair.priceAsset.precision),
+                                              availableAmountAssetBalance: Money(0, pair.amountAsset.precision),
                                               availableBalances: [],
                                               scriptedAssets: [])
 
@@ -88,7 +85,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     var lastPrice: DexOrderBook.DTO.LastPrice {
-        return DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
+        return DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.precision)
     }
 
     func getDisplayData(info: DomainLayer.DTO.Dex.OrderBook,
@@ -106,12 +103,12 @@ private extension DexOrderBookInteractor {
         var totalSumAsk: Decimal = 0
 
         let maxAmount = (itemsAsks + itemsBids).map { $0.amount }.max() ?? 0
-        let maxAmountValue = Money(maxAmount, pair.amountAsset.decimals).floatValue
+        let maxAmountValue = Money(maxAmount, pair.amountAsset.precision).floatValue
 
         for item in itemsBids {
             let price = Money
-                .price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
-            let amount = Money(item.amount, pair.amountAsset.decimals)
+                .price(amount: item.price, amountDecimals: pair.amountAsset.precision, priceDecimals: pair.priceAsset.precision)
+            let amount = Money(item.amount, pair.amountAsset.precision)
 
             totalSumBid += price.decimalValue * amount.decimalValue
 
@@ -127,8 +124,8 @@ private extension DexOrderBookInteractor {
 
         for item in itemsAsks {
             let price = Money
-                .price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
-            let amount = Money(item.amount, pair.amountAsset.decimals)
+                .price(amount: item.price, amountDecimals: pair.amountAsset.precision, priceDecimals: pair.priceAsset.precision)
+            let amount = Money(item.amount, pair.amountAsset.precision)
 
             totalSumAsk += price.decimalValue * amount.decimalValue
 
@@ -142,7 +139,7 @@ private extension DexOrderBookInteractor {
             asks.append(ask)
         }
 
-        var lastPrice = DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
+        var lastPrice = DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.precision)
 
         var percent: Float = 0
 
@@ -160,8 +157,8 @@ private extension DexOrderBookInteractor {
             lastPrice.percent = percent
         }
 
-        var amountAssetBalance = Money(0, pair.amountAsset.decimals)
-        var priceAssetBalance = Money(0, pair.priceAsset.decimals)
+        var amountAssetBalance = Money(0, pair.amountAsset.precision)
+        var priceAssetBalance = Money(0, pair.priceAsset.precision)
 
         if let amountAsset = balances.first(where: { $0.assetId == pair.amountAsset.id }) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)
@@ -205,22 +202,17 @@ private extension DexOrderBookInteractor {
         let wallet = authorization.authorizedWallet()
 
         return Observable.zip(serverEnvironment, wallet)
-            .flatMap { [weak self] serverEnvironment, wallet -> Observable<[Asset]> in
+            .flatMap { [weak self] _, wallet -> Observable<[Asset]> in
                 guard let self = self else { return Observable.empty() }
 
                 let ids = [self.pair.amountAsset.id, self.pair.priceAsset.id]
 
-                return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnvironment,
-                                                         ids: ids,
-                                                         accountAddress: wallet.address)
+                return self.assetsRepository.assets(ids: ids,
+                                                    accountAddress: wallet.address)
+                    .map { $0.compactMap { $0 } }
                     .map {
                         $0.filter { $0.hasScript }
                             .sorted { first, _ -> Bool in first.id == self.pair.amountAsset.id }
-                    }
-                    .catchError { [weak self] (_) -> Observable<[Asset]> in
-                        guard let self = self else { return Observable.empty() }
-
-                        return self.assetsInteractor.assets(by: ids, accountAddress: wallet.address)
                     }
             }
     }

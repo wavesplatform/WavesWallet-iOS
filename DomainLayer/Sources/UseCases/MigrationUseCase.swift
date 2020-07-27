@@ -28,7 +28,7 @@ fileprivate struct ApplicationVersion: Codable, TSUD {
     }
 }
 
-final class SweetMigration {
+private final class SweetMigration {
 
     typealias Migration = () -> Observable<Void>
 
@@ -65,14 +65,18 @@ final class SweetMigration {
     }
 }
 
+// Очень старый код для миграции c 1.0 на верссию 2.0 для пользователей
 public final class MigrationUseCase: MigrationUseCaseProtocol {
 
-    private var walletsRepository: WalletsRepositoryProtocol
+    private let walletsRepository: WalletsRepositoryProtocol
+    
+    private let sweetMigration: SweetMigration = SweetMigration()
+    private let environmentRepository: EnvironmentRepositoryProtocol
 
-    private var sweetMigration: SweetMigration = SweetMigration()
-
-    public init(walletsRepository: WalletsRepositoryProtocol) {
+    public init(walletsRepository: WalletsRepositoryProtocol,
+                environmentRepository: EnvironmentRepositoryProtocol) {
         self.walletsRepository = walletsRepository
+        self.environmentRepository = environmentRepository
     }
 
     public func migration() -> Observable<Void> {
@@ -86,16 +90,20 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
     }
 
 
+
     private func migration2_0() -> Observable<Void> {
 
         let wallets = self
             .walletsRepository
             .wallets()
-            .flatMap { wallets -> Observable<[Wallet]> in
+            .flatMap { [weak self] wallets -> Observable<[Wallet]> in
 
+                guard let self = self else { return Observable.never() }
+                
                 let newWallets = wallets.map({ wallet -> Wallet in
                     let id = UUID().uuidString
-                    let address = DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(wallet.publicKey)).address
+                    let address = DomainLayer.DTO.PublicKey(publicKey: Base58Encoder.decode(wallet.publicKey),
+                                                            enviromentKind: self.environmentRepository.environmentKind).address
                     return Wallet(name: wallet.name,
                                   address: address,
                                   publicKey: wallet.publicKey,
@@ -130,6 +138,10 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
         return wallets
     }
 
+    // Миграция реалм файлов с сидами между 1.0 на 2.0
+    // Для каждого сида добавилось поле seedId
+    // Уникальный инификатор создается при создание кошелька
+    // Этот индификатор позволяет спастить от колизией файлов в реалме,если ты удаляешь и добовляешь тот же сиды        
     private func migrateOldSeed(wallet: Wallet, seedId: String) -> Observable<Void> {
 
         return Observable.create { observer -> Disposable in

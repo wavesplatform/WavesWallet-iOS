@@ -18,14 +18,13 @@ private struct DevelopmentConfigsDTO: Decodable {
     let exchangeClientSecret: String
     let staking: [Staking]
     let lockedPairs: [String]
-    let referralShare: Int64
     //  First key is assetId and second key is fiat
     //  For example: value["DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"]["usn"]
     let gatewayMinFee: [String: [String: Rate]]
     let gatewayMinLimit: [String: Limit]
     let avaliableGatewayCryptoCurrency: [String]
     let marketPairs: [String]
-    
+
     enum CodingKeys: String, CodingKey {
         case serviceAvailable = "service_available"
         case matcherSwapTimestamp = "matcher_swap_timestamp"
@@ -36,14 +35,12 @@ private struct DevelopmentConfigsDTO: Decodable {
         case lockedPairs = "locked_pairs"
         case gatewayMinFee = "gateway_min_fee"
         case marketPairs = "DEX.MARKET_PAIRS"
-        case referralShare
         case staking
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        referralShare = try container.decode(Int64.self, forKey: .referralShare)
+
         serviceAvailable = try container.decode(Bool.self, forKey: .serviceAvailable)
         matcherSwapTimestamp = try container.decode(Date.self, forKey: .matcherSwapTimestamp)
         matcherSwapAddress = try container.decode(String.self, forKey: .matcherSwapAddress)
@@ -53,7 +50,8 @@ private struct DevelopmentConfigsDTO: Decodable {
         gatewayMinFee = try container.decode([String: [String: Rate]].self, forKey: .gatewayMinFee)
         marketPairs = try container.decodeIfPresent([String].self, forKey: .marketPairs) ?? []
         gatewayMinLimit = try container.decode([String: Limit].self, forKey: .gatewayMinLimit)
-        avaliableGatewayCryptoCurrency = try container.decodeIfPresent([String].self, forKey: .avaliableGatewayCryptoCurrency) ?? []
+        avaliableGatewayCryptoCurrency = try container
+            .decodeIfPresent([String].self, forKey: .avaliableGatewayCryptoCurrency) ?? []
     }
 }
 
@@ -74,6 +72,7 @@ private struct Staking: Decodable {
     let addressStakingContract: String
     let addressByCalculateProfit: String
     let addressesByPayoutsAnnualPercent: [String]
+    let referralShare: Int64
 
     enum CodingKeys: String, CodingKey {
         case type
@@ -82,12 +81,18 @@ private struct Staking: Decodable {
         case addressStakingContract = "address_staking_contract"
         case addressByCalculateProfit = "address_by_calculate_profit"
         case addressesByPayoutsAnnualPercent = "addresses_by_payouts_annual_percent"
+        case referralShare
     }
 }
 
-//TODO: Rename to services
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
-    private let developmentConfigsProvider: MoyaProvider<ResourceAPI.Service.DevelopmentConfigs> = .anyMoyaProvider()
+    private let environmentRepository: EnvironmentRepositoryProtocol
+
+    private let environmentAPIService: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
+
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
 
     public func isEnabledMaintenance() -> Observable<Bool> {
         return developmentConfigs()
@@ -96,9 +101,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
     }
 
     public func developmentConfigs() -> Observable<DevelopmentConfigs> {
-        return developmentConfigsProvider
-            .rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableDebugSettingsTest))
+        return environmentAPIService.rx.request(.get(kind: environmentRepository.environmentKind,
+                                                     isTest: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(DevelopmentConfigsDTO.self,
                  atKeyPath: nil,
                  using: JSONDecoder.decoderByDateWithSecond(0),
@@ -111,38 +115,38 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                                addressByPayoutsAnnualPercent: $0.addressByPayoutsAnnualPercent,
                                                addressStakingContract: $0.addressStakingContract,
                                                addressByCalculateProfit: $0.addressByCalculateProfit,
-                                               addressesByPayoutsAnnualPercent: $0.addressesByPayoutsAnnualPercent)
+                                               addressesByPayoutsAnnualPercent: $0.addressesByPayoutsAnnualPercent,
+                                               referralShare: $0.referralShare)
                 }
-                
+
                 let gatewayMinFee = config.gatewayMinFee.mapValues { value -> [String: DevelopmentConfigs.Rate] in
                     value.mapValues { value -> DevelopmentConfigs.Rate in
                         DevelopmentConfigs.Rate(rate: value.rate, flat: value.flat)
                     }
                 }
-                
+
                 let marketPairs = config.marketPairs.compactMap { pair -> DevelopmentConfigs.MarketPair? in
                     let splitedPair = pair.split(separator: "/")
                     if splitedPair.isEmpty || splitedPair.count < 2 {
                         return nil
                     } else {
                         return DevelopmentConfigs.MarketPair(amount: String(splitedPair[0]),
-                                                                             price: String(splitedPair[1]))
+                                                             price: String(splitedPair[1]))
                     }
                 }
-                
+
                 let gatewayMinLimit = config.gatewayMinLimit.mapValues { DevelopmentConfigs.Limit(min: $0.min, max: $0.max) }
-                
+
                 return DevelopmentConfigs(serviceAvailable: config.serviceAvailable,
-                                                          matcherSwapTimestamp: config.matcherSwapTimestamp,
-                                                          matcherSwapAddress: config.matcherSwapAddress,
-                                                          exchangeClientSecret: config.exchangeClientSecret,
-                                                          staking: staking,
-                                                          lockedPairs: config.lockedPairs,
-                                                          gatewayMinFee: gatewayMinFee,
-                                                          marketPairs: marketPairs,
-                                                          gatewayMinLimit: gatewayMinLimit,
-                                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency,
-                                                          referralShare: config.referralShare)
+                                          matcherSwapTimestamp: config.matcherSwapTimestamp,
+                                          matcherSwapAddress: config.matcherSwapAddress,
+                                          exchangeClientSecret: config.exchangeClientSecret,
+                                          staking: staking,
+                                          lockedPairs: config.lockedPairs,
+                                          gatewayMinFee: gatewayMinFee,
+                                          marketPairs: marketPairs,
+                                          gatewayMinLimit: gatewayMinLimit,
+                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency)
             }
     }
 }

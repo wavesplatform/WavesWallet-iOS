@@ -21,8 +21,7 @@ private enum Constants {
     static let vostokAssetId = "Vostok"
 }
 
-// TODO: REFACTOR Move Repository to AssetsUseCase
-final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
+final class AssetsRepository: AssetsRepositoryProtocol {
     private let wavesSDKServices: WavesSDKServices
 
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -31,105 +30,119 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
 
+    private let serverEnvironmentRepository: ServerEnvironmentRepository
+
     init(spamAssetsRepository: SpamAssetsRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
          environmentRepository: EnvironmentRepositoryProtocol,
+         serverEnvironmentRepository: ServerEnvironmentRepository,
          wavesSDKServices: WavesSDKServices) {
         self.wavesSDKServices = wavesSDKServices
         self.spamAssetsRepository = spamAssetsRepository
         self.accountSettingsRepository = accountSettingsRepository
         self.environmentRepository = environmentRepository
+        self.serverEnvironmentRepository = serverEnvironmentRepository
     }
 
-    func assets(serverEnvironment: ServerEnvironment,
-                ids: [String],
-                accountAddress: String) -> Observable<[Asset]> {
-        let wavesServices = wavesSDKServices
-            .wavesServices(environment: serverEnvironment)
+    func assets(ids: [String],
+                accountAddress: String) -> Observable<[Asset?]> {
+        return serverEnvironmentRepository
+            .serverEnvironment()
+            .flatMap { [weak self] serverEnvironment -> Observable<[Asset?]> in
 
-        let walletEnvironment = environmentRepository.walletEnvironment()
+                guard let self = self else { return Observable.never() }
 
-        let spamAssets = self.spamAssets(accountAddress: accountAddress)
+                let wavesServices = self.wavesSDKServices.wavesServices(environment: serverEnvironment)
 
-        let assetsList = wavesServices
-            .dataServices
-            .assetsDataService
-            .assets(ids: ids)
+                let walletEnvironment = self.environmentRepository.walletEnvironment()
 
-        return Observable.zip(assetsList, spamAssets, walletEnvironment)
-            .map { assets, spamAssets, walletEnvironment -> [Asset] in
+                let spamAssets = self.spamAssets(accountAddress: accountAddress)
 
-                let map = walletEnvironment.hashMapAssets()
-                let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
+                let assetsList = wavesServices.dataServices.assetsDataService.assets(ids: ids)
 
-                let spamIds = spamAssets.reduce(into: [String: Bool]()) { $0[$1] = true }
+                return Observable.zip(assetsList, spamAssets, walletEnvironment)
+                    .map { assets, spamAssets, walletEnvironment -> [Asset?] in
 
-                return assets.map { Asset(asset: $0,
-                                                          info: map[$0.id],
-                                                          isSpam: spamIds[$0.id] == true,
-                                                          isMyWavesToken: $0.sender == accountAddress,
-                                                          isGeneral: mapGeneralAssets[$0.id] != nil) }
+                        let map = walletEnvironment.hashMapAssets()
+                        let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
+                        
+                        let spamIds = spamAssets.reduce(into: [String: Bool]()) { $0[$1] = true }
+                        
+                        return assets.map { asset -> Asset? in
+
+                            guard let asset = asset else { return nil }
+
+                            return Asset(asset: asset,
+                                         info: map[asset.id],
+                                         isSpam: spamIds[asset.id] == true,
+                                         isMyWavesToken: asset.sender == accountAddress,
+                                         isGeneral: mapGeneralAssets[asset.id] != nil)
+                        }
+                    }
             }
     }
 
-    func searchAssets(serverEnvironment: ServerEnvironment,
-                      search: String,
+    func searchAssets(search: String,
                       accountAddress: String) -> Observable<[Asset]> {
-        let wavesServices = wavesSDKServices
-            .wavesServices(environment: serverEnvironment)
+        return serverEnvironmentRepository
+            .serverEnvironment()
+            .flatMap { [weak self] serverEnvironment -> Observable<[Asset]> in
 
-        let walletEnvironment = environmentRepository.walletEnvironment()
+                guard let self = self else { return Observable.never() }
 
-        let spamAssets = self.spamAssets(accountAddress: accountAddress)
+                let wavesServices = self.wavesSDKServices
+                    .wavesServices(environment: serverEnvironment)
 
-        let assetsList =
-            wavesServices
-                .dataServices
-                .assetsDataService
-                .searchAssets(search: search, limit: Constants.searchAssetsLimit)
+                let walletEnvironment = self.environmentRepository.walletEnvironment()
 
-        return Observable.zip(assetsList, spamAssets, walletEnvironment)
-            .map { assets, spamAssets, walletEnvironment -> [Asset] in
+                let spamAssets = self.spamAssets(accountAddress: accountAddress)
 
-                let map = walletEnvironment.hashMapAssets()
-                let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
-                let spamIds = Set(spamAssets)
+                let assetsList =
+                    wavesServices
+                        .dataServices
+                        .assetsDataService
+                        .searchAssets(search: search, limit: Constants.searchAssetsLimit)
 
-                return assets.map { Asset(asset: $0,
-                                                          info: map[$0.id],
-                                                          isSpam: spamIds.contains($0.id),
-                                                          isMyWavesToken: $0.sender == accountAddress,
-                                                          isGeneral: mapGeneralAssets[$0.id] != nil) }
+                return Observable.zip(assetsList, spamAssets, walletEnvironment)
+                    .map { assets, spamAssets, walletEnvironment -> [Asset] in
+
+                        let map = walletEnvironment.hashMapAssets()
+                        let mapGeneralAssets = walletEnvironment.hashMapGeneralAssets()
+                        let spamIds = Set(spamAssets)
+
+                        return assets.map { Asset(asset: $0,
+                                                  info: map[$0.id],
+                                                  isSpam: spamIds.contains($0.id),
+                                                  isMyWavesToken: $0.sender == accountAddress,
+                                                  isGeneral: mapGeneralAssets[$0.id] != nil) }
+                    }
             }
     }
 
-    func saveAssets(_: [Asset], by _: String) -> Observable<Bool> {
-        assertMethodDontSupported()
-        return Observable.never()
-    }
+    func isSmartAsset(assetId: String, accountAddress _: String) -> Observable<Bool> {
+        return serverEnvironmentRepository
+            .serverEnvironment()
+            .flatMap { [weak self] serverEnvironment -> Observable<Bool> in
 
-    func saveAsset(_: Asset, by _: String) -> Observable<Bool> {
-        assertMethodDontSupported()
-        return Observable.never()
-    }
+                guard let self = self else { return Observable.never() }
 
-    func isSmartAsset(serverEnvironment: ServerEnvironment, assetId: String, accountAddress _: String) -> Observable<Bool> {
-        if assetId == WavesSDKConstants.wavesAssetId {
-            return Observable.just(false)
-        }
+                if assetId == WavesSDKConstants.wavesAssetId {
+                    return Observable.just(false)
+                }
 
-        let wavesServices = wavesSDKServices
-            .wavesServices(environment: serverEnvironment)
+                let wavesServices = self.wavesSDKServices
+                    .wavesServices(environment: serverEnvironment)
 
-        return wavesServices
-            .nodeServices
-            .assetsNodeService
-            .assetDetails(assetId: assetId)
-            .map { $0.scripted == true }
+                return wavesServices
+                    .nodeServices
+                    .assetsNodeService
+                    .assetDetails(assetId: assetId)
+                    .map { $0.scripted == true }
+            }
     }
 }
 
-fileprivate extension AssetsRepositoryRemote {
+fileprivate extension AssetsRepository {
     func spamAssets(accountAddress: String) -> Observable<[SpamAssetId]> {
         return accountSettingsRepository.accountSettings(accountAddress: accountAddress)
             .flatMap { [weak self] settings -> Observable<[SpamAssetId]> in

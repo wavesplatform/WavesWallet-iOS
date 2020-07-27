@@ -3473,6 +3473,24 @@ internal enum Localizable {
             internal static var ok: String { Localizable.tr("Waves", "trade.message.pairlocked.button.ok") }
             internal static var okKey: String { "trade.message.pairlocked.button.ok" }
           }
+
+          internal enum Smartassets {
+            /// Smart assets trading is temporarily unavailable. Orders for this pair have been canceled.
+            internal static var subtitle: String { Localizable.tr("Waves", "trade.message.pairlocked.smartassets.subtitle") }
+            internal static var subtitleKey: String { "trade.message.pairlocked.smartassets.subtitle" }
+          }
+        }
+      }
+
+      internal enum Pair {
+
+        internal enum Cell {
+
+          internal enum Anavailable {
+            /// Temporarily\nUnavailable
+            internal static var title: String { Localizable.tr("Waves", "trade.pair.cell.anavailable.title") }
+            internal static var titleKey: String { "trade.pair.cell.anavailable.title" }
+          }
         }
       }
     }

@@ -27,12 +27,11 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = environmentRepositoryInternal
 
-    public private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
-
-    public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol =
-        AssetsRepositoryRemote(spamAssetsRepository: spamAssets,
+    public private(set) lazy var assetsRepository: AssetsRepositoryProtocol =
+        AssetsRepository(spamAssetsRepository: spamAssets,
                                accountSettingsRepository: accountSettingsRepository,
                                environmentRepository: environmentRepository,
+                               serverEnvironmentRepository: serverEnvironmentRepository,
                                wavesSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol =
@@ -52,7 +51,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var walletSeedRepositoryLocal: WalletSeedRepositoryProtocol = WalletSeedRepositoryLocal()
 
     public private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol =
-        AuthenticationRepository(serverEnvironmentRepository: serverEnvironmentUseCase)
+        AuthenticationRepository(serverEnvironmentRepository: serverEnvironmentRepository)
 
     public private(set) lazy var accountSettingsRepository: AccountSettingsRepositoryProtocol =
         AccountSettingsRepository(spamAssetsService: self.servicesFactory.spamAssetsService)
@@ -63,14 +62,16 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol =
         DexPairsPriceRepositoryRemote(matcherRepository: matcherRepositoryRemote,
-                                      assetsRepository: assetsRepositoryRemote,
+                                      assetsRepository: assetsRepository,
                                       wavesSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol =
         DexOrderBookRepositoryRemote(spamAssetsRepository: spamAssets,
                                      matcherRepository: matcherRepositoryRemote,
-                                     assetsRepository: assetsRepositoryRemote,
-                                     waveSDKServices: servicesFactory.wavesSDKServices)
+                                     assetsRepository: assetsRepository,
+                                     waveSDKServices: servicesFactory.wavesSDKServices,
+                                     assetsBalanceSettingsRepository: assetsBalanceSettingsRepositoryLocal,
+                                     serverEnvironmentRepository: serverEnvironmentRepository) 
 
     public private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol =
         AliasesRepository(wavesSDKServices: servicesFactory.wavesSDKServices)
@@ -123,10 +124,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         MobileKeeperRepository(repositoriesFactory: self)
 
     public private(set) lazy var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol =
-        DevelopmentConfigsRepository()
+        DevelopmentConfigsRepository(environmentRepository: self.environmentRepository)
 
     public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol =
-        TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
+        TradeCategoriesConfigRepository(assetsRepoitory: assetsRepository)
 
     public private(set) lazy var massTransferRepository: MassTransferRepositoryProtocol = {
         MassTransferRepositoryRemote(wavesSDKServices: servicesFactory.wavesSDKServices)
@@ -137,13 +138,13 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var weOAuthRepository: WEOAuthRepositoryProtocol =
         WEOAuthRepository(developmentConfigsRepository: developmentConfigsRepository,
-                          serverEnvironmentRepository: serverEnvironmentUseCase)
+                          serverEnvironmentRepository: serverEnvironmentRepository)
 
     public private(set) lazy var stakingBalanceService: StakingBalanceService =
         StakingBalanceServiceImpl(authorizationService: UseCasesFactory.instance.authorization,
                                   devConfig: UseCasesFactory.instance.repositories.developmentConfigsRepository,
                                   accountBalanceService: UseCasesFactory.instance.accountBalance,
-                                  serverEnvironmentUseCase: serverEnvironmentUseCase,
+                                  serverEnvironmentUseCase: serverEnvironmentRepository,
                                   wavesSDKServices: servicesFactory.wavesSDKServices)
 
     public private(set) lazy var serverTimestampRepository: ServerTimestampRepository = {
@@ -154,17 +155,17 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         GatewaysWavesRepositoryImp()
     }()
 
-    public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentRepository = {
+    public private(set) lazy var serverEnvironmentRepository: ServerEnvironmentRepository = {
         ServerEnvironmentRepositoryImp(serverTimestampRepository: serverTimestampRepository,
                                        environmentRepository: environmentRepository)
     }()
 
     public private(set) lazy var userRepository: UserRepository = {
-        UserRepositoryImp(serverEnvironmentRepository: serverEnvironmentUseCase, weOAuthRepository: weOAuthRepository)
+        UserRepositoryImp(serverEnvironmentRepository: serverEnvironmentRepository, weOAuthRepository: weOAuthRepository)
     }()
     
     public private(set) lazy var adCashGRPCService: AdCashGRPCService = {
-        AdCashGRPCServiceImpl(weOAuthRepository: weOAuthRepository, serverEnvironmentRepository: serverEnvironmentUseCase)
+        AdCashGRPCServiceImpl(weOAuthRepository: weOAuthRepository, serverEnvironmentRepository: serverEnvironmentRepository)
     }()
 
     public struct Resources {

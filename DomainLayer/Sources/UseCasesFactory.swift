@@ -41,7 +41,7 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
         let interactor = AccountBalanceUseCase(authorizationInteractor: self.authorization,
                                                balanceRepositoryRemote: repositories.accountBalanceRepositoryRemote,
                                                environmentRepository: repositories.environmentRepository,
-                                               assetsInteractor: self.assets,
+                                               assetsRepository: self.repositories.assetsRepository,
                                                assetsBalanceSettings: self.assetsBalanceSettings,
                                                transactionsInteractor: self.transactions,
                                                serverEnvironmentUseCase: serverEnvironmentUseCase)
@@ -51,10 +51,9 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     public private(set) lazy var transactions: TransactionsUseCaseProtocol = {
         let interactor = TransactionsUseCase(transactionsDAO: repositories.transactionsDAO,
                                              transactionsRepositoryRemote: repositories.transactionsRepository,
-                                             assetsInteractors: self.assets,
                                              addressInteractors: self.address,
                                              addressRepository: repositories.addressRepository,
-                                             assetsRepositoryRemote: repositories.assetsRepositoryRemote,
+                                             assetsRepository: self.repositories.assetsRepository,
                                              blockRepositoryRemote: repositories.blockRemote,
                                              accountSettingsRepository: repositories.accountSettingsRepository,
                                              orderBookRepository: repositories.dexOrderBookRepository,
@@ -75,7 +74,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                               accountSettingsRepository: repositories.accountSettingsRepository,
                                               localizable: self.authorizationInteractorLocalizable,
                                               analyticManager: self.analyticManager,
-                                              userRepository: self.repositories.userRepository)
+                                              userRepository: self.repositories.userRepository,
+                                              environmentRepository: self.repositories.environmentRepository)
 
         return interactor
     }()
@@ -98,23 +98,17 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     }()
 
     public private(set) lazy var migration: MigrationUseCaseProtocol = {
-        MigrationUseCase(walletsRepository: repositories.walletsRepositoryLocal)
+        MigrationUseCase(walletsRepository: repositories.walletsRepositoryLocal,
+                         environmentRepository: repositories.environmentRepository)
     }()
 
     public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase =
         ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
 
-    public private(set) lazy var assets: AssetsUseCaseProtocol = {
-        let interactor = AssetsUseCase(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
-                                       assetsRepositoryRemote: repositories.assetsRepositoryRemote,
-                                       serverEnvironmentUseCase: serverEnvironmentUseCase)
-
-        return interactor
-    }()
 
     public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
         let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,
-                                          assetsInteractor: assets,
+                                          assetsRepository: repositories.assetsRepository,
                                           authorizationInteractor: authorization,
                                           serverEnvironment: serverEnvironmentUseCase)
         return interactor
@@ -149,12 +143,12 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
         let useCase = ACashDepositsUseCase(gatewayRepository: repositories.weGatewayRepository,
                                            oAuthRepository: repositories.weOAuthRepository,
                                            authorizationUseCase: self.authorization,
-                                           assetsUseCase: self.assets,
+                                           assetsRepository: self.repositories.assetsRepository,
                                            serverEnvironmentUseCase: serverEnvironmentUseCase)
         return useCase
     }()
 
     public private(set) lazy var serverEnvironmentUseCase: ServerEnvironmentRepository = {
-        return repositories.serverEnvironmentUseCase
+        return repositories.serverEnvironmentRepository
     }()
 }

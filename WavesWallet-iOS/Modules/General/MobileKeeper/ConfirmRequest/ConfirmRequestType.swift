@@ -111,7 +111,7 @@ extension ConfirmRequest.DTO {
         let fee: Money
         
         let attachment: String
-        let chainId: String
+        let chainId: UInt8
     }
 
     struct Data {
@@ -124,13 +124,13 @@ extension ConfirmRequest.DTO {
             }
             
             let key: String
-            let value: Kind
+            let value: Kind?
         }
         
         let fee: Money
         let feeAsset: Asset
         let data: [Value]
-        let chainId: String
+        let chainId: UInt8
     }
     
     struct InvokeScript {
@@ -163,7 +163,7 @@ extension ConfirmRequest.DTO {
         let asset: Asset
         let fee: Money
         let feeAsset: Asset
-        let chainId: String
+        let chainId: UInt8
         let dApp: String
         let call: Call?
         let payment: [Payment]

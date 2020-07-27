@@ -14,7 +14,7 @@ import DomainLayer
 
 fileprivate enum SchemaVersions: UInt64 {
     case version_1 = 1 // Release old version
-    case version_2 = 2 // Dev version
+    case version_2 = 2 // Dev version   
     case version_4 = 4 // BetaTest 2.0rc0
     case version_5 = 5 // BetaTest 2.0rc1
     case version_2_0 = 6 // v2.0
@@ -25,8 +25,10 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_4 = 13 // v2.4
     case version_2_5 = 14 // v2.5
     case version_2_6 = 15 // v2.9
-    case version_2_11 = 17 // v2.11     
-    case version_2_12_1 = 18 // v2.12
+    case version_2_11 = 17 // v2.11
+    case version_2_12 = 19 // v2.12
+    case version_2_12_1 = 20 // v2.12.1
+    
     static let currentVersion: SchemaVersions = .version_2_12_1
 }
 

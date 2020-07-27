@@ -18,7 +18,7 @@ public struct AssetScriptTransaction {
     public let height: Int64
     public let signature: String?
     public let proofs: [String]?
-    public let chainId: Int?
+    public let chainId: UInt8?
     public let version: Int
     public let script: String?
     public let assetId: String
@@ -36,7 +36,7 @@ public struct AssetScriptTransaction {
         height: Int64,
         signature: String?,
         proofs: [String]?,
-        chainId: Int?,
+        chainId: UInt8?,
         version: Int,
         script: String?,
         assetId: String,

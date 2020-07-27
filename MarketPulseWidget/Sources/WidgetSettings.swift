@@ -15,9 +15,7 @@ import DomainLayer
 extension WidgetSettings: ReactiveCompatible {}
 
 struct WidgetSettings: TSUD, Codable, Mutating {
-    
-    static let environment = WalletEnvironment.Mainnet
-    
+            
     private static let key = "com.waves.widget.settings.currency"
     
     init() {}

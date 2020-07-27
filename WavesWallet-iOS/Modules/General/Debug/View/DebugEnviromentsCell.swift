@@ -17,7 +17,7 @@ private enum Constants {
 
 final class DebugEnviromentsCell: UITableViewCell, Reusable {
     struct Model {
-        let chainId: String
+        let chainId: UInt8
         let name: String
     }
 
@@ -39,7 +39,7 @@ final class DebugEnviromentsCell: UITableViewCell, Reusable {
         buttonDidTap?()
     }
 
-    private func createLogo(chainId: String) -> UIImage? {
+    private func createLogo(chainId: UInt8) -> UIImage? {
         let size = CGSize(width: 28, height: 28)
 
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
@@ -52,25 +52,23 @@ final class DebugEnviromentsCell: UITableViewCell, Reusable {
 
         context.setFillColor(UIColor.submit400.cgColor)
         context.fill(rect)
+        
+        let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        let symbol = String(bytes: [chainId], encoding: .utf8) ?? "Oops".uppercased()
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
+        let attributedString = NSAttributedString(string: symbol,
+                                                  attributes: [.foregroundColor: UIColor.white,
+                                                               .font: font,
+                                                               .paragraphStyle: style])
+        let sizeStr = attributedString.size()
 
-        if let first = chainId.first {
-            let font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-            let symbol = String(first).uppercased()
-            let style = NSMutableParagraphStyle()
-            style.alignment = .center
-            let attributedString = NSAttributedString(string: symbol,
-                                                      attributes: [.foregroundColor: UIColor.white,
-                                                                   .font: font,
-                                                                   .paragraphStyle: style])
-            let sizeStr = attributedString.size()
-
-            attributedString.draw(with: CGRect(x: (size.width - sizeStr.width) * 0.5,
-                                               y: (size.height - sizeStr.height) * 0.5,
-                                               width: sizeStr.width,
-                                               height: sizeStr.height),
-                                  options: [.usesLineFragmentOrigin],
-                                  context: nil)
-        }
+        attributedString.draw(with: CGRect(x: (size.width - sizeStr.width) * 0.5,
+                                           y: (size.height - sizeStr.height) * 0.5,
+                                           width: sizeStr.width,
+                                           height: sizeStr.height),
+                              options: [.usesLineFragmentOrigin],
+                              context: nil)
 
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

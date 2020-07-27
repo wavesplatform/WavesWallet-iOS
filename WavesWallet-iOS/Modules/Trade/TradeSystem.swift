@@ -29,9 +29,9 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     private let developmentConfigsRepository = UseCasesFactory.instance.repositories.developmentConfigsRepository
     private let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
     
-    private let selectedAsset: DomainLayer.DTO.Dex.Asset?
+    private let selectedAsset: Asset?
 
-    init(selectedAsset: DomainLayer.DTO.Dex.Asset?) {
+    init(selectedAsset: Asset?) {
         self.selectedAsset = selectedAsset
     }
 
@@ -298,7 +298,7 @@ private extension TradeSystem {
             }
     }
 
-    func loadData(selectedAsset: DomainLayer.DTO.Dex.Asset?) -> Observable<TradeTypes.DTO.Core> {
+    func loadData(selectedAsset: Asset?) -> Observable<TradeTypes.DTO.Core> {
         
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
         let wallet = auth.authorizedWallet()

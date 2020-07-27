@@ -13,7 +13,7 @@ import WavesSDK
 
 extension TradeTypes.DTO.Core {
     func mapCategories(selectedFilters: [TradeTypes.DTO.SelectedFilter],
-                       selectedAsset: DomainLayer.DTO.Dex.Asset?) -> [TradeTypes.ViewModel.Category] {
+                       selectedAsset: Asset?) -> [TradeTypes.ViewModel.Category] {
         let rates = pairsRate.reduce(into: [String: Money]()) {
             $0[$1.amountAssetId] = Money(value: Decimal($1.rate), WavesSDKConstants.FiatDecimals)
         }
@@ -103,7 +103,7 @@ extension TradeTypes.DTO.Core {
 }
 
 private extension TradeTypes.DTO.Core {
-    func mapFavoriteCategory(selectedAsset: DomainLayer.DTO.Dex.Asset?,
+    func mapFavoriteCategory(selectedAsset: Asset?,
                              rates: [String: Money],
                              pairsPriceMap: [String: DomainLayer.DTO.Dex.PairPrice]) -> TradeTypes.ViewModel.Category {
         var favoritePairsPrice: [TradeTypes.DTO.Pair] = []

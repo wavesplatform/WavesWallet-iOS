@@ -59,8 +59,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
     private let disposeBag = DisposeBag()
-    private let assetInteractor = UseCasesFactory.instance.assets
-    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+    private let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
     private let auth = UseCasesFactory.instance.authorization
     private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
@@ -366,30 +365,18 @@ private extension AddressInputView {
         let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
 
         return Observable.zip(wallet, serverEnvironment)
-            .flatMap { [weak self] wallet, serverEnvironment -> Observable<Int> in
+            .flatMap { [weak self] wallet, _ -> Observable<Int> in
                 guard let self = self else { return Observable.empty() }
 
-                return self.assetsRepositoryLocal.assets(serverEnvironment: serverEnvironment,
-                                                         ids: [assetID],
-                                                         accountAddress: wallet.address)
+                return self.assetsRepository.assets(ids: [assetID],
+                                                    accountAddress: wallet.address)
+                    .map { $0.compactMap { $0 } }
                     .flatMap { (assets) -> Observable<Int> in
 
                         if let asset = assets.first(where: { $0.id == assetID }) {
                             return Observable.just(asset.precision)
                         }
                         return Observable.just(0)
-                    }
-                    .catchError { [weak self] (_) -> Observable<Int> in
-
-                        guard let self = self else { return Observable.empty() }
-                        return self.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
-                            .flatMap { (assets) -> Observable<Int> in
-
-                                if let asset = assets.first(where: { $0.id == assetID }) {
-                                    return Observable.just(asset.precision)
-                                }
-                                return Observable.just(0)
-                            }
                     }
             }
     }

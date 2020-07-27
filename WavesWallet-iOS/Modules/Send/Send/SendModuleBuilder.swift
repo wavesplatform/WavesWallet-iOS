@@ -15,7 +15,7 @@ struct SendModuleBuilder: ModuleBuilder {
     func build(input: Send.DTO.InputModel) -> UIViewController {
 
         let accountBalanceUseCase: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
-        let assetsUseCase = UseCasesFactory.instance.assets
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
         let authorizationUseCase = UseCasesFactory.instance.authorization
         let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
         let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
@@ -28,7 +28,7 @@ struct SendModuleBuilder: ModuleBuilder {
         let weOAuthRepository = UseCasesFactory.instance.repositories.weOAuthRepository
         
         let interactor: SendInteractorProtocol = SendInteractor(gatewaysWavesRepository: gatewaysWavesRepository,
-                                                                assetsUseCase: assetsUseCase,
+                                                                assetsRepository: assetsRepository,
                                                                 authorizationUseCase: authorizationUseCase,
                                                                 coinomatRepository: coinomatRepository,
                                                                 aliasRepository: aliasRepository,

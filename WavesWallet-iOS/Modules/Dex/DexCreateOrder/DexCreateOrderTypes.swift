@@ -110,8 +110,8 @@ extension DexCreateOrder.DTO {
     }
     
     struct Input {
-        let amountAsset: DomainLayer.DTO.Dex.Asset
-        let priceAsset: DomainLayer.DTO.Dex.Asset
+        let amountAsset: Asset
+        let priceAsset: Asset
         let type: DomainLayer.DTO.Dex.OrderType
         let price: Money?
         let sum: Money?
@@ -124,8 +124,8 @@ extension DexCreateOrder.DTO {
     }
     
     struct Order: Equatable {
-        let amountAsset: DomainLayer.DTO.Dex.Asset
-        let priceAsset: DomainLayer.DTO.Dex.Asset
+        let amountAsset: Asset
+        let priceAsset: Asset
         var type: DomainLayer.DTO.Dex.OrderType
         var amount: Money
         var price: Money
@@ -134,8 +134,8 @@ extension DexCreateOrder.DTO {
         var fee: Int64
         var feeAssetId: String
         
-        init(amountAsset: DomainLayer.DTO.Dex.Asset,
-             priceAsset: DomainLayer.DTO.Dex.Asset,
+        init(amountAsset: Asset,
+             priceAsset: Asset,
              type: DomainLayer.DTO.Dex.OrderType,
              amount: Money,
              price: Money,
@@ -165,7 +165,7 @@ extension DexCreateOrder.DTO {
     
     struct FeeSettings {
         let fee: Money
-        let feeAssets: [DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset]
+        let feeAssets: [DomainLayer.DTO.Dex.SmartSettingsOrderFee.FeeAsset]
     }
 }
 

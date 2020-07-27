@@ -15,20 +15,129 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
-public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
+// На данный момент это точная копия из клиента
+// Нужно вынести зависимость из DataLayer
+enum ResourceAPI {}
+
+extension ResourceAPI {
+    enum Service {}
+    enum DTO {}
+}
+
+private enum Constants {
+    static let root = "https://configs.waves.exchange/"
+}
+
+private extension URL {
+    static func configURL(isTest: Bool,
+                          enviromentScheme: String,
+                          configName: String) -> URL {
+        var path = "\(Constants.root)"
+        path += "mobile/v2/"
+        path += "\(configName)/"
+        if isTest {
+            path += "test/"
+        } else {
+            path += "prod/"
+        }
         
-    private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
+        path += "\(enviromentScheme).json"
+                        
+        return URL(string: path)!
+    }
+}
+
+extension WalletEnvironment.Kind {
+    
+    var enviromentScheme: String {
+        switch self {
+        case .mainnet:
+            return "mainnet"
+        case .wxdevnet:
+            return "wxdevnet"
+        case .testnet:
+            return "testnet"
+        }
+    }
+}
+
+extension ResourceAPI.Service {
+
+    enum Environment {
+
+        /**
+         Response:
+         - Environment
+         */
+        case get(kind: WalletEnvironment.Kind, isTest: Bool)
+    }
+
+}
+
+extension ResourceAPI.Service.Environment: TargetType {
+    var sampleData: Data {
+        return Data()
+    }
+
+    var baseURL: URL {
+        switch self {
+        case let .get(kind, isTest):
+            
+            return URL.configURL(isTest: isTest,
+                                 enviromentScheme: kind.enviromentScheme,
+                                 configName: "environment")
+        }
+    }
+
+    var path: String {
+        return ""
+    }
+
+    var headers: [String: String]? {
+        return ["Content-type": "application/json"]
+    }
+
+    var method: Moya.Method {
+        switch self {
+        case .get:
+            return .get
+        }
+    }
+
+    var task: Task {
+        switch self {
+        case .get:
+            return .requestPlain
+        }
+    }
+}
+
+// MARK: CachePolicyTarget
+
+extension ResourceAPI.Service.Environment: CachePolicyTarget {
+    var cachePolicy: URLRequest.CachePolicy { .reloadIgnoringLocalAndRemoteCacheData }
+}
+
+private struct EnvironmentKey: Hashable {
+    let chainId: UInt8
+}
+
+public final class WidgetEnvironmentRepository: EnvironmentRepositoryProtocol {
+        
+    private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .init()
     
     private lazy var currentEnviromentShare: Observable<WalletEnvironment> =
         setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
 
-    private var localEnvironments: BehaviorSubject<[UInt8: WalletEnvironment]> = BehaviorSubject(value: [:])
+    private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject(value: [:])
     
     private lazy var internalEnvironmentKind: WalletEnvironment.Kind = {
           let chainId = UserDefaults.standard.string(forKey: "wallet.environment.kind") ?? ""
           return WalletEnvironment.Kind(rawValue: chainId) ?? .mainnet
     }()
-                    
+    
+    public init() {}
+            
     public func walletEnvironment() -> Observable<WalletEnvironment> {
         currentEnviromentShare
     }
@@ -48,10 +157,9 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol {
     }
 }
 
-extension EnvironmentRepository {
+extension WidgetEnvironmentRepository {
     
     private func setupServicesEnviroment() -> Observable<WalletEnvironment> {
-        
         return ifNeedRemoteEnvironment()
             .flatMap { [weak self] environment -> Observable<WalletEnvironment> in
                 guard let self = self else {
@@ -62,7 +170,7 @@ extension EnvironmentRepository {
         }
     }
         
-    private func localEnvironment(by key: UInt8) -> WalletEnvironment? {
+    private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {
         if let value = try? localEnvironments.value() {
             return value[key]
         }
@@ -71,7 +179,7 @@ extension EnvironmentRepository {
     }
 }
 
-private extension EnvironmentRepository {
+private extension WidgetEnvironmentRepository {
         
     private func saveEnvironmentToMemory(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
         Observable.create { [weak self] observer -> Disposable in
@@ -79,7 +187,7 @@ private extension EnvironmentRepository {
                 return Disposables.create()
             }
             
-            let key = self.environmentKind.chainId
+            let key = EnvironmentKey(chainId: self.environmentKind.chainId)
             
             if let value = try? self.localEnvironments.value() {
                 var newValue = value
@@ -98,7 +206,7 @@ private extension EnvironmentRepository {
     
     private func ifNeedRemoteEnvironment() -> Observable<WalletEnvironment> {
         
-        let key = self.environmentKind.chainId
+        let key = EnvironmentKey(chainId: self.environmentKind.chainId)
         
         if let enviroment = self.localEnvironment(by: key) {
             return Observable.just(enviroment)

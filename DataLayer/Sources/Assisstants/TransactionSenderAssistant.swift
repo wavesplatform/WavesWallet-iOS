@@ -13,7 +13,7 @@ import WavesSDKExtensions
 
 extension TransactionSenderSpecifications {
     private func chainId(serverEnvironment: ServerEnvironment,
-                         specifications: TransactionSenderSpecifications) -> String {
+                         specifications: TransactionSenderSpecifications) -> UInt8 {
         return specifications.chainId ?? serverEnvironment.kind.chainId
     }
 
@@ -54,7 +54,7 @@ extension TransactionSenderSpecifications {
     }
 
     private func continueBroadcastSpecification(timestamp: Int64,
-                                                scheme: String,
+                                                scheme: UInt8,
                                                 aliasScheme: String,
                                                 publicKey: String,
                                                 proofs: [String]) -> NodeService.Query.Transaction {
@@ -185,7 +185,7 @@ extension TransactionSenderSpecifications {
         }
     }
 
-    func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
+    func signature(timestamp: Int64, scheme: UInt8, publicKey: [UInt8]) -> [UInt8] {
         switch self {
         case let .data(model):
 
@@ -313,9 +313,13 @@ private extension SendTransactionSender {
 private extension DataTransactionSender {
     var dataForSignature: [TransactionSignatureV1.Structure.Data.Value] {
         data.map { value -> TransactionSignatureV1.Structure.Data.Value in
+
+            guard let valueKind = value.value
+            else { return TransactionSignatureV1.Structure.Data.Value(key: value.key, value: nil) }
+
             let kind: TransactionSignatureV1.Structure.Data.Value.Kind
 
-            switch value.value {
+            switch valueKind {
             case let .binary(data):
                 kind = .binary(data)
 
@@ -335,9 +339,13 @@ private extension DataTransactionSender {
 
     var dataForNode: [NodeService.Query.Transaction.Data.Value] {
         data.map { value -> NodeService.Query.Transaction.Data.Value in
+
+            guard let valueKind = value.value
+            else { return NodeService.Query.Transaction.Data.Value(key: value.key, value: nil) }
+
             let kind: NodeService.Query.Transaction.Data.Value.Kind
 
-            switch value.value {
+            switch valueKind {
             case let .binary(data):
                 kind = .binary(data)
 

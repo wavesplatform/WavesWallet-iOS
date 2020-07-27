@@ -31,7 +31,7 @@ final class DexMarketViewController: UIViewController {
     private let sendEvent: PublishRelay<DexMarket.Event> = PublishRelay<DexMarket.Event>()
 
     weak var delegate: TradeRefreshOutput!
-    var selectedAsset: DomainLayer.DTO.Dex.Asset?
+    var selectedAsset: Asset?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +99,7 @@ private extension DexMarketViewController {
 
     func setupLocalization() {
         if let asset = selectedAsset {
-            title = Localizable.Waves.Dexmarket.Navigationbar.titleAsset + " " + asset.shortName
+            title = Localizable.Waves.Dexmarket.Navigationbar.titleAsset + " " + asset.displayName
         } else {
             title = Localizable.Waves.Dexmarket.Navigationbar.title
         }

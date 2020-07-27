@@ -22,17 +22,13 @@ enum Debug {
 extension Debug {
     struct Enviroment {
         let name: String
-        let chainId: String
+        let chainId: UInt8
     }
 
     enum Row {
         case enviroments(_ enviroments: [Enviroment], _ current: Enviroment)
+        case test(_ isOn: Bool)
         case stageSwitch(_ isOn: Bool)
-        case notificationDevSwitch(_ isOn: Bool)
-        case versionTestSwitch(_ isOn: Bool)
-        case developmentConfigsSwitch(_ isOn: Bool)
-        case enviromentTestSwitch(_ isOn: Bool)
-        case tradeCategoriesConfig(_ isOn: Bool)
         case info(_ version: String, _ deviceId: String)
         case crash
     }
@@ -112,11 +108,7 @@ extension DebugViewController: UITableViewDelegate {
             return DebugEnviromentsCell.cellHeight()
 
         case .stageSwitch,
-             .notificationDevSwitch,
-             .versionTestSwitch,
-             .enviromentTestSwitch,
-             .tradeCategoriesConfig,
-             .developmentConfigsSwitch,
+             .test,
              .crash:
             return DebugSwitchCell.cellHeight()
 
@@ -144,14 +136,14 @@ extension DebugViewController: UITableViewDataSource {
 
             return cell
 
-        case let .developmentConfigsSwitch(isOn):
+        case let .test(isOn):
 
             let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Development Configs",
+            cell.update(with: .init(title: "Test settings",
                                     isOn: isOn))
 
             cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableDebugSettingsTest(isEnable: isOn)
+                ApplicationDebugSettings.setEnableEnviromentTest(isEnable: isOn)
             }
 
             return cell
@@ -159,55 +151,12 @@ extension DebugViewController: UITableViewDataSource {
         case let .stageSwitch(isOn):
 
             let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Enable Stage",
+            cell.update(with: .init(title: "Enable Stage (Need?)",
                                     isOn: isOn))
 
             cell.switchChangedValue = { isOn in
 
                 ApplicationDebugSettings.setupIsEnableStage(isEnable: isOn)
-            }
-            return cell
-
-        case let .notificationDevSwitch(isOn):
-
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Notification Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableNotificationsSettingTest(isEnable: isOn)
-            }
-            return cell
-
-        case let .enviromentTestSwitch(isOn):
-
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Enviroment Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableEnviromentTest(isEnable: isOn)
-            }
-            return cell
-
-        case let .versionTestSwitch(isOn):
-
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Version Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableVersionUpdateTest(isEnable: isOn)
-            }
-            return cell
-
-        case let .tradeCategoriesConfig(isOn):
-            let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Trade categories config Test",
-                                    isOn: isOn))
-
-            cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableTradeCategoriesConfigTest(isEnable: isOn)
             }
             return cell
 
@@ -262,7 +211,7 @@ private extension DebugViewController {
     }
 
     func changeEnviroment(_ enviroment: Debug.Enviroment) {
-        let kind = WalletEnvironment.Kind(rawValue: enviroment.chainId) ?? .mainnet
+        let kind = WalletEnvironment.Kind(chainId: enviroment.chainId) ?? .mainnet
 
         environmentRepository.environmentKind = kind
 
@@ -275,29 +224,26 @@ private extension DebugViewController {
         let version = Bundle.main.versionAndBuild
 
         let isEnableStage = ApplicationDebugSettings.isEnableStage
-        let isEnableNotificationsSettingDev = ApplicationDebugSettings.isEnableNotificationsSettingTest
+                
         let isEnableEnviromentTest = ApplicationDebugSettings.isEnableEnviromentTest
-        let isEnableVersionUpdateTest = ApplicationDebugSettings.isEnableVersionUpdateTest
-        let isEnableDebugSettingsTest = ApplicationDebugSettings.isEnableDebugSettingsTest
-        let isEnableTradeCategoriesConfigTest = ApplicationDebugSettings.isEnableTradeCategoriesConfigTest
 
         let mainNet: Debug.Enviroment = .init(name: "Mainnet",
-                                              chainId: "W")
+                                              chainId: "W".utf8.first ?? 0)
 
         let testNet: Debug.Enviroment = .init(name: "Testnet",
-                                              chainId: "T")
+                                              chainId: "T".utf8.first ?? 0)
 
-        let stageNet: Debug.Enviroment = .init(name: "Stagenet",
-                                               chainId: "S")
-
+        let wxdevnet: Debug.Enviroment = .init(name: "WXDevnet",
+                                               chainId: "S".utf8.first ?? 0)
+                
         var current: Debug.Enviroment!
 
         switch environmentRepository.environmentKind {
         case .mainnet:
             current = mainNet
 
-        case .stagenet:
-            current = stageNet
+        case .wxdevnet:
+            current = wxdevnet
 
         case .testnet:
             current = testNet
@@ -305,16 +251,13 @@ private extension DebugViewController {
 
         let sections: [Debug.Section] = [.init(rows: [Debug.Row.enviroments([mainNet,
                                                                              testNet,
-                                                                             stageNet],
-                                                                            current)],
+                                                                             wxdevnet],
+                                                                            current),
+                                                        .test(isEnableEnviromentTest)],
                                                kind: .enviroment),
                                          .init(rows: [.crash,
                                                       .stageSwitch(isEnableStage),
-                                                      .notificationDevSwitch(isEnableNotificationsSettingDev),
-                                                      .versionTestSwitch(isEnableVersionUpdateTest),
-                                                      .enviromentTestSwitch(isEnableEnviromentTest),
-                                                      .developmentConfigsSwitch(isEnableDebugSettingsTest),
-                                                      .tradeCategoriesConfig(isEnableTradeCategoriesConfigTest),
+                                                      
                                                       .info(version, UIDevice.uuid)],
                                                kind: .other)]
 

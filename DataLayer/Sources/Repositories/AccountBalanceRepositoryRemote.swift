@@ -44,7 +44,10 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
     func balance(by serverEnviroment: ServerEnvironment, assetId: String, wallet: SignedWallet) -> Observable<AssetBalance> {
         let matcherBalances = self.matcherBalances(by: serverEnviroment,
-                                                   wallet: wallet)
+                                                   wallet: wallet).catchError { (error) -> Observable<[String: Int64]> in
+
+            Observable.error(error)
+        }
 
         if assetId == WavesSDKConstants.wavesAssetId {
             let accountBalance = self.accountBalance(by: serverEnviroment,
@@ -130,7 +133,7 @@ private extension AccountBalanceRepositoryRemote {
 
     func sponsorBalance(serverEnviroment: ServerEnvironment,
                         assetId: String,
-                        walletAddress: String) -> Observable<SponsoredAssetDetail> {
+                        walletAddress _: String) -> Observable<SponsoredAssetDetail> {
         return assetDetail(serverEnviroment: serverEnviroment, assetId: assetId)
             .flatMap { [weak self] detail -> Observable<SponsoredAssetDetail> in
 

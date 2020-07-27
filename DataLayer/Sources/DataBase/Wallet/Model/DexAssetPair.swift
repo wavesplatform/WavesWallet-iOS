@@ -33,20 +33,20 @@ final class DexAssetPair: Object {
     @objc dynamic var sortLevel: Int = 0
 
     convenience init(id: String,
-                     amountAsset: DomainLayer.DTO.Dex.Asset,
-                     priceAsset: DomainLayer.DTO.Dex.Asset,
+                     amountAsset: Asset,
+                     priceAsset: Asset,
                      isGeneral: Bool,
                      sortLevel: Int) {
         self.init()
         self.id = id
         self.amountAsset = DexAsset(id: amountAsset.id,
                                     name: amountAsset.name,
-                                    shortName: amountAsset.shortName,
-                                    decimals: amountAsset.decimals)
+                                    shortName: amountAsset.ticker ?? amountAsset.name,
+                                    decimals: amountAsset.precision)
         self.priceAsset = DexAsset(id: priceAsset.id,
                                    name: priceAsset.name,
-                                   shortName: priceAsset.shortName,
-                                   decimals: priceAsset.decimals)
+                                   shortName: amountAsset.ticker ?? amountAsset.name,
+                                   decimals: priceAsset.precision)
         self.isGeneral = isGeneral
         self.sortLevel = sortLevel
     }

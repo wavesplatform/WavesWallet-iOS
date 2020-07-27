@@ -6,10 +6,10 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
-import UIKit
-import Extensions
 import DomainLayer
+import Extensions
 import RxSwift
+import UIKit
 
 private enum Constants {
     static let amountAssetKey = "assetId1"
@@ -17,78 +17,68 @@ private enum Constants {
 }
 
 final class DexDeepLinkLoadingViewController: UIViewController {
-
-    private let assets = UseCasesFactory.instance.assets
+    private let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
     private let auth = UseCasesFactory.instance.authorization
-    
+
     var deepLink: DeepLink!
-    var didComplete:((DexTraderContainer.DTO.Pair) -> Void)?
-    var didFail:(() -> Void)?
-    
+    var didComplete: ((DexTraderContainer.DTO.Pair) -> Void)?
+    var didFail: (() -> Void)?
+
     private let disposeBag = DisposeBag()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         loadAssets()
-        
     }
-    
+
     private func loadAssets() {
         if let amountAssetId = deepLink.amountAsset, let priceAssetId = deepLink.priceAsset {
             auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<[Asset]> in
                 guard let self = self else { return Observable.empty() }
-                return self.assets.assets(by: [amountAssetId, priceAssetId], accountAddress: wallet.address)
+                return self.assetsRepository.assets(ids: [amountAssetId, priceAssetId], accountAddress: wallet.address)
+                    .map { $0.compactMap( { $0 }) }
             }
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (assets) in
+            .subscribe(onNext: { [weak self] assets in
                 guard let self = self else { return }
-                if let amountAsset = assets.first(where: {$0.id == amountAssetId}),
-                    let priceAsset = assets.first(where: {$0.id == priceAssetId}) {
-                    
+                if let amountAsset = assets.first(where: { $0.id == amountAssetId }),
+                    let priceAsset = assets.first(where: { $0.id == priceAssetId }) {
                     let isGeneral = amountAsset.isGeneral && priceAsset.isGeneral
-                    let pair = DexTraderContainer.DTO.Pair(amountAsset: amountAsset.dexAsset,
-                                                           priceAsset: priceAsset.dexAsset,
+                    let pair = DexTraderContainer.DTO.Pair(amountAsset: amountAsset,
+                                                           priceAsset: priceAsset,
                                                            isGeneral: isGeneral)
                     self.didComplete?(pair)
-                }
-                else {
+                } else {
                     self.didFail?()
                 }
-                
+
             }).disposed(by: disposeBag)
-        }
-        else {
+        } else {
             didFail?()
         }
     }
 }
 
-
 private extension DeepLink {
-    
     var amountAsset: String? {
-        return url.params.first(where: {$0.key == Constants.amountAssetKey})?.value
+        return url.params.first(where: { $0.key == Constants.amountAssetKey })?.value
     }
-    
+
     var priceAsset: String? {
-        return url.params.first(where: {$0.key == Constants.priceAssetKey})?.value
+        return url.params.first(where: { $0.key == Constants.priceAssetKey })?.value
     }
-    
 }
 
 private extension URL {
-    
     var params: [String: String] {
-        
         guard let query = self.query else { return [:] }
         var queryStrings = [String: String]()
         for pair in query.components(separatedBy: "&") {
-
             let key = pair.components(separatedBy: "=")[0]
 
             let value = pair
-                .components(separatedBy:"=")[1]
+                .components(separatedBy: "=")[1]
                 .replacingOccurrences(of: "+", with: " ")
                 .removingPercentEncoding ?? ""
 

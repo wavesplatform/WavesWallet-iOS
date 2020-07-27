@@ -16,6 +16,6 @@ protocol DexLastTradesPresenterProtocol {
     func system(feedbacks: [Feedback])
     
     var moduleOutput: DexLastTradesModuleOutput? { get set }
-    var priceAsset: DomainLayer.DTO.Dex.Asset! { get set }
-    var amountAsset: DomainLayer.DTO.Dex.Asset! { get set }
+    var priceAsset: Asset! { get set }
+    var amountAsset: Asset! { get set }
 }

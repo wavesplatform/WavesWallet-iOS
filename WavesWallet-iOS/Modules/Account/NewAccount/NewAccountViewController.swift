@@ -37,8 +37,9 @@ final class NewAccountViewController: UIViewController {
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
     private var currentAvatar: Avatar? = nil
-
+    
     weak var output: NewAccountModuleOutput?
+    private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,7 +152,8 @@ final class NewAccountViewController: UIViewController {
             let index = object.offset
             let view = object.element
             let seed = WordList.generatePhrase()
-            let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed)
+            let privateKey = DomainLayer.DTO.PrivateKey(seedStr: seed,
+                                                        enviromentKind: environmentRepository.environmentKind)
 
             view.avatarDidTap = { [weak self] view, address in
                 guard let self = self else { return }

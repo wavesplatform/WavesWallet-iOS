@@ -27,15 +27,21 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     private let assetsRepository: AssetsRepositoryProtocol
 
     private let waveSDKServices: WavesSDKServices
+    private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
+    private let serverEnvironmentRepository: ServerEnvironmentRepository
 
     init(spamAssetsRepository: SpamAssetsRepositoryProtocol,
          matcherRepository: MatcherRepositoryProtocol,
          assetsRepository: AssetsRepositoryProtocol,
-         waveSDKServices: WavesSDKServices) {
+         waveSDKServices: WavesSDKServices,
+         assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol,
+         serverEnvironmentRepository: ServerEnvironmentRepository) {
         self.spamAssetsRepository = spamAssetsRepository
         self.matcherRepository = matcherRepository
         self.assetsRepository = assetsRepository
+        self.assetsBalanceSettingsRepository = assetsBalanceSettingsRepository
         self.waveSDKServices = waveSDKServices
+        self.serverEnvironmentRepository = serverEnvironmentRepository
     }
 
     func orderBook(serverEnvironment: ServerEnvironment,
@@ -71,11 +77,24 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                     DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset.id, priceAssetId: $0.priceAsset.id)
                 }
 
-                return waveSDKServices
-                    .dataServices
-                    .pairsPriceDataService
+                let pairsPrice = waveSDKServices.dataServices.pairsPriceDataService
                     .pairsPrice(query: .init(pairs: queryPairs, matcher: matcherPublicKey.address))
-                    .map { [weak self] pairsPrice -> [DomainLayer.DTO.Dex.SmartPair] in
+
+                let idsSet = queryPairs.reduce(into: Set<String>()) { out, pair in
+                    out.insert(pair.amountAssetId)
+                    out.insert(pair.priceAssetId)
+                }
+
+                let ids = Array(idsSet)
+
+                let assetsBalanceSettings = self.assetsBalanceSettingsRepository
+                    .settings(by: wallet.address, ids: ids)
+
+                let assets = self.assetsRepository.assets(ids: ids,
+                                                          accountAddress: wallet.address)
+
+                return Observable.zip(assets, assetsBalanceSettings, pairsPrice)
+                    .map { [weak self] _, assetsBalanceSettings, pairsPrice -> [DomainLayer.DTO.Dex.SmartPair] in
 
                         guard let self = self, let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
                             return []
@@ -87,10 +106,16 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                             if pair != nil {
                                 let amountAsset = pairs[index].amountAsset
                                 let priceAsset = pairs[index].priceAsset
-                                smartPairs.append(.init(amountAsset: amountAsset, priceAsset: priceAsset, realm: realm))
+
+                                let piar = DomainLayer.DTO.Dex
+                                    .SmartPair(amountAsset: amountAsset, priceAsset: priceAsset, realm: realm)
+                                
+                                smartPairs.append(piar)
                             }
                         }
-                        return self.sort(pairs: smartPairs, realm: realm)
+
+                        return self.sort(pairs: smartPairs,
+                                         assetsBalanceSettings: assetsBalanceSettings)
                     }
             }
     }
@@ -126,9 +151,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                     }
                 }
 
-                return self.assetsRepository.assets(serverEnvironment: serverEnvironment,
-                                                    ids: ids,
+                return self.assetsRepository.assets(ids: ids,
                                                     accountAddress: wallet.address)
+                    .map { $0.compactMap { $0 } }
                     .map { assets -> [DomainLayer.DTO.Dex.MyOrder] in
 
                         var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []
@@ -136,9 +161,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                         for order in orders {
                             if let amountAsset = assets.first(where: { $0.id == order.amountAsset }),
                                 let priceAsset = assets.first(where: { $0.id == order.priceAsset }) {
-                                myOrders.append(.init(order,
-                                                      priceAsset: priceAsset.dexAsset,
-                                                      amountAsset: amountAsset.dexAsset))
+                                myOrders.append(DomainLayer.DTO.Dex.MyOrder(order,
+                                                                            priceAsset: priceAsset,
+                                                                            amountAsset: amountAsset))
                             }
                         }
 
@@ -149,8 +174,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
     func myOrders(serverEnvironment: ServerEnvironment,
                   wallet: SignedWallet,
-                  amountAsset: DomainLayer.DTO.Dex.Asset,
-                  priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
+                  amountAsset: Asset,
+                  priceAsset: Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
         let waveSDKServices = self
             .waveSDKServices
             .wavesServices(environment: serverEnvironment)
@@ -299,34 +324,18 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
 // TODO: Remove call realm
 private extension DexOrderBookRepositoryRemote {
-    func sort(pairs: [DomainLayer.DTO.Dex.SmartPair], realm: Realm) -> [DomainLayer.DTO.Dex.SmartPair] {
-        var sortedPairs: [DomainLayer.DTO.Dex.SmartPair] = []
-
-        let generalBalances = realm
-            .objects(AssetRealm.self)
-            .filter(NSPredicate(format: "isGeneral == true"))
-            .toArray()
-            .reduce(into: [String: AssetRealm]()) { $0[$1.id] = $1 }
-
-        let settingsList = realm
-            .objects(AssetBalanceSettingsRealm.self)
-            .toArray()
-            .filter { asset -> Bool in
-                generalBalances[asset.assetId]?.isGeneral == true
-            }
-            .sorted(by: { $0.sortLevel < $1.sortLevel })
-
-        for settings in settingsList {
-            sortedPairs.append(contentsOf: pairs.filter { $0.amountAsset.id == settings.assetId && $0.isGeneral == true })
+    func sort(pairs: [DomainLayer.DTO.Dex.SmartPair],
+              assetsBalanceSettings: [String: AssetBalanceSettings]) -> [DomainLayer.DTO.Dex.SmartPair] {
+        return pairs.filter { pairs -> Bool in
+            pairs.isGeneral
         }
+        .sorted { pair1, pair2 -> Bool in
 
-        var sortedIds = sortedPairs.map { $0.id }
-        sortedPairs.append(contentsOf: pairs.filter { $0.isGeneral == true && !sortedIds.contains($0.id) })
+            let setting1 = assetsBalanceSettings[pair1.amountAsset.id]
+            let setting2 = assetsBalanceSettings[pair2.amountAsset.id]
 
-        sortedIds = sortedPairs.map { $0.id }
-        sortedPairs.append(contentsOf: pairs.filter { !sortedIds.contains($0.id) })
-
-        return sortedPairs
+            return (setting1?.sortLevel ?? 0) < (setting2?.sortLevel ?? 0)
+        }
     }
 }
 

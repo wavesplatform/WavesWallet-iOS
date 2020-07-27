@@ -21,16 +21,16 @@ struct InvestmentModuleBuilder: ModuleBuilderOutput {
 
         let enviroment = UseCasesFactory.instance.repositories.developmentConfigsRepository
         let authUseCase = UseCasesFactory.instance.authorization
-        let massTransferRepository = UseCasesFactory.instance.repositories.massTransferRepository
-        let assetsUseCase = UseCasesFactory.instance.assets
+        let massTransferRepository = UseCasesFactory.instance.repositories.massTransferRepository        
         let accountSettingsRepository = UseCasesFactory.instance.repositories.accountSettingsRepository
         let stakingBalanceService = UseCasesFactory.instance.repositories.stakingBalanceService
         let serverEnvironmentUseCase = UseCasesFactory.instance.serverEnvironmentUseCase
 
+        let assetsRepository = UseCasesFactory.instance.repositories.assetsRepository
             
         let interactor = InvestmentInteractor(enviroment: enviroment,
                                               massTransferRepository: massTransferRepository,
-                                              assetUseCase: assetsUseCase,
+                                              assetsRepository: assetsRepository,
                                               stakingBalanceService: stakingBalanceService,
                                               authorizationInteractor: authUseCase,
                                               accountBalanceInteractor: UseCasesFactory.instance.accountBalance,

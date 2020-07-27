@@ -21,7 +21,6 @@ public protocol DexPairsPriceRepositoryProtocol {
     func searchPairs(serverEnvironment: ServerEnvironment,
                      query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch>
     
-    func search(serverEnvironment: ServerEnvironment,
-                accountAddress: String,
+    func search(serverEnvironment: ServerEnvironment,                
                 searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]>
 }

@@ -31,16 +31,19 @@ extension DataTransactionRealm {
 
         let dataList = transaction.data.map { data -> DataTransactionDataRealm in
             let txData = DataTransactionDataRealm()
-            switch data.value {
-            case .bool(let value):
-                txData.boolean.value = value
-            case .integer(let value):
-                // TODO: Change bd
-                txData.integer.value = (value as? Int) ?? 0
-            case .string(let value):
-                txData.string = value
-            case .binary(let value):
-                txData.binary = value
+
+            if let value = data.value {
+                switch value {
+                case let .bool(value):
+                    txData.boolean.value = value
+                case let .integer(value):
+                    // TODO: Change bd
+                    txData.integer.value = (value as? Int) ?? 0
+                case let .string(value):
+                    txData.string = value
+                case let .binary(value):
+                    txData.binary = value
+                }
             }
             txData.key = data.key
             txData.type = data.type
@@ -58,20 +61,24 @@ extension DataTransaction {
          aliasScheme: String) {
         let dataList = transaction.data.map { data -> DataTransaction.Data in
 
+            guard let value = data.value else { return DataTransaction.Data(key: data.key,
+                                                                            value: nil,
+                                                                            type: data.type) }
+
             var dataValue: DataTransaction.Data.Value!
-            switch data.value {
-            case .bool(let value):
+            switch value {
+            case let .bool(value):
                 dataValue = .bool(value)
-            case .integer(let value):
+            case let .integer(value):
                 dataValue = .integer(value)
-            case .string(let value):
+            case let .string(value):
                 dataValue = .string(value)
-            case .binary(let value):
+            case let .binary(value):
                 dataValue = .binary(value)
             }
             return DataTransaction.Data(key: data.key,
-                                                        value: dataValue,
-                                                        type: data.type)
+                                        value: dataValue,
+                                        type: data.type)
         }
 
         self.init(type: transaction.type,
@@ -120,6 +127,6 @@ extension DataTransaction {
                   data: dataList,
                   modified: transaction.modified,
                   status: TransactionStatus(rawValue: transaction.status) ?? .completed,
-                  chainId: "")
+                  chainId: 0)
     }
 }

@@ -89,7 +89,7 @@ class TradeCoordinator: Coordinator {
     }
 
     func start() {
-        let tradeVc = TradeModuleBuilder(output: self).build(input: selectedAsset?.dexAsset)
+        let tradeVc = TradeModuleBuilder(output: self).build(input: selectedAsset)
         navigationRouter.pushViewController(tradeVc)
 
         // if selectedAsset != nil, we show Trade from AssetDetail screen and we not need setup toast
@@ -110,16 +110,25 @@ class TradeCoordinator: Coordinator {
 
 // MARK: - TradeModuleOutput
 
-extension TradeCoordinator: TradeModuleOutput { 
-    
+extension TradeCoordinator: TradeModuleOutput {
     func showPairLocked(pair: DexTraderContainer.DTO.Pair) {
-        
-        let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.shortName,
-                                                                          pair.priceAsset.shortName)
-        let subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
+        let titleValue = Localizable.Waves.Trade.Message.Pairlocked.title(pair.amountAsset.displayName,
+                                                                          pair.priceAsset.displayName)
+        let subTitleValue: String
+        if pair.amountAsset.hasScript || pair.priceAsset.hasScript {
+            subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.Smartassets.subtitle
+        } else {
+            subTitleValue = Localizable.Waves.Trade.Message.Pairlocked.subtitle
+        }
+
+        let image: UIImage
+        if pair.amountAsset.hasScript || pair.priceAsset.hasScript {
+            image = Images.iconInfo48.image
+        } else {
+            image = Images.bigwarning48.image
+        }
+
         let buttonTitle = Localizable.Waves.Trade.Message.Pairlocked.Button.ok
-        let image = Images.bigwarning48.image
-                
         let news = AppNewsView.show(model: AppNewsView.Model(title: titleValue,
                                                              subtitle: subTitleValue,
                                                              image: image,
@@ -128,7 +137,7 @@ extension TradeCoordinator: TradeModuleOutput {
             news?.dismiss()
         }
     }
-    
+
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
         let vc = DexTraderContainerModuleBuilder(output: self,
                                                  orderBookOutput: self,
@@ -137,7 +146,7 @@ extension TradeCoordinator: TradeModuleOutput {
         navigationRouter.pushViewController(vc)
     }
 
-    func searchTapped(selectedAsset: DomainLayer.DTO.Dex.Asset?, delegate: TradeRefreshOutput) {
+    func searchTapped(selectedAsset: Asset?, delegate: TradeRefreshOutput) {
         let vc = DexMarketModuleBuilder(output: delegate).build(input: selectedAsset)
         navigationRouter.pushViewController(vc)
     }
@@ -155,7 +164,6 @@ extension TradeCoordinator: TradeModuleOutput {
 // MARK: - DexTraderContainerModuleOutput
 
 extension TradeCoordinator: DexTraderContainerModuleOutput {
-    
     func showInfo(pair: DexInfoPair.DTO.Pair) {
         let controller = DexInfoModuleBuilder().build(input: pair)
         let popup = PopupViewController()
@@ -168,13 +176,12 @@ extension TradeCoordinator: DexTraderContainerModuleOutput {
 
 extension TradeCoordinator: DexLastTradesModuleOutput {
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade,
-                        amountAsset: DomainLayer.DTO.Dex.Asset,
-                        priceAsset: DomainLayer.DTO.Dex.Asset,
+                        amountAsset: Asset,
+                        priceAsset: Asset,
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
                         availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                         scriptedAssets: [Asset]) {
-        
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: trade.type,
@@ -189,14 +196,13 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
                                   sum: nil)
     }
 
-    func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset,
-                             priceAsset: DomainLayer.DTO.Dex.Asset,
+    func didCreateEmptyOrder(amountAsset: Asset,
+                             priceAsset: Asset,
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              availableAmountAssetBalance: Money,
                              availablePriceAssetBalance: Money,
                              availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [Asset]) {
-        
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: orderType,
@@ -216,8 +222,8 @@ extension TradeCoordinator: DexLastTradesModuleOutput {
 
 extension TradeCoordinator: DexOrderBookModuleOutput {
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk,
-                        amountAsset: DomainLayer.DTO.Dex.Asset,
-                        priceAsset: DomainLayer.DTO.Dex.Asset,
+                        amountAsset: Asset,
+                        priceAsset: Asset,
                         ask: Money?,
                         bid: Money?,
                         last: Money?,
@@ -227,7 +233,7 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                         inputMaxSum: Bool,
                         scriptedAssets: [Asset]) {
         let sum = inputMaxSum ? bidAsk.sum : nil
-        
+
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: bidAsk.orderType,
@@ -242,8 +248,8 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                                   sum: sum)
     }
 
-    func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset,
-                             priceAsset: DomainLayer.DTO.Dex.Asset,
+    func didCreateEmptyOrder(amountAsset: Asset,
+                             priceAsset: Asset,
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              ask: Money?,
                              bid: Money?,
@@ -252,7 +258,6 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
                              availablePriceAssetBalance: Money,
                              availableBalances: [DomainLayer.DTO.SmartAssetBalance],
                              scriptedAssets: [Asset]) {
-        
         showCreateOrderController(amountAsset: amountAsset,
                                   priceAsset: priceAsset,
                                   type: orderType,
@@ -271,8 +276,8 @@ extension TradeCoordinator: DexOrderBookModuleOutput {
 // MARK: - CreateOrderController
 
 private extension TradeCoordinator {
-    func showCreateOrderController(amountAsset: DomainLayer.DTO.Dex.Asset,
-                                   priceAsset: DomainLayer.DTO.Dex.Asset,
+    func showCreateOrderController(amountAsset: Asset,
+                                   priceAsset: Asset,
                                    type: DomainLayer.DTO.Dex.OrderType,
                                    price: Money?, ask: Money?, bid: Money?, last: Money?,
                                    availableAmountAssetBalance: Money,

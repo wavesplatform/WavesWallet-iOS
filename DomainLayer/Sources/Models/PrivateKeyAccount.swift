@@ -16,13 +16,13 @@ public extension DomainLayer.DTO {
         public let privateKey: [UInt8]
         public let seed: [UInt8]
         
-        public init(seed: [UInt8]) {
+        public init(seed: [UInt8], enviromentKind: WalletEnvironment.Kind) {
             self.seed = seed
             let nonce : [UInt8] = [0, 0, 0, 0]
             let hashSeed = Hash.sha256(Hash.secureHash(nonce + seed))
             let pair = Curve25519.generateKeyPair(Data(hashSeed))!
             privateKey = Array(pair.privateKey())
-            super.init(publicKey: Array(pair.publicKey()))
+            super.init(publicKey: Array(pair.publicKey()), enviromentKind: enviromentKind)
         }
 
         public var privateKeyStr: String {
@@ -37,8 +37,8 @@ public extension DomainLayer.DTO {
             return String(data: Data(seed), encoding: .utf8) ?? ""
         }
         
-        public convenience init(seedStr: String) {
-            self.init(seed: Array(seedStr.utf8))
+        public convenience init(seedStr: String, enviromentKind: WalletEnvironment.Kind) {
+            self.init(seed: Array(seedStr.utf8), enviromentKind: enviromentKind)
         }
     }
 }

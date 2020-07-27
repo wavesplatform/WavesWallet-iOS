@@ -20,7 +20,7 @@ public struct BurnTransaction: Decodable {
 
     public let signature: String?
     public let proofs: [String]?
-    public let chainId: Int?
+    public let chainId: UInt8?
     public let assetId: String
     public let amount: Int64
     public var modified: Date
@@ -37,7 +37,7 @@ public struct BurnTransaction: Decodable {
         height: Int64,
         signature: String?,
         proofs: [String]?,
-        chainId: Int?,
+        chainId: UInt8?,
         assetId: String,
         amount: Int64,
         modified: Date,

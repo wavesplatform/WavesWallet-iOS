@@ -34,7 +34,7 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
 
         return applicationNews
             .rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingTest),
+            .request(.get(isDebug: ApplicationDebugSettings.isEnableEnviromentTest),
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .asObservable()
             .filterSuccessfulStatusAndRedirectCodes()

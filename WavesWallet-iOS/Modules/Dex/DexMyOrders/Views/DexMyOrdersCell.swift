@@ -82,7 +82,7 @@ extension DexMyOrdersCell: ViewConfiguration {
     func update(with model: Model) {
         let order = model.order
 
-        labelAssets.text = order.amountAsset.shortName + "/" + order.priceAsset.shortName
+        labelAssets.text = order.amountAsset.displayName + "/" + order.priceAsset.displayName
         labelAmount.text = order.amount.displayText
         labelSum.text = order.totalBalance.money.displayText
         labelFilled.text = order.filled.displayText

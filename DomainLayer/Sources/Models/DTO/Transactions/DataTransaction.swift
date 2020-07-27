@@ -18,10 +18,10 @@ public struct DataTransaction {
         }
 
         public let key: String
-        public let value: Value
-        public let type: String
+        public let value: Value?
+        public let type: String?
 
-        public init(key: String, value: Value, type: String) {
+        public init(key: String, value: Value?, type: String?) {
             self.key = key
             self.value = value
             self.type = type
@@ -41,7 +41,7 @@ public struct DataTransaction {
     public let data: [Data]
     public var modified: Date
     public var status: TransactionStatus
-    public var chainId: String?
+    public var chainId: UInt8?
 
     public init(
         type: Int,
@@ -56,7 +56,7 @@ public struct DataTransaction {
         data: [Data],
         modified: Date,
         status: TransactionStatus,
-        chainId: String?) {
+        chainId: UInt8?) {
         self.type = type
         self.id = id
         self.sender = sender

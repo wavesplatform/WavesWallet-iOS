@@ -729,7 +729,7 @@ extension DataTransaction {
             var map = [String: String]()
             map[Constants.key] = data.key
             map[Constants.type] = data.type
-            map[Constants.value] = data.value.toString
+            map[Constants.value] = data.value?.toString
             return map
         }
 
