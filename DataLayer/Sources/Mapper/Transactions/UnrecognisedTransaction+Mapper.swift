@@ -28,7 +28,7 @@ extension UnrecognisedTransactionRealm {
 
 extension UnrecognisedTransaction {
     init(transaction: NodeService.DTO.UnrecognisedTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -38,7 +38,7 @@ extension UnrecognisedTransaction {
                   timestamp: transaction.timestamp,
                   height: transaction.height,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed)
     }
 
     init(transaction: UnrecognisedTransactionRealm) {

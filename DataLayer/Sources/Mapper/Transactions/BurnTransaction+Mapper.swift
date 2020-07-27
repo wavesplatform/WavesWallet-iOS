@@ -36,7 +36,7 @@ extension BurnTransactionRealm {
 
 extension BurnTransaction {
     init(transaction: NodeService.DTO.BurnTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -52,7 +52,7 @@ extension BurnTransaction {
                   assetId: transaction.assetId,
                   amount: transaction.amount,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed)
     }
 
     init(transaction: BurnTransactionRealm) {

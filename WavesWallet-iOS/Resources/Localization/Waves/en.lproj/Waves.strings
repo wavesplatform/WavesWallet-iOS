@@ -549,6 +549,9 @@
 "transactionhistory.cell.status.at" = "at";
 "transactioncard.title.activeNow" = "Active Now";
 "transactioncard.title.completed" = "COMPLETED";
+
+"transactioncard.title.failed" = "FAILED";
+
 "transactioncard.title.unconfirmed" = "Unconfirmed";
 "transactioncard.title.timestamp" = "Timestamp";
 "transactionhistory.cell.type" = "Type";

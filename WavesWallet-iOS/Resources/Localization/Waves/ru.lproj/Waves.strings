@@ -547,6 +547,7 @@
 "transactionhistory.cell.status.at" = "в";
 "transactioncard.title.activeNow" = "Активен";
 "transactioncard.title.completed" = "ВЫПОЛНЕНО";
+"transactioncard.title.failed" = "НЕУСПЕШНО";
 "transactioncard.title.unconfirmed" = "Не подтверждено";
 "transactioncard.title.timestamp" = "Время";
 "transactionhistory.cell.type" = "Тип";

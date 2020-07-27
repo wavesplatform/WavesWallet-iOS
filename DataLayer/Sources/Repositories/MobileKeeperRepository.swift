@@ -475,7 +475,8 @@ private extension DataTransaction {
                      height: height,
                      version: version,
                      proofs: proofs,
-                     data: data)
+                     data: data,
+                     applicationStatus: nil)
     }
 }
 
@@ -529,7 +530,8 @@ private extension InvokeScriptTransaction {
                                                        feeAssetId: feeAssetId,
                                                        dApp: dappAddress,
                                                        call: call,
-                                                       payment: payments != nil ? [payments!] : [])
+                                                       payment: payments != nil ? [payments!] : [],
+                                                       applicationStatus: nil)
     }
 }
 
@@ -552,7 +554,8 @@ private extension AnyTransaction {
                                                               assetId: model.assetId,
                                                               feeAssetId: model.feeAssetId,
                                                               amount: model.amount,
-                                                              attachment: model.attachment))
+                                                              attachment: model.attachment,
+                                                              applicationStatus: nil))
 
         case let .invokeScript(model):
             return .invokeScript(model.invokeScriptTransactionNodeService)

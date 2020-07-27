@@ -57,7 +57,7 @@ extension DataTransactionRealm {
 
 extension DataTransaction {
     init(transaction: NodeService.DTO.DataTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         let dataList = transaction.data.map { data -> DataTransaction.Data in
 
@@ -92,7 +92,7 @@ extension DataTransaction {
                   proofs: transaction.proofs,
                   data: dataList,
                   modified: Date(),
-                  status: status,
+                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed,
                   chainId: transaction.chainId)
     }
 

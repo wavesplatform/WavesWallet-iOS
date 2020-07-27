@@ -36,7 +36,7 @@ extension SponsorshipTransactionRealm {
 
 extension SponsorshipTransaction {
     init(transaction: NodeService.DTO.SponsorshipTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -51,7 +51,7 @@ extension SponsorshipTransaction {
                   assetId: transaction.assetId,
                   minSponsoredAssetFee: transaction.minSponsoredAssetFee,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed)
     }
 
     init(transaction: SponsorshipTransactionRealm) {

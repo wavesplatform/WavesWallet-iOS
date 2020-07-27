@@ -26,6 +26,7 @@ public struct SmartTransaction: Equatable {
         case activeNow
         case completed
         case unconfirmed
+        case fail
     }
 
     public struct Transfer: Equatable {

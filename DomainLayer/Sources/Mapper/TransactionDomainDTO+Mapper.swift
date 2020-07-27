@@ -6,11 +6,11 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
-import WavesSDKCrypto
-import WavesSDK
-import WavesSDKExtensions
 import Extensions
+import Foundation
+import WavesSDK
+import WavesSDKCrypto
+import WavesSDKExtensions
 
 fileprivate enum TransactionDirection {
     case sent
@@ -19,8 +19,7 @@ fileprivate enum TransactionDirection {
 
     init(sender: Address,
          recipient: Address) {
-
-        if sender.isMyAccount && recipient.isMyAccount {
+        if sender.isMyAccount, recipient.isMyAccount {
             self = .selfSent
         } else if sender.isMyAccount {
             self = .sent
@@ -39,9 +38,8 @@ private enum Constants {
 // MARK: UnrecognisedTransaction
 
 extension Int64 {
-
     func confirmationHeight(txHeight: Int64?) -> Int64 {
-        //NotFound
+        // NotFound
         guard let txHeight = txHeight else { return -1 }
         return self - txHeight
     }
@@ -57,7 +55,6 @@ struct SmartTransactionMetaData {
 }
 
 private func decodedString(_ string: String?) -> String? {
-    
     if let string = string {
         return Base58Encoder.decodeToStr(string)
     }
@@ -65,9 +62,7 @@ private func decodedString(_ string: String?) -> String? {
 }
 
 extension UnrecognisedTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -97,9 +92,7 @@ extension UnrecognisedTransaction {
 // MARK: IssueTransaction
 
 extension IssueTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -110,10 +103,10 @@ extension IssueTransaction {
         guard let sender = accounts[self.sender] else {
             return nil
         }
-        guard let asset = assets[self.assetId] else {
+        guard let asset = assets[assetId] else {
             return nil
         }
-        let balance = asset.balance(self.quantity)
+        let balance = asset.balance(quantity)
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -132,9 +125,7 @@ extension IssueTransaction {
 // MARK: TransferTransaction
 
 extension TransferTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -162,7 +153,7 @@ extension TransferTransaction {
 
         let hasMyAccount = externalAccounts.contains(metaData.account.address)
         let hasMyAliases = metaData.account.aliases.contains(where: { (alias) -> Bool in
-            return externalAccounts.contains(alias.name)
+            externalAccounts.contains(alias.name)
         })
 
         let transactionDirection = TransactionDirection(sender: sender,
@@ -170,21 +161,20 @@ extension TransferTransaction {
 
         let hasSponsorship = (hasMyAccount == false && hasMyAliases == false) && transactionDirection == .receive
 
-        var transferBalance = asset.balance(self.amount)
+        var transferBalance = asset.balance(amount)
         var transferAsset = asset
 
         if hasSponsorship {
-            transferBalance = feeAsset.balance(self.fee)
+            transferBalance = feeAsset.balance(fee)
             transferAsset = feeAsset
         }
 
         let transfer: SmartTransaction.Transfer = .init(balance: transferBalance,
-                                                                        asset: transferAsset,
-                                                                        recipient: transactionDirection == .receive ? sender : recipient,
-                                                                        attachment: decodedString(attachment),
-                                                                        hasSponsorship: hasSponsorship,
-                                                                        myAccount: metaData.account)
-
+                                                        asset: transferAsset,
+                                                        recipient: transactionDirection == .receive ? sender : recipient,
+                                                        attachment: decodedString(attachment),
+                                                        hasSponsorship: hasSponsorship,
+                                                        myAccount: metaData.account)
 
         var kind: SmartTransaction.Kind!
 
@@ -224,14 +214,12 @@ extension TransferTransaction {
 // MARK: ReissueTransaction
 
 extension ReissueTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let asset = assets[self.assetId] else {
+        guard let asset = assets[assetId] else {
             return nil
         }
         guard let sender = accounts[self.sender] else {
@@ -241,7 +229,7 @@ extension ReissueTransaction {
             return nil
         }
 
-        let balance = asset.balance(self.quantity)
+        let balance = asset.balance(quantity)
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -262,14 +250,12 @@ extension ReissueTransaction {
 // MARK: BurnTransaction
 
 extension BurnTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let asset = assets[self.assetId] else {
+        guard let asset = assets[assetId] else {
             SweetLogger.error("MassTransferTransaction Not found Asset ID")
             return nil
         }
@@ -281,7 +267,7 @@ extension BurnTransaction {
             SweetLogger.error("MassTransferTransaction Not found Waves ID")
             return nil
         }
-        let balance = asset.balance(self.amount)
+        let balance = asset.balance(amount)
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -302,9 +288,7 @@ extension BurnTransaction {
 // MARK: ExchangeTransaction
 
 extension ExchangeTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -320,7 +304,7 @@ extension ExchangeTransaction {
         guard let priceAsset = assets[priceAssetId] else {
             return nil
         }
-            
+
         let assetPair = AssetPair(amountAsset: amountAsset,
                                   priceAsset: priceAsset)
 
@@ -331,61 +315,59 @@ extension ExchangeTransaction {
 
         var buyMatcherFee: DomainLayer.DTO.Balance!
         var sellMatcherFee: DomainLayer.DTO.Balance!
-        
+
         if let matcherFeeAssetId = order1.matcherFeeAssetId {
             guard let matcherFeeAsset = assets[matcherFeeAssetId] else { return nil }
 
             if order1.orderType == .sell {
                 sellMatcherFee = matcherFeeAsset.balance(self.sellMatcherFee)
-            }
-            else {
+            } else {
                 buyMatcherFee = matcherFeeAsset.balance(self.buyMatcherFee)
             }
         }
-        
+
         if let matcherFeeAssetId = order2.matcherFeeAssetId {
             guard let matcherFeeAsset = assets[matcherFeeAssetId] else { return nil }
-            
+
             if order2.orderType == .sell {
                 sellMatcherFee = matcherFeeAsset.balance(self.sellMatcherFee)
-            }
-            else {
+            } else {
                 buyMatcherFee = matcherFeeAsset.balance(self.buyMatcherFee)
             }
         }
-        
+
         if buyMatcherFee == nil {
             buyMatcherFee = wavesAsset.balance(self.buyMatcherFee)
         }
-        
+
         if sellMatcherFee == nil {
             sellMatcherFee = wavesAsset.balance(self.sellMatcherFee)
         }
 
         guard let order1 = order1.exchangeOrder(assetPair: assetPair,
                                                 accounts: accounts)
-            else {
-                return nil
-            }
+        else {
+            return nil
+        }
         guard let order2 = order2.exchangeOrder(assetPair: assetPair,
                                                 accounts: accounts)
-            else {
-                return nil
-            }
+        else {
+            return nil
+        }
 
         let kind: SmartTransaction.Kind = .exchange(.init(price: price,
-                                                                          amount: amount,
-                                                                          total: total,
-                                                                          buyMatcherFee: buyMatcherFee,
-                                                                          sellMatcherFee: sellMatcherFee,
-                                                                          order1: order1,
-                                                                          order2: order2))
+                                                          amount: amount,
+                                                          total: total,
+                                                          buyMatcherFee: buyMatcherFee,
+                                                          sellMatcherFee: sellMatcherFee,
+                                                          order1: order1,
+                                                          order2: order2))
 
-        //TODO: Проверить комиссию для одного sendera
+        // TODO: Проверить комиссию для одного sendera
         let feeBalance = wavesAsset.balance(fee)
 
         guard let sender = accounts[self.sender] else {
-            return nil            
+            return nil
         }
 
         return .init(id: id,
@@ -404,16 +386,14 @@ extension ExchangeTransaction {
 // MARK: LeaseTransaction
 
 extension LeaseTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let accountAddress: String = metaData.account.address
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
         guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
-        let balance = wavesAsset.balance(self.amount)
+        let balance = wavesAsset.balance(amount)
         let isSenderAccount = sender.isMyAccount(accountAddress)
 
         var kind: SmartTransaction.Kind!
@@ -452,9 +432,7 @@ extension LeaseTransaction {
 // MARK: LeaseCancelTransaction
 
 extension LeaseCancelTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-        
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -466,24 +444,21 @@ extension LeaseCancelTransaction {
         }
 
         guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
-
             return nil
         }
         guard let recipient = accounts[lease.recipient] else {
-
             return nil
         }
         guard let sender = accounts[self.sender] else {
-
             return nil
         }
 
         let balance = wavesAsset.balance(lease.amount)
 
         let kind: SmartTransaction.Kind = .canceledLeasing(.init(asset: wavesAsset,
-                                                                                 balance: balance,
-                                                                                 account: recipient,
-                                                                                 myAccount: metaData.account))
+                                                                 balance: balance,
+                                                                 account: recipient,
+                                                                 myAccount: metaData.account))
 
         let feeBalance = wavesAsset.balance(fee)
 
@@ -503,9 +478,7 @@ extension LeaseCancelTransaction {
 // MARK: AliasTransaction
 
 extension AliasTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-        
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -515,7 +488,7 @@ extension AliasTransaction {
 
         let kind: SmartTransaction.Kind = .createdAlias(alias)
         let feeBalance = wavesAsset.balance(fee)
-        
+
         return .init(id: id,
                      type: type,
                      kind: kind,
@@ -532,9 +505,7 @@ extension AliasTransaction {
 // MARK: ScriptTransaction
 
 extension ScriptTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -561,9 +532,7 @@ extension ScriptTransaction {
 // MARK: AssetScriptTransaction
 
 extension AssetScriptTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -591,9 +560,7 @@ extension AssetScriptTransaction {
 // MARK: SponsorshipTransaction
 
 extension SponsorshipTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -602,8 +569,8 @@ extension SponsorshipTransaction {
         guard let assetAccount = assets[assetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
-        let isEnabled = self.minSponsoredAssetFee != nil
-        
+        let isEnabled = minSponsoredAssetFee != nil
+
         let kind: SmartTransaction.Kind = .sponsorship(isEnabled: isEnabled, asset: assetAccount)
         let feeBalance = wavesAsset.balance(fee)
 
@@ -623,9 +590,7 @@ extension SponsorshipTransaction {
 // MARK: MassTransferTransaction
 
 extension MassTransferTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -634,14 +599,13 @@ extension MassTransferTransaction {
         guard let asset = assets[assetId] else {
             SweetLogger.error("MassTransferTransaction Not found assetId")
             return nil
-
         }
         guard let sender = accounts[self.sender] else {
             SweetLogger.error("MassTransferTransaction not found sender")
             return nil
         }
 
-        let totalBalance = asset.balance(self.totalAmount)
+        let totalBalance = asset.balance(totalAmount)
 
         let isSenderAccount = sender.isMyAccount
 
@@ -659,12 +623,11 @@ extension MassTransferTransaction {
             .compactMap { $0 }
 
             let massTransfer: SmartTransaction.MassTransfer = .init(total: totalBalance,
-                                                                                    asset: asset,
-                                                                                    attachment: decodedString(attachment),
-                                                                                    transfers: transfers)
+                                                                    asset: asset,
+                                                                    attachment: decodedString(attachment),
+                                                                    transfers: transfers)
             kind = .massSent(massTransfer)
         } else {
-
             let transfers = self.transfers.map { tx -> SmartTransaction.MassReceive.Transfer? in
                 guard accounts[tx.recipient] != nil else {
                     SweetLogger.error("MassTransferTransaction Not found recipient")
@@ -675,20 +638,20 @@ extension MassTransferTransaction {
             }
             .compactMap { $0 }
 
-            let myTotalAmount: Int64 = transfers.reduce(into: Int64(0), { (result, transfer) in
-                
+            let myTotalAmount: Int64 = transfers.reduce(into: Int64(0)) { result, transfer in
+
                 if !transfer.recipient.isMyAccount {
                     result += transfer.amount.amount
                 }
-            })
+            }
 
             let myTotalBalance = asset.balance(myTotalAmount)
 
             let massReceive: SmartTransaction.MassReceive = .init(total: totalBalance,
-                                                                                  myTotal: myTotalBalance,
-                                                                                  asset: asset,
-                                                                                  attachment: decodedString(attachment),
-                                                                                  transfers: transfers)
+                                                                  myTotal: myTotalBalance,
+                                                                  asset: asset,
+                                                                  attachment: decodedString(attachment),
+                                                                  transfers: transfers)
             if asset.isSpam {
                 kind = .spamMassReceived(massReceive)
             } else {
@@ -718,9 +681,7 @@ extension MassTransferTransaction {
 // MARK: DataTransaction
 
 extension DataTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -756,34 +717,31 @@ extension DataTransaction {
 // MARK: InvokeScriptTransaction
 
 extension InvokeScriptTransaction {
-
     func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
-        
         let assets: [String: Asset] = metaData.assets
         let accounts: [String: Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
         guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
-        
+
         var payment: SmartTransaction.InvokeScript.Payment?
-        
+
         if let txPayment = self.payment {
             if let paymentAssetId = txPayment.assetId {
                 guard let paymentAsset = assets[paymentAssetId] else { return nil }
                 payment = .init(amount: Money(txPayment.amount, paymentAsset.precision), asset: paymentAsset)
-            }
-            else {
+            } else {
                 payment = .init(amount: Money(txPayment.amount, wavesAsset.precision), asset: nil)
             }
         }
-        
+
         let feeBalance = wavesAsset.balance(fee)
         guard let sender = accounts[self.sender] else { return nil }
-        
+
         return .init(id: id,
                      type: type,
                      kind: .invokeScript(SmartTransaction.InvokeScript(payment: payment,
-                                                                                       scriptAddress: dappAddress)),
+                                                                       scriptAddress: dappAddress)),
                      timestamp: timestamp,
                      totalFee: feeBalance,
                      feeAsset: wavesAsset,
@@ -797,15 +755,12 @@ extension InvokeScriptTransaction {
 // MARK: AnyTransaction
 
 extension AnyTransaction {
-
     func transaction(by accountAddress: String,
                      assets: [String: Asset],
                      accounts: [String: Address],
                      totalHeight: Int64,
                      leaseTransactions: [String: LeaseTransaction],
                      mapTxs: [String: AnyTransaction]) -> SmartTransaction? {
-
-
         guard let account = accounts[accountAddress] else {
             SweetLogger.debug("account Not Found \(self)")
             return nil
@@ -814,17 +769,19 @@ extension AnyTransaction {
         var status: SmartTransaction.Status = .completed
 
         switch self.status {
-            case .activeNow:
-                status = .activeNow
+        case .activeNow:
+            status = .activeNow
 
-            case .completed:
-                status = .completed
+        case .completed:
+            status = .completed
 
-            case .unconfirmed:
-                status = .unconfirmed
+        case .unconfirmed:
+            status = .unconfirmed
+        case .fail:
+            status = .fail
         }
 
-        if self.isLease && leaseTransactions[id] != nil {
+        if isLease, leaseTransactions[id] != nil {
             status = .activeNow
         }
 
@@ -837,55 +794,54 @@ extension AnyTransaction {
 
         var smartTransaction: SmartTransaction?
         switch self {
-
-        case .unrecognised(let tx):
+        case let .unrecognised(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .issue(let tx):
+        case let .issue(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .burn(let tx):
+        case let .burn(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .lease(let tx):
+        case let .lease(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .leaseCancel(let tx):
+        case let .leaseCancel(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .alias(let tx):
+        case let .alias(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .massTransfer(let tx):
+        case let .massTransfer(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .data(let tx):
+        case let .data(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .script(let tx):
+        case let .script(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .assetScript(let tx):
+        case let .assetScript(tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .sponsorship(let tx):
+        case let .sponsorship(tx):
             smartTransaction = tx.transaction(by: smartData)
-            
-        case .invokeScript(let tx):
+
+        case let .invokeScript(tx):
             smartTransaction = tx.transaction(by: smartData)
         }
 
         if smartTransaction == nil {
-           SweetLogger.debug("Not Found TX \(self)")
+            SweetLogger.debug("Not Found TX \(self)")
         }
 
         return smartTransaction
@@ -893,22 +849,19 @@ extension AnyTransaction {
 }
 
 fileprivate extension String {
-
     func isMyAccount(_ account: String) -> Bool {
         return self == account
     }
 }
 
 extension ExchangeTransaction.Order {
-
     func exchangeOrder(assetPair: AssetPair,
                        accounts: [String: Address]) -> SmartTransaction.Exchange.Order? {
-
         guard let sender = accounts[self.sender] else { return nil }
         let kind: SmartTransaction.Exchange.Order.Kind = orderType == .sell ? .sell : .buy
         let amount = assetPair.amountBalance(self.amount)
         let price = assetPair.priceBalance(self.price)
-        
+
         let total = assetPair.totalBalance(priceAmount: self.amount,
                                            assetAmount: self.price)
 
@@ -924,19 +877,18 @@ extension ExchangeTransaction.Order {
 }
 
 fileprivate extension DataTransaction.Data.Value {
-
     var toString: String {
         switch self {
-        case .bool(let value):
+        case let .bool(value):
             return "\(value)"
 
-        case .integer(let value):
+        case let .integer(value):
             return "\(value)"
 
-        case .string(let value):
+        case let .string(value):
             return "\(value)"
 
-        case .binary(let value):
+        case let .binary(value):
             return "\(value)"
         }
     }

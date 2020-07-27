@@ -43,7 +43,7 @@ extension LeaseCancelTransactionRealm {
 
 extension LeaseCancelTransaction {
     init(transaction: NodeService.DTO.LeaseCancelTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         
         var leaseTx: LeaseTransaction?
@@ -68,7 +68,7 @@ extension LeaseCancelTransaction {
                   leaseId: transaction.leaseId,
                   lease: leaseTx,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed)
     }
 
     init(transaction: LeaseCancelTransactionRealm) {

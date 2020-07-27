@@ -41,7 +41,7 @@ extension IssueTransactionRealm {
 
 extension IssueTransaction {
     init(transaction: NodeService.DTO.IssueTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -62,7 +62,7 @@ extension IssueTransaction {
                   description: transaction.description,
                   script: transaction.script,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed)
     }
 
     init(transaction: IssueTransactionRealm) {

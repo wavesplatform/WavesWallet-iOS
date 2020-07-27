@@ -761,6 +761,9 @@ private extension SmartTransaction {
 
         case .unconfirmed:
             return .unconfirmed
+
+        case .fail:
+            return .fail
         }
     }
 }

@@ -13,7 +13,7 @@ import WavesSDK
 extension InvokeScriptTransactionRealm {
     convenience init(transaction: InvokeScriptTransaction) {
         self.init()
-        
+
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
@@ -22,16 +22,16 @@ extension InvokeScriptTransactionRealm {
         timestamp = transaction.timestamp
         height = transaction.height
         version = transaction.version
-        
+
         if let proofs = transaction.proofs {
             self.proofs.append(objectsIn: proofs)
         }
         feeAssetId = transaction.feeAssetId
         dappAddress = transaction.dappAddress
-        
+
         modified = transaction.modified
         status = transaction.status.rawValue
-        
+
         if let txPayment = transaction.payment {
             payment = InvokeScriptTransactionPaymentRealm()
             payment?.amount = txPayment.amount
@@ -42,36 +42,36 @@ extension InvokeScriptTransactionRealm {
 
 extension InvokeScriptTransaction {
     init(transaction: NodeService.DTO.InvokeScriptTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         var call: InvokeScriptTransaction.Call?
-        
+
         if let localCall = transaction.call {
             let args = localCall.args.map { (arg) -> InvokeScriptTransaction.Call.Args in
-                
+
                 let value = { () -> InvokeScriptTransaction.Call.Args.Value in
-                    
+
                     switch arg.value {
-                    case .binary(let value):
+                    case let .binary(value):
                         return .binary(value)
-                        
-                    case .bool(let value):
+
+                    case let .bool(value):
                         return .bool(value)
-                        
-                    case .integer(let value):
+
+                    case let .integer(value):
                         return .integer(value)
-                        
-                    case .string(let value):
+
+                    case let .string(value):
                         return .string(value)
                     }
                 }()
-                
+
                 return .init(type: arg.type, value: value)
             }
-            
+
             call = InvokeScriptTransaction.Call(function: localCall.function, args: args)
         }
-        
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -85,11 +85,11 @@ extension InvokeScriptTransaction {
                   payment: transaction.payment.first.map { .init(amount: $0.amount, assetId: $0.assetId) },
                   height: transaction.height ?? 0,
                   modified: Date(),
-                  status: status,
+                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed,
                   chainId: transaction.chainId,
                   call: call)
     }
-    
+
     init(transaction: InvokeScriptTransactionRealm) {
         // TODO: chainId: UInt8
         // TODO: Call to bd

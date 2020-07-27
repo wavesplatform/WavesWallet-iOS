@@ -17,6 +17,11 @@ final class HistoryTransactionView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var imageViewIcon: UIImageView!
     @IBOutlet private weak var labelTitle: UILabel!
 
+    @IBOutlet private var infoImageView: UIImageView!
+
+    @IBOutlet private var valueLabel: UILabel!
+    @IBOutlet private var statusContainer: UIView!
+
     @IBOutlet weak var tickerView: TickerView!
 
     override init(frame: CGRect) {
@@ -103,6 +108,20 @@ extension HistoryTransactionView: ViewConfiguration {
         tickerView.isHidden = true
         labelValue.text = nil
 
+        
+        switch model.status {
+        case .fail:
+            valueLabel.text = Localizable.Waves.Transactioncard.Title.failed
+            statusContainer.backgroundColor = UIColor.error500.withAlphaComponent(0.1)
+            valueLabel.textColor = .error500
+            statusContainer.isHidden = false
+            infoImageView.isHidden = true
+        default:
+            statusContainer.isHidden = true
+            infoImageView.isHidden = false
+        }
+                
+        
         switch model.kind {
         case let .receive(tx):
             update(with: tx.asset, balance: tx.balance, sign: .plus)
