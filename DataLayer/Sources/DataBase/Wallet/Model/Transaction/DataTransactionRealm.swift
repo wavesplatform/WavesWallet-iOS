@@ -20,7 +20,7 @@ final class DataTransactionRealm: TransactionRealm {
 
 final class DataTransactionDataRealm: Object {
     @objc dynamic var key: String = ""
-    @objc dynamic var type: String = ""
+    @objc dynamic var type: String? = nil
     @objc dynamic var string: String? = nil
     @objc dynamic var binary: String? = nil
     var boolean: RealmOptional<Bool> = .init()

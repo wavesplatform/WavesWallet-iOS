@@ -19,9 +19,9 @@ public struct DataTransaction {
 
         public let key: String
         public let value: Value?
-        public let type: String
+        public let type: String?
 
-        public init(key: String, value: Value?, type: String) {
+        public init(key: String, value: Value?, type: String?) {
             self.key = key
             self.value = value
             self.type = type
