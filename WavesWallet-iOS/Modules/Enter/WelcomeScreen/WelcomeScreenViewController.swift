@@ -9,6 +9,7 @@
 import AppTools
 import RxCocoa
 import RxSwift
+import Extensions
 import UIKit
 import UITools
 
@@ -210,7 +211,15 @@ extension WelcomeScreenViewController {
 
 extension WelcomeScreenViewController: UIScrollViewDelegate {
     private enum Constants {
-        static let defaultPadding: CGFloat = 100
+                
+        static let defaultPadding: CGFloat = {
+           
+            if Platform.isSmallDevices {
+                return 10
+            } else {
+                return 100
+            }
+        }()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

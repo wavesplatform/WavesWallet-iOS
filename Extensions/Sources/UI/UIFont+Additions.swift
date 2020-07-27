@@ -16,7 +16,11 @@ public extension UIFont {
     
     ///
     static var titleH1: UIFont {
-        UIFont.systemFont(ofSize: 34.0, weight: .bold)
+        if Platform.isSmallDevices {
+            return UIFont.systemFont(ofSize: 34.0, weight: .bold)
+        } else {
+            return UIFont.systemFont(ofSize: 30.0, weight: .bold)
+        }
     }
 
     ///
@@ -46,7 +50,11 @@ public extension UIFont {
 
     ///
     static var bodyRegular: UIFont {
-        UIFont.systemFont(ofSize: 17.0, weight: .regular)
+        if Platform.isSmallDevices {
+            return UIFont.systemFont(ofSize: 17.0, weight: .regular)
+        } else {
+            return UIFont.systemFont(ofSize: 13.0, weight: .regular)
+        }
     }
 
     ///

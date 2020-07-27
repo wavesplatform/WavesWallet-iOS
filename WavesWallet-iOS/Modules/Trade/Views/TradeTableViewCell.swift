@@ -41,7 +41,7 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
         imageViewIcon2.addAssetPairIconShadow()
         viewShadow.cornerRadius = Constants.cornerRadius
         labelAnavailable.textColor = .basic500
-        labelAnavailable.font = UIFont.caption2Regular
+        labelAnavailable.font = UOIFont.caption2Regular
     }
 
     override func prepareForReuse() {
