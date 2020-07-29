@@ -190,8 +190,8 @@ extension HistoryTransactionView: ViewConfiguration {
         case .invokeScript:
             labelValue.text = Localizable.Waves.History.Transaction.Value.scriptInvocation
 
-        case .updateAssetInfo:
-            labelValue.text = Localizable.Waves.History.Transaction.Value.updateassetinfo
+        case let .updateAssetInfo(tx):
+            labelValue.text = tx.asset.name
         }
     }
 }

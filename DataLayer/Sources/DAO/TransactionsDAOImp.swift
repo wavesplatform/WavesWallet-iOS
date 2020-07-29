@@ -32,7 +32,8 @@ private extension TransactionType {
                 .cancelLease,
                 .createAlias,
                 .data,
-                .script]
+                .script,
+                .updateAssetInfo]
     }
 
     func predicate(from specifications: TransactionsSpecifications, myAddress: Address) -> NSPredicate {
@@ -586,7 +587,7 @@ extension InvokeScriptTransactionRealm: TransactionsSpecificationsConverter {
         predicates.append(NSPredicate(format: "invokeScriptTransaction != NULL"))
 
         if !from.assets.isEmpty {
-            predicates.append(NSPredicate(format: "invokeScriptTransaction.payment.assetId IN %@", from.assets))
+            predicates.append(NSPredicate(format: "ANY invokeScriptTransaction.payments.assetId IN %@", from.assets))
         }
 
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)

@@ -885,3 +885,4 @@
 
 "transactioncard.title.contractinvocation" = "Вызов контракта";
 "history.transaction.value.updateassetinfo" = "Изменение ассета";
+"transactioncard.title.assetname" = "Имя ассета";

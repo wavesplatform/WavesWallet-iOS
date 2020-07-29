@@ -537,6 +537,7 @@
 "transactionhistory.cell.dataTransaction" = "Data Transaction";
 "transactionhistory.cell.fee" = "Fee";
 "transactioncard.title.from" = "From";
+"transactioncard.title.assetname" = "Asset Name";
 "transactionhistory.cell.id" = "ID";
 "transactionhistory.cell.leasingTo" = "Leasing to";
 "transactioncard.title.notReissuable" = "Not Reissuable";

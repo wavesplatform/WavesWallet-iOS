@@ -173,6 +173,7 @@ internal enum Images {
   internal static let iconInfo48 = ImageAsset(name: "iconInfo48")
   internal static let iconNews404 = ImageAsset(name: "iconNews404")
   internal static let iconTokenNeutrino = ImageAsset(name: "iconTokenNeutrino")
+  internal static let iconUpdate48 = ImageAsset(name: "iconUpdate48")
   internal static let iconAction = ImageAsset(name: "icon_action")
   internal static let iconCert = ImageAsset(name: "icon_cert")
   internal static let iconExchange = ImageAsset(name: "icon_exchange")
@@ -513,6 +514,7 @@ internal enum Images {
     iconInfo48,
     iconNews404,
     iconTokenNeutrino,
+    iconUpdate48,
     iconAction,
     iconCert,
     iconExchange,

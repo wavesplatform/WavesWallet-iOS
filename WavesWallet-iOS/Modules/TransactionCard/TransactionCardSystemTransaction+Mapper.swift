@@ -414,9 +414,9 @@ private extension SmartTransaction {
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
-                                                               info: .descriptionLabel(Localizable.Waves.Transactioncard.Title
-                                                                   .contractinvocation))
-        
+                                                               info: .descriptionLabel(Localizable.Waves.History.Transaction.Value
+                                                                   .updateassetinfo))
+
         rows.append(contentsOf: [.general(rowGeneralModel)])
 
         let rowAssetModel = TransactionCardAssetDetailCell.Model(assetId: transfer.asset.id,
@@ -424,6 +424,12 @@ private extension SmartTransaction {
 
         rows.append(.assetDetail(rowAssetModel))
 
+        let assetName = TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.assetname,
+                                                          value: transfer.asset.name,
+                                                          style: .init(padding: .normalPadding, textColor: .black))
+
+        rows.append(.keyValue(assetName))
+        
         if let description = transfer.description, !description.isEmpty {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: description)
             rows.append(.description(rowDescriptionModel))

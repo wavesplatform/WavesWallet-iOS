@@ -1736,6 +1736,9 @@ internal enum Localizable {
           /// Update Script
           internal static var setAssetScript: String { Localizable.tr("Waves", "history.transaction.value.setAssetScript") }
           internal static var setAssetScriptKey: String { "history.transaction.value.setAssetScript" }
+          /// Update Asset Info
+          internal static var updateassetinfo: String { Localizable.tr("Waves", "history.transaction.value.updateassetinfo") }
+          internal static var updateassetinfoKey: String { "history.transaction.value.updateassetinfo" }
 
           internal enum Setscript {
             /// Cancel Script
@@ -3534,6 +3537,9 @@ internal enum Localizable {
         /// Token ID
         internal static var assetId: String { Localizable.tr("Waves", "transactioncard.title.assetId") }
         internal static var assetIdKey: String { "transactioncard.title.assetId" }
+        /// Asset Name
+        internal static var assetname: String { Localizable.tr("Waves", "transactioncard.title.assetname") }
+        internal static var assetnameKey: String { "transactioncard.title.assetname" }
         /// Block
         internal static var block: String { Localizable.tr("Waves", "transactioncard.title.block") }
         internal static var blockKey: String { "transactioncard.title.block" }
