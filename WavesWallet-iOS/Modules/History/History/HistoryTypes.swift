@@ -6,15 +6,15 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
+import Extensions
 import UIKit
 import WavesSDK
-import Extensions
-import DomainLayer
 
 enum HistoryTypes {
     enum DTO {}
     enum ViewModel {}
-    
+
     enum Filter {
         case all
         case sent
@@ -24,6 +24,7 @@ enum HistoryTypes {
         case issued
         case activeNow
         case canceled
+        case contractInvocation
     }
 
     enum RefreshData: Equatable {
@@ -42,19 +43,18 @@ enum HistoryTypes {
         var refreshData: RefreshData?
         var errorState: DisplayErrorState
     }
-    
+
     enum Event {
-        case responseAll(Sync<[SmartTransaction]>)        
+        case responseAll(Sync<[SmartTransaction]>)
         case readyView
         case viewDidDisappear
-        case refresh        
+        case refresh
         case changeFilter(Filter)
         case tapCell(IndexPath)
     }
 }
 
 fileprivate extension SmartTransaction {
-
     var isIncludedAllGroup: Bool {
         switch kind {
         default:
@@ -116,6 +116,15 @@ fileprivate extension SmartTransaction {
         }
     }
 
+    var isIncludedContractInvocation: Bool {
+        switch kind {
+        case .invokeScript:
+            return true
+        default:
+            return false
+        }
+    }
+
     var isIncludedCanceledGroup: Bool {
         switch kind {
         case .canceledLeasing:
@@ -127,17 +136,13 @@ fileprivate extension SmartTransaction {
 }
 
 extension HistoryTypes.Filter {
-
     func filtered(transactions: [SmartTransaction]) -> [SmartTransaction] {
-        
-        return transactions.filter({ (transaction) -> Bool in
+        return transactions.filter { (transaction) -> Bool in
             isNeedTransaction(where: transaction)
-        })
-        
+        }
     }
-    
-    func isNeedTransaction(where kind: SmartTransaction) -> Bool {
 
+    func isNeedTransaction(where kind: SmartTransaction) -> Bool {
         switch self {
         case .all:
             return kind.isIncludedAllGroup
@@ -162,9 +167,12 @@ extension HistoryTypes.Filter {
 
         case .canceled:
             return kind.isIncludedCanceledGroup
+
+        case .contractInvocation:
+            return kind.isIncludedContractInvocation
         }
     }
-    
+
     var name: String {
         switch self {
         case .all:
@@ -183,23 +191,24 @@ extension HistoryTypes.Filter {
             return Localizable.Waves.History.Segmentedcontrol.activeNow
         case .canceled:
             return Localizable.Waves.History.Segmentedcontrol.canceled
+        case .contractInvocation:
+            return Localizable.Waves.History.Segmentedcontrol.contractinvocation
         }
     }
 }
 
 extension HistoryType {
-    
     var filters: [HistoryTypes.Filter] {
         switch self {
         case .all:
-            return [.all, .sent, .received, .exchanged, .leased, .issued]
+            return [.all, .sent, .received, .exchanged, .leased, .issued, .contractInvocation]
 
-        case .asset(let assetId):
+        case let .asset(assetId):
             if assetId == WavesSDKConstants.wavesAssetId {
                 return [.all, .sent, .received, .exchanged, .leased]
             }
             return [.all, .sent, .received, .exchanged, .issued]
-            
+
         case .leasing:
             return [.all, .activeNow, .canceled]
         }

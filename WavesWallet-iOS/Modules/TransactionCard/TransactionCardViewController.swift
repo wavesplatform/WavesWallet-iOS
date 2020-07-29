@@ -451,11 +451,6 @@ extension TransactionCardViewController: UITableViewDataSource {
 
             return cell
 
-        case let .invokeScript(model):
-            let cell: TransactionCardInvokeScriptCell = tableView.dequeueCell()
-            cell.update(with: model)
-            return cell
-
         case let .orderFilled(model):
             let cell: TransactionCardOrderFilledCell = tableView.dequeueCell()
             cell.update(with: model)
@@ -465,6 +460,18 @@ extension TransactionCardViewController: UITableViewDataSource {
             let cell: TransactionCardExchangeFeeCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
+
+        case let .scriptAddress(title, address):
+            let cell: TransactionCardShortAddressCell = tableView.dequeueCell()
+            cell.setTitle(title)
+            cell.setAddress(address)
+            return cell
+            
+        case let .payments(payments):
+            let cell: TransactionCardPaymentsCell = tableView.dequeueCell()
+            cell.setPayments(payments)
+            return cell
+            
         }
     }
 }

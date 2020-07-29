@@ -307,9 +307,16 @@ private extension SmartTransaction {
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
+        let titleScriptAddress = Localizable.Waves.Transactioncard.Title.scriptAddress
+
         rows.append(contentsOf: [.general(rowGeneralModel),
-                                 .invokeScript(tx),
-                                 .keyValue(rowBlockModel()),
+                                 .scriptAddress(title: titleScriptAddress, address: tx.scriptAddress)])
+
+        if let payments = tx.payments, payments.count > 0 {
+            rows.append(.payments(payments))
+        }
+
+        rows.append(contentsOf: [.keyValue(rowBlockModel()),
                                  .keyValue(rowConfirmationsModel),
                                  .keyBalance(rowFeeModel),
                                  .keyValue(rowTimestampModel),

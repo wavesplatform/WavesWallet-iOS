@@ -724,23 +724,26 @@ extension InvokeScriptTransaction {
 
         guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
 
-        var payment: SmartTransaction.InvokeScript.Payment?
+        let smartPayments: [SmartTransaction.InvokeScript.Payment]? = payments?.map { txPayment in
 
-        if let txPayment = self.payment {
             if let paymentAssetId = txPayment.assetId {
                 guard let paymentAsset = assets[paymentAssetId] else { return nil }
-                payment = .init(amount: Money(txPayment.amount, paymentAsset.precision), asset: paymentAsset)
+
+                return SmartTransaction.InvokeScript
+                    .Payment(amount: Money(txPayment.amount, paymentAsset.precision), asset: paymentAsset)
             } else {
-                payment = .init(amount: Money(txPayment.amount, wavesAsset.precision), asset: nil)
+                return SmartTransaction.InvokeScript
+                .Payment(amount: Money(txPayment.amount, wavesAsset.precision), asset: wavesAsset)
             }
         }
+        .compactMap { $0 }
 
         let feeBalance = wavesAsset.balance(fee)
         guard let sender = accounts[self.sender] else { return nil }
 
         return .init(id: id,
                      type: type,
-                     kind: .invokeScript(SmartTransaction.InvokeScript(payment: payment,
+                     kind: .invokeScript(SmartTransaction.InvokeScript(payments: smartPayments,
                                                                        scriptAddress: dappAddress)),
                      timestamp: timestamp,
                      totalFee: feeBalance,

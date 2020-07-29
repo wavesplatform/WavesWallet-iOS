@@ -1630,6 +1630,9 @@ internal enum Localizable {
         /// Canceled
         internal static var canceled: String { Localizable.tr("Waves", "history.segmentedControl.canceled") }
         internal static var canceledKey: String { "history.segmentedControl.canceled" }
+        /// Contract Invocation
+        internal static var contractinvocation: String { Localizable.tr("Waves", "history.segmentedControl.contractinvocation") }
+        internal static var contractinvocationKey: String { "history.segmentedControl.contractinvocation" }
         /// Exchanged
         internal static var exchanged: String { Localizable.tr("Waves", "history.segmentedControl.exchanged") }
         internal static var exchangedKey: String { "history.segmentedControl.exchanged" }
@@ -3609,7 +3612,7 @@ internal enum Localizable {
         /// Not Reissuable
         internal static var notReissuable: String { Localizable.tr("Waves", "transactioncard.title.notReissuable") }
         internal static var notReissuableKey: String { "transactioncard.title.notReissuable" }
-        /// Payment
+        /// Payments
         internal static var payment: String { Localizable.tr("Waves", "transactioncard.title.payment") }
         internal static var paymentKey: String { "transactioncard.title.payment" }
         /// Price

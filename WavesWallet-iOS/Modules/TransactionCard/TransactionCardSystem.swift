@@ -35,7 +35,8 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepository
-    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories
+        .dexOrderBookRepository
     private let orderbookInteractor = UseCasesFactory.instance.oderbook
     private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
 
@@ -319,15 +320,14 @@ private extension TransactionCardSystem {
     }
 
     private func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<Bool> {
-        
         let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
-        
+
         return Observable.zip(serverEnviroment,
                               authorizationInteractor.authorizedWallet())
             .flatMap { [weak self] serverEnviroment, wallet -> Observable<Bool> in
-                
+
                 guard let self = self else { return Observable.empty() }
-                
+
                 return self
                     .dexOrderBookRepository
                     .cancelOrder(serverEnvironment: serverEnviroment,
@@ -372,7 +372,7 @@ private extension TransactionCardSystem {
                     .assetsRepository
                     .assets(ids: [assetID],
                             accountAddress: wallet.address)
-                    .map { $0.compactMap { $0} }
+                    .map { $0.compactMap { $0 } }
                     .compactMap { $0.first }
             }
     }

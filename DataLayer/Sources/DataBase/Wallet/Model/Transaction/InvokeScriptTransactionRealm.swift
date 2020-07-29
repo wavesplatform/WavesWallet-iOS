@@ -18,5 +18,6 @@ final class InvokeScriptTransactionRealm: TransactionRealm {
     
     @objc dynamic var dappAddress: String = ""
     @objc dynamic var feeAssetId: String? = nil
-    @objc dynamic var payment: InvokeScriptTransactionPaymentRealm?
+    
+    let payments: List<InvokeScriptTransactionPaymentRealm> = .init()    
 }

@@ -18,7 +18,6 @@ protocol HistoryPresenterProtocol {
 }
 
 final class HistoryPresenter: HistoryPresenterProtocol {
-
     var interactor: HistoryInteractorProtocol!
     weak var moduleOutput: HistoryModuleOutput?
     let moduleInput: HistoryModuleInput
@@ -43,15 +42,15 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func queryRefresh() -> Feedback {
         return react(request: { (state) -> HistoryTypes.RefreshData? in
 
-            return state.refreshData
-        }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
+            state.refreshData
+        }, effects: { [weak self] _ -> Signal<HistoryTypes.Event> in
             guard let self = self else { return Signal.empty() }
             return self
                 .interactor
                 .transactions(input: self.moduleInput)
                 .map { .responseAll($0) }
                 .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                    Signal.empty()
                 })
         })
     }
@@ -76,7 +75,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             state.isAppeared = false
 
         case .refresh:
-            
+
             state.isRefreshing = true
             if state.refreshData == .update {
                 state.refreshData = .refresh
@@ -85,7 +84,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             }
 
             switch state.errorState {
-            case .error(let error):
+            case let .error(error):
 
                 switch error {
                 case .globalError:
@@ -100,40 +99,38 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 break
             }
 
-        case .tapCell(let indexPath):
-            
+        case let .tapCell(indexPath):
+
             let item = state.sections[indexPath.section].items[indexPath.item]
             var index = NSNotFound
-            
+
             let filteredTransactions = state.currentFilter.filtered(transactions: state.transactions)
-            
+
             switch item {
-            case .transaction(let transaction):
-                
+            case let .transaction(transaction):
+
                 index = filteredTransactions.firstIndex(where: { (loopTransaction) -> Bool in
-                    return transaction.id == loopTransaction.id
+                    transaction.id == loopTransaction.id
                 }) ?? NSNotFound
-                
+
             default:
                 break
             }
-            
-            
-                        
-            if (index != NSNotFound) {
+
+            if index != NSNotFound {
                 moduleOutput?.showTransaction(transaction: filteredTransactions[index])
             }
 
-        case .changeFilter(let filter):
-            
+        case let .changeFilter(filter):
+
             let filteredTransactions = filter.filtered(transactions: state.transactions)
             let sections = HistoryTypes.ViewModel.Section.map(from: filteredTransactions)
             state.sections = sections
             state.currentFilter = filter
 
-        case .responseAll(let response):
-            
-             state.isRefreshing = false
+        case let .responseAll(response):
+
+            state.isRefreshing = false
 
             if let response = response.resultIngoreError {
                 let filteredTransactions = state.currentFilter.filtered(transactions: response)
@@ -143,10 +140,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
             }
 
             if let error = response.anyError {
-
                 let hasTransactions = (response.resultIngoreError?.count ?? 0) > 0
                 state.errorState = DisplayErrorState.displayErrorState(hasData: hasTransactions, error: error)
-                state.refreshData =  nil
+                state.refreshData = nil
             } else {
                 state.errorState = .none
             }

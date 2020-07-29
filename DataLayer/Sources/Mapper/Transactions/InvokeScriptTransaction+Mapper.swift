@@ -32,11 +32,14 @@ extension InvokeScriptTransactionRealm {
         modified = transaction.modified
         status = transaction.status.rawValue
 
-        if let txPayment = transaction.payment {
-            payment = InvokeScriptTransactionPaymentRealm()
-            payment?.amount = txPayment.amount
-            payment?.assetId = txPayment.assetId
-        }
+        let list = transaction.payments?.map { payment -> InvokeScriptTransactionPaymentRealm in
+
+            let realmPayment = InvokeScriptTransactionPaymentRealm()
+            realmPayment.amount = payment.amount
+            realmPayment.assetId = payment.assetId
+            return realmPayment
+        } ?? []
+        self.payments.append(objectsIn: list)
     }
 }
 
@@ -82,7 +85,7 @@ extension InvokeScriptTransaction {
                   proofs: transaction.proofs,
                   version: transaction.version,
                   dappAddress: transaction.dApp,
-                  payment: transaction.payment.first.map { .init(amount: $0.amount, assetId: $0.assetId) },
+                  payments: transaction.payment.map { .init(amount: $0.amount, assetId: $0.assetId) },
                   height: transaction.height ?? 0,
                   modified: Date(),
                   status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed,
@@ -91,8 +94,12 @@ extension InvokeScriptTransaction {
     }
 
     init(transaction: InvokeScriptTransactionRealm) {
-        // TODO: chainId: UInt8
-        // TODO: Call to bd
+
+        let payments = transaction.payments.toArray().map { realmPayment -> InvokeScriptTransaction.Payment in
+            InvokeScriptTransaction.Payment(amount: realmPayment.amount, assetId: realmPayment.assetId)
+        }
+        
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -103,7 +110,7 @@ extension InvokeScriptTransaction {
                   proofs: transaction.proofs.toArray(),
                   version: transaction.version,
                   dappAddress: transaction.dappAddress,
-                  payment: transaction.payment.map { .init(amount: $0.amount, assetId: $0.assetId) },
+                  payments: payments,
                   height: transaction.height,
                   modified: transaction.modified,
                   status: TransactionStatus(rawValue: transaction.status) ?? .completed,
