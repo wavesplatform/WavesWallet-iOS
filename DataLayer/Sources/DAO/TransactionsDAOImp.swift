@@ -78,6 +78,9 @@ private extension TransactionType {
 
         case .invokeScript:
             return InvokeScriptTransactionRealm.predicate(specifications, myAddress: myAddress)
+            
+        case .updateAssetInfo:
+            return UpdateAssetInfoTransactionRealm.predicate(specifications, myAddress: myAddress)
         }
     }
 
@@ -138,6 +141,10 @@ private extension TransactionType {
         case .invokeScript:
             guard let invokeScriptTransaction = transaction.invokeScriptTransaction else { return nil }
             return .invokeScript(.init(transaction: invokeScriptTransaction))
+            
+        case .updateAssetInfo:
+            guard let updateAssetInfoTransaction = transaction.updateAssetInfoTransaction else { return nil }
+            return .updateAssetInfo(.init(transaction: updateAssetInfoTransaction))
         }
     }
 }
@@ -580,6 +587,19 @@ extension InvokeScriptTransactionRealm: TransactionsSpecificationsConverter {
 
         if !from.assets.isEmpty {
             predicates.append(NSPredicate(format: "invokeScriptTransaction.payment.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+    }
+}
+
+extension UpdateAssetInfoTransactionRealm: TransactionsSpecificationsConverter {
+    static func predicate(_ from: TransactionsSpecifications, myAddress _: Address) -> NSPredicate {
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "updateAssetInfoTransaction != NULL"))
+
+        if !from.assets.isEmpty {
+            predicates.append(NSPredicate(format: "updateAssetInfoTransaction.assetId IN %@", from.assets))
         }
 
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)

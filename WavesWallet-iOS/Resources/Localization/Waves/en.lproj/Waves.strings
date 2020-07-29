@@ -882,3 +882,4 @@
 "needBackupScreen.ifYouLoseSeedThenYouLoseMoney" = "Remember, that if you lose the SEED phrase, you will never recover the password from your account, and never will open your account on another device.";
 "needBackupScreen.neverTellAnyoneSeed" = "NEVER tell anyone your SEED phrase. Only scammers can be interested in this information.";
 "needBackupScreen.neverTellAnyoneSeed.never" = "NEVER";
+"history.transaction.value.updateassetinfo" = "Update Asset Info";

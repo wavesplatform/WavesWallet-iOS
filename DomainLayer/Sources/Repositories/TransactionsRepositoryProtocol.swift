@@ -38,7 +38,8 @@ public extension TransactionType {
                 .script,
                 .sponsorship,
                 .assetScript,
-                .invokeScript]
+                .invokeScript,
+                .updateAssetInfo]
     }
 }
 

@@ -57,8 +57,10 @@ enum HistoryTypes {
 fileprivate extension SmartTransaction {
     var isIncludedAllGroup: Bool {
         switch kind {
-        default:
+        case .updateAssetInfo:
             return true
+            default:
+            return false
         }
     }
 

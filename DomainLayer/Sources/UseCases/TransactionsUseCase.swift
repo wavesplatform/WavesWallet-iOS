@@ -650,6 +650,18 @@ private extension TransactionsUseCase {
                 let accountsMap = accounts.reduce(into: [String: Address]()) { $0[$1.address] = $1 }
                 let leaseTxsMap = data.leaseTxs.reduce(into: [String: LeaseTransaction]()) { $0[$1.id] = $1 }
 
+                let aa = data.transaction.filter { tx -> Bool in
+                    
+                    switch tx {
+                    case .updateAssetInfo:
+                        return true
+                    default:
+                        return false
+                    }
+                }
+                
+                print("xv \(aa)")
+                
                 let txs = self.mapToSmartTransactions(by: accountAddress,
                                                       txs: data.transaction,
                                                       assets: assetsMap,

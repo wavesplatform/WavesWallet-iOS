@@ -884,3 +884,4 @@
 "history.segmentedControl.contractinvocation" = "Вызов контракта";
 
 "transactioncard.title.contractinvocation" = "Вызов контракта";
+"history.transaction.value.updateassetinfo" = "Изменение ассета";
