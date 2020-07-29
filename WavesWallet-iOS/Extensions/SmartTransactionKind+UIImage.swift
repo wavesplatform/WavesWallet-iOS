@@ -88,6 +88,8 @@ extension SmartTransaction.Kind {
             
         case .invokeScript:
             return Images.tInvocationscript48.image
+        case .updateAssetInfo:
+            return Images.iconActionTInvocationscript48.image
         }
     }
 }

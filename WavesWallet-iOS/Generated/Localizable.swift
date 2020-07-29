@@ -3558,6 +3558,9 @@ internal enum Localizable {
         /// Confirmations
         internal static var confirmations: String { Localizable.tr("Waves", "transactioncard.title.confirmations") }
         internal static var confirmationsKey: String { "transactioncard.title.confirmations" }
+        /// Contract Invocation
+        internal static var contractinvocation: String { Localizable.tr("Waves", "transactioncard.title.contractinvocation") }
+        internal static var contractinvocationKey: String { "transactioncard.title.contractinvocation" }
         /// Copied
         internal static var copied: String { Localizable.tr("Waves", "transactioncard.title.copied") }
         internal static var copiedKey: String { "transactioncard.title.copied" }

@@ -122,6 +122,39 @@ extension IssueTransaction {
     }
 }
 
+// MARK: UpdateAssetInfoTransaction
+
+extension UpdateAssetInfoTransaction {
+    func transaction(by metaData: SmartTransactionMetaData) -> SmartTransaction? {
+        let assets: [String: Asset] = metaData.assets
+        let accounts: [String: Address] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+            return nil
+        }
+        guard let asset = assets[assetId] else {
+            return nil
+        }
+
+        let feeBalance = wavesAsset.balance(fee)
+
+        return .init(id: id,
+                     type: type,
+                     kind: .updateAssetInfo(.init(asset: asset, description: description)),
+                     timestamp: timestamp,
+                     totalFee: feeBalance,
+                     feeAsset: wavesAsset,
+                     height: height,
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     sender: sender,
+                     status: metaData.status)
+    }
+}
+
 // MARK: TransferTransaction
 
 extension TransferTransaction {
@@ -733,7 +766,7 @@ extension InvokeScriptTransaction {
                     .Payment(amount: Money(txPayment.amount, paymentAsset.precision), asset: paymentAsset)
             } else {
                 return SmartTransaction.InvokeScript
-                .Payment(amount: Money(txPayment.amount, wavesAsset.precision), asset: wavesAsset)
+                    .Payment(amount: Money(txPayment.amount, wavesAsset.precision), asset: wavesAsset)
             }
         }
         .compactMap { $0 }
@@ -840,6 +873,9 @@ extension AnyTransaction {
             smartTransaction = tx.transaction(by: smartData)
 
         case let .invokeScript(tx):
+            smartTransaction = tx.transaction(by: smartData)
+            
+        case let .updateAssetInfo(tx):
             smartTransaction = tx.transaction(by: smartData)
         }
 

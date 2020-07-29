@@ -580,6 +580,9 @@
 		7BAB3B6624D030D600804A97 /* TransactionCardPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BAB3B6524D030D600804A97 /* TransactionCardPaymentView.xib */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
+		7BB6759D24D19DAF004AA4FF /* UpdateAssetInfoTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB6759C24D19DAF004AA4FF /* UpdateAssetInfoTransaction.swift */; };
+		7BB6759F24D19F0F004AA4FF /* UpdateAssetInfoTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB6759E24D19F0F004AA4FF /* UpdateAssetInfoTransaction.swift */; };
+		7BB675A124D19F63004AA4FF /* UpdateAssetInfoTransactionRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB675A024D19F63004AA4FF /* UpdateAssetInfoTransactionRealm.swift */; };
 		7BC17E7523F569F400F76B7B /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7423F569F400F76B7B /* PageControl.swift */; };
 		7BC17E7723F588D100F76B7B /* MinHeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */; };
 		7BC17E7923F5908100F76B7B /* DeviceLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */; };
@@ -2021,6 +2024,9 @@
 		7BAB3B6524D030D600804A97 /* TransactionCardPaymentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardPaymentView.xib; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
+		7BB6759C24D19DAF004AA4FF /* UpdateAssetInfoTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAssetInfoTransaction.swift; sourceTree = "<group>"; };
+		7BB6759E24D19F0F004AA4FF /* UpdateAssetInfoTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAssetInfoTransaction.swift; sourceTree = "<group>"; };
+		7BB675A024D19F63004AA4FF /* UpdateAssetInfoTransactionRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAssetInfoTransactionRealm.swift; sourceTree = "<group>"; };
 		7BC17E7423F569F400F76B7B /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		7BC17E7623F588D100F76B7B /* MinHeightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinHeightTableViewCell.swift; sourceTree = "<group>"; };
 		7BC17E7823F5908100F76B7B /* DeviceLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLayoutConstraint.swift; sourceTree = "<group>"; };
@@ -4076,6 +4082,7 @@
 				7B5FAA3D22BBE3EC00621A44 /* BurnTransaction.swift */,
 				7B5FAA3E22BBE3EC00621A44 /* LeaseTransaction.swift */,
 				7B5FAA3F22BBE3EC00621A44 /* AliasTransaction.swift */,
+				7BB6759C24D19DAF004AA4FF /* UpdateAssetInfoTransaction.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -4882,6 +4889,7 @@
 				7BF50A0622D8B95300582783 /* MassTransferTransactionRealm.swift */,
 				7BF50A0722D8B95300582783 /* AnyTransactionRealm.swift */,
 				7BF50A0822D8B95300582783 /* DataTransactionRealm.swift */,
+				7BB675A024D19F63004AA4FF /* UpdateAssetInfoTransactionRealm.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -4936,6 +4944,7 @@
 				7BF50A2622D8B95300582783 /* BurnTransaction+Mapper.swift */,
 				7BF50A2722D8B95300582783 /* ExchangeTransaction+Mapper.swift */,
 				7BF50A2822D8B95300582783 /* LeaseTransaction+Mapper.swift */,
+				7BB6759E24D19F0F004AA4FF /* UpdateAssetInfoTransaction.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -7849,6 +7858,7 @@
 				7B5FAA9722BBE3EC00621A44 /* IssueTransaction.swift in Sources */,
 				7B5FAAC222BBE3EC00621A44 /* BiometricManager.swift in Sources */,
 				7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */,
+				7BB6759D24D19DAF004AA4FF /* UpdateAssetInfoTransaction.swift in Sources */,
 				7B5FAAB322BBE3EC00621A44 /* ApplicationVersionUseCase.swift in Sources */,
 				7BEDB6BC24588D8600605B4D /* GatewaysWavesRepository.swift in Sources */,
 				E97A74A522D3BAA200777C39 /* OrderBookUseCaseProtocol.swift in Sources */,
@@ -8044,6 +8054,7 @@
 				7BE7B489247572DB0066F87D /* ScriptTransactionRealm..swift in Sources */,
 				7BE7B48A247572DB0066F87D /* TransactionRealm.swift in Sources */,
 				7B896FDF23F34FA000F45A70 /* AssetsRepositoryDAOImp.swift in Sources */,
+				7BB675A124D19F63004AA4FF /* UpdateAssetInfoTransactionRealm.swift in Sources */,
 				7B896FDC23F34FA000F45A70 /* MatcherRepositoryLocal.swift in Sources */,
 				E9618D1922F0473000FB7F06 /* MarketPulseTypes.swift in Sources */,
 				7BF50AAD22D8B95400582783 /* LastTradesRepositoryRemote.swift in Sources */,
@@ -8094,6 +8105,7 @@
 				7B22A9CF24643CE0005EAC9C /* gateways_api.grpc.swift in Sources */,
 				7BF50A8422D8B95400582783 /* AccountEnvironment.swift in Sources */,
 				7BF50A9322D8B95400582783 /* SponsorshipTransaction+Mapper.swift in Sources */,
+				7BB6759F24D19F0F004AA4FF /* UpdateAssetInfoTransaction.swift in Sources */,
 				7BF50A7122D8B95400582783 /* UnrecognisedTransactionRealm.swift in Sources */,
 				875393272423BB2F00394762 /* WEGatewayRepository.swift in Sources */,
 				7BF50AC222D8B95400582783 /* TransactionSenderAssistant.swift in Sources */,

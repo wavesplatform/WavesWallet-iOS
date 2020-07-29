@@ -191,6 +191,10 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .invokeScript:
             labelValue.text = Localizable.Waves.History.Transaction.Value.scriptInvocation
+            
+        case let .updateAssetInfo(tx):
+            //TODO: 777
+            labelValue.text = "PADS"
         }
     }
 }
@@ -275,6 +279,9 @@ fileprivate extension SmartTransaction {
 
         case .invokeScript:
             return Localizable.Waves.History.Transaction.Title.entryInBlockchain
+        case let .updateAssetInfo(tx):
+            //TODO: 777
+            return "Ooops"        
         }
     }
 

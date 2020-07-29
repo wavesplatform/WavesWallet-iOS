@@ -627,6 +627,8 @@
 "transactioncard.title.setScriptTransaction" = "Set Script";
 "transactioncard.title.dataTransaction" = "Data Transaction";
 "transactioncard.title.entryInBlockchain" = "Entry in blockchain";
+"transactioncard.title.contractinvocation" = "Contract Invocation";
+
 "transactioncard.title.unrecognisedTransaction" = "Unrecognised Transaction";
 "transactioncard.title.createAlias" = "Create Alias";
 "transactioncard.title.tokenReissue" = "Token Reissue";
