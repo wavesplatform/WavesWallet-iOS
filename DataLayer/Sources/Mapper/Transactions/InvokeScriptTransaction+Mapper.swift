@@ -39,7 +39,7 @@ extension InvokeScriptTransactionRealm {
             realmPayment.assetId = payment.assetId
             return realmPayment
         } ?? []
-        self.payments.append(objectsIn: list)
+        payments.append(objectsIn: list)
     }
 }
 
@@ -75,6 +75,8 @@ extension InvokeScriptTransaction {
             call = InvokeScriptTransaction.Call(function: localCall.function, args: args)
         }
 
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -88,17 +90,15 @@ extension InvokeScriptTransaction {
                   payments: transaction.payment.map { .init(amount: $0.amount, assetId: $0.assetId) },
                   height: transaction.height ?? 0,
                   modified: Date(),
-                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed,
+                  status: status ?? transactionStatus ?? .completed,
                   chainId: transaction.chainId,
                   call: call)
     }
 
     init(transaction: InvokeScriptTransactionRealm) {
-
         let payments = transaction.payments.toArray().map { realmPayment -> InvokeScriptTransaction.Payment in
             InvokeScriptTransaction.Payment(amount: realmPayment.amount, assetId: realmPayment.assetId)
         }
-        
 
         self.init(type: transaction.type,
                   id: transaction.id,
