@@ -38,6 +38,9 @@ extension UpdateAssetInfoTransaction {
     init(transaction: NodeService.DTO.UpdateAssetInfoTransaction,
          status: TransactionStatus?,
          aliasScheme: String) {
+        
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -53,7 +56,7 @@ extension UpdateAssetInfoTransaction {
                   name: transaction.name,
                   description: transaction.description,
                   modified: Date(),
-                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: UpdateAssetInfoTransactionRealm) {
