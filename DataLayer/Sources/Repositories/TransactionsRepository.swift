@@ -69,8 +69,7 @@ final class TransactionsRepository: TransactionsRepositoryProtocol {
             .transactions(by: address.address,
                           offset: 0,
                           limit: limit)
-            .map { $0.anyTransactions(status: nil,
-                                      scheme: serverEnvironment.kind.chainId,
+            .map { $0.anyTransactions(status: nil,                                      
                                       aliasScheme: serverEnvironment.aliasScheme) }
         
     }
@@ -109,8 +108,7 @@ final class TransactionsRepository: TransactionsRepositoryProtocol {
             .nodeServices
             .transactionNodeService
             .transactions(query: broadcastSpecification)
-            .map { $0.anyTransaction(status: .unconfirmed,
-                                     scheme: serverEnvironment.kind.chainId,
+            .map { $0.anyTransaction(status: .unconfirmed,                                     
                                      aliasScheme: serverEnvironment.aliasScheme) }
             .asObservable()
         

@@ -167,11 +167,13 @@ internal enum Images {
   internal static let iWifi42Submit400 = ImageAsset(name: "iWifi42Submit400")
   internal static let iconBtc = ImageAsset(name: "icon-btc")
   internal static let iconEth = ImageAsset(name: "icon-eth")
+  internal static let iconActionTInvocationscript48 = ImageAsset(name: "iconActionTInvocationscript48")
   internal static let iconDraglock22Disabled400 = ImageAsset(name: "iconDraglock22Disabled400")
   internal static let iconInfo18Basic300 = ImageAsset(name: "iconInfo18Basic300")
   internal static let iconInfo48 = ImageAsset(name: "iconInfo48")
   internal static let iconNews404 = ImageAsset(name: "iconNews404")
   internal static let iconTokenNeutrino = ImageAsset(name: "iconTokenNeutrino")
+  internal static let iconUpdate48 = ImageAsset(name: "iconUpdate48")
   internal static let iconAction = ImageAsset(name: "icon_action")
   internal static let iconCert = ImageAsset(name: "icon_cert")
   internal static let iconExchange = ImageAsset(name: "icon_exchange")
@@ -506,11 +508,13 @@ internal enum Images {
     iWifi42Submit400,
     iconBtc,
     iconEth,
+    iconActionTInvocationscript48,
     iconDraglock22Disabled400,
     iconInfo18Basic300,
     iconInfo48,
     iconNews404,
     iconTokenNeutrino,
+    iconUpdate48,
     iconAction,
     iconCert,
     iconExchange,

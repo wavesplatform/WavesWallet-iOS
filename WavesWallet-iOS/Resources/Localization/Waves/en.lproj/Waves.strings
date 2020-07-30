@@ -537,6 +537,7 @@
 "transactionhistory.cell.dataTransaction" = "Data Transaction";
 "transactionhistory.cell.fee" = "Fee";
 "transactioncard.title.from" = "From";
+"transactioncard.title.assetname" = "Asset Name";
 "transactionhistory.cell.id" = "ID";
 "transactionhistory.cell.leasingTo" = "Leasing to";
 "transactioncard.title.notReissuable" = "Not Reissuable";
@@ -627,6 +628,8 @@
 "transactioncard.title.setScriptTransaction" = "Set Script";
 "transactioncard.title.dataTransaction" = "Data Transaction";
 "transactioncard.title.entryInBlockchain" = "Entry in blockchain";
+"transactioncard.title.contractinvocation" = "Contract Invocation";
+
 "transactioncard.title.unrecognisedTransaction" = "Unrecognised Transaction";
 "transactioncard.title.createAlias" = "Create Alias";
 "transactioncard.title.tokenReissue" = "Token Reissue";
@@ -880,3 +883,4 @@
 "needBackupScreen.ifYouLoseSeedThenYouLoseMoney" = "Remember, that if you lose the SEED phrase, you will never recover the password from your account, and never will open your account on another device.";
 "needBackupScreen.neverTellAnyoneSeed" = "NEVER tell anyone your SEED phrase. Only scammers can be interested in this information.";
 "needBackupScreen.neverTellAnyoneSeed.never" = "NEVER";
+"history.transaction.value.updateassetinfo" = "Update Asset Info";

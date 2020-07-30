@@ -24,6 +24,7 @@ public enum AnyTransaction {
     case assetScript(AssetScriptTransaction)
     case sponsorship(SponsorshipTransaction)
     case invokeScript(InvokeScriptTransaction)
+    case updateAssetInfo(UpdateAssetInfoTransaction)
 }
 
 public extension AnyTransaction {
@@ -72,6 +73,9 @@ public extension AnyTransaction {
             return tx.status
 
         case let .invokeScript(tx):
+            return tx.status
+
+        case let .updateAssetInfo(tx):
             return tx.status
         }
     }
@@ -142,6 +146,9 @@ public extension AnyTransaction {
 
         case let .invokeScript(tx):
             return tx.id
+
+        case let .updateAssetInfo(tx):
+            return tx.id
         }
     }
 
@@ -191,6 +198,9 @@ public extension AnyTransaction {
 
         case let .invokeScript(tx):
             return tx.timestamp
+
+        case let .updateAssetInfo(tx):
+            return tx.timestamp
         }
     }
 
@@ -239,6 +249,8 @@ public extension AnyTransaction {
             return tx.modified
 
         case let .invokeScript(tx):
+            return tx.modified
+        case let .updateAssetInfo(tx):
             return tx.modified
         }
     }

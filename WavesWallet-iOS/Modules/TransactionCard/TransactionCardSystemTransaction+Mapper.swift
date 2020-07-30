@@ -109,6 +109,9 @@ extension SmartTransaction {
             return invokeScriptSection(tx: tx,
                                        title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
                                        subTitle: Localizable.Waves.Transactioncard.Title.scriptInvocation)
+
+        case let .updateAssetInfo(tx):
+            return updateAssetInfoSection(transfer: tx)
         }
     }
 }
@@ -312,7 +315,7 @@ private extension SmartTransaction {
         rows.append(contentsOf: [.general(rowGeneralModel),
                                  .scriptAddress(title: titleScriptAddress, address: tx.scriptAddress)])
 
-        if let payments = tx.payments, payments.count > 0 {
+        if let payments = tx.payments, !payments.isEmpty {
             rows.append(.payments(payments))
         }
 
@@ -380,6 +383,53 @@ private extension SmartTransaction {
 
         rows.append(.assetDetail(rowAssetModel))
 
+        if let description = transfer.description, !description.isEmpty {
+            let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: description)
+            rows.append(.description(rowDescriptionModel))
+        }
+
+        var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
+
+        buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
+
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
+
+        rows.append(contentsOf: [.keyValue(rowBlockModel(isLargePadding: true)),
+                                 .keyValue(rowConfirmationsModel),
+                                 .keyBalance(rowFeeModel),
+                                 .keyValue(rowTimestampModel),
+                                 .status(rowStatusModel),
+                                 .dashedLine(.topPadding),
+                                 .actions(rowActionsModel)])
+
+        let section = Types.Section(rows: rows)
+
+        return [section]
+    }
+
+    // MARK: - UpdateAssetInfo Sections
+
+    func updateAssetInfoSection(transfer: SmartTransaction.UpdateAssetInfo) -> [Types.Section] {
+        var rows: [Types.Row] = .init()
+
+        let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
+                                                               title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
+                                                               info: .descriptionLabel(Localizable.Waves.History.Transaction.Value
+                                                                   .updateassetinfo))
+
+        rows.append(contentsOf: [.general(rowGeneralModel)])
+
+        let rowAssetModel = TransactionCardAssetDetailCell.Model(assetId: transfer.asset.id,
+                                                                 isReissuable: transfer.asset.isReusable)
+
+        rows.append(.assetDetail(rowAssetModel))
+
+        let assetName = TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.assetname,
+                                                          value: transfer.asset.name,
+                                                          style: .init(padding: .normalPadding, textColor: .black))
+
+        rows.append(.keyValue(assetName))
+        
         if let description = transfer.description, !description.isEmpty {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model(description: description)
             rows.append(.description(rowDescriptionModel))

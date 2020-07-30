@@ -131,6 +131,16 @@ public struct SmartTransaction: Equatable {
             self.myAccount = myAccount
         }
     }
+    
+    public struct UpdateAssetInfo: Equatable {
+        public let asset: Asset
+        public let description: String?
+
+        public init(asset: Asset, description: String?) {
+            self.asset = asset
+            self.description = description
+        }
+    }
 
     public struct Issue: Equatable {
         public let asset: Asset
@@ -256,6 +266,8 @@ public struct SmartTransaction: Equatable {
         case assetScript(Asset)
         case sponsorship(isEnabled: Bool, asset: Asset)
         case invokeScript(InvokeScript)
+        
+        case updateAssetInfo(UpdateAssetInfo)
     }
 
     public let id: String

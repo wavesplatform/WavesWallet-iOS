@@ -14,65 +14,66 @@ import WavesSDKExtensions
 
 extension NodeService.DTO.Transaction {
     func anyTransaction(status: TransactionStatus?,
-                        scheme: UInt8,
                         aliasScheme: String) -> AnyTransaction {
         switch self {
-        case .unrecognised(let transaction):
+        case let .unrecognised(transaction):
             return .unrecognised(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .issue(let transaction):
+        case let .issue(transaction):
             return .issue(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .transfer(let transaction):
+        case let .transfer(transaction):
             return .transfer(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .reissue(let transaction):
+        case let .reissue(transaction):
             return .reissue(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .burn(let transaction):
+        case let .burn(transaction):
             return .burn(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .exchange(let transaction):
+        case let .exchange(transaction):
             return .exchange(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .lease(let transaction):
+        case let .lease(transaction):
             return .lease(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .leaseCancel(let transaction):
+        case let .leaseCancel(transaction):
             return .leaseCancel(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .alias(let transaction):
+        case let .alias(transaction):
             return .alias(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .massTransfer(let transaction):
+        case let .massTransfer(transaction):
             return .massTransfer(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .data(let transaction):
+        case let .data(transaction):
             return .data(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .script(let transaction):
+        case let .script(transaction):
             return .script(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .assetScript(let transaction):
+        case let .assetScript(transaction):
             return .assetScript(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .sponsorship(let transaction):
+        case let .sponsorship(transaction):
             return .sponsorship(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
 
-        case .invokeScript(let transaction):
+        case let .invokeScript(transaction):
             return .invokeScript(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
+
+        case let .updateAssetInfo(transaction):
+            return .updateAssetInfo(.init(transaction: transaction, status: status, aliasScheme: aliasScheme))
         }
     }
 }
 
 extension NodeService.DTO.TransactionContainers {
-    func anyTransactions(status: TransactionStatus?,
-                         scheme: UInt8,
+    func anyTransactions(status: TransactionStatus?,                         
                          aliasScheme: String) -> [AnyTransaction] {
         var anyTransactions = [AnyTransaction]()
 
-        for transaction in self.transactions {
-            anyTransactions.append(transaction.anyTransaction(status: status, scheme: scheme, aliasScheme: aliasScheme))
+        for transaction in transactions {
+            anyTransactions.append(transaction.anyTransaction(status: status, aliasScheme: aliasScheme))
         }
 
         return anyTransactions
@@ -82,7 +83,7 @@ extension NodeService.DTO.TransactionContainers {
 extension AnyTransaction {
     var leaseTransaction: LeaseTransaction? {
         switch self {
-        case .lease(let tx):
+        case let .lease(tx):
             return tx
 
         default:
@@ -92,50 +93,52 @@ extension AnyTransaction {
 
     var transaction: TransactionRealm {
         switch self {
-        case .unrecognised(let tx):
+        case let .unrecognised(tx):
             return UnrecognisedTransactionRealm(transaction: tx)
 
-        case .issue(let tx):
+        case let .issue(tx):
             return IssueTransactionRealm(transaction: tx)
 
-        case .transfer(let tx):
+        case let .transfer(tx):
             return TransferTransactionRealm(transaction: tx)
 
-        case .reissue(let tx):
+        case let .reissue(tx):
             return ReissueTransactionRealm(transaction: tx)
 
-        case .burn(let tx):
+        case let .burn(tx):
             return BurnTransactionRealm(transaction: tx)
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return ExchangeTransactionRealm(transaction: tx)
 
-        case .lease(let tx):
+        case let .lease(tx):
             return LeaseTransactionRealm(transaction: tx)
 
-        case .leaseCancel(let tx):
+        case let .leaseCancel(tx):
             return LeaseCancelTransactionRealm(transaction: tx)
 
-        case .alias(let tx):
+        case let .alias(tx):
             return AliasTransactionRealm(transaction: tx)
 
-        case .massTransfer(let tx):
+        case let .massTransfer(tx):
             return MassTransferTransactionRealm(transaction: tx)
 
-        case .data(let tx):
+        case let .data(tx):
             return DataTransactionRealm(transaction: tx)
 
-        case .script(let tx):
+        case let .script(tx):
             return ScriptTransactionRealm(transaction: tx)
 
-        case .assetScript(let tx):
+        case let .assetScript(tx):
             return AssetScriptTransactionRealm(transaction: tx)
 
-        case .sponsorship(let tx):
+        case let .sponsorship(tx):
             return SponsorshipTransactionRealm(transaction: tx)
 
-        case .invokeScript(let tx):
+        case let .invokeScript(tx):
             return InvokeScriptTransactionRealm(transaction: tx)
+        case let .updateAssetInfo(tx):
+            return UpdateAssetInfoTransactionRealm(transaction: tx)
         }
     }
 
@@ -197,6 +200,9 @@ extension AnyTransaction {
 
         case .invokeScript:
             any.invokeScriptTransaction = from as? InvokeScriptTransactionRealm
+
+        case .updateAssetInfo:
+            any.updateAssetInfoTransaction = from as? UpdateAssetInfoTransactionRealm
         }
 
         return any

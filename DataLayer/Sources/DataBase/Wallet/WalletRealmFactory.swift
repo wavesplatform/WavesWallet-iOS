@@ -27,7 +27,7 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_6 = 15 // v2.9
     case version_2_11 = 17 // v2.11
     case version_2_12 = 19 // v2.12
-    case version_2_12_1 = 21 // v2.12.1
+    case version_2_12_1 = 23 // v2.12.1
     
     static let currentVersion: SchemaVersions = .version_2_12_1
 }
@@ -81,7 +81,8 @@ enum WalletRealmFactory {
                               AccountSettings.self,
                               DexAsset.self,
                               DexAssetPair.self,
-                              Alias.self]
+                              Alias.self,
+                              UpdateAssetInfoTransactionRealm.self]
 
         config.migrationBlock = { migration, oldSchemaVersion in
 
@@ -225,6 +226,7 @@ enum WalletRealmFactory {
         migration.deleteData(forType: SponsorshipTransactionRealm.className())
         migration.deleteData(forType: InvokeScriptTransactionRealm.className())
         migration.deleteData(forType: InvokeScriptTransactionPaymentRealm.className())
+        migration.deleteData(forType: UpdateAssetInfoTransactionRealm.className())
     }
     
     static func removeAsset(migration: Migration) {

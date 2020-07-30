@@ -6,15 +6,13 @@
 //  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
+import DomainLayer
+import Extensions
 import Foundation
 import WavesSDKExtensions
-import Extensions
-import DomainLayer
 
 extension SmartTransaction {
-
     var allData: String {
-
         return "Transaction ID: \(id)\n"
             + typeData
             + dateData
@@ -27,9 +25,7 @@ extension SmartTransaction {
             + scriptAddress
     }
 
-    
     private var titleData: String {
-
         switch kind {
         case .receive, .spamReceive:
             return "receive"
@@ -84,14 +80,16 @@ extension SmartTransaction {
 
         case .sponsorship:
             return "sponsor ship"
-            
+
         case .invokeScript:
             return "invoke script"
+
+        case .updateAssetInfo:
+            return "update  asset Info"
         }
     }
 
     private var typeData: String {
-
         switch kind {
         case .receive,
              .sent,
@@ -112,10 +110,12 @@ extension SmartTransaction {
              .script,
              .assetScript,
              .sponsorship,
+             .updateAssetInfo,
              .invokeScript:
+
             return "Type: \(type) (\(titleData))\n"
 
-        case .exchange(let tx):
+        case let .exchange(tx):
 
             if tx.myOrder.kind == .sell {
                 return "Type: \(type) (exchange-sell)\n"
@@ -126,19 +126,21 @@ extension SmartTransaction {
     }
 
     private var recipientAny: Address? {
-
         switch kind {
-        case .receive(let tx):
+        case let .receive(tx):
             return tx.myAccount
 
-        case .sent(let tx):
+        case let .sent(tx):
             return tx.recipient
 
-        case .spamReceive(let tx):
+        case let .spamReceive(tx):
             return tx.myAccount
 
-        case .selfTransfer(let tx):
+        case let .selfTransfer(tx):
             return tx.recipient
+            
+        case .updateAssetInfo:
+            return nil
 
         case .massSent:
             return nil
@@ -149,13 +151,13 @@ extension SmartTransaction {
         case .spamMassReceived:
             return nil
 
-        case .startedLeasing(let tx):
+        case let .startedLeasing(tx):
             return tx.account
 
-        case .incomingLeasing(let tx):
+        case let .incomingLeasing(tx):
             return tx.myAccount
 
-        case .canceledLeasing(let tx):
+        case let .canceledLeasing(tx):
             return tx.account
 
         case .exchange:
@@ -187,7 +189,7 @@ extension SmartTransaction {
 
         case .sponsorship:
             return nil
-            
+
         case .invokeScript:
             return nil
         }
@@ -204,53 +206,52 @@ extension SmartTransaction {
     }
 
     private var recipientData: String {
-        guard let recipient = self.recipientAny else { return "" }
+        guard let recipient = recipientAny else { return "" }
         return "Recipient: \(recipient.address)\n"
     }
 
     private var amountAssetAny: Asset? {
-
         switch kind {
-        case .receive(let tx):
+        case let .receive(tx):
             return tx.asset
 
-        case .sent(let tx):
+        case let .sent(tx):
             return tx.asset
 
-        case .spamReceive(let tx):
+        case let .spamReceive(tx):
             return tx.asset
 
-        case .selfTransfer(let tx):
+        case let .selfTransfer(tx):
             return tx.asset
 
-        case .massSent(let tx):
+        case let .massSent(tx):
             return tx.asset
 
-        case .massReceived(let tx):
+        case let .massReceived(tx):
             return tx.asset
 
-        case .spamMassReceived(let tx):
+        case let .spamMassReceived(tx):
             return tx.asset
 
-        case .startedLeasing(let tx):
+        case let .startedLeasing(tx):
             return tx.asset
 
-        case .incomingLeasing(let tx):
+        case let .incomingLeasing(tx):
             return tx.asset
 
-        case .canceledLeasing(let tx):
+        case let .canceledLeasing(tx):
             return tx.asset
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return tx.myOrder.pair.amountAsset
 
-        case .tokenGeneration(let tx):
+        case let .tokenGeneration(tx):
             return tx.asset
 
-        case .tokenBurn(let tx):
+        case let .tokenBurn(tx):
             return tx.asset
 
-        case .tokenReissue(let tx):
+        case let .tokenReissue(tx):
             return tx.asset
 
         case .createdAlias:
@@ -270,55 +271,57 @@ extension SmartTransaction {
 
         case .sponsorship:
             return nil
-            
+
         case .invokeScript:
+            return nil
+            
+        case .updateAssetInfo:
             return nil
         }
     }
 
     private var amountAny: DomainLayer.DTO.Balance? {
-
         switch kind {
-        case .receive(let tx):
+        case let .receive(tx):
             return tx.balance
 
-        case .sent(let tx):
+        case let .sent(tx):
             return tx.balance
 
-        case .spamReceive(let tx):
+        case let .spamReceive(tx):
             return tx.balance
 
-        case .selfTransfer(let tx):
+        case let .selfTransfer(tx):
             return tx.balance
 
-        case .massSent(let tx):
+        case let .massSent(tx):
             return tx.total
 
-        case .massReceived(let tx):
+        case let .massReceived(tx):
             return tx.myTotal
 
-        case .spamMassReceived(let tx):
+        case let .spamMassReceived(tx):
             return tx.myTotal
 
-        case .startedLeasing(let tx):
+        case let .startedLeasing(tx):
             return tx.balance
 
-        case .incomingLeasing(let tx):
+        case let .incomingLeasing(tx):
             return tx.balance
 
-        case .canceledLeasing(let tx):
+        case let .canceledLeasing(tx):
             return tx.balance
 
-        case .exchange(let tx):
+        case let .exchange(tx):
             return tx.myOrder.amount
 
-        case .tokenGeneration(let tx):
+        case let .tokenGeneration(tx):
             return tx.balance
 
-        case .tokenBurn(let tx):
+        case let .tokenBurn(tx):
             return tx.balance
 
-        case .tokenReissue(let tx):
+        case let .tokenReissue(tx):
             return tx.balance
 
         case .createdAlias:
@@ -338,22 +341,23 @@ extension SmartTransaction {
 
         case .sponsorship:
             return nil
-            
+
         case .invokeScript:
+            return nil
+            
+        case .updateAssetInfo:
             return nil
         }
     }
 
     private var amountData: String {
-
-        guard let amount = self.amountAny else { return "" }
-        guard let amountAsset = self.amountAssetAny else { return "" }
+        guard let amount = amountAny else { return "" }
+        guard let amountAsset = amountAssetAny else { return "" }
         return "Amount: \(amount.displayText) (\(amountAsset.id))\n"
     }
 
     private var priceData: String {
-
-        if case .exchange(let tx) = kind {
+        if case let .exchange(tx) = kind {
             return "Price: \(tx.price.displayText)\nTotal Price: \(tx.total.displayText)\n"
         }
 
@@ -365,27 +369,26 @@ extension SmartTransaction {
     }
 
     private var attachmentAny: String? {
-
         switch kind {
-        case .receive(let tx):
+        case let .receive(tx):
             return tx.attachment
 
-        case .sent(let tx):
+        case let .sent(tx):
             return tx.attachment
 
-        case .spamReceive(let tx):
+        case let .spamReceive(tx):
             return tx.attachment
 
-        case .selfTransfer(let tx):
+        case let .selfTransfer(tx):
             return tx.attachment
 
-        case .massSent(let tx):
+        case let .massSent(tx):
             return tx.attachment
 
-        case .massReceived(let tx):
+        case let .massReceived(tx):
             return tx.attachment
 
-        case .spamMassReceived(let tx):
+        case let .spamMassReceived(tx):
             return tx.attachment
 
         case .startedLeasing:
@@ -426,23 +429,24 @@ extension SmartTransaction {
 
         case .sponsorship:
             return nil
-            
+
         case .invokeScript:
+            return nil
+        case .updateAssetInfo:
             return nil
         }
     }
 
     private var attachmentData: String {
-
-        guard let attachment = self.attachmentAny else { return "" }
+        guard let attachment = attachmentAny else { return "" }
         guard !attachment.isEmpty else { return "" }
 
         return "Attachment: \(attachment)\n"
     }
-    
+
     private var scriptAddress: String {
         switch kind {
-        case .invokeScript(let tx):
+        case let .invokeScript(tx):
             return "Script address: \(tx.scriptAddress)\n"
         default:
             return ""

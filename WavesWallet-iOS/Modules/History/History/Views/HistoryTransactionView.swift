@@ -108,7 +108,6 @@ extension HistoryTransactionView: ViewConfiguration {
         tickerView.isHidden = true
         labelValue.text = nil
 
-        
         switch model.status {
         case .fail:
             valueLabel.text = Localizable.Waves.Transactioncard.Title.failed
@@ -120,8 +119,7 @@ extension HistoryTransactionView: ViewConfiguration {
             statusContainer.isHidden = true
             infoImageView.isHidden = false
         }
-                
-        
+
         switch model.kind {
         case let .receive(tx):
             update(with: tx.asset, balance: tx.balance, sign: .plus)
@@ -191,6 +189,9 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .invokeScript:
             labelValue.text = Localizable.Waves.History.Transaction.Value.scriptInvocation
+
+        case let .updateAssetInfo(tx):
+            labelValue.text = tx.asset.name
         }
     }
 }
@@ -274,6 +275,9 @@ fileprivate extension SmartTransaction {
             }
 
         case .invokeScript:
+            return Localizable.Waves.History.Transaction.Title.entryInBlockchain
+            
+        case .updateAssetInfo:
             return Localizable.Waves.History.Transaction.Title.entryInBlockchain
         }
     }

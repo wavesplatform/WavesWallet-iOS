@@ -649,7 +649,7 @@ private extension TransactionsUseCase {
                 let assetsMap = assets.reduce(into: [String: Asset]()) { $0[$1.id] = $1 }
                 let accountsMap = accounts.reduce(into: [String: Address]()) { $0[$1.address] = $1 }
                 let leaseTxsMap = data.leaseTxs.reduce(into: [String: LeaseTransaction]()) { $0[$1.id] = $1 }
-
+                                
                 let txs = self.mapToSmartTransactions(by: accountAddress,
                                                       txs: data.transaction,
                                                       assets: assetsMap,
@@ -888,11 +888,17 @@ private extension AnyTransaction {
             return [tx.assetId]
 
         case let .invokeScript(tx):
-            
+
             var payments = tx.payments?.map { $0.assetId }.compactMap { $0 } ?? []
             payments.append(WavesSDKConstants.wavesAssetId)
-            
+
             return payments
+        case let .updateAssetInfo(tx):
+            var list = [tx.assetId, WavesSDKConstants.wavesAssetId]
+            if let feeAssetId = tx.feeAssetId {
+                list.append(feeAssetId)
+            }
+            return list
         }
     }
 
@@ -950,6 +956,9 @@ private extension AnyTransaction {
             return [tx.sender]
 
         case let .invokeScript(tx):
+            return [tx.sender]
+
+        case let .updateAssetInfo(tx):
             return [tx.sender]
         }
     }

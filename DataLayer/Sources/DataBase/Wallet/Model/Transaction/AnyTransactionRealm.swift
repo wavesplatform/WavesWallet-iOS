@@ -26,4 +26,6 @@ final class AnyTransactionRealm: TransactionRealm {
     @objc dynamic var assetScriptTransaction: AssetScriptTransactionRealm?
     @objc dynamic var sponsorshipTransaction: SponsorshipTransactionRealm?
     @objc dynamic var invokeScriptTransaction: InvokeScriptTransactionRealm?
+    @objc dynamic var updateAssetInfoTransaction: UpdateAssetInfoTransactionRealm?
+    
 }
