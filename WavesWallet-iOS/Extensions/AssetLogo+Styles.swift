@@ -20,6 +20,17 @@ extension AssetLogo.Style {
                                                               height: 10)))
     }()
     
+    
+    static var tiny20: AssetLogo.Style = {
+        return AssetLogo.Style.init(size: CGSize(width: 20, height: 20),
+                                    font: UIFont.systemFont(ofSize: 12),
+                                    specs: .init(sponsoredImage: Images.sponsoritem18White.image,
+                                                 scriptImage: Images.scriptasset18White.image,
+                                                 size: CGSize(width: 10,
+                                                              height: 10)))
+    }()
+    
+    
     static var litle: AssetLogo.Style = {
         return AssetLogo.Style.init(size: CGSize(width: 24, height: 24),
                                     font: UIFont.systemFont(ofSize: 15),

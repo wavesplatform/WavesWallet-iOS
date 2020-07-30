@@ -135,7 +135,7 @@ public extension Asset {
     var isBTC: Bool {
         return gatewayId == "BTC"
     }
-
+    
     var isMonero: Bool {
         return gatewayId == "XMR"
     }

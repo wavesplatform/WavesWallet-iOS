@@ -18,6 +18,7 @@ public enum TransactionsRepositoryError: Error {
 public enum TransactionStatus: Int, Decodable {
     case activeNow
     case completed
+    case fail
     case unconfirmed
 }
 

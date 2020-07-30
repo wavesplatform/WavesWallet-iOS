@@ -35,8 +35,10 @@ extension ScriptTransactionRealm {
 
 extension ScriptTransaction {
     init(transaction: NodeService.DTO.SetScriptTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -50,7 +52,7 @@ extension ScriptTransaction {
                   proofs: transaction.proofs,
                   script: transaction.script,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: ScriptTransactionRealm) {

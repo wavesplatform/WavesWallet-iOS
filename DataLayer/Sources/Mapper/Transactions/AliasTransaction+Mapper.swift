@@ -33,8 +33,11 @@ extension AliasTransactionRealm {
 
 extension AliasTransaction {
     init(transaction: NodeService.DTO.AliasTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
+        
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -47,7 +50,7 @@ extension AliasTransaction {
                   proofs: transaction.proofs,
                   alias: transaction.alias,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: AliasTransactionRealm) {

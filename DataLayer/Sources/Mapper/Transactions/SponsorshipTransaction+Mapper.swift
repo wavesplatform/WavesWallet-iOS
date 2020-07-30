@@ -36,8 +36,10 @@ extension SponsorshipTransactionRealm {
 
 extension SponsorshipTransaction {
     init(transaction: NodeService.DTO.SponsorshipTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -51,7 +53,7 @@ extension SponsorshipTransaction {
                   assetId: transaction.assetId,
                   minSponsoredAssetFee: transaction.minSponsoredAssetFee,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: SponsorshipTransactionRealm) {

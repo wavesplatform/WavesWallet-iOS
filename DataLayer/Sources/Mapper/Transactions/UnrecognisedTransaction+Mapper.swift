@@ -28,8 +28,10 @@ extension UnrecognisedTransactionRealm {
 
 extension UnrecognisedTransaction {
     init(transaction: NodeService.DTO.UnrecognisedTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -38,7 +40,7 @@ extension UnrecognisedTransaction {
                   timestamp: transaction.timestamp,
                   height: transaction.height,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: UnrecognisedTransactionRealm) {

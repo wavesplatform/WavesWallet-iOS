@@ -10,6 +10,19 @@ import DomainLayer
 import Foundation
 import WavesSDK
 
+extension TransactionStatus {
+    static func make(from string: String) -> TransactionStatus? {
+        switch string {
+        case "script_execution_failed":
+            return .fail
+        case "succeeded":
+            return .completed
+        default:
+            return nil
+        }
+    }
+}
+
 extension ReissueTransactionRealm {
     convenience init(transaction: ReissueTransaction) {
         self.init()
@@ -36,8 +49,11 @@ extension ReissueTransactionRealm {
 
 extension ReissueTransaction {
     init(transaction: NodeService.DTO.ReissueTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
+        
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+                    
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -53,7 +69,7 @@ extension ReissueTransaction {
                   quantity: transaction.quantity,
                   reissuable: transaction.reissuable,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: ReissueTransactionRealm) {

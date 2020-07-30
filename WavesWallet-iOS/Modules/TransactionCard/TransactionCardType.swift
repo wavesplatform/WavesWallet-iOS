@@ -114,9 +114,10 @@ enum TransactionCard {
         case status(TransactionCardStatusCell.Model)
         case asset(TransactionCardAssetCell.Model)
         case sponsorshipDetail(TransactionCardSponsorshipDetailCell.Model)
-        case keyLoading(TransactionCardKeyLoadingCell.Model)
-        case invokeScript(SmartTransaction.InvokeScript)
+        case keyLoading(TransactionCardKeyLoadingCell.Model)        
         case orderFilled(TransactionCardOrderFilledCell.Model)
         case exchangeFee(TransactionCardExchangeFeeCell.Model)
+        case scriptAddress(title: String, address: String)
+        case payments([SmartTransaction.InvokeScript.Payment])
     }
 }

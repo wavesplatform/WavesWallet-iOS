@@ -475,7 +475,8 @@ private extension DataTransaction {
                      height: height,
                      version: version,
                      proofs: proofs,
-                     data: data)
+                     data: data,
+                     applicationStatus: nil)
     }
 }
 
@@ -507,14 +508,12 @@ private extension InvokeScriptTransaction {
 
             call = .init(function: localCall.function, args: args)
         }
+        
+        let payments: [NodeService.DTO.InvokeScriptTransaction.Payment] = self.payments?
+            .map { payment -> NodeService.DTO.InvokeScriptTransaction.Payment in
 
-        // TODO: Payment Many
-
-        var payments: NodeService.DTO.InvokeScriptTransaction.Payment?
-
-        if let pay = payment {
-            payments = NodeService.DTO.InvokeScriptTransaction.Payment(amount: pay.amount, assetId: pay.assetId)
-        }
+                NodeService.DTO.InvokeScriptTransaction.Payment(amount: payment.amount, assetId: payment.assetId)
+            } ?? []
 
         return NodeService.DTO.InvokeScriptTransaction(type: type,
                                                        id: id,
@@ -529,7 +528,8 @@ private extension InvokeScriptTransaction {
                                                        feeAssetId: feeAssetId,
                                                        dApp: dappAddress,
                                                        call: call,
-                                                       payment: payments != nil ? [payments!] : [])
+                                                       payment: payments,
+                                                       applicationStatus: nil)
     }
 }
 
@@ -552,7 +552,8 @@ private extension AnyTransaction {
                                                               assetId: model.assetId,
                                                               feeAssetId: model.feeAssetId,
                                                               amount: model.amount,
-                                                              attachment: model.attachment))
+                                                              attachment: model.attachment,
+                                                              applicationStatus: nil))
 
         case let .invokeScript(model):
             return .invokeScript(model.invokeScriptTransactionNodeService)

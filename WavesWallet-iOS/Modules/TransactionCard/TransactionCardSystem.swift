@@ -32,14 +32,26 @@ private typealias Types = TransactionCard
 final class TransactionCardSystem: System<TransactionCard.State, TransactionCard.Event> {
     private let kind: TransactionCard.Kind
 
-    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
-    private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
-    private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepository
-    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
-    private let orderbookInteractor = UseCasesFactory.instance.oderbook
-    private let serverEnvironmentUseCase: ServerEnvironmentRepository = UseCasesFactory.instance.serverEnvironmentUseCase
+    private let authorizationUseCase: AuthorizationUseCaseProtocol
+    private let transactionsUseCase: TransactionsUseCaseProtocol
+    private let assetsRepository: AssetsRepositoryProtocol
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol
+    private let orderbookUsecase: OrderBookUseCaseProtocol
+    private let serverEnvironmentUseCase: ServerEnvironmentRepository
 
-    init(kind: TransactionCard.Kind) {
+    public init(kind: TransactionCard.Kind,
+                authorizationUseCase: AuthorizationUseCaseProtocol,
+                transactionsUseCase: TransactionsUseCaseProtocol,
+                assetsRepository: AssetsRepositoryProtocol,
+                dexOrderBookRepository: DexOrderBookRepositoryProtocol,
+                orderbookUsecase: OrderBookUseCaseProtocol,
+                serverEnvironmentUseCase: ServerEnvironmentRepository) {
+        self.authorizationUseCase = authorizationUseCase
+        self.transactionsUseCase = transactionsUseCase
+        self.assetsRepository = assetsRepository
+        self.dexOrderBookRepository = dexOrderBookRepository
+        self.orderbookUsecase = orderbookUsecase
+        self.serverEnvironmentUseCase = serverEnvironmentUseCase
         self.kind = kind
     }
 
@@ -319,15 +331,14 @@ private extension TransactionCardSystem {
     }
 
     private func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<Bool> {
-        
         let serverEnviroment = serverEnvironmentUseCase.serverEnvironment()
-        
+
         return Observable.zip(serverEnviroment,
-                              authorizationInteractor.authorizedWallet())
+                              authorizationUseCase.authorizedWallet())
             .flatMap { [weak self] serverEnviroment, wallet -> Observable<Bool> in
-                
+
                 guard let self = self else { return Observable.empty() }
-                
+
                 return self
                     .dexOrderBookRepository
                     .cancelOrder(serverEnvironment: serverEnviroment,
@@ -344,14 +355,14 @@ private extension TransactionCardSystem {
     private func getFee(amountAsset: String,
                         priceAsset: String,
                         feeAsset: String) -> Observable<Money> {
-        return authorizationInteractor
+        return authorizationUseCase
             .authorizedWallet()
             .flatMap { [weak self] (wallet) -> Observable<Money> in
                 guard let self = self else { return Observable.empty() }
-                return self.orderbookInteractor.orderSettingsFee()
+                return self.orderbookUsecase.orderSettingsFee()
                     .flatMap { [weak self] (orderSettingsFee) -> Observable<Money> in
                         guard let self = self else { return Observable.empty() }
-                        return self.transactionsInteractor
+                        return self.transactionsUseCase
 
                             // TODO: need update feeAssetId to correct calculation when api will be available for matcher
                             .calculateFee(by: .createOrder(amountAsset: amountAsset,
@@ -364,7 +375,7 @@ private extension TransactionCardSystem {
     }
 
     private func getAsset(_ assetID: String) -> Observable<Asset> {
-        return authorizationInteractor
+        return authorizationUseCase
             .authorizedWallet()
             .flatMap { [weak self] (wallet) -> Observable<Asset> in
                 guard let self = self else { return Observable.empty() }
@@ -372,7 +383,7 @@ private extension TransactionCardSystem {
                     .assetsRepository
                     .assets(ids: [assetID],
                             accountAddress: wallet.address)
-                    .map { $0.compactMap { $0} }
+                    .map { $0.compactMap { $0 } }
                     .compactMap { $0.first }
             }
     }

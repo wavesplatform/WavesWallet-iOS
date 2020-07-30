@@ -41,7 +41,7 @@ extension ExchangeTransactionRealm {
 
 extension ExchangeTransaction {
     init(transaction: NodeService.DTO.ExchangeTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
         let order1 = ExchangeTransaction.Order(order: transaction.order1,
                                                                aliasScheme: aliasScheme)
@@ -49,6 +49,8 @@ extension ExchangeTransaction {
         let order2 = ExchangeTransaction.Order(order: transaction.order2,
                                                                aliasScheme: aliasScheme)
 
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -65,7 +67,7 @@ extension ExchangeTransaction {
                   buyMatcherFee: transaction.buyMatcherFee,
                   sellMatcherFee: transaction.sellMatcherFee,
                   modified: Date(),
-                  status: status,
+                  status: status ?? transactionStatus ?? .completed,
                   version: transaction.version)
     }
 

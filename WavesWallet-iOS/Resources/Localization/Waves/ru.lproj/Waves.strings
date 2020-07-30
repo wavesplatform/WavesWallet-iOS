@@ -547,6 +547,7 @@
 "transactionhistory.cell.status.at" = "в";
 "transactioncard.title.activeNow" = "Активен";
 "transactioncard.title.completed" = "ВЫПОЛНЕНО";
+"transactioncard.title.failed" = "НЕУСПЕШНО";
 "transactioncard.title.unconfirmed" = "Не подтверждено";
 "transactioncard.title.timestamp" = "Время";
 "transactionhistory.cell.type" = "Тип";
@@ -644,7 +645,7 @@
 "history.transaction.value.setAssetScript" = "Обновление скрипта";
 "transactioncard.title.scriptInvocation" = "Вызов скрипта";
 "transactioncard.title.scriptAddress" = "Адрес контракта";
-"transactioncard.title.payment" = "Платёж";
+"transactioncard.title.payment" = "Переводы";
 "history.transaction.value.scriptInvocation" = "Вызов скрипта";
 "history.transaction.value.data" = "Запись в блокчейн";
 "history.transaction.title.setAssetScript" = "Запись в блокчейн";
@@ -877,3 +878,5 @@
 "needBackupScreen.ifYouLoseSeedThenYouLoseMoney" = "Помните, что в случае утери SEED фразы, вы никогда не сможете восстановить пароль от своего аккаунта, а также окрыть свой аккаунт на другом устройстве.";
 "needBackupScreen.neverTellAnyoneSeed" = "НИКОГДА никому не сообщайте свою SEED фразу. Только мошенники могут интересоваться данной информацией.";
 "needBackupScreen.neverTellAnyoneSeed.never" = "НИКОГДА";
+"history.segmentedControl.contractinvocation" = "Вызов контракта";
+

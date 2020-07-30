@@ -888,11 +888,11 @@ private extension AnyTransaction {
             return [tx.assetId]
 
         case let .invokeScript(tx):
-
-            if let payment = tx.payment, let assetId = payment.assetId {
-                return [WavesSDKConstants.wavesAssetId, assetId]
-            }
-            return [WavesSDKConstants.wavesAssetId]
+            
+            var payments = tx.payments?.map { $0.assetId }.compactMap { $0 } ?? []
+            payments.append(WavesSDKConstants.wavesAssetId)
+            
+            return payments
         }
     }
 

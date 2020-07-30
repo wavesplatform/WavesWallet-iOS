@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="TransactionCardPaymentView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="419" height="20"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Q3-t0-yoK">
+                    <rect key="frame" x="24" y="0.0" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="JeU-AI-gqY"/>
+                        <constraint firstAttribute="width" constant="20" id="laO-d1-SPc"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRl-Fs-Zac">
+                    <rect key="frame" x="56" y="-0.5" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gz6-qK-SHP">
+                    <rect key="frame" x="353" y="-0.5" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="WRl-Fs-Zac" firstAttribute="leading" secondItem="8Q3-t0-yoK" secondAttribute="trailing" constant="12" id="4fi-25-zlt"/>
+                <constraint firstAttribute="trailing" secondItem="gz6-qK-SHP" secondAttribute="trailing" constant="24" id="E4n-IA-TD7"/>
+                <constraint firstItem="gz6-qK-SHP" firstAttribute="centerY" secondItem="WRl-Fs-Zac" secondAttribute="centerY" id="Eyc-DR-Y1W"/>
+                <constraint firstItem="8Q3-t0-yoK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="Y4K-rL-YG8"/>
+                <constraint firstItem="8Q3-t0-yoK" firstAttribute="centerY" secondItem="WRl-Fs-Zac" secondAttribute="centerY" id="bvz-SC-Pll"/>
+                <constraint firstItem="8Q3-t0-yoK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dzb-ec-mEn"/>
+                <constraint firstItem="gz6-qK-SHP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WRl-Fs-Zac" secondAttribute="trailing" constant="16" id="prT-xc-nuI"/>
+                <constraint firstAttribute="bottom" secondItem="8Q3-t0-yoK" secondAttribute="bottom" id="xWx-Yj-yIJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="balanceLabel" destination="gz6-qK-SHP" id="Dlo-Iy-8cv"/>
+                <outlet property="iconImageView" destination="8Q3-t0-yoK" id="jsc-FF-6vr"/>
+                <outlet property="titleLabel" destination="WRl-Fs-Zac" id="obq-Wl-ceD"/>
+            </connections>
+            <point key="canvasLocation" x="141.30434782608697" y="145.98214285714286"/>
+        </view>
+    </objects>
+</document>

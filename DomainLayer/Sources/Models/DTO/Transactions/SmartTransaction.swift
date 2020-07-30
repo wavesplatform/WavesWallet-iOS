@@ -26,6 +26,7 @@ public struct SmartTransaction: Equatable {
         case activeNow
         case completed
         case unconfirmed
+        case fail
     }
 
     public struct Transfer: Equatable {
@@ -209,19 +210,19 @@ public struct SmartTransaction: Equatable {
     public struct InvokeScript: Equatable {
         public struct Payment: Equatable {
             public let amount: Money
-            public let asset: Asset?
+            public let asset: Asset
 
-            public init(amount: Money, asset: Asset?) {
+            public init(amount: Money, asset: Asset) {
                 self.amount = amount
                 self.asset = asset
             }
         }
 
-        public let payment: Payment?
+        public let payments: [Payment]?
         public let scriptAddress: String
 
-        public init(payment: Payment?, scriptAddress: String) {
-            self.payment = payment
+        public init(payments: [Payment]?, scriptAddress: String) {
+            self.payments = payments
             self.scriptAddress = scriptAddress
         }
     }

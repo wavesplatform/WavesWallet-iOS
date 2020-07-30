@@ -69,7 +69,7 @@ final class TransactionsRepository: TransactionsRepositoryProtocol {
             .transactions(by: address.address,
                           offset: 0,
                           limit: limit)
-            .map { $0.anyTransactions(status: .completed,
+            .map { $0.anyTransactions(status: nil,
                                       scheme: serverEnvironment.kind.chainId,
                                       aliasScheme: serverEnvironment.aliasScheme) }
         

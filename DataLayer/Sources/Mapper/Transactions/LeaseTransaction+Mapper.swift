@@ -35,8 +35,10 @@ extension LeaseTransactionRealm {
 
 extension LeaseTransaction {
     init(transaction: NodeService.DTO.LeaseTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -51,7 +53,7 @@ extension LeaseTransaction {
                   amount: transaction.amount,
                   recipient: transaction.recipient.normalizeAddress(aliasScheme: aliasScheme),
                   modified: Date(),
-                  status: status)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: LeaseTransactionRealm) {

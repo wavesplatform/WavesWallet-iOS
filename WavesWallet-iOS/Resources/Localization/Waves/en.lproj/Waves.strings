@@ -269,6 +269,7 @@
 "history.segmentedControl.leased" = "Leased";
 "history.segmentedControl.received" = "Received";
 "history.segmentedControl.sent" = "Sent";
+"history.segmentedControl.contractinvocation" = "Contract Invocation";
 "history.transaction.cell.exchange.buy" = "Buy: %@/%@";
 "history.transaction.cell.exchange.sell" = "Sell: %@/%@";
 "history.transaction.title.alias" = "Create Alias";
@@ -549,6 +550,9 @@
 "transactionhistory.cell.status.at" = "at";
 "transactioncard.title.activeNow" = "Active Now";
 "transactioncard.title.completed" = "COMPLETED";
+
+"transactioncard.title.failed" = "FAILED";
+
 "transactioncard.title.unconfirmed" = "Unconfirmed";
 "transactioncard.title.timestamp" = "Timestamp";
 "transactionhistory.cell.type" = "Type";
@@ -646,7 +650,7 @@
 "history.transaction.value.setAssetScript" = "Update Script";
 "transactioncard.title.scriptInvocation" = "Script Invocation";
 "transactioncard.title.scriptAddress" = "Script address";
-"transactioncard.title.payment" = "Payment";
+"transactioncard.title.payment" = "Payments";
 "history.transaction.value.scriptInvocation" = "Script Invocation";
 "history.transaction.value.data" = "Entry in blockchain";
 "history.transaction.title.setAssetScript" = "Entry in blockchain";

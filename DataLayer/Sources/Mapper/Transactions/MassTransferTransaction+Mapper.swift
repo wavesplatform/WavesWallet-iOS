@@ -49,12 +49,13 @@ extension MassTransferTransactionRealm {
 
 extension MassTransferTransaction {
     init(transaction: NodeService.DTO.MassTransferTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
-        
         let transfers: [MassTransferTransaction.Transfer] = transaction
             .transfers
             .map { .init(recipient: $0.recipient.normalizeAddress(aliasScheme: aliasScheme), amount: $0.amount) }
+
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
 
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -71,9 +72,7 @@ extension MassTransferTransaction {
                   totalAmount: transaction.totalAmount,
                   transfers: transfers,
                   modified: Date(),
-                  status: status)
-
-        self.status = status
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: MassTransferTransactionRealm) {

@@ -56,7 +56,7 @@ public struct InvokeScriptTransaction {
     public let proofs: [String]?
     public let version: Int
     public let dappAddress: String
-    public let payment: Payment?
+    public let payments: [Payment]?
     public let height: Int64
 
     public var modified: Date
@@ -75,7 +75,7 @@ public struct InvokeScriptTransaction {
         proofs: [String]?,
         version: Int,
         dappAddress: String,
-        payment: Payment?,
+        payments: [Payment]?,
         height: Int64,
         modified: Date,
         status: TransactionStatus,
@@ -92,7 +92,7 @@ public struct InvokeScriptTransaction {
         self.proofs = proofs
         self.version = version
         self.dappAddress = dappAddress
-        self.payment = payment
+        self.payments = payments
         self.height = height
         self.modified = modified
         self.call = call

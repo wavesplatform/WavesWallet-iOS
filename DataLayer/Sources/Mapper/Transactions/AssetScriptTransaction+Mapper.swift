@@ -37,8 +37,11 @@ extension AssetScriptTransactionRealm {
 
 extension AssetScriptTransaction {
     init(transaction: NodeService.DTO.SetAssetScriptTransaction,
-         status: TransactionStatus,
+         status: TransactionStatus?,
          aliasScheme: String) {
+        
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+        
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -53,7 +56,7 @@ extension AssetScriptTransaction {
                   script: transaction.script,
                   assetId: transaction.assetId,
                   modified: Date(),
-                  status: status)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: AssetScriptTransactionRealm) {

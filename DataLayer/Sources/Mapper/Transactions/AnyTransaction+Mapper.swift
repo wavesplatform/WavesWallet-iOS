@@ -13,7 +13,7 @@ import WavesSDK
 import WavesSDKExtensions
 
 extension NodeService.DTO.Transaction {
-    func anyTransaction(status: TransactionStatus,
+    func anyTransaction(status: TransactionStatus?,
                         scheme: UInt8,
                         aliasScheme: String) -> AnyTransaction {
         switch self {
@@ -66,7 +66,7 @@ extension NodeService.DTO.Transaction {
 }
 
 extension NodeService.DTO.TransactionContainers {
-    func anyTransactions(status: TransactionStatus,
+    func anyTransactions(status: TransactionStatus?,
                          scheme: UInt8,
                          aliasScheme: String) -> [AnyTransaction] {
         var anyTransactions = [AnyTransaction]()

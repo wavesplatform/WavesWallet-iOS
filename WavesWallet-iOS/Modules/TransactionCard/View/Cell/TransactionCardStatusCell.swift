@@ -22,6 +22,7 @@ final class TransactionCardStatusCell: UITableViewCell, Reusable {
         case activeNow
         case unconfirmed
         case completed
+        case fail
     }
 
     @IBOutlet private var keyLabel: UILabel!
@@ -60,6 +61,11 @@ extension TransactionCardStatusCell: ViewConfiguration {
             valueLabel.text = Localizable.Waves.Transactioncard.Title.completed
             statusContainer.backgroundColor = Constants.okBackgroundColor
             valueLabel.textColor = .success500
+            
+        case .fail:
+            valueLabel.text = Localizable.Waves.Transactioncard.Title.failed
+            statusContainer.backgroundColor = UIColor.error500.withAlphaComponent(0.1)
+            valueLabel.textColor = .error500
         }
     }
 }

@@ -1630,6 +1630,9 @@ internal enum Localizable {
         /// Canceled
         internal static var canceled: String { Localizable.tr("Waves", "history.segmentedControl.canceled") }
         internal static var canceledKey: String { "history.segmentedControl.canceled" }
+        /// Contract Invocation
+        internal static var contractinvocation: String { Localizable.tr("Waves", "history.segmentedControl.contractinvocation") }
+        internal static var contractinvocationKey: String { "history.segmentedControl.contractinvocation" }
         /// Exchanged
         internal static var exchanged: String { Localizable.tr("Waves", "history.segmentedControl.exchanged") }
         internal static var exchangedKey: String { "history.segmentedControl.exchanged" }
@@ -3579,6 +3582,9 @@ internal enum Localizable {
         /// Entry in blockchain
         internal static var entryInBlockchain: String { Localizable.tr("Waves", "transactioncard.title.entryInBlockchain") }
         internal static var entryInBlockchainKey: String { "transactioncard.title.entryInBlockchain" }
+        /// FAILED
+        internal static var failed: String { Localizable.tr("Waves", "transactioncard.title.failed") }
+        internal static var failedKey: String { "transactioncard.title.failed" }
         /// Fee
         internal static var fee: String { Localizable.tr("Waves", "transactioncard.title.fee") }
         internal static var feeKey: String { "transactioncard.title.fee" }
@@ -3606,7 +3612,7 @@ internal enum Localizable {
         /// Not Reissuable
         internal static var notReissuable: String { Localizable.tr("Waves", "transactioncard.title.notReissuable") }
         internal static var notReissuableKey: String { "transactioncard.title.notReissuable" }
-        /// Payment
+        /// Payments
         internal static var payment: String { Localizable.tr("Waves", "transactioncard.title.payment") }
         internal static var paymentKey: String { "transactioncard.title.payment" }
         /// Price
