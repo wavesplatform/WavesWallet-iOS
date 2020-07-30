@@ -80,6 +80,8 @@ extension DataTransaction {
                                         value: dataValue,
                                         type: data.type)
         }
+        
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
 
         self.init(type: transaction.type,
                   id: transaction.id,
@@ -92,7 +94,7 @@ extension DataTransaction {
                   proofs: transaction.proofs,
                   data: dataList,
                   modified: Date(),
-                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed,
+                  status: status ?? transactionStatus ?? .completed,
                   chainId: transaction.chainId)
     }
 

@@ -32,14 +32,8 @@ final class TransactionCardPaymentsCell: UITableViewCell, Reusable {
     func setPayments(_ payments: [SmartTransaction.InvokeScript.Payment]) {
         stackView.arrangedSubviews.forEach { stackView.removeArrangedSubview($0) }
 
-        let views = payments.map { payment -> TransactionCardPaymentView in
-            let view: TransactionCardPaymentView = TransactionCardPaymentView.loadView()
-            view.backgroundColor = .basic50
-            view.setTitle(payment.asset.displayName)
-            view.setBalance(payment.amount)
-            view.setAssetIcon(payment.asset.iconLogo)
-
-            return view
+        let views = payments.map {
+            TransactionCardPaymentView.makePaymentView(payment: $0)
         }
 
         let topView = UIView()
@@ -55,5 +49,27 @@ final class TransactionCardPaymentsCell: UITableViewCell, Reusable {
         bottomView.backgroundColor = .basic50
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(bottomView)
+    }
+
+    private func makePaymentView(payment: SmartTransaction.InvokeScript.Payment) -> TransactionCardPaymentView {
+        let view: TransactionCardPaymentView = TransactionCardPaymentView.loadView()
+        view.backgroundColor = .basic50
+        view.setTitle(payment.asset.displayName)
+        view.setBalance(payment.amount)
+        view.setAssetIcon(payment.asset.iconLogo)
+
+        return view
+    }
+}
+ 
+private extension TransactionCardPaymentView {
+    static func makePaymentView(payment: SmartTransaction.InvokeScript.Payment) -> TransactionCardPaymentView {
+        let view: TransactionCardPaymentView = TransactionCardPaymentView.loadView()
+        view.backgroundColor = .basic50
+        view.setTitle(payment.asset.displayName)
+        view.setBalance(payment.amount)
+        view.setAssetIcon(payment.asset.iconLogo)
+
+        return view
     }
 }

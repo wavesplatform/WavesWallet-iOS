@@ -43,6 +43,8 @@ extension TransferTransaction {
     init(transaction: NodeService.DTO.TransferTransaction,
          status: TransactionStatus?,
          aliasScheme: String) {
+        let transactionStatus = TransactionStatus.make(from: transaction.applicationStatus ?? "")
+
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender.normalizeAddress(aliasScheme: aliasScheme),
@@ -60,7 +62,7 @@ extension TransferTransaction {
                   amount: transaction.amount,
                   attachment: transaction.attachment,
                   modified: Date(),
-                  status: status ?? transaction.applicationStatus?.transactionStatus ?? .completed)
+                  status: status ?? transactionStatus ?? .completed)
     }
 
     init(transaction: TransferTransactionRealm) {

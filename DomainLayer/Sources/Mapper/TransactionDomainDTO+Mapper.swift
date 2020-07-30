@@ -37,9 +37,10 @@ private enum Constants {
 
 // MARK: UnrecognisedTransaction
 
+//TODO: Remove from Int64
 extension Int64 {
     func confirmationHeight(txHeight: Int64?) -> Int64 {
-        // NotFound
+        
         guard let txHeight = txHeight else { return -1 }
         return self - txHeight
     }

@@ -14,7 +14,6 @@ import WavesSDKExtensions
 
 extension NodeService.DTO.Transaction {
     func anyTransaction(status: TransactionStatus?,
-                        scheme _: UInt8,
                         aliasScheme: String) -> AnyTransaction {
         switch self {
         case let .unrecognised(transaction):
@@ -69,13 +68,12 @@ extension NodeService.DTO.Transaction {
 }
 
 extension NodeService.DTO.TransactionContainers {
-    func anyTransactions(status: TransactionStatus?,
-                         scheme: UInt8,
+    func anyTransactions(status: TransactionStatus?,                         
                          aliasScheme: String) -> [AnyTransaction] {
         var anyTransactions = [AnyTransaction]()
 
         for transaction in transactions {
-            anyTransactions.append(transaction.anyTransaction(status: status, scheme: scheme, aliasScheme: aliasScheme))
+            anyTransactions.append(transaction.anyTransaction(status: status, aliasScheme: aliasScheme))
         }
 
         return anyTransactions
@@ -202,7 +200,7 @@ extension AnyTransaction {
 
         case .invokeScript:
             any.invokeScriptTransaction = from as? InvokeScriptTransactionRealm
-            
+
         case .updateAssetInfo:
             any.updateAssetInfoTransaction = from as? UpdateAssetInfoTransactionRealm
         }
