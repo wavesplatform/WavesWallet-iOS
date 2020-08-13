@@ -264,7 +264,7 @@
 "history.segmentedControl.canceled" = "Отмененные";
 "history.segmentedControl.exchanged" = "Обмен";
 "history.segmentedControl.issued" = "Выпуск токенов";
-"history.segmentedControl.leased" = "Лизинг";
+"history.segmentedControl.leased" = "Сейчас в стейкинге";
 "history.segmentedControl.received" = "Полученные";
 "history.segmentedControl.sent" = "Отправленные";
 "history.transaction.cell.exchange.buy" = "Покупка: %@/%@";

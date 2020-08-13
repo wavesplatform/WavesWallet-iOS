@@ -266,7 +266,7 @@
 "history.segmentedControl.canceled" = "Canceled";
 "history.segmentedControl.exchanged" = "Exchanged";
 "history.segmentedControl.issued" = "Issued";
-"history.segmentedControl.leased" = "Leased";
+"history.segmentedControl.leased" = "Staked Balance";
 "history.segmentedControl.received" = "Received";
 "history.segmentedControl.sent" = "Sent";
 "history.segmentedControl.contractinvocation" = "Contract Invocation";
