@@ -15,7 +15,6 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
-
 private struct EnvironmentKey: Hashable {
     let chainId: String
 }
@@ -25,10 +24,10 @@ private extension WalletEnvironment.Kind {
         switch self {
         case .mainnet:
             return .mainnet
-            
+
         case .testnet:
             return .testnet
-            
+
         case .stagenet:
             return .stagenet
         }
@@ -36,66 +35,64 @@ private extension WalletEnvironment.Kind {
 }
 
 final class EnvironmentRepository: EnvironmentRepositoryProtocol {
-        
     private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
-    
+
     private lazy var remoteAccountEnvironmentShare: Observable<WalletEnvironment> = {
-        remoteEnvironment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        remoteEnvironment().share(replay: 1, scope: SubjectLifetimeScope.forever)
     }()
-    
+
     private lazy var currentEnviromentShare: Observable<WalletEnvironment> =
-        setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.forever)
 
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject(value: [:])
-    
+
     private lazy var internalEnvironmentKind: WalletEnvironment.Kind = {
-          let chainId = UserDefaults.standard.string(forKey: "wallet.environment.kind") ?? ""
-          return WalletEnvironment.Kind(rawValue: chainId) ?? .mainnet
+        let chainId = UserDefaults.standard.string(forKey: "wallet.environment.kind") ?? ""
+        return WalletEnvironment.Kind(rawValue: chainId) ?? .mainnet
     }()
-    
+
     init() {
         setupEnviroment(kind: environmentKind)
     }
-            
+
     func walletEnvironment() -> Observable<WalletEnvironment> {
         currentEnviromentShare
     }
-                          
+
     var environmentKind: WalletEnvironment.Kind {
         get {
             return internalEnvironmentKind
         }
-        
+
         set {
             internalEnvironmentKind = newValue
-            //TODO: TSUD
+            // TODO: TSUD
             UserDefaults.standard.set(newValue.rawValue, forKey: "wallet.environment.kind")
             UserDefaults.standard.synchronize()
-            
+
             setupEnviroment(kind: newValue)
         }
     }
 }
 
 extension EnvironmentRepository {
-    
     private func setupServicesEnviroment() -> Observable<WalletEnvironment> {
         return ifNeedRemoteEnvironment()
-            .flatMap { [weak self] enviroment -> Observable<WalletEnvironment> in
+            .flatMapLatest { [weak self] enviroment -> Observable<WalletEnvironment> in
                 guard let self = self else {
                     return Observable.never()
                 }
-                
+
                 return self.saveEnvironmentToMemory(environment: enviroment)
-        }
+            }
     }
-        
+
     private func setupEnviroment(kind: WalletEnvironment.Kind) {
         AddressValidator.walletEnvironment = localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
                                                                      kind: kind)
     }
-    
-    private func localEnviromentFromFile(isDebug: Bool, kind: WalletEnvironment.Kind) -> WalletEnvironment {
+
+    private func localEnviromentFromFile(isDebug: Bool, kind _: WalletEnvironment.Kind) -> WalletEnvironment {
         switch environmentKind {
         case .mainnet:
             if isDebug {
@@ -117,26 +114,25 @@ extension EnvironmentRepository {
             }
         }
     }
-    
+
     private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {
         if let value = try? localEnvironments.value() {
             return value[key]
         }
-        
+
         return nil
     }
 }
 
 private extension EnvironmentRepository {
-        
     private func saveEnvironmentToMemory(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
         Observable.create { [weak self] observer -> Disposable in
             guard let self = self else {
                 return Disposables.create()
             }
-            
+
             let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
-            
+
             if let value = try? self.localEnvironments.value() {
                 var newValue = value
                 newValue[key] = environment
@@ -144,25 +140,23 @@ private extension EnvironmentRepository {
             } else {
                 self.localEnvironments.onNext([key: environment])
             }
-            
+
             observer.onNext(environment)
             observer.onCompleted()
-            
+
             return Disposables.create()
         }
     }
-    
+
     private func ifNeedRemoteEnvironment() -> Observable<WalletEnvironment> {
-        
-        let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
-        
-        if let enviroment = self.localEnvironment(by: key) {
+        let key = EnvironmentKey(chainId: environmentKind.rawValue)
+
+        if let enviroment = localEnvironment(by: key) {
             return Observable.just(enviroment)
         }
-        
-        return self.remoteAccountEnvironmentShare
+        return remoteAccountEnvironmentShare
     }
-    
+
     private func remoteEnvironment() -> Observable<WalletEnvironment> {
         environmentRepository
             .rx
@@ -171,7 +165,7 @@ private extension EnvironmentRepository {
             .map(WalletEnvironment.self)
             .catchError { [weak self] _ -> Single<WalletEnvironment> in
                 guard let self = self else { return Single.never() }
-                
+
                 return Single.just(self.localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
                                                                 kind: self.environmentKind))
             }
