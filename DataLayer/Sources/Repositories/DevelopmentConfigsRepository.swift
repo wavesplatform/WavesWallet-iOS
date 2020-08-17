@@ -90,6 +90,12 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
 
     private let environmentAPIService: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
 
+    private lazy var developmentConfigsShare: Observable<DevelopmentConfigs> = downloadDevelopmentConfigs().share(replay: 1,
+                                                                                                                  scope: SubjectLifetimeScope
+                                                                                                                      .forever)
+
+    private let developmentConfigsLocal: BehaviorSubject<DevelopmentConfigs?> = BehaviorSubject(value: nil)
+
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
     }
@@ -101,6 +107,16 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
     }
 
     public func developmentConfigs() -> Observable<DevelopmentConfigs> {
+        if let value = try? developmentConfigsLocal.value() {
+            return Observable.just(value)
+        }
+
+        return developmentConfigsShare.do(onNext: { [weak self] developmentConfigs in
+            self?.developmentConfigsLocal.onNext(developmentConfigs)
+        })
+    }
+
+    private func downloadDevelopmentConfigs() -> Observable<DevelopmentConfigs> {
         return environmentAPIService.rx.request(.get(kind: environmentRepository.environmentKind,
                                                      isTest: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(DevelopmentConfigsDTO.self,

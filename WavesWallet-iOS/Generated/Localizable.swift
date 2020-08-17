@@ -1639,7 +1639,7 @@ internal enum Localizable {
         /// Issued
         internal static var issued: String { Localizable.tr("Waves", "history.segmentedControl.issued") }
         internal static var issuedKey: String { "history.segmentedControl.issued" }
-        /// Leased
+        /// Staked Balance
         internal static var leased: String { Localizable.tr("Waves", "history.segmentedControl.leased") }
         internal static var leasedKey: String { "history.segmentedControl.leased" }
         /// Received
