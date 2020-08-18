@@ -14,6 +14,10 @@ import RxSwift
 import WavesSDK
 import WavesSDKExtensions
 
+private enum Constants {
+    static let shiftDayForCalaculatePercent: Int = 3
+}
+
 private struct Leasing {
     let balance: DomainLayer.DTO.SmartAssetBalance
     let transaction: [SmartTransaction]
@@ -245,7 +249,8 @@ private extension InvestmentInteractor {
                 let calendar = Calendar.current
                 let dateNow = Date()
 
-                let startDate = calendar.date(byAdding: .day, value: -14, to: dateNow).map { "\($0.millisecondsSince1970)" }
+                let startDate = calendar.date(byAdding: .day, value: -Constants.shiftDayForCalaculatePercent, to: dateNow)
+                    .map { "\($0.millisecondsSince1970)" }
                 let endDate = "\(dateNow.millisecondsSince1970)"
 
                 let query: DataService.Query.MassTransferDataQuery
@@ -378,7 +383,7 @@ extension InvestmentInteractor {
 
         let average = allProfit / Double(finalCountLastProfit)
 
-        return average * 365
+        return (average * 365).rounded(toPlaces: 2, rule: .down)
     }
 
     private static func getTotalProfit(transactions: [DataService.DTO.MassTransferTransaction],
