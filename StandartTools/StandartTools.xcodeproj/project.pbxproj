@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BD0BF5024EC004D00EF7914 /* Double+Rounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0BF4F24EC004D00EF7914 /* Double+Rounds.swift */; };
 		8714502024623C5700A17BA9 /* StandartTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 8714501E24623C5700A17BA9 /* StandartTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871450AF2462449500A17BA9 /* VoidClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871450AE2462449500A17BA9 /* VoidClosure.swift */; };
 		92D539F8EEA68064CAB6A5F8 /* Pods_StandartTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D2782FF88B0951AFA4994 /* Pods_StandartTools.framework */; };
@@ -17,6 +18,7 @@
 		10FE707833B2E25E73628302 /* Pods-StandartTools.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.dev-debug.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.dev-debug.xcconfig"; sourceTree = "<group>"; };
 		294AFE6142135A20DB04372B /* Pods-StandartTools.dev-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.dev-adhoc.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.dev-adhoc.xcconfig"; sourceTree = "<group>"; };
 		64EE6AE6DCD2D083D8230D04 /* Pods-StandartTools.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandartTools.test-prod.xcconfig"; path = "Target Support Files/Pods-StandartTools/Pods-StandartTools.test-prod.xcconfig"; sourceTree = "<group>"; };
+		7BD0BF4F24EC004D00EF7914 /* Double+Rounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounds.swift"; sourceTree = "<group>"; };
 		8714501B24623C5700A17BA9 /* StandartTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StandartTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8714501E24623C5700A17BA9 /* StandartTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StandartTools.h; sourceTree = "<group>"; };
 		8714501F24623C5700A17BA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				871450AE2462449500A17BA9 /* VoidClosure.swift */,
+				7BD0BF4F24EC004D00EF7914 /* Double+Rounds.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				871450AF2462449500A17BA9 /* VoidClosure.swift in Sources */,
+				7BD0BF5024EC004D00EF7914 /* Double+Rounds.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
