@@ -51,7 +51,7 @@ final class InvestmentInteractor: InvestmentInteractorProtocol {
         self.authorizationInteractor = authorizationInteractor
         self.accountBalanceInteractor = accountBalanceInteractor
         self.accountSettingsRepository = accountSettingsRepository
-        self.leasingUseCase = leasingInteractor
+        leasingUseCase = leasingInteractor
         self.serverEnvironmentUseCase = serverEnvironmentUseCase
     }
 
@@ -296,10 +296,10 @@ private extension InvestmentInteractor {
     }
 
     private func obtainLastPayoutsTransactions() -> Observable<PayoutsHistoryState.MassTransferTrait> {
-        performLastPayoutsTransactionRequest(timeStart: nil, timeEnd: nil)
+        performLastPayoutsTransactionRequest(timeStart: nil, timeEnd: nil, limit: 10)
     }
 
-    private func performLastPayoutsTransactionRequest(timeStart: String?, timeEnd: String?)
+    private func performLastPayoutsTransactionRequest(timeStart: String?, timeEnd: String?, limit: UInt? = nil)
         -> Observable<PayoutsHistoryState.MassTransferTrait> {
         let authorizedWallet = authorizationInteractor.authorizedWallet()
 
@@ -317,7 +317,7 @@ private extension InvestmentInteractor {
                                                                         recipient: signedWallet.wallet.address,
                                                                         assetId: staking.neutrinoAssetId,
                                                                         after: nil,
-                                                                        limit: nil)
+                                                                        limit: limit)
                     return query
                 } else {
                     let query = DataService.Query.MassTransferDataQuery(senders: nil,
@@ -326,7 +326,7 @@ private extension InvestmentInteractor {
                                                                         recipient: "",
                                                                         assetId: "",
                                                                         after: nil,
-                                                                        limit: nil)
+                                                                        limit: limit)
                     return query
                 }
             }
