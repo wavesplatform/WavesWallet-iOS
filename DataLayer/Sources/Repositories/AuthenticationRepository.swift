@@ -27,6 +27,9 @@ private enum Constants {
     #endif
 
     static let device = "ios"
+    static let errorNonFound: Int = 404
+    static let errorForbidden: Int = 403
+    static let errorParamsLastTry: String = "lastTry"
 }
 
 final class AuthenticationRepository: AuthenticationRepositoryProtocol {
@@ -60,7 +63,7 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     .asObservable()
             }
             .catchError { error -> Observable<Bool> in
-                return Observable.error(NetworkError.error(by: error))
+                Observable.error(NetworkError.error(by: error))
             }
     }
 
@@ -78,7 +81,7 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                                                  device: Constants.device,
                                                  passcode: passcode)
 
-                    return self.firebaseAuthTarget.rx
+                return self.firebaseAuthTarget.rx
                     .request(request)
                     .filterSuccessfulStatusAndRedirectCodes()
                     .flatMap { response -> PrimitiveSequence<SingleTrait, String> in
@@ -89,7 +92,29 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     }
                     .asObservable()
             }
-            .catchError { error -> Observable<String> in                
+            .catchError { error -> Observable<String> in
+                if let moyError = error as? MoyaError,
+                    let response = moyError.response {
+                    switch moyError.response?.statusCode {
+                    case Constants.errorNonFound:
+                        return Observable.error(AuthenticationRepositoryError.permissionDenied)
+                    case Constants.errorForbidden:
+
+                        let params: [String: Any]? = try? JSONSerialization.jsonObject(with: response.data,
+                                                                                       options: .allowFragments) as? [String: Any]
+                        if params?[Constants.errorParamsLastTry] != nil {
+                            return Observable.error(AuthenticationRepositoryError.passcodeIncorrect)
+                        } else {
+                            return Observable.error(AuthenticationRepositoryError.attemptsEnded)
+                        }
+
+                    default:
+                        return Observable.error(NetworkError.error(by: error))
+                    }
+
+                    return Observable.error(AuthenticationRepositoryError.attemptsEnded)
+                }
+
                 return Observable.error(NetworkError.error(by: error))
             }
     }

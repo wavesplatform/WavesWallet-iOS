@@ -85,7 +85,11 @@ extension PasscodeTypes {
                 return .notFound
 
             case .permissionDenied:
-                return .incorrectPasscode
+                if case .logIn = kind {
+                    return .attemptsEnded
+                } else {
+                    return .attemptsEndedLogout
+                }
 
             case .fail:
                 return .notFound
