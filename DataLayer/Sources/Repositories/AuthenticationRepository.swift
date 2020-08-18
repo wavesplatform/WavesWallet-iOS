@@ -111,8 +111,6 @@ final class AuthenticationRepository: AuthenticationRepositoryProtocol {
                     default:
                         return Observable.error(NetworkError.error(by: error))
                     }
-
-                    return Observable.error(AuthenticationRepositoryError.attemptsEnded)
                 }
 
                 return Observable.error(NetworkError.error(by: error))
