@@ -1682,7 +1682,7 @@ internal enum Localizable {
           /// Exchange
           internal static var exchange: String { Localizable.tr("Waves", "history.transaction.title.exchange") }
           internal static var exchangeKey: String { "history.transaction.title.exchange" }
-          /// Incoming Leasing
+          /// Incoming WAVES Staking
           internal static var incomingLeasing: String { Localizable.tr("Waves", "history.transaction.title.incomingLeasing") }
           internal static var incomingLeasingKey: String { "history.transaction.title.incomingLeasing" }
           /// Mass Received
@@ -3325,7 +3325,7 @@ internal enum Localizable {
         /// Not enough
         internal static var notEnough: String { Localizable.tr("Waves", "startleasing.label.notEnough") }
         internal static var notEnoughKey: String { "startleasing.label.notEnough" }
-        /// Start leasing
+        /// Start Staking Waves
         internal static var startLeasing: String { Localizable.tr("Waves", "startleasing.label.startLeasing") }
         internal static var startLeasingKey: String { "startleasing.label.startLeasing" }
       }
@@ -3340,7 +3340,7 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// You have canceled a leasing transaction
+        /// You have canceled a Staking WAVES transaction
         internal static var youHaveCanceledTransaction: String { Localizable.tr("Waves", "startleasingcomplete.label.youHaveCanceledTransaction") }
         internal static var youHaveCanceledTransactionKey: String { "startleasingcomplete.label.youHaveCanceledTransaction" }
         /// You have leased %@ %@
@@ -3356,7 +3356,7 @@ internal enum Localizable {
     internal enum Startleasingconfirmation {
 
       internal enum Button {
-        /// Cancel leasing
+        /// Cancel staking WAVES
         internal static var cancelLeasing: String { Localizable.tr("Waves", "startleasingconfirmation.button.cancelLeasing") }
         internal static var cancelLeasingKey: String { "startleasingconfirmation.button.cancelLeasing" }
         /// Confirm
@@ -3386,10 +3386,10 @@ internal enum Localizable {
     internal enum Startleasingloading {
 
       internal enum Label {
-        /// Cancel leasing…
+        /// Cancel Staking WAVES…
         internal static var cancelLeasing: String { Localizable.tr("Waves", "startleasingloading.label.cancelLeasing") }
         internal static var cancelLeasingKey: String { "startleasingloading.label.cancelLeasing" }
-        /// Start leasing…
+        /// Start Staking WAVES…
         internal static var startLeasing: String { Localizable.tr("Waves", "startleasingloading.label.startLeasing") }
         internal static var startLeasingKey: String { "startleasingloading.label.startLeasing" }
       }
@@ -3546,7 +3546,7 @@ internal enum Localizable {
         /// Canceled WAVES Staking
         internal static var canceledLeasing: String { Localizable.tr("Waves", "transactioncard.title.canceledLeasing") }
         internal static var canceledLeasingKey: String { "transactioncard.title.canceledLeasing" }
-        /// Cancel Leasing
+        /// Cancel Staking WAVES
         internal static var cancelLeasing: String { Localizable.tr("Waves", "transactioncard.title.cancelLeasing") }
         internal static var cancelLeasingKey: String { "transactioncard.title.cancelLeasing" }
         /// (Cancelled)
@@ -3603,7 +3603,7 @@ internal enum Localizable {
         /// From
         internal static var from: String { Localizable.tr("Waves", "transactioncard.title.from") }
         internal static var fromKey: String { "transactioncard.title.from" }
-        /// Incoming Leasing
+        /// Incoming Staking WAVES
         internal static var incomingLeasing: String { Localizable.tr("Waves", "transactioncard.title.incomingLeasing") }
         internal static var incomingLeasingKey: String { "transactioncard.title.incomingLeasing" }
         /// Leasing from
@@ -3802,7 +3802,7 @@ internal enum Localizable {
         /// ID
         internal static var id: String { Localizable.tr("Waves", "transactionhistory.cell.id") }
         internal static var idKey: String { "transactionhistory.cell.id" }
-        /// Leasing to
+        /// Staking WAVES to
         internal static var leasingTo: String { Localizable.tr("Waves", "transactionhistory.cell.leasingTo") }
         internal static var leasingToKey: String { "transactionhistory.cell.leasingTo" }
         /// Price
@@ -3940,7 +3940,7 @@ internal enum Localizable {
         /// Staked Balance
         internal static var leased: String { Localizable.tr("Waves", "wallet.label.leased") }
         internal static var leasedKey: String { "wallet.label.leased" }
-        /// Leased in
+        /// Staked WAVES in
         internal static var leasedIn: String { Localizable.tr("Waves", "wallet.label.leasedIn") }
         internal static var leasedInKey: String { "wallet.label.leasedIn" }
         /// My token
