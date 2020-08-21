@@ -100,7 +100,7 @@ fileprivate extension SmartTransaction {
 
     var isIncludedIssuedGroup: Bool {
         switch kind {
-        case .tokenBurn, .tokenReissue, .tokenGeneration:
+        case .tokenBurn, .tokenReissue, .tokenGeneration, .updateAssetInfo:
             return true
         default:
             return false
