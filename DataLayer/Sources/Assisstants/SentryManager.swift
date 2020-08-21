@@ -25,19 +25,19 @@ public class SentryManager {
             return
         }
         
-//        do {
-//            let client = try Client(dsn: dsn)
-//            self.client = client
-//            Client.shared = self.client
-//        } catch let error {
-//        }
-//
-//        do {
-//            try Client.shared?.startCrashHandler()
-//        } catch let error {
-//        }
-//
-//        Client.shared?.enableAutomaticBreadcrumbTracking()
+        do {
+            let client = try Client(dsn: dsn)
+            self.client = client
+            Client.shared = self.client
+        } catch let error {
+        }
+
+        do {
+            try Client.shared?.startCrashHandler()
+        } catch let error {
+        }
+
+        Client.shared?.enableAutomaticBreadcrumbTracking()
     }
     
     class func initialization(sentryIoInfoPath: String) {
@@ -56,13 +56,13 @@ public class SentryManager {
         event.timestamp = Date()
         event.user = currentUser
         
-//        if let client = SentryManager.shared.client {
-//            client.send(event: event, completion: { error in            
-//                if let error = error {
-//                }
-//            })
-//        } else {
-//        }
+        if let client = SentryManager.shared.client {
+            client.send(event: event, completion: { error in            
+                if let error = error {
+                }
+            })
+        } else {
+        }
     }
 }
 
