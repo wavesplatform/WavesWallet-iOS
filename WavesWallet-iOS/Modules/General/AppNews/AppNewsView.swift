@@ -11,28 +11,28 @@ import Foundation
 import TTTAttributedLabel
 import UIKit
 
-private struct AppNewsFontCollection: FontCollection {
-    var heading1 = DownFont.boldSystemFont(ofSize: 25)
-    var heading2 = DownFont.boldSystemFont(ofSize: 21)
-    var heading3 = DownFont.boldSystemFont(ofSize: 17)
-    var body = DownFont.systemFont(ofSize: 13)
-    var code = DownFont(name: "menlo", size: 13) ?? .systemFont(ofSize: 13)
-    var listItemPrefix = DownFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
-}
-
-private struct AppNewsColorCollection: ColorCollection {
-    var heading1 = DownColor.black
-    var heading2 = DownColor.black
-    var heading3 = DownColor.black
-    var body = DownColor.black
-    var code = DownColor.black
-    var link = UIColor.submit400
-    var quote = DownColor.darkGray
-    var quoteStripe = DownColor.darkGray
-    var thematicBreak = DownColor(white: 0.9, alpha: 1)
-    var listItemPrefix = DownColor.lightGray
-    var codeBlockBackground = DownColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1)
-}
+//private struct AppNewsFontCollection: FontCollection {
+//    var heading1 = DownFont.boldSystemFont(ofSize: 25)
+//    var heading2 = DownFont.boldSystemFont(ofSize: 21)
+//    var heading3 = DownFont.boldSystemFont(ofSize: 17)
+//    var body = DownFont.systemFont(ofSize: 13)
+//    var code = DownFont(name: "menlo", size: 13) ?? .systemFont(ofSize: 13)
+//    var listItemPrefix = DownFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
+//}
+//
+//private struct AppNewsColorCollection: ColorCollection {
+//    var heading1 = DownColor.black
+//    var heading2 = DownColor.black
+//    var heading3 = DownColor.black
+//    var body = DownColor.black
+//    var code = DownColor.black
+//    var link = UIColor.submit400
+//    var quote = DownColor.darkGray
+//    var quoteStripe = DownColor.darkGray
+//    var thematicBreak = DownColor(white: 0.9, alpha: 1)
+//    var listItemPrefix = DownColor.lightGray
+//    var codeBlockBackground = DownColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1)
+//}
 
 struct AppNewsModel {
     let title: String
@@ -78,8 +78,8 @@ final class AppNewsView: PopupActionView<AppNewsModel> {
                             for: .normal)
         
         var downStylerConfigurator = DownStylerConfiguration()
-        downStylerConfigurator.colors = AppNewsColorCollection()
-        downStylerConfigurator.fonts = AppNewsFontCollection()
+//        downStylerConfigurator.colors = AppNewsColorCollection()
+//        downStylerConfigurator.fonts = AppNewsFontCollection()
         
         let downStyler = DownStyler(configuration: downStylerConfigurator)
         if let subtitle = try? Down(markdownString: model.subtitle).toAttributedString(.default, styler: downStyler) {

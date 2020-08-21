@@ -19,9 +19,9 @@ final class InvestmentPresenter: InvestmentPresenterProtocol {
     var interactor: InvestmentInteractorProtocol!
     weak var moduleOutput: InvestmentModuleOutput?
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private let kind: InvestmentDisplayState.Kind
-    
+
     private var leasingListener: Signal<InvestmentEvent>?
 
     init(kind: InvestmentDisplayState.Kind) {
@@ -98,8 +98,8 @@ final class InvestmentPresenter: InvestmentPresenterProtocol {
             guard let self = self else { return Signal.empty() }
 
             let timer = Observable<Int>
-                .timer(0, period: 3.0, scheduler: MainScheduler.instance)
-                .take(30)                
+                .timer(.seconds(0), period: .seconds(3), scheduler: MainScheduler.instance)
+                .take(30)
                 .asSignal(onErrorSignalWith: Signal.just(1))
                 .flatMap { _ -> Signal<InvestmentEvent> in
                     self.interactor
@@ -422,7 +422,6 @@ final class InvestmentPresenter: InvestmentPresenterProtocol {
             moduleOutput?.openAppStore()
             state.action = .none
 
-
         case let .openStakingFaq(fromLanding):
             moduleOutput?.openStakingFaq(fromLanding: fromLanding)
             state.action = .none
@@ -446,7 +445,7 @@ final class InvestmentPresenter: InvestmentPresenterProtocol {
             guard let neutrinoAsset = state.staking?.neutrinoAsset else { return }
             moduleOutput?.openWithdraw(neutrinoAsset: neutrinoAsset)
             state.action = .none
-        
+
         case let .openFb(text):
             moduleOutput?.openFb(sharedText: text)
             state.action = .none
@@ -476,6 +475,10 @@ final class InvestmentPresenter: InvestmentPresenterProtocol {
 
             state.hasSkipLanding = true
             state.action = .update
+
+        case .didTapScannerItem:
+            moduleOutput?.didTapScannerItem()
+            state.action = .none
         }
     }
 

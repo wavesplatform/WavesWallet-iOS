@@ -27,11 +27,6 @@ final class InvestmentViewController: UIViewController {
     private var snackError: String?
     private var hasAddingViewBanners: Bool = false
 
-    private let buttonAddress = UIBarButtonItem(image: Images.walletScanner.image,
-                                                style: .plain,
-                                                target: nil,
-                                                action: nil)
-
     private let sendEvent: PublishRelay<InvestmentEvent> = PublishRelay<InvestmentEvent>()
 
     var presenter: InvestmentPresenterProtocol!
@@ -98,6 +93,10 @@ final class InvestmentViewController: UIViewController {
             }
         }
         scrolledTablesComponent.reloadData()
+    }
+    
+    @objc private func didTapScannerItem() {
+        sendEvent.accept(.didTapScannerItem)
     }
 }
 
@@ -297,7 +296,11 @@ private extension InvestmentViewController {
     }
 
     func setupButons() {
-        navigationItem.leftBarButtonItems = [buttonAddress]
+        let buttonAddress = UIBarButtonItem(image: Images.walletScanner.image,
+                                            style: .plain,
+                                            target: self,
+                                            action: #selector(didTapScannerItem))
+        navigationItem.leftBarButtonItem = buttonAddress
     }
 
     func setupTableView() {

@@ -256,6 +256,60 @@ extension InvestmentCoordinator: InvestmentModuleOutput {
 
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
+    
+    func didTapScannerItem() {
+        let vc = MyAddressModuleBuilder(output: self).build()
+        myAddressVC = vc
+        navigationRouter.pushViewController(vc)
+    }
+}
+
+extension InvestmentCoordinator: MyAddressModuleOutput {
+    func myAddressShowAliases(_ aliases: [DomainLayer.DTO.Alias]) {
+        if aliases.isEmpty {
+            let controller = StoryboardScene.Profile.aliasWithoutViewController.instantiate()
+            controller.delegate = self
+            let popup = PopupViewController()
+            popup.contentHeight = Constants.popoverHeight
+            popup.present(contentViewController: controller)
+            currentPopup = popup
+        } else {
+            let controller = AliasesModuleBuilder(output: self).build(input: .init(aliases: aliases))
+            let popup = PopupViewController()
+            popup.present(contentViewController: controller)
+            currentPopup = popup
+        }
+    }
+}
+
+extension InvestmentCoordinator: CreateAliasModuleOutput {
+    func createAliasCompletedCreateAlias(_: String) {
+        if let myAddressVC = self.myAddressVC {
+            navigationRouter.popToViewController(myAddressVC)
+        }
+    }
+}
+
+extension InvestmentCoordinator: AliasesModuleOutput {
+    func aliasesCreateAlias() {
+        currentPopup?.dismissPopup { [weak self] in
+            guard let self = self else { return }
+
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationRouter.pushViewController(vc)
+        }
+    }
+}
+
+extension InvestmentCoordinator: AliasWithoutViewControllerDelegate {
+    func aliasWithoutUserTapCreateNewAlias() {
+        currentPopup?.dismissPopup { [weak self] in
+            guard let self = self else { return }
+
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationRouter.pushViewController(vc)
+        }
+    }
 }
 
 extension InvestmentCoordinator: BuyCryptoListener {

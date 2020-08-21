@@ -21,24 +21,23 @@ public class SentryManager {
     private var client: Client? = nil
     
     init(sentryIoInfoPath: String) {
-        
         guard let dsn = NSDictionary(contentsOfFile: sentryIoInfoPath)?["DSN_URL"] as? String else {
             return
         }
         
-        do {
-            let client = try Client(dsn: dsn)
-            self.client = client
-            Client.shared = self.client
-        } catch let error {
-        }
-        
-        do {
-            try Client.shared?.startCrashHandler()
-        } catch let error {
-        }
-            
-        Client.shared?.enableAutomaticBreadcrumbTracking()
+//        do {
+//            let client = try Client(dsn: dsn)
+//            self.client = client
+//            Client.shared = self.client
+//        } catch let error {
+//        }
+//
+//        do {
+//            try Client.shared?.startCrashHandler()
+//        } catch let error {
+//        }
+//
+//        Client.shared?.enableAutomaticBreadcrumbTracking()
     }
     
     class func initialization(sentryIoInfoPath: String) {
@@ -57,13 +56,13 @@ public class SentryManager {
         event.timestamp = Date()
         event.user = currentUser
         
-        if let client = SentryManager.shared.client {
-            client.send(event: event, completion: { error in            
-                if let error = error {
-                }
-            })
-        } else {
-        }
+//        if let client = SentryManager.shared.client {
+//            client.send(event: event, completion: { error in            
+//                if let error = error {
+//                }
+//            })
+//        } else {
+//        }
     }
 }
 
