@@ -14,7 +14,7 @@ import WavesSDK
 import WavesSDKExtensions
 
 private enum Constants {
-    static let maxLimit: Int = 10000
+    static let maxLimit: Int = 1000
     static let feeRuleJsonName = "fee"
 }
 

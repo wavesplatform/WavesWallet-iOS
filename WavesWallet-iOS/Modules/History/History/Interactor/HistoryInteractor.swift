@@ -13,7 +13,7 @@ import RxSwift
 import WavesSDK
 
 fileprivate enum Constants {
-    static let limitTransactions = 10000
+    static let limitTransactions = 1000
 }
 
 protocol HistoryInteractorProtocol {
