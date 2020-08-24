@@ -647,6 +647,7 @@
 "transactioncard.title.cancelOrder" = "Cancel order";
 "transactioncard.title.cancelled" = "(Cancelled)";
 "transactioncard.title.total" = "Total";
+"history.transaction.updateAssetInfoTitle" = "Update asset info";
 "transactioncard.title.incomingLeasing" = "Incoming Staking WAVES";
 "transactioncard.title.leasingFrom" = "Leasing from";
 "transactioncard.title.setAssetScript" = "Update Script";

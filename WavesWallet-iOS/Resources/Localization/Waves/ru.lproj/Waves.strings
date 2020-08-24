@@ -646,9 +646,7 @@
 "transactioncard.title.scriptInvocation" = "Вызов скрипта";
 "transactioncard.title.scriptAddress" = "Адрес контракта";
 "transactioncard.title.payment" = "Переводы";
-
-
-
+"history.transaction.updateAssetInfoTitle" = "Обновление токена";
 "history.transaction.value.scriptInvocation" = "Вызов скрипта";
 "history.transaction.value.data" = "Запись в блокчейн";
 "history.transaction.title.setAssetScript" = "Запись в блокчейн";
@@ -884,5 +882,5 @@
 "history.segmentedControl.contractinvocation" = "Вызов контракта";
 
 "transactioncard.title.contractinvocation" = "Вызов контракта";
-"history.transaction.value.updateassetinfo" = "Изменение ассета";
+"history.transaction.value.updateassetinfo" = "Обновление токена";
 "transactioncard.title.assetname" = "Имя ассета";

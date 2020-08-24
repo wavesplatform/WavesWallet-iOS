@@ -36,7 +36,6 @@ extension HistoryTypes.ViewModel.Section {
 
         let calendar = NSCalendar.current
         let sections = transactions.reduce(into: [Date: [SmartTransaction]]()) { result, tx in
-
             let components = calendar.dateComponents([.day, .month, .year], from: tx.timestamp)
             let date = calendar.date(from: components) ?? Date()
             var list = result[date] ?? []
@@ -49,8 +48,7 @@ extension HistoryTypes.ViewModel.Section {
         return sortedKeys.map { key -> HistoryTypes.ViewModel.Section? in
             guard let section = sections[key] else { return nil }
             let rows = section.map { HistoryTypes.ViewModel.Row.transaction($0) }
-            return HistoryTypes.ViewModel.Section.init(items: rows,
-                                                       date: key)
+            return HistoryTypes.ViewModel.Section(items: rows, date: key)
         }
         .compactMap { $0 }
     }
