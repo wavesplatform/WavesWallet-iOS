@@ -305,20 +305,23 @@ private extension InvestmentInteractor {
                     return Observable.just(response)
                 }
 
-                var newQuery = query
-                newQuery.after = response.lastCursor
+                let newQuery = DataService.Query.MassTransferDataQuery(senders: query.senders,
+                                                                       timeStart: query.timeStart,
+                                                                       timeEnd: query.timeEnd,
+                                                                       recipient: query.recipient,
+                                                                       assetId: query.assetId,
+                                                                       after: response.lastCursor,
+                                                                       limit: query.limit)
 
-                return self.massTransferRepository.obtainPayoutsHistory(serverEnvironment: serverEnvironment,
-                                                                        query: newQuery)
+                return self.massTransferRepository.obtainPayoutsHistory(serverEnvironment: serverEnvironment, query: newQuery)
                     .map { responseNext -> DataService.Response<[DataService.DTO.MassTransferTransaction]> in
-
-                        var newResponse = responseNext
-
-                        var list = response.data
-                        list.append(contentsOf: responseNext.data)
-                        newResponse.data = list
-
-                        return newResponse
+                        let finalTransactionList = response.data + responseNext.data
+                        let finalResponse = DataService.Response<[DataService.DTO.MassTransferTransaction]>(type: responseNext.type,
+                                                                                                            data: finalTransactionList,
+                                                                                                            isLastPage: responseNext.isLastPage,
+                                                                                                            lastCursor: responseNext.lastCursor)
+                        
+                        return finalResponse
                     }
             }
     }
