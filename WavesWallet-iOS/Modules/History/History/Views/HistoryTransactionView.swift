@@ -278,7 +278,7 @@ fileprivate extension SmartTransaction {
             return Localizable.Waves.History.Transaction.Title.entryInBlockchain
             
         case .updateAssetInfo:
-            return Localizable.Waves.History.Transaction.Title.entryInBlockchain
+            return Localizable.Waves.History.Transaction.updateAssetInfoTitle
         }
     }
 

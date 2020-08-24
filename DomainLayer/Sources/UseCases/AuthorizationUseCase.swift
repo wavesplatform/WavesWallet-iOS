@@ -215,7 +215,7 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                                                                                                       enviromentKind: environmentKind)))
                     }
             }
-            .map { (status) -> AuthorizationAuthStatus in
+            .map { status -> AuthorizationAuthStatus in
                 switch status {
                 case .detectBiometric:
                     return AuthorizationAuthStatus.detectBiometric
