@@ -170,11 +170,6 @@ enum WalletRealmFactory {
                 removeAsset(migration: migration)
             }
             
-            if oldSchemaVersion < SchemaVersions.version_2_12_4.rawValue {
-                removeAsset(migration: migration)
-                removeTransaction(migration: migration)
-            }
-            
             if oldSchemaVersion < SchemaVersions.version_2_11.rawValue {
                                 
                 migration.enumerateObjects(ofType: "AssetBalanceSettings") { oldObject, newObject in
@@ -192,6 +187,11 @@ enum WalletRealmFactory {
                     assetBalanceSettings["isHidden"] = isHidden
                     assetBalanceSettings["isFavorite"] = isFavorite
                 }
+            }
+            
+            if oldSchemaVersion < SchemaVersions.version_2_12_4.rawValue {
+                removeAsset(migration: migration)
+                removeTransaction(migration: migration)
             }
         }
 
