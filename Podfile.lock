@@ -174,9 +174,9 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - Sentry (5.2.0):
-    - Sentry/Core (= 5.2.0)
-  - Sentry/Core (5.2.0)
+  - Sentry (4.5.0):
+    - Sentry/Core (= 4.5.0)
+  - Sentry/Core (4.5.0)
   - Skeleton (0.4.0)
   - SwiftGen (5.3.0)
   - SwiftLint (0.40.0)
@@ -422,7 +422,7 @@ SPEC CHECKSUMS:
   RxRealm: 50e5fe5c1f22518205afbb313fbc5580d73bc586
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  Sentry: 6e04bc3e11bf771ca79140a112de64dcfbc7d8cb
+  Sentry: ab6c209f23700d1460691dbc90e19ed0a05d496b
   Skeleton: ef0f1d1b62250ee93e3a805efd268e5fd2979b32
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
   SwiftLint: 4154893c73a4c52d6240195507eb7a3e3c64087e

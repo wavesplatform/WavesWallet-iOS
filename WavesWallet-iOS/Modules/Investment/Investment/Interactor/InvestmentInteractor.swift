@@ -228,7 +228,7 @@ private extension InvestmentInteractor {
 
     private typealias MassTransferTuple = (DataService.Response<[DataService.DTO.MassTransferTransaction]>,
                                            [Asset],
-                                           DataService.Query.MassTransferDataQuery)
+                                           String)
 
     private static func prepareStartOf2020Year() -> Date? {
         var dateComponents = DateComponents()
@@ -292,12 +292,88 @@ private extension InvestmentInteractor {
             }
     }
 
+    private func obtainAllMasstransferTransactions(
+        query: DataService.Query.MassTransferDataQuery,
+        serverEnvironment: ServerEnvironment) -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> {
+        return massTransferRepository.obtainPayoutsHistory(serverEnvironment: serverEnvironment,
+                                                           query: query)
+            .flatMap { [weak self] response -> Observable<DataService.Response<[DataService.DTO.MassTransferTransaction]>> in
+
+                guard let self = self else { return Observable.never() }
+
+                if response.isLastPage == true {
+                    return Observable.just(response)
+                }
+
+                let newQuery = DataService.Query.MassTransferDataQuery(senders: query.senders,
+                                                                       timeStart: query.timeStart,
+                                                                       timeEnd: query.timeEnd,
+                                                                       recipient: query.recipient,
+                                                                       assetId: query.assetId,
+                                                                       after: response.lastCursor,
+                                                                       limit: query.limit)
+
+                return self.massTransferRepository.obtainPayoutsHistory(serverEnvironment: serverEnvironment, query: newQuery)
+                    .map { responseNext -> DataService.Response<[DataService.DTO.MassTransferTransaction]> in
+                        let finalTransactionList = response.data + responseNext.data
+                        let finalResponse = DataService.Response<[DataService.DTO.MassTransferTransaction]>(type: responseNext.type,
+                                                                                                            data: finalTransactionList,
+                                                                                                            isLastPage: responseNext.isLastPage,
+                                                                                                            lastCursor: responseNext.lastCursor)
+                        
+                        return finalResponse
+                    }
+            }
+    }
+
     /// Общий доход (Синяя карточка)
     private func obtainTotalProfit() -> Observable<PayoutsHistoryState.MassTransferTrait> {
         let timeStart = InvestmentInteractor.prepareStartOf2020Year().map { "\($0.millisecondsSince1970)" }
         let timeEnd = "\(Date().millisecondsSince1970)"
 
-        return performLastPayoutsTransactionRequest(timeStart: timeStart, timeEnd: timeEnd)
+        let authorizedWallet = authorizationInteractor.authorizedWallet()
+
+        let serverEnvironment = serverEnvironmentUseCase.serverEnvironment()
+        let developmentConfigs = enviroment.developmentConfigs()
+
+        return Observable.zip(developmentConfigs, authorizedWallet, serverEnvironment)
+            .flatMap { [weak self] config, signedWallet, serverEnvironment -> Observable<MassTransferTuple> in
+                guard let self = self else { return Observable.never() }
+
+                guard let staking = config.staking.first else { return Observable.error(NetworkError.notFound) }
+
+                let query = DataService.Query.MassTransferDataQuery(senders: staking.addressesByPayoutsAnnualPercent,
+                                                                    timeStart: timeStart,
+                                                                    timeEnd: timeEnd,
+                                                                    recipient: signedWallet.wallet.address,
+                                                                    assetId: staking.neutrinoAssetId,
+                                                                    after: nil,
+                                                                    limit: nil)
+
+                let massTransferTransactions = self.obtainAllMasstransferTransactions(query: query,
+                                                                                      serverEnvironment: serverEnvironment)
+
+                let id = query.assetId ?? ""
+                let accountAddress = query.recipient
+                let asset = self.assetsRepository.assets(ids: [id], accountAddress: accountAddress)
+                    .map { $0.compactMap { $0 } }
+
+                return Observable.zip(massTransferTransactions, asset, Observable.just(signedWallet.wallet.address))
+            }
+            .map { transactions, assets, recipient -> PayoutsHistoryState.MassTransferTrait in
+                let isLastPage = transactions.isLastPage ?? true // дефолтное значение true чтоб не зацикливать загрузку если что
+                let lastCursor = transactions.lastCursor
+                let transactions = transactions.data
+                let massTransferTransactions = PayoutsHistoryState.Core.MassTransferTransactions(isLastPage: isLastPage,
+                                                                                                 lastCursor: lastCursor,
+                                                                                                 transactions: transactions)
+
+                return PayoutsHistoryState.MassTransferTrait(massTransferTransactions: massTransferTransactions,
+                                                             walletAddress: recipient,
+                                                             assetLogo: assets.first?.iconLogo,
+                                                             precision: assets.first?.precision,
+                                                             assetTicker: assets.first?.ticker)
+            }
     }
 
     private func obtainLastPayoutsTransactions() -> Observable<PayoutsHistoryState.MassTransferTrait> {
@@ -338,8 +414,6 @@ private extension InvestmentInteractor {
             .flatMap { [weak self] query -> Observable<MassTransferTuple> in
                 guard let self = self else { return Observable.never() }
 
-                let queryCache = Observable.just(query)
-
                 let massTransferTransactions = self
                     .serverEnvironmentUseCase
                     .serverEnvironment()
@@ -354,9 +428,9 @@ private extension InvestmentInteractor {
                 let asset = self.assetsRepository.assets(ids: [id], accountAddress: accountAddress)
                     .map { $0.compactMap { $0 } }
 
-                return Observable.zip(massTransferTransactions, asset, queryCache)
+                return Observable.zip(massTransferTransactions, asset, Observable.just(query.recipient))
             }
-            .map { transactions, assets, query -> PayoutsHistoryState.MassTransferTrait in
+            .map { transactions, assets, recipient -> PayoutsHistoryState.MassTransferTrait in
                 let isLastPage = transactions.isLastPage ?? true // дефолтное значение true чтоб не зацикливать загрузку если что
                 let lastCursor = transactions.lastCursor
                 let transactions = transactions.data
@@ -365,7 +439,7 @@ private extension InvestmentInteractor {
                                                                                                  transactions: transactions)
 
                 return PayoutsHistoryState.MassTransferTrait(massTransferTransactions: massTransferTransactions,
-                                                             walletAddress: query.recipient,
+                                                             walletAddress: recipient,
                                                              assetLogo: assets.first?.iconLogo,
                                                              precision: assets.first?.precision,
                                                              assetTicker: assets.first?.ticker)

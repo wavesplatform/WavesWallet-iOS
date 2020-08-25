@@ -28,8 +28,9 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_11 = 17 // v2.11
     case version_2_12 = 19 // v2.12
     case version_2_12_1 = 23 // v2.12.1
+    case version_2_12_4 = 24 // v2.12.4
     
-    static let currentVersion: SchemaVersions = .version_2_12_1
+    static let currentVersion: SchemaVersions = .version_2_12_4
 }
 
 fileprivate enum Constants {
@@ -186,6 +187,11 @@ enum WalletRealmFactory {
                     assetBalanceSettings["isHidden"] = isHidden
                     assetBalanceSettings["isFavorite"] = isFavorite
                 }
+            }
+            
+            if oldSchemaVersion < SchemaVersions.version_2_12_4.rawValue {
+                removeAsset(migration: migration)
+                removeTransaction(migration: migration)
             }
         }
 

@@ -1651,6 +1651,9 @@ internal enum Localizable {
       }
 
       internal enum Transaction {
+        /// Update asset info
+        internal static var updateAssetInfoTitle: String { Localizable.tr("Waves", "history.transaction.updateAssetInfoTitle") }
+        internal static var updateAssetInfoTitleKey: String { "history.transaction.updateAssetInfoTitle" }
 
         internal enum Cell {
 

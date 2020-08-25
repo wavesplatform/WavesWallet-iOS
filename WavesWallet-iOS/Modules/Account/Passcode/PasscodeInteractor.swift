@@ -71,8 +71,7 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
             .registerWallet(query)
             .flatMap { [weak self] wallet -> Observable<AuthorizationAuthStatus> in
                 guard let self = self else { return Observable.empty() }
-                return self.auth(type: .passcode(passcode),
-                                 wallet: wallet)
+                return self.auth(type: .passcode(passcode), wallet: wallet)
             }
             .catchError(weak: self, handler: { (_, error) -> Observable<AuthorizationAuthStatus> in .error(error) })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
