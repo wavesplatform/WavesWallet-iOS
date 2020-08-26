@@ -26,4 +26,6 @@ protocol InvestmentModuleOutput: AnyObject {
     func openVk(sharedText: String)
     func openFb(sharedText: String)    
     func showPayoutsHistory()
+    
+    func didTapScannerItem()
 }

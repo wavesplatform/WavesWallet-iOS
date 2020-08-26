@@ -11,33 +11,29 @@ import Sentry
 import WavesSDKExtensions
 
 public final class SweetLoggerSentry: SweetLoggerProtocol {
-
     public private(set) var visibleLevels: [SweetLoggerLevel] = []
 
     public init(visibleLevels: [SweetLoggerLevel]) {
-
         self.visibleLevels = visibleLevels
     }
 
     public func send(message: @escaping @autoclosure () -> Any,
-              level: SweetLoggerLevel,
-              file: String,
-              function: String,
-              line: Int,
-              context: Any?,
-              type: Any.Type? = nil)
-    {
+                     level: SweetLoggerLevel,
+                     file _: String,
+                     function _: String,
+                     line _: Int,
+                     context _: Any?,
+                     type _: Any.Type? = nil) {
         guard visibleLevels.contains(level) == true else { return }
 
         let event = Sentry.Event(level: level.sentrySeverity)
         event.message = "\(message())"
-        
+
         SentryManager.send(event: event)
     }
 }
 
 private extension SweetLoggerLevel {
-
     var sentrySeverity: SentrySeverity {
         switch self {
         case .debug:
@@ -57,7 +53,6 @@ private extension SweetLoggerLevel {
 
         case .verbose:
             return SentrySeverity.info
-
         }
     }
 }

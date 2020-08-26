@@ -21,7 +21,6 @@ public class SentryManager {
     private var client: Client? = nil
     
     init(sentryIoInfoPath: String) {
-        
         guard let dsn = NSDictionary(contentsOfFile: sentryIoInfoPath)?["DSN_URL"] as? String else {
             return
         }
@@ -32,12 +31,12 @@ public class SentryManager {
             Client.shared = self.client
         } catch let error {
         }
-        
+
         do {
             try Client.shared?.startCrashHandler()
         } catch let error {
         }
-            
+
         Client.shared?.enableAutomaticBreadcrumbTracking()
     }
     

@@ -36,4 +36,5 @@ enum InvestmentEvent {
     case openVk(String)
     case openTw(String)
     case startStaking
+    case didTapScannerItem
 }
