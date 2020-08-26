@@ -32,6 +32,7 @@ final class TradeViewController: UIViewController {
     private var errorSnackKey: String?
 
     var system: System<TradeTypes.State, TradeTypes.Event>!
+
     var selectedAsset: Asset?
     weak var output: TradeModuleOutput?
 
@@ -153,6 +154,7 @@ private extension TradeViewController {
             .drive(onNext: { [weak self] state in
 
                 guard let self = self else { return }
+
                 switch state.uiAction {
                 case .none:
                     return
@@ -318,7 +320,7 @@ extension TradeViewController: UITableViewDelegate {
 
             if pair.isLocked {
                 output?.showPairLocked(pair: dexTradePair)
-            } else if pair.priceAsset.hasScript || pair.amountAsset.hasScript {
+            } else if pair.isSmartLocked {
                 output?.showPairLocked(pair: dexTradePair)
             } else {
                 output?.showTradePairInfo(pair: dexTradePair)

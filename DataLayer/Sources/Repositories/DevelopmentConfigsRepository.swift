@@ -24,6 +24,7 @@ private struct DevelopmentConfigsDTO: Decodable {
     let gatewayMinLimit: [String: Limit]
     let avaliableGatewayCryptoCurrency: [String]
     let marketPairs: [String]
+    let enableCreateSmartContractPairOrder: Bool?
 
     enum CodingKeys: String, CodingKey {
         case serviceAvailable = "service_available"
@@ -36,6 +37,7 @@ private struct DevelopmentConfigsDTO: Decodable {
         case gatewayMinFee = "gateway_min_fee"
         case marketPairs = "DEX.MARKET_PAIRS"
         case staking
+        case enableCreateSmartContractPairOrder
     }
 
     init(from decoder: Decoder) throws {
@@ -52,6 +54,8 @@ private struct DevelopmentConfigsDTO: Decodable {
         gatewayMinLimit = try container.decode([String: Limit].self, forKey: .gatewayMinLimit)
         avaliableGatewayCryptoCurrency = try container
             .decodeIfPresent([String].self, forKey: .avaliableGatewayCryptoCurrency) ?? []
+
+        enableCreateSmartContractPairOrder = try container.decode(Bool.self, forKey: .enableCreateSmartContractPairOrder)
     }
 }
 
@@ -162,7 +166,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
                                           gatewayMinFee: gatewayMinFee,
                                           marketPairs: marketPairs,
                                           gatewayMinLimit: gatewayMinLimit,
-                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency)
+                                          avaliableGatewayCryptoCurrency: config.avaliableGatewayCryptoCurrency,
+                                          enableCreateSmartContractPairOrder: config.enableCreateSmartContractPairOrder ?? true)
             }
     }
 }

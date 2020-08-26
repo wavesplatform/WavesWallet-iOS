@@ -93,6 +93,8 @@ public struct DevelopmentConfigs {
     /// Список пар, обмен на которые возможен
     public let marketPairs: [MarketPair]
     
+    public let enableCreateSmartContractPairOrder: Bool
+    
     public init(serviceAvailable: Bool,
                 matcherSwapTimestamp: Date,
                 matcherSwapAddress: String,
@@ -102,7 +104,8 @@ public struct DevelopmentConfigs {
                 gatewayMinFee: [String: [String: Rate]],
                 marketPairs: [MarketPair],
                 gatewayMinLimit: [String: Limit],
-                avaliableGatewayCryptoCurrency: [String]) {
+                avaliableGatewayCryptoCurrency: [String],
+                enableCreateSmartContractPairOrder: Bool) {
         self.serviceAvailable = serviceAvailable
         self.matcherSwapAddress = matcherSwapAddress
         self.matcherSwapTimestamp = matcherSwapTimestamp
@@ -113,6 +116,7 @@ public struct DevelopmentConfigs {
         self.marketPairs = marketPairs
         self.gatewayMinLimit = gatewayMinLimit
         self.avaliableGatewayCryptoCurrency = avaliableGatewayCryptoCurrency
+        self.enableCreateSmartContractPairOrder = enableCreateSmartContractPairOrder
     }
 }
 
