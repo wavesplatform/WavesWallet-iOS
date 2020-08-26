@@ -30,7 +30,8 @@ extension TradeTypes.DTO.Core {
             $0[$1.categoryIndex] = $1
         }
 
-        var uiCategories = [mapFavoriteCategory(selectedAsset: selectedAsset, rates: rates, pairsPriceMap: pairsPriceMap)]
+        var uiCategories =
+            [mapFavoriteCategory(selectedAsset: selectedAsset, rates: rates, pairsPriceMap: pairsPriceMap)]
 
         for (index, category) in categories.enumerated() {
             var categoryPairs: [TradeTypes.DTO.Pair] = []
@@ -55,11 +56,18 @@ extension TradeTypes.DTO.Core {
                     }
 
                     let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-                    
-                    let isLocked = self.lockedPairs.contains(pair.amountAsset.id) || self.lockedPairs.contains(pair.priceAsset.id)
-                    
+
+                    let isLocked = lockedPairs.contains(pair.amountAsset.id) || lockedPairs.contains(pair.priceAsset.id)
+
+                    var isSmartLocked: Bool = pairPrice.priceAsset.hasScript || pairPrice.amountAsset.hasScript
+
+                    if enableCreateSmartContractPairOrder {
+                        isSmartLocked = false
+                    }
+
                     categoryPairs.append(.init(id: pairPrice.id,
                                                isLocked: isLocked,
+                                               isSmartLocked: isSmartLocked,
                                                isGeneral: pairPrice.isGeneral,
                                                amountAsset: pairPrice.amountAsset,
                                                priceAsset: pairPrice.priceAsset,
@@ -118,11 +126,18 @@ private extension TradeTypes.DTO.Core {
                 }
 
                 let priceUSD = rates[pairPrice.amountAsset.id] ?? Money(0, 0)
-                
-                let isLocked = self.lockedPairs.contains(pair.priceAssetId) || self.lockedPairs.contains(pair.amountAssetId)
-                
+
+                let isLocked = lockedPairs.contains(pair.priceAssetId) || lockedPairs.contains(pair.amountAssetId)
+
+                var isSmartLocked: Bool = pairPrice.priceAsset.hasScript || pairPrice.amountAsset.hasScript
+
+                if enableCreateSmartContractPairOrder {
+                    isSmartLocked = false
+                }
+
                 favoritePairsPrice.append(.init(id: pairPrice.id,
                                                 isLocked: isLocked,
+                                                isSmartLocked: isSmartLocked,
                                                 isGeneral: pairPrice.isGeneral,
                                                 amountAsset: pairPrice.amountAsset,
                                                 priceAsset: pairPrice.priceAsset,

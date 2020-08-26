@@ -42,7 +42,8 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
                                      pairsRate: [],
                                      favoritePairs: [],
                                      categories: [],
-                                     lockedPairs: []),
+                                     lockedPairs: [],
+                                     enableCreateSmartContractPairOrder: true),
                          categories: [],
                          selectedFilters: [],
                          selectedAsset: selectedAsset)
@@ -438,12 +439,13 @@ private extension TradeSystem {
                             .map { pairsPrice, pairsRate, developmentConfigs -> TradeTypes.DTO.Core in
                                                           
                                 let lockedPairs = developmentConfigs.lockedPairs
-                                
+                                let enableCreateSmartContractPairOrder = developmentConfigs.enableCreateSmartContractPairOrder
                                 return .init(pairsPrice: pairsPrice,
                                              pairsRate: pairsRate,
                                              favoritePairs: favoritePairs,
                                              categories: tradeCategories,
-                                             lockedPairs: lockedPairs)
+                                             lockedPairs: lockedPairs,
+                                             enableCreateSmartContractPairOrder: enableCreateSmartContractPairOrder)
                             }
                 }
                 .catchError { (error) -> Observable<TradeTypes.DTO.Core> in
