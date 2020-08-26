@@ -55,7 +55,7 @@ private struct DevelopmentConfigsDTO: Decodable {
         avaliableGatewayCryptoCurrency = try container
             .decodeIfPresent([String].self, forKey: .avaliableGatewayCryptoCurrency) ?? []
 
-        enableCreateSmartContractPairOrder = try container.decode(Bool?.self, forKey: .enableCreateSmartContractPairOrder)
+        enableCreateSmartContractPairOrder = try? container.decode(Bool.self, forKey: .enableCreateSmartContractPairOrder)
     }
 }
 

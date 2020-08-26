@@ -91,12 +91,12 @@ extension TradeTableViewCell: ViewConfiguration {
             .bind(to: imageViewIcon2.rx.image)
             .disposed(by: disposeBag)
 
-        let hasScript = model.amountAsset.hasScript || model.priceAsset.hasScript
+        let isSmartLocked = model.isSmartLocked
 
-        viewShadow.isHidden = !hasScript
-        labelPrice.isHidden = hasScript
-        labelVolume.isHidden = hasScript
-        labelAnavailable.isHidden = !hasScript
+        viewShadow.isHidden = !isSmartLocked
+        labelPrice.isHidden = isSmartLocked
+        labelVolume.isHidden = isSmartLocked
+        labelAnavailable.isHidden = !isSmartLocked
 
         labelAnavailable.text = Localizable.Waves.Trade.Pair.Cell.Anavailable.title
     }
